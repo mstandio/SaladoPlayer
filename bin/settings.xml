@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SaladoPlayer>				
+	<global
+		useTrace="true"
+		firstPanorama="pano2"
+		camera="tilt:25"					
+	/>
+	<panoramas>			 
+		<panorama id="pano1" label="park1" path="images/park1/park_f.xml" >							
+		</panorama>					
+		<panorama id="pano2" label ="park2" path="images/park2/park2_f.xml">												
+			<hotspot id="hs1" position="tilt:15" onClick="act1"/>							
+			<hotspot id="hs2" position="pan:30" />											
+		</panorama>
+	</panoramas>		
+	<actions>
+		<action id="act1" content="SaladoPlayer.loadPanorama(pano1)" />		
+	</actions>	
+	<modules>
+		<SImpleModule>
+			<tip id="1" src=""/>
+			<tip id="2" src=""/>
+			<tip id="3" src=""/>
+		</SImpleModule>
+	</modules>
+</SaladoPlayer>
+
+<!-- 
+
+
+
+-->
