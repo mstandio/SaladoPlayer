@@ -50,7 +50,6 @@ public class QuadTreeCube extends Tile
 		//this.panoramaImageType = panoramaImageType;
 		//var tilePyramidClass:Class = PanoramaImageType.concordance[panoramaImageType] as Class;
 		//var tilePyramid:TilePyramid = new tilePyramidClass();
-				
 		var tilePyramidClass:Class = TilePyramid.guessSubClassFromURL(path);
 		var tilePyramid:TilePyramid = new tilePyramidClass();
 		tilePyramid.path = path;
@@ -79,7 +78,7 @@ public class QuadTreeCube extends Tile
 		var w:int = tilePyramids[0].width;
 		
 		//across = w * 0.501;
-		across = w * 0.5 + 1;
+		across = w * 0.5;
 		at = w * 0.5;
 		
 		ct = this;
@@ -90,8 +89,7 @@ public class QuadTreeCube extends Tile
 		v[2] = new Vector3D(-across,across,at); //bl
 		v[3] = new Vector3D(across,across,at);  //br
 		addEventListener(ReadyEvent.READY, waitForBitmaps, false, 0, true);
-		///  !!! this is super.
-		super.init(tilePyramids[0],v,"x","y","z");
+		Tile.init(super,tilePyramids[0],v,"x","y","z");
 		//right
 		ct.n = new Tile();
 		ct = ct.n;
@@ -101,7 +99,7 @@ public class QuadTreeCube extends Tile
  		v[2] = new Vector3D(at,across,across);
  		v[3] = new Vector3D(at,across,-across);
  		ct.addEventListener(ReadyEvent.READY, waitForBitmaps, false, 0, true);
- 		ct.init(tilePyramids[1],v,"z","y","x");
+ 		Tile.init(ct,tilePyramids[1],v,"z","y","x");
  		//back
  		ct.n = new Tile();
 		ct = ct.n;
@@ -111,7 +109,7 @@ public class QuadTreeCube extends Tile
  		v[2] = new Vector3D(across,across,-at);
  		v[3] = new Vector3D(-across,across,-at);
  		ct.addEventListener(ReadyEvent.READY, waitForBitmaps, false, 0, true);
- 		ct.init(tilePyramids[2],v,"x","y","z");
+ 		Tile.init(ct,tilePyramids[2],v,"x","y","z");
  		//left
  		ct.n = new Tile();
  		ct = ct.n;
@@ -121,7 +119,7 @@ public class QuadTreeCube extends Tile
  		v[2] = new Vector3D(-at,across,-across);
  		v[3] = new Vector3D(-at,across,across);
  		ct.addEventListener(ReadyEvent.READY, waitForBitmaps, false, 0, true);
- 		ct.init(tilePyramids[3],v,"z","y","x");
+ 		Tile.init(ct,tilePyramids[3],v,"z","y","x");
  		//up
  		ct.n = new Tile();
  		ct = ct.n;
@@ -131,7 +129,7 @@ public class QuadTreeCube extends Tile
  		v[2] = new Vector3D(-across,-at,across);
  		v[3] = new Vector3D(across,-at,across);
  		ct.addEventListener(ReadyEvent.READY, waitForBitmaps, false, 0, true);
- 		ct.init(tilePyramids[4],v,"x","z","y");
+ 		Tile.init(ct,tilePyramids[4],v,"x","z","y");
 		//down
 		ct.n = new Tile();
  		ct = ct.n;
@@ -141,7 +139,7 @@ public class QuadTreeCube extends Tile
  		v[2] = new Vector3D(-across,at,-across);
  		v[3] = new Vector3D(across,at,-across);
  		ct.addEventListener(ReadyEvent.READY, waitForBitmaps, false, 0, true);
- 		ct.init(tilePyramids[5],v,"x","z","y");
+ 		Tile.init(ct,tilePyramids[5],v,"x","z","y");
  		ct.n = null;
  		
  		//TODO: create all root parent tiles files, dispatch ready event, then create children tiles with green-threading.

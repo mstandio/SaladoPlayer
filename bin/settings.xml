@@ -1,32 +1,99 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>				
-	<global
-		useTrace="true"
-		firstPanorama="pano2"
-		camera="tilt:25"					
+	<global		
+		trace="debug:true"		
 	/>
-	<panoramas>			 
-		<panorama id="pano1" label="park1" path="images/park1/park_f.xml" >							
-		</panorama>					
-		<panorama id="pano2" label ="park2" path="images/park2/park2_f.xml">												
-			<hotspot id="hs1" position="tilt:15" onClick="act1"/>							
-			<hotspot id="hs2" position="pan:30" />											
+	<panoramas>			 		
+		<panorama id="pano2" label ="park2" path="panoramas/park2/park2_f.xml">
+			<hotspot id="hs2" position="tilt:0,pan:0" path="images/on.png" mouse="onClick:act1"/>
 		</panorama>
+		<panorama id="pano1" label="park1" path="panoramas/park1/park_f.xml" camera="pan:40" />		
 	</panoramas>		
 	<actions>
-		<action id="act1" content="SaladoPlayer.loadPanorama(pano1)" />		
-	</actions>	
+		<action id="act1" content="SaladoPlayer.showPanorama(pano1)" />
+	</actions>
 	<modules>
-		<SImpleModule>
-			<tip id="1" src=""/>
-			<tip id="2" src=""/>
-			<tip id="3" src=""/>
-		</SImpleModule>
+		<SimpleModule path="modules/SimpleModule.swf">
+		</SimpleModule>
 	</modules>
 </SaladoPlayer>
 
+	<!--<modules>	
+		<SimpleModule path="modules/SimpleModule.swf">			
+			<settings num="-10.1" boo="false" arr="asss" str=""/>
+			<maps>
+				<map name="map1">
+					<punkt id="punkt1"/>
+					<punkt id="punkt2"/>
+				</map>
+				<map name ="map2">
+					<punkt id="punkt3"/>
+					<punkt id="punkt4"/>
+				</map>				
+			</maps>
+		</SimpleModule>
+	</modules>-->
+
 <!-- 
+	<SImpleModule path="costam1">
+			<tip a="aa" b="bb" c="cc"/>
+			<tip d="dd" e="ee" f="ff"/>			
+		</SImpleModule>
+		<SImpleModule2 path="costam2">
+			<settings costam="" />
+			<data>				
+			</data>
+		</SImpleModule2>		
+	najpierw wykrywa nazwe 	
+	potem przewala sie przez wszystkie atrybuty
+	dodaje do obiektu 
+	jezeli znajduje cos co pasuje do tego co mozna rozebrac subatrybutami to do obiektu dodaje obiekt 
+	a nie lepiej miec caly stringow ?? w sumie nie lepiej sie bawic obiektem 	
+	
+	calosc rekurencyjnie musi dzialac 
+	
+	settoings w zasadzie sa kompletnie bez znaczenia musi sie przewaluc przez wszystkie 
+	
+	jezeli name == settings 
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	settings - ok to nawet pasuje do tego
+	object settings 
+	
+	object data
+	
+	czy nie lepiej miec vectora tego typu
+	
+	czy potrzebne jest rozszerzanie 
+	kazdy z nich moze byc arrayem
+	
+	
+	dowolny poziom zaglebienia 
+	
+	
+	
+	
+	
+	
+		
 
 
-
+	
+	data - no i w sumie calsc pasuje 
+		
 -->

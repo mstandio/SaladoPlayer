@@ -18,7 +18,7 @@ along with PanoSalado.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panosalado.view
 {
-import profiler.*;
+import performance.profiler.*;
 
 import com.panosalado.model.QuadTreeCube;
 import com.panosalado.controller.ICamera;
@@ -63,7 +63,7 @@ import flash.display.BitmapData;
 import flash.display.GraphicsStroke;
 import flash.display.GraphicsSolidFill;
 
-import profiler.*;
+import performance.profiler.*;
 
 final public class Panorama
 {
@@ -288,7 +288,7 @@ final public class Panorama
 			/*0*/						frustumTop.y = cosV; 		frustumTop.z = sinV; 		/*0*/				//top plane
 			/*0*/						frustumBottom.y = -cosV; 	frustumBottom.z = sinV; 	/*0*/				//bottom plane
 			
-			perspectiveProjection.focalLength = adjacent;
+			perspectiveProjection.focalLength = isNaN(adjacent) || adjacent <= 0 ? 1 : adjacent;
 			perspective = viewData.perspectiveMatrix3D = perspectiveProjection.toMatrix3D();  // NB: toMatrix3D returns a NEW object so must copy it back to _perspective too.
 			/* Flash bug: with stage.scaleMode = StageScaleMode.NO_RESIZE setting 
 			perspectiveProjection.fieldOfView does not update focalLength, BUT setting focalLength

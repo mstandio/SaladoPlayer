@@ -35,7 +35,7 @@ public class Characteristics
 	public static var ARC_BALL_CAMERA_DATA:String 				= "com.panosalado.model::ArcBallCameraData";
 	public static var KEYBOARD_CAMERA_DATA:String 				= "com.panosalado.model::KeyboardCameraData";
 	public static var AUTOROTATION_CAMERA_DATA:String 			= "com.panosalado.model::AutorotationCameraData";
-	public static var SIMPLE_TRANSITION_DATA:String				= "com.panosalado.model::SimpleTransitionData";	
+	public static var SIMPLE_TRANSITION_DATA:String				= "com.panosalado.model::SimpleTransitionData";
 	
 }
 }

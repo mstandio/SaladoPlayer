@@ -40,16 +40,15 @@ public class TilePyramid extends EventDispatcher
 	public var format:String;
 	public var path:String;
 	
-	private static var urlPatternToSubClassConcordance:Dictionary = new Dictionary(true);
+	private static var urlPatternToSubClassConcordance:Dictionary = new Dictionary(true)
 	
-	public static function processDependency(reference:Object, characteristics:*):void {		
-		if (reference.hasOwnProperty("urlPattern") && reference.urlPattern is RegExp && reference is Class){
-			urlPatternToSubClassConcordance[reference.urlPattern] = reference					
-		}
+	public static function processDependency(reference:Object,characteristics:*):void {
+		if (reference.hasOwnProperty("urlPattern") && reference.urlPattern is RegExp && reference is Class)
+			urlPatternToSubClassConcordance[reference.urlPattern] = reference
 	}
 	
-	public static function guessSubClassFromURL(url:String):Class {		
-		for (var urlPattern:* in urlPatternToSubClassConcordance) {						
+	public static function guessSubClassFromURL(url:String):Class {
+		for (var urlPattern:* in urlPatternToSubClassConcordance) {
 			if ( url.match(urlPattern) )
 				return urlPatternToSubClassConcordance[urlPattern];
 		}

@@ -57,7 +57,7 @@ public class ManagedChild extends Sprite implements IManagedChild
 	public function set matrix3D(value:Matrix3D):void {
 		if (value === _matrix3D) return
 		_matrix3D = value
-		_invalid = true;
+		_invalid = true;		
 	}
 	
 	override public function get x():Number { return _decomposition[0].x; }
@@ -70,7 +70,7 @@ public class ManagedChild extends Sprite implements IManagedChild
 	override public function set z(value:Number):void { _decomposition[0].z = value; _invalid = true; if(stage) stage.invalidate(); }
 	
 	override public function get rotationX():Number { return _decomposition[1].x; }
-	override public function set rotationX(value:Number):void { _decomposition[1].x = value; _invalid = true; if(stage) stage.invalidate(); }
+	override public function set rotationX(value:Number):void { _decomposition[1].x = value; _invalid = true; if (stage) stage.invalidate(); }
 	
 	override public function get rotationY():Number { return _decomposition[1].y; }
 	override public function set rotationY(value:Number):void { _decomposition[1].y = value; _invalid = true; if(stage) stage.invalidate(); }

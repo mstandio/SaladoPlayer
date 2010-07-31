@@ -144,7 +144,7 @@ public class InertialMouseCamera extends Sprite implements ICamera
 	
 	public function get cameraData():InertialMouseCameraData { return _cameraData; }
 	public function set cameraData(value:InertialMouseCameraData):void
-	{	
+	{
 		if (value === _cameraData) return;
 		if (value != null) {
 			value.addEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler, false, 0, true );

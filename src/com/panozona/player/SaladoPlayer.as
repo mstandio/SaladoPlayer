@@ -1,16 +1,36 @@
-﻿package com.panozona.player{
+﻿/*
+Copyright 2010 Marek Standio.
+
+This file is part of SaladoPlayer.
+
+SaladoPlayer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published 
+by the Free Software Foundation, either version 3 of the License, 
+or (at your option) any later version.
+
+SaladoPlayer is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
+*/
+package com.panozona.player{		
 	
-	import com.panozona.player.utils.Trace;
 	import flash.display.Sprite;	
+	import flash.display.DisplayObject;	
 	import flash.events.IOErrorEvent;
 	import flash.events.Event;	
-	import flash.utils.ByteArray
-	import flash.utils.ByteArray;	
+	import flash.utils.ByteArray;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
 	import flash.system.System;
-
+	import flash.system.ApplicationDomain;
+	import flash.system.LoaderContext;
+	import flash.utils.Dictionary;
+	
 	import com.panosalado.model.*;
 	import com.panosalado.view.*;
 	import com.panosalado.controller.*;
@@ -18,62 +38,59 @@
 	import com.panosalado.events.*;
 	import com.robertpenner.easing.*;
 	
-	import com.panozona.player.manager.Manager;
-	import com.panozona.player.manager.ManagerData;
-	import com.panozona.player.manager.ManagerDataParserXML;		
+	import com.panozona.player.manager.Manager;		
+	import com.panozona.player.manager.events.LoadModuleEvent;			
+	import com.panozona.player.manager.utils.ManagerDataParserXML;		
+	import com.panozona.player.manager.utils.ManagerDataValidator;		
+	import com.panozona.player.manager.utils.ModulesLoader;		
+	import com.panozona.player.manager.utils.ManagerDescription;	
+	import com.panozona.player.manager.utils.Trace;		
+	
+	import com.panozona.player.manager.data.ManagerData;		
+	import com.panozona.player.manager.data.AbstractModuleData;
+	import com.panozona.player.manager.data.AbstractModuleDescription;
+	import com.panozona.player.manager.data.TraceData;	
+	
+	import performance.Stats;
 	
 	[SWF(width = "500", height = "375", frameRate = "30", backgroundColor = "#FFFFFF")]
 	
-	public class SaladoPlayer extends Sprite {		
+	public class SaladoPlayer extends Sprite {
 		
+		public var manager: Manager;
+		public var managerData:ManagerData;
+		public var tracer:Trace;
 		
-		public var manager                  : Manager;
-		public var panorama					: Panorama;
-		public var stageReference			: StageReference;
-		public var resizer 					: IResizer;
-		public var inertialMouseCamera 		: ICamera;		
-		public var keyboardCamera 			: ICamera;		
-		public var autorotationCamera 		: ICamera;		
-		public var simpleTransition			: SimpleTransition;		
-		public var nanny					: Nanny;					
-		public var managerData              : ManagerData;						
+		private var panorama:Panorama;
+		private var stageReference:StageReference;
+		private var resizer:IResizer;
+		private var inertialMouseCamera:ICamera;
+		private var keyboardCamera:ICamera;
+		private var autorotationCamera:ICamera;
+		private var simpleTransition:SimpleTransition;
+		private var nanny:Nanny;	
 		
-
-				
-		public function SaladoPlayer() {
-			super();
-			var xmlLoader:URLLoader = new URLLoader();    		
-			xmlLoader.dataFormat = URLLoaderDataFormat.BINARY;
-    		xmlLoader.load( new URLRequest(loaderInfo.parameters.xml?loaderInfo.parameters.xml:"settings.xml"));
-    		xmlLoader.addEventListener(Event.COMPLETE, onXMLLoaded);	
-			xmlLoader.addEventListener(IOErrorEvent.IO_ERROR, onIOError, false, 0, true);
-		}
+		private var moduleClass:Class;
+		private var abstractModuleDescriptions:Vector.<AbstractModuleDescription>;	
 		
-		private function onIOError(e:IOErrorEvent):void {
-			trace("xml file " + loaderInfo.parameters.xml + " not found");
-		}
+		private var modulesLoader:ModulesLoader;
 		
-		private function onXMLLoaded(e:Event):void {						
+		private var moduleByDepth:Array;
+		private var moduleByName:Array;		
 						
-			manager                 = new Manager();
-			panorama 				= new Panorama(); // this is a Singleton. Don't try this again, you will get an error.
-			resizer 				= new Resizer();			
-			inertialMouseCamera 	= new InertialMouseCamera();			
-			keyboardCamera			= new KeyboardCamera();			
-			autorotationCamera 		= new AutorotationCamera();
-			simpleTransition		= new SimpleTransition();			
-			nanny					= new Nanny();					
-			managerData	            = new ManagerData(); 			
+		public function SaladoPlayer() {
 			
-			var managerDataParserXML:ManagerDataParserXML = new ManagerDataParserXML(); 			
-			var input:ByteArray = e.target.data;
-			try {
-				input.uncompress()
-			}catch (errObject:Error) { }															
+			manager = new Manager();
+			managerData = new ManagerData();
 			
-			managerDataParserXML.configureManagerData(XML(input), managerData); 					
+			panorama = new Panorama(); // Singleton
+			resizer	= new Resizer();			
+			inertialMouseCamera = new InertialMouseCamera();			
+			keyboardCamera = new KeyboardCamera();			
+			autorotationCamera = new AutorotationCamera();
+			simpleTransition = new SimpleTransition();			
+			nanny = new Nanny();
 			
-			manager.setData(managerData);
 			
 			manager.initialize([
 				panorama,  
@@ -90,141 +107,122 @@
 				nanny				
 			]);						
 			
-			addChild(manager);	
 			
-			//FIXME : get this in better place 
-			if (managerData.useTrace){
-				addChild(Trace.instance);
-			}		
+			var xmlLoader:URLLoader = new URLLoader();    		
+			xmlLoader.dataFormat = URLLoaderDataFormat.BINARY;
+    		xmlLoader.load( new URLRequest(loaderInfo.parameters.xml?loaderInfo.parameters.xml:"settings.xml"));
+    		xmlLoader.addEventListener(Event.COMPLETE, configurationLoaded);	
+			xmlLoader.addEventListener(IOErrorEvent.IO_ERROR, configurationNotLoaded, false, 0, true);
+		}				
+				
+		private function configurationNotLoaded(event:IOErrorEvent):void {						
+			Trace.instance.configure(new TraceData()); // to show trace window 
+			addChild(Trace.instance);
+			Trace.instance.printError("Could not load configuration file");
+		}
+		
+		private function configurationLoaded(event:Event):void {						
 			
-			manager.loadFirstPanorama();
-		}		
+			abstractModuleDescriptions = new Vector.<AbstractModuleDescription>()
+			moduleByDepth = new Array();
+			moduleByName = new Array();			
+			
+			var managerDataParserXML:ManagerDataParserXML = new ManagerDataParserXML(); 			
+			var input:ByteArray = event.target.data;
+			
+			try {
+				input.uncompress()
+			}catch (error:Error) {} 					
+			
+			try{
+				managerDataParserXML.configureManagerData(managerData, XML(input));
+				Trace.instance.printInfo("Configuration parsing done");
+			}catch (error:Error) {
+				Trace.instance.printError(error.message);
+			}								
+			
+			manager.setManagerData(managerData); 			
+			
+			addChild(manager);
+			Trace.instance.configure(managerData.traceData);
+			tracer = Trace.instance;
+			addChild(tracer); 
+			
+			if (managerData.abstractModulesData.length == 0) {
+				finalOperations();
+			}else {			
+				modulesLoader = new ModulesLoader();
+				modulesLoader.addEventListener(LoadModuleEvent.MODULE_LOADED, insertModule, false, 0, true);				
+				modulesLoader.addEventListener(LoadModuleEvent.ALL_MODULES_LOADED, modulesLoadingComplete, false, 0, true);								
+				modulesLoader.loadModules(managerData.abstractModulesData);
+			}					
+		}
+			
+			
+		private function insertModule(event:LoadModuleEvent):void {
+			
+			if(moduleClass == null){
+				moduleClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.module.Module") as Class;
+			}
+			
+			var name:String = event.moduleName;
+			var module:Object = moduleClass(event.module);
+			
+			for each (var abstractModuleData:AbstractModuleData in managerData.abstractModulesData){
+				if (abstractModuleData.moduleName == name && moduleByName[abstractModuleData.moduleName] == undefined){
+					moduleByDepth[abstractModuleData.weight] = module;					
+					moduleByName[abstractModuleData.moduleName] = module;
+					try {
+						abstractModuleDescriptions.push(new AbstractModuleDescription(module.moduleDescription));						
+					}catch (error:Error) {
+						Trace.instance.printError(error.message);
+					}					
+					return;					
+				}				
+			}				
+		}
+		
+		private function modulesLoadingComplete(e:Event):void {			
+			for (var i:int = moduleByDepth.length - 1; i >= 0 ; i--) {				
+				var addedModule:DisplayObject = moduleByDepth[i];
+				if (addedModule){					
+					addChild(addedModule);
+				}				
+			}
+			addChild(Trace.instance); // to make tracer most on top						
+			finalOperations();			
+		}
+			
+
+		private function finalOperations():void{
+			if (managerData.traceData.debug) {
+				abstractModuleDescriptions.push(new ManagerDescription().description);
+				var managerDataValidator:ManagerDataValidator = new ManagerDataValidator(managerData, abstractModuleDescriptions);
+				try{
+					managerDataValidator.validate();
+					Trace.instance.printInfo("Configuration validation done");
+				}catch (error:Error) {
+					Trace.instance.printError(error.message);					
+				}				
+			}
+			
+			if (managerData.showStatistics) {			
+				addChild(new Stats());
+			}
+			
+			simpleTransition.addEventListener( Event.COMPLETE, manager.panoramaLoaded, false, 0, true)
+			manager.addEventListener(Event.COMPLETE, manager.transitionComplete, false, 0, true)
+			manager.loadFirstPanorama();						
+		}
+		
+		public function getModuleByName(moduleName:String):Object{
+			if (moduleByName[moduleName] != undefined) {
+				return moduleByName[moduleName];
+			}else {
+				return null;
+			}
+		}
+		
+		// add function get manager get tracder ect 
 	}
 }
-		//listen for when panorama has loaded
-		/*NB: 
-		changing properties, adding children, etc AFTER calling loadPanorama, 
-		but BEFORE the new panorama has loaded effects the current (outgoing) panorama, 
-		NOT the new panorama that is being loaded.
-		In other words this operation is asynchronous (because the underlying loading processes are).
-		*/
-		//panoSalado.addEventListener( Event.COMPLETE, panoramaLoaded, false, 0, true );  
-		//listen for transition ends
-		//simpleTransition.addEventListener( Event.COMPLETE, transitionComplete, false, 0, true );
-		
-			// set up buttons
-			//ps = new PanoSaladoBitmap();
-			//panoSalado.addChild(ps)
-		
-		/*
-		
-		var fsBitmap:Bitmap = new FullScreenBitmap();
-		fsButton = new Sprite();
-		fsButton.useHandCursor = 
-			fsButton.buttonMode = true;
-		panoSalado.addChild(fsButton);
-		fsButton.addChild( fsBitmap );
-		fsButton.addEventListener(MouseEvent.CLICK, toggleFullScreen, false, 0, true);
-		
-		var autorotationBitmap:Bitmap = new AutorotationBitmap();
-		aButton = new Sprite()
-		aButton.useHandCursor = 
-			aButton.buttonMode = true;
-		panoSalado.addChild(aButton);
-		aButton.addChild(autorotationBitmap);
-		aButton.addEventListener(MouseEvent.CLICK, toggleAutorotation, false, 0, true);
-		
-		var clickBitmap:Bitmap = new ClickBitmap();
-		clickButton = new Sprite();
-		clickButton.useHandCursor = 
-			clickButton.buttonMode = true;
-		panoSalado.addChild(clickButton);
-		clickButton.addChild( clickBitmap );
-		clickButton.addEventListener(MouseEvent.CLICK, newPath, false, 0, true);
-		
-		moveButtons();
-		*/
-		//stage.addEventListener(Event.RESIZE, moveButtons, false, 0, true);
-		
-		// remove me for deployment. add me at the end so I am on top of everything.
-		//addChild( new Stats() );
-		
-		
-		//panoSalado.loadPanorama( new Params("images/park2/park2_f.xml") );
-		//panoSalado.loadPanorama( new Params("images/park2/park2_f.xml") );
-		
-		//panoSalado.loadPanorama( new Params("images/park_f.xml") );
-	//}
-	/*
-	
-	private function panoramaLoaded(e:Event):void {
-		trace("loaded");
-		switch (panoSalado.path) {
-			case "images/park_f.xml": 
-				trace("loaded park");
-				// create a vector of IGraphicsData to draw on the hotspot
-				var gd:Vector.<flash.display.IGraphicsData> = new Vector.<flash.display.IGraphicsData>();
-				gd.push( new flash.display.GraphicsSolidFill(0xFFFFFF,0.6) );
-				gd.push( new flash.display.GraphicsStroke(0.001, false, "normal", "none", "round", 3, new flash.display.GraphicsSolidFill(0xFF0000)) );
-				var gp:flash.display.GraphicsPath = new flash.display.GraphicsPath();
-				var hw:int = 400;
-				gp.moveTo(-hw,-hw);
-				gp.lineTo(hw,-hw);
-				gp.lineTo(hw,hw);
-				gp.lineTo(-hw,hw);
-				gp.lineTo(-hw,-hw)
-				gd.push(gp);
-				var hotspot:VectorHotspot = new VectorHotspot( gd ); //pass vector of IGraphics Data to hotspot constructor.
-				hotspot.x = -2942; //position hotspot x,y,z = (0,0,0) is where the camera is (bad place for a hotspot)
-				hotspot.y = 1800;
-				hotspot.z = -2942;
-				// give it a name so that it can by fetched by it later
-				// alternatively, (and faster performance) make it a global var.
-				hotspot.name = "testing"; 
-				panoSalado.addChild(hotspot);
-				break;
-			case "../images/Alyki-quarry_f.xml": 
-				// do something here.
-				break;
-			default: 
-				break;
-		}
-	}
-	*/
-	/*
-	private function transitionComplete(e:Event):void {
-				switch (panoSalado.path) {
-			case "images/park_f.xml": 
-				simpleTransition.removeEventListener( Event.COMPLETE, transitionComplete );
-				// fetch by name. args: name:String, managed:Boolean  managed = true returns managed children, false: everybody else
-				var targetChild:VectorHotspot = panoSalado._getChildByName("testing", true) as VectorHotspot; 
-				panoSalado.swingToChild(targetChild, 45, 6, Linear.easeNone); // args: child, FOV, seconds, tween function with a standard signature
-				panoSalado.addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, animationComplete, false, 0, true);
-				break;
-			case "../images/Alyki-quarry_f.xml": 
-				// do something here.
-				break;
-			default: 
-				break;
-		}
-	}
-	*/
-	
-	//private function animationComplete(e:Event):void {
-//		trace( "Swing to child complete!" );
-	//}
-	//private var toggle:Boolean = true;
-	//private function newPath(e:Event):void {
-//		if (panoSalado._path == "../images/_f.xml") panoSalado.loadPanorama( new Params("../images/_f.xml", 180, 0, 170) );
-		//else panoSalado.loadPanorama( new Params("../images/Alyki-quarry_f.xml", 0, 0, 50) );
-		// below can be used for button controls, but I don't have the right buttons in the interface.
-// 		if (toggle) {panoSalado.startInertialPan( -12.5, -12.5 ); toggle = !toggle;}
-// 		else {panoSalado.stopInertialPan(); toggle = !toggle;}
-	//}
-	/*
-	private function toggleFullScreen(e:Event):void {
-		stage.displayState = (stage.displayState == "normal") ? "fullScreen" : "normal";
-	}
-	private function toggleAutorotation(e:Event):void {
-		autorotationCameraData.enabled = !autorotationCameraData.enabled;
-	}*/

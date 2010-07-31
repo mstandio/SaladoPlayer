@@ -49,7 +49,7 @@ public class VectorHotspot extends ManagedChild
 	protected function draw(e:Event):void {
 		if (!invalidGraphicsData) return;
 		graphics.drawGraphicsData(_graphicsData);
-		invalidGraphicsData = false;		
+		invalidGraphicsData = false;
 	}
 	
 }
