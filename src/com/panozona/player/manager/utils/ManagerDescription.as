@@ -31,20 +31,21 @@ package com.panozona.player.manager.utils{
 		public function ManagerDescription(){
 			managerDescription = new Object();
 			managerDescription.moduleName = "SaladoPlayer";
-			managerDescription.version = 1.0;
+			managerDescription.moduleVersion = 1.0;
 			managerDescription.functionsDescription = new Object();
 			
-			managerDescription.functionsDescription["showPanorama"] = new Array(String);
+			managerDescription.functionsDescription["print"] = new Array(String);			
+			managerDescription.functionsDescription["loadPano"] = new Array(String);
 			managerDescription.functionsDescription["moveToChild"] = new Array(String);
 			managerDescription.functionsDescription["moveToView"] = new Array(Number, Number, Number);
-			managerDescription.functionsDescription["jumpToView"] = new Array(Number, Number, Number);									
-			
+			managerDescription.functionsDescription["jumpToView"] = new Array(Number, Number, Number);
 			managerDescription.functionsDescription["startMoving"] = new Array(Number, Number);
-			managerDescription.functionsDescription["stopMoving"] = new Array();
+			managerDescription.functionsDescription["stopMoving"] = new Array();			
 			
 			managerDescription.functionsDescription["advancedStartMoving"] = new Array(Number, Number, Number, Number, Number);
 			managerDescription.functionsDescription["advancedMoveToChild"] = new Array(String, Number, Number, String);
-			managerDescription.functionsDescription["advancedMoveTo"] = new Array(Number, Number, Number, Number, String);			
+			managerDescription.functionsDescription["advancedMoveTo"] = new Array(Number, Number, Number, Number, String);
+			managerDescription.functionsDescription["runAction"] = new Array(String);
 		}		
 		
 		public function get description():AbstractModuleDescription {

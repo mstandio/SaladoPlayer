@@ -31,9 +31,8 @@ package com.panozona.player.manager.data {
 	 * ...
 	 * @author mstandio
 	 */
-	public class ManagerData{										
+	public class ManagerData{												
 		
-		// PanoSaladoData
 		public var autorotationCameraData:AutorotationCameraData;
 		public var arcBallCameraData:ArcBallCameraData;
 		public var keyboardCameraData:KeyboardCameraData;
@@ -42,12 +41,12 @@ package com.panozona.player.manager.data {
 				
 		public var params:Params;         // global params		
 		public var firstPanorama:String;  // id of first panorama						
-		public var traceData:TraceData;   // 
+		public var traceData:TraceData;    
 		public var showStatistics:Boolean;
 		
-		public var panoramasData:Vector.<PanoramaData>;      
-		public var actionsData:Vector.<ActionData>;      
-		public var abstractModulesData:Vector.<AbstractModuleData>;
+		public var panoramasData:Array;
+		public var actionsData:Array;
+		public var abstractModulesData:Array;
 		
 		public function ManagerData() {						
 			
@@ -60,9 +59,9 @@ package com.panozona.player.manager.data {
 			params = new Params(null);
 			traceData = new TraceData();
 			
-			panoramasData = new Vector.<PanoramaData>();
-			actionsData = new Vector.<ActionData>();			
-			abstractModulesData = new Vector.<AbstractModuleData>();
+			panoramasData = new Array;
+			actionsData = new Array;			
+			abstractModulesData = new Array;
 		}						
 		
 		public function getPanoramaDataById(id:String):PanoramaData {

@@ -63,8 +63,8 @@ package com.panozona.player.manager.utils {
 			if (traceData.debug == false) {
 				buffer = "";
 			}else {
-				if (isNaN(traceData.width)  || traceData.width  < 100) traceData.width   = 100; 
-				if (isNaN(traceData.height) || traceData.height < 100) traceData.height = 100	
+				if (isNaN(traceData.width)  || traceData.width  < 100) traceData.width  = 300; 
+				if (isNaN(traceData.height) || traceData.height < 100) traceData.height = 200	
 				if (stage) stageReady();
 				else addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);	
 			}
@@ -179,8 +179,7 @@ package com.panozona.player.manager.utils {
 			btnScrollUp.graphics.moveTo(btnSize / 2, btnSize / 3);
 			btnScrollUp.graphics.lineTo(btnSize * 0.66, btnSize * 0.66);
 			btnScrollUp.graphics.lineTo(btnSize / 3, btnSize * 0.66 );
-			btnScrollUp.graphics.endFill();				
-			//btnScrollUp.alpha = globalAlpha;
+			btnScrollUp.graphics.endFill();							
 			btnScrollUp.addEventListener(MouseEvent.MOUSE_DOWN, scrollUp, false, 0, true);
 			btnScrollUp.addEventListener(MouseEvent.MOUSE_UP, scrollStop, false, 0, true);			
 			btnScrollUp.addEventListener(MouseEvent.MOUSE_OUT, scrollStop, false, 0, true);			
@@ -198,8 +197,7 @@ package com.panozona.player.manager.utils {
 			btnScrollDown.graphics.moveTo(btnSize / 3, btnSize / 3);
 			btnScrollDown.graphics.lineTo(btnSize * 0.66, btnSize / 3);
 			btnScrollDown.graphics.lineTo(btnSize / 2, btnSize * 0.66 );
-			btnScrollDown.graphics.endFill();			
-			//btnScrollDown.alpha = globalAlpha;
+			btnScrollDown.graphics.endFill();						
 			btnScrollDown.addEventListener(MouseEvent.MOUSE_DOWN, scrollDown, false, 0, true);
 			btnScrollDown.addEventListener(MouseEvent.MOUSE_UP, scrollStop, false, 0, true);
 			btnScrollDown.addEventListener(MouseEvent.MOUSE_OUT, scrollStop, false, 0, true);

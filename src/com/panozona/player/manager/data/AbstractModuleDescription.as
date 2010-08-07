@@ -18,33 +18,33 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.data{
 	
-	/*
+	/**
+	 * ...
 	 * @author mstandio
 	 */
 	public class AbstractModuleDescription {
 		
 		private var _moduleName:String;
-		private var _version:Number;
-		private var _functionsDescription:Object;
-		
+		private var _moduleVersion:Number;
+		private var _functionsDescription:Object;		
 		
 		public function AbstractModuleDescription(moduleDescription:Object) {			
-			if (moduleDescription.hasOwnProperty("moduleName")) {
-				_moduleName = moduleDescription["moduleName"];
+			if (!moduleDescription.hasOwnProperty("moduleName")) {
+				throw new Error("No module name in module description");				
 			}else {
-				throw new Error("No module name in module description");
+				_moduleName = moduleDescription["moduleName"];
 			}
 			
-			if (moduleDescription.hasOwnProperty("version")) {
-				_version = moduleDescription["version"];
+			if (!moduleDescription.hasOwnProperty("moduleVersion")) {
+				throw new Error("No module version in module description");				
 			}else {
-				throw new Error("No module version in module description");
+				_moduleVersion = moduleDescription["moduleVersion"];
 			}			
 			
-			if (moduleDescription.hasOwnProperty("functionsDescription")) {
-				_functionsDescription = moduleDescription["functionsDescription"];
-			}else {
+			if (!moduleDescription.hasOwnProperty("functionsDescription")) {
 				throw new Error("No functions in module description");
+			}else {
+				_functionsDescription = moduleDescription["functionsDescription"];				
 			}
 		}
 		
@@ -52,8 +52,8 @@ package com.panozona.player.manager.data{
 			return _moduleName;
 		}
 		
-		public function get version():Number {
-			return _version;
+		public function get moduleVersion():Number {
+			return _moduleVersion;
 		}		
 		
 		public function get functionsDescription():Object{

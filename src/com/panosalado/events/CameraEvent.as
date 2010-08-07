@@ -50,7 +50,6 @@ package com.panosalado.events
 		override public function clone():Event
 		{
 			return new CameraEvent(type);
-		}
-		
+		}		
 	}
 }

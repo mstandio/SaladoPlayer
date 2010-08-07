@@ -28,7 +28,8 @@ package com.panozona.player.module.data{
 	public class ModuleDescription {
 		
 		private var _moduleName:String;
-		private var _version:Number;
+		private var _moduleVersion:Number;
+		private var _moduleHomeUrl:String;
 		private var _functionsDescription:Object;
 		
 		/**
@@ -36,10 +37,12 @@ package com.panozona.player.module.data{
 		 * 
 		 * @param	name 
 		 * @param	version 
+		 * @param	moduleHomeUrl 
 		 */
-		public function ModuleDescription(moduleName:String, version:Number) {
+		public function ModuleDescription(moduleName:String, moduleVersion:Number, moduleHomeUrl:String) {
 			_moduleName = moduleName;
-			_version = version;
+			_moduleVersion = moduleVersion;
+			_moduleHomeUrl = moduleHomeUrl;
 			_functionsDescription = new Object();
 		}		
 		
@@ -47,9 +50,13 @@ package com.panozona.player.module.data{
 			return _moduleName;
 		}
 		
-		public function get version():Number{
-			return _version;
+		public function get moduleVersion():Number{
+			return _moduleVersion;
 		}
+		
+		public function get moduleHomeUrl():String{
+			return _moduleHomeUrl;
+		}		
 		
 		public function get functionsDescription():Object{
 			return _functionsDescription;
@@ -73,48 +80,18 @@ package com.panozona.player.module.data{
 				throw new Error("Function allready described: "+functionName);
 			}		
 			
-			_functionsDescription[functionName] = new Vector.<Class>();
+			_functionsDescription[functionName] = new Array;
 			
 			for(var i:int=0; i<args.length;i++){
 				if (args[i] === String ||  args[i] === Number || args[i] === Boolean || args[i] === Array) {
-					Vector.<Class>(_functionsDescription[functionName])[i] = args[i];					
+					(_functionsDescription[functionName])[i] = args[i];					
 				}else {
 					throw new Error("Ivalid " + (i + 1) + ". argument in " + functionName); 
 				}
 			}
-		}
+		}		
 		
-		
-		/**
-		 * Returns readable module description that is displayed when module
-		 * is launched as separate file or when it is not loaded properly. 
-		 * 
-		 * @return String
-		 */
-		public function printDescription():String{
-			var result:String ="";
-			result += _moduleName;
-			result += " v" + (( Number(_version.toFixed(1)) == _version)?_version.toFixed(1):_version.toFixed(2));
-			if(this.getFunctionsNames().length > 0){
-				result += "\n\nexposed functions: ";
-				for (var functionName:String in _functionsDescription) {
-					result += "\n  "+functionName + "(";
-					for each(var _class:Class in Vector.<Class>(_functionsDescription[functionName])) {
-						result += (_class===Boolean?"Boolean":(_class===Number?"Number":(_class===String?"String":(_class===Array?"Array":"Error!"))))+ ",";
-					}
-					if (result.lastIndexOf(",") == result.length-1) {
-						result = result.substring(0, result.length - 1);						
-					}			
-					result += ")";
-				}			
-				
-			}else {
-				result += "\nno exposed functions";
-			}
-			return result;
-		}
-		
-		private function getFunctionsNames():Array{
+		public function getFunctionsNames():Array{
 			var result:Array = new Array();
 			for each(var functionName:String in _functionsDescription) {
 				result.push(functionName);

@@ -18,8 +18,7 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.events{
 		
-	import flash.events.Event;
-	
+	import flash.events.Event;	
 	import com.panozona.player.manager.data.ChildData;
 	
 	

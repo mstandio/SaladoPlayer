@@ -23,24 +23,22 @@ package com.panozona.player.manager.data{
 	 * ...
 	 * @author mstandio
 	 */
-	public class TraceData {		
+	public class TraceData {
 		
-		public var debug:Boolean;
-		
+		public var debug:Boolean; //if trace window is visible, also if validation is performed
 		public var initialVisibility:Boolean;
-		public var verticalAlign:String;   // top, middle, bottom
-		public var horizontalAlign:String; // left, center, right
-		
-		public var width:Number;  
+		public var verticalAlign:String;   //top, middle, bottom
+		public var horizontalAlign:String; //left, center, right
+		public var width:Number;
 		public var height:Number;  
 		
-		public function TraceData(){
-			debug = true;		
+		public function TraceData( ) {
+			debug = false;
 			initialVisibility = true;
 			verticalAlign = "top";
 			horizontalAlign = "right";
 			width = 300;
 			height = 200;
-		}		
+		}
 	}
 }

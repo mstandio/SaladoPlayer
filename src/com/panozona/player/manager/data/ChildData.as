@@ -47,7 +47,7 @@ package com.panozona.player.manager.data {
 			}
 			
 			if (path == null || path == "") {
-				throw new Error("No path specified for: "+id);							
+				throw new Error("No path specified for child: "+id);							
 			}									
 			
 			_id = id;			
@@ -86,8 +86,7 @@ package com.panozona.player.manager.data {
 				if (id != null ) {
 					(_managedChild).name = id;								
 				}			
-			}					
-			
+			}			
 			return _managedChild;
 		}
 		

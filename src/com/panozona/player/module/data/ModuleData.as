@@ -26,12 +26,12 @@ package com.panozona.player.module.data {
 		
 		private var _moduleNodes:Vector.<ModuleNode>;
 		
-		public function ModuleData(abstratcModuleData:Object) {
-			_moduleNodes =  new Vector.<ModuleNode>();						
+		public function ModuleData(abstractModuleData:Object) {
+			_moduleNodes =  new Vector.<ModuleNode>();
 			
-			var abstractModuleNodes:Array = abstratcModuleData.abstractModuleNodes as Array;			
+			var abstractModuleNodes:Array = abstractModuleData.abstractModuleNodes;
 			var moduleNode:ModuleNode;
-			for each(var abstractModuleNode:Object in abstractModuleNodes) {
+			for each(var abstractModuleNode:Object in abstractModuleNodes) {				
 				moduleNode = new ModuleNode(abstractModuleNode);				
 				_moduleNodes.push(moduleNode);
 			}		

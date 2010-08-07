@@ -29,10 +29,6 @@ package com.panozona.player.manager.data {
 		public var onRelease:String;
 		public var onMove:String;
 		public var onOver:String;
-		public var onOut:String;				
-		
-		public function ChildMouse() {
-			
-		}		
+		public var onOut:String;						
 	}
 }

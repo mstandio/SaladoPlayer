@@ -27,38 +27,44 @@ package com.panozona.player.manager.data {
 	 */
 	public class PanoramaData{				
 				
-		private var _id:String;
+		private var _id:String;  
 		private var _label:String;
 		
 		private var _params:Params;
 		private var _childrenData:Vector.<ChildData>; 
 		
-		private var onEnter:String; // action id
-		private var onLeave:String; // action id		
+		private var _onEnter:String; // action id
+		private var _onLeave:String; // action id	
+		private var _onTransitionEnd:String; // action id	
+		private var _onEnterSource:Object;  // panorama id to action id 
+		private var _onLeaveTarget:Object;  // panorama id to action id 
+		private var _onTransitionEndSource:Object; // panorama id to action id 
 		
-		//private var onLeaveTarget:Array;  // panorama id to action id 
-		
-		public function PanoramaData(id:String, label:String, path:String) {
+		public function PanoramaData(id:String, label:String, path:String, onEnter:String = null, onLeave:String=null, onTransitionEnd:String = null) {
 			
 			if (id == null || id == "") {
 				throw new Error("Panorama has no id");
 			}
 			
 			if (label == null || label == "") {
-				throw new Error("Panorama has no label");
+				throw new Error("Panorama: "+ id +" has no label");
 			}
 			
 			if (path == null || path == "") {
-				throw new Error("Panorama has no path");
+				throw new Error("Panorama: "+ id +" has no path");
 			}			
 			
 			_id = id;
 			_label = label;						
 			_params = new Params(path);
 			
-			_childrenData = new Vector.<ChildData>();			
-			
-			//onLeaveTarget = new Object();
+			_onEnter = onEnter;
+			_onLeave = onLeave;
+			_onTransitionEnd = onTransitionEnd
+			_onEnterSource = new Object();			
+			_onLeaveTarget = new Object();			
+			_onTransitionEndSource = new Object();
+			_childrenData = new Vector.<ChildData>();									
 		}			
 		
 		public function get id():String {
@@ -75,19 +81,30 @@ package com.panozona.player.manager.data {
 		
 		public function get childrenData():Vector.<ChildData> {
 			return _childrenData;
+		}		
+		
+		public function get onEnter():String {
+			return _onEnter;
 		}
 		
-		/*
-		public function getChildrenDisplayObjectVector():Vector.<DisplayObject> {
-			if(children.length > 0){			
-				var result:Vector.<DisplayObject> = new Vector.<DisplayObject>;
-				for (var i:int = 0; i < children.length; i++) {
-					result.push(children[i].managedChild);					
-				}
-				return result;
-			}			
-			return null;			
+		public function get onLeave():String {
+			return _onLeave;
 		}
-		*/
+		
+		public function get onTransitionEnd():String {
+			return _onTransitionEnd;
+		}
+		
+		public function get onEnterSource():Object {
+			return _onEnterSource;
+		}		
+		
+		public function get onLeaveTarget():Object {
+			return _onLeaveTarget;
+		}		
+		
+		public function get onTransitionEndSource():Object {
+			return _onTransitionEndSource;
+		}		
 	}
 }

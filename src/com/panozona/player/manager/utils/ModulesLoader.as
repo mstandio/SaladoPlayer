@@ -36,30 +36,30 @@ package com.panozona.player.manager.utils{
 	public class ModulesLoader extends EventDispatcher{
 		
 		private var loaders:Vector.<Loader>;
-		private var abstractModulesData:Vector.<AbstractModuleData>
+		private var abstractModulesData:Array
 		
-		public function loadModules(abstractModulesData:Vector.<AbstractModuleData>):void {				
+		public function loadModules(abstractModulesData:Array):void {				
 			this.abstractModulesData = abstractModulesData;			
 			loaders = new Vector.<Loader>();			
 			var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);			
 			for(var i:int=0; i<abstractModulesData.length; i++){
 				loaders[i] = new Loader(); 			  				
 				loaders[i].contentLoaderInfo.addEventListener(Event.COMPLETE, moduleLoaded, false, 0 , true);
-				loaders[i].contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, moduleLost);
-				loaders[i].load(new URLRequest(abstractModulesData[i].path),context);
-			}		   			
+				loaders[i].contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, moduleLost, false, 0 , true);
+				loaders[i].load(new URLRequest(abstractModulesData[i].path), context);
+			}				
 		}	
 		
 		private function moduleLoaded(e:Event):void {
 			
 			for(var i:int=0;i<loaders.length;i++){
-				if (loaders[i].contentLoaderInfo === e.target) {					
+				if (loaders[i] != null && loaders[i].contentLoaderInfo == e.target) {					
 					dispatchEvent(new LoadModuleEvent(LoadModuleEvent.MODULE_LOADED,abstractModulesData[i].moduleName, abstractModulesData[i].weight, loaders[i].content));
-					loaders[i].contentLoaderInfo.removeEventListener(Event.COMPLETE, moduleLoaded);						
+					loaders[i].contentLoaderInfo.removeEventListener(Event.COMPLETE, moduleLoaded);					
+					loaders[i].contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, moduleLost);
 					loaders[i] = null;
 				}
-			}
-			
+			}			
 			checkLoadingState();
 		}
 			
@@ -70,7 +70,7 @@ package com.panozona.player.manager.utils{
 		private function checkLoadingState():void {
 			for (var i:int = 0; i < loaders.length; i++) {
 				if (loaders[i] != null) {
-					break;
+					return;
 				}
 			}			
 			dispatchEvent(new LoadModuleEvent(LoadModuleEvent.ALL_MODULES_LOADED,"",0,null));

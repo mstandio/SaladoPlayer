@@ -30,11 +30,7 @@ package com.panozona.player.manager.utils {
 	 * Translates XML to ManagerData
 	 * @author mstandio
 	 */
-	public class ManagerDataParserXML {	
-		
-		public function ManagerDataParserXML () {
-			
-		}
+	public class ManagerDataParserXML {				
 		
 		/**
 		 * 
@@ -44,11 +40,13 @@ package com.panozona.player.manager.utils {
 		 */
 		public function configureManagerData(managerData:ManagerData, settings:XML):void{								
 			
-			checkNodeNamesAgainst(settings.children(),
-			"global",
-			"panoramas",
-			"actions",
-			"modules");			
+			if(managerData.traceData.debug){
+				checkNodeNamesAgainst(settings.children(),
+				"global",
+				"panoramas",
+				"actions",
+				"modules");			
+			}
 			
 			var global:XML    = getChildNodeByName(settings, "global");
 			var panoramas:XML = getChildNodeByName(settings, "panoramas");
@@ -57,16 +55,18 @@ package com.panozona.player.manager.utils {
 			
 			if (global != null) {				
 				
-				checkAttributesAgainst(global.attributes(),
-				"trace",
-				"showStatistics",
-				"arcBallCamera", 				
-				"autorotationCamera",
-				"keyboardCamera",
-				"inertialMouseCamera",
-				"simpleTransition",
-				"camera",				
-				"firstPanorama");
+				if(managerData.traceData.debug){
+					checkAttributesAgainst(global.attributes(),
+					"trace",
+					"showStatistics",
+					"arcBallCamera", 				
+					"autorotationCamera",
+					"keyboardCamera",
+					"inertialMouseCamera",
+					"simpleTransition",
+					"camera",				
+					"firstPanorama");
+				}
 				
 				applySubAttributes(managerData.traceData, global.attribute("trace"));
 				applySubAttributes(managerData.arcBallCameraData, global.attribute("arcBallCamera"));
@@ -74,9 +74,9 @@ package com.panozona.player.manager.utils {
 				applySubAttributes(managerData.keyboardCameraData, global.attribute("keyboardCamera"));
 				applySubAttributes(managerData.inertialMouseCameraData, global.attribute("inertialMouseCamera"));
 				applySubAttributes(managerData.simpleTransitionData, global.attribute("simpleTransition"));
-				applySubAttributes(managerData.params,global.attribute("camera"));
+				applySubAttributes(managerData.params, global.attribute("camera"));
 				managerData.firstPanorama = getAttributeValue(global, "firstPanorama", String, null);
-				managerData.firstPanorama = getAttributeValue(global, "showStatistics", Boolean, false);
+				managerData.showStatistics = getAttributeValue(global, "showStatistics", Boolean, false);
 			}						
 			
 			if(panoramas != null){
@@ -84,36 +84,44 @@ package com.panozona.player.manager.utils {
 				var childData:ChildData;
 				for each(var panorama:XML in panoramas.elements()) {
 					
-					checkAttributesAgainst(panorama.attributes(), 
+					if(managerData.traceData.debug){
+						checkAttributesAgainst(panorama.attributes(), 
 						"id", 
 						"label",
 						"path", 
 						"camera",
 						"onEnter",
 						"onLeave",
-						"onLeaveTarget"); 
+						"onTransitionEnd",
+						"onEnterSource",
+						"onLeaveTarget",						
+						"onTransitionEndSource"); 
+					}
 					
-					try {						
-						
+					try {												
 						panoramaData = new PanoramaData(
 							getAttributeValue(panorama, "id", String, null),
 							getAttributeValue(panorama, "label", String, null),
-							getAttributeValue(panorama, "path", String, null));
+							getAttributeValue(panorama, "path", String, null),
+							getAttributeValue(panorama, "onEnter", String, null),
+							getAttributeValue(panorama, "onLeave", String, null),
+							getAttributeValue(panorama, "onTransitionEnd", String, null));
 						applySubAttributes(panoramaData.params, panorama.attribute("camera"));
-				
-						//panoramaData.onEnter = getAttributeValue(panorama, "onEnter", String, null);
-						//panoramaData.onLeave = getAttributeValue(panorama, "onLeave", String, null); 
-						//applySubAttributes( panoramaData.onLeaveTarget, panorama.attribute("onLeaveTarget"));
+						applySubAttributes(panoramaData.onEnterSource, panorama.attribute("onEnterSource"));
+						applySubAttributes(panoramaData.onLeaveTarget, panorama.attribute("onLeaveTarget"));
+						applySubAttributes(panoramaData.onTransitionEndSource, panorama.attribute("onTransitionEndSource"));						
 					
 						
 						for (var i:int = 0; i < panorama.elements().length(); i++) {	
 							
-							checkAttributesAgainst(panorama.elements()[i].attributes(), 
-							"id", 
-							"path",							
-							"position", 
-							"transformation", 
-							"mouse");
+							if(managerData.traceData.debug){							
+								checkAttributesAgainst(panorama.elements()[i].attributes(), 
+								"id", 
+								"path",							
+								"position", 
+								"transformation", 
+								"mouse");
+							}
 							
 							try {								
 								childData = new ChildData(
@@ -138,9 +146,11 @@ package com.panozona.player.manager.utils {
 				var actionData:ActionData;
 				for each(var action:XML in actions.elements()) {
 					
-					checkAttributesAgainst(action.attributes(), 
-					"id", 
-					"content");
+					if(managerData.traceData.debug){
+						checkAttributesAgainst(action.attributes(), 
+						"id", 
+						"content");
+					}
 															
 					try {						
 						actionData = new ActionData(getAttributeValue(action, "id", String, null));
@@ -277,7 +287,7 @@ package com.panozona.player.manager.utils {
 										recognizedValue = recognizeContent(singleArgument);
 										if (recognizedValue == null) {
 											Trace.instance.printWarning("Empty argument in: " + singleFunction);
-										}else {
+										}else {											
 											functionData.args.push(recognizedValue);
 										}
 									}
@@ -321,22 +331,17 @@ package com.panozona.player.manager.utils {
 		}
 		
 		private function getAttributeValue(node:XML, name:String, ReturnClass:Class, defaultValue:*):*{
-			if (node != null && name != null && node.attribute(name).toString().length > 0) {
-				//if ( ReturnClass == Array) { 
-					//TODO: validation of get attribute by value
-				//}
-				
-				if ( ReturnClass == Boolean ){ 
+			if (node != null && name != null && (("@"+name) in node)) {
+				if ( ReturnClass === Array) { 
+					return String(node.attribute(name)).match(/[^\[\],]+/g);
+				}				
+				if ( ReturnClass === Boolean ){ 
 					return ReturnClass(node.attribute(name) == "true" ? true : false);
 				}else{
 					return ReturnClass(node.attribute(name));
 				}
-			} 
-			if (ReturnClass === String && defaultValue == null) { // TODO: this out doesnt seem right
-				return null;
-			}else{
-				return ReturnClass(defaultValue);
-			}
+			} 			
+			return defaultValue;
 		}
 		
 		private function getChildNodeByName(parent:XML, name:String):XML {

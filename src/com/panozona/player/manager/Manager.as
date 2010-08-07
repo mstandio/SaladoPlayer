@@ -18,52 +18,53 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager{
 	
+	import com.panozona.player.SaladoPlayer;
+	import com.panosalado.controller.SimpleTransition;
+	import com.panozona.player.manager.events.LoadChildEvent;
+	import com.panozona.player.manager.events.LoadPanoramaEvent;
 	import com.panozona.player.manager.data.ManagerData;
 	import com.panozona.player.manager.data.ActionData;
 	import com.panozona.player.manager.data.ChildMouse;
 	import com.panozona.player.manager.data.FunctionData;
 	import com.panozona.player.manager.data.PanoramaData;
-	import com.panozona.player.manager.data.ChildData;	
+	import com.panozona.player.manager.data.ChildData;
 	import com.panozona.player.manager.utils.Trace;
 	import com.panozona.player.manager.utils.ChildrenLoader;
-	import com.panozona.player.manager.events.LoadChildEvent;
-	import com.panozona.player.SaladoPlayer;
 	
-	
-	import com.panosalado.events.ViewEvent;
-	import com.panosalado.events.CameraEvent;
-	import com.panosalado.events.CameraMoveEvent;
+	import com.panosalado.core.PanoSalado;
 	import com.panosalado.model.Characteristics;
+	import com.panosalado.model.CameraKeyBindings;
 	import com.panosalado.model.Params;
-	import com.panosalado.model.ViewData;		
 	import com.panosalado.model.ViewData;
-	import com.panosalado.core.PanoSalado;		
+	import com.panosalado.model.ViewData;	
 	
+	import flash.display.Sprite;
 	import flash.display.DisplayObject;
-	import flash.events.Event;	
-	import flash.events.MouseEvent;	
-	
-	
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.events.KeyboardEvent;
+	
 	import flash.ui.Keyboard;
 	
 	/**	 
 	 * @author mstandio
 	 */
-	public class Manager extends PanoSalado{		
-			
-		private var _managerData:ManagerData;							
-		private var saladoPlayer:SaladoPlayer;
+	public class Manager extends PanoSalado{
 		
-		private var currentPanoId:String;
-		private var loadingPanoId:String;
+		private var _managerData:ManagerData;
+		private var saladoPlayer:SaladoPlayer; // parent needed to access loaded modules 
 		
 		private var childrenLoader:ChildrenLoader;
 		
-		public function Manager() {						
-			super();			
-			addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);										
-		}				
+		private var currentPanoramaData:PanoramaData;
+		private var previousPanoramaData:PanoramaData;
+		private var loadingPanoramaLocked:Boolean;
+		
+		public function Manager(managerData:ManagerData) {
+			_managerData = managerData;
+			if (stage) stageReady();
+			else addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
+		}
 		
 		private function stageReady(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
@@ -71,88 +72,37 @@ package com.panozona.player.manager{
 			childrenLoader = new ChildrenLoader();			
 		}		
 		
-		
-		//private function ass(e:CameraMoveEvent):void {
-			//trace("costam "+e.pan);			
-		//}
-					
-		
-		// remove listeners from previous panorama children 		
 		public override function initialize(dependencies:Array):void {
-			super.initialize(dependencies);						
-		}
-		
-		private function getMouseEventHandler(id:String):Function{
-			return function(e:MouseEvent):void {
-				runAction(id);
-			}
-		}
-		
-		public function runAction(id:String):void {
-			if(saladoPlayer != null){
-				for each(var actionData:ActionData in _managerData.actionsData){
-					if (actionData.id == id) {
-						var module:Object;
-						for each(var functionData:FunctionData in actionData.functions) {						
-							module = saladoPlayer.getModuleByName(functionData.owner);
-							if (module != null) {
-								try{
-									module.execute(functionData.name, functionData.args)						
-								}catch (e:Error) {
-									Trace.instance.printError(e.message);
-								}
-							}else if(functionData.owner == "SaladoPlayer") {						
-								try {
-									(this[functionData.name] as Function).apply(this, functionData.args);
-								}catch (e:Error) {
-									Trace.instance.printError(e.message);
-								}								
-							}else{
-								Trace.instance.printWarning("Invalid owner name: " + functionData.owner + "." + functionData.name);
-							}
-						}					
-					}
+			super.initialize(dependencies);
+			addEventListener(Event.COMPLETE, panoramaLoaded, false, 0, true);
+			for (var i:int=0; i < dependencies.length; i++ ) {
+				if (dependencies[i] is SimpleTransition) {
+					dependencies[i].addEventListener( Event.COMPLETE, transitionComplete, false, 0, true);
+					return;
 				}
 			}
-		}													
-				
-		public function loadFirstPanorama():void {								
-			// TODO: if parsing fails load panorama that is in panoramas folder (somehow)
-			if (_managerData.firstPanorama != null && _managerData.firstPanorama.length > 0) {				
-				loadPanoramaById(_managerData.firstPanorama);
-			}else {				
-				if (_managerData.panoramasData != null && _managerData.panoramasData.length > 0) {					
-					loadPanoramaById(_managerData.panoramasData[0].id);
-				}
+		}
+		
+		private function panoramaLoaded(e:Event):void { 
+			childrenLoader.addEventListener(LoadChildEvent.BITMAPDATA_CONTENT, insertChild, false, 0, true);
+			childrenLoader.loadChildren(currentPanoramaData.childrenData);
+			dispatchEvent(new LoadPanoramaEvent(LoadPanoramaEvent.PANORAMA_LOADED, currentPanoramaData));
+			loadingPanoramaLocked = false;			
+			runAction(currentPanoramaData.onEnter);
+			if (previousPanoramaData != null ){
+				runAction(currentPanoramaData.onEnterSource[previousPanoramaData.id]);
 			}
 		}		
 		
-		public function loadPanoramaById(panoramaId:String):void {
-			var panoramaData:PanoramaData = _managerData.getPanoramaDataById(panoramaId);
-			if (panoramaData != null) {						
-				loadingPanoId = panoramaData.id;												
-				
-				// REMOVE CHILDREN !!!!				
-				// make loadchildren stop if loading new panorama before old one is done (?)
-				
-				
-				
-				super.loadPanorama(panoramaData.params);
-			}			
-		}			
-				
-		public final function panoramaLoaded(e:Event):void {			
-			
+		private function transitionComplete(e:Event):void {
+			runAction(currentPanoramaData.onTransitionEnd);
+			if(previousPanoramaData != null){
+				runAction(currentPanoramaData.onTransitionEndSource[previousPanoramaData.id]);
+			}
+			dispatchEvent(new LoadPanoramaEvent(LoadPanoramaEvent.TRANSITION_ENDED, currentPanoramaData));
 		}
 		
-		public final function transitionComplete(e:Event):void {			
-			var panoramaData:PanoramaData = _managerData.getPanoramaDataById(loadingPanoId); // TODO: make code more pretty :3						
-			childrenLoader.addEventListener(LoadChildEvent.BITMAPDATA_CONTENT, insertChild, false, 0, true);
-			childrenLoader.loadChildren(panoramaData.childrenData);
-			
-		}	
-		
-		public function insertChild(e:LoadChildEvent):void {
+		private function insertChild(e:LoadChildEvent):void {
 			if (e.childData.childMouse.onClick != null) {
 				e.childData.managedChildReference.addEventListener(MouseEvent.CLICK, getMouseEventHandler(e.childData.childMouse.onClick), false, 0, true);
 			}
@@ -168,50 +118,136 @@ package com.panozona.player.manager{
 			if (e.childData.childMouse.onOver != null) {
 				e.childData.managedChildReference.addEventListener(MouseEvent.MOUSE_OVER, getMouseEventHandler(e.childData.childMouse.onOver), false, 0, true);
 			}
-			if (e.childData.childMouse.onOut != null) {						
+			if (e.childData.childMouse.onOut != null) {
 				e.childData.managedChildReference.addEventListener(MouseEvent.MOUSE_OUT, getMouseEventHandler(e.childData.childMouse.onOut), false, 0, true);
-			}														
-			
-			addChildAt(e.childData.managedChild, e.childData.weight);
-		}		
-				
-		public function setManagerData(value:ManagerData):void {
-			if (_managerData === value) return;		
-			if (value != null) {
-				_managerData = value;
 			}
-		}				
+			//Trace.instance.printInfo("weight: "+e.childData.weight);
+			//addChildAt(e.childData.managedChild, e.childData.weight);
+			// TODO: children shuold be inserted in order
+			addChild(e.childData.managedChild);
+		}
+		
+		private function getMouseEventHandler(id:String):Function{
+			return function(e:MouseEvent):void {
+				runAction(id);
+			}
+		}
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Formally exposed functions avaible via actions in XML settings
+		// Funtions intended to be used only by by modules
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			
 		
-		public function showPanorama(PanoramaId:String):void {
-			loadPanoramaById(PanoramaId);
+		public function loadFirstPanorama():void {
+			if (_managerData.firstPanorama != null && _managerData.firstPanorama.length > 0) {
+				loadPanoramaById(_managerData.firstPanorama);
+			}else {
+				if (_managerData.panoramasData != null && _managerData.panoramasData.length > 0) {
+					loadPanoramaById(_managerData.panoramasData[0].id);
+				}
+			}
+		}
+		
+		public function loadPanoramaById(panoramaId:String):void {
+			var panoramaData:PanoramaData = _managerData.getPanoramaDataById(panoramaId);
+			if (panoramaData != null && !loadingPanoramaLocked && panoramaData !== currentPanoramaData) {
+				
+				previousPanoramaData = currentPanoramaData;
+				currentPanoramaData = panoramaData;								
+				loadingPanoramaLocked = true;				
+				
+				if(previousPanoramaData != null) {
+					runAction(previousPanoramaData.onLeave);
+					runAction(previousPanoramaData.onLeaveTarget[currentPanoramaData.id]);
+				}
+				
+				Trace.instance.printInfo("loading panorama: " + panoramaData.id + " " + panoramaData.params.path);				
+				dispatchEvent(new LoadPanoramaEvent(LoadPanoramaEvent.PANORAMA_STARTED_LOADING, panoramaData));
+				while (_managedChildren.numChildren) {
+					_managedChildren.removeChildAt(0); 
+				}				
+				super.loadPanorama(panoramaData.params.clone());
+			}
+		}		
+		
+		public function runAction(id:String):void {
+			if(saladoPlayer != null && id != null){
+				for each(var actionData:ActionData in _managerData.actionsData){
+					if (actionData.id == id) {
+						var module:Object;
+						for each(var functionData:FunctionData in actionData.functions) {
+							module = saladoPlayer.getModuleByName(functionData.owner);
+							if (module != null) {
+								try {
+									module.execute(functionData.name, functionData.args);
+								}catch (e:Error) {
+									Trace.instance.printError(e.message);
+								}
+							}else if(functionData.owner == "SaladoPlayer") {
+																			
+									if (functionData.name == "print" ||
+										functionData.name == "loadPano" ||
+										functionData.name == "moveToChild" ||
+										functionData.name == "moveToView" ||
+										functionData.name == "jumpToView" ||
+										functionData.name == "startMoving" ||
+										functionData.name == "stopMoving" ||
+										functionData.name == "advancedStartMoving" ||
+										functionData.name == "advancedMoveToChild" ||
+										functionData.name == "advancedMoveTo" ||
+										functionData.name == "runAction") { // this should not be used
+											
+										try {	
+											(this[functionData.name] as Function).apply(this, functionData.args);
+										}catch (e:Error) {
+											Trace.instance.printError(e.message);
+										}
+									}else {
+										Trace.instance.printWarning("Invalid function name: " + functionData.owner + "." + functionData.name);
+									}									
+							}else {
+								Trace.instance.printWarning("Invalid owner name: " + functionData.owner + "." + functionData.name);
+							}								
+						}
+					}
+				}
+			}
+		}
+				
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Exposed functions intended to be used via actions in XML settings as following:
+		// <action id="act1" content="SaladoPlayer.print(hello), SaladoPlayer.moveToView(10,10,50)"/> 
+		// Functions as public are also avaible for modules.
+		// Those functions are descrivbed in com.panozona.player.manager.utils.ManagerDescription
+		// Only using those functions via actions won't trigger validator warning
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		public function print(message:String):void {
+			Trace.instance.printInfo(message);
+		}		
+		
+		public function loadPano(panramaId:String):void {
+			loadPanoramaById(panramaId);
 		}
 		
 		public function moveToChild(ChildId:String):void {
 			Trace.instance.printError("moveToChild not supported yet");
-		}
+		}						
 		
-		public function moveToView(pan:Number, tilt:Number, fieldOfView:Number):void {
-			swingTo(pan, tilt, fieldOfView);
-		}
+		public function moveToView(pan:Number, tilt:Number, fieldOfView:Number):void {						
+			swingTo(pan, tilt, fieldOfView);			
+		}				
 		
 		public function jumpToView(pan:Number, tilt:Number, fieldOfView:Number):void {
-			renderAt(pan, tilt, fieldOfView);		
-		}
-		
+			renderAt(pan, tilt, fieldOfView);
+		}		
 		
 		public function startMoving(panSpeed:Number, tiltSpeed:Number):void {
-			startInertialSwing(panSpeed, tiltSpeed);			
+			startInertialSwing(panSpeed, tiltSpeed);
 		}
 		
 		public function stopMoving():void {
-			stopInertialSwing();			
+			stopInertialSwing();
 		}
-		
 		
 		public function advancedStartMoving(panSpeed:Number, tiltSpeed:Number, sensitivity:Number = 0.0003, friction:Number = 0.3, threshold:Number = 0.0001):void {
 			Trace.instance.printError("advancedStartMoving not supported yet");

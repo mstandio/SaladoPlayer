@@ -58,7 +58,7 @@ package com.panozona.player.manager.utils {
 		}
 			
 		private function childLost(e:IOErrorEvent):void {					
-			Trace.instance.printError("Could not file: " + e.toString());
+			Trace.instance.printError("Could not load file: " + e.toString());
 		}						
 	}
 }

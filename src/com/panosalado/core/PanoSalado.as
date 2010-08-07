@@ -97,7 +97,6 @@ public class PanoSalado extends ViewData implements ICamera
 	protected var _secondaryCanvas		:Sprite;
 	protected var _canvasInternal		:Sprite;
 	protected var _secondaryCanvasInternal:Sprite;
-	//protected var _initialChildren		:Vector.<DisplayObject>; // children recieved with params 
 	protected var _children				:Sprite;
 	protected var _managedChildren		:Sprite;
 	protected var _secondaryManagedChildren:Sprite;
@@ -113,7 +112,7 @@ public class PanoSalado extends ViewData implements ICamera
 		
 		super();
 				
-		_dependencyRelay = new DependencyRelay(); //FIXME: if view.panorama throws error set param to false
+		_dependencyRelay = new DependencyRelay();
 		_stageReference	= new StageReference();
 		_params = {};
 		
@@ -244,11 +243,12 @@ public class PanoSalado extends ViewData implements ICamera
 			}
 			viewData.invalid = viewData.invalidTransform = viewData.invalidPerspective = false;
 			viewData.dispatchEvent( new ViewEvent(ViewEvent.RENDERED, event?_canvas:null) );
-			//dispatchEvent(new CameraMoveEvent(viewData._pan,viewData._tilt, viewData._fieldOfView));
 		}
 		updateChildren(_managedChildren, viewData);
 		// set viewData to secondary view data and try to render secondary canvas
 		viewData = viewData.secondaryViewData;
+		
+		dispatchEvent(new CameraMoveEvent(viewData.pan, viewData.tilt, viewData.fieldOfView)); 
 		
 		if (viewData._tile && viewData.invalid) {
 			//_render(viewData, event ? _secondaryCanvasInternal.graphics : null);
@@ -301,27 +301,13 @@ public class PanoSalado extends ViewData implements ICamera
 	* will be inherited as they are.  The only property of Params that must be set is the path.
 	* @param Params 
 	*/
-	//public function loadPanorama(params:Params,  initialChildren:Vector.<DisplayObject> = null):void {
-	public function loadPanorama(params:Params):void {
+	public function loadPanorama(params:Params):void {		
 		//if value is null then use the current value. i.e. new panorama inherits last panorama's values
-		if (params == null) throw new Error("PanoSalado.loadPanorama() requires a non-null Params argument");
-		//_initialChildren = initialChildren;						
-		//addEventListener( ViewEvent.PATH, addInitialChildren, false, 0, true );  
+		if (params == null || params.path == null) throw new Error("PanoSalado.loadPanorama() requires a non-null Params argument");
 		var p:String = params.path;
 		this.path = p;
 		_params[p] = params;
 	}
-	
-	/*
-	private function addInitialChildren(e:ViewEvent):void {		
-		removeEventListener( ViewEvent.PATH, addInitialChildren);
-		if (_initialChildren != null) {			
-			for (var i:int=0; i < _initialChildren.length; i++) {								
-				addChild(_initialChildren[i]);
-			}			
-		}		
-	}
-	*/
 	
 	//TODO: loadPanorama(params:Params,children:Vector.<DisplayObject>) and add children in commitPath AFTER PATH event.
 	/**

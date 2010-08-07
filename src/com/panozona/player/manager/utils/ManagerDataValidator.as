@@ -52,8 +52,17 @@ package com.panozona.player.manager.utils{
 			for each(var panoramaData:PanoramaData in managerData.panoramasData) {
 				if (panoIds[panoramaData.id] != undefined) {
 					Trace.instance.printWarning("Repeating panorama id: "+panoramaData.id);
-				}else {
-					panoIds[panoramaData.id] = "";					
+				}else {					
+					panoIds[panoramaData.id] = "";// something
+																	
+					actionExists(panoramaData.onEnter);
+					actionExists(panoramaData.onLeave);
+					actionExists(panoramaData.onTransitionEnd);
+										
+					checkActionTrigger(panoramaData.onEnterSource);
+					checkActionTrigger(panoramaData.onLeaveTarget);
+					checkActionTrigger(panoramaData.onTransitionEndSource);					
+					
 					childIds = new Array();
 					for each(var childData:ChildData in panoramaData.childrenData) {
 						if (childIds[childData.id] != undefined) {
@@ -65,7 +74,14 @@ package com.panozona.player.manager.utils{
 					}						
 				}							
 			}			
-		}
+		}		
+		
+		private function checkActionTrigger(actionTrigger:Object):void {
+			for (var panoramaId:String in actionTrigger) {
+				panoramaExists(panoramaId);
+				actionExists2(actionTrigger[panoramaId]);
+			}			
+		}		
 		
 		private function checkChild(childData:ChildData):void {
 			if (childData.childMouse.onClick != null) {
@@ -111,7 +127,7 @@ package com.panozona.player.manager.utils{
 				if (moduleNames[abstractModuleData.moduleName] != undefined) {
 					Trace.instance.printWarning("Repeating module name: "+abstractModuleData.moduleName);
 				}else{
-					moduleNames[abstractModuleData.moduleName] = "";					
+					moduleNames[abstractModuleData.moduleName] = ""; // something					
 				}
 			}			
 			for each(var abstractModuleDescription:AbstractModuleDescription in abstractModuleDescriptions) {
@@ -168,16 +184,41 @@ package com.panozona.player.manager.utils{
 					if (describedArgs.length != args.length) {
 						Trace.instance.printError("Not matching number of arguments for: "+abstractModuleDescription.moduleName+"."+functionName+" got: "+args.length+ " expected: "+describedArgs.length);
 					}					
-					for (var i:int = 0; i < args.length; i++) {						
-						if (!(args[i] is describedArgs[i])) {
-							if(!(describedArgs[i] === Boolean && (args[i]=="true" || args[i]=="false"))){
-								Trace.instance.printError("Not matching argument type in: " + abstractModuleDescription.moduleName + "." + functionName +" got: " + args[i] +" expected: " +
-								(describedArgs[i] === Boolean?"Boolean":(describedArgs[i] === Number?"Number":(describedArgs[i] === String?"String":(describedArgs[i] === Array?"Array":"Error!")))));
+					if(describedArgs.length > 0){					
+						for (var i:int = 0; i < args.length; i++) {							
+							if (!(args[i] is describedArgs[i])) {
+								if(!(describedArgs[i] === Boolean && (args[i]=="true" || args[i]=="false"))){
+									Trace.instance.printError("Not matching argument type in: " + abstractModuleDescription.moduleName + "." + functionName +" got: " + args[i] +" expected: " +
+									(describedArgs[i] === Boolean?"Boolean":(describedArgs[i] === Number?"Number":(describedArgs[i] === String?"String":(describedArgs[i] === Array?"Array":"Error!")))));
+								}
 							}
 						}
 					}
 				}
 			}
 		}
+		
+		private function actionExists2(actionId:String):void{
+			if (actionId != null) {
+				for each(var actionData:ActionData in managerData.actionsData) {
+					if (actionData.id == actionId) {
+						return;
+					}
+				}			
+				Trace.instance.printWarning("Action id does not exist: " + actionId);				
+			}			
+		}
+		
+		private function panoramaExists(panoramaId:String):void {
+			if (panoramaId != null) {
+				for each(var panoramaData:PanoramaData in managerData.panoramasData) {
+					if (panoramaData.id == panoramaId) {
+						return;					
+					}
+				}			
+				Trace.instance.printWarning("Panorama id does not exist: "+panoramaId);
+			}			
+		}
+		
 	}
 }

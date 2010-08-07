@@ -27,7 +27,7 @@ package com.panozona.player.manager.data {
 		
 		private var _owner:String;  // what will be called to execute function
 		private var _name:String;   // name of executed function
-		private var _args:Array;  // arguments of function
+		private var _args:Array;    // arguments of function
 		
 		public function FunctionData(owner:String, name:String){			
 			
@@ -46,8 +46,7 @@ package com.panozona.player.manager.data {
 	    		
 		public function get owner():String {
 			return _owner;
-		}		
-		
+		}				
 		
 		public function get name():String {
 			return _name;

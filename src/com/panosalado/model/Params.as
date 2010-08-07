@@ -56,6 +56,21 @@ public class Params
 		this.fieldOfView = fieldOfView;
 	}
 	
+	public function clone():Params {
+		var result:Params = new Params(path, pan, tilt, fieldOfView);
+		result.tierThreshold = tierThreshold;
+		result.boundsWidth = boundsWidth;
+		result.boundsHeight = boundsHeight;
+		result.minimumFieldOfView = minimumFieldOfView;
+		result.maximumFieldOfView = maximumFieldOfView;
+		result.minimumPan = minimumPan;
+		result.maximumPan = maximumPan;
+		result.minimumTilt = minimumTilt;
+		result.maximumTilt = maximumTilt;		
+		return result;
+	}
+	
+	
 	/**
 	* @private
 	*/

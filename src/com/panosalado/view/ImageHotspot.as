@@ -4,6 +4,7 @@
 	import flash.events.Event;
 	import flash.geom.Vector3D;
 	import flash.geom.Matrix3D;
+	import flash.geom.Matrix;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;	
 	
@@ -35,9 +36,12 @@
 	
 		protected function draw(e:Event):void {						
 			if (!invalidGraphicsData) return;
-			graphics.beginBitmapFill(bitmapData);			
-			graphics.drawRect(0, 0, bitmapData.width, bitmapData.height);
-			graphics.endFill();									
+			var matrix:Matrix = new Matrix();
+			matrix.tx = - bitmapData.width * 0.5;
+			matrix.ty = - bitmapData.height * 0.5;
+			graphics.beginBitmapFill(bitmapData,matrix,false,false);
+			graphics.drawRect(- bitmapData.width * 0.5, - bitmapData.height * 0.5, bitmapData.width, bitmapData.height);
+			graphics.endFill();						
 			invalidGraphicsData = false;			
 		}			
 	}		

@@ -26,8 +26,7 @@ package com.panozona.player.manager.data {
 				
 		private var _moduleName:String;
 		private var _path:String;
-		private var _weight:int;		
-		
+		private var _weight:int;				
 		private var _abstractModuleNodes:Array;
 		
 		public function AbstractModuleData(moduleName:String, path:String, weight:int) {
@@ -43,7 +42,6 @@ package com.panozona.player.manager.data {
 			_moduleName = moduleName;
 			_path = path;			
 			_weight = weight;			
-			
 			_abstractModuleNodes =  new Array();
 		}		
 		
