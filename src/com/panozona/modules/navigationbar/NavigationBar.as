@@ -142,12 +142,12 @@ package com.panozona.modules.navigationbar {
 			btnZoomOut = new Button(zoomoutPress, zoomoutRelease);			
 			btnZoomOut.setBitmaps(Bitmap_zoomout_plain, Bitmap_zoomout_plain,Bitmap_zoomout_press);
 			buttonsBar.addChild(btnZoomOut);
-			
+			/*
 			btnAutorotate = new Button(autorotateToggle);
 			btnAutorotate.setBitmaps(Bitmap_autorotate_plain, Bitmap_autorotate_plain, Bitmap_autorotate_press);
 			btnAutorotate.setActive(getAutorotationState());
 			buttonsBar.addChild(btnAutorotate);			
-			
+			*/
 			btnFullscreen = new Button(fullscreenToggle);
 			btnFullscreen.setBitmaps(Bitmap_fullscreen_plain,Bitmap_fullscreen_plain, Bitmap_fullscreen_press);
 			buttonsBar.addChild(btnFullscreen);						
@@ -160,8 +160,8 @@ package com.panozona.modules.navigationbar {
 			btnDown.x = btnUp.x + btnUp.width + spacing;
 			btnZoomIn.x = btnDown.x + btnDown.width + spacing;
 			btnZoomOut.x = btnZoomIn.x + btnZoomIn.width + spacing;
-			btnAutorotate.x = btnZoomOut.x + btnZoomOut.width + spacing;
-			btnFullscreen.x = btnAutorotate.x + btnAutorotate.width + spacing;
+			//btnAutorotate.x = btnZoomOut.x + btnZoomOut.width + spacing;
+			btnFullscreen.x = btnZoomOut.x + btnZoomOut.width + spacing;//btnAutorotate.x + btnAutorotate.width + spacing;
 						
 			var comboboxStyle:ComboboxStyle = new ComboboxStyle();			
 			combobox = new Combobox(saladoPlayer.managerData.panoramasData, comboboxStyle);

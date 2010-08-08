@@ -248,7 +248,7 @@ public class PanoSalado extends ViewData implements ICamera
 		// set viewData to secondary view data and try to render secondary canvas
 		viewData = viewData.secondaryViewData;
 		
-		dispatchEvent(new CameraMoveEvent(viewData.pan, viewData.tilt, viewData.fieldOfView)); 
+		dispatchEvent(new CameraMoveEvent(_pan, _tilt, _fieldOfView)); //COREMOD
 		
 		if (viewData._tile && viewData.invalid) {
 			//_render(viewData, event ? _secondaryCanvasInternal.graphics : null);

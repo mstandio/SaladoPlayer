@@ -19,6 +19,7 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.manager.utils {	
 
 	import flash.display.Sprite;
+	import flash.display.Stage;	
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -80,8 +81,8 @@ package com.panozona.player.manager.utils {
 		
 		private function stageReady(e:Event = null):void {                                            			
 			
-			removeEventListener(Event.ADDED_TO_STAGE, stageReady);						
-			stage.addEventListener(Event.RESIZE, handleStageResize);
+			removeEventListener(Event.ADDED_TO_STAGE, stageReady);									
+			stage.addEventListener(Event.RESIZE, handleStageResize);			
 						
 			var txtFormat:TextFormat = new TextFormat();
 			txtFormat.blockIndent = 0;

@@ -47,7 +47,7 @@ package com.panozona.player{
 	
 	import performance.Stats;
 	
-	[SWF(width = "500", height = "375", frameRate = "30", backgroundColor = "#FFFFFF")]
+	[SWF(frameRate = "30", backgroundColor = "#FFFFFF")]
 	
 	public class SaladoPlayer extends Sprite {
 		
@@ -106,10 +106,9 @@ package com.panozona.player{
     		xmlLoader.addEventListener(Event.COMPLETE, configurationLoaded, false, 0, true);			
 		}
 		
-		private function configurationNotLoaded(event:IOErrorEvent):void {
-			Trace.instance.configure(new TraceData()); // to show trace window 
-			addChild(Trace.instance);
-			Trace.instance.printError("Could not load configuration file");
+		private function configurationNotLoaded(event:IOErrorEvent=null):void {			
+			Trace.instance.printError("Could not load configuration file.");
+			cleanupOnCrash();
 		}
 		
 		private function configurationLoaded(event:Event):void {			
@@ -124,27 +123,31 @@ package com.panozona.player{
 			}catch (error:Error) {} // huh
 			
 			try {
+				
 				var managerDataParserXML:ManagerDataParserXML = new ManagerDataParserXML();
-				managerDataParserXML.configureManagerData(managerData, XML(input));
-				Trace.instance.printInfo("Configuration parsing done");
-			}catch (error:Error) {
-				Trace.instance.printError(error.message);
-			}
+				var settings:XML = XML(input);
+				managerDataParserXML.configureManagerData(managerData, settings);
+				Trace.instance.printInfo("Configuration parsing done.");		
 			
-			addChild(manager);
+				addChild(manager);
 			
-			Trace.instance.configure(managerData.traceData); 
-			tracer = Trace.instance;
-			addChild(tracer); 
+				Trace.instance.configure(managerData.traceData); 
+				tracer = Trace.instance;
+				addChild(tracer); 
 			
-			if (managerData.abstractModulesData.length == 0) {
-				finalOperations();
-			}else {
-				modulesLoader = new ModulesLoader();
-				modulesLoader.addEventListener(LoadModuleEvent.MODULE_LOADED, insertModule, false, 0, true);
-				modulesLoader.addEventListener(LoadModuleEvent.ALL_MODULES_LOADED, modulesLoadingComplete, false, 0, true);
-				modulesLoader.loadModules(managerData.abstractModulesData);
-			}
+				if (managerData.abstractModulesData.length == 0) {
+					finalOperations();
+				}else {
+					modulesLoader = new ModulesLoader();
+					modulesLoader.addEventListener(LoadModuleEvent.MODULE_LOADED, insertModule, false, 0, true);
+					modulesLoader.addEventListener(LoadModuleEvent.ALL_MODULES_LOADED, modulesLoadingComplete, false, 0, true);
+					modulesLoader.loadModules(managerData.abstractModulesData);
+				}			
+			}catch (error:Error) {				
+				Trace.instance.printError("Error in configuration file.");
+				Trace.instance.printError(error.message);								
+				cleanupOnCrash();
+			}			
 		}
 		
 		
@@ -181,24 +184,32 @@ package com.panozona.player{
 
 		private function finalOperations():void{
 			if (managerData.traceData.debug) {
-				abstractModuleDescriptions.push(new ManagerDescription().description);				
+				abstractModuleDescriptions.push(new ManagerDescription().description);
 				try {
 					var managerDataValidator:ManagerDataValidator = new ManagerDataValidator(managerData, abstractModuleDescriptions);
 					managerDataValidator.validate();
-					Trace.instance.printInfo("Configuration validation done");
+					Trace.instance.printInfo("Configuration validation done.");
+					
 				}catch (error:Error) {
 					Trace.instance.printError(error.message);
 					trace(error.getStackTrace()); // remove
 				}				
-			}
-			
-			addChild(Trace.instance); // to make it most on top
-			
+			}			
+			addChild(Trace.instance); // to make it most on top			
 			if (managerData.showStatistics) {
 				addChild(new Stats());
-			}
-			
+			}			
 			manager.loadFirstPanorama();
+		}
+		
+		private function cleanupOnCrash():void {		
+			while (numChildren) {
+				removeChildAt(0);
+			}
+			var managerDescription:ManagerDescription = new ManagerDescription();			
+			Trace.instance.configure(managerData.traceData); 
+			tracer = Trace.instance;
+			addChild(tracer); 			
 		}
 		
 		/**

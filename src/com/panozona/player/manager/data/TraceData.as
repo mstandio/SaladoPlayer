@@ -33,7 +33,7 @@ package com.panozona.player.manager.data{
 		public var height:Number;  
 		
 		public function TraceData( ) {
-			debug = false;
+			debug = true;
 			initialVisibility = true;
 			verticalAlign = "top";
 			horizontalAlign = "right";

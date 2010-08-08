@@ -41,7 +41,7 @@ public class AutorotationCameraData extends EventDispatcher
 		mode			= "speed" // speed
 		speed 			= 1;
 		frameIncrement		= 0.0333;
-		_enabled			= true;
+		_enabled			= false; // COREMOD
 	}
 	
 	

@@ -64,7 +64,12 @@ package com.panozona.player.manager.utils{
 		}
 			
 		private function moduleLost(e:IOErrorEvent):void {					
-			Trace.instance.printError("Could not load module: " + e.toString());
+			for(var i:int=0;i<loaders.length;i++){
+				if (loaders[i] != null && loaders[i].contentLoaderInfo == e.target) {
+					loaders[i] = null;
+				}
+			}
+			Trace.instance.printWarning("Could not load module: " + e.toString());
 		}								
 		
 		private function checkLoadingState():void {
