@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>				
-	<global	trace="debug:true"  firstPanorama="pano2"/>
+	<global showStatistics="true"	trace="debug:true"  firstPanorama="pano2"/>
 	<panoramas>			 				
 		<panorama id="pano1" label="Park in winter" path="panoramas/park1/park_f.xml" camera="pan:-60" >	
 			<hotspot id="hs2" position="tilt:5,pan:10" path="hotspots/arrow.png" mouse="onClick:act1"/>		
