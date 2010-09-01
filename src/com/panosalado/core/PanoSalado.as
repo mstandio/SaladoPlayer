@@ -286,12 +286,11 @@ public class PanoSalado extends ViewData implements ICamera
 				child.invalid = false;
 			}
 			matrix3D = matrix3D.clone();
-			matrix3D.append(viewData.transformMatrix3D)
-			matrix3D.appendTranslation(0,0,-viewData.perspectiveProjection.focalLength);
-			(child as DisplayObject).transform.matrix3D = matrix3D;
+			matrix3D.append(viewData.transformMatrix3D);
+			matrix3D.appendTranslation(0, 0, -viewData.perspectiveProjection.focalLength);						
+			(child as DisplayObject).transform.matrix3D = matrix3D;			
 		}
-	}
-	
+	}	
 	
 	/**
 	* Loads a new panorama.  This operation is asynchronous.  The new panorama does not exist until PanoSalado

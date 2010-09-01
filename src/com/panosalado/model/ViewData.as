@@ -43,15 +43,15 @@ public class ViewData extends Sprite
 {	
 	/**
 	* Minimum renderable field of view
-	* @default 0.000000000000000000001
+	* @default 0.1
 	*/
-	public static const MINIMUM_FOV:Number =   0.000000000000000000001;
+	public static const MINIMUM_FOV:Number =   0.1;
 	
 	/**
 	* Maximum renderable field of view
-	* @default 179.999999999999999999999
+	* @default 179.9
 	*/
-	public static const MAXIMUM_FOV:Number = 179.999999999999999999999;
+	public static const MAXIMUM_FOV:Number = 179.9;
 	
 	/**
 	* Matrix3D recomposed from pan and tilt angles. For internal use.
@@ -436,7 +436,7 @@ public class ViewData extends Sprite
 	
 	/**
 	* minimumFieldOfView
-	* @default 0.000000000000000000001
+	* @default 0.1
 	*/
 	public function get minimumFieldOfView():Number { return _minimumFieldOfView; }
 	/**
@@ -454,7 +454,7 @@ public class ViewData extends Sprite
 	
 	/**
 	* maximumFieldOfView
-	* @default 179.999999999999999999999
+	* @default 179.9
 	*/
 	public function get maximumFieldOfView():Number { return _maximumFieldOfView; }
 	/**

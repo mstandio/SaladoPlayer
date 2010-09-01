@@ -23,7 +23,7 @@ package com.panozona.player.manager.data {
 	import flash.events.Event;	
 				
 	import com.panosalado.view.ManagedChild;
-	import com.panosalado.view.ImageHotspot;
+	import com.panosalado.view.ImageHotspot; //import com.panosalado.view.VectorHotspot;
 	
 	/**
 	 * ...
@@ -67,7 +67,7 @@ package com.panozona.player.manager.data {
 			if (_managedChild != null && !isNaN(_childPosition.pan) && !isNaN(_childPosition.tilt) && !isNaN(_childPosition.distance)) {								
 				var piOver180:Number = Math.PI / 180;				
 				var pr:Number = (-1*(_childPosition.pan - 90)) * piOver180; 
-				var tr:Number = _childPosition.tilt * piOver180;
+				var tr:Number = -1*  _childPosition.tilt * piOver180;
 				var xc:Number = _childPosition.distance * Math.cos(pr) * Math.cos(tr);
 				var yc:Number = _childPosition.distance * Math.sin(tr);
 				var zc:Number = _childPosition.distance * Math.sin(pr) * Math.cos(tr);				
@@ -75,18 +75,38 @@ package com.panozona.player.manager.data {
 				_managedChild.x = xc;
 				_managedChild.y = yc;
 				_managedChild.z = zc;								
-				_managedChild.rotationY = ((_childPosition.pan  + _childTransform.rotationY)* piOver180);
-				_managedChild.rotationX = ((_childPosition.tilt + _childTransform.rotationX) * piOver180);
+				_managedChild.rotationY = (_childPosition.pan  + _childTransform.rotationY) * piOver180;
+				_managedChild.rotationX = (_childPosition.tilt + _childTransform.rotationX) * piOver180;
 				_managedChild.rotationZ = _childTransform.rotationZ * piOver180
 				
 				_managedChild.scaleX = _childTransform.scaleX;
 				_managedChild.scaleY = _childTransform.scaleY;
-				_managedChild.scaleZ = _childTransform.scaleZ;				
+				_managedChild.scaleZ = _childTransform.scaleZ;												
 				
 				if (id != null ) {
 					(_managedChild).name = id;								
 				}			
 			}			
+			
+			/*
+			
+			var gd:Vector.<flash.display.IGraphicsData> = new Vector.<flash.display.IGraphicsData>();
+				gd.push( new flash.display.GraphicsSolidFill(0x000000,0.6) );
+				gd.push( new flash.display.GraphicsStroke(0.001, false, "normal", "none", "round", 3, new flash.display.GraphicsSolidFill(0xFF0000)) );
+				var gp:flash.display.GraphicsPath = new flash.display.GraphicsPath();
+				var hw:int = 50;
+				gp.moveTo(-hw,-hw);
+				gp.lineTo(hw,-hw);
+				gp.lineTo(hw,hw);
+				gp.lineTo(-hw,hw);
+				gp.lineTo(-hw,-hw)
+				gd.push(gp);
+				_managedChild = new VectorHotspot( gd ); //pass vector of IGraphics Data to hotspot constructor.
+				_managedChild.x = 0; //position hotspot x,y,z = (0,0,0) is where the camera is (bad place for a hotspot)
+				_managedChild.y = 0;
+				_managedChild.z = 600;		
+			*/
+			
 			return _managedChild;
 		}
 		

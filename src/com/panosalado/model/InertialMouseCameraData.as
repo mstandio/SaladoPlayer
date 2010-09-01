@@ -38,6 +38,11 @@ public class InertialMouseCameraData extends EventDispatcher
 	*/
 	public var threshold:Number;
 	
+	/**
+	* delta zoom value that will be used for scroll zooming
+	*/
+	public var zoomIncrement:Number;
+	
 	public var _enabled:Boolean;
 	
 	public function InertialMouseCameraData()
@@ -45,7 +50,8 @@ public class InertialMouseCameraData extends EventDispatcher
 		sensitivity		 = 0.0003;
 		friction		 = 0.3;
 		threshold		 = 0.0001;
-		_enabled		 = true;
+		zoomIncrement	 = 2;
+		_enabled		 = true;		
 	}
 	
 	public function get enabled():Boolean {

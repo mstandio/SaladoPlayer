@@ -31,7 +31,7 @@ package com.panozona.player.manager.data{
 		public function ChildPosition(){			
 			pan = 0;
 			tilt = 0;
-			distance = 500;
+			distance = 600;
 		}		
 	}
 }
