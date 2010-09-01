@@ -31,7 +31,7 @@ package com.panozona.player.manager.utils{
 		public function ManagerDescription(){
 			managerDescription = new Object();
 			managerDescription.moduleName = "SaladoPlayer";
-			managerDescription.moduleVersion = 0.1;
+			managerDescription.moduleVersion = 0.2;
 			managerDescription.functionsDescription = new Object();
 			
 			managerDescription.functionsDescription["print"] = new Array(String);			

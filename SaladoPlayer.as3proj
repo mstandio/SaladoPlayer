@@ -14,7 +14,6 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="lib" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -44,7 +43,7 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <!-- example: <element path="..." /> -->
+    <element path="lib\tweener.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

@@ -18,12 +18,10 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.data {
 	
+	import flash.display.Bitmap;
 	import flash.display.DisplayObject;	
 	import flash.display.BitmapData;
-	import flash.events.Event;	
-				
-	import com.panosalado.view.ManagedChild;
-	import com.panosalado.view.ImageHotspot; //import com.panosalado.view.VectorHotspot;
+	import flash.events.Event;		
 	
 	/**
 	 * ...
@@ -37,9 +35,10 @@ package com.panozona.player.manager.data {
 		
 		private var _childMouse:ChildMouse;
 		private var _childTransform:ChildTransform;
-		private var _childPosition:ChildPosition;		
+		private var _childPosition:ChildPosition;				
 		
-		protected var _managedChild:ManagedChild;		
+		private var _bitmapFile:Bitmap;
+		private var _swfFile:DisplayObject;		
 		
 		public function ChildData(id:String, path:String, weight:int) {
 			if (id == null || id == "" ) {
@@ -56,61 +55,19 @@ package com.panozona.player.manager.data {
 			
 			_childMouse = new ChildMouse();
 			_childTransform = new ChildTransform();
-			_childPosition = new ChildPosition();
+			_childPosition = new ChildPosition();			
 		}	
 		
-		public final function setBitmapData(bitmapData:BitmapData):void {			
-			_managedChild = new ImageHotspot(bitmapData);
-		}
-					
-		public final function get managedChild():ManagedChild {			
-			if (_managedChild != null && !isNaN(_childPosition.pan) && !isNaN(_childPosition.tilt) && !isNaN(_childPosition.distance)) {								
-				var piOver180:Number = Math.PI / 180;				
-				var pr:Number = (-1*(_childPosition.pan - 90)) * piOver180; 
-				var tr:Number = -1*  _childPosition.tilt * piOver180;
-				var xc:Number = _childPosition.distance * Math.cos(pr) * Math.cos(tr);
-				var yc:Number = _childPosition.distance * Math.sin(tr);
-				var zc:Number = _childPosition.distance * Math.sin(pr) * Math.cos(tr);				
-				
-				_managedChild.x = xc;
-				_managedChild.y = yc;
-				_managedChild.z = zc;								
-				_managedChild.rotationY = (_childPosition.pan  + _childTransform.rotationY) * piOver180;
-				_managedChild.rotationX = (_childPosition.tilt + _childTransform.rotationX) * piOver180;
-				_managedChild.rotationZ = _childTransform.rotationZ * piOver180
-				
-				_managedChild.scaleX = _childTransform.scaleX;
-				_managedChild.scaleY = _childTransform.scaleY;
-				_managedChild.scaleZ = _childTransform.scaleZ;												
-				
-				if (id != null ) {
-					(_managedChild).name = id;								
-				}			
-			}			
-			
-			/*
-			
-			var gd:Vector.<flash.display.IGraphicsData> = new Vector.<flash.display.IGraphicsData>();
-				gd.push( new flash.display.GraphicsSolidFill(0x000000,0.6) );
-				gd.push( new flash.display.GraphicsStroke(0.001, false, "normal", "none", "round", 3, new flash.display.GraphicsSolidFill(0xFF0000)) );
-				var gp:flash.display.GraphicsPath = new flash.display.GraphicsPath();
-				var hw:int = 50;
-				gp.moveTo(-hw,-hw);
-				gp.lineTo(hw,-hw);
-				gp.lineTo(hw,hw);
-				gp.lineTo(-hw,hw);
-				gp.lineTo(-hw,-hw)
-				gd.push(gp);
-				_managedChild = new VectorHotspot( gd ); //pass vector of IGraphics Data to hotspot constructor.
-				_managedChild.x = 0; //position hotspot x,y,z = (0,0,0) is where the camera is (bad place for a hotspot)
-				_managedChild.y = 0;
-				_managedChild.z = 600;		
-			*/
-			
-			return _managedChild;
+		
+		public final function set bitmapFile(value:Bitmap):void {			
+			_swfFile = null;
+			_bitmapFile = value;
 		}
 		
-		
+		public final function set swfFile(value:DisplayObject):void {			
+			_bitmapFile = null;
+			_swfFile = value;
+		}		
 		
 		public function get id():String {
 			return _id;
@@ -136,8 +93,12 @@ package com.panozona.player.manager.data {
 			return _childPosition;
 		}		
 		
-		public function get managedChildReference():ManagedChild {
-			return _managedChild;
+		public function get bitmapFile():Bitmap {
+			return _bitmapFile;
 		}
+		
+		public function get swfFile():DisplayObject {
+			return _swfFile;
+		}		
 	}	
 }

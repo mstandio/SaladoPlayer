@@ -1,13 +1,16 @@
 ﻿######################################################################################################
 ######################################################################################################
 ###   
-###   Panorama image needs to be in "Deep Zoom" format, 
-###   described with separate *.xml file and structured in specific way.
-###
 ###   Sample panoramas can be downloaded from http://github.com/mstandio/SaladoPlayer/downloads
+###   Place folders "park1" and "park2" into this directory.
+###   
+###   Panorama image needs to be in "Deep Zoom" format, 
+###   described with separate *.xml file 
+###   and structured in specific way.
+###
 ###   To create your own panoramas see http://github.com/mstandio/SaladoConverter
 ###   
-###   More at http://panozona.com/wiki/
+###   Get instructions at http://panozona.com/wiki/
 ###
 ######################################################################################################
 ######################################################################################################

@@ -112,7 +112,7 @@ public class PanoSalado extends ViewData implements ICamera
 		
 		super();
 				
-		_dependencyRelay = new DependencyRelay();
+		_dependencyRelay = new DependencyRelay(false); //COREMOD
 		_stageReference	= new StageReference();
 		_params = {};
 		

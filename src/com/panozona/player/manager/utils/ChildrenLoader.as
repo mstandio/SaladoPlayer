@@ -19,7 +19,10 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.manager.utils {
 	
 	import flash.display.Loader;
+	import flash.system.LoaderContext;	
+	import flash.system.ApplicationDomain;
 	import flash.display.Bitmap;
+	import flash.display.DisplayObject;
 	import flash.events.EventDispatcher;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -39,25 +42,31 @@ package com.panozona.player.manager.utils {
 		public function loadChildren(childrenData:Vector.<ChildData>):void {			
 			this.childrenData = childrenData;
 			loaders = new Vector.<Loader>();
+			var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);			
 			for(var i:int=0;i<childrenData.length;i++){
 				loaders[i] = new Loader(); 			  
 				loaders[i].contentLoaderInfo.addEventListener(Event.COMPLETE, childLoaded, false, 0 , true);
 				loaders[i].contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, childLost);
-				loaders[i].load(new URLRequest(childrenData[i].path));
+				loaders[i].load(new URLRequest(childrenData[i].path),context);
 			}		   
 		}				
 	
 		private function childLoaded(e:Event):void {
 			for(var i:int=0;i<loaders.length;i++){
 				if (loaders[i].contentLoaderInfo === e.target) {					
-					childrenData[i].setBitmapData((Bitmap(loaders[i].content)).bitmapData);
-					dispatchEvent(new LoadChildEvent(LoadChildEvent.BITMAPDATA_CONTENT, childrenData[i]))
-					loaders[i].contentLoaderInfo.removeEventListener(Event.COMPLETE, childLoaded);						
+					if (loaders[i].contentLoaderInfo.url.match(/(.*)\.swf$/i)) {						
+						childrenData[i].swfFile = DisplayObject(loaders[i].content);
+						dispatchEvent(new LoadChildEvent(LoadChildEvent.SWFDATA_CONTENT, childrenData[i]));
+					}else if(loaders[i].contentLoaderInfo.url.match(/^(.*)\w\.(png|gif|jpg|jpeg)$/i)){
+						childrenData[i].bitmapFile = Bitmap(loaders[i].content);
+						dispatchEvent(new LoadChildEvent(LoadChildEvent.BITMAPDATA_CONTENT, childrenData[i]));
+					}
+					loaders[i].contentLoaderInfo.removeEventListener(Event.COMPLETE, childLoaded);
 				}
 			}			
 		}
 			
-		private function childLost(e:IOErrorEvent):void {					
+		private function childLost(e:IOErrorEvent):void {
 			Trace.instance.printError("Could not load file: " + e.toString());
 		}						
 	}

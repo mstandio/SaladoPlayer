@@ -70,7 +70,7 @@
 		private var framecount:Number = 0;		
 		override protected function onCameraMove(cameraMoveEvent:Object):void {			
 			framecount++;
-			if(framecount > 2){
+			if(framecount > 1){
 				txtOutput.text = "pan  " + validatePan(cameraMoveEvent.pan).toFixed(2) + 
 				"\ntilt " + cameraMoveEvent.tilt.toFixed(2) + 
 				"\nfov  " + cameraMoveEvent.fieldOfView.toFixed(2);

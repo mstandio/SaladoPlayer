@@ -29,6 +29,7 @@ package com.panozona.player.manager.events{
 	public class LoadChildEvent extends Event {
 		
 		public static const BITMAPDATA_CONTENT:String =  "bitmapDataContent";		
+		public static const SWFDATA_CONTENT:String =  "swfDataContent";		
 		
 		public var childData:ChildData;
 			

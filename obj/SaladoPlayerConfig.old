@@ -6,9 +6,11 @@
   <compiler>
     <source-path append="true">
       <path-element>F:\SaladoPlayer\src</path-element>
-      <path-element>F:\SaladoPlayer\lib</path-element>
       <path-element>e:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
+    <library-path append="true">
+      <path-element>F:\SaladoPlayer\lib\tweener.swc</path-element>
+    </library-path>
   </compiler>
   <file-specs>
     <path-element>F:\SaladoPlayer\src\com\panozona\player\SaladoPlayer.as</path-element>

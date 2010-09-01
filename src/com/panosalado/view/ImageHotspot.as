@@ -22,8 +22,7 @@ package com.panosalado.view {
 	import flash.events.Event;
 	import flash.geom.Vector3D;
 	import flash.geom.Matrix3D;
-	import flash.geom.Matrix;
-	import flash.display.Bitmap;
+	import flash.geom.Matrix;	
 	import flash.display.BitmapData;	
 	
 	
@@ -37,8 +36,7 @@ package com.panosalado.view {
 		public var invalidGraphicsData:Boolean;
 		
 		public function ImageHotspot(bitmapData:BitmapData) {						
-			this.bitmapData = bitmapData;
-			buttonMode = true;
+			this.bitmapData = bitmapData;			
 		}
 	
 		public function get bitmapData():BitmapData { return _bitmapData; }

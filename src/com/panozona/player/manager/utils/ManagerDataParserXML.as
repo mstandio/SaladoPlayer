@@ -128,7 +128,7 @@ package com.panozona.player.manager.utils {
 									getAttributeValue(panorama.elements()[i], "id", String, null),
 									getAttributeValue(panorama.elements()[i], "path", String, null),
 									i);									
-								applySubAttributes(childData.childPosition, panorama.elements()[i].attribute("position") );
+								applySubAttributes(childData.childPosition, panorama.elements()[i].attribute("position"));
 								applySubAttributes(childData.childMouse, panorama.elements()[i].attribute("mouse"));
 								panoramaData.childrenData.push(childData);
 							}catch(e:Error) {
