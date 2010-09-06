@@ -18,9 +18,9 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panosalado.view {
 	
-	import flash.display.Sprite;
+	import flash.display.Sprite;	
 	import flash.events.Event;	
-	import flash.events.MouseEvent;
+	import flash.events.MouseEvent;	
 	
 	/**
 	 * ...
@@ -30,17 +30,18 @@ package com.panosalado.view {
 		
 		protected var button:Sprite;
 		
-		public function SwfHotspot() {
-			button = new Sprite();						
+		public function SwfHotspot() {			
+			button = new Sprite();
 			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init, false, 0 , true);					
-		}		
+			else addEventListener(Event.ADDED_TO_STAGE, init, false, 0 , true);
+		}
 		
 		private function init(e:Event = null):void {			
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+			removeEventListener(Event.ADDED_TO_STAGE, init);			
 			addChild(button);
-			hotspotReady();
-		}		
+			hotspotReady();			
+		}			
+		
 		
 		protected function hotspotReady():void {			
 			throw new Error("Function hotspotReady() must be overrided");
@@ -56,6 +57,6 @@ package com.panosalado.view {
 		
 		public function setButtonMode(value:Boolean):void{
 			button.buttonMode = value;			
-		}				
+		}	
 	}
 }

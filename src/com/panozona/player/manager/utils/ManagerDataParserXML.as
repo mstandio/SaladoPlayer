@@ -198,7 +198,7 @@ package com.panozona.player.manager.utils {
 			if (subAttributes == null && subAttributes.length == 0) {
 				Trace.instance.printWarning("Empty subAttribute");
 			}else{				
-				subAttributes.replace(/\s/, ""); // remove all white spaces
+				subAttributes.replace(/\s/g, ""); // remove all white spaces
 				var buffer:*;
 				var allSubAttributes:Array = subAttributes.split(",");
 				var singleSubAttrArray:Array;
@@ -260,7 +260,7 @@ package com.panozona.player.manager.utils {
 			}else if (content == null || content.length == 0) {
 				Trace.instance.printWarning("No content for action: "+ actionData.id);
 			} else {
-				content = content.replace(/\s/, ""); // remove all white spaces
+				content = content.replace(/\s/g, ""); // remove all white spaces
 				var singleFunctionArray:Array;
 				var allArguments:Array;
 				var functionData:FunctionData;

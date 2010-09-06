@@ -19,9 +19,10 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.module{
 		
 	
+	import flash.display.DisplayObject; import flash.display.StageDisplayState;
 	import flash.events.Event;	
 	import flash.events.KeyboardEvent;
-	import flash.display.Sprite;
+	import flash.display.Sprite;	
 	import flash.system.ApplicationDomain;	
 	
 	import com.panozona.player.module.data.ModuleData;
@@ -47,6 +48,7 @@ package com.panozona.player.module{
 		private var LoadPanoramaEventClass:Class;
 		private var CameraMoveEventClass:Class;
 		private var CameraKeyBindingsClass:Class;
+		private var AutorotationEventClass:Class;
 		
 		private var TraceClass:Class;
 		private var tracer:Object;				
@@ -65,16 +67,18 @@ package com.panozona.player.module{
 			try {
 				
 				SaladoPlayerClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.SaladoPlayer") as Class;
-				saladoPlayer = SaladoPlayerClass(this.root.parent);												
+				saladoPlayer = this.parent as SaladoPlayerClass;
 				
 				TraceClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.utils.Trace") as Class;
-				tracer = TraceClass(saladoPlayer.tracer);				
+				tracer = saladoPlayer.tracer as TraceClass;
 				
 				LoadPanoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.LoadPanoramaEvent") as Class;
 				
 				CameraMoveEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.CameraMoveEvent") as Class;
 				
-				CameraKeyBindingsClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.model.CameraKeyBindings") as Class;
+				AutorotationEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.AutorotationEvent") as Class;
+				
+				CameraKeyBindingsClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.model.CameraKeyBindings") as Class;				
 				
 				_moduleData = new ModuleData(saladoPlayer.managerData.getAbstractModuleDataByName(_moduleDescription.moduleName));		
 				
@@ -103,6 +107,16 @@ package com.panozona.player.module{
 				saladoPlayer.manager.removeEventListener(CameraMoveEventClass.CAMERA_MOVE, onCameraMove);
 			}	
 		}		
+		
+		protected final function autorotationStateTracking(enabled:Boolean):void {
+			if (enabled) {
+				saladoPlayer.manager.addEventListener(AutorotationEventClass.AUTOROTATION_STARTED, onAutorotationStarted, false, 0 , true);
+				saladoPlayer.manager.addEventListener(AutorotationEventClass.AUTOROTATION_STOPPED, onAutorotationStopped, false, 0 , true);
+			}else {
+				saladoPlayer.manager.removeEventListener(AutorotationEventClass.AUTOROTATION_STARTED, onAutorotationStarted);
+				saladoPlayer.manager.removeEventListener(AutorotationEventClass.AUTOROTATION_STOPPED, onAutorotationStopped);
+			}	
+		}
 		
 		protected function moduleReady():void {			
 			throw new Error("Function moduleReady() must be overrided by this module");
@@ -151,6 +165,18 @@ package com.panozona.player.module{
 			// see ViewFinder module
 		}
 		
+		// override me
+		protected function onAutorotationStarted(autorotationEvent:Object):void {
+			
+		}
+		
+		// override me
+		protected function onAutorotationStopped(autorotationEvent:Object):void {
+			
+		}
+		
+		
+		
 		protected function printError(msg:String):void {
 			if(tracer != null){
 				tracer.printError(_moduleDescription.moduleName+":"+msg);
@@ -178,16 +204,12 @@ package com.panozona.player.module{
 		}
 		
 		public final function toggleFullscreen():void {
-			stage.displayState = (stage.displayState == "normal") ? "fullScreen" : "normal";
-		}
-		
-		public final function toggleAutorotation():void {
-			saladoPlayer.managerData.autorotationCameraData.enabled = !saladoPlayer.managerData.autorotationCameraData.enabled;
-		}
-		
-		public final function getAutorotationState():Boolean {
-			return saladoPlayer.managerData.autorotationCameraData.enabled;			 
+			saladoPlayer.manager.toggleFullscreen();
 		}		
+		
+		public final function toggleAutorotation():void {						
+			saladoPlayer.managerData.autorotationCameraData.toggleRotation();		
+		}
 		
 		public final function keyLeft(isDown:Boolean):void {			
 			if(isDown){

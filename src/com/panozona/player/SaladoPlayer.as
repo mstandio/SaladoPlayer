@@ -45,9 +45,9 @@ package com.panozona.player{
 	import com.panozona.player.manager.data.AbstractModuleDescription;
 	import com.panozona.player.manager.data.TraceData;
 	
-	import performance.Stats;
-	
-	[SWF(frameRate = "30", backgroundColor = "#FFFFFF")]
+	import performance.Stats;	
+
+	[SWF(width="500", height="375", frameRate="30", backgroundColor="#FFFFFF")] // default size is mandatory
 	
 	public class SaladoPlayer extends Sprite {
 		
@@ -62,14 +62,13 @@ package com.panozona.player{
 		private var keyboardCamera:ICamera;
 		private var autorotationCamera:ICamera;
 		private var simpleTransition:SimpleTransition;
-		private var nanny:Nanny;	
-		
+		private var nanny:Nanny;			
 		
 		private var modulesLoader:ModulesLoader;		
 		private var moduleByDepth:Array;
 		private var moduleByName:Array;		
 		private var moduleClass:Class;
-		private var abstractModuleDescriptions:Vector.<AbstractModuleDescription>;	
+		private var abstractModuleDescriptions:Vector.<AbstractModuleDescription>;
 		
 		public function SaladoPlayer() {
 			
@@ -99,16 +98,23 @@ package com.panozona.player{
 				nanny
 			]);			
 			
+			Trace.instance.printInfo(ManagerDescription.name +" v"+ManagerDescription.version);
+			
 			var xmlLoader:URLLoader = new URLLoader();
 			xmlLoader.dataFormat = URLLoaderDataFormat.BINARY;
-    		xmlLoader.load( new URLRequest(loaderInfo.parameters.xml?loaderInfo.parameters.xml:"settings.xml"));
-			xmlLoader.addEventListener(IOErrorEvent.IO_ERROR, configurationNotLoaded, false, 0, true);
-    		xmlLoader.addEventListener(Event.COMPLETE, configurationLoaded, false, 0, true);			
+			try{
+				xmlLoader.load( new URLRequest(loaderInfo.parameters.xml?loaderInfo.parameters.xml:"settings.xml"));
+				xmlLoader.addEventListener(IOErrorEvent.IO_ERROR, configurationNotLoaded, false, 0, true);
+				xmlLoader.addEventListener(Event.COMPLETE, configurationLoaded, false, 0, true);			
+			}catch (error:Error) {				
+				cleanupOnCrash();
+				Trace.instance.printError("Could not access local files. See http://panozona.com/wiki/Accessing_local_files");
+			}
 		}
 		
-		private function configurationNotLoaded(event:IOErrorEvent=null):void {			
-			Trace.instance.printError("Could not load configuration file.");
-			cleanupOnCrash();
+		private function configurationNotLoaded(event:IOErrorEvent = null):void {			
+			cleanupOnCrash();			
+			Trace.instance.printError("Could not load configuration file: "+event.text);						
 		}
 		
 		private function configurationLoaded(event:Event):void {			
@@ -127,7 +133,7 @@ package com.panozona.player{
 				var managerDataParserXML:ManagerDataParserXML = new ManagerDataParserXML();
 				var settings:XML = XML(input);
 				managerDataParserXML.configureManagerData(managerData, settings);
-				Trace.instance.printInfo("Configuration parsing done.");		
+				Trace.instance.printInfo("Configuration parsing done.");
 			
 				addChild(manager);
 			
@@ -143,10 +149,10 @@ package com.panozona.player{
 					modulesLoader.addEventListener(LoadModuleEvent.ALL_MODULES_LOADED, modulesLoadingComplete, false, 0, true);
 					modulesLoader.loadModules(managerData.abstractModulesData);
 				}			
-			}catch (error:Error) {				
+			}catch (error:Error) {								
+				cleanupOnCrash();
 				Trace.instance.printError("Error in configuration file.");
 				Trace.instance.printError(error.message);								
-				cleanupOnCrash();
 			}			
 		}
 		
@@ -188,8 +194,7 @@ package com.panozona.player{
 				try {
 					var managerDataValidator:ManagerDataValidator = new ManagerDataValidator(managerData, abstractModuleDescriptions);
 					managerDataValidator.validate();
-					Trace.instance.printInfo("Configuration validation done.");
-					
+					Trace.instance.printInfo("Configuration validation done.");					
 				}catch (error:Error) {
 					Trace.instance.printError(error.message);
 					trace(error.getStackTrace()); // remove
@@ -205,8 +210,7 @@ package com.panozona.player{
 		private function cleanupOnCrash():void {		
 			while (numChildren) {
 				removeChildAt(0);
-			}
-			var managerDescription:ManagerDescription = new ManagerDescription();			
+			}					
 			Trace.instance.configure(managerData.traceData); 
 			tracer = Trace.instance;
 			addChild(tracer); 			

@@ -1,6 +1,6 @@
 ﻿package com.panozona.test{
 	
-	import com.panozona.modues.navigationbar.combobox.*;
+	import com.panozona.modules.navigationbar.combobox.*;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.display.Stage;
@@ -32,7 +32,7 @@
 			this.addChild(txt);
 			txt.x = -250;			
 			
-			var vector:Vector.<Object> = new Vector.<Object>();
+			var arr:Array = new Array();
 						
 			style = new ComboboxStyle();			
 			
@@ -48,12 +48,12 @@
 			var object4:Object = new Object();
 			object4.label = "labella 444441";
 			
-			vector.push(object1);
-			vector.push(object2);
-			vector.push(object3);
-			vector.push(object4);						
+			arr.push(object1);
+			arr.push(object2);
+			arr.push(object3);
+			arr.push(object4);						
 			
-			combobox = new Combobox(vector, style);
+			combobox = new Combobox(arr, style);
 			combobox.x = combobox.y = 300; 			
 			addChild(combobox);			
 			combobox.setEnabled(true);
@@ -62,7 +62,7 @@
 		}		
 		
 		public function labelChanged(e:ComboboxEvent):void {			
-			txt.text = "label : " + e.object.label;			
+			txt.text = "label : " + e.panoramaData.label;			
 		}			
 	}
 }

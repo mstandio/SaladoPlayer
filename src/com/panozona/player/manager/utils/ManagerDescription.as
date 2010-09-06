@@ -26,12 +26,15 @@ package com.panozona.player.manager.utils{
 	 */
 	public class ManagerDescription{
 		
-		private var managerDescription:Object;
+		public static const name:String = "SaladoPlayer";
+		public static const version:Number = 0.3;
 		
+		private var managerDescription:Object;
+				
 		public function ManagerDescription(){
 			managerDescription = new Object();
-			managerDescription.moduleName = "SaladoPlayer";
-			managerDescription.moduleVersion = 0.2;
+			managerDescription.moduleName = ManagerDescription.name;
+			managerDescription.moduleVersion = ManagerDescription.version;
 			managerDescription.functionsDescription = new Object();
 			
 			managerDescription.functionsDescription["print"] = new Array(String);			
@@ -45,7 +48,8 @@ package com.panozona.player.manager.utils{
 			managerDescription.functionsDescription["advancedStartMoving"] = new Array(Number, Number, Number, Number, Number);
 			managerDescription.functionsDescription["advancedMoveToChild"] = new Array(String, Number, Number, String);
 			managerDescription.functionsDescription["advancedMoveTo"] = new Array(Number, Number, Number, Number, String);
-			managerDescription.functionsDescription["runAction"] = new Array(String);
+			managerDescription.functionsDescription["toggleFullscreen"] = new Array();
+			managerDescription.functionsDescription["runAction"] = new Array(String);			
 		}		
 		
 		public function get description():AbstractModuleDescription {

@@ -69,7 +69,7 @@ package com.panozona.player.manager.utils{
 					loaders[i] = null;
 				}
 			}
-			Trace.instance.printWarning("Could not load module: " + e.toString());
+			Trace.instance.printError("Could not load module: " + e.toString());
 		}								
 		
 		private function checkLoadingState():void {

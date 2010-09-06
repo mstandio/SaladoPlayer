@@ -122,7 +122,7 @@ package com.panozona.modules.navigationbar.combobox {
 			addChild(elementsBar);												
 			var lastY:Number = 0;			
 			for (var i:int = 0; i < elements.length; i++) {								
-				element = elements[style.opensUp ? (elements.length-1-i):(i)];				
+				element = elements[style.opensUp ? (elements.length-1-i):(i)];
 				elementsBar.addChild(element);
 				if (element.object.label == mainElement.object.label) {
 					element.isActive = true;										
@@ -130,9 +130,9 @@ package com.panozona.modules.navigationbar.combobox {
 					element.isActive = false;									
 				}												
 				element.y = lastY;
-				lastY += (!style.opensUp) ? element.height : - element.height;				
+				lastY += (!style.opensUp) ? element.height : - element.height ; trace(element.height+" "+lastY);
 			}											
-			this.elementsBar.y = (style.opensUp) ?  - mainElement.height+1   :  mainElement.height; 			
+			this.elementsBar.y = (style.opensUp) ?  - mainElement.height+1   :  mainElement.height;
 			
 			closeDropDown();
 			setEnabled(false);

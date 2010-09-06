@@ -23,27 +23,31 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 
 import com.panosalado.events.CameraEvent;
+import com.panosalado.events.AutorotationEvent;
 
 public class AutorotationCameraData extends EventDispatcher
 {	
 	public static var SPEED:String = "speed";
 	public static var FRAME_INCREMENT:String = "frameIncrement";
-	
+		
 	public var delay:int;
 	public var mode:String;
 	public var speed:Number;  // in degrees / second
-	public var frameIncrement:Number // in degress / frame
-	protected var _enabled:Boolean;
+	public var frameIncrement:Number // in degress / frame	
+	protected var _enabled:Boolean;		
 	
 	public function AutorotationCameraData()
 	{
 		delay			= 5000;
 		mode			= "speed" // speed
-		speed 			= 1;
+		speed 			= 3;
 		frameIncrement		= 0.0333;
-		_enabled			= false; // COREMOD
+		_enabled			= true; 		
 	}
 	
+	public function toggleRotation():void {
+		dispatchEvent(new AutorotationEvent(AutorotationEvent.AUTOROTATION_TOGGLE));
+	}
 	
 	public function get enabled():Boolean {
 		return _enabled;
@@ -52,6 +56,6 @@ public class AutorotationCameraData extends EventDispatcher
 		if (value == _enabled) return;
 		_enabled = value;
 		dispatchEvent( new Event(CameraEvent.ENABLED_CHANGE) );
-	}
+	}	
 }
 }

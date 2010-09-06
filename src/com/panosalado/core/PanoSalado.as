@@ -112,7 +112,7 @@ public class PanoSalado extends ViewData implements ICamera
 		
 		super();
 				
-		_dependencyRelay = new DependencyRelay(false); //COREMOD
+		_dependencyRelay = new DependencyRelay();
 		_stageReference	= new StageReference();
 		_params = {};
 		
@@ -237,7 +237,7 @@ public class PanoSalado extends ViewData implements ICamera
 			//_render(viewData, event ? _canvasInternal.graphics : null);
 			_renderFunction(viewData, event ? _canvasInternal.graphics : null);
 			if (viewData.invalidPerspective) { 
-				_managedChildren.transform.perspectiveProjection = viewData.perspectiveProjection;
+				//_managedChildren.transform.perspectiveProjection = viewData.perspectiveProjection; //COREMOD
 				_canvasInternal.x = viewData._boundsWidth * 0.5;
 				_canvasInternal.y = viewData._boundsHeight * 0.5;
 			}
@@ -254,7 +254,7 @@ public class PanoSalado extends ViewData implements ICamera
 			//_render(viewData, event ? _secondaryCanvasInternal.graphics : null);
 			_renderFunction(viewData, event ? _secondaryCanvasInternal.graphics : null);
 			if (viewData.invalidPerspective) {
-				_secondaryManagedChildren.transform.perspectiveProjection = viewData.perspectiveProjection;
+				//_secondaryManagedChildren.transform.perspectiveProjection = viewData.perspectiveProjection; //COREMOD
 				_secondaryCanvasInternal.x = viewData._boundsWidth * 0.5;
 				_secondaryCanvasInternal.y = viewData._boundsHeight * 0.5;
 			}
@@ -287,10 +287,11 @@ public class PanoSalado extends ViewData implements ICamera
 			}
 			matrix3D = matrix3D.clone();
 			matrix3D.append(viewData.transformMatrix3D);
-			matrix3D.appendTranslation(0, 0, -viewData.perspectiveProjection.focalLength);						
-			(child as DisplayObject).transform.matrix3D = matrix3D;			
+			matrix3D.appendTranslation(0, 0, -viewData.perspectiveProjection.focalLength);
+			(child as DisplayObject).transform.matrix3D = matrix3D; 
+			child.transform.perspectiveProjection = viewData.perspectiveProjection; //COREMOD
 		}
-	}	
+	}
 	
 	/**
 	* Loads a new panorama.  This operation is asynchronous.  The new panorama does not exist until PanoSalado

@@ -22,20 +22,22 @@ package com.panosalado.loading
 import flash.events.IOErrorEvent;
 import flash.display.LoaderInfo;
 import flash.net.URLLoader;
+import com.panozona.player.manager.utils.Trace;
 	
 	public function IOErrorEventHandler(e:IOErrorEvent):void 
 	{
 		var url:String;
 		if (e is LoaderInfo) {
 			var loaderInfo:LoaderInfo = LoaderInfo(e.target);
-			url = loaderInfo.url;
+			url = loaderInfo.url;		
 		}
 		else if (e.target is URLLoader) {
-			url = "Unknown URL: (URLLoader does not retain a reference to the current URL), file is likely NOT an image or swf"
+			url = "Unknown URL: (URLLoader does not retain a reference to the current URL), file is likely NOT an image or swf";						
 		}
 		else {
 			url = "Unknown URL: class of object loading it was: " + e.target;
-		}
-		trace( "File not found: " + url );
+		}		
+		Trace.instance.printError("File not found: " + e.text);
+		//trace( "File not found: " + url );
 	}
 }

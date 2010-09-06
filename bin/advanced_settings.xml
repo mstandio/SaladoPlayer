@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>				
-	<global trace="debug:true" showStatistics = "true" firstPanorama="pano1" camera="pan:180"/>
+	<global trace="debug:true,initialVisibility:false" showStatistics = "true" firstPanorama="pano1" camera="pan:180"
+	simpleTransition="time:0"
+	/>
 	<panoramas>			 		
 		<panorama id="pano1" label="Park in winter" path="panoramas/park1/park_f.xml" camera="pan:-60,fieldOfView:150" >	
 			<hotspot id="hs1" position="tilt:10,pan:10,distance:300" path="hotspots/arrow.png" mouse="onClick:act1,onOver:act2"/>
 		</panorama>		
-		<panorama id="pano2" label ="Park in summer" path="panoramas/park2/park2_f.xml"  camera="fieldOfView:90"
+		<panorama id="pano2" label ="Park in summer" path="panoramas/park2/park2_f.xml"  camera="minimumFieldOfView:35"
 			onEnter="act3" 
 			onEnterSource="pano1:act4"  
 			onTransitionEnd="act5" 
@@ -30,7 +32,7 @@
 		<ViewFinder path="modules/ViewFinder.swf"/>
 		<NavigationBar path="modules/NavigationBar.swf"/>
 		<ExampleModule path="modules/ExampleModule.swf">
-			<settings numberValue="-10.1" booleanValue="false" arrayValue="[value1,value2]" stringValue="something"/>
+			<settings numberValue="-10.1" booleanValue="false" arrayValue="[value1,value2]" stringValue=""/>
 			<someParent>
 				<someChild id="child1">
 					<someGrandchild name="Joe" isMale="true" age="12" pets="[dog,fish,parrot]"/>

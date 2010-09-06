@@ -19,14 +19,10 @@ along with PanoSalado.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.hotspots.examplehotspot {
 	
 	import flash.display.Bitmap;			
-	import flash.events.MouseEvent;		
-	
-	import com.panosalado.view.SwfHotspot;
-	
+	import flash.events.MouseEvent;			
+	import com.panosalado.view.SwfHotspot;	
 	import caurina.transitions.*;
-	
-	[SWF(width="100", height="67")]
-	
+		
 	/**
 	 * ...
 	 * @author mstandio
@@ -44,7 +40,8 @@ package com.panozona.hotspots.examplehotspot {
 			var buttonBitmap:Bitmap = new Bitmap(new Bitmap_blue_arrow().bitmapData, "auto", true);			
 			buttonBitmap.x = - buttonBitmap.width * 0.5;
 			buttonBitmap.y = - buttonBitmap.height * 0.5;									
-			button.addChild(buttonBitmap);
+			button.addChild(buttonBitmap);			
+			
 			button.addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			button.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 		}

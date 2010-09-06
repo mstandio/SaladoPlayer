@@ -16,17 +16,17 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.utils {	
+package com.panozona.player.manager.utils {
 
 	import flash.display.Sprite;
-	import flash.display.Stage;	
+	import flash.display.Stage;
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.StyleSheet;
-	import flash.events.Event;	
-	import flash.events.MouseEvent;	
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import com.panozona.player.manager.data.TraceData;
 
@@ -34,27 +34,27 @@ package com.panozona.player.manager.utils {
 	 * ...
 	 * @author mstandio
 	 */
-	public class Trace extends Sprite {						
+	public class Trace extends Sprite {
 		
-		private const btnSize:Number = 20;		
+		private const btnSize:Number = 20;
 		
-		private var output:TextField;		
-		private var buffer:String = "";		
+		private var output:TextField;
+		private var buffer:String = "";
 		private var styleSheet:StyleSheet;
 		
-		private var window:Sprite;		
+		private var window:Sprite;
 		private var btnOpen:Sprite;
-		private var btnClose:Sprite;								
+		private var btnClose:Sprite;
 		private var btnScrollUp:Sprite;
-		private var btnScrollDown:Sprite;			
+		private var btnScrollDown:Sprite;
 		
 		private var traceData:TraceData;
 		
 		private static var __instance:Trace;
 		
-		public function Trace() {						
+		public function Trace() {
 			
-		}	
+		}
 		
 		public function configure(traceData:TraceData):void {
 			if (__instance == null){
@@ -64,10 +64,10 @@ package com.panozona.player.manager.utils {
 			if (traceData.debug == false) {
 				buffer = "";
 			}else {
-				if (isNaN(traceData.width)  || traceData.width  < 100) traceData.width  = 300; 
-				if (isNaN(traceData.height) || traceData.height < 100) traceData.height = 200	
+				if (isNaN(traceData.width)  || traceData.width  < 100) traceData.width  = 300;
+				if (isNaN(traceData.height) || traceData.height < 100) traceData.height = 200
 				if (stage) stageReady();
-				else addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);	
+				else addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
 			}
 		}
 		
@@ -79,46 +79,46 @@ package com.panozona.player.manager.utils {
 		}
 		
 		
-		private function stageReady(e:Event = null):void {                                            			
+		private function stageReady(e:Event = null):void {
+		
+			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
+			stage.addEventListener(Event.RESIZE, handleStageResize);
 			
-			removeEventListener(Event.ADDED_TO_STAGE, stageReady);									
-			stage.addEventListener(Event.RESIZE, handleStageResize);			
-						
 			var txtFormat:TextFormat = new TextFormat();
 			txtFormat.blockIndent = 0;
-			txtFormat.font = "Courier"				
-			txtFormat.color = 0xffffff;			
+			txtFormat.font = "Courier"
+			txtFormat.color = 0xffffff;
 			
 			btnOpen = new Sprite();
 			var label:TextField = new TextField(); 
-			label.selectable = false;			
+			label.selectable = false;
 			label.mouseEnabled = false;
 			label.defaultTextFormat = txtFormat;
-			label.text = "[show trace]";			
+			label.text = "[show trace]";
 			label.autoSize = TextFieldAutoSize.LEFT;
 			btnOpen.addChild(label);
 			btnOpen.graphics.beginFill(0x000000);
 			btnOpen.graphics.drawRect(0,0,label.width,label.height+2);
-			btnOpen.graphics.endFill();			
+			btnOpen.graphics.endFill();
 			btnOpen.addEventListener(MouseEvent.CLICK, showWindow,false, 0, true);
 			btnOpen.buttonMode = true;
 			btnOpen.useHandCursor = true;
-			addChild(btnOpen);	
+			addChild(btnOpen);
 			btnOpen.visible = !traceData.initialVisibility;
-			// position by handleResize
+			// position by handleResize			
 			
-			window = new Sprite();			
+			window = new Sprite();
 			window.graphics.beginFill(0x000000);
 			window.graphics.drawRect(0, 0, traceData.width, traceData.height);
 			window.graphics.endFill();
 			window.visible = traceData.initialVisibility;
 			
-			addChild(window);			
-			// position by handleResize			
+			addChild(window);
+			// position by handleResize
 			
 			var styleLine:Object = new Object();
 			styleLine.color = "#FFFFFF";
-			styleLine.fontFamily = "mono";			
+			styleLine.fontFamily = "mono";
 			styleLine.fontSize = 12;
 			
 			var styleError:Object = new Object();
@@ -146,133 +146,135 @@ package com.panozona.player.manager.utils {
 			output.alwaysShowSelection = true;
 			//output.defaultTextFormat = txtFormat;
 			output.wordWrap = true;
-			output.multiline = true;			
+			output.multiline = true;
 			output.width = traceData.width-btnSize;
-			output.height = traceData.height;			
+			output.height = traceData.height;
 			output.styleSheet = styleSheet;
-			output.htmlText += buffer;			
-			buffer = "";			
+			output.htmlText += buffer;
+			buffer = "";
 			output.scrollV = output.maxScrollV;
-			window.addChild(output);									
+			window.addChild(output);
 			
 			btnClose = new Sprite();
 			btnClose.graphics.beginFill(0x000000);
 			btnClose.graphics.drawRect(0,0,btnSize,btnSize);
-			btnClose.graphics.endFill();			
+			btnClose.graphics.endFill();
 			btnClose.graphics.lineStyle(2, 0xffffff);
 			btnClose.graphics.moveTo(btnSize/3, btnSize/3);
 			btnClose.graphics.lineTo(btnSize*0.66,btnSize*0.66);
 			btnClose.graphics.moveTo(btnSize/3, btnSize*0.66);
-			btnClose.graphics.lineTo(btnSize * 0.66, btnSize / 3);			
-			//btnClose.alpha = globalAlpha;
+			btnClose.graphics.lineTo(btnSize * 0.66, btnSize / 3);
 			btnClose.addEventListener(MouseEvent.CLICK, hideWindow,false, 0, true);
 			btnClose.buttonMode = true;
 			btnClose.useHandCursor = true;
-			window.addChild(btnClose);			
+			window.addChild(btnClose);
 			btnClose.x = traceData.width-btnSize;
-			btnClose.y = 0;			
-									
+			btnClose.y = 0;
+			
 			btnScrollUp = new Sprite();
 			btnScrollUp.graphics.beginFill(0x000000);
 			btnScrollUp.graphics.drawRect(0, 0, btnSize, btnSize);
-			btnScrollUp.graphics.endFill();			
+			btnScrollUp.graphics.endFill();
 			btnScrollUp.graphics.beginFill(0xffffff);
 			btnScrollUp.graphics.moveTo(btnSize / 2, btnSize / 3);
 			btnScrollUp.graphics.lineTo(btnSize * 0.66, btnSize * 0.66);
 			btnScrollUp.graphics.lineTo(btnSize / 3, btnSize * 0.66 );
-			btnScrollUp.graphics.endFill();							
+			btnScrollUp.graphics.endFill();
 			btnScrollUp.addEventListener(MouseEvent.MOUSE_DOWN, scrollUp, false, 0, true);
-			btnScrollUp.addEventListener(MouseEvent.MOUSE_UP, scrollStop, false, 0, true);			
-			btnScrollUp.addEventListener(MouseEvent.MOUSE_OUT, scrollStop, false, 0, true);			
+			btnScrollUp.addEventListener(MouseEvent.MOUSE_UP, scrollStop, false, 0, true);
+			btnScrollUp.addEventListener(MouseEvent.MOUSE_OUT, scrollStop, false, 0, true);
 			btnScrollUp.buttonMode = true;
 			btnScrollUp.useHandCursor = true;
-			window.addChild(btnScrollUp);			
+			window.addChild(btnScrollUp);
 			btnScrollUp.x = traceData.width - btnSize;
 			btnScrollUp.y = btnSize;
 			
 			btnScrollDown = new Sprite();
 			btnScrollDown.graphics.beginFill(0x000000);
 			btnScrollDown.graphics.drawRect(0, 0, btnSize, btnSize);
-			btnScrollDown.graphics.endFill();			
+			btnScrollDown.graphics.endFill();
 			btnScrollDown.graphics.beginFill(0xffffff);
 			btnScrollDown.graphics.moveTo(btnSize / 3, btnSize / 3);
 			btnScrollDown.graphics.lineTo(btnSize * 0.66, btnSize / 3);
 			btnScrollDown.graphics.lineTo(btnSize / 2, btnSize * 0.66 );
-			btnScrollDown.graphics.endFill();						
+			btnScrollDown.graphics.endFill();
 			btnScrollDown.addEventListener(MouseEvent.MOUSE_DOWN, scrollDown, false, 0, true);
 			btnScrollDown.addEventListener(MouseEvent.MOUSE_UP, scrollStop, false, 0, true);
 			btnScrollDown.addEventListener(MouseEvent.MOUSE_OUT, scrollStop, false, 0, true);
 			btnScrollDown.buttonMode = true;
 			btnScrollDown.useHandCursor = true;
-			window.addChild(btnScrollDown);		
+			window.addChild(btnScrollDown);
 			btnScrollDown.x = traceData.width - btnSize;
-			btnScrollDown.y = traceData.height - btnSize;						
+			btnScrollDown.y = traceData.height - btnSize;
 		
 			handleStageResize();
-		}			
+		}
 		
-		public function printError(message:String):void {			
+		public function printError(message:String):void {
 			if(traceData == null || traceData.debug){
 				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"error\">" + message + "</span><br/>";
 				if (output != null) {
 					output.htmlText += htmMessage;
-					output.scrollV = output.maxScrollV;								
+					output.scrollV = output.maxScrollV;
 				}else{
 					buffer += htmMessage;
 				}
 			}
-		}	
+			showWindow();
+		}
 		
-		public function printWarning(message:String):void {		
+		public function printWarning(message:String):void {
 			if(traceData == null || traceData.debug){
 				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"warning\">" + message + "</span><br/>";
-				if (output != null) {				
+				if (output != null) {
 					output.htmlText += htmMessage;
-					output.scrollV = output.maxScrollV;								
+					output.scrollV = output.maxScrollV;
 				}else{
 					buffer += htmMessage;
 				}
 			}
-		}	
+			showWindow();
+		}
 		
-		public function printInfo(message:String):void {			
+		public function printInfo(message:String):void {
 			if(traceData == null || traceData.debug){
 				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"info\">" + message + "</span><br/>";
-				if (output != null) {				
+				if (output != null) {
 					output.htmlText += htmMessage;
-					output.scrollV = output.maxScrollV;								
+					output.scrollV = output.maxScrollV;
 				}else{
 					buffer += htmMessage;
 				}
 			}
 		}		
-				
 		
-		private function hideWindow(e:Event):void {
-			window.visible = false;
-			btnOpen.visible = true;
+		private function hideWindow(e:Event = null):void {
+			if(window != null && btnOpen != null){
+				window.visible = false;
+				btnOpen.visible = true;
+			}
 		}
 		
-		private function showWindow(e:Event):void {
+		private function showWindow(e:Event = null):void {			
 			window.visible = true;
 			btnOpen.visible = false;
 		}
 	
-		private function scrollUp(e:Event):void {			
-			addEventListener(Event.ENTER_FRAME, scrollUpOnEnter, false, 0, true);			
+		private function scrollUp(e:Event):void {
+			addEventListener(Event.ENTER_FRAME, scrollUpOnEnter, false, 0, true);
 		}
 		
-		private function scrollDown(e:Event):void {			
-			addEventListener(Event.ENTER_FRAME, scrollDownOnEnter, false, 0, true);			
+		private function scrollDown(e:Event):void {
+			addEventListener(Event.ENTER_FRAME, scrollDownOnEnter, false, 0, true);
 		}
 		
-		private function scrollUpOnEnter(e:Event):void {			
+		private function scrollUpOnEnter(e:Event):void {
 			if (output.scrollV > 0) {
 				output.scrollV--;
 			}
 		}
 		
-		private function scrollDownOnEnter(e:Event):void {			
+		private function scrollDownOnEnter(e:Event):void {
 			if (output.scrollV < output.maxScrollV) {
 				output.scrollV++;
 			}
@@ -281,30 +283,30 @@ package com.panozona.player.manager.utils {
 		private function scrollStop(e:Event):void {
 			removeEventListener(Event.ENTER_FRAME, scrollDownOnEnter);
 			removeEventListener(Event.ENTER_FRAME, scrollUpOnEnter);
-		}					
+		}
 		
-		private function handleStageResize(e:Event = null):void {      							
+		private function handleStageResize(e:Event = null):void {
 			if (traceData.horizontalAlign == "right") {
 				btnOpen.x = stage.stageWidth - btnOpen.width;
-				window.x = stage.stageWidth - traceData.width;				
-			}else if (traceData.horizontalAlign == "center") {				
+				window.x = stage.stageWidth - traceData.width;
+			}else if (traceData.horizontalAlign == "center") {
 				btnOpen.x = (stage.stageWidth - btnOpen.width)*0.5;
-				window.x = (stage.stageWidth - traceData.width)*0.5;				
+				window.x = (stage.stageWidth - traceData.width)*0.5;
 			}else{
 				btnOpen.x = 0;
 				window.x  = 0;
-			}			
+			}
 			
 			if (traceData.verticalAlign == "top") {
-				btnOpen.y = 0;			
-				window.y = 0;				
-			}else if (traceData.horizontalAlign == "middle") {				
+				btnOpen.y = 0;
+				window.y = 0;
+			}else if (traceData.horizontalAlign == "middle") {
 				btnOpen.y = (stage.stageHeight- btnOpen.height)*0.5;
-				window.y = (stage.stageHeight - traceData.height)*0.5;				
+				window.y = (stage.stageHeight - traceData.height)*0.5;
 			}else{
 				btnOpen.y = stage.stageHeight- btnOpen.height;
-				window.y = stage.stageHeight - traceData.height;				
-			}				
-		}				
+				window.y = stage.stageHeight - traceData.height;
+			}
+		}
 	}
 }

@@ -27,6 +27,7 @@ import com.panosalado.model.TilePyramid;
 import com.panosalado.loading.LoadingStatistics;
 import com.panosalado.events.ViewEvent;
 import com.panosalado.events.CameraEvent;
+import com.panosalado.events.AutorotationEvent;
 import com.panosalado.model.Characteristics;
 import com.panosalado.core.PanoSalado;
 
@@ -53,7 +54,7 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 	protected var _cameraData:AutorotationCameraData;
 	
 	private var __lastTimeStamp:Number;
-	private var __delayTimer:Timer;
+	private var __delayTimer:Timer;	
 	protected var _running:Boolean;
 	
 	protected var _loadingStatistics:LoadingStatistics;
@@ -61,14 +62,20 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		
 	protected var _renderCount:int;
 	
+	protected var _isRotating:Boolean;
+	
 	public function AutorotationCamera() {
 		_running = false;
 		_renderCount = 0;
+		_isRotating = false;
 	}
 	
 	public function processDependency(reference:Object,characteristics:*):void {
 		if 		(characteristics == Characteristics.VIEW_DATA) viewData = reference as ViewData;
-		else if (characteristics == Characteristics.AUTOROTATION_CAMERA_DATA) cameraData = reference as AutorotationCameraData;
+		else if (characteristics == Characteristics.AUTOROTATION_CAMERA_DATA) {
+			cameraData = reference as AutorotationCameraData;
+			cameraData.addEventListener(AutorotationEvent.AUTOROTATION_TOGGLE, toggle);
+		}
 		// use IF, because we could have found it above as well.
 		if (reference is ICamera && reference !== this) {
 			(reference as EventDispatcher).addEventListener( CameraEvent.INACTIVE, inactiveHandler, false, 0, true );
@@ -76,34 +83,44 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		}
 	}
 	
-	protected function startDelayTimer():void
-	{
-		__delayTimer.delay = _cameraData.delay;
-		__delayTimer.start();
+	protected function toggle(event:AutorotationEvent):void {
+		if (_isRotating) {
+			stopAutorotatorNow();
+		}else {
+			timesUp();
+		}
+	}
+	
+	protected function startDelayTimer():void	{			
+		__delayTimer.delay = _cameraData.delay;		
+		__delayTimer.start();				
 	}
 	
 	protected function stopDelayTimer():void {
 		__delayTimer.stop();
-		__delayTimer.reset();
+		__delayTimer.reset();				
 	}
 	
 	protected function stopAutorotatorNow():void
 	{	
-		if (_stage) _stage.removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
-		__delayTimer.stop();
+		if (_stage) _stage.removeEventListener( Event.ENTER_FRAME, enterFrameHandler );		
+		_isRotating = false;
+		__delayTimer.stop();	
 		__delayTimer.reset();
 		dispatchEvent( new CameraEvent(CameraEvent.INACTIVE) );
-	}
+		dispatchEvent( new AutorotationEvent(AutorotationEvent.AUTOROTATION_STOPPED));		
+	}	
 	
-	private function timesUp(e:TimerEvent):void
-	{
-		__delayTimer.stop();
-		
-		if (!_stage) return;
+	private function timesUp(e:TimerEvent=null):void
+	{		
+		__delayTimer.stop();				
+		if (!_stage) return;		
+		_isRotating = true;		
 		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
 		__lastTimeStamp = getTimer();
 		_running = true;
 		_stage.addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
+		dispatchEvent( new AutorotationEvent(AutorotationEvent.AUTOROTATION_STARTED));
 	}
 	
 	private function enterFrameHandler(event:Event):void 
@@ -163,7 +180,7 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		
 		futureViewData.invalidPerspective = futureViewData.invalidTransform = futureViewData.invalid = true;
 		
-//		// set pan
+		// set pan
 		futureViewData.pan -= futureDelta;
 		
 		// set tilt;
@@ -199,7 +216,7 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 			case false: 
 			stopAutorotatorNow();
 			break;
-		}
+		}		
 	}
 	
 	public function get cameraData():AutorotationCameraData { return _cameraData; }
@@ -210,16 +227,15 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 			_futureViewData = new ViewData();
 			_loadingStatistics = LoadingStatistics.instance;
 			__delayTimer = new Timer(value.delay);
-			__delayTimer.addEventListener( TimerEvent.TIMER, timesUp, false, 0, true );
-			value.addEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler, false, 0, true );
-			
+			__delayTimer.addEventListener( TimerEvent.TIMER, timesUp, false, 0, true );			
+			value.addEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler, false, 0, true );			
 		}
 		else if (value == null && _cameraData != null) {
 			_futureViewData = null;
 			_loadingStatistics = null;
 			_cameraData.removeEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler );
 			__delayTimer = null;
-			__delayTimer.removeEventListener( TimerEvent.TIMER, timesUp );	
+			__delayTimer.removeEventListener( TimerEvent.TIMER, timesUp );			
 		}
 		_cameraData = value;
 		inactiveHandler();	
@@ -242,26 +258,26 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		_render = (_viewData as PanoSalado).render;
 		__neutralTilt = _viewData._tilt;
 		__neutralFieldOfView = _viewData._fieldOfView;
-		inactiveHandler();
+		inactiveHandler(); 
 	}
 	
 	final protected function activeHandler(e:Event):void {
-		if (_running) 
-			stopAutorotatorNow()
+		if (_running){
+			stopAutorotatorNow();			
+		}	
 	}
 	
 	final protected function inactiveHandler(e:Event = null):void {
 		if (_viewData && _cameraData && (_cameraData.enabled)) {
 			_renderCount = 0;
 			_viewData.addEventListener( ViewEvent.RENDERED, renderedHandler, false, 0, true );
-			startDelayTimer()
-		}
+			startDelayTimer(); 
+		}		
 	}
 	
 	final protected function renderedHandler(e:Event):void {
 		_renderCount++;
-		if (_renderCount < 4) return;
-
+		if (_renderCount < 10) return;        
 		stopDelayTimer();
 		_renderCount = 0;
 	}

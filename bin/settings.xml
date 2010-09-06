@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>				
-	<global showStatistics="false"	trace="debug:true,initialVisibility:false"  firstPanorama="pano2"/>
+	<global firstPanorama="pano2" showStatistics="false" trace="debug:true,initialVisibility:false"  autorotationCamera="enabled:true" />
 	<panoramas>			 				
-		<panorama id="pano1" label="Park in winter" path="panoramas/park1/park_f.xml" camera="pan:-60" >	
-			<hotspot id="hs2" position="tilt:5,pan:10" path="hotspots/arrow.png" mouse="onClick:act1"/>		
+		<panorama id="pano1" label="Park in winter" path="panoramas/park1/park_f.xml" >	
+			<hotspot id="hs2" position="distance:500" path="hotspots/arrow.png" mouse="onClick:act1"/>		
 		</panorama>
-		<panorama id="pano2" label ="Park in summer" path="panoramas/park2/park2_f.xml" >			
-			<hotspot id="hs4" position="pan:-20" path="hotspots/arrow.png" mouse="onClick:act2"/>
-			<hotspot id="hs5" position="tilt:10,pan:20" path="hotspots/ExampleHotspot.swf" mouse="onClick:act2"/>			
+		<panorama id="pano2" label ="Park in summer" path="panoramas/park2/park2_f.xml" camera="fieldOfView:90,pan:10" >			
+			<hotspot id="hs4" position="tilt:-10,pan:-20" path="hotspots/ExampleHotspot.swf" mouse="onClick:act2"/>
+			<hotspot id="hs5" position="tilt:10,pan:20" path="hotspots/arrow.png" mouse="onClick:act2"/>			
 		</panorama>		
 	</panoramas>		
 	<actions>
@@ -15,7 +15,9 @@
 		<action id="act2" content="SaladoPlayer.loadPano(pano1)" />		
 	</actions>
 	<modules>				
-		<NavigationBar path="modules/NavigationBar.swf"/>		
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons fullscreen="true" autorotation="true" />
+		</NavigationBar>
 		<!--<ViewFinder path="modules/ViewFinder.swf"/>-->
 	</modules>
 </SaladoPlayer>	

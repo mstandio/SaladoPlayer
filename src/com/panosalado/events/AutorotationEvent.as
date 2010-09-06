@@ -16,29 +16,22 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.data{
+package com.panosalado.events {
 	
+	import flash.events.Event;
 	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class TraceData {
+	public class AutorotationEvent extends Event{
 		
-		public var debug:Boolean; //if trace window is visible, also if validation is performed
-		public var initialVisibility:Boolean;
-		public var verticalAlign:String;   //top, middle, bottom
-		public var horizontalAlign:String; //left, center, right
-		public var width:Number;
-		public var height:Number;  
+		public static const AUTOROTATION_STARTED:String = "AutorotationStarted";
+		public static const AUTOROTATION_STOPPED:String = "AutorotationStopped";
+		public static const AUTOROTATION_TOGGLE:String = "AutorotationToggle"; // bad code
 		
-		public function TraceData( ) {
-			debug = true;
-			initialVisibility = false;
-			verticalAlign = "top";
-			horizontalAlign = "right";
-			width = 300;
-			height = 200;
+		public function AutorotationEvent(type:String) {
+			super(type);
 		}
 	}
 }

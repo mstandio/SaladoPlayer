@@ -22,10 +22,12 @@ package com.panozona.modules.navigationbar {
 	import com.panozona.modules.navigationbar.combobox.Combobox;
 	import com.panozona.modules.navigationbar.combobox.ComboboxStyle;
 	import com.panozona.modules.navigationbar.button.Button;
+	import com.panozona.modules.navigationbar.data.NavigationBarData;
 		
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
 	import flash.display.Stage;
+	import flash.display.StageDisplayState;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.net.URLRequest;
@@ -99,11 +101,11 @@ package com.panozona.modules.navigationbar {
 		private var combobox:Combobox;		
 		private var branding:Sprite;
 		
-		
+		private var navigationBarData:NavigationBarData;
 			
 		public function NavigationBar() {						
 			
-			super("NavigationBar", 0.1,"http://panozona.com/wiki/NavigationBar");
+			super("NavigationBar", 0.2,"http://panozona.com/wiki/NavigationBar");
 			
 			aboutThisModule = "This is module for simple interaction and navigating between panoramas";
 			
@@ -112,6 +114,12 @@ package com.panozona.modules.navigationbar {
 		}
 		
 		override protected function moduleReady():void {			
+			
+			try {
+				navigationBarData = new NavigationBarData (moduleData);				
+			}catch (error:Error) {
+				printError(error.message);
+			}
 						
 			mainBar = new Sprite();
 			addChild(mainBar);
@@ -120,37 +128,41 @@ package com.panozona.modules.navigationbar {
 			mainBar.addChild(buttonsBar);
 			
 			btnLeft = new Button(leftPress, leftRelease);		 
-			btnLeft.setBitmaps(Bitmap_left_plain, Bitmap_left_plain, Bitmap_left_press);			
+			btnLeft.setBitmaps(Bitmap_left_plain, null, Bitmap_left_press);			
 			buttonsBar.addChild(btnLeft);
 			
 			btnRight = new Button(rightPress, rightRelease);
-			btnRight.setBitmaps(Bitmap_right_plain,Bitmap_right_plain, Bitmap_right_press);
+			btnRight.setBitmaps(Bitmap_right_plain, null, Bitmap_right_press);
 			buttonsBar.addChild(btnRight);
 			
 			btnUp = new Button(upPress, upRelease);
-			btnUp.setBitmaps(Bitmap_up_plain,Bitmap_up_plain, Bitmap_up_press);
+			btnUp.setBitmaps(Bitmap_up_plain, null, Bitmap_up_press);
 			buttonsBar.addChild(btnUp);
 			
 			btnDown = new Button(downPress, downRelease);
-			btnDown.setBitmaps(Bitmap_down_plain,Bitmap_down_plain, Bitmap_down_press);
+			btnDown.setBitmaps(Bitmap_down_plain, null, Bitmap_down_press);
 			buttonsBar.addChild(btnDown);
 			
 			btnZoomIn = new Button(zoominPress, zoominRelease);
-			btnZoomIn.setBitmaps(Bitmap_zoomin_plain,Bitmap_zoomin_plain, Bitmap_zoomin_press);
+			btnZoomIn.setBitmaps(Bitmap_zoomin_plain, null, Bitmap_zoomin_press);
 			buttonsBar.addChild(btnZoomIn);
 			
 			btnZoomOut = new Button(zoomoutPress, zoomoutRelease);			
-			btnZoomOut.setBitmaps(Bitmap_zoomout_plain, Bitmap_zoomout_plain,Bitmap_zoomout_press);
+			btnZoomOut.setBitmaps(Bitmap_zoomout_plain, null, Bitmap_zoomout_press);
 			buttonsBar.addChild(btnZoomOut);
-			/*
-			btnAutorotate = new Button(autorotateToggle);
-			btnAutorotate.setBitmaps(Bitmap_autorotate_plain, Bitmap_autorotate_plain, Bitmap_autorotate_press);
-			btnAutorotate.setActive(getAutorotationState());
-			buttonsBar.addChild(btnAutorotate);			
-			*/
-			btnFullscreen = new Button(fullscreenToggle);
-			btnFullscreen.setBitmaps(Bitmap_fullscreen_plain,Bitmap_fullscreen_plain, Bitmap_fullscreen_press);
-			buttonsBar.addChild(btnFullscreen);						
+			
+			if(navigationBarData.showAutorotationButton){			
+				btnAutorotate = new Button(autorotateToggle);
+				btnAutorotate.setBitmaps(Bitmap_autorotate_plain, null, Bitmap_autorotate_press);			
+				buttonsBar.addChild(btnAutorotate);
+				autorotationStateTracking(true);
+			}
+			
+			if(navigationBarData.showFullscreenButton){			
+				btnFullscreen = new Button(null, fullscreenToggle);
+				btnFullscreen.setBitmaps(Bitmap_fullscreen_plain, null, Bitmap_fullscreen_press);
+				buttonsBar.addChild(btnFullscreen);
+			}
 			
 			var spacing:Number = -3;		
 			
@@ -160,8 +172,17 @@ package com.panozona.modules.navigationbar {
 			btnDown.x = btnUp.x + btnUp.width + spacing;
 			btnZoomIn.x = btnDown.x + btnDown.width + spacing;
 			btnZoomOut.x = btnZoomIn.x + btnZoomIn.width + spacing;
-			//btnAutorotate.x = btnZoomOut.x + btnZoomOut.width + spacing;
-			btnFullscreen.x = btnZoomOut.x + btnZoomOut.width + spacing;//btnAutorotate.x + btnAutorotate.width + spacing;
+			if (navigationBarData.showAutorotationButton) {
+				btnAutorotate.x = btnZoomOut.x + btnZoomOut.width + spacing;
+				if (navigationBarData.showFullscreenButton) {
+					btnFullscreen.x = btnAutorotate.x + btnAutorotate.width + spacing;
+				}
+			}else {
+				if (navigationBarData.showFullscreenButton) {
+					btnFullscreen.x = btnZoomOut.x + btnZoomOut.width + spacing;
+				}
+			}			
+			
 						
 			var comboboxStyle:ComboboxStyle = new ComboboxStyle();			
 			combobox = new Combobox(saladoPlayer.managerData.panoramasData, comboboxStyle);
@@ -185,10 +206,10 @@ package com.panozona.modules.navigationbar {
 			brand2.addChild(new Bitmap(new Bitmap_panosalado().bitmapData, "auto", true));
 			brand2.addEventListener(MouseEvent.MOUSE_DOWN, gotoPanoSalado, false, 0, true);
 			branding.addChild(brand2);
-			brand2.y = brand1.height;			
+			brand2.y = brand1.height;
 			
 			stage.addEventListener(Event.RESIZE, handleStageResize, false, 0, true); 			
-			handleStageResize();
+			handleStageResize();			
 		}
 		
 		
@@ -203,12 +224,7 @@ package com.panozona.modules.navigationbar {
 		}		
 		
 		///////////////////////////////////////////////////////////////////////////////
-		
-		private function comboBoxLabelChanged(e:ComboboxEvent):void{
-			loadPanoramaById(e.panoramaData.id);
-		}
-		
-		
+				
 		override protected function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
 			combobox.setEnabled(false);
 		}		
@@ -218,10 +234,23 @@ package com.panozona.modules.navigationbar {
 			combobox.setSelected(loadPanoramaEvent.panoramaData)
 		}		
 		
+		override protected function onAutorotationStarted(loadPanoramaEvent:Object):void {
+			btnAutorotate.setActive(true);
+		}		
+		
+		override protected function onAutorotationStopped(loadPanoramaEvent:Object):void {
+			btnAutorotate.setActive(false);
+		}	
+		
+		private function comboBoxLabelChanged(e:ComboboxEvent):void{
+			loadPanoramaById(e.panoramaData.id);
+		}
+		
+		
 		private function handleStageResize(e:Event = null):void {					
 			mainBar.graphics.clear();
 			mainBar.graphics.beginFill(0xffffff);			
-			mainBar.graphics.drawRect(0, 0, stage.stageWidth, buttonsBar.height); 			
+			mainBar.graphics.drawRect(0, 0, stage.stageWidth, buttonsBar.height); 
 			mainBar.graphics.endFill();
 			mainBar.x = 0;
 			mainBar.y = stage.stageHeight - buttonsBar.height - 10;						
@@ -232,11 +261,13 @@ package com.panozona.modules.navigationbar {
 			branding.x = 5;
 			branding.y = (buttonsBar.height - branding.height) * 0.5;			
 			
-			if (stage.displayState == "fullScreen") {
-				btnFullscreen.setActive(true);
-			}else {
-				btnFullscreen.setActive(false);
-			}			
+			if(navigationBarData.showFullscreenButton){
+				if (stage.displayState == StageDisplayState.FULL_SCREEN) {
+					btnFullscreen.setActive(true);
+				}else {
+					btnFullscreen.setActive(false);
+				}						
+			}
 		}		
 		
 		private function leftPress(e:Event):void {			
@@ -277,10 +308,11 @@ package com.panozona.modules.navigationbar {
 		}						
 		private function autorotateToggle(e:Event):void {
 			toggleAutorotation();
-			btnAutorotate.setActive(getAutorotationState());
 		}			
-		private function fullscreenToggle(e:Event):void {			
-			toggleFullscreen();			
+		private function fullscreenToggle(e:Event):void {				
+			toggleFullscreen();
+			// this has to use MouseEvent.MOUSE_UP in wmode="window"
+			// MouseEvent.MOUSE_DOWN and wmode="window" crashes in many configurations
 		}
 		
 		private function gotoSaladoPlayer(e:Event):void {						
@@ -288,7 +320,7 @@ package com.panozona.modules.navigationbar {
 			try {
 				navigateToURL(request, '_BLANK');
 			} catch (e:Error) {
-				printWarning("could not open http://github.com/mstandio/SaladoPlayer");
+				printWarning("Could not open http://github.com/mstandio/SaladoPlayer");
 			}
 		}
 		
@@ -297,7 +329,7 @@ package com.panozona.modules.navigationbar {
 			try {
 				navigateToURL(request, '_BLANK');
 			} catch (e:Error) {
-				printWarning("could not open http://panosalado.com/");
+				printWarning("Could not open http://panosalado.com/");
 			}
 		}			
 	}

@@ -16,29 +16,26 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.data{
+package com.panozona.modules.navigationbar.data {
 	
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.data.ModuleNode;
 	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class TraceData {
+	public class NavigationBarData{
 		
-		public var debug:Boolean; //if trace window is visible, also if validation is performed
-		public var initialVisibility:Boolean;
-		public var verticalAlign:String;   //top, middle, bottom
-		public var horizontalAlign:String; //left, center, right
-		public var width:Number;
-		public var height:Number;  
+		public var showFullscreenButton:Boolean = true;
+		public var showAutorotationButton:Boolean = true;				
 		
-		public function TraceData( ) {
-			debug = true;
-			initialVisibility = false;
-			verticalAlign = "top";
-			horizontalAlign = "right";
-			width = 300;
-			height = 200;
+		public function NavigationBarData(moduleData:ModuleData){
+			var buttonsModuleNode:ModuleNode = moduleData.getModuleNodeByName("buttons");						
+			if (buttonsModuleNode != null) {				
+				showFullscreenButton= buttonsModuleNode.getAttributeByName("fullscreen", Boolean, true); 
+				showAutorotationButton = buttonsModuleNode.getAttributeByName("autorotation", Boolean, true);		
+			}		
 		}
 	}
 }

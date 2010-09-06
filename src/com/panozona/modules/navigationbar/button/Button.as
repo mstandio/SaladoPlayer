@@ -34,20 +34,19 @@ package com.panozona.modules.navigationbar.button {
 		private var press:Class;
 		
 		private var active:Boolean;
-		private var mousOver:Boolean;
+		private var mouseOver:Boolean;
 		
 		private var masterMouseDown:Function;
 		private var masterMouseUp:Function;
 		
 		private var buttonBitmap:Bitmap;
 		
-		public function Button( masterMouseDown:Function,  masterMouseUp:Function = null){
-			this.masterMouseUp = masterMouseUp;
+		public function Button(masterMouseDown:Function = null, masterMouseUp:Function = null) {
 			this.masterMouseDown = masterMouseDown;
-			buttonMode = true;
-			useHandCursor = true;
-			active = false; 
-			mousOver = false;
+			this.masterMouseUp = masterMouseUp;			
+			buttonMode = true;			
+			active = false;
+			mouseOver = false;
 		}		
 		
 		public function setBitmaps(plain:Class, over:Class = null, press:Class = null):void {
@@ -57,23 +56,27 @@ package com.panozona.modules.navigationbar.button {
 			
 			replace(plain);
 			
-			// adding essential functionality
-			addEventListener(MouseEvent.MOUSE_DOWN, masterMouseDown, false, 0, true);
-			if (masterMouseUp != null){
+			// adding essential functionality							
+			if (masterMouseDown != null && masterMouseUp != null) {
+				addEventListener(MouseEvent.MOUSE_DOWN, masterMouseDown, false, 0, true);
 				addEventListener(MouseEvent.MOUSE_UP, masterMouseUp, false, 0, true);
 				addEventListener(MouseEvent.MOUSE_OUT, masterMouseUp, false, 0, true);
-			}
+			}else if (masterMouseDown != null && masterMouseUp == null) {	
+				addEventListener(MouseEvent.MOUSE_DOWN, masterMouseDown, false, 0, true);
+			}else if (masterMouseDown == null && masterMouseUp != null) {
+				addEventListener(MouseEvent.MOUSE_UP, masterMouseUp, false, 0, true);
+			}			
 			
 			// adding animations
 			if (over != null){
-				addEventListener(MouseEvent.MOUSE_OVER, ButtonMouseOver, false, 1, true);
-				addEventListener(MouseEvent.MOUSE_OUT, ButtonMouseOut, false, 1, true);
+				addEventListener(MouseEvent.MOUSE_OVER, ButtonMouseOver, false, 0, true);
+				addEventListener(MouseEvent.MOUSE_OUT, ButtonMouseOut, false, 0, true);
 			}			
 			if (press != null){
-				addEventListener(MouseEvent.MOUSE_DOWN, ButtonMouseDown, false, 1, true);
-				addEventListener(MouseEvent.MOUSE_UP, ButtonMouseUp, false, 1, true);
+				addEventListener(MouseEvent.MOUSE_DOWN, ButtonMouseDown, false, 0, true);
+				addEventListener(MouseEvent.MOUSE_UP, ButtonMouseUp, false, 0, true);
 				if(over == null){
-					addEventListener(MouseEvent.MOUSE_OUT, ButtonMouseOut, false, 1, true);
+					addEventListener(MouseEvent.MOUSE_OUT, ButtonMouseOut, false, 0, true);
 				}
 			}			
 		}			
@@ -87,7 +90,7 @@ package com.panozona.modules.navigationbar.button {
 					replace(press);
 				}
 			}else {
-				if (mousOver) {
+				if (mouseOver) {
 					replace(over);
 				}else {
 					replace(plain);
@@ -96,14 +99,14 @@ package com.panozona.modules.navigationbar.button {
 		}
 		
 		private function ButtonMouseOver(e:Event = null):void {
-			mousOver = true;
+			mouseOver = true;
 			if(!active){
 				replace(over);
 			}
 		}
 		
 		private function ButtonMouseOut(e:Event = null):void {
-			mousOver = false;
+			mouseOver = false;
 			if(!active){
 				replace(plain);
 			}
@@ -113,8 +116,7 @@ package com.panozona.modules.navigationbar.button {
 			if(!active){
 				replace(press);
 			}
-		}
-		
+		}	
 		
 		private function ButtonMouseUp(e:Event = null):void {
 			if(!active){
