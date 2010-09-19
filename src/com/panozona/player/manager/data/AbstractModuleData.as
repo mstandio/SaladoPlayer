@@ -23,42 +23,38 @@ package com.panozona.player.manager.data {
 	 * @author mstandio
 	 */
 	public class AbstractModuleData {
-				
+		
 		private var _moduleName:String;
 		private var _path:String;
-		private var _weight:int;				
+		private var _weight:int;
 		private var _abstractModuleNodes:Array;
 		
 		public function AbstractModuleData(moduleName:String, path:String, weight:int) {
 			
-			if ( moduleName==null || moduleName=="") {
-				throw new Error("No name for module specified");
-			}			
-			
 			if ( path==null || path=="") {
 				throw new Error("No path specified for module: "+moduleName);
-			}			
-					
+			}
+			
 			_moduleName = moduleName;
-			_path = path;			
-			_weight = weight;			
+			_path = path;
+			_weight = weight;
 			_abstractModuleNodes =  new Array();
-		}		
+		}
 		
 		public function get moduleName():String {
 			return _moduleName;
 		}
 		
 		public function get path():String {
-			return _path;						
-		}	
+			return _path;
+		}
 		
 		public function get weight():int {
-			return _weight;			
-		}						
+			return _weight;
+		}
 		
 		public function get abstractModuleNodes():Array {
-			return _abstractModuleNodes;			
+			return _abstractModuleNodes;
 		}
 	}
 }

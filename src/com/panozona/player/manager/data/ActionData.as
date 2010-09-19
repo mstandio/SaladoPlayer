@@ -29,12 +29,13 @@ package com.panozona.player.manager.data {
 		private var _id:String;
 		private var _functions:Vector.<FunctionData>;
 		
-		public function ActionData(id:String) {
-			if (id == null || id == "") {
-				throw new Error("No id for action");
-			}					
-			_id = id;
+		public function ActionData() {
 			_functions = new Vector.<FunctionData>();
+		}
+		
+		public function set id(value:String):void {
+			if (_id != null) return;
+			_id = value;
 		}
 		
 		public function get id():String{

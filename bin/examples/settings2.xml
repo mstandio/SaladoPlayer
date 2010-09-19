@@ -1,0 +1,24 @@
+﻿<!-- 
+	
+This is simple example for virtual tour with navigation bar
+	
+	- cutout "path" is mandatory, it points to image containing bitmaps for buttons
+	- change combobox "visible" to "false" to hide combobox			
+	
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml"/>
+		<panorama id="pano2" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml"/>
+		<panorama id="pano3" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml"/>
+	</panoramas>
+	<modules>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<cutout path="modules/images/buttons.png"/>
+			<combobox visible="true"/>
+		</NavigationBar>
+	</modules>	
+</SaladoPlayer>
+

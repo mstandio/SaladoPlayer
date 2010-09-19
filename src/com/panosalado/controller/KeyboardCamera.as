@@ -208,6 +208,11 @@ public class KeyboardCamera extends EventDispatcher implements ICamera
 	}
 	
 	protected function enabledChangeHandler(e:Event):void {
+		
+		if (_viewData != null) {
+			_viewData.dispatchEvent(new CameraEvent(CameraEvent.ENABLED_CHANGE))
+		}
+		
 		switch(_cameraData.enabled) {
 			case true: 
 			if (_stage) {

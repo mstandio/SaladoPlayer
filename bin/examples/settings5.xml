@@ -1,0 +1,24 @@
+﻿<!-- 
+	
+This is example of camera configuration
+	
+	- add module ViewFinder to see current camera pan, tilt and field of view
+	- "camera" in "global" sets default values for all panoramas
+	- each panorama can overwrite global "camera" value	
+	- field of view can has value 0-180 smaller value means bigger zoom 
+	
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<SaladoPlayer>
+	<global debug="true" camera="maxFieldOfView:130,minFieldOfView:50,maxTilt:30,minTilt:-30" /> 
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml" camera="pan:180,tilt:30,fieldOfView:50"/> <!-- default camera position-->
+		<panorama id="pano2" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" camera="maxTilt:60,minTilt:-60"/> <!-- camera bounds -->
+	</panoramas>
+	<modules>
+		<ViewFinder path="modules/ViewFinder.swf"/>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<cutout path="modules/images/buttons.png"/>			
+		</NavigationBar>
+	</modules>	
+</SaladoPlayer>

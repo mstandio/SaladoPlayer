@@ -1,0 +1,26 @@
+﻿<!-- 
+	
+This is simple example for using loading events
+
+	- you can call actions after some loading events
+	- action can call many functions seperated with comma
+
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<SaladoPlayer>
+	<global debug="true" trace="initialVisibility:true" />
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml" onEnter="act1" onTransitionEnd="act2" />
+		<panorama id="pano2" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" onLeave="act3" />
+	</panoramas>
+	<actions>
+		<action id="act1" content="SaladoPlayer.print(Welcome in pano1);SaladoPlayer.print(Please have a look)"/>
+		<action id="act2" content="SaladoPlayer.print(pano1 finished transition)"/>
+		<action id="act3" content="SaladoPlayer.print(Goodby from pano2)"/>
+	</actions>
+	<modules>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<cutout path="modules/images/buttons.png"/>			
+		</NavigationBar>
+	</modules>	
+</SaladoPlayer>

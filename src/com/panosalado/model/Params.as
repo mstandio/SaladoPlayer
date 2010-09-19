@@ -36,12 +36,12 @@ public class Params
 	public var boundsWidth:Number;
 	public var boundsHeight:Number;
 	
-	public var minimumFieldOfView:Number;
- 	public var maximumFieldOfView:Number;
- 	public var minimumPan:Number;
- 	public var maximumPan:Number;
- 	public var minimumTilt:Number;
- 	public var maximumTilt:Number;
+	public var minFieldOfView:Number;
+ 	public var maxFieldOfView:Number;
+ 	public var minPan:Number;
+ 	public var maxPan:Number;
+ 	public var minTilt:Number;
+ 	public var maxTilt:Number;
 
 
 	public function Params(
@@ -61,15 +61,14 @@ public class Params
 		result.tierThreshold = tierThreshold;
 		result.boundsWidth = boundsWidth;
 		result.boundsHeight = boundsHeight;
-		result.minimumFieldOfView = minimumFieldOfView;
-		result.maximumFieldOfView = maximumFieldOfView;
-		result.minimumPan = minimumPan;
-		result.maximumPan = maximumPan;
-		result.minimumTilt = minimumTilt;
-		result.maximumTilt = maximumTilt;		
+		result.minFieldOfView = minFieldOfView;
+		result.maxFieldOfView = maxFieldOfView;
+		result.minPan = minPan;
+		result.maxPan = maxPan;
+		result.minTilt = minTilt;
+		result.maxTilt = maxTilt;
 		return result;
 	}
-	
 	
 	/**
 	* @private
@@ -91,12 +90,12 @@ public class Params
 		if (!isNaN(boundsWidth)) viewData.boundsWidth = boundsWidth;
 		if (!isNaN(boundsHeight)) viewData.boundsHeight = boundsHeight;
 		
-		if (!isNaN(minimumFieldOfView)) viewData.minimumFieldOfView = minimumFieldOfView;
-		if (!isNaN(maximumFieldOfView)) viewData.maximumFieldOfView = maximumFieldOfView;
-		if (!isNaN(minimumPan)) viewData.minimumPan = minimumPan;
-		if (!isNaN(maximumPan)) viewData.maximumPan = maximumPan;
-		if (!isNaN(minimumTilt)) viewData.minimumTilt = minimumTilt;
-		if (!isNaN(maximumTilt)) viewData.maximumTilt = maximumTilt;
+		if (!isNaN(minFieldOfView)) viewData.minimumFieldOfView = minFieldOfView;
+		if (!isNaN(maxFieldOfView)) viewData.maximumFieldOfView = maxFieldOfView;
+		if (!isNaN(minPan)) viewData.minimumPan = minPan;
+		if (!isNaN(maxPan)) viewData.maximumPan = maxPan;
+		if (!isNaN(minTilt)) viewData.minimumTilt = minTilt;
+		if (!isNaN(maxTilt)) viewData.maximumTilt = maxTilt;
 		return viewData;
 	}
 }

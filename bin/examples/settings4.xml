@@ -1,0 +1,24 @@
+﻿<!-- 
+	
+This is example of autorotation configuration
+	
+	- to disable autorotation set "enabled" to "false" and button "visible" to "false"
+	- delay start of autorotation in miliseconds 
+	- speed of autorotation in degrees / second
+	
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<SaladoPlayer>
+	<global debug="true" autorotation="enabled:true,delay:1000,speed:5"/>
+	<panoramas>		
+		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml"/>
+	</panoramas>
+	<modules>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<cutout path="modules/images/buttons.png"/>			
+			<basicButtons> 						
+				<basicButton name="autorotation" visible="true"/>				
+			</basicButtons>			
+		</NavigationBar>
+	</modules>	
+</SaladoPlayer>

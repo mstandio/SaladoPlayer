@@ -19,16 +19,14 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.module{
 		
 	
-	import flash.display.DisplayObject; import flash.display.StageDisplayState;
-	import flash.events.Event;	
-	import flash.events.KeyboardEvent;
-	import flash.display.Sprite;	
+	import flash.display.DisplayObject;
+	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.system.ApplicationDomain;	
 	
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.data.ModuleDescription;	
-	
+	import com.panozona.player.module.data.ModuleDescription;		
 	import com.panozona.player.module.utils.ModuleInfoPrinter;
 	
 	/**
@@ -43,21 +41,16 @@ package com.panozona.player.module{
 		protected var _moduleDescription:ModuleDescription;		
 		
 		protected var SaladoPlayerClass:Class;
-		protected var saladoPlayer:Object;
-		
-		private var LoadPanoramaEventClass:Class;
-		private var CameraMoveEventClass:Class;
-		private var CameraKeyBindingsClass:Class;
-		private var AutorotationEventClass:Class;
-		
-		private var TraceClass:Class;
-		private var tracer:Object;				
+		protected var saladoPlayer:Object;		
 				
-		public final function Module(moduleName:String, moduleVersion:Number, moduleHomeUrl:String = null) {			
-			_moduleDescription = new ModuleDescription(moduleName, moduleVersion, moduleHomeUrl);			
+		private var TraceClass:Class;
+		private var tracer:Object;
+						
+		public final function Module(moduleName:String, moduleVersion:Number, moduleAuthor:String = null, moduleHomeUrl:String = null) {			
+			_moduleDescription = new ModuleDescription(moduleName, moduleVersion, moduleAuthor, moduleHomeUrl);
 			
 			// default information
-			aboutThisModule = "This is module part of SaladoPlayer";
+			aboutThisModule = "This is SaladoPlayer module.";
 			
 			addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
 		}		
@@ -69,194 +62,87 @@ package com.panozona.player.module{
 				SaladoPlayerClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.SaladoPlayer") as Class;
 				saladoPlayer = this.parent as SaladoPlayerClass;
 				
+				_moduleData = new ModuleData(saladoPlayer.managerData.getAbstractModuleDataByName(_moduleDescription.moduleName));
+				
 				TraceClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.utils.Trace") as Class;
 				tracer = saladoPlayer.tracer as TraceClass;
-				
-				LoadPanoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.LoadPanoramaEvent") as Class;
-				
-				CameraMoveEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.CameraMoveEvent") as Class;
-				
-				AutorotationEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.AutorotationEvent") as Class;
-				
-				CameraKeyBindingsClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.model.CameraKeyBindings") as Class;				
-				
-				_moduleData = new ModuleData(saladoPlayer.managerData.getAbstractModuleDataByName(_moduleDescription.moduleName));		
-				
-				saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0 , true);
-				saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0 , true);
-				saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.TRANSITION_ENDED, onTransitionEnded, false, 0 , true);
 				
 				try {
 					moduleReady();
 				}catch (error:Error) {
 					while(numChildren) {
 						removeChildAt(0);
-					}					
-					printError(error.message);					
+					}
+					printError(error.message);
+					trace(error.getStackTrace());					
 				}				
 				
-			}catch (error:Error){
-				addChild(new ModuleInfoPrinter(_moduleDescription, aboutThisModule, error));
+			}catch (error:Error) {				
+				while(numChildren) {
+					removeChildAt(0);
+				}				
+				addChild(new ModuleInfoPrinter(_moduleDescription, aboutThisModule));
+				trace(error.getStackTrace());
 			}
 		}	
-				
-		protected final function cameraMotionTracking(enabled:Boolean):void {
-			if (enabled) {
-				saladoPlayer.manager.addEventListener(CameraMoveEventClass.CAMERA_MOVE, onCameraMove, false, 0 , true);
-			}else {
-				saladoPlayer.manager.removeEventListener(CameraMoveEventClass.CAMERA_MOVE, onCameraMove);
-			}	
-		}		
-		
-		protected final function autorotationStateTracking(enabled:Boolean):void {
-			if (enabled) {
-				saladoPlayer.manager.addEventListener(AutorotationEventClass.AUTOROTATION_STARTED, onAutorotationStarted, false, 0 , true);
-				saladoPlayer.manager.addEventListener(AutorotationEventClass.AUTOROTATION_STOPPED, onAutorotationStopped, false, 0 , true);
-			}else {
-				saladoPlayer.manager.removeEventListener(AutorotationEventClass.AUTOROTATION_STARTED, onAutorotationStarted);
-				saladoPlayer.manager.removeEventListener(AutorotationEventClass.AUTOROTATION_STOPPED, onAutorotationStopped);
-			}	
-		}
 		
 		protected function moduleReady():void {			
 			throw new Error("Function moduleReady() must be overrided by this module");
 		}						
 		
+		// used by module
 		protected final function get moduleData():ModuleData {			
 			return _moduleData;
 		}
 		
-		// to be used by Manager
+		// used by Manager
 		public final function get moduleDescription():ModuleDescription {
 			return _moduleDescription;
 		}
 		
-		// to be used by other modules  
+		// used by other modules  
 		public final function execute(functionName:String, args:Array):*{			
 			return (this[functionName] as Function).apply(this, args);
-		}					
+		}							
 		
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Following Functions avaible for modules 
-		// also modules can access any public functions and variables of SaladoPlayer 
-		// including manager that extends PanoSalado e.g. PanoSalado.manager.swingToChild(...)
-		// or managerData e.g.  PanoSalado.managerData.getActionDataById("someid")
-		// module should not import any classes from com.panozona.player, it should get variables as Objects and catch possible errors
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////////////
+		// Following Functions are avaible for module
+		// also module can access any public functions and variables of SaladoPlayer
+		// including manager that extends PanoSalado e.g. panoSalado.manager.swingToChild(...)
+		// or managerData e.g. panoSalado.managerData.getActionDataById("someid")
+		// module should not import any classes from com.panozona.player.manager or from com.panosalado
+		// (those classes will change in time and module may loose compatibility)
+		// instead, module should get variables as Objects and catch potential errors
+		///////////////////////////////////////////////////////////////////////////////////////////////////
 		
-			
-		// override me
-		protected function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
-			
+		public final function moduleExists(moduleName:String):Boolean{
+			return (saladoPlayer.getModuleByName(moduleName) != null);
+		} 
+		
+		public final function executeModule(moduleName:String, functionName:String, args:Array):*{
+			return saladoPlayer.getModuleByName(moduleName).execute(functionName, args);
+		} 		
+		
+		public final function get debugging():Boolean {
+			return saladoPlayer.managerData.debugging;
 		}
 		
-		// override me
-		protected function onPanoramaLoaded(loadPanoramaEvent:Object):void {			
-			
-		}
-		
-		// override me
-		protected function onTransitionEnded(loadPanoramaEvent:Object):void {
-			
-		}		
-		
-		// override me
-		protected function onCameraMove(cameraMoveEvent:Object):void {
-			// see ViewFinder module
-		}
-		
-		// override me
-		protected function onAutorotationStarted(autorotationEvent:Object):void {
-			
-		}
-		
-		// override me
-		protected function onAutorotationStopped(autorotationEvent:Object):void {
-			
-		}
-		
-		
-		
-		protected function printError(msg:String):void {
+		public final function printError(msg:String):void {
 			if(tracer != null){
-				tracer.printError(_moduleDescription.moduleName+":"+msg);
+				tracer.printError(_moduleDescription.moduleName+": "+msg);
 			}
 		}
 		
 		public final function printWarning(msg:String):void {
 			if(tracer != null){
-				tracer.printWarning(_moduleDescription.moduleName+":"+msg);
+				tracer.printWarning(_moduleDescription.moduleName+": "+msg);
 			}
 		}
 		
 		public final function printInfo(msg:String):void {
 			if(tracer != null){
-				tracer.printInfo(_moduleDescription.moduleName+":"+msg);
-			}
-		}	
-		
-		public final function executeModule(moduleName:String, functionName:String, args:Array):*{			
-			return saladoPlayer.getModuleByName(moduleName).execute(functionName, args);
-		}		
-		
-		public final function loadPanoramaById(panoramaId:String):void {
-			saladoPlayer.manager.loadPanoramaById(panoramaId);
-		}
-		
-		public final function toggleFullscreen():void {
-			saladoPlayer.manager.toggleFullscreen();
-		}		
-		
-		public final function toggleAutorotation():void {						
-			saladoPlayer.managerData.autorotationCameraData.toggleRotation();		
-		}
-		
-		public final function keyLeft(isDown:Boolean):void {			
-			if(isDown){
-				stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, true, 0, CameraKeyBindingsClass.LEFT)); 
-			}else {
-				stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, CameraKeyBindingsClass.LEFT)); 
+				tracer.printInfo(_moduleDescription.moduleName+": "+msg);
 			}
 		}
-		
-		public final function keyRight(isDown:Boolean):void {			
-			if(isDown){
-				stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, true, 0, CameraKeyBindingsClass.RIGHT)); 
-			}else {
-				stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, CameraKeyBindingsClass.RIGHT)); 
-			}
-		}
-		
-		public final function keyUp(isDown:Boolean):void {
-			if(isDown){
-				stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, true, 0, CameraKeyBindingsClass.UP)); 
-			}else {
-				stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, CameraKeyBindingsClass.UP)); 
-			}
-		}
-		
-		public final function keyDown(isDown:Boolean):void {
-			if(isDown){
-				stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, true, 0, CameraKeyBindingsClass.DOWN)); 
-			}else {
-				stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, CameraKeyBindingsClass.DOWN)); 
-			}
-		}	
-		
-		public final function keyIn(isDown:Boolean):void {			
-			if(isDown){
-				stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, true, 0, CameraKeyBindingsClass.IN)); 
-			}else {
-				stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, CameraKeyBindingsClass.IN)); 
-			}
-		}
-		
-		public final function keyOut(isDown:Boolean):void {			
-			if(isDown){
-				stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, true, 0, CameraKeyBindingsClass.OUT)); 
-			}else {
-				stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, CameraKeyBindingsClass.OUT)); 
-			}
-		}		
 	}
 }

@@ -31,7 +31,7 @@ public class SimpleTransitionData
 	
 	public function SimpleTransitionData() {
 		tween = Linear.easeNone;
-		time = 2.5;
+		time = 3.5;
 		property = "alpha";
 		startValue = 0;
 		endValue = 1;

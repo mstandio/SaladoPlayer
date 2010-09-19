@@ -45,7 +45,7 @@ public class ViewData extends Sprite
 	* Minimum renderable field of view
 	* @default 0.1
 	*/
-	public static const MINIMUM_FOV:Number =   0.1;
+	public static const MINIMUM_FOV:Number = 0.1;
 	
 	/**
 	* Maximum renderable field of view
@@ -352,8 +352,8 @@ public class ViewData extends Sprite
 	}
 	
 	private function updateMinimumFieldOfView():void {
-		if ( _tile != null && (_tile.tilePyramid != null && (!isNaN(_tile.tilePyramid.width))) )
-			minimumFieldOfView =  (_boundsWidth / _tile.tilePyramid.width) * 90;
+		//if ( _tile != null && (_tile.tilePyramid != null && (!isNaN(_tile.tilePyramid.width))) ) // COREMOD
+			//minimumFieldOfView =  (_boundsWidth / _tile.tilePyramid.width) * 90;                 // TODO:  check why i had to comment this out
 	}
 	
 	/**
@@ -443,7 +443,7 @@ public class ViewData extends Sprite
 	* @private
 	*/
 	public function set minimumFieldOfView(value:Number):void
-	{
+	{ trace("ustawiam "+value);
 		if ( _minimumFieldOfView == value || isNaN(value) ) return;
 		if ( value < MINIMUM_FOV ) value = MINIMUM_FOV;
 		if ( value > MAXIMUM_FOV ) value = MAXIMUM_FOV;

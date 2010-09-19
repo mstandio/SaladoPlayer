@@ -29,6 +29,7 @@ package com.panozona.player.manager.utils {
 	import flash.events.MouseEvent;
 	
 	import com.panozona.player.manager.data.TraceData;
+	import com.panozona.player.SaladoPlayer;
 
 	/**
 	 * ...
@@ -42,7 +43,7 @@ package com.panozona.player.manager.utils {
 		private var buffer:String = "";
 		private var styleSheet:StyleSheet;
 		
-		private var window:Sprite;
+		private var window:Sprite
 		private var btnOpen:Sprite;
 		private var btnClose:Sprite;
 		private var btnScrollUp:Sprite;
@@ -50,26 +51,9 @@ package com.panozona.player.manager.utils {
 		
 		private var traceData:TraceData;
 		
+		private var debugging:Boolean = true;
+		
 		private static var __instance:Trace;
-		
-		public function Trace() {
-			
-		}
-		
-		public function configure(traceData:TraceData):void {
-			if (__instance == null){
-				__instance = new Trace();
-			}
-			this.traceData = traceData;
-			if (traceData.debug == false) {
-				buffer = "";
-			}else {
-				if (isNaN(traceData.width)  || traceData.width  < 100) traceData.width  = 300;
-				if (isNaN(traceData.height) || traceData.height < 100) traceData.height = 200
-				if (stage) stageReady();
-				else addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
-			}
-		}
 		
 		public static function get instance():Trace {
 			if (__instance == null) {
@@ -78,23 +62,42 @@ package com.panozona.player.manager.utils {
 			return __instance;
 		}
 		
+		public function Trace() {
+			
+			window = new Sprite();
+			window.visible = false;
+			btnOpen = new Sprite();
+			btnOpen.visible = false;
+			
+			if (stage) stageReady();
+			else addEventListener(Event.ADDED_TO_STAGE, stageReady);
+		}
 		
 		private function stageReady(e:Event = null):void {
-		
+			
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
-			stage.addEventListener(Event.RESIZE, handleStageResize);
+			
+			traceData = (this.parent as SaladoPlayer).managerData.traceData;
+			debugging = (this.parent as SaladoPlayer).managerData.debugging;
+			
+			if (!debugging) {
+				buffer = "";
+				return;
+			}else {
+				if (isNaN(traceData.width)  || traceData.width  < 100) traceData.width  = 100;
+				if (isNaN(traceData.height) || traceData.height < 50) traceData.height = 50
+			}
 			
 			var txtFormat:TextFormat = new TextFormat();
 			txtFormat.blockIndent = 0;
 			txtFormat.font = "Courier"
 			txtFormat.color = 0xffffff;
 			
-			btnOpen = new Sprite();
 			var label:TextField = new TextField(); 
 			label.selectable = false;
 			label.mouseEnabled = false;
 			label.defaultTextFormat = txtFormat;
-			label.text = "[show trace]";
+			label.text = "[trace]";
 			label.autoSize = TextFieldAutoSize.LEFT;
 			btnOpen.addChild(label);
 			btnOpen.graphics.beginFill(0x000000);
@@ -104,37 +107,39 @@ package com.panozona.player.manager.utils {
 			btnOpen.buttonMode = true;
 			btnOpen.useHandCursor = true;
 			addChild(btnOpen);
-			btnOpen.visible = !traceData.initialVisibility;
-			// position by handleResize			
+			if (!btnOpen.visible && !traceData.initialVisibility) {
+				btnOpen.visible = true;
+			}
 			
-			window = new Sprite();
+			// position by handleResize
 			window.graphics.beginFill(0x000000);
 			window.graphics.drawRect(0, 0, traceData.width, traceData.height);
 			window.graphics.endFill();
-			window.visible = traceData.initialVisibility;
-			
+			if (!window.visible && traceData.initialVisibility) {
+				window.visible = true;
+			}
 			addChild(window);
 			// position by handleResize
 			
 			var styleLine:Object = new Object();
 			styleLine.color = "#FFFFFF";
 			styleLine.fontFamily = "mono";
-			styleLine.fontSize = 12;
+			styleLine.fontSize = 11;
 			
 			var styleError:Object = new Object();
 			styleError.color = "#FF0000";
 			styleError.fontFamily = "mono";
-			styleError.fontSize = 12;
+			styleError.fontSize = 11;
 			
 			var styleWarning:Object = new Object();
 			styleWarning.color = "#FFFF00";
 			styleWarning.fontFamily = "mono";
-			styleWarning.fontSize = 12;
+			styleWarning.fontSize = 11;
 			
 			var styleInfo:Object = new Object();
 			styleInfo.color = "#00FF00";
 			styleInfo.fontFamily = "mono";
-			styleInfo.fontSize = 12;
+			styleInfo.fontSize = 11;
 			
 			styleSheet = new StyleSheet();
 			styleSheet.setStyle(".line", styleLine);
@@ -144,7 +149,6 @@ package com.panozona.player.manager.utils {
 			
 			output = new TextField();
 			output.alwaysShowSelection = true;
-			//output.defaultTextFormat = txtFormat;
 			output.wordWrap = true;
 			output.multiline = true;
 			output.width = traceData.width-btnSize;
@@ -168,8 +172,8 @@ package com.panozona.player.manager.utils {
 			btnClose.buttonMode = true;
 			btnClose.useHandCursor = true;
 			window.addChild(btnClose);
-			btnClose.x = traceData.width-btnSize;
-			btnClose.y = 0;
+			btnClose.x = traceData.width-btnSize - 1;
+			btnClose.y = 1;
 			
 			btnScrollUp = new Sprite();
 			btnScrollUp.graphics.beginFill(0x000000);
@@ -186,7 +190,7 @@ package com.panozona.player.manager.utils {
 			btnScrollUp.buttonMode = true;
 			btnScrollUp.useHandCursor = true;
 			window.addChild(btnScrollUp);
-			btnScrollUp.x = traceData.width - btnSize;
+			btnScrollUp.x = traceData.width - btnSize - 1;
 			btnScrollUp.y = btnSize;
 			
 			btnScrollDown = new Sprite();
@@ -204,14 +208,15 @@ package com.panozona.player.manager.utils {
 			btnScrollDown.buttonMode = true;
 			btnScrollDown.useHandCursor = true;
 			window.addChild(btnScrollDown);
-			btnScrollDown.x = traceData.width - btnSize;
-			btnScrollDown.y = traceData.height - btnSize;
+			btnScrollDown.x = traceData.width - btnSize - 1;
+			btnScrollDown.y = traceData.height - btnSize - 1;
 		
+			stage.addEventListener(Event.RESIZE, handleStageResize);
 			handleStageResize();
 		}
 		
 		public function printError(message:String):void {
-			if(traceData == null || traceData.debug){
+			if(debugging){
 				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"error\">" + message + "</span><br/>";
 				if (output != null) {
 					output.htmlText += htmMessage;
@@ -224,7 +229,7 @@ package com.panozona.player.manager.utils {
 		}
 		
 		public function printWarning(message:String):void {
-			if(traceData == null || traceData.debug){
+			if(debugging){
 				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"warning\">" + message + "</span><br/>";
 				if (output != null) {
 					output.htmlText += htmMessage;
@@ -237,7 +242,7 @@ package com.panozona.player.manager.utils {
 		}
 		
 		public function printInfo(message:String):void {
-			if(traceData == null || traceData.debug){
+			if(debugging){
 				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"info\">" + message + "</span><br/>";
 				if (output != null) {
 					output.htmlText += htmMessage;
@@ -249,17 +254,17 @@ package com.panozona.player.manager.utils {
 		}		
 		
 		private function hideWindow(e:Event = null):void {
-			if(window != null && btnOpen != null){
-				window.visible = false;
-				btnOpen.visible = true;
+			window.visible = false;
+			btnOpen.visible = true;
+		}
+		
+		private function showWindow(e:Event = null):void {
+			if(debugging){
+				window.visible = true;
+				btnOpen.visible = false;
 			}
 		}
 		
-		private function showWindow(e:Event = null):void {			
-			window.visible = true;
-			btnOpen.visible = false;
-		}
-	
 		private function scrollUp(e:Event):void {
 			addEventListener(Event.ENTER_FRAME, scrollUpOnEnter, false, 0, true);
 		}
@@ -286,26 +291,30 @@ package com.panozona.player.manager.utils {
 		}
 		
 		private function handleStageResize(e:Event = null):void {
-			if (traceData.horizontalAlign == "right") {
-				btnOpen.x = stage.stageWidth - btnOpen.width;
-				window.x = stage.stageWidth - traceData.width;
-			}else if (traceData.horizontalAlign == "center") {
-				btnOpen.x = (stage.stageWidth - btnOpen.width)*0.5;
-				window.x = (stage.stageWidth - traceData.width)*0.5;
-			}else{
+			
+			var boundsWidth:Number = (this.parent as SaladoPlayer).manager.boundsWidth;
+			var boundsHeight:Number= (this.parent as SaladoPlayer).manager.boundsHeight;
+			
+			if (traceData.horizontalAlign == "left") {
 				btnOpen.x = 0;
 				window.x  = 0;
+			}else if (traceData.horizontalAlign == "center") {
+				btnOpen.x = (boundsWidth - btnOpen.width)*0.5;
+				window.x = (boundsWidth - traceData.width)*0.5;
+			}else{ // right
+				btnOpen.x = boundsWidth - btnOpen.width;
+				window.x = boundsWidth - traceData.width;
 			}
 			
-			if (traceData.verticalAlign == "top") {
+			if (traceData.verticalAlign == "bottom") {
+				btnOpen.y = boundsHeight- btnOpen.height;
+				window.y = boundsHeight - traceData.height;
+			}else if (traceData.verticalAlign == "middle") {
+				btnOpen.y = (boundsHeight - btnOpen.height)*0.5;
+				window.y = (boundsHeight - traceData.height)*0.5;
+			}else { // top
 				btnOpen.y = 0;
 				window.y = 0;
-			}else if (traceData.horizontalAlign == "middle") {
-				btnOpen.y = (stage.stageHeight- btnOpen.height)*0.5;
-				window.y = (stage.stageHeight - traceData.height)*0.5;
-			}else{
-				btnOpen.y = stage.stageHeight- btnOpen.height;
-				window.y = stage.stageHeight - traceData.height;
 			}
 		}
 	}

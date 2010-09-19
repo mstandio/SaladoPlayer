@@ -33,7 +33,7 @@ package com.panozona.player{
 	import com.panosalado.controller.*;
 	import com.panosalado.core.*;
 	
-	import com.panozona.player.manager.Manager;	
+	import com.panozona.player.manager.Manager;
 	import com.panozona.player.manager.utils.ManagerDataParserXML;
 	import com.panozona.player.manager.utils.ManagerDataValidator;
 	import com.panozona.player.manager.utils.ModulesLoader;
@@ -45,7 +45,7 @@ package com.panozona.player{
 	import com.panozona.player.manager.data.AbstractModuleDescription;
 	import com.panozona.player.manager.data.TraceData;
 	
-	import performance.Stats;	
+	import performance.Stats;
 
 	[SWF(width="500", height="375", frameRate="30", backgroundColor="#FFFFFF")] // default size is mandatory
 	
@@ -59,29 +59,31 @@ package com.panozona.player{
 		private var stageReference:StageReference;
 		private var resizer:IResizer;
 		private var inertialMouseCamera:ICamera;
+		private var arcBallCamera:ICamera;
 		private var keyboardCamera:ICamera;
 		private var autorotationCamera:ICamera;
 		private var simpleTransition:SimpleTransition;
-		private var nanny:Nanny;			
+		private var nanny:Nanny;
 		
-		private var modulesLoader:ModulesLoader;		
+		private var modulesLoader:ModulesLoader;
 		private var moduleByDepth:Array;
-		private var moduleByName:Array;		
+		private var moduleByName:Array;
 		private var moduleClass:Class;
 		private var abstractModuleDescriptions:Vector.<AbstractModuleDescription>;
 		
 		public function SaladoPlayer() {
 			
-			managerData = new ManagerData();			
-			manager = new Manager(managerData);			
+			managerData = new ManagerData();
+			manager = new Manager(managerData);
 			
 			panorama = new Panorama(); // Singleton
 			resizer	= new Resizer();
 			inertialMouseCamera = new InertialMouseCamera();
+			arcBallCamera = new ArcBallCamera();
 			keyboardCamera = new KeyboardCamera();
 			autorotationCamera = new AutorotationCamera();
 			simpleTransition = new SimpleTransition();
-			nanny = new Nanny();			
+			nanny = new Nanny();
 			
 			manager.initialize([
 				panorama,
@@ -89,14 +91,16 @@ package com.panozona.player{
 				resizer,
 				managerData.inertialMouseCameraData,
 				inertialMouseCamera,
-				managerData.keyboardCameraData, 
+				managerData.keyboardCameraData,
 				keyboardCamera,
-				managerData.autorotationCameraData, 
+				managerData.arcBallCameraData,
+				arcBallCamera,
+				managerData.autorotationCameraData,
 				autorotationCamera,
 				managerData.simpleTransitionData,
 				simpleTransition,
 				nanny
-			]);			
+			]);
 			
 			Trace.instance.printInfo(ManagerDescription.name +" v"+ManagerDescription.version);
 			
@@ -105,25 +109,27 @@ package com.panozona.player{
 			try{
 				xmlLoader.load( new URLRequest(loaderInfo.parameters.xml?loaderInfo.parameters.xml:"settings.xml"));
 				xmlLoader.addEventListener(IOErrorEvent.IO_ERROR, configurationNotLoaded, false, 0, true);
-				xmlLoader.addEventListener(Event.COMPLETE, configurationLoaded, false, 0, true);			
-			}catch (error:Error) {				
-				cleanupOnCrash();
-				Trace.instance.printError("Could not access local files. See http://panozona.com/wiki/Accessing_local_files");
+				xmlLoader.addEventListener(Event.COMPLETE, configurationLoaded, false, 0, true);
+			}catch (error:Error) {
+				tracer = Trace.instance;
+				addChild(tracer);
+				Trace.instance.printError("Security error: "+error.message);
 			}
 		}
 		
-		private function configurationNotLoaded(event:IOErrorEvent = null):void {			
-			cleanupOnCrash();			
-			Trace.instance.printError("Could not load configuration file: "+event.text);						
+		private function configurationNotLoaded(event:IOErrorEvent = null):void {
+			tracer = Trace.instance;
+			addChild(tracer);
+			Trace.instance.printError("Could not load configuration file: " + event.text);
 		}
 		
-		private function configurationLoaded(event:Event):void {			
+		private function configurationLoaded(event:Event):void {
 			
 			abstractModuleDescriptions = new Vector.<AbstractModuleDescription>()
 			moduleByDepth = new Array();
-			moduleByName = new Array();			
+			moduleByName = new Array();
 			
-			var input:ByteArray = event.target.data;			
+			var input:ByteArray = event.target.data;
 			try {
 				input.uncompress()
 			}catch (error:Error) {} // huh
@@ -133,14 +139,13 @@ package com.panozona.player{
 				var managerDataParserXML:ManagerDataParserXML = new ManagerDataParserXML();
 				var settings:XML = XML(input);
 				managerDataParserXML.configureManagerData(managerData, settings);
-				Trace.instance.printInfo("Configuration parsing done.");
-			
+				
 				addChild(manager);
-			
-				Trace.instance.configure(managerData.traceData); 
+				
+				Trace.instance.printInfo("Configuration parsing done.");			
 				tracer = Trace.instance;
-				addChild(tracer); 
-			
+				addChild(tracer);				
+				
 				if (managerData.abstractModulesData.length == 0) {
 					finalOperations();
 				}else {
@@ -148,14 +153,13 @@ package com.panozona.player{
 					modulesLoader.addEventListener(LoadModuleEvent.MODULE_LOADED, insertModule, false, 0, true);
 					modulesLoader.addEventListener(LoadModuleEvent.ALL_MODULES_LOADED, modulesLoadingComplete, false, 0, true);
 					modulesLoader.loadModules(managerData.abstractModulesData);
-				}			
-			}catch (error:Error) {								
-				cleanupOnCrash();
-				Trace.instance.printError("Error in configuration file.");
-				Trace.instance.printError(error.message);								
-			}			
+				}
+			}catch (error:Error) {
+				tracer = Trace.instance;
+				addChild(tracer);
+				Trace.instance.printError("Error in configuration file structure: " + error.message);
+			}
 		}
-		
 		
 		private function insertModule(event:LoadModuleEvent):void {
 			if(moduleClass == null){
@@ -187,34 +191,28 @@ package com.panozona.player{
 			finalOperations();
 		}
 		
-
-		private function finalOperations():void{
-			if (managerData.traceData.debug) {
+		private function finalOperations():void {		
+			
+			if (managerData.debugging) {
 				abstractModuleDescriptions.push(new ManagerDescription().description);
 				try {
 					var managerDataValidator:ManagerDataValidator = new ManagerDataValidator(managerData, abstractModuleDescriptions);
 					managerDataValidator.validate();
-					Trace.instance.printInfo("Configuration validation done.");					
+					Trace.instance.printInfo("Configuration validation done.");
 				}catch (error:Error) {
 					Trace.instance.printError(error.message);
 					trace(error.getStackTrace()); // remove
-				}				
-			}			
-			addChild(Trace.instance); // to make it most on top			
+				}
+			}
+			addChild(Trace.instance); // to make it most on top	
 			if (managerData.showStatistics) {
 				addChild(new Stats());
-			}			
+			}
+			
+			managerData.abstractModulesData = null;
+			
 			manager.loadFirstPanorama();
-		}
-		
-		private function cleanupOnCrash():void {		
-			while (numChildren) {
-				removeChildAt(0);
-			}					
-			Trace.instance.configure(managerData.traceData); 
-			tracer = Trace.instance;
-			addChild(tracer); 			
-		}
+		}		
 		
 		/**
 		 * Returns reference to module (swf file) loaded as one of layers atop SaladoPlayer

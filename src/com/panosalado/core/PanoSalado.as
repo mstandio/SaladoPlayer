@@ -246,9 +246,7 @@ public class PanoSalado extends ViewData implements ICamera
 		}
 		updateChildren(_managedChildren, viewData);
 		// set viewData to secondary view data and try to render secondary canvas
-		viewData = viewData.secondaryViewData;
-		
-		dispatchEvent(new CameraMoveEvent(_pan, _tilt, _fieldOfView)); //COREMOD
+		viewData = viewData.secondaryViewData;		
 		
 		if (viewData._tile && viewData.invalid) {
 			//_render(viewData, event ? _secondaryCanvasInternal.graphics : null);
@@ -322,7 +320,7 @@ public class PanoSalado extends ViewData implements ICamera
 			super.commitPath(e,true);
 			return;
 		}
-		updateFOV = (params.minimumFieldOfView) ? true : false 
+		updateFOV = (params.minFieldOfView) ? true : false 
 		_params[path] = null;
 		params.path = null;
 		params.copyInto(this as ViewData);

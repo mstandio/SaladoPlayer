@@ -20,6 +20,7 @@ package com.panosalado.controller
 {
 
 import com.panosalado.controller.ICamera;
+import com.panosalado.model.Characteristics;
 import com.panosalado.model.CameraKeyBindings;
 import com.panosalado.model.ViewData;
 import com.panosalado.model.ArcBallCameraData;
@@ -28,49 +29,58 @@ import com.panosalado.events.CameraEvent;
 import flash.display.Sprite;
 import flash.display.Stage;
 import flash.events.Event;
-import flash.events.EventDispatcher;
-import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.utils.getTimer;
 
-public class ArcBallCamera implements ICamera
-{
-	
-	protected var _hitArea:EventDispatcher;
-	protected var _stage:Stage;
+public class ArcBallCamera extends Sprite implements ICamera
+{		
 	protected var _viewData:ViewData;
+	protected var _mouseObject:Sprite;
 	
+	protected var _cameraData:ArcBallCameraData;	
+
 	private var __lastAngleX:Number;
 	private var __lastAngleY:Number;
 	private var __xh:Number;
-	private var __xv:Number;
+	private var __xv:Number;	
 	
-	protected var _cameraData:ArcBallCameraData;
+	public function ArcBallCamera()
+	{	
+		__lastAngleX = 0;
+		__lastAngleY = 0;
+		__xh = 0;
+		__xv = 0;
+		
+	}
 	
-	public function ArcBallCamera(cameraData:ArcBallCameraData)
-	{
-		this.cameraData = cameraData;
+	public function processDependency(reference:Object,characteristics:*):void {
+		if (characteristics == Characteristics.VIEW_DATA) { 
+			viewData = reference as ViewData;
+			mouseObject = reference as Sprite;
+		}
+		else if (characteristics == Characteristics.ARC_BALL_CAMERA_DATA) cameraData = reference as ArcBallCameraData;		
 	}
 	
 	private function downHandler(event:MouseEvent):void
-	{		
+	{	
 		var vFov:Number;
-		if ( viewData.invalidBoundsWidth || viewData.invalidFieldOfView ) {
-			__xh = Math.cos(viewData.fieldOfView * 0.5 * __toRadians) * (viewData.boundsWidth * 0.5);
-		}
-		if ( viewData.invalidBoundsHeight || viewData.invalidFieldOfView ) {
-			vFov = viewData.boundsHeight / viewData.boundsWidth * viewData.fieldOfView;
-			__xv = Math.cos(vFov * 0.5 * __toRadians) * (viewData.boundsHeight * 0.5);
-		}
-		__lastAngleX = Math.atan2( ((_stage.mouseX - viewData.boundsX) - viewData.boundsWidth), __xh );
-		__lastAngleY = Math.atan2( ((_stage.mouseY - viewData.boundsY) - viewData.boundsHeight * 0.5), __xv );
 		
-		_stage.addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
-		_hitArea.addEventListener( MouseEvent.MOUSE_OUT, upHandler, false, 0, true );
+		__xh = Math.tan(viewData.fieldOfView * 0.5 * __toRadians) / (viewData.boundsWidth * 0.5);		
+		
+		vFov = viewData.boundsHeight / viewData.boundsWidth * viewData.fieldOfView;
+		__xv = Math.tan(vFov * 0.5 * __toRadians) / (viewData.boundsHeight * 0.5);
+		
+		__lastAngleX= Math.atan(( _mouseObject.mouseX - viewData.boundsWidth * 0.5) * __xh)		// HARDCORE
+		__lastAngleY = Math.atan(( _mouseObject.mouseY - viewData.boundsHeight * 0.5 )* __xv);  // TRIGONOMETRY :F
+		
+					
+		addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
+		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
 	}
 	private function upHandler(event:MouseEvent):void
 	{
-		_stage.removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
+		removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
+		dispatchEvent( new CameraEvent(CameraEvent.INACTIVE) );
 	}
 	
 	private function enterFrameHandler(event:Event):void 
@@ -78,43 +88,51 @@ public class ArcBallCamera implements ICamera
 		var angleX:Number;
 		var angleY:Number;
 		var vFov:Number;
-		if ( viewData.invalidBoundsWidth || viewData.invalidFieldOfView ) {
-			__xh = Math.cos(viewData.fieldOfView * 0.5 * __toRadians) * (viewData.boundsWidth * 0.5);
+		if ( viewData.invalid) {
+			__xh = Math.tan(viewData.fieldOfView * 0.5 * __toRadians) / (viewData.boundsWidth * 0.5);
 		}
-		if ( viewData.invalidBoundsHeight || viewData.invalidFieldOfView ) {
+		if ( viewData.invalid ) {
 			vFov = viewData.boundsHeight / viewData.boundsWidth * viewData.fieldOfView;
-			__xv = Math.cos(vFov * 0.5 * __toRadians) * (viewData.boundsHeight * 0.5);
-		}
-		angleX = Math.atan2( ((_stage.mouseX - viewData.boundsX) - viewData.boundsWidth), __xh );
-		angleY = Math.atan2( ((_stage.mouseY - viewData.boundsY) - viewData.boundsHeight * 0.5), __xv );
+			__xv = Math.tan(vFov * 0.5 * __toRadians) / (viewData.boundsHeight * 0.5);			
+		}						
+		
+		angleX = Math.atan(( _mouseObject.mouseX - viewData.boundsWidth * 0.5) * __xh)		
+		angleY = Math.atan(( _mouseObject.mouseY - viewData.boundsHeight * 0.5 )* __xv);
 		viewData.pan += (angleX - __lastAngleX) * __toDegrees;
-		viewData.tilt += (angleY - __lastAngleY) * __toDegrees;
+		viewData.tilt += (angleY - __lastAngleY) * __toDegrees;		
+
 		if (viewData._tilt > 90) {
 			viewData.tilt = 90;
 		}
 		if (viewData._tilt < -90) {
 			viewData.tilt = -90;
 		}
+		
 		__lastAngleX = angleX;
 		__lastAngleY = angleY;
-	}
-	
+	}	
+		
 	protected function enabledChangeHandler(e:Event):void {
+		
+		if (_viewData != null) {
+			_viewData.dispatchEvent(new CameraEvent(CameraEvent.ENABLED_CHANGE))
+		}
+		
 		switch(_cameraData.enabled) {
 			case true: 
-			if (_hitArea) {
-				_hitArea.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
-				_hitArea.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
+			if (_cameraData) {
+				_mouseObject.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
+				_mouseObject.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
+				_mouseObject.addEventListener( MouseEvent.MOUSE_OUT, upHandler, false, 0, true );
 			}
 			break;
 			case false: 
-			if (_hitArea) {
-				_hitArea.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
-				_hitArea.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
-			}
-			if (_stage) {
-				_stage.removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
-			}
+			if (_mouseObject) {
+				_mouseObject.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
+				_mouseObject.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
+				_mouseObject.removeEventListener( MouseEvent.MOUSE_OUT, upHandler );
+				_mouseObject.removeEventListener( Event.ENTER_FRAME, enterFrameHandler); // WHAT? WHY? 
+			}			
 			break;
 		}
 	}
@@ -132,42 +150,27 @@ public class ArcBallCamera implements ICamera
 		_cameraData = value;
 	}
 	
-	public function get hitArea():EventDispatcher { return _hitArea; }
-	public function set hitArea(value:EventDispatcher):void
+	public function get mouseObject():Sprite { return _mouseObject; }
+	public function set mouseObject(value:Sprite):void
 	{
-		if ( _hitArea === value ) return;
+		if ( _mouseObject === value ) return;
 		if ( value != null){
 			value.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
 			value.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
+			value.addEventListener( MouseEvent.MOUSE_OUT, upHandler, false, 0, true );
 		}
-		else if(value == null && _hitArea != null ){
-			_hitArea.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
-			_hitArea.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
+		else if(value == null && _mouseObject != null ){
+			_mouseObject.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
+			_mouseObject.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
+			_mouseObject.removeEventListener( MouseEvent.MOUSE_OUT, upHandler );
 		}
-		_hitArea = value;
-	}
-	
-	private function stagePresenceHandler(e:Event):void {
-		stage = _hitArea.stage;
-	}
-	
-	public function get stageReference():Stage { return _stage; }
-	public function set stageReference(value:Stage):void
-	{
-		if ( _stage === value ) return;
-		if ( value == null) {
-			_stage.removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
-		}
-		_stage = value;
-	}
+		_mouseObject = value;
+	}	
 	
 	public function get viewData():ViewData { return _viewData; }
 	public function set viewData(value:ViewData):void
-	{
-		_viewData = value;
-		__xh = Math.cos(viewData.fieldOfView * 0.5 * __toRadians) * (viewData.boundsWidth * 0.5);
-		var vFov:Number = viewData.boundsHeight / viewData.boundsWidth * viewData.fieldOfView;
-		__xv = Math.cos(vFov * 0.5 * __toRadians) * (viewData.boundsHeight * 0.5);
+	{		
+		_viewData = value;								
 	}
 	
 	private var __toDegrees:Number = 180 / Math.PI;

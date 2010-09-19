@@ -20,57 +20,45 @@ package com.panozona.modules.examplemodule.data {
 	
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.data.ModuleNode;
+	import com.panozona.player.module.data.StructureMaster;
 
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class ExampleModuleData {		
-				
-		public var settings:SettingsData;
-		public var someChildrenData:Vector.<SomeChildData>;
+	public class ExampleModuleData extends StructureMaster{
+
+		// These var names are not important
+		// HOWEVER Check comments for SomeParent, SomeChild and SomeGrandChild
+		public var settings:Settings = new Settings();
+		public var someParent:SomeParent = new SomeParent();
 		
-		public function ExampleModuleData(moduleData:ModuleData) {
+		public function ExampleModuleData(moduleData:ModuleData, debugging:Boolean) {
+			super(debugging);
 			
-			settings = new SettingsData();			
-			someChildrenData = new Vector.<SomeChildData>();        		
-						
-			var settingsModuleNode:ModuleNode;
+			for each(var moduleNode:ModuleNode in moduleData.moduleNodes){
+				switch(moduleNode.nodeName) {
+					case "settings": 
+						readRecursive(settings, moduleNode);
+					break;
+					case "someParent": 
+						readRecursive(someParent, moduleNode);
+					break;
+					default:
+						throw new Error("Could not recognize: "+moduleNode.nodeName);
+				}
+			}
 			
-			settingsModuleNode = moduleData.getModuleNodeByName("settings");			
-			
-			if (settingsModuleNode == null) {	
-				throw new Error("settings node missing");
-			}else{				
-				settings.numberValue= settingsModuleNode.getAttributeByName("numberValue", Number, 0); 
-				settings.booleanValue = settingsModuleNode.getAttributeByName("booleanValue", Boolean, false);
-				settings.arrayValue = settingsModuleNode.getAttributeByName("arrayValue", Array, new Array());
-				settings.stringValue = settingsModuleNode.getAttributeByName("stringValue", String, "");				
-			}		
-						
-			
-			var parentModuleNode:ModuleNode;			
-			
-			parentModuleNode = moduleData.getModuleNodeByName("someParent");
-			
-			if (parentModuleNode == null) {
-				throw new Error("someParent node missing");
-			}else{	
-				var someChildData:SomeChildData;
-				var someGrandchildData:SomeGrandchildData;
-				for each(var someChildModuleNode:ModuleNode in parentModuleNode.moduleNodes){
-					someChildData = new SomeChildData(someChildModuleNode.getAttributeByName("id", String, null));
-					for each(var someGrandhildModuleNode:ModuleNode in someChildModuleNode.moduleNodes) {
-						someGrandchildData = new SomeGrandchildData(
-							someGrandhildModuleNode.getAttributeByName("name",String, ""),
-							someGrandhildModuleNode.getAttributeByName("isMale", Boolean, "false"),
-							someGrandhildModuleNode.getAttributeByName("age", Number, 0 ),
-							someGrandhildModuleNode.getAttributeByName("pets", Array, new Array()));
-						someChildData.someGrandchildren.push(someGrandchildData);
+			if (debugging){			
+				// throw errors if inspection shows that not all vital data was recieved
+				for each(var someChild:SomeChild in someParent.getChildren()) {
+					if (someChild.id == null || someChild.id == "") {
+						throw new Error("someChild id is not specified.");
 					}
-					someChildrenData.push(someChildData);
-				}				
-			}		
-		}	
+				}
+				// ect.
+				// check for validity of settings values and throw informative Errors. 
+			}
+		}
 	}
 }

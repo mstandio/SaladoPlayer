@@ -21,7 +21,7 @@ package com.panozona.player.manager{
 	import com.panosalado.controller.AutorotationCamera;
 	import com.panozona.player.SaladoPlayer;
 	import com.panozona.player.manager.events.LoadChildEvent;
-	import com.panozona.player.manager.events.LoadPanoramaEvent;	
+	import com.panozona.player.manager.events.LoadPanoramaEvent;
 	import com.panozona.player.manager.data.ManagerData;
 	import com.panozona.player.manager.data.ActionData;
 	import com.panozona.player.manager.data.ChildMouse;
@@ -35,15 +35,15 @@ package com.panozona.player.manager{
 	import com.panosalado.controller.SimpleTransition;
 	import com.panosalado.core.PanoSalado;
 	import com.panosalado.view.ImageHotspot;
-	import com.panosalado.view.ManagedChild;		
+	import com.panosalado.view.ManagedChild;
 	import com.panosalado.model.Characteristics;
 	import com.panosalado.model.CameraKeyBindings;
 	import com.panosalado.model.Params;
 	import com.panosalado.model.ViewData;
-	import com.panosalado.model.ViewData;	
+	import com.panosalado.model.ViewData;
 	import com.panosalado.events.AutorotationEvent;
 	
-	import flash.display.Sprite; import flash.display.StageDisplayState;
+	import flash.display.Sprite;
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -67,6 +67,8 @@ package com.panozona.player.manager{
 		
 		private var arrListeners:Array; 
 		
+		private var autorotationCamera:AutorotationCamera;
+		
 		public function Manager(managerData:ManagerData) {
 			_managerData = managerData;
 			if (stage) stageReady();
@@ -76,10 +78,10 @@ package com.panozona.player.manager{
 		private function stageReady(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
 			saladoPlayer = SaladoPlayer(this.parent.root);
-			childrenLoader = new ChildrenLoader();			
+			childrenLoader = new ChildrenLoader();
 			childrenLoader.addEventListener(LoadChildEvent.BITMAPDATA_CONTENT, insertChild, false, 0, true);
 			childrenLoader.addEventListener(LoadChildEvent.SWFDATA_CONTENT, insertChild, false, 0, true);
-		}		
+		}
 		
 		public override function initialize(dependencies:Array):void {
 			super.initialize(dependencies);
@@ -88,22 +90,22 @@ package com.panozona.player.manager{
 				if (dependencies[i] is SimpleTransition) {
 					dependencies[i].addEventListener( Event.COMPLETE, transitionComplete, false, 0, true);
 				} else if (dependencies[i] is AutorotationCamera) {
-					dependencies[i].addEventListener(AutorotationEvent.AUTOROTATION_STARTED, autorotationStarted, false, 0, true);
-					dependencies[i].addEventListener(AutorotationEvent.AUTOROTATION_STOPPED, autorotationStopped, false, 0, true);
+					autorotationCamera = dependencies[i];
 				}
 			}
+			_managerData.arcBallCameraData.enabled = false;
 		}
 		
-		private function panoramaLoaded(e:Event):void {			
+		private function panoramaLoaded(e:Event):void {
 			arrListeners = new Array();
 			childrenLoader.loadChildren(currentPanoramaData.childrenData);
 			dispatchEvent(new LoadPanoramaEvent(LoadPanoramaEvent.PANORAMA_LOADED, currentPanoramaData));
-			loadingPanoramaLocked = false;			
+			loadingPanoramaLocked = false;
 			runAction(currentPanoramaData.onEnter);
 			if (previousPanoramaData != null ){
 				runAction(currentPanoramaData.onEnterSource[previousPanoramaData.id]);
 			}
-		}		
+		}
 		
 		private function transitionComplete(e:Event):void {
 			runAction(currentPanoramaData.onTransitionEnd);
@@ -113,28 +115,21 @@ package com.panozona.player.manager{
 			dispatchEvent(new LoadPanoramaEvent(LoadPanoramaEvent.TRANSITION_ENDED, currentPanoramaData));
 		}
 		
-		private function autorotationStarted(e:Event):void {
-			dispatchEvent(new AutorotationEvent(AutorotationEvent.AUTOROTATION_STARTED));
-		}
-		
-		private function autorotationStopped(e:Event):void {
-			dispatchEvent(new AutorotationEvent(AutorotationEvent.AUTOROTATION_STOPPED));
-		}
-		
 		private function insertChild(e:LoadChildEvent):void {
 			
 			var childData:ChildData = e.childData;
-			var managedChild:ManagedChild;			
+			var managedChild:ManagedChild;
 			
 			if (e.type == LoadChildEvent.BITMAPDATA_CONTENT){
 				managedChild = new ImageHotspot(childData.bitmapFile.bitmapData);
 				managedChild.buttonMode = childData.childMouse.useHandCursor;
 				managedChild.name = childData.id;
 				
-			}else if (e.type == LoadChildEvent.SWFDATA_CONTENT) {				
-				Object(childData.swfFile).setButtonMode(childData.childMouse.useHandCursor);				
+			}else if (e.type == LoadChildEvent.SWFDATA_CONTENT) {
+				Object(childData.swfFile).setButtonMode(childData.childMouse.useHandCursor);
 				managedChild = ManagedChild(childData.swfFile); // TODO: cant change Timeline-placed object - need to craeate map id to name
-			}			
+				managedChild.setArguments(childData.sfwArguments);
+			}
 			
 			if (childData.childMouse.onClick != null) {
 				managedChild.addEventListener(MouseEvent.CLICK, getMouseEventHandler(e.childData.childMouse.onClick));
@@ -159,25 +154,26 @@ package com.panozona.player.manager{
 			if (childData.childMouse.onOut != null) {
 				managedChild.addEventListener(MouseEvent.MOUSE_OUT, getMouseEventHandler(childData.childMouse.onOut));
 				arrListeners.push({type:MouseEvent.MOUSE_OUT, listener:getMouseEventHandler(e.childData.childMouse.onOut)});
-			}						
+			}
 			
-			var piOver180:Number = Math.PI / 180;				
+			var piOver180:Number = Math.PI / 180;
 			var pr:Number = (-1*(childData.childPosition.pan - 90)) * piOver180; 
 			var tr:Number = -1*  childData.childPosition.tilt * piOver180;
 			var xc:Number = childData.childPosition.distance * Math.cos(pr) * Math.cos(tr);
 			var yc:Number = childData.childPosition.distance * Math.sin(tr);
-			var zc:Number = childData.childPosition.distance * Math.sin(pr) * Math.cos(tr);				
+			var zc:Number = childData.childPosition.distance * Math.sin(pr) * Math.cos(tr);
 			
 			managedChild.x = xc;
 			managedChild.y = yc;
-			managedChild.z = zc;								
-			managedChild.rotationY = (childData.childPosition.pan  + childData.childTransform.rotationY) * piOver180;
-			managedChild.rotationX = (childData.childPosition.tilt + childData.childTransform.rotationX) * piOver180;
-			managedChild.rotationZ = childData.childTransform.rotationZ * piOver180
-				
-			managedChild.scaleX = childData.childTransform.scaleX;
-			managedChild.scaleY = childData.childTransform.scaleY;
-			managedChild.scaleZ = childData.childTransform.scaleZ;																
+			managedChild.z = zc;
+			managedChild.rotationY = (childData.childPosition.pan  + childData.childTransformation.rotationY) * piOver180;
+			managedChild.rotationX = (childData.childPosition.tilt + childData.childTransformation.rotationX) * piOver180;
+			managedChild.rotationZ = childData.childTransformation.rotationZ * piOver180
+			
+			managedChild.scaleX = childData.childTransformation.scaleX;
+			managedChild.scaleY = childData.childTransformation.scaleY;
+			managedChild.scaleZ = childData.childTransformation.scaleZ;
+			
 			
 			//managedChild.name = childData.id;
 			
@@ -193,10 +189,6 @@ package com.panozona.player.manager{
 			}
 		}
 		
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Funtions intended to be used only by by modules
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				
 		public function loadFirstPanorama():void {
 			if (_managerData.firstPanorama != null && _managerData.firstPanorama.length > 0) {
 				loadPanoramaById(_managerData.firstPanorama);
@@ -207,33 +199,36 @@ package com.panozona.player.manager{
 			}
 		}
 		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Funtions intended to be used only by by modules
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
 		public function loadPanoramaById(panoramaId:String):void {
 			var panoramaData:PanoramaData = _managerData.getPanoramaDataById(panoramaId);
 			if (panoramaData != null && !loadingPanoramaLocked && panoramaData !== currentPanoramaData) {
 				
 				previousPanoramaData = currentPanoramaData;
-				currentPanoramaData = panoramaData;								
-				loadingPanoramaLocked = true;				
+				currentPanoramaData = panoramaData;
+				loadingPanoramaLocked = true;
 				
 				if(previousPanoramaData != null) {
 					runAction(previousPanoramaData.onLeave);
 					runAction(previousPanoramaData.onLeaveTarget[currentPanoramaData.id]);
 				}
 				
-				Trace.instance.printInfo("loading panorama: " + panoramaData.id + " " + panoramaData.params.path);				
-				
+				Trace.instance.printInfo("loading panorama: " + panoramaData.id + " " + panoramaData.params.path);
 				
 				for (var i:int = 0; i < _managedChildren.numChildren; i++ ) {
 					for(var j:Number = 0; j<arrListeners.length; j++){
-						if (_managedChildren.getChildAt(i).hasEventListener(arrListeners[j].type)) {							
-							_managedChildren.getChildAt(i).removeEventListener(arrListeners[j].type, arrListeners[j].listener);							
+						if (_managedChildren.getChildAt(i).hasEventListener(arrListeners[j].type)) {
+							_managedChildren.getChildAt(i).removeEventListener(arrListeners[j].type, arrListeners[j].listener);
 						}
 					}
-				}				
-				dispatchEvent(new LoadPanoramaEvent(LoadPanoramaEvent.PANORAMA_STARTED_LOADING, panoramaData));								
-				super.loadPanorama(panoramaData.params.clone());				
+				}
+				dispatchEvent(new LoadPanoramaEvent(LoadPanoramaEvent.PANORAMA_STARTED_LOADING, panoramaData));
+				super.loadPanorama(panoramaData.params.clone());
 			}
-		}		
+		}
 		
 		public function runAction(id:String):void {
 			if(saladoPlayer != null && id != null){
@@ -249,7 +244,7 @@ package com.panozona.player.manager{
 									Trace.instance.printError(e.message);
 								}
 							}else if(functionData.owner == "SaladoPlayer") {
-																			
+									
 									if (functionData.name == "print" ||
 										functionData.name == "loadPano" ||
 										functionData.name == "moveToChild" ||
@@ -260,26 +255,39 @@ package com.panozona.player.manager{
 										functionData.name == "advancedStartMoving" ||
 										functionData.name == "advancedMoveToChild" ||
 										functionData.name == "advancedMoveTo" ||
-										functionData.name == "toggleFullscreen" ||
 										functionData.name == "runAction") { // this should not be used
-											
-										try {	
+										
+										try {
 											(this[functionData.name] as Function).apply(this, functionData.args);
 										}catch (e:Error) {
 											Trace.instance.printError(e.message);
 										}
 									}else {
 										Trace.instance.printWarning("Invalid function name: " + functionData.owner + "." + functionData.name);
-									}									
+									}
 							}else {
 								Trace.instance.printWarning("Invalid owner name: " + functionData.owner + "." + functionData.name);
-							}								
+							}
 						}
 					}
 				}
 			}
-		}		
-				
+		}	
+		
+		public function toggleAutorotation():void {
+			autorotationCamera.toggle();
+		}
+		
+		public function toggleMouseCamera():void {
+			if (_managerData.inertialMouseCameraData.enabled || ! _managerData.arcBallCameraData.enabled) {
+				_managerData.inertialMouseCameraData.enabled = false;
+				_managerData.arcBallCameraData.enabled = true;
+			}else {
+				_managerData.inertialMouseCameraData.enabled = true;
+				_managerData.arcBallCameraData.enabled = false;
+			}
+		}
+		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Exposed functions intended to be used via actions in XML settings as following:
 		// <action id="act1" content="SaladoPlayer.print(hello), SaladoPlayer.moveToView(10,10,50)"/> 
@@ -288,29 +296,25 @@ package com.panozona.player.manager{
 		// Only using those functions via actions won't trigger validator warning
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		public function print(message:String):void {
-			Trace.instance.printInfo(message);
-		}		
+		public function print(value:String):void {
+			Trace.instance.printInfo(value);
+		}
 		
 		public function loadPano(panramaId:String):void {
 			loadPanoramaById(panramaId);
 		}
 		
-		public function toggleFullscreen():void {
-			stage.displayState = (stage.displayState == StageDisplayState.NORMAL) ? StageDisplayState.FULL_SCREEN : StageDisplayState.NORMAL;
-		}
-		
 		public function moveToChild(ChildId:String):void {
 			Trace.instance.printError("moveToChild not supported yet");
-		}						
+		}
 		
-		public function moveToView(pan:Number, tilt:Number, fieldOfView:Number):void {						
-			swingTo(pan, tilt, fieldOfView);			
-		}				
+		public function moveToView(pan:Number, tilt:Number, fieldOfView:Number):void {
+			swingTo(pan, tilt, fieldOfView);
+		}
 		
 		public function jumpToView(pan:Number, tilt:Number, fieldOfView:Number):void {
 			renderAt(pan, tilt, fieldOfView);
-		}		
+		}
 		
 		public function startMoving(panSpeed:Number, tiltSpeed:Number):void {
 			startInertialSwing(panSpeed, tiltSpeed);
@@ -328,8 +332,8 @@ package com.panozona.player.manager{
 			Trace.instance.printError("advancedMoveToChild not supported yet");
 		}
 		
-		public function advancedMoveTo(pan:Number, tilt:Number, fieldOfView:Number, time:Number, tween:String=""):void {
+		public function advancedMoveToView(pan:Number, tilt:Number, fieldOfView:Number, time:Number, tween:String=""):void {
 			Trace.instance.printError("advancedMoveTo not supported yet");
-		}		
+		}
 	}
 }

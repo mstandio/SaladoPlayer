@@ -27,33 +27,32 @@ package com.panozona.player.manager.utils{
 	public class ManagerDescription{
 		
 		public static const name:String = "SaladoPlayer";
-		public static const version:Number = 0.3;
+		public static const version:Number = 0.4;
 		
 		private var managerDescription:Object;
-				
+		
 		public function ManagerDescription(){
 			managerDescription = new Object();
 			managerDescription.moduleName = ManagerDescription.name;
 			managerDescription.moduleVersion = ManagerDescription.version;
 			managerDescription.functionsDescription = new Object();
 			
-			managerDescription.functionsDescription["print"] = new Array(String);			
+			managerDescription.functionsDescription["print"] = new Array(String);
 			managerDescription.functionsDescription["loadPano"] = new Array(String);
 			managerDescription.functionsDescription["moveToChild"] = new Array(String);
 			managerDescription.functionsDescription["moveToView"] = new Array(Number, Number, Number);
 			managerDescription.functionsDescription["jumpToView"] = new Array(Number, Number, Number);
 			managerDescription.functionsDescription["startMoving"] = new Array(Number, Number);
-			managerDescription.functionsDescription["stopMoving"] = new Array();			
+			managerDescription.functionsDescription["stopMoving"] = new Array();
 			
 			managerDescription.functionsDescription["advancedStartMoving"] = new Array(Number, Number, Number, Number, Number);
 			managerDescription.functionsDescription["advancedMoveToChild"] = new Array(String, Number, Number, String);
-			managerDescription.functionsDescription["advancedMoveTo"] = new Array(Number, Number, Number, Number, String);
-			managerDescription.functionsDescription["toggleFullscreen"] = new Array();
-			managerDescription.functionsDescription["runAction"] = new Array(String);			
-		}		
+			managerDescription.functionsDescription["advancedMoveToView"] = new Array(Number, Number, Number, Number, String);
+			managerDescription.functionsDescription["runAction"] = new Array(String);
+		}
 		
 		public function get description():AbstractModuleDescription {
 			return new AbstractModuleDescription(managerDescription);
-		}		
+		}
 	}
 }

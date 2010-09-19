@@ -28,7 +28,8 @@ public class ManagedChild extends Sprite implements IManagedChild
 {
 	public var _decomposition:Vector.<Vector3D>;
 	public var _invalid:Boolean;
-	public var _matrix3D:Matrix3D;
+	public var _matrix3D:Matrix3D;	
+	
 	
 	public function ManagedChild() {
 		transform.matrix3D = new Matrix3D();
@@ -37,7 +38,11 @@ public class ManagedChild extends Sprite implements IManagedChild
 		_decomposition[1] = new Vector3D(0,0,0);
 		_decomposition[2] = new Vector3D(1,1,1);
 		_invalid = true;
-		_matrix3D = new Matrix3D();
+		_matrix3D = new Matrix3D();		
+	}
+	
+	public function setArguments(_swfArguments:Object):void {
+		_swfArguments = _swfArguments;	
 	}
 	
 	public function get decomposition():Vector.<Vector3D> { return _decomposition }

@@ -73,9 +73,9 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 	public function processDependency(reference:Object,characteristics:*):void {
 		if 		(characteristics == Characteristics.VIEW_DATA) viewData = reference as ViewData;
 		else if (characteristics == Characteristics.AUTOROTATION_CAMERA_DATA) {
-			cameraData = reference as AutorotationCameraData;
-			cameraData.addEventListener(AutorotationEvent.AUTOROTATION_TOGGLE, toggle);
+			cameraData = reference as AutorotationCameraData;			
 		}
+		
 		// use IF, because we could have found it above as well.
 		if (reference is ICamera && reference !== this) {
 			(reference as EventDispatcher).addEventListener( CameraEvent.INACTIVE, inactiveHandler, false, 0, true );
@@ -83,11 +83,13 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		}
 	}
 	
-	protected function toggle(event:AutorotationEvent):void {
-		if (_isRotating) {
-			stopAutorotatorNow();
-		}else {
-			timesUp();
+	public function toggle():void {
+		if(cameraData.enabled){
+			if (_isRotating) {
+				stopAutorotatorNow();
+			}else {
+				timesUp();
+			}
 		}
 	}
 	
@@ -108,7 +110,7 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		__delayTimer.stop();	
 		__delayTimer.reset();
 		dispatchEvent( new CameraEvent(CameraEvent.INACTIVE) );
-		dispatchEvent( new AutorotationEvent(AutorotationEvent.AUTOROTATION_STOPPED));		
+		viewData.dispatchEvent( new AutorotationEvent(AutorotationEvent.AUTOROTATION_STOPPED));		
 	}	
 	
 	private function timesUp(e:TimerEvent=null):void
@@ -117,10 +119,10 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		if (!_stage) return;		
 		_isRotating = true;		
 		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
+		viewData.dispatchEvent( new AutorotationEvent(AutorotationEvent.AUTOROTATION_STARTED));
 		__lastTimeStamp = getTimer();
 		_running = true;
-		_stage.addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
-		dispatchEvent( new AutorotationEvent(AutorotationEvent.AUTOROTATION_STARTED));
+		_stage.addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );		
 	}
 	
 	private function enterFrameHandler(event:Event):void 
@@ -211,10 +213,10 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 	protected function enabledChangeHandler(e:Event):void {
 		switch(_cameraData.enabled) {
 			case true: 
-			startDelayTimer();
+				startDelayTimer();
 			break;
 			case false: 
-			stopAutorotatorNow();
+				stopAutorotatorNow();
 			break;
 		}		
 	}

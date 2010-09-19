@@ -45,10 +45,6 @@ public class AutorotationCameraData extends EventDispatcher
 		_enabled			= true; 		
 	}
 	
-	public function toggleRotation():void {
-		dispatchEvent(new AutorotationEvent(AutorotationEvent.AUTOROTATION_TOGGLE));
-	}
-	
 	public function get enabled():Boolean {
 		return _enabled;
 	}

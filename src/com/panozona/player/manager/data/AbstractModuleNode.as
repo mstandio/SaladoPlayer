@@ -16,8 +16,8 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.data {	
-			
+package com.panozona.player.manager.data {
+	
 	/**
 	 * ...
 	 * @author mstandio
@@ -28,14 +28,12 @@ package com.panozona.player.manager.data {
 		private var _attributes:Object;
 		private var _abstractModuleNodes:Array;
 		
-		public function AbstractModuleNode(nodeName:String) {			
-			if (nodeName == null || nodeName == "") {
-				throw new Error("No module node name");
-			}
+		public function AbstractModuleNode(nodeName:String) {
+		
 			_nodeName = nodeName;
 			_attributes = new Object();
 			_abstractModuleNodes = new Array(); 
-		}				
+		}
 		
 		public function get nodeName():String {
 			return _nodeName;
@@ -44,7 +42,7 @@ package com.panozona.player.manager.data {
 		public function get attributes():Object {
 			return _attributes;
 		}
-						
+		
 		public function get abstractModuleNodes():Array {
 			return _abstractModuleNodes;
 		}

@@ -130,14 +130,14 @@ package com.panozona.modules.navigationbar.combobox {
 					element.isActive = false;									
 				}												
 				element.y = lastY;
-				lastY += (!style.opensUp) ? element.height : - element.height ; trace(element.height+" "+lastY);
+				lastY += (!style.opensUp) ? element.height : - element.height ; 
 			}											
-			this.elementsBar.y = (style.opensUp) ?  - mainElement.height+1   :  mainElement.height;
+			this.elementsBar.y = (style.opensUp) ?  - mainElement.height+1 : mainElement.height;
 			
 			closeDropDown();
 			setEnabled(false);
 			
-			stage.addEventListener(MouseEvent.MOUSE_DOWN, cickedOnStage, false, 99, true); // ?????????????????????????????????????????????? 
+			stage.addEventListener(MouseEvent.MOUSE_DOWN, cickedOnStage, false, 0, true);
 			addEventListener(MouseEvent.ROLL_OVER, mouseRolledOver, false, 0, true);
 			addEventListener(MouseEvent.ROLL_OUT, mouseRolledOut, false, 0, true);			
 		}	

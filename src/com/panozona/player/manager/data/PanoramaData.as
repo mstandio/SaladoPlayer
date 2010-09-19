@@ -16,63 +16,64 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.data {
+package com.panozona.player.manager.data {	
 	
-	import flash.display.DisplayObject;
 	import com.panosalado.model.Params;
 	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class PanoramaData{				
-				
-		private var _id:String;  
+	public class PanoramaData{
+		
+		private var _id:String;
 		private var _label:String;
 		
 		private var _params:Params;
 		private var _childrenData:Vector.<ChildData>; 
 		
-		private var _onEnter:String; // action id
-		private var _onLeave:String; // action id	
-		private var _onTransitionEnd:String; // action id	
-		private var _onEnterSource:Object;  // panorama id to action id 
-		private var _onLeaveTarget:Object;  // panorama id to action id 
+		public var onEnter:String; // action id
+		public var onLeave:String; // action id	
+		public var onTransitionEnd:String; // action id	
+		
+		private var _onEnterSource:Object; // panorama id to action id 
+		private var _onLeaveTarget:Object; // panorama id to action id 
 		private var _onTransitionEndSource:Object; // panorama id to action id 
 		
-		public function PanoramaData(id:String, label:String, path:String, onEnter:String = null, onLeave:String=null, onTransitionEnd:String = null) {
-			
-			if (id == null || id == "") {
-				throw new Error("Panorama has no id");
-			}
-			
-			if (label == null || label == "") {
-				throw new Error("Panorama: "+ id +" has no label");
-			}
-			
-			if (path == null || path == "") {
-				throw new Error("Panorama: "+ id +" has no path");
-			}			
-			
-			_id = id;
-			_label = label;						
-			_params = new Params(path);
-			
-			_onEnter = onEnter;
-			_onLeave = onLeave;
-			_onTransitionEnd = onTransitionEnd
-			_onEnterSource = new Object();			
-			_onLeaveTarget = new Object();			
+		public function PanoramaData() {
+			_onEnterSource = new Object();
+			_onLeaveTarget = new Object();
 			_onTransitionEndSource = new Object();
-			_childrenData = new Vector.<ChildData>();									
-		}			
+			_childrenData = new Vector.<ChildData>();
+		}
+		
+		public function set id(value:String):void {
+			if (_id != null) return;
+			_id = value;
+		}
 		
 		public function get id():String {
 			return _id;
+		}		
+		
+		public function set label(value:String):void {
+			if (_label != null) return;
+			_label = value;
 		}
 		
 		public function get label():String {
-			return _label;
+			if (_label != null) return _label;
+			return "label_"+_id;
+		}				
+		
+		public function set path(path:String):void {
+			if (params != null) return;
+			_params = new Params(path);
+		}
+		
+		public function get path():String {
+			if (_params != null) return _params.path;
+			return null;
 		}
 		
 		public function get params():Params {
@@ -81,30 +82,18 @@ package com.panozona.player.manager.data {
 		
 		public function get childrenData():Vector.<ChildData> {
 			return _childrenData;
-		}		
-		
-		public function get onEnter():String {
-			return _onEnter;
-		}
-		
-		public function get onLeave():String {
-			return _onLeave;
-		}
-		
-		public function get onTransitionEnd():String {
-			return _onTransitionEnd;
 		}
 		
 		public function get onEnterSource():Object {
 			return _onEnterSource;
-		}		
+		}
 		
 		public function get onLeaveTarget():Object {
 			return _onLeaveTarget;
-		}		
+		}
 		
 		public function get onTransitionEndSource():Object {
 			return _onTransitionEndSource;
-		}		
+		}
 	}
 }

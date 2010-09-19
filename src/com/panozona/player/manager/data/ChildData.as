@@ -20,78 +20,76 @@ package com.panozona.player.manager.data {
 	
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;	
-	import flash.display.BitmapData;
-	import flash.events.Event;		
+	import flash.events.Event;
 	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class ChildData {  				
+	public class ChildData {
 		
-		private var _id:String;									
-		private var _path:String;
-		private var _weight:int;
+		private var _id:String;
+		private var _path:String;		
 		
 		private var _childMouse:ChildMouse;
-		private var _childTransform:ChildTransform;
-		private var _childPosition:ChildPosition;				
+		private var _childTransformation:ChildTransformation;
+		private var _childPosition:ChildPosition;
+		
+		private var _sfwArguments:Object; // not used anywhere yet
 		
 		private var _bitmapFile:Bitmap;
 		private var _swfFile:DisplayObject;		
 		
-		public function ChildData(id:String, path:String, weight:int) {
-			if (id == null || id == "" ) {
-				throw new Error("No id for child");
-			}
-			
-			if (path == null || path == "") {
-				throw new Error("No path specified for child: "+id);							
-			}									
-			
-			_id = id;			
-			_path = path;
-			_weight = weight;
-			
+		public function ChildData() {
 			_childMouse = new ChildMouse();
-			_childTransform = new ChildTransform();
-			_childPosition = new ChildPosition();			
-		}	
-		
-		
-		public final function set bitmapFile(value:Bitmap):void {			
-			_swfFile = null;
-			_bitmapFile = value;
+			_childTransformation = new ChildTransformation();
+			_childPosition = new ChildPosition();
+			_sfwArguments = new Object();
 		}
 		
-		public final function set swfFile(value:DisplayObject):void {			
-			_bitmapFile = null;
-			_swfFile = value;
-		}		
+		public function set id(value:String):void {
+			if (_id != null) return;
+			_id = value;
+		}
 		
 		public function get id():String {
 			return _id;
+		}		
+		
+		public function set path(value:String):void {
+			if (_path != null) return;
+			_path = value;
 		}
 		
 		public function get path():String {
 			return _path;
+		}				
+		
+		public final function set bitmapFile(value:Bitmap):void {
+			_swfFile = null;
+			_bitmapFile = value;
 		}
 		
-		public function get weight():int {
-			return _weight;
+		public final function set swfFile(value:DisplayObject):void {
+			_bitmapFile = null;
+			_swfFile = value;
 		}
 		
 		public function get childMouse():ChildMouse{
 			return _childMouse;
-		}		
+		}
 		
-		public function get childTransform():ChildTransform{
-			return _childTransform;
-		}		
+		public function get childTransformation():ChildTransformation{
+			return _childTransformation;
+		}
 		
 		public function get childPosition():ChildPosition{
 			return _childPosition;
 		}		
+		
+		public function get sfwArguments():Object {			
+			return _sfwArguments;
+		}
 		
 		public function get bitmapFile():Bitmap {
 			return _bitmapFile;
@@ -99,6 +97,6 @@ package com.panozona.player.manager.data {
 		
 		public function get swfFile():DisplayObject {
 			return _swfFile;
-		}		
-	}	
+		}
+	}
 }

@@ -29,7 +29,7 @@ package com.panosalado.view {
 	public class SwfHotspot extends ManagedChild{
 		
 		protected var button:Sprite;
-		
+						
 		public function SwfHotspot() {			
 			button = new Sprite();
 			if (stage) init();

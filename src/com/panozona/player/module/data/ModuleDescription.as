@@ -29,7 +29,9 @@ package com.panozona.player.module.data{
 		
 		private var _moduleName:String;
 		private var _moduleVersion:Number;
+		private var _moduleAuthor:String;
 		private var _moduleHomeUrl:String;
+		
 		private var _functionsDescription:Object;
 		
 		/**
@@ -39,9 +41,10 @@ package com.panozona.player.module.data{
 		 * @param	version 
 		 * @param	moduleHomeUrl 
 		 */
-		public function ModuleDescription(moduleName:String, moduleVersion:Number, moduleHomeUrl:String) {
+		public function ModuleDescription(moduleName:String, moduleVersion:Number, moduleAuthor:String, moduleHomeUrl:String) {
 			_moduleName = moduleName;
 			_moduleVersion = moduleVersion;
+			_moduleAuthor = moduleAuthor;
 			_moduleHomeUrl = moduleHomeUrl;
 			_functionsDescription = new Object();
 		}		
@@ -54,14 +57,17 @@ package com.panozona.player.module.data{
 			return _moduleVersion;
 		}
 		
+		public function get moduleAuthor():String{
+			return _moduleAuthor;
+		}
+		
 		public function get moduleHomeUrl():String{
 			return _moduleHomeUrl;
 		}		
 		
 		public function get functionsDescription():Object{
 			return _functionsDescription;
-		}
-		
+		}		
 		
 		/**
 		 * Allows adding exposed function description. 		 
@@ -83,7 +89,7 @@ package com.panozona.player.module.data{
 			_functionsDescription[functionName] = new Array;
 			
 			for(var i:int=0; i<args.length;i++){
-				if (args[i] === String ||  args[i] === Number || args[i] === Boolean || args[i] === Array) {
+				if (args[i] === Boolean ||  args[i] === Number || args[i] === String ) {
 					(_functionsDescription[functionName])[i] = args[i];					
 				}else {
 					throw new Error("Ivalid " + (i + 1) + ". argument in " + functionName); 

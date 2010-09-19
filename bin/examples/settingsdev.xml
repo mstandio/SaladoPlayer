@@ -1,0 +1,45 @@
+﻿<!-- 
+	
+This is example desined for developers 
+	
+	- here is how ExampleModule cooperates with NavigationBar
+	- NavigationBar should nor have any hard coded dependencies to any other module
+	- see source code of ExampleModule for details
+	
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<SaladoPlayer>
+	<global  debug="true" trace="initialVisibility:true" showStatistics="false" firstPanorama="pano1" />
+	<panoramas>
+		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" />
+		<panorama id="pano2" label="Park" path="panoramas/dz_park/park_f.xml" />
+	</panoramas>
+	<actions>
+		<action id="act1" content="ExampleModule.toggleVisibility()" />
+	</actions>
+	<modules>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<cutout path="modules/images/buttons.png" />
+			<basicButtons>
+				<basicButton name="autorotate" visible="false" />
+				<basicButton name="fullscreen" visible="false" />
+				<basicButton name="drag" visible="false" />
+			</basicButtons>
+			<bonusButtons>
+				<bonusButton name="a" action="act1" />
+			</bonusButtons>
+		</NavigationBar>
+		<ExampleModule path="modules/ExampleModule.swf">
+			<settings initialVisibility="true" navigationBarButton="a" />
+			<someParent info="numberSubValue:12345,stringSubValue:Hello there,booleanSubValue:true">
+				<someChild id="child1">
+					<someGrandchild name="Joe" isMale="true" age="12"/>
+					<someGrandchild name="Bob" isMale="true" age="8"/>
+				</someChild>
+				<someChild id="child2">
+					<someGrandchild name="Kate" isMale="false" age="13"/>
+				</someChild>
+			</someParent>
+		</ExampleModule>
+	</modules>
+</SaladoPlayer>

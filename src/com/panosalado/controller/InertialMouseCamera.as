@@ -37,8 +37,7 @@ import flash.utils.getTimer;
 public class InertialMouseCamera extends Sprite implements ICamera
 {
 	
-	protected var _mouseObject:Sprite;
-	//protected var _mouseObject:Stage;
+	protected var _mouseObject:Sprite;	
 	protected var _viewData:ViewData;
 	
 	protected var _cameraData:InertialMouseCameraData;
@@ -64,7 +63,7 @@ public class InertialMouseCamera extends Sprite implements ICamera
 	}
 	
 	public function processDependency(reference:Object,characteristics:*):void {
-		if 		(characteristics == Characteristics.VIEW_DATA) { 
+		if (characteristics == Characteristics.VIEW_DATA) { 
 			viewData = reference as ViewData;
 			mouseObject = reference as Sprite;
 		}
@@ -145,6 +144,11 @@ public class InertialMouseCamera extends Sprite implements ICamera
 	}
 	
 	protected function enabledChangeHandler(e:Event):void {
+		
+		if (_viewData != null) {
+			_viewData.dispatchEvent(new CameraEvent(CameraEvent.ENABLED_CHANGE));
+		}
+		
 		switch(_cameraData.enabled) {
 			case true: 
 			if (_mouseObject) {

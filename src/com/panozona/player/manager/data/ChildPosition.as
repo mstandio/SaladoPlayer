@@ -24,14 +24,9 @@ package com.panozona.player.manager.data{
 	 */
 	public class ChildPosition{
 		
-		public var pan:Number; 
-		public var tilt:Number;
-		public var distance:Number	
-		
-		public function ChildPosition(){			
-			pan = 0;
-			tilt = 0;
-			distance = 600;
-		}		
+		public var pan:Number = 0; 
+		public var tilt:Number = 0;
+		public var distance:Number = 400;			
+
 	}
 }

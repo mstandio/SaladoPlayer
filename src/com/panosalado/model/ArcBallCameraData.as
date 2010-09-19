@@ -26,15 +26,12 @@ import com.panosalado.events.CameraEvent;
 
 public class ArcBallCameraData extends EventDispatcher
 {	
-	public var delay:int;
-	public var speed:Number;  // degrees / millisecond
+	
 	protected var _enabled:Boolean;
 	
 	public function ArcBallCameraData()
-	{
-		delay			= 5000;
-		speed 			= 0.0008;
-		_enabled			= true;
+	{		
+		_enabled = true;
 	}
 	
 	
