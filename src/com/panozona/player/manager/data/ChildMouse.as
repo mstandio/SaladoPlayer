@@ -31,6 +31,6 @@ package com.panozona.player.manager.data {
 		public var onOver:String;
 		public var onOut:String;						
 		
-		public var useHandCursor:Boolean = true;
+		public var handCursor:Boolean = true;
 	}
 }

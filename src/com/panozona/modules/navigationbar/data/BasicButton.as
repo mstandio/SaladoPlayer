@@ -25,7 +25,7 @@ package com.panozona.modules.navigationbar.data{
 	public class BasicButton{
 		
 		public var name:String; // intentionally not initialized 
-		public var visible:Boolean = true;		
+		public var visible:Boolean = true;
 		
 	}
 }

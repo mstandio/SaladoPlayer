@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SaladoPlayer>				
+	<global debug="false" firstPanorama="pano1" camera="maxFieldOfView:130,minFieldOfView:60,tilt:0"/>
+	<panoramas>
+		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" onLeaveToAttempt="pano2:act1">
+			<hotspot id="hs1" position="pan:50.8,tilt:-41.5" path="hotspots/arrow.png" mouse="onClick:act1"/>
+		</panorama>		
+		<panorama id="pano2" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml" onLeaveToAttempt="pano1:act2,pano3:act3" >
+			<hotspot id="hs2" position="pan:49.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act2"/>			
+			<hotspot id="hs3" position="pan:-45.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act3"/>
+		</panorama>
+		<panorama id="pano3" label="Park" path="panoramas/dz_park/park_f.xml" onLeaveToAttempt="pano2:act4">
+			<hotspot id="hs4" position="pan:-8,distance:800" path="hotspots/ExampleHotspot.swf" mouse="onClick:act4"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="act1" content="SaladoPlayer.moveToHotspotAnd(hs1,act1b)"/>
+		<action id="act1b" content="SaladoPlayer.loadPano(pano2)"/>
+		<action id="act2" content="SaladoPlayer.moveToHotspotAnd(hs2,act2b)"/>
+		<action id="act2b" content="SaladoPlayer.loadPano(pano1)"/>
+		<action id="act3" content="SaladoPlayer.moveToHotspotAnd(hs3,act3b)"/>
+		<action id="act3b" content="SaladoPlayer.loadPano(pano3)"/>
+		<action id="act4" content="SaladoPlayer.moveToHotspotAnd(hs4,act4b)"/>
+		<action id="act4b" content="SaladoPlayer.loadPano(pano2)"/>
+	</actions>
+	<modules>		
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_30x30_blue.png"/>
+		</NavigationBar>
+	</modules>
+</SaladoPlayer>	

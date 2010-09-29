@@ -85,7 +85,5 @@ public class SimpleTransition extends EventDispatcher implements ICamera
 		(e.target as EventDispatcher).removeEventListener(Event.COMPLETE, endTransition);
 		dispatchEvent(new Event(Event.COMPLETE) );
 	}
-	
-
 }
 }

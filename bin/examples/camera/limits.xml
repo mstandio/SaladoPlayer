@@ -1,0 +1,27 @@
+﻿<!-- 
+	
+	Setting limits to field of view
+	
+	- default fieldOfView limits are 0.1 to 179.9
+	- default tilt limits are -90 to 90
+	- pan can be limited from -180 to 180
+	- placing limits in global node overwrites default camera values in all panoramas
+	- if panorama has its own camera attribute, its values overwrite default ones AND those in global node
+	- camera is only attribute that when placed in global overwrites other values
+	- you can set maxPan, minPan, maxTilt, minTilt, maxFieldofView and minFieldofView
+	
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<SaladoPlayer>
+	<global debug="true" camera="maxFieldOfView:120,minFieldOfView:60" />
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml" />
+		<panorama id="pano2" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" camera="maxFieldOfView:179,minFieldOfView:1"/>
+	</panoramas>
+	<modules>
+		<ViewFinder path="modules/ViewFinder.swf"/>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_30x30_green.png"/>
+		</NavigationBar>
+	</modules>
+</SaladoPlayer>

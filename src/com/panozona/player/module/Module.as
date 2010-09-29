@@ -16,17 +16,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public Licensep
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.module{
-		
+package com.panozona.player.module{	
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.system.ApplicationDomain;	
+	import flash.system.ApplicationDomain;
 	
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.data.ModuleDescription;		
+	import com.panozona.player.module.data.ModuleDescription;
 	import com.panozona.player.module.utils.ModuleInfoPrinter;
 	
 	/**
@@ -34,26 +33,25 @@ package com.panozona.player.module{
 	 * @author mstandio
 	 */
 	public class Module extends Sprite  {
-					
+		
 		protected var aboutThisModule:String; 
 		
 		protected var _moduleData:ModuleData;
-		protected var _moduleDescription:ModuleDescription;		
+		protected var _moduleDescription:ModuleDescription;
 		
 		protected var SaladoPlayerClass:Class;
-		protected var saladoPlayer:Object;		
-				
+		protected var saladoPlayer:Object;
+		
 		private var TraceClass:Class;
 		private var tracer:Object;
-						
-		public final function Module(moduleName:String, moduleVersion:Number, moduleAuthor:String = null, moduleHomeUrl:String = null) {			
-			_moduleDescription = new ModuleDescription(moduleName, moduleVersion, moduleAuthor, moduleHomeUrl);
+		
+		public final function Module(moduleName:String, moduleVersion:Number, moduleAuthor:String = null, moduleAuthorContact:String = null, moduleHomeUrl:String = null) {
+			_moduleDescription = new ModuleDescription(moduleName, moduleVersion, moduleAuthor, moduleAuthorContact, moduleHomeUrl);
 			
-			// default information
-			aboutThisModule = "This is SaladoPlayer module.";
+			aboutThisModule = "This is SaladoPlayer module."; // default information
 			
 			addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
-		}		
+		}
 		
 		private final function stageReady(e:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
@@ -74,24 +72,24 @@ package com.panozona.player.module{
 						removeChildAt(0);
 					}
 					printError(error.message);
-					trace(error.getStackTrace());					
-				}				
+					trace(error.getStackTrace());
+				}
 				
-			}catch (error:Error) {				
+			}catch (error:Error) {
 				while(numChildren) {
 					removeChildAt(0);
-				}				
+				}
 				addChild(new ModuleInfoPrinter(_moduleDescription, aboutThisModule));
 				trace(error.getStackTrace());
 			}
-		}	
+		}
 		
-		protected function moduleReady():void {			
+		protected function moduleReady():void {
 			throw new Error("Function moduleReady() must be overrided by this module");
-		}						
+		}
 		
 		// used by module
-		protected final function get moduleData():ModuleData {			
+		protected final function get moduleData():ModuleData {
 			return _moduleData;
 		}
 		
@@ -101,30 +99,38 @@ package com.panozona.player.module{
 		}
 		
 		// used by other modules  
-		public final function execute(functionName:String, args:Array):*{			
+		public final function execute(functionName:String, args:Array):*{
 			return (this[functionName] as Function).apply(this, args);
-		}							
+		}
 		
-		///////////////////////////////////////////////////////////////////////////////////////////////////
-		// Following Functions are avaible for module
-		// also module can access any public functions and variables of SaladoPlayer
-		// including manager that extends PanoSalado e.g. panoSalado.manager.swingToChild(...)
-		// or managerData e.g. panoSalado.managerData.getActionDataById("someid")
-		// module should not import any classes from com.panozona.player.manager or from com.panosalado
-		// (those classes will change in time and module may loose compatibility)
-		// instead, module should get variables as Objects and catch potential errors
-		///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Following Functions are avaible for module
+// also module can access any public functions and variables of SaladoPlayer
+// including manager that extends PanoSalado e.g. panoSalado.manager.swingToChild(...)
+// or managerData e.g. panoSalado.managerData.getActionDataById("someid")
+// module should not directly import any classes from com.panozona.player.manager or from com.panosalado
+// (those classes will change in time and module may loose compatibility)
+// instead, module should get variables as Objects and catch potential errors
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+		public final function get debugMode():Boolean {
+			return saladoPlayer.managerData.debugMode;
+		}
 		
+		public final function get boundsWidth():Number {
+			return saladoPlayer.manager.boundsWidth;
+		}
+		
+		public final function get boundsHeight():Number {
+			return saladoPlayer.manager.boundsHeight;
+		}
+
 		public final function moduleExists(moduleName:String):Boolean{
 			return (saladoPlayer.getModuleByName(moduleName) != null);
-		} 
+		}
 		
 		public final function executeModule(moduleName:String, functionName:String, args:Array):*{
 			return saladoPlayer.getModuleByName(moduleName).execute(functionName, args);
-		} 		
-		
-		public final function get debugging():Boolean {
-			return saladoPlayer.managerData.debugging;
 		}
 		
 		public final function printError(msg:String):void {
@@ -143,6 +149,6 @@ package com.panozona.player.module{
 			if(tracer != null){
 				tracer.printInfo(_moduleDescription.moduleName+": "+msg);
 			}
-		}
+		}		
 	}
 }

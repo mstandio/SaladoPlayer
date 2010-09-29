@@ -44,6 +44,11 @@ public class ArcBallCamera extends Sprite implements ICamera
 	private var __xh:Number;
 	private var __xv:Number;	
 	
+	private var mouseIsDown:Boolean;
+	
+	private var wheelDelta:Number;	  
+	private var mouseWheeled:Boolean;	  
+	
 	public function ArcBallCamera()
 	{	
 		__lastAngleX = 0;
@@ -51,6 +56,10 @@ public class ArcBallCamera extends Sprite implements ICamera
 		__xh = 0;
 		__xv = 0;
 		
+		mouseIsDown = false;
+		
+		wheelDelta  = 0;
+		mouseWheeled = false;		
 	}
 	
 	public function processDependency(reference:Object,characteristics:*):void {
@@ -63,6 +72,8 @@ public class ArcBallCamera extends Sprite implements ICamera
 	
 	private function downHandler(event:MouseEvent):void
 	{	
+		mouseIsDown = true;
+		
 		var vFov:Number;
 		
 		__xh = Math.tan(viewData.fieldOfView * 0.5 * __toRadians) / (viewData.boundsWidth * 0.5);		
@@ -79,37 +90,61 @@ public class ArcBallCamera extends Sprite implements ICamera
 	}
 	private function upHandler(event:MouseEvent):void
 	{
+		mouseIsDown = false;
+		
 		removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
 		dispatchEvent( new CameraEvent(CameraEvent.INACTIVE) );
 	}
 	
+	private function inoutHandler(event:MouseEvent):void {		
+			
+		wheelDelta = event.delta;	
+		
+		mouseWheeled = true;
+		
+		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
+		addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );		
+	}
+	
 	private function enterFrameHandler(event:Event):void 
 	{ 
-		var angleX:Number;
-		var angleY:Number;
-		var vFov:Number;
-		if ( viewData.invalid) {
-			__xh = Math.tan(viewData.fieldOfView * 0.5 * __toRadians) / (viewData.boundsWidth * 0.5);
+		if (mouseWheeled) 
+		{
+			_viewData.fieldOfView -= cameraData.zoomIncrement * wheelDelta;
+			mouseWheeled = false;
+			if (!mouseIsDown) {
+				removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
+			}
 		}
-		if ( viewData.invalid ) {
-			vFov = viewData.boundsHeight / viewData.boundsWidth * viewData.fieldOfView;
-			__xv = Math.tan(vFov * 0.5 * __toRadians) / (viewData.boundsHeight * 0.5);			
-		}						
 		
-		angleX = Math.atan(( _mouseObject.mouseX - viewData.boundsWidth * 0.5) * __xh)		
-		angleY = Math.atan(( _mouseObject.mouseY - viewData.boundsHeight * 0.5 )* __xv);
-		viewData.pan += (angleX - __lastAngleX) * __toDegrees;
-		viewData.tilt += (angleY - __lastAngleY) * __toDegrees;		
+		if (mouseIsDown)
+		{		
+			var angleX:Number;
+			var angleY:Number;
+			var vFov:Number;
+			if ( viewData.invalid) {
+				__xh = Math.tan(viewData.fieldOfView * 0.5 * __toRadians) / (viewData.boundsWidth * 0.5);
+			}
+			if ( viewData.invalid ) {
+				vFov = viewData.boundsHeight / viewData.boundsWidth * viewData.fieldOfView;
+				__xv = Math.tan(vFov * 0.5 * __toRadians) / (viewData.boundsHeight * 0.5);			
+			}						
+		
+			angleX = Math.atan(( _mouseObject.mouseX - viewData.boundsWidth * 0.5) * __xh)		
+			angleY = Math.atan(( _mouseObject.mouseY - viewData.boundsHeight * 0.5 )* __xv);
+			viewData.pan += (angleX - __lastAngleX) * __toDegrees;
+			viewData.tilt += (angleY - __lastAngleY) * __toDegrees;		
 
-		if (viewData._tilt > 90) {
-			viewData.tilt = 90;
-		}
-		if (viewData._tilt < -90) {
-			viewData.tilt = -90;
-		}
+			if (viewData._tilt > 90) {
+				viewData.tilt = 90;
+			}
+			if (viewData._tilt < -90) {
+				viewData.tilt = -90;
+			}
 		
-		__lastAngleX = angleX;
-		__lastAngleY = angleY;
+			__lastAngleX = angleX;
+			__lastAngleY = angleY;
+		}		
 	}	
 		
 	protected function enabledChangeHandler(e:Event):void {
@@ -123,15 +158,16 @@ public class ArcBallCamera extends Sprite implements ICamera
 			if (_cameraData) {
 				_mouseObject.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
 				_mouseObject.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
-				_mouseObject.addEventListener( MouseEvent.MOUSE_OUT, upHandler, false, 0, true );
+				_mouseObject.addEventListener( MouseEvent.ROLL_OUT, upHandler, false, 0, true );
+				_mouseObject.addEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler, false, 0, true );				
 			}
 			break;
 			case false: 
 			if (_mouseObject) {
 				_mouseObject.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
 				_mouseObject.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
-				_mouseObject.removeEventListener( MouseEvent.MOUSE_OUT, upHandler );
-				_mouseObject.removeEventListener( Event.ENTER_FRAME, enterFrameHandler); // WHAT? WHY? 
+				_mouseObject.removeEventListener( MouseEvent.ROLL_OUT, upHandler );
+				_mouseObject.removeEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler );				
 			}			
 			break;
 		}
@@ -157,12 +193,12 @@ public class ArcBallCamera extends Sprite implements ICamera
 		if ( value != null){
 			value.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
 			value.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
-			value.addEventListener( MouseEvent.MOUSE_OUT, upHandler, false, 0, true );
+			value.addEventListener( MouseEvent.ROLL_OUT, upHandler, false, 0, true );
 		}
 		else if(value == null && _mouseObject != null ){
 			_mouseObject.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
 			_mouseObject.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
-			_mouseObject.removeEventListener( MouseEvent.MOUSE_OUT, upHandler );
+			_mouseObject.removeEventListener( MouseEvent.ROLL_OUT, upHandler );
 		}
 		_mouseObject = value;
 	}	

@@ -24,10 +24,11 @@ package com.panozona.modules.examplemodule {
 	import flash.display.Sprite;
 	import flash.system.ApplicationDomain;
 	
-	import com.panozona.modules.examplemodule.data.*;
+	import com.panozona.player.module.Module;	
+	import com.panozona.player.module.data.PositionMargin;
+	import com.panozona.player.module.data.PositionAlign;		
 	
-	import com.panozona.player.module.Module;
-	import com.panozona.modules.examplemodule.data.ExampleModuleData;
+	import com.panozona.modules.examplemodule.data.*;
 	import com.panozona.modules.examplemodule.labelledbutton.LabelledButton;
 	
 	/**
@@ -53,9 +54,9 @@ package com.panozona.modules.examplemodule {
 		// just for sake of clear code
 		public function ExampleModule() {
 			
-			// mandatory name, version (max two digits after dot) and optional author and link to module details
+			// mandatory name, version (max two digits after dot) and optional author, email and link to module details
 			
-			super("ExampleModule", 0.2, "Marek Standio", "http://panozona.com/wiki/Module:ExampleModule");
+			super("ExampleModule", 0.3, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:ExampleModule");
 			
 			aboutThisModule = "This is example module, it does nothing particular, it presents solutions on " +
 							  "how to build modules for Saladolayer."
@@ -80,7 +81,7 @@ package com.panozona.modules.examplemodule {
 		override protected function moduleReady():void {
 			
 			// allways read data first 
-			exampleModuleData = new ExampleModuleData(moduleData,debugging); 
+			exampleModuleData = new ExampleModuleData(moduleData, debugMode); 
 			
 			// then get classes 
 			LoadPanoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.LoadPanoramaEvent") as Class;			
@@ -147,9 +148,26 @@ package com.panozona.modules.examplemodule {
 		// you shuold use bounds size and not stage.stageHeight and stage.stageWidth
 		// when Saladolayer is embeded into other application
 		// elements will remain inside its window
-		private function handleStageResize(e:Event = null):void {
-			window.x = 0; 
-			window.y = (saladoPlayer.manager._boundsHeight - window.height) * 0.5;
+		private function handleStageResize(e:Event = null):void {						
+			
+			if (exampleModuleData.settings.align.horizontal == PositionAlign.RIGHT) {
+				window.x = boundsWidth - window.width;
+			}else if (exampleModuleData.settings.align.horizontal == PositionAlign.LEFT) {
+				window.x = 0;
+			}else if (exampleModuleData.settings.align.horizontal == PositionAlign.CENTER) {
+				window.x = (boundsWidth - window.width) * 0.5;
+			}
+			if (exampleModuleData.settings.align.vertical == PositionAlign.BOTTOM) {
+				window.y = boundsHeight - window.height;
+			}else if (exampleModuleData.settings.align.vertical == PositionAlign.TOP) {
+				window.y = 0;
+			}else if (exampleModuleData.settings.align.vertical == PositionAlign.MIDDLE) {
+				window.y = (boundsHeight - window.height) * 0.5;
+			}
+			window.x += exampleModuleData.settings.margin.left;
+			window.x -= exampleModuleData.settings.margin.right;
+			window.y += exampleModuleData.settings.margin.top;			
+			window.y -= exampleModuleData.settings.margin.bottom;			
 		}
 		
 		private function btnCloseClick(e:Event):void {

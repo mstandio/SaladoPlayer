@@ -1,0 +1,24 @@
+﻿<!--
+	
+	Hiding combobox
+	
+	- combobox is visible by default
+	- in order to hide combobox set visible to "false" 
+	
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml"/>
+		<panorama id="pano2" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml"/>
+		<panorama id="pano3" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml"/>
+	</panoramas>
+	<modules>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_30x30_green.png"/>
+			<combobox visible="false"/>
+		</NavigationBar>
+	</modules>
+</SaladoPlayer>
+

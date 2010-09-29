@@ -16,16 +16,19 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.navigationbar.data{
-
+package com.panozona.modules.viewfinder.data {
+	
+	import com.panozona.player.module.data.PositionMargin;
+	import com.panozona.player.module.data.PositionAlign;
+	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class Bar {
+	public class Settings{
 		
-		public var visible:Boolean = true;
-		public var alpha:Number = 1.0;
-		public var color:Number = 0xffffff; // white
+		public var align:PositionAlign = new PositionAlign(PositionAlign.LEFT, PositionAlign.TOP); // horizontal, vertical
+		public var margin:PositionMargin = new PositionMargin(0, 0, 0, 0); // top, right, bottom, left	
+		
 	}
 }

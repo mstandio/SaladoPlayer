@@ -34,7 +34,7 @@ public class AutorotationCameraData extends EventDispatcher
 	public var mode:String;
 	public var speed:Number;  // in degrees / second
 	public var frameIncrement:Number // in degress / frame	
-	protected var _enabled:Boolean;		
+	protected var _enabled:Boolean;
 	
 	public function AutorotationCameraData()
 	{
@@ -42,7 +42,7 @@ public class AutorotationCameraData extends EventDispatcher
 		mode			= "speed" // speed
 		speed 			= 3;
 		frameIncrement		= 0.0333;
-		_enabled			= true; 		
+		_enabled			= true; 
 	}
 	
 	public function get enabled():Boolean {

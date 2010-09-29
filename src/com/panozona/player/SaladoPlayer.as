@@ -74,7 +74,7 @@ package com.panozona.player{
 		public function SaladoPlayer() {
 			
 			managerData = new ManagerData();
-			manager = new Manager(managerData);
+			manager = new Manager();
 			
 			panorama = new Panorama(); // Singleton
 			resizer	= new Resizer();
@@ -142,9 +142,9 @@ package com.panozona.player{
 				
 				addChild(manager);
 				
-				Trace.instance.printInfo("Configuration parsing done.");			
+				Trace.instance.printInfo("Configuration parsing done.");
 				tracer = Trace.instance;
-				addChild(tracer);				
+				addChild(tracer);
 				
 				if (managerData.abstractModulesData.length == 0) {
 					finalOperations();
@@ -191,9 +191,9 @@ package com.panozona.player{
 			finalOperations();
 		}
 		
-		private function finalOperations():void {		
+		private function finalOperations():void {
 			
-			if (managerData.debugging) {
+			if (managerData.debugMode) {
 				abstractModuleDescriptions.push(new ManagerDescription().description);
 				try {
 					var managerDataValidator:ManagerDataValidator = new ManagerDataValidator(managerData, abstractModuleDescriptions);
@@ -205,6 +205,7 @@ package com.panozona.player{
 				}
 			}
 			addChild(Trace.instance); // to make it most on top	
+			
 			if (managerData.showStatistics) {
 				addChild(new Stats());
 			}
@@ -212,7 +213,7 @@ package com.panozona.player{
 			managerData.abstractModulesData = null;
 			
 			manager.loadFirstPanorama();
-		}		
+		}
 		
 		/**
 		 * Returns reference to module (swf file) loaded as one of layers atop SaladoPlayer

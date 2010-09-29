@@ -30,6 +30,7 @@ package com.panozona.player.module.data{
 		private var _moduleName:String;
 		private var _moduleVersion:Number;
 		private var _moduleAuthor:String;
+		private var _moduleAuthorContact:String;
 		private var _moduleHomeUrl:String;
 		
 		private var _functionsDescription:Object;
@@ -41,13 +42,14 @@ package com.panozona.player.module.data{
 		 * @param	version 
 		 * @param	moduleHomeUrl 
 		 */
-		public function ModuleDescription(moduleName:String, moduleVersion:Number, moduleAuthor:String, moduleHomeUrl:String) {
+		public function ModuleDescription(moduleName:String, moduleVersion:Number, moduleAuthor:String, moduleAuthorContact:String, moduleHomeUrl:String) {
 			_moduleName = moduleName;
 			_moduleVersion = moduleVersion;
 			_moduleAuthor = moduleAuthor;
+			_moduleAuthorContact = moduleAuthorContact;
 			_moduleHomeUrl = moduleHomeUrl;
 			_functionsDescription = new Object();
-		}		
+		}
 		
 		public function get moduleName():String {
 			return _moduleName;
@@ -61,19 +63,23 @@ package com.panozona.player.module.data{
 			return _moduleAuthor;
 		}
 		
+		public function get moduleAuthorContact():String{
+			return _moduleAuthorContact;
+		}
+		
 		public function get moduleHomeUrl():String{
 			return _moduleHomeUrl;
-		}		
+		}
 		
 		public function get functionsDescription():Object{
 			return _functionsDescription;
-		}		
+		}
 		
 		/**
-		 * Allows adding exposed function description. 		 
+		 * Allows adding exposed function description.
 		 * Usage of this function is supposed to be hard-coded into module, it throws errors that are not supposed to be cought.
 		 * For instance foo(arg1:Boolean, arg2:Number, arg3:String, arg4:Array) should be added as folows:
-		 * addFunctionDescription("foo", Boolean, Number, String, Array)		 
+		 * addFunctionDescription("foo", Boolean, Number, String, Array)
 		 * 
 		 * @param	functionName
 		 * @param	... args
@@ -84,18 +90,18 @@ package com.panozona.player.module.data{
 			}
 			if (functionsDescription.hasOwnProperty(functionName)) {
 				throw new Error("Function allready described: "+functionName);
-			}		
+			}
 			
 			_functionsDescription[functionName] = new Array;
 			
 			for(var i:int=0; i<args.length;i++){
 				if (args[i] === Boolean ||  args[i] === Number || args[i] === String ) {
-					(_functionsDescription[functionName])[i] = args[i];					
+					(_functionsDescription[functionName])[i] = args[i];
 				}else {
 					throw new Error("Ivalid " + (i + 1) + ". argument in " + functionName); 
 				}
 			}
-		}		
+		}
 		
 		public function getFunctionsNames():Array{
 			var result:Array = new Array();

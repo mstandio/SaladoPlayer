@@ -33,8 +33,8 @@ package com.panozona.modules.examplemodule.data {
 		public var settings:Settings = new Settings();
 		public var someParent:SomeParent = new SomeParent();
 		
-		public function ExampleModuleData(moduleData:ModuleData, debugging:Boolean) {
-			super(debugging);
+		public function ExampleModuleData(moduleData:ModuleData, debugMode:Boolean) {
+			super(debugMode);
 			
 			for each(var moduleNode:ModuleNode in moduleData.moduleNodes){
 				switch(moduleNode.nodeName) {
@@ -49,7 +49,7 @@ package com.panozona.modules.examplemodule.data {
 				}
 			}
 			
-			if (debugging){			
+			if (debugMode){
 				// throw errors if inspection shows that not all vital data was recieved
 				for each(var someChild:SomeChild in someParent.getChildren()) {
 					if (someChild.id == null || someChild.id == "") {

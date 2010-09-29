@@ -22,7 +22,7 @@ package com.panozona.player.module.data {
 	 * ...
 	 * @author mstandio
 	 */
-	public class ModuleData {		
+	public class ModuleData {
 		
 		private var _moduleNodes:Vector.<ModuleNode>;
 		
@@ -31,14 +31,14 @@ package com.panozona.player.module.data {
 			
 			var abstractModuleNodes:Array = abstractModuleData.abstractModuleNodes;
 			var moduleNode:ModuleNode;
-			for each(var abstractModuleNode:Object in abstractModuleNodes) {				
-				moduleNode = new ModuleNode(abstractModuleNode);				
+			for each(var abstractModuleNode:Object in abstractModuleNodes) {
+				moduleNode = new ModuleNode(abstractModuleNode);
 				_moduleNodes.push(moduleNode);
-			}		
-		}			
+			}
+		}
 		
 		public function get moduleNodes():Vector.<ModuleNode> {
-			return _moduleNodes;			
+			return _moduleNodes;
 		}
 	}
 }

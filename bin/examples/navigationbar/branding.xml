@@ -1,12 +1,13 @@
-﻿<!-- 
+﻿<!--
 	
-This is simple example for virtual tour with navigation bar
+	Hiding branding
 	
-	- cutout "path" is mandatory, it points to image containing bitmaps for buttons
-	- change combobox "visible" to "false" to hide combobox			
+	- branding is visible by default
+	- on order to hide branding set visible to "false" 
+	- show support to project and don't hide braning
 	
 -->
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
@@ -16,9 +17,8 @@ This is simple example for virtual tour with navigation bar
 	</panoramas>
 	<modules>
 		<NavigationBar path="modules/NavigationBar.swf">
-			<cutout path="modules/images/buttons.png"/>
-			<combobox visible="true"/>
+			<buttons path="modules/images/buttons_30x30_green.png"/>
+			<branding visible="false"/>
 		</NavigationBar>
-	</modules>	
+	</modules>
 </SaladoPlayer>
-

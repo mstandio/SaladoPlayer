@@ -21,7 +21,7 @@ package com.panosalado.controller
 
 import flash.utils.Dictionary;
 
-public class DependencyRelay extends Dictionary
+public dynamic class DependencyRelay extends Dictionary
 {	
 	public var callbacks:Dictionary;
 	

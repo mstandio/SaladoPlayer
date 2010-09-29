@@ -26,7 +26,7 @@ package com.panozona.player.manager.data{
 		
 		public var pan:Number = 0; 
 		public var tilt:Number = 0;
-		public var distance:Number = 400;			
-
+		public var distance:Number = 400;
+	
 	}
 }

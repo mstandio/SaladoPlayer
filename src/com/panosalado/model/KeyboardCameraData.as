@@ -25,11 +25,9 @@ import flash.events.EventDispatcher;
 import com.panosalado.events.CameraEvent;
 
 final public class KeyboardCameraData extends EventDispatcher
-{
-	public var speed:Number = 0.0003;
-	
+{	
 	/**
-	* sensitivity of camera to mouse motion
+	* sensitivity of keyboard
 	*/
 	public var sensitivity:Number;
 	
@@ -39,42 +37,26 @@ final public class KeyboardCameraData extends EventDispatcher
 	public var friction:Number;
 	
 	/**
-	* camera pan / tilt threshold at which motion jumps to 0
+	* delta pan and tilt value that will be used for key movement
 	*/
-	public var threshold:Number;
+	public var directionSpeed:Number;
 	
 	/**
 	* delta zoom value that will be used for key zooming
 	*/
-	public var zoomIncrement:Number;
-	
-	/**
-	* delta pan / tilt value for key panning / tilting
-	*/
-	public var keyIncrement:Number;
-	
-	/**
-	* minimum field of view
-	*/
-	public var minimumFieldOfView:Number;
-	
-	/**
-	* maximum field of view
-	*/
-	public var maximumFieldOfView:Number;
+	public var zoomSpeed:Number;
 	
 	public var _enabled:Boolean;
 	
 	public function KeyboardCameraData()
 	{
-		sensitivity	 	 = 0.6;
-		friction		 = 0.3;
-		threshold		 = 0.0001;
-		zoomIncrement	 = 1;
-		keyIncrement	 = 75;
-		minimumFieldOfView = 0;
-		maximumFieldOfView = 180;
-		enabled 		 = true;
+		friction = 0.25;
+		sensitivity = 0.5;
+		
+		directionSpeed = 2;
+		zoomSpeed = 1;
+		
+		enabled = true;
 	}
 	
 	public function get enabled():Boolean {

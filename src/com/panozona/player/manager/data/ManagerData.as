@@ -41,7 +41,7 @@ package com.panozona.player.manager.data {
 		
 		public var params:Params;         // global params
 		public var firstPanorama:String;  // id of first panorama
-		public var debugging:Boolean;     // if show trace and validate configuration and modules
+		public var debugMode:Boolean;     // if show trace and validate configuration and modules
 		public var traceData:TraceData;
 		public var showStatistics:Boolean;
 		
@@ -58,7 +58,7 @@ package com.panozona.player.manager.data {
 			simpleTransitionData = new SimpleTransitionData();
 			
 			params = new Params(null);
-			debugging = true; // true by default in case of crash on startup
+			debugMode = true; // true by default in case of crash on startup
 			traceData = new TraceData();			
 			panoramasData = new Array;
 			actionsData = new Array;

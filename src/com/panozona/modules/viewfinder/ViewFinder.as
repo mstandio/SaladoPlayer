@@ -19,6 +19,10 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.viewfinder{
 	
 	import com.panozona.player.module.Module;
+	import com.panozona.player.module.data.PositionMargin;
+	import com.panozona.player.module.data.PositionAlign;
+	
+	import com.panozona.modules.viewfinder.data.*;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -35,19 +39,19 @@ package com.panozona.modules.viewfinder{
 		private var txtFormat:TextFormat;
 		private var box:Sprite;
 		private var pointer:Sprite;
-		
-		private var pan:Number;
-		private var tilt:Number;
-		private var fieldOfView:Number;
+						
+		private var viewFinderData:ViewFinderData;
 		
 		public function ViewFinder() {
-			super("ViewFinder", 0.2, "Marek Standio", "http://panozona.com/wiki/Module:ViewFinder");
+			super("ViewFinder", 0.3, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:ViewFinder");
 			aboutThisModule = 
 			"This module shows pan, tilt and field of view of current view, marked as a dot in the middle of the screen." +
 			" Module is usefull i.e. for determining position of hotspots during configuration process.";
 		}
 		
 		override protected function moduleReady():void {
+			
+			viewFinderData = new ViewFinderData(moduleData,debugMode); // allways first
 			
 			pointer = new Sprite();
 			pointer.graphics.beginFill(0x000000); 
@@ -96,10 +100,29 @@ package com.panozona.modules.viewfinder{
 		}
 		
 		private function handleStageResize(e:Event = null):void {
-			box.x = saladoPlayer.managerData.showStatistics ? 70 : 0;
-			box.y = 0;
-			pointer.x = (saladoPlayer.manager._boundsWidth - pointer.width) * 0.5;
-			pointer.y = (saladoPlayer.manager._boundsHeight - pointer.height) * 0.5;
+			
+			if (viewFinderData.settings.align.horizontal == PositionAlign.RIGHT) {
+				box.x = boundsWidth - box.width;
+			}else if (viewFinderData.settings.align.horizontal == PositionAlign.LEFT) {
+				box.x = 0;
+			}else if (viewFinderData.settings.align.horizontal == PositionAlign.CENTER) {
+				box.x = (boundsWidth - box.width) * 0.5;				
+			}
+			if (viewFinderData.settings.align.vertical == PositionAlign.BOTTOM) {
+				box.y = boundsHeight - box.height;
+			}else if (viewFinderData.settings.align.vertical == PositionAlign.TOP) {
+				box.y = 0;
+			}else if (viewFinderData.settings.align.vertical == PositionAlign.MIDDLE) {
+				box.y = (boundsHeight - box.height) * 0.5;
+			}
+			
+			box.x += viewFinderData.settings.margin.left;
+			box.x -= viewFinderData.settings.margin.right;
+			box.y += viewFinderData.settings.margin.top;			
+			box.y -= viewFinderData.settings.margin.bottom;					
+			
+			pointer.x = (boundsWidth - pointer.width) * 0.5;
+			pointer.y = (boundsHeight - pointer.height) * 0.5;
 		}
 	}
 }

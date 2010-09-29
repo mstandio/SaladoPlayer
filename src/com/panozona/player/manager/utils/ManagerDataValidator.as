@@ -59,9 +59,10 @@ package com.panozona.player.manager.utils{
 					actionExists(panoramaData.onLeave);
 					actionExists(panoramaData.onTransitionEnd);
 										
-					checkActionTrigger(panoramaData.onEnterSource);
-					checkActionTrigger(panoramaData.onLeaveTarget);
-					checkActionTrigger(panoramaData.onTransitionEndSource);					
+					checkActionTrigger(panoramaData.onEnterFrom);
+					checkActionTrigger(panoramaData.onLeaveTo);
+					checkActionTrigger(panoramaData.onLeaveToAttempt);
+					checkActionTrigger(panoramaData.onTransitionEndFrom);
 					
 					childIds = new Array();
 					for each(var childData:ChildData in panoramaData.childrenData) {

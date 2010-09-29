@@ -18,12 +18,16 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.navigationbar.data{
 	
+	import com.panozona.player.module.data.PositionMargin;
+	import com.panozona.player.module.data.PositionAlign;
+	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
 	public class Branding {
-		
 		public var visible:Boolean = true;
+		public var align:PositionAlign = new PositionAlign(PositionAlign.LEFT, PositionAlign.BOTTOM); // horizontal, vertical
+		public var margin:PositionMargin = new PositionMargin(0,0,13,5); // top, right, bottom, left
 	}
 }

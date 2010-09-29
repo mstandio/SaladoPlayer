@@ -20,9 +20,9 @@ package com.panosalado.controller
 {
 
 import com.panosalado.controller.ICamera;
+import com.panosalado.events.CameraEvent;
 import com.panosalado.model.ViewData;
 import com.panosalado.model.InertialMouseCameraData;
-import com.panosalado.events.CameraEvent;
 import com.panosalado.model.Characteristics;
 
 import flash.display.Sprite;
@@ -47,19 +47,21 @@ public class InertialMouseCamera extends Sprite implements ICamera
 	private var startPointY:Number;
 	private var deltaPan:Number;
 	private var deltaTilt:Number;
+	private var deltaFieldOfView:Number;
 	private var mouseIsDown:Boolean;
-	private var whellDelta:Number;	  
-	private var mouseWheeled:Boolean;	  
+		
+	private var mouseWheeled:Boolean;
+	private var wheelDelta:Number;	  
 	
 	public function InertialMouseCamera()
 	{
 		startPointX	= 0;
 		startPointY	= 0;
-		deltaPan	= 0;
-		deltaTilt	= 0;		
+		deltaPan = 0;
+		deltaTilt = 0;		
+		wheelDelta = 0;
 		mouseIsDown	= false;
-		whellDelta  = 0;
-		mouseWheeled = false;
+		mouseWheeled = false;		
 	}
 	
 	public function processDependency(reference:Object,characteristics:*):void {
@@ -89,24 +91,22 @@ public class InertialMouseCamera extends Sprite implements ICamera
 		mouseIsDown = false;
 		// don't remove enterframe listener yet. remove when friction has slowed motion to under threshold
 	}
+	
 	private function inoutHandler(event:MouseEvent):void {
-		
-		whellDelta = event.delta;	
+				
+		wheelDelta = event.delta;
 		mouseWheeled = true;
 		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
-		addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
-		
+		addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );		
 	}
 	
 	private function enterFrameHandler(event:Event):void 
-	{ 
-		
+	{ 		
 		if (mouseWheeled) 
 		{
-			_viewData.fieldOfView -= cameraData.zoomIncrement * whellDelta;			
+			_viewData.fieldOfView -= cameraData.zoomIncrement * wheelDelta;
 			mouseWheeled = false;
 		}
-		
 		
 		if (mouseIsDown)
 		{
@@ -134,7 +134,7 @@ public class InertialMouseCamera extends Sprite implements ICamera
 		} 
 		else 
 		{ // motion is under threshold stop camera motion
-			if ( !mouseIsDown ) 
+			if ( !mouseIsDown && !mouseWheeled) 
 			{	
 				deltaPan = deltaTilt = 0;
 				removeEventListener( Event.ENTER_FRAME, enterFrameHandler, false );
@@ -154,6 +154,7 @@ public class InertialMouseCamera extends Sprite implements ICamera
 			if (_mouseObject) {
 				_mouseObject.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
 				_mouseObject.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
+				_mouseObject.addEventListener( MouseEvent.ROLL_OUT, upHandler, false, 0, true );
 				_mouseObject.addEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler, false, 0, true );
 			}
 			break;
@@ -161,6 +162,7 @@ public class InertialMouseCamera extends Sprite implements ICamera
 			if (_mouseObject) {
 				_mouseObject.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
 				_mouseObject.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
+				_mouseObject.removeEventListener( MouseEvent.ROLL_OUT, upHandler );
 				_mouseObject.removeEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler );
 				_mouseObject.removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
 			}
@@ -173,11 +175,12 @@ public class InertialMouseCamera extends Sprite implements ICamera
 	{
 		if (value === _cameraData) return;
 		if (value != null) {
-			value.addEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler, false, 0, true );
+			value.addEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler, false, 0, true );			
 		}
 		else if (value == null && _cameraData != null) {
 			_cameraData.removeEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler );
 		}
+		
 		_cameraData = value;
 	}
 	

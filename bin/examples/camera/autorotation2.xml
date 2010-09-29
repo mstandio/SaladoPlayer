@@ -1,0 +1,23 @@
+﻿<!-- 
+	
+	Disabling autorotation
+	
+	- when autortation is disabled, pressing button on NavigationBar won't have any effect
+	- if you want to disable timer, but still be able to use button on NavigationBar, set delay to high value (e.g. 600000 - ten minutes)
+	
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<SaladoPlayer>
+	<global debug="true" autorotation="enabled:false"/>
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml"/>
+	</panoramas>
+	<modules>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_30x30_green.png"/>
+			<basicButtons>
+				<basicButton name="autorotation" visible="false"/>
+			</basicButtons>
+		</NavigationBar>
+	</modules>
+</SaladoPlayer>

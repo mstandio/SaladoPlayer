@@ -443,7 +443,7 @@ public class ViewData extends Sprite
 	* @private
 	*/
 	public function set minimumFieldOfView(value:Number):void
-	{ trace("ustawiam "+value);
+	{ 
 		if ( _minimumFieldOfView == value || isNaN(value) ) return;
 		if ( value < MINIMUM_FOV ) value = MINIMUM_FOV;
 		if ( value > MAXIMUM_FOV ) value = MAXIMUM_FOV;

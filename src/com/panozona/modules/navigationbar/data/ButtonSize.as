@@ -16,14 +16,15 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.navigationbar.data{
+package com.panozona.modules.navigationbar.data {
 	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class Cutout {		
-		public var path:String; // intentionally not initialized 
-		public var buttonSide:Number = 32;		
+	public class ButtonSize{
+		
+		public var width:Number = 30;
+		public var height:Number = 30;	
 	}
 }

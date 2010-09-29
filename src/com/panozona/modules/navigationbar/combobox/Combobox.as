@@ -48,6 +48,8 @@ package com.panozona.modules.navigationbar.combobox {
 			this.style = style;			
 			elements = new Vector.<ComboboxElement>();					
 			
+			mainElement = new ComboboxElement(panoramasData[0], style, true); // first element in the list	
+			
 			if (stage) stageReady();
 			else addEventListener(Event.ADDED_TO_STAGE, stageReady);
 		}
@@ -55,7 +57,7 @@ package com.panozona.modules.navigationbar.combobox {
 		private function stageReady(e:Event = null):void {			
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);						
 						
-			mainElement = new ComboboxElement(panoramasData[0], style, true); // first element in the list						
+			
 			addChild(mainElement);			
 			
 			for each(var panoramaData:Object in panoramasData) {				
@@ -217,5 +219,9 @@ package com.panozona.modules.navigationbar.combobox {
 			}															
 			mainElement.isEnabled = value;
 		}							
+		
+		override public function get height():Number {
+			return mainElement.height;
+		}
 	}	
 }

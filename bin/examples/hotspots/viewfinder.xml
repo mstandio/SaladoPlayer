@@ -1,0 +1,26 @@
+﻿<!-- 
+	
+	Using ViewFinder
+	
+	- numbers in box describe camera position values, camera position is marked with white dot in the middle of the window 
+	- ViewFinder is helpfull in determining pan and tilt of position where you want to place hotspot
+	- position of ViewFinder can be modified with optional settings node with align and margin attributes
+	
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml">
+			<hotspot id="hs1" position="pan:0,tilt:0,distance:400" path="hotspots/arrow.png"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ViewFinder path="modules/ViewFinder.swf"/>
+		<!--
+		<ViewFinder path="modules/ViewFinder.swf">
+			<settings align="vertical:middle" margin="left:5"/>
+		</ViewFinder>
+		-->
+	</modules>
+</SaladoPlayer>

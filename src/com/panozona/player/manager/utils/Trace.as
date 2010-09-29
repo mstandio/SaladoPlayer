@@ -51,7 +51,7 @@ package com.panozona.player.manager.utils {
 		
 		private var traceData:TraceData;
 		
-		private var debugging:Boolean = true;
+		private var debugMode:Boolean = true;
 		
 		private static var __instance:Trace;
 		
@@ -78,9 +78,9 @@ package com.panozona.player.manager.utils {
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
 			
 			traceData = (this.parent as SaladoPlayer).managerData.traceData;
-			debugging = (this.parent as SaladoPlayer).managerData.debugging;
+			debugMode = (this.parent as SaladoPlayer).managerData.debugMode;
 			
-			if (!debugging) {
+			if (!debugMode) {
 				buffer = "";
 				return;
 			}else {
@@ -216,7 +216,7 @@ package com.panozona.player.manager.utils {
 		}
 		
 		public function printError(message:String):void {
-			if(debugging){
+			if(debugMode){
 				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"error\">" + message + "</span><br/>";
 				if (output != null) {
 					output.htmlText += htmMessage;
@@ -229,7 +229,7 @@ package com.panozona.player.manager.utils {
 		}
 		
 		public function printWarning(message:String):void {
-			if(debugging){
+			if(debugMode){
 				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"warning\">" + message + "</span><br/>";
 				if (output != null) {
 					output.htmlText += htmMessage;
@@ -242,7 +242,7 @@ package com.panozona.player.manager.utils {
 		}
 		
 		public function printInfo(message:String):void {
-			if(debugging){
+			if(debugMode){
 				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"info\">" + message + "</span><br/>";
 				if (output != null) {
 					output.htmlText += htmMessage;
@@ -259,7 +259,7 @@ package com.panozona.player.manager.utils {
 		}
 		
 		private function showWindow(e:Event = null):void {
-			if(debugging){
+			if(debugMode){
 				window.visible = true;
 				btnOpen.visible = false;
 			}

@@ -29,7 +29,7 @@ package com.panozona.player.module.utils{
 	import flash.net.navigateToURL;
 	
 	import com.panozona.player.module.data.ModuleDescription;
-		
+	
 	/**
 	 * ...
 	 * @author mstandio
@@ -137,18 +137,28 @@ package com.panozona.player.module.utils{
 		}
 		
 		private function printDescription(aboutThisModule:String = null):String{
-			var result:String;
+			var result:String="";
 			
 			if (moduleDescription.moduleHomeUrl != null) {
-				result = "<br><u><font color=\u0022#0000ff\u0022><a href='event:openurl'>" + moduleDescription.moduleName + "</a></font></u>";
-				moduleInfo.addEventListener(TextEvent.LINK, onClickHyperlink);	
+				result += "<br><u><font color=\u0022#0000ff\u0022><a href='event:openurl'>" + moduleDescription.moduleName + "</a></font></u>";
+				moduleInfo.addEventListener(TextEvent.LINK, onClickAnchor);
 			}else {
-				result = "<br>"+moduleDescription.moduleName;
+				result += "<br>"+moduleDescription.moduleName;
 			}
 			
 			result += " v" + (( Number(moduleDescription.moduleVersion.toFixed(1)) == moduleDescription.moduleVersion)?
 			moduleDescription.moduleVersion.toFixed(1):moduleDescription.moduleVersion.toFixed(2));
-			result += (moduleDescription.moduleAuthor != null)? (" by " + moduleDescription.moduleAuthor):"";
+			
+			if (moduleDescription.moduleAuthor != null) {
+				result += " by ";
+				if (moduleDescription.moduleAuthorContact != null) {
+					result += "<u><font color=\u0022#0000ff\u0022><a href='event:opencontact'>" + moduleDescription.moduleAuthor + "</a></font></u>";
+					moduleInfo.addEventListener(TextEvent.LINK, onClickAnchor);
+				}else {
+					result += moduleDescription.moduleAuthor;
+				}
+			}			
+			
 			if (aboutThisModule != null) {
 				result += "<br><br>"+aboutThisModule;
 			}
@@ -172,13 +182,16 @@ package com.panozona.player.module.utils{
 			return result;
 		}
 		
-		private function onClickHyperlink(event:TextEvent):void{
-			var request:URLRequest = new URLRequest(moduleDescription.moduleHomeUrl);
+		private function onClickAnchor(event:TextEvent):void {			
 			try {
-				navigateToURL(request, '_BLANK');
+				if (event.text == "opencontact") {					
+					navigateToURL(new URLRequest("mailto:"+moduleDescription.moduleAuthor), '_BLANK');
+				}else if (event.text == "openurl") {
+					navigateToURL(new URLRequest(moduleDescription.moduleHomeUrl), '_BLANK');
+				}				
 			} catch (e:Error) {
 				moduleInfo.htmlText += "<br><br> Could not open: "+moduleDescription.moduleHomeUrl;
 			}
-		}
+		}		
 	}
 }

@@ -1,0 +1,60 @@
+﻿<!-- 
+	
+	Example for developers
+	
+	- here is how ExampleModule cooperates with NavigationBar
+	- NavigationBar should not have any hard coded dependencies to any other module
+	- see source code of ExampleModule for details
+	
+-->
+	
+<?xml version="1.0" encoding="utf-8" ?>
+<SaladoPlayer>
+	<global debug="true" trace="initialVisibility:true" statistics="true" />
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml"/>
+		<panorama id="pano2" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml"/>
+		<panorama id="pano3" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml"/>
+	</panoramas>
+	<actions>
+		<!-- action called when clicked button on NavigationBar -->
+		<action id="act1" content="ExampleModule.toggleVisibility()" /> 
+	</actions>
+	<modules>
+		
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_30x30_blue.png" />
+			<basicButtons>
+				<basicButton name="autorotate" visible="false" />
+				<basicButton name="fullscreen" visible="false" />
+				<basicButton name="drag" visible="false" />
+			</basicButtons>
+			<bonusButtons>
+				<!-- "a" for first column of third and fourth row in buttons image, "b" for second, ect. -->
+				<!-- this is communication NavigationBar to Examplemodule through action "act1" -->
+				<bonusButton name="a" action="act1" /> 
+			</bonusButtons>
+		</NavigationBar>
+		
+		<!-- only main module node can have many types of children -->
+		<ExampleModule path="modules/ExampleModule.swf">
+			<!-- which NavigationBar button will be changed on module internal state change -->
+			<settings initialVisibility="true" navigationBarButton="a" /> 
+			<!-- each internal node can have children of single type -->
+			<!-- each internal node can have values of type: Number, Boolean, String and Object -->
+			<!-- each Object can have values of type: Number, Boolean, and String -->
+			<someParent info="numberSubValue:12345,stringSubValue:Hello_there,booleanSubValue:true">
+				<someChild id="child1">
+					<someGrandchild name="Joe" isMale="true" age="12">
+						<!-- children can be nested to any level e.g. there can be someGrandGrandchild, someGrandGrandGrandchild ect. -->
+					</someGrandchild>
+					<someGrandchild name="Bob" isMale="true" age="8"/>
+				</someChild>
+				<someChild id="child2">
+					<someGrandchild name="Kate" isMale="false" age="13"/>
+				</someChild>
+			</someParent>
+		</ExampleModule>
+		
+	</modules>
+</SaladoPlayer>

@@ -32,7 +32,7 @@ implemented with Dictionary, instead of LinkedList, or Vector, or Array, because
 weak-keyed dictionary will not require removal of notification targets for them to 
 become eligible for garbage collection. 
 */
-public class StageReference extends Dictionary
+public dynamic class StageReference extends Dictionary
 {
 	protected var stage:Stage;
 	

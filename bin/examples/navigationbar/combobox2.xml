@@ -1,0 +1,25 @@
+﻿<!--
+	
+	Combobox styling
+		
+	- opensUp determines direction in which combobx opens	
+	- fontFamily can be set to: "Verdana", "Courier", "Tahoma", "Times" and other browser-safe fonts
+	- colors are in standard RGB format, e.g. #ff0000 is red, #00ff00 is green, #0000ff is blue
+		
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml"/>
+		<panorama id="pano2" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml"/>
+		<panorama id="pano3" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml"/>
+	</panoramas>
+	<modules>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_30x30_green.png"/>
+			<combobox style="opensUp:true,fontFamily:Tahoma,fontSize:17,fontColor:#ffffff,backgroundColor:#000000,selectedColor:#2f2f2f,borderColor:#ffffff"/>
+		</NavigationBar>
+	</modules>
+</SaladoPlayer>
+

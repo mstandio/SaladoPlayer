@@ -18,6 +18,9 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.examplemodule.data {
 	
+	import com.panozona.player.module.data.PositionMargin;
+	import com.panozona.player.module.data.PositionAlign;
+	
 	/**
 	 * ...
 	 * @author mstandio
@@ -34,5 +37,8 @@ package com.panozona.modules.examplemodule.data {
 		
 		public var initialVisibility:Boolean = true;
 		public var navigationBarButton:String; // intentionally not initialized 
+		
+		public var align:PositionAlign = new PositionAlign(PositionAlign.LEFT, PositionAlign.MIDDLE); //  horizontal, vertical
+		public var margin:PositionMargin = new PositionMargin(0,0,0,10); // top, right, bottom, left
 	}
 }

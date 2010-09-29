@@ -29,13 +29,13 @@ package com.panozona.player.manager.data {
 	public class ChildData {
 		
 		private var _id:String;
-		private var _path:String;		
+		private var _path:String;			
 		
 		private var _childMouse:ChildMouse;
 		private var _childTransformation:ChildTransformation;
 		private var _childPosition:ChildPosition;
 		
-		private var _sfwArguments:Object; // not used anywhere yet
+		private var _swfArguments:Object; // not used anywhere yet		
 		
 		private var _bitmapFile:Bitmap;
 		private var _swfFile:DisplayObject;		
@@ -44,7 +44,7 @@ package com.panozona.player.manager.data {
 			_childMouse = new ChildMouse();
 			_childTransformation = new ChildTransformation();
 			_childPosition = new ChildPosition();
-			_sfwArguments = new Object();
+			_swfArguments = new Object();			
 		}
 		
 		public function set id(value:String):void {
@@ -63,7 +63,7 @@ package com.panozona.player.manager.data {
 		
 		public function get path():String {
 			return _path;
-		}				
+		}		
 		
 		public final function set bitmapFile(value:Bitmap):void {
 			_swfFile = null;
@@ -87,8 +87,8 @@ package com.panozona.player.manager.data {
 			return _childPosition;
 		}		
 		
-		public function get sfwArguments():Object {			
-			return _sfwArguments;
+		public function get swfArguments():Object {			
+			return _swfArguments;
 		}
 		
 		public function get bitmapFile():Bitmap {

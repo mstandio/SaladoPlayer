@@ -36,14 +36,16 @@ package com.panozona.player.manager.data {
 		public var onLeave:String; // action id	
 		public var onTransitionEnd:String; // action id	
 		
-		private var _onEnterSource:Object; // panorama id to action id 
-		private var _onLeaveTarget:Object; // panorama id to action id 
-		private var _onTransitionEndSource:Object; // panorama id to action id 
+		private var _onEnterFrom:Object; // panorama id to action id 
+		private var _onLeaveTo:Object; // panorama id to action id 
+		private var _onLeaveToAttempt:Object; // panorama id to action id 
+		private var _onTransitionEndFrom:Object; // panorama id to action id 
 		
 		public function PanoramaData() {
-			_onEnterSource = new Object();
-			_onLeaveTarget = new Object();
-			_onTransitionEndSource = new Object();
+			_onEnterFrom = new Object();
+			_onLeaveTo = new Object();
+			_onLeaveToAttempt = new Object();
+			_onTransitionEndFrom = new Object();
 			_childrenData = new Vector.<ChildData>();
 		}
 		
@@ -84,16 +86,20 @@ package com.panozona.player.manager.data {
 			return _childrenData;
 		}
 		
-		public function get onEnterSource():Object {
-			return _onEnterSource;
+		public function get onEnterFrom():Object {
+			return _onEnterFrom;
 		}
 		
-		public function get onLeaveTarget():Object {
-			return _onLeaveTarget;
+		public function get onLeaveTo():Object {
+			return _onLeaveTo;
 		}
 		
-		public function get onTransitionEndSource():Object {
-			return _onTransitionEndSource;
+		public function get onLeaveToAttempt():Object {
+			return _onLeaveToAttempt;
+		}
+		
+		public function get onTransitionEndFrom():Object {
+			return _onTransitionEndFrom;
 		}
 	}
 }

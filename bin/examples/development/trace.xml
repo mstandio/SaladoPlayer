@@ -1,0 +1,19 @@
+﻿<!--
+	
+	Configuring trace
+	
+	- when debug is set to false trace window will not be displayed  
+	- set initialVisibility to "true" 
+	- verticalAlign can have values: top, middle or  bottom
+	- horizontalAlign can have values: left, center or right
+	- minimum width value is 100
+	- minimum height value is 50
+	
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<SaladoPlayer>
+	<global  debug="true" trace="initialVisibility:true,width:400,height:100,verticalAlign:bottom,horizontalAlign:left" />
+	<panoramas>
+		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" />
+	</panoramas>
+</SaladoPlayer>

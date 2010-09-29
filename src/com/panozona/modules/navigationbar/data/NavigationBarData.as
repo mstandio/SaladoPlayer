@@ -29,28 +29,32 @@ package com.panozona.modules.navigationbar.data {
 	 */
 	public class NavigationBarData extends StructureMaster{
 		
-		public var cutout:Cutout = new Cutout();
-		public var bar:Bar = new Bar();
+		public var buttons:Buttons = new Buttons();
+		public var backgroundBar:BackgroundBar = new BackgroundBar();
 		public var combobox:Combobox = new Combobox();
 		public var branding:Branding = new Branding();
+		public var logo:Logo = new Logo();
 		public var basicButtons:BasicButtons = new BasicButtons();
 		public var bonusButtons:BonusButtons = new BonusButtons();
 		
-		public function NavigationBarData(moduleData:ModuleData, debugging:Boolean) {
-			super(debugging);
+		public function NavigationBarData(moduleData:ModuleData, debugMode:Boolean) {
+			super(debugMode);
 			for each(var moduleNode:ModuleNode in moduleData.moduleNodes) {
 				switch (moduleNode.nodeName) {
-					case "cutout": 
-						readRecursive(cutout, moduleNode);
+					case "buttons": 
+						readRecursive(buttons, moduleNode);
 					break;
-					case "bar": 
-						readRecursive(bar, moduleNode);
+					case "backgroundBar": 
+						readRecursive(backgroundBar, moduleNode);
 					break;
 					case "combobox": 
 						readRecursive(combobox, moduleNode);
 					break;
 					case "branding": 
 						readRecursive(branding, moduleNode);
+					break;
+					case "logo": 
+						readRecursive(logo, moduleNode);
 					break;
 					case "basicButtons": 
 						readRecursive(basicButtons, moduleNode);
@@ -63,13 +67,16 @@ package com.panozona.modules.navigationbar.data {
 				}
 			}
 			
-			if (debugging) {
+			if (debugMode) {
 				// check for mandatory data
-				if (cutout.path == null) {
-					throw new Error("No path to cutout.");
-					
+				if (buttons.visible && buttons.path == null) {
+					throw new Error("No path specified for buttons.");
 				}
-			}		
+				
+				if (logo.visible && logo.path == null) {
+					throw new Error("No path specified for logo.");
+				}
+			}			
 		}
 	}
 }
