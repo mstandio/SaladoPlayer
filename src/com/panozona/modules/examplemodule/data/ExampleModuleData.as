@@ -20,16 +20,16 @@ package com.panozona.modules.examplemodule.data {
 	
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.data.StructureMaster;
+	import com.panozona.player.module.data.structure.Master
 
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class ExampleModuleData extends StructureMaster{
+	public class ExampleModuleData extends Master{
 
 		// These var names are not important
-		// HOWEVER Check comments for SomeParent, SomeChild and SomeGrandChild
+		// however, check comments in other classes in examplemodule.data
 		public var settings:Settings = new Settings();
 		public var someParent:SomeParent = new SomeParent();
 		
@@ -45,15 +45,15 @@ package com.panozona.modules.examplemodule.data {
 						readRecursive(someParent, moduleNode);
 					break;
 					default:
-						throw new Error("Could not recognize: "+moduleNode.nodeName);
+						throw new Error("Invalid node name: "+moduleNode.nodeName);
 				}
 			}
 			
 			if (debugMode){
 				// throw errors if inspection shows that not all vital data was recieved
-				for each(var someChild:SomeChild in someParent.getChildren()) {
-					if (someChild.id == null || someChild.id == "") {
-						throw new Error("someChild id is not specified.");
+				for each(var someChild:SomeChild in someParent.getChildrenOfGivenClass(SomeChild)) {
+					if ((!someChild.happy)) {
+						throw new Error("someChild is not happy.");
 					}
 				}
 				// ect.

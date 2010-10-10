@@ -18,21 +18,22 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.examplemodule {
 	
+	import com.panozona.player.module.data.ModuleData;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.display.Sprite;
 	import flash.system.ApplicationDomain;
 	
-	import com.panozona.player.module.Module;	
-	import com.panozona.player.module.data.PositionMargin;
-	import com.panozona.player.module.data.PositionAlign;		
+	import com.panozona.player.module.Module;
+	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.Align;
 	
 	import com.panozona.modules.examplemodule.data.*;
 	import com.panozona.modules.examplemodule.labelledbutton.LabelledButton;
 	
 	/**
-	 * This is example module presenting structure of module ande its basic functionalities. 
+	 * This is example module presenting structure of module and its functionalities.
 	 * 
 	 * @author mstandio
 	 */
@@ -45,28 +46,30 @@ package com.panozona.modules.examplemodule {
 		
 		private var txt:TextField;
 		
-		private var exampleModuleData:ExampleModuleData;
-		
 		private var LoadPanoramaEventClass:Class;
 		
-		// constructor should not contain 
-		// anything more then showed below
-		// just for sake of clear code
+		private var exampleModuleData:ExampleModuleData;
+			
+		// constructor should not contain anything more then showed below just for sake of clear code
 		public function ExampleModule() {
 			
-			// mandatory name, version (max two digits after dot) and optional author, email and link to module details
+			// mandatory name, version (max two digits after decimal point)
+			// optional author, email and link to module details
 			
-			super("ExampleModule", 0.3, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:ExampleModule");
+			super("ExampleModule", 0.4, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:ExampleModule");
 			
-			aboutThisModule = "This is example module, it does nothing particular, it presents solutions on " +
-							  "how to build modules for Saladolayer."
-							  "ExampleModule can cooperate with Navigation bar, and it uses one of his bonus buttons. ";
+			aboutThisModule = "This is example module, it does nothing particular, it presents solution on " +
+							  "how to build modules for SaladoPlayer. ExampleModule can cooperate with Navigation bar " +
+							  "and it uses one of its extra buttons of given name."+
 							  "<br/>Check out source code to see how it works.";
 			
 			// functions that are officially exposed, so that they can be validated 
 			// (names and types of arguments) in configuration on startup
-			// they can be used via xml: <action id="act1" content="ExampleModule.echoNothing();ExampleModule.echoString(Hello there);"/>
-			// and by other modules through executeModule: executeModule("ExampleModule", "echoNothing", new Array());
+			// they can be used via xml: <action id="act1" content="ExampleModule.echoNothing();ExampleModule.echoString(Hello);"/>
+			// and by other modules through executeModule: 
+			// for instace: 
+			// executeModule("ExampleModule", "echoNothing", new Array());
+			// executeModule("ExampleModule", "echoAll", new Array(true, 123, "hello"));
 			moduleDescription.addFunctionDescription("toggleVisibility");
 			moduleDescription.addFunctionDescription("echoNothing");
 			moduleDescription.addFunctionDescription("echoBoolean", Boolean);
@@ -78,7 +81,7 @@ package com.panozona.modules.examplemodule {
 		// Entry point - module is added to stage 
 		// moduleReady is surrounded with try/cacth 
 		// in case of any error here, module will be cancelled 
-		override protected function moduleReady():void {
+		override protected function moduleReady(moduleData:ModuleData):void {
 			
 			// allways read data first 
 			exampleModuleData = new ExampleModuleData(moduleData, debugMode); 
@@ -112,62 +115,74 @@ package com.panozona.modules.examplemodule {
 			txt.y = btnTitle.height + 10;
 			window.addChild(txt);
 			
+			txt.htmlText = printSettings();
+			
 			stage.addEventListener(Event.RESIZE, handleStageResize, false, 0, true); 
 			handleStageResize();
 		}
 		
-		// first panorama stared loading, so all modules are loaded and added to scene
+		// first panorama started loading, so all modules are loaded and added to scene
 		// now you can try to access them to call specyfic functions
 		// each module must be ready to execute exposed functions after first panorama started loading 
-		// you should not rely on transition end, trnsitions can be disabled.
 		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
 			saladoPlayer.manager.removeEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
-			foundNavigationBar = moduleExists("NavigationBar");
-			if (exampleModuleData.settings.navigationBarButton != null && foundNavigationBar){
-				this.visible = exampleModuleData.settings.initialVisibility;
-				executeModule("NavigationBar", "changeButton", new Array(exampleModuleData.settings.navigationBarButton, this.visible));
+			foundNavigationBar = (saladoPlayer.getModuleByName("NavigationBar") != null)
+			if (exampleModuleData.settings.extraButtonName != null && foundNavigationBar){
+				this.visible = exampleModuleData.settings.open;
+				try {
+					saladoPlayer.getModuleByName("NavigationBar").execute("setExtraButtonActive", new Array(exampleModuleData.settings.extraButtonName, this.visible));
+				}catch (error:Error){
+					printWarning("Could not execute function in NavigationBar.");
+				}
 			}
-			
-			txt.htmlText = printSettings();
+			// instead of calling module functions directly, 
+			// smarter solution would be calling actions of specific id that contain those functions
+			// for instance: 
+			//   <actions>
+			//    <action id="buttonActive" content="NavigationBar.setExtraButtonActive(a,true)"/>
+			//    <action id="buttonPlain" content="NavigationBar.setExtraButtonActive(a,false)"/>
+			//   <actions>			
+			// exampleModuleData.settings.actionActive = "buttonActive";
+			// saladoPlayer.manager.runAction(exampleModuleData.settings.actionActive);
+			// ect.			
 			
 			//printInfo("Started loading: " + loadPanoramaEvent.panoramaData.id);
 		}
 		
-		// 
+		// loaded panorama, before transition start
 		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {
 			//printInfo("Done loading: " + loadPanoramaEvent.panoramaData.id);
 		}
 		
 		// panorama was loaded, and transition is finished 
-		// i do not recommand relying in this, transition can be disabled
-		// you can check if it is enabled by saladoPlayer.managerData.simpleTransitionData.enabled
 		private function onTransitionEnded(loadPanoramaEvent:Object):void {
 			//printInfo("Transition ended: " + loadPanoramaEvent.panoramaData.id);
 		}
 
 		// you shuold use bounds size and not stage.stageHeight and stage.stageWidth
 		// when Saladolayer is embeded into other application
-		// elements will remain inside its window
-		private function handleStageResize(e:Event = null):void {						
+		// elements will remain inside panorama window
+		private function handleStageResize(e:Event = null):void {
 			
-			if (exampleModuleData.settings.align.horizontal == PositionAlign.RIGHT) {
-				window.x = boundsWidth - window.width;
-			}else if (exampleModuleData.settings.align.horizontal == PositionAlign.LEFT) {
+			if (exampleModuleData.settings.align.horizontal == Align.LEFT) {
 				window.x = 0;
-			}else if (exampleModuleData.settings.align.horizontal == PositionAlign.CENTER) {
+			}else if (exampleModuleData.settings.align.horizontal == Align.RIGHT) {
+				window.x = boundsWidth - window.width;
+			}else if (exampleModuleData.settings.align.horizontal == Align.CENTER) {
 				window.x = (boundsWidth - window.width) * 0.5;
 			}
-			if (exampleModuleData.settings.align.vertical == PositionAlign.BOTTOM) {
-				window.y = boundsHeight - window.height;
-			}else if (exampleModuleData.settings.align.vertical == PositionAlign.TOP) {
+			
+			if (exampleModuleData.settings.align.vertical == Align.TOP) {
 				window.y = 0;
-			}else if (exampleModuleData.settings.align.vertical == PositionAlign.MIDDLE) {
+			}else if (exampleModuleData.settings.align.vertical == Align.MIDDLE) {
 				window.y = (boundsHeight - window.height) * 0.5;
+			}else if (exampleModuleData.settings.align.vertical == Align.BOTTOM) {
+				window.y = boundsHeight - window.height;
 			}
-			window.x += exampleModuleData.settings.margin.left;
-			window.x -= exampleModuleData.settings.margin.right;
-			window.y += exampleModuleData.settings.margin.top;			
-			window.y -= exampleModuleData.settings.margin.bottom;			
+			
+			window.x += exampleModuleData.settings.move.horizontal;
+			window.y += exampleModuleData.settings.move.vertical;
+			
 		}
 		
 		private function btnCloseClick(e:Event):void {
@@ -180,16 +195,21 @@ package com.panozona.modules.examplemodule {
 		// node can also have sub-attributes of type: Boolean, Number, String (see)
 		private function printSettings():String {
 			var result:String = "";
-			result += "info: " + exampleModuleData.someParent.info.stringSubValue +
+			result += "parent info: "+exampleModuleData.someParent.info.stringSubValue +
 			", " +exampleModuleData.someParent.info.numberSubValue + 
 			", " +exampleModuleData.someParent.info.booleanSubValue; 
-			for each (var someChild:SomeChild in exampleModuleData.someParent.getChildren()) {
-				result += "<br>child id: "+someChild.id;
-				for each(var someGrandchild:SomeGrandchild in someChild.getChildren()) {
-					result += "<br> grandchild name: " + someGrandchild.name;
-					result += "<br>  isMale: " + someGrandchild.isMale;
-					result += "<br>  age: " + someGrandchild.age;
+			result += "<br>children: ";
+			for each (var someChild:SomeChild in exampleModuleData.someParent.getChildrenOfGivenClass(SomeChild)) {
+				result += "<br>  child is happy: "+someChild.happy;
+				for each(var someToy:SomeToy in someChild.getChildrenOfGivenClass(SomeToy)) {
+					result += "<br>    toy name: "+someToy.name;
+					result += "<br>    toy price: "+someToy.price;
 				}
+			}
+			result += "<br>jobs: ";
+			for each (var someJob:SomeJob in exampleModuleData.someParent.getChildrenOfGivenClass(SomeJob)) {
+				result += "<br>  wages: "+someJob.wages;
+				result += "<br>  text: "+someJob.text;
 			}
 			return result;
 		}
@@ -213,10 +233,10 @@ package com.panozona.modules.examplemodule {
 		public function toggleVisibility():void {
 			this.visible = !this.visible;
 			if (foundNavigationBar) {
-				try{
-					executeModule("NavigationBar", "changeButton", new Array(exampleModuleData.settings.navigationBarButton, this.visible));
+				try {
+					saladoPlayer.getModuleByName("NavigationBar").execute("setExtraButtonActive", new Array(exampleModuleData.settings.extraButtonName, this.visible));
 				}catch (error:Error){
-					printError("NavigationBar is not compatible: " + error.message);
+					printWarning("Could not execute function in NavigationBar.");
 				}
 			}
 		}

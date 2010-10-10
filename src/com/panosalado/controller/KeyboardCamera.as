@@ -185,15 +185,12 @@ public class KeyboardCamera extends EventDispatcher implements ICamera
 	
 	protected function enabledChangeHandler(e:Event):void {
 		
-		if (_viewData != null) {
-			_viewData.dispatchEvent(new CameraEvent(CameraEvent.ENABLED_CHANGE))
-		}
-		
 		switch(_cameraData.enabled) {
 			case true: 
 			if (_stage) {
 				_stage.addEventListener( KeyboardEvent.KEY_DOWN, keyDownEvent, false, 0, true );
 				_stage.addEventListener( KeyboardEvent.KEY_UP, keyUpEvent, false, 0, true);
+				_stage.addEventListener( Event.DEACTIVATE, stageOutOfFocus, false, 0, true);
 			}
 			break;
 			case false: 
@@ -201,6 +198,7 @@ public class KeyboardCamera extends EventDispatcher implements ICamera
 				_stage.removeEventListener( KeyboardEvent.KEY_DOWN, keyDownEvent );
 				_stage.removeEventListener( KeyboardEvent.KEY_UP, keyUpEvent );
 				_stage.removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
+				_stage.removeEventListener( Event.DEACTIVATE, stageOutOfFocus);
 			}
 			break;
 		}
@@ -221,14 +219,14 @@ public class KeyboardCamera extends EventDispatcher implements ICamera
 			_cameraData.removeEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler );
 		}
 		
-		_cameraData = value;		
+		_cameraData = value;
 	}
 	
 	public function get stageReference():Stage { return _stage; }
 	public function set stageReference(value:Stage):void
 	{
 		if ( _stage === value ) return;
-		if ( value != null){
+		if ( value != null && _cameraData!= null && _cameraData.enabled){ // TODO: what if cameraData is not loaded?
 			value.addEventListener( KeyboardEvent.KEY_DOWN, keyDownEvent, false, 0, true );
 			value.addEventListener( KeyboardEvent.KEY_UP, keyUpEvent, false, 0, true);
 			value.addEventListener( Event.DEACTIVATE, stageOutOfFocus, false, 0, true);

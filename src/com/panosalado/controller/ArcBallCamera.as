@@ -33,21 +33,21 @@ import flash.events.MouseEvent;
 import flash.utils.getTimer;
 
 public class ArcBallCamera extends Sprite implements ICamera
-{		
+{	
 	protected var _viewData:ViewData;
 	protected var _mouseObject:Sprite;
 	
-	protected var _cameraData:ArcBallCameraData;	
+	protected var _cameraData:ArcBallCameraData;
 
 	private var __lastAngleX:Number;
 	private var __lastAngleY:Number;
 	private var __xh:Number;
-	private var __xv:Number;	
+	private var __xv:Number;
 	
 	private var mouseIsDown:Boolean;
 	
-	private var wheelDelta:Number;	  
-	private var mouseWheeled:Boolean;	  
+	private var wheelDelta:Number;
+	private var mouseWheeled:Boolean;
 	
 	public function ArcBallCamera()
 	{	
@@ -59,15 +59,17 @@ public class ArcBallCamera extends Sprite implements ICamera
 		mouseIsDown = false;
 		
 		wheelDelta  = 0;
-		mouseWheeled = false;		
+		mouseWheeled = false;
 	}
 	
 	public function processDependency(reference:Object,characteristics:*):void {
 		if (characteristics == Characteristics.VIEW_DATA) { 
 			viewData = reference as ViewData;
-			mouseObject = reference as Sprite;
+			if(_cameraData != null){
+				mouseObject = reference as Sprite;
+			}
 		}
-		else if (characteristics == Characteristics.ARC_BALL_CAMERA_DATA) cameraData = reference as ArcBallCameraData;		
+		else if (characteristics == Characteristics.ARC_BALL_CAMERA_DATA) cameraData = reference as ArcBallCameraData;
 	}
 	
 	private function downHandler(event:MouseEvent):void
@@ -76,7 +78,7 @@ public class ArcBallCamera extends Sprite implements ICamera
 		
 		var vFov:Number;
 		
-		__xh = Math.tan(viewData.fieldOfView * 0.5 * __toRadians) / (viewData.boundsWidth * 0.5);		
+		__xh = Math.tan(viewData.fieldOfView * 0.5 * __toRadians) / (viewData.boundsWidth * 0.5);
 		
 		vFov = viewData.boundsHeight / viewData.boundsWidth * viewData.fieldOfView;
 		__xv = Math.tan(vFov * 0.5 * __toRadians) / (viewData.boundsHeight * 0.5);
@@ -84,7 +86,7 @@ public class ArcBallCamera extends Sprite implements ICamera
 		__lastAngleX= Math.atan(( _mouseObject.mouseX - viewData.boundsWidth * 0.5) * __xh)		// HARDCORE
 		__lastAngleY = Math.atan(( _mouseObject.mouseY - viewData.boundsHeight * 0.5 )* __xv);  // TRIGONOMETRY :F
 		
-					
+		
 		addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
 		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
 	}
@@ -96,14 +98,14 @@ public class ArcBallCamera extends Sprite implements ICamera
 		dispatchEvent( new CameraEvent(CameraEvent.INACTIVE) );
 	}
 	
-	private function inoutHandler(event:MouseEvent):void {		
-			
-		wheelDelta = event.delta;	
+	private function inoutHandler(event:MouseEvent):void {
+		
+		wheelDelta = event.delta;
 		
 		mouseWheeled = true;
 		
 		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
-		addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );		
+		addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
 	}
 	
 	private function enterFrameHandler(event:Event):void 
@@ -118,7 +120,7 @@ public class ArcBallCamera extends Sprite implements ICamera
 		}
 		
 		if (mouseIsDown)
-		{		
+		{
 			var angleX:Number;
 			var angleY:Number;
 			var vFov:Number;
@@ -127,13 +129,13 @@ public class ArcBallCamera extends Sprite implements ICamera
 			}
 			if ( viewData.invalid ) {
 				vFov = viewData.boundsHeight / viewData.boundsWidth * viewData.fieldOfView;
-				__xv = Math.tan(vFov * 0.5 * __toRadians) / (viewData.boundsHeight * 0.5);			
-			}						
-		
-			angleX = Math.atan(( _mouseObject.mouseX - viewData.boundsWidth * 0.5) * __xh)		
+				__xv = Math.tan(vFov * 0.5 * __toRadians) / (viewData.boundsHeight * 0.5);
+			}
+			
+			angleX = Math.atan(( _mouseObject.mouseX - viewData.boundsWidth * 0.5) * __xh)
 			angleY = Math.atan(( _mouseObject.mouseY - viewData.boundsHeight * 0.5 )* __xv);
 			viewData.pan += (angleX - __lastAngleX) * __toDegrees;
-			viewData.tilt += (angleY - __lastAngleY) * __toDegrees;		
+			viewData.tilt += (angleY - __lastAngleY) * __toDegrees;
 
 			if (viewData._tilt > 90) {
 				viewData.tilt = 90;
@@ -144,22 +146,18 @@ public class ArcBallCamera extends Sprite implements ICamera
 		
 			__lastAngleX = angleX;
 			__lastAngleY = angleY;
-		}		
+		}
 	}	
 		
 	protected function enabledChangeHandler(e:Event):void {
 		
-		if (_viewData != null) {
-			_viewData.dispatchEvent(new CameraEvent(CameraEvent.ENABLED_CHANGE))
-		}
-		
 		switch(_cameraData.enabled) {
 			case true: 
-			if (_cameraData) {
+			if (_mouseObject) {
 				_mouseObject.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
 				_mouseObject.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
 				_mouseObject.addEventListener( MouseEvent.ROLL_OUT, upHandler, false, 0, true );
-				_mouseObject.addEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler, false, 0, true );				
+				_mouseObject.addEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler, false, 0, true );
 			}
 			break;
 			case false: 
@@ -167,8 +165,9 @@ public class ArcBallCamera extends Sprite implements ICamera
 				_mouseObject.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
 				_mouseObject.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
 				_mouseObject.removeEventListener( MouseEvent.ROLL_OUT, upHandler );
-				_mouseObject.removeEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler );				
-			}			
+				_mouseObject.removeEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler );
+				_mouseObject.removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
+			}
 			break;
 		}
 	}
@@ -184,29 +183,33 @@ public class ArcBallCamera extends Sprite implements ICamera
 			_cameraData.removeEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler );
 		}
 		_cameraData = value;
+		mouseObject = viewData;
 	}
 	
 	public function get mouseObject():Sprite { return _mouseObject; }
 	public function set mouseObject(value:Sprite):void
-	{
+	{		
 		if ( _mouseObject === value ) return;
-		if ( value != null){
+				
+		if ( value != null && cameraData.enabled){
 			value.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
 			value.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
 			value.addEventListener( MouseEvent.ROLL_OUT, upHandler, false, 0, true );
+			value.addEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler, false, 0, true );
 		}
 		else if(value == null && _mouseObject != null ){
 			_mouseObject.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
 			_mouseObject.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
 			_mouseObject.removeEventListener( MouseEvent.ROLL_OUT, upHandler );
+			_mouseObject.removeEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler );
 		}
 		_mouseObject = value;
-	}	
+	}
 	
 	public function get viewData():ViewData { return _viewData; }
 	public function set viewData(value:ViewData):void
-	{		
-		_viewData = value;								
+	{
+		_viewData = value;
 	}
 	
 	private var __toDegrees:Number = 180 / Math.PI;

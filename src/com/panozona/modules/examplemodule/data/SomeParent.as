@@ -18,25 +18,23 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.examplemodule.data {
 	
-	import com.panozona.player.module.data.StructureParent;
+	import com.panozona.player.module.data.structure.Parent;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
-	public class SomeParent extends StructureParent {
-					
-		override public function getChildrenType():Class {
-			return SomeChild;
-		}		
+	// SomeParent class is not decalred as structure child of any other class, so its name is not important
+	public class SomeParent extends Parent {
+		
+		// Someparent class declares itself as structure parent of SomeChild and SomeJob
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(SomeChild);
+			result.push(SomeJob);
+			return result;
+		}
 		
 		// These var names are important
-		// They should be of the same name
-		// as attributes names in ModuleNode
-		// that is of the same name as attributes names in *.xml file 
-		// for instance <someParent info="numberSubValue:10,stringSubValue:I am parent"/>
-		// you should initialize them with default values
-		// in case when var is not present in configuration								
+		// They should be of the same name as attributes names in module node		
+		// for instance <someParent info="numberSubValue:10,stringSubValue:[hello]"/>
+		// you should initialize them with default values in case when given value is not set in configuration
 		public var info:SomeParentInfo = new SomeParentInfo();
 	}
 }

@@ -37,7 +37,7 @@ public class Resizer extends EventDispatcher implements IResizer, ICamera
 {
 	protected var _stage:Stage;
 	protected var _viewData:ViewData;
-			
+	
 	public function Resizer() {
 		super();
 	}
@@ -80,5 +80,5 @@ public class Resizer extends EventDispatcher implements IResizer, ICamera
 		_viewData = value;
 	}
 }
-	
+
 }

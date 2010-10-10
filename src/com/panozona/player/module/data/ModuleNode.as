@@ -39,16 +39,7 @@ package com.panozona.player.module.data {
 				moduleNode = new ModuleNode(abstractModuleNode);
 				_moduleNodes.push(moduleNode);
 			}
-		}
-		
-		public function getModuleNodeByName(nodeName:String):ModuleNode {
-			for each( var moduleNode:ModuleNode in _moduleNodes) {
-				if (moduleNode._nodeName == nodeName) {
-					return moduleNode;
-				}
-			}
-			return null;
-		}
+		}		
 		
 		public function get nodeName():String {
 			return _nodeName;

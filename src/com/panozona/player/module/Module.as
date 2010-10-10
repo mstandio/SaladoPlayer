@@ -29,23 +29,39 @@ package com.panozona.player.module{
 	import com.panozona.player.module.utils.ModuleInfoPrinter;
 	
 	/**
-	 * ...
+	 * Class implements all featuers nessesery for SaladoPlayer to recognize *.swf file as module. 
+	 * It also provides SaladoPlayer reference and some other usefull functions. 
+	 * In order to implement module, you need to extend this class, set module name and version and override moduleReady function. 
 	 * @author mstandio
 	 */
-	public class Module extends Sprite  {
+	public class Module extends Sprite {
 		
-		protected var aboutThisModule:String; 
-		
-		protected var _moduleData:ModuleData;
-		protected var _moduleDescription:ModuleDescription;
-		
-		protected var SaladoPlayerClass:Class;
+		/**
+		 * Ready to use SaladoPlayer reference.
+		 */
 		protected var saladoPlayer:Object;
 		
-		private var TraceClass:Class;
-		private var tracer:Object;
+		/**
+		 * Short description displayed when module is opened as standalone *.swf file
+		 */
+		protected var aboutThisModule:String; 
 		
+		private var _moduleData:ModuleData;
+		private var _moduleDescription:ModuleDescription;
+		private var _tracer:Object; 
+		
+		/**
+		 * Constructor. 
+		 * Creates module description, ads module to stage, obtains reference to Saladoplayer and gets from it raw module configuration data.
+		 * 
+		 * @param	moduleName Name of module. It is nessesery for obtaining configuration data from Saladoplayer 
+		 * @param	moduleVersion Version of module. It is nessesery for convinience reasons.
+		 * @param	moduleAuthor Name of module author - optional
+		 * @param	moduleAuthorContact email addredd of module author - optional
+		 * @param	moduleHomeUrl url to site containing documentation for module - optional
+		 */
 		public final function Module(moduleName:String, moduleVersion:Number, moduleAuthor:String = null, moduleAuthorContact:String = null, moduleHomeUrl:String = null) {
+			
 			_moduleDescription = new ModuleDescription(moduleName, moduleVersion, moduleAuthor, moduleAuthorContact, moduleHomeUrl);
 			
 			aboutThisModule = "This is SaladoPlayer module."; // default information
@@ -53,102 +69,119 @@ package com.panozona.player.module{
 			addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
 		}
 		
-		private final function stageReady(e:Event):void {
+		private function stageReady(e:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
 			try {
 				
-				SaladoPlayerClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.SaladoPlayer") as Class;
-				saladoPlayer = this.parent as SaladoPlayerClass;
+				var SaladoPlayerClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.SaladoPlayer") as Class;
+				saladoPlayer = this.parent as SaladoPlayerClass;				
+				
+				var TraceClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.utils.Trace") as Class;
+				_tracer = saladoPlayer.tracer as TraceClass;
 				
 				_moduleData = new ModuleData(saladoPlayer.managerData.getAbstractModuleDataByName(_moduleDescription.moduleName));
 				
-				TraceClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.utils.Trace") as Class;
-				tracer = saladoPlayer.tracer as TraceClass;
-				
 				try {
-					moduleReady();
-				}catch (error:Error) {
-					while(numChildren) {
-						removeChildAt(0);
-					}
+					
+					moduleReady(_moduleData);
+					
+				}catch (error:Error) { // error in module ready function, possibly coused by configuration inconsistency
+					
+					while(numChildren) {removeChildAt(0);}
 					printError(error.message);
 					trace(error.getStackTrace());
 				}
+			
+			}catch (error:Error) { // could not obtain SaladoPlayer or trace window reference
 				
-			}catch (error:Error) {
-				while(numChildren) {
-					removeChildAt(0);
-				}
-				addChild(new ModuleInfoPrinter(_moduleDescription, aboutThisModule));
+				while(numChildren){removeChildAt(0);}
+				addChild(new ModuleInfoPrinter(_moduleDescription, aboutThisModule)); 
 				trace(error.getStackTrace());
 			}
+			
+			_moduleDescription = null;
+			_moduleData = null;
 		}
 		
-		protected function moduleReady():void {
-			throw new Error("Function moduleReady() must be overrided by this module");
+		/**
+		 * Entry point for module, at this point module is allready added to stage and it obtained reference to Saladoplayer.
+		 * In this function raw configuration should be parsed and validated, in case of any problems errors should be mercylessly thrown.
+		 * Function is surrounded with try - catch block, in case of any errors all children will be removed and error will be printed in trace window as well as in standard trace.				 
+		 * @param	moduleData Raw module configuration data.
+		 */
+		protected function moduleReady(moduleData:ModuleData):void {
+			throw new Error("Function moduleReady() must be overriden by this module.");
 		}
 		
-		// used by module
-		protected final function get moduleData():ModuleData {
-			return _moduleData;
-		}
-		
-		// used by Manager
+		/**
+		 * Alter module description by adding descriptions of exposed functions.
+		 * Exposed function will be recognized by SaladoPlayer validator. 
+		 * Module description can be modified only in constructor.
+		 */
 		public final function get moduleDescription():ModuleDescription {
 			return _moduleDescription;
 		}
 		
-		// used by other modules  
+		/**
+		 * Used by SaladoPlayer to execute functions on module. It can also be used by other modules.
+		 * 
+		 * @param	functionName name of module function
+		 * @param	args Array of arguments applied to module function
+		 * @return  any type returned by given function
+		 */
 		public final function execute(functionName:String, args:Array):*{
 			return (this[functionName] as Function).apply(this, args);
 		}
 		
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Following Functions are avaible for module
-// also module can access any public functions and variables of SaladoPlayer
-// including manager that extends PanoSalado e.g. panoSalado.manager.swingToChild(...)
-// or managerData e.g. panoSalado.managerData.getActionDataById("someid")
-// module should not directly import any classes from com.panozona.player.manager or from com.panosalado
-// (those classes will change in time and module may loose compatibility)
-// instead, module should get variables as Objects and catch potential errors
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
+		/**
+		 * Determines if SaladoPlayer runs in debug mode. This value is supposed to use for skipping consistency checking and validation.
+		 */
 		public final function get debugMode():Boolean {
 			return saladoPlayer.managerData.debugMode;
 		}
 		
+		/**
+		 * Width of panorama window. It should be used instead of stage.stageWidth in case when SaladoPlayer is emebeded into another *.swf file
+		 */
 		public final function get boundsWidth():Number {
 			return saladoPlayer.manager.boundsWidth;
 		}
 		
+		/**
+		 * Height of panorama window. It should be used instead of stage.stageHeight in case when SaladoPlayer is emebeded into another *.swf file
+		 */
 		public final function get boundsHeight():Number {
 			return saladoPlayer.manager.boundsHeight;
 		}
-
-		public final function moduleExists(moduleName:String):Boolean{
-			return (saladoPlayer.getModuleByName(moduleName) != null);
-		}
 		
-		public final function executeModule(moduleName:String, functionName:String, args:Array):*{
-			return saladoPlayer.getModuleByName(moduleName).execute(functionName, args);
-		}
-		
-		public final function printError(msg:String):void {
-			if(tracer != null){
-				tracer.printError(_moduleDescription.moduleName+": "+msg);
+		/**
+		 * Prints message in green text in trace window, printing information does not trigger trace window open.
+		 * @param	message
+		 */
+		public final function printInfo(message:String):void {
+			if(_tracer != null){
+				_tracer.printInfo(_moduleDescription.moduleName+": "+message);
 			}
 		}
 		
-		public final function printWarning(msg:String):void {
-			if(tracer != null){
-				tracer.printWarning(_moduleDescription.moduleName+": "+msg);
+		/**
+		 * Prints message in yellow text in trace window, printing warning triggers trace window open.
+		 * @param	message
+		 */
+		public final function printWarning(message:String):void {
+			if(_tracer != null){
+				_tracer.printWarning(_moduleDescription.moduleName+": "+message);
 			}
 		}
 		
-		public final function printInfo(msg:String):void {
-			if(tracer != null){
-				tracer.printInfo(_moduleDescription.moduleName+": "+msg);
+		/**
+		*  Prints message in red text in trace window, printing error triggers trace window open.
+		 * @param	message
+		 */
+		public final function printError(message:String):void {
+			if(_tracer != null){
+				_tracer.printError(_moduleDescription.moduleName+": "+message);
 			}
-		}		
+		}
 	}
 }

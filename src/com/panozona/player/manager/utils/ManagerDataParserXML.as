@@ -18,13 +18,19 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils {
 	
+	import flash.utils.getQualifiedClassName;
+	
 	import com.panosalado.model.Params;
 	
-	import com.panozona.player.manager.data.*;
+	import com.panozona.player.manager.data.ManagerData;
+	import com.panozona.player.manager.data.trace.TraceData;
+	import com.panozona.player.manager.data.panorama.PanoramaData;
+	import com.panozona.player.manager.data.hotspot.HotspotData;
+	import com.panozona.player.manager.data.module.AbstractModuleData;
+	import com.panozona.player.manager.data.module.AbstractModuleNode;
+	import com.panozona.player.manager.data.action.ActionData;
+	import com.panozona.player.manager.data.action.FunctionData;
 	import com.panozona.player.manager.utils.Trace;
-	
-	import flash.utils.getQualifiedClassName;
-	import flash.utils.getDefinitionByName;
 	
 	import com.robertpenner.easing.Expo;
 	import com.robertpenner.easing.Linear;
@@ -35,7 +41,7 @@ package com.panozona.player.manager.utils {
 	 */
 	public class ManagerDataParserXML {
 		
-		private var _debugMode:Boolean;	
+		private var _debugMode:Boolean = true;
 		
 		public function configureManagerData(managerData:ManagerData, settings:XML):void {
 			
@@ -43,65 +49,94 @@ package com.panozona.player.manager.utils {
 			
 			for each(var mainNode:XML in settings.children()){
 				switch(mainNode.localName().toString()) {
-					case "global": 
+					case "global":
 						parseGlobal(managerData, mainNode);
 					break;
-					case "panoramas": 
+					case "panoramas":
 						parsePanoramas(managerData, mainNode);
 					break;
-					case "actions": 
+					case "actions":
 						parseActions(managerData, mainNode);
 					break;
-					case "modules": 
+					case "modules":
 						parseModules(managerData, mainNode);
 					break;
 					default:
 						Trace.instance.printWarning("Unrecognized node: "+mainNode.name());
 				}
 			}
-			managerData.populateGlobalDataParams();
+			managerData.populateGlobalParams();
 		}
 		
-		private function parseGlobal(managerData:ManagerData, globalNode:XML):void {
+		protected function parseGlobal(managerData:ManagerData, globalNode:XML):void {
 			for each(var globalAttribute:XML in globalNode.attributes()) {
 				switch (globalAttribute.localName().toString()) {
-					case "debug": 
+					case "debug":
 						managerData.debugMode = getAttributeValue(globalAttribute, Boolean);
 					break;
-					case "trace": 
-						applySubAttributes(managerData.traceData, globalAttribute);
+					case "firstPanorama":
+						managerData.firstPanorama = getAttributeValue(globalAttribute, String);
 					break;
-					case "statistics": 
-						managerData.showStatistics = getAttributeValue(globalAttribute, Boolean);
+					case "camera":
+						applySubAttributes(managerData.params, globalAttribute);
 					break;
-					case "dragMouse": 
-						applySubAttributes(managerData.arcBallCameraData, globalAttribute);
-					break;
-					case "inertialMouse":
-						applySubAttributes(managerData.inertialMouseCameraData, globalAttribute);
-					break;
-					case "autorotation": 
+					case "autorotation":
 						applySubAttributes(managerData.autorotationCameraData, globalAttribute);
 					break;
-					case "keyboard": 
-						applySubAttributes(managerData.keyboardCameraData, globalAttribute);
-					break;					
 					case "transition":
 						applySubAttributes(managerData.simpleTransitionData, globalAttribute);
 					break;
-					case "camera": 
-						applySubAttributes(managerData.params, globalAttribute);
+					case "keyboard":
+						applySubAttributes(managerData.keyboardCameraData, globalAttribute);
 					break;
-					case "firstPanorama": 
-						managerData.firstPanorama = getAttributeValue(globalAttribute, String);
+					case "mouseDrag":
+						applySubAttributes(managerData.arcBallCameraData, globalAttribute);
+					break;
+					case "mouseInertial":
+						applySubAttributes(managerData.inertialMouseCameraData, globalAttribute);
+					break;
+					case "stats":
+						managerData.showStats = getAttributeValue(globalAttribute, Boolean);
 					break;
 					default:
 						Trace.instance.printWarning("Unrecognized global attribute: "+globalAttribute.localName().toString());
 				}
 			}
+			
+			parseGlobalChildren(managerData, globalNode);
 		}
 		
-		private function parsePanoramas(managerData:ManagerData, panoramasNode:XML):void {
+		protected function parseGlobalChildren(managerData:ManagerData, globalNode:XML):void {
+			for each(var globalChild:XML in globalNode.children()) {
+				switch (globalChild.localName().toString()) {
+					case "trace":
+						if(_debugMode) parseTrace(managerData.traceData, globalChild);
+					break;
+					default:
+						Trace.instance.printWarning("Unrecognized global child node: "+globalChild.localName().toString());
+				}
+			}
+		}
+		
+		protected function parseTrace(traceData:TraceData, traceNode:XML):void {
+			for each(var traceAttribute:XML in traceNode.attributes()) {
+				switch (traceAttribute.localName().toString()) {
+					case "open":
+						traceData.open = getAttributeValue(traceAttribute, Boolean);
+					break;
+					case "size":
+						applySubAttributes(traceData.size, traceAttribute);
+					break;
+					case "align":
+						applySubAttributes(traceData.align, traceAttribute);
+					break;
+					default:
+						Trace.instance.printWarning("Unrecognized trace attribute: " + traceAttribute.localName().toString());
+				}
+			}
+		}
+		
+		protected function parsePanoramas(managerData:ManagerData, panoramasNode:XML):void {
 			var panoramaData:PanoramaData;
 			for each(var panoramaNode:XML in panoramasNode.elements()) {
 				panoramaData = new PanoramaData();
@@ -117,28 +152,28 @@ package com.panozona.player.manager.utils {
 							panoramaData.path = getAttributeValue(panoramaAttribute, String);
 						break;
 						case "camera":
-							applySubAttributes(panoramaData.params, panoramaAttribute); // TODO: can collide  with path
-						break;
-						case "onEnter":
-							panoramaData.onEnter = getAttributeValue(panoramaAttribute, String);
-						break;
-						case "onLeave":
-							panoramaData.onLeave = getAttributeValue(panoramaAttribute, String);
-							break;
-						case "onTransitionEnd":
-							panoramaData.onTransitionEnd = getAttributeValue(panoramaAttribute, String);
-						break;
-						case "onEnterFrom":
-							applySubAttributes(panoramaData.onEnterFrom, panoramaAttribute);
-							break;
-						case "onLeaveTo":
-							applySubAttributes(panoramaData.onLeaveTo, panoramaAttribute);
+							applySubAttributes(panoramaData.params, panoramaAttribute);
 						break;
 						case "onLeaveToAttempt":
 							applySubAttributes(panoramaData.onLeaveToAttempt, panoramaAttribute);
 						break;
+						case "onEnter":
+							panoramaData.onEnter = getAttributeValue(panoramaAttribute, String);
+						break;
+						case "onTransitionEnd":
+							panoramaData.onTransitionEnd = getAttributeValue(panoramaAttribute, String);
+						break;
+						case "onLeave":
+							panoramaData.onLeave = getAttributeValue(panoramaAttribute, String);
+						break;
+						case "onEnterFrom":
+							applySubAttributes(panoramaData.onEnterFrom, panoramaAttribute);
+							break;
 						case "onTransitionEndFrom":
 							applySubAttributes(panoramaData.onTransitionEndFrom, panoramaAttribute);
+						break;
+						case "onLeaveTo":
+							applySubAttributes(panoramaData.onLeaveTo, panoramaAttribute);
 						break;
 						default:
 							Trace.instance.printWarning("Unrecognized panorama attribute: "+panoramaAttribute.localName().toString());
@@ -147,7 +182,7 @@ package com.panozona.player.manager.utils {
 				
 				if (panoramaData.id != null) {
 					if (panoramaData.path != null) {
-						parseChildren(panoramaData, panoramaNode);
+						parseHotspots(panoramaData, panoramaNode);
 						managerData.panoramasData.push(panoramaData);
 					}else {
 						Trace.instance.printWarning("Missing panorama path for: "+panoramaData.id); 
@@ -158,47 +193,47 @@ package com.panozona.player.manager.utils {
 			}
 		}
 		
-		public function parseChildren(panoramaData:PanoramaData, panoramaNode:XML):void {
-			var childData:ChildData;
+		protected function parseHotspots(panoramaData:PanoramaData, panoramaNode:XML):void {
+			var hotspotData:HotspotData;
 			for (var i:int = 0; i < panoramaNode.elements().length(); i++) {
-				childData = new ChildData();
-				for each (var childAttribute:XML in panoramaNode.elements()[i].attributes()){
-					switch(childAttribute.localName().toString()) {
+				hotspotData = new HotspotData();
+				for each (var hotspotAttribute:XML in panoramaNode.elements()[i].attributes()){
+					switch(hotspotAttribute.localName().toString()) {
 						case "id":
-							childData.id = getAttributeValue(childAttribute, String);
+							hotspotData.id = getAttributeValue(hotspotAttribute, String);
 						break;
 						case "path":
-							childData.path = getAttributeValue(childAttribute, String);
+							hotspotData.path = getAttributeValue(hotspotAttribute, String);
 						break;
 						case "position":
-							applySubAttributes(childData.childPosition, childAttribute);
-						break;
-						case "transformation":
-							applySubAttributes(childData.childTransformation, childAttribute);
+							applySubAttributes(hotspotData.position, hotspotAttribute);
 						break;
 						case "mouse":
-							applySubAttributes(childData.childMouse, childAttribute);
+							applySubAttributes(hotspotData.mouse, hotspotAttribute);
 						break;
-						case "arguments":
-							applySubAttributes(childData.swfArguments, childAttribute);
+						case "transformation":
+							applySubAttributes(hotspotData.transformation, hotspotAttribute);
+						break;
+						case "swfArguments":
+							applySubAttributes(hotspotData.swfArguments, hotspotAttribute);
 						break;
 						default:
-							Trace.instance.printWarning("Unrecognized child attribute: "+childAttribute.localName().toString());
+							Trace.instance.printWarning("Unrecognized hotspot attribute: "+hotspotAttribute.localName().toString());
 					}
 				}
-				if (childData.id != null) {
-					if (childData.path != null) {
-						panoramaData.childrenData.push(childData);
+				if (hotspotData.id != null) {
+					if (hotspotData.path != null) {
+						panoramaData.hotspotsData.push(hotspotData);
 					}else {
-						Trace.instance.printWarning("Missing child path for: "+childData.id); // rozbic na parse children
+						Trace.instance.printWarning("Missing hotspot path for: "+hotspotData.id); // rozbic na parse children
 					}
 				}else {
-					Trace.instance.printWarning("Missing child id.");
+					Trace.instance.printWarning("Missing hotspot id.");
 				}
 			}
 		}
 		
-		private function parseActions(managerData:ManagerData, actionsNode:XML):void {
+		protected function parseActions(managerData:ManagerData, actionsNode:XML):void {
 			var actionData:ActionData;
 			for each(var actionNode:XML in actionsNode.elements()) {
 				actionData = new ActionData();
@@ -208,14 +243,14 @@ package com.panozona.player.manager.utils {
 							actionData.id = getAttributeValue(actionAttribute, String);
 						break;
 						case "content":
-							parseActionContent(actionData, getAttributeValue(actionAttribute , String));
+							parseActionContent(actionData, getAttributeValue(actionAttribute, String));
 						break;
 						default:
 							Trace.instance.printWarning("Unrecognized action attribute: "+actionAttribute.localName().toString());
 					}
 				}
 				if (actionData.id != null) {
-					if (actionData.functions.length >0) {
+					if (actionData.functions.length > 0){
 						managerData.actionsData.push(actionData);
 					}else {
 						Trace.instance.printWarning("No functions in action: "+actionData.id);
@@ -226,14 +261,14 @@ package com.panozona.player.manager.utils {
 			}
 		}
 		
-		private function parseModules(managerData:ManagerData, modulesNode:XML):void {
+		protected function parseModules(managerData:ManagerData, modulesNode:XML):void {
 			var abstractModuleData:AbstractModuleData;
 			var abstractModuleNode:AbstractModuleNode;
 			var modulePath:String;
 			// for each module
 			for (var j:int = 0; j < modulesNode.elements().length(); j++) {
 				modulePath = (modulesNode.elements()[j] as XML).attribute("path").toString();
-				if(modulePath != null &&  modulePath != ""){
+				if(modulePath != null){
 					try {
 						abstractModuleData = new AbstractModuleData(
 							modulesNode.elements()[j].localName().toString(),
@@ -246,8 +281,9 @@ package com.panozona.player.manager.utils {
 							abstractModuleData.abstractModuleNodes.push(abstractModuleNode);
 						}
 						managerData.abstractModulesData.push(abstractModuleData);
-					}catch (e:Error) {
-						Trace.instance.printWarning(e.message);
+					}catch (error:Error) {
+						Trace.instance.printWarning("Could not read module data:" + error.message);
+						trace(error.getStackTrace());
 					}
 				}else {
 					Trace.instance.printWarning("No path for module: "+modulesNode.elements()[j].localName().toString());
@@ -255,8 +291,7 @@ package com.panozona.player.manager.utils {
 			}
 		}
 		
-		private function applySubAttributes(object:Object, subAttributes:String):void {
-			var buffer:*;
+		protected function applySubAttributes(object:Object, subAttributes:String):void {
 			var allSubAttributes:Array = subAttributes.split(",");
 			var singleSubAttrArray:Array;
 			var recognizedValue:*;
@@ -267,15 +302,11 @@ package com.panozona.player.manager.utils {
 					}else{
 						singleSubAttrArray = singleSubAttribute.match(/[^:]+/g);
 						recognizedValue = recognizeContent(singleSubAttrArray[1]);
-						
-						if (!_debugMode) {						
-							
+						if (!_debugMode) {
 							if (recognizedValue != null) {
 								object[singleSubAttrArray[0]] = recognizedValue;
-							}							
-							
+							}
 						}else {
-							
 							if (recognizedValue != null){
 								if (object.hasOwnProperty(singleSubAttrArray[0])) {
 									if (object[singleSubAttrArray[0]] is Boolean) {
@@ -295,12 +326,12 @@ package com.panozona.player.manager.utils {
 											object[singleSubAttrArray[0]] = recognizedValue;
 										}else {
 											Trace.instance.printWarning("Invalid attribute value (Function expected): "+singleSubAttribute);
-										}	
-									}else{
+										}
+									}else{ // this can only be String
 										try {
-											object[singleSubAttrArray[0]] = recognizedValue; // this can only be String
+											object[singleSubAttrArray[0]] = recognizedValue; 
 										}catch(e:Error){
-											Trace.instance.printWarning("Invalid attribute value (not recognized): " + singleSubAttribute);
+											Trace.instance.printWarning("Invalid attribute value (String expected): "+singleSubAttribute);
 										}
 									}
 								}else {
@@ -309,11 +340,9 @@ package com.panozona.player.manager.utils {
 									try{
 										object[singleSubAttrArray[0]] = recognizedValue; // any recognized type
 									}catch (e:Error){
-										Trace.instance.printWarning("Invalid attribute name (cannot apply): " + singleSubAttrArray[0]);
+										Trace.instance.printWarning("Invalid attribute name (cannot apply): "+singleSubAttrArray[0]);
 									}
 								}
-							}else {
-								Trace.instance.printWarning("Invalid attribute value: " + singleSubAttrArray[1]);
 							}
 						}
 					}
@@ -321,33 +350,30 @@ package com.panozona.player.manager.utils {
 			}
 		}
 		
-		private function parseActionContent(actionData:ActionData, content:String):void {
+		protected function parseActionContent(actionData:ActionData, content:String):void {
 			if (content != null && content.length > 0){
 				var singleFunctionArray:Array;
 				var allArguments:Array;
-				var functionData:FunctionData;				
-				var allFunctions:Array = content.split(";"); //TODO: in owner.function([some,thing;]) semicolor and period are not ignored 
+				var functionData:FunctionData;
+				var allFunctions:Array = content.split(";");
 				var recognizedValue:*;
 				for each(var singleFunction:String in allFunctions) {
 					if (singleFunction.length > 0 && singleFunction.match(/^[\w]+\.[\w]+\(.*\)$/)) {
 						//owner.function(arguments)
 						//(^[\w]+)                owner
 						//([\w]+(?=\())           function  
-						//([^\(]+(?=\)))          arguments 
-						singleFunctionArray = singleFunction.match(/(^[\w]+)|([\w]+(?=\())|([^\(]+(?=\)))/g);
+						//((?<=\().+(?=\)))       arguments 
+						singleFunctionArray = singleFunction.match(/(^[\w]+)|([\w]+(?=\())|((?<=\().+(?=\)))/g);
 						if (singleFunctionArray.length < 2 || singleFunctionArray.length > 3) {
 							Trace.instance.printWarning("Wrong format of function: "+singleFunction);
 						}else {
 							functionData = new FunctionData(singleFunctionArray[0], singleFunctionArray[1]);
-								// if function has parameters
-							if (singleFunctionArray.length == 3) {
+							if (singleFunctionArray.length == 3) { // if function has parameters
 								allArguments = singleFunctionArray[2].split(",");
 								for each(var singleArgument:String in allArguments) {
 										recognizedValue = recognizeContent(singleArgument);
-									if (recognizedValue == null) {
-										Trace.instance.printWarning("Empty argument in: " + singleFunction);
-									}else {
-											functionData.args.push(recognizedValue);
+									if (recognizedValue != null) {
+										functionData.args.push(recognizedValue);
 									}
 								}
 							}
@@ -360,10 +386,8 @@ package com.panozona.player.manager.utils {
 			}
 		}
 		
-		private function recognizeContent(content:String):*{
-			if (content.match(/^\[.*\]$/)) { // String - e.g. [0.123] is String "0.123" but 0.123 is Number 
- 				return content.substring(1, content.length - 1); 
-			}else if (content == "true" || content == "false") { // Boolean
+		protected function recognizeContent(content:String):*{
+			if (content == "true" || content == "false") { // Boolean
 				return ((content == "true")? true : false);
 			}else if (content.match(/^(-)?[\d]+(.[\d]+)?$/)) { // Number
 				return (Number(content));
@@ -371,41 +395,44 @@ package com.panozona.player.manager.utils {
 				content = content.substring(1,content.length);
 				return (Number("0x" + content));
 			}else  if (content == "NaN"){ // Number - NaN
-				return NaN;		
+				return NaN;
 			}else if (content.match(/^.+:.+$/)) { // sub-attributes
 				var object:Object = new Object();
 				applySubAttributes(object, content);
 				return object;
-			}else  if (content.match(/^[a-zA-Z]+\.[a-zA-Z]+$/)){ // Function
+			}else  if (content.match(/^(Linear|Expo)\.[a-zA-Z]+$/)){ // Function
 				return (recognizeFunction(content) as Function);
-			}else  if (content.length > 0) { // String
-				return content;
+			}else if (content.match(/^\[.+\]$/)) {
+				return content.substring(1, content.length - 1); // [String]
+			}else {
+				return content;	// String
 			}
+			Trace.instance.printWarning("Unrecognized content: "+content);
 			return null;
 		}
 		
-		private function recognizeFunction(content:String):Function {
+		protected function recognizeFunction(content:String):Function {
 			var functionElements:Array = content.split(".");
 			if (functionElements[0] == "Linear") {
 				if (functionElements[1] == "easeNone") return Linear.easeNone;
 				if (functionElements[1] == "easeIn") return Linear.easeIn;
 				if (functionElements[1] == "easeOut") return Linear.easeInOut;
-				if (functionElements[1] == "easeInOut") return Linear.easeInOut;				
-				Trace.instance.printWarning("Invalid function name: " + functionElements[1]);
+				if (functionElements[1] == "easeInOut") return Linear.easeInOut;
+				Trace.instance.printWarning("Invalid function name: "+functionElements[1]);
 				return null;
 			} else if (functionElements[0] == "Expo") {
 				if (functionElements[1] == "easeIn") return Expo.easeIn;
 				if (functionElements[1] == "easeOut") return Expo.easeOut;
-				if (functionElements[1] == "easeInOut") return Expo.easeInOut;				
-				Trace.instance.printWarning("Invalid function name: " + functionElements[1]);
+				if (functionElements[1] == "easeInOut") return Expo.easeInOut;
+				Trace.instance.printWarning("Invalid function name: "+functionElements[1]);
 				return null;
 			}else {
-				Trace.instance.printWarning("Invalid function owner: " + functionElements[0]);
+				Trace.instance.printWarning("Invalid function owner: "+functionElements[0]);
 				return null;
 			}
 		}
 		
-		private function parseAbstractModuleNodeRecursive(abstractModuleNode:AbstractModuleNode, node:XML):void {
+		protected function parseAbstractModuleNodeRecursive(abstractModuleNode:AbstractModuleNode, node:XML):void {
 			var recognizedValue:*;
 			for each(var attribute:XML in node.attributes()) {
 				recognizedValue = recognizeContent(attribute.toString());
@@ -414,14 +441,22 @@ package com.panozona.player.manager.utils {
 				}
 			}
 			var abstractModuleChildNode:AbstractModuleNode;
-			for each(var childNode:XML in node.children()) {
-				abstractModuleChildNode = new AbstractModuleNode(childNode.localName().toString());
-				parseAbstractModuleNodeRecursive(abstractModuleChildNode, childNode);
-				abstractModuleNode.abstractModuleNodes.push(abstractModuleChildNode);
+			for each(var childNode:XML in node.children()){
+				if(childNode.nodeKind() != "text"){
+					abstractModuleChildNode = new AbstractModuleNode(childNode.localName().toString());
+					parseAbstractModuleNodeRecursive(abstractModuleChildNode, childNode);
+					abstractModuleNode.abstractModuleNodes.push(abstractModuleChildNode);
+				}else {
+					if (abstractModuleNode.attributes["text"] == undefined) {
+						abstractModuleNode.attributes["text"] = childNode.toString();
+					}else {
+						Trace.instance.printWarning("Text value allready exists in: "+abstractModuleNode.nodeName);
+					}
+				}
 			}
 		}
 		
-		private function getAttributeValue(attribute:XML, ReturnClass:Class):*{
+		protected function getAttributeValue(attribute:XML, ReturnClass:Class):*{
 			var recognizedValue:* = recognizeContent(attribute.toString());
 			if (recognizedValue is ReturnClass) {
 				return recognizedValue;
@@ -429,6 +464,10 @@ package com.panozona.player.manager.utils {
 				Trace.instance.printWarning("Ivalid attribute value ("+getQualifiedClassName(ReturnClass)+" expected): "+recognizedValue);
 				return null;
 			}
-		}		
+		}
+		
+		protected function get debugMode():Boolean {
+			return _debugMode;
+		}
 	}
 }

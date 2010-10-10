@@ -3,11 +3,13 @@
 	onLeaveTo events
 	
 	 - navigate btween panoramas and read trace communicates
-	
+	 - see: http://panozona.com/wiki/SaladoPlayer:Configuration#panorama
 -->
 <?xml version="1.0" encoding="utf-8"?>
 <SaladoPlayer>
-	<global debug="true" trace="initialVisibility:true" />
+	<global debug="true">
+		<trace open="true"/>
+	</global>
 	<panoramas>
 		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml" onLeaveTo="pano2:act1,pano3:act2"/>
 		<panorama id="pano2" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" onLeaveTo="pano1:act3,pano3:act4"/>

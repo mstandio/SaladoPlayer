@@ -1,19 +1,20 @@
 ﻿<!--
 	
-	Configuring trace
+	trace configuration
 	
 	- when debug is set to false trace window will not be displayed  
-	- set initialVisibility to "true" 
-	- verticalAlign can have values: top, middle or  bottom
-	- horizontalAlign can have values: left, center or right
-	- minimum width value is 100
-	- minimum height value is 50
-	
+	- set open attribute to true to have trace opened on saladoplayer start
+	- use align attribute to chnage trace position
+	- minimum trace window width is 100
+	- minimum trace window height is 50
+	- see: http://panozona.com/wiki/SaladoPlayer:Configuration#trace
 -->
 <?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>
-	<global  debug="true" trace="initialVisibility:true,width:400,height:100,verticalAlign:bottom,horizontalAlign:left" />
+	<global debug="true">
+		<trace open="true" align="horizontal:center" size="width:600"/>
+	</global> 
 	<panoramas>
-		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" />
+		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml"/>
 	</panoramas>
 </SaladoPlayer>

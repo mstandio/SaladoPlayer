@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.module.data {
-	
+		
 	/**
 	 * ...
 	 * @author mstandio
@@ -27,7 +27,7 @@ package com.panozona.player.module.data {
 		private var _moduleNodes:Vector.<ModuleNode>;
 		
 		public function ModuleData(abstractModuleData:Object) {
-			_moduleNodes =  new Vector.<ModuleNode>();
+			_moduleNodes = new Vector.<ModuleNode>();
 			
 			var abstractModuleNodes:Array = abstractModuleData.abstractModuleNodes;
 			var moduleNode:ModuleNode;
@@ -37,7 +37,10 @@ package com.panozona.player.module.data {
 			}
 		}
 		
-		public function get moduleNodes():Vector.<ModuleNode> {
+		/**
+		 * Vector of module nodes, translated from abstract module nodes
+		 */
+		public function get moduleNodes():Vector.<ModuleNode>{
 			return _moduleNodes;
 		}
 	}

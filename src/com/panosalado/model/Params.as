@@ -30,43 +30,49 @@ public class Params
 	public var path:String;
 	public var pan:Number;
 	public var tilt:Number;
-	public var fieldOfView:Number;
+	public var fov:Number;
 	public var tierThreshold:Number;
 
 	public var boundsWidth:Number;
 	public var boundsHeight:Number;
 	
-	public var minFieldOfView:Number;
- 	public var maxFieldOfView:Number;
+	public var minFov:Number;
+ 	public var maxFov:Number;
  	public var minPan:Number;
  	public var maxPan:Number;
  	public var minTilt:Number;
  	public var maxTilt:Number;
-
+	public var minVerticalFov:Number;
+	public var maxVerticalFov:Number;
 
 	public function Params(
 		path:String, 
 		pan:Number = NaN,
 		tilt:Number = NaN,
-		fieldOfView:Number = NaN
-	) {		
+		fov:Number = NaN
+	) {
 		this.path = path;
 		this.pan = pan;
 		this.tilt = tilt;
-		this.fieldOfView = fieldOfView;
+		this.fov = fov;
+		
+		this.minVerticalFov = NaN;
+		this.maxVerticalFov = NaN;
 	}
 	
 	public function clone():Params {
-		var result:Params = new Params(path, pan, tilt, fieldOfView);
+		var result:Params = new Params(path, pan, tilt, fov);
 		result.tierThreshold = tierThreshold;
 		result.boundsWidth = boundsWidth;
 		result.boundsHeight = boundsHeight;
-		result.minFieldOfView = minFieldOfView;
-		result.maxFieldOfView = maxFieldOfView;
+		result.minFov = minFov;
+		result.maxFov = maxFov;
 		result.minPan = minPan;
 		result.maxPan = maxPan;
 		result.minTilt = minTilt;
 		result.maxTilt = maxTilt;
+		result.minVerticalFov = minVerticalFov;
+		result.maxVerticalFov = maxVerticalFov;
 		return result;
 	}
 	
@@ -79,23 +85,26 @@ public class Params
 		var secondaryViewData:DependentViewData = viewData.secondaryViewData;
 		if (!isNaN(pan)) secondaryViewData.pan = viewData.pan - pan;
 		if (!isNaN(tilt)) secondaryViewData.tilt = viewData.tilt - tilt;
-		if (!isNaN(fieldOfView)) secondaryViewData.fieldOfView = viewData.fieldOfView - fieldOfView;
+		if (!isNaN(fov)) secondaryViewData.fieldOfView = viewData.fieldOfView - fov;
 		//if (!isNaN(tierThreshold)) secondaryViewData.tierThreshold = viewData.tierThreshold - tierThreshold;
 		
 		if (!isNaN(pan)) viewData.pan = pan;
 		if (!isNaN(tilt)) viewData.tilt = tilt;
-		if (!isNaN(fieldOfView)) viewData.fieldOfView = fieldOfView;
+		if (!isNaN(fov)) viewData.fieldOfView = fov;
 		if (!isNaN(tierThreshold)) viewData.tierThreshold = tierThreshold;
 	
 		if (!isNaN(boundsWidth)) viewData.boundsWidth = boundsWidth;
 		if (!isNaN(boundsHeight)) viewData.boundsHeight = boundsHeight;
 		
-		if (!isNaN(minFieldOfView)) viewData.minimumFieldOfView = minFieldOfView;
-		if (!isNaN(maxFieldOfView)) viewData.maximumFieldOfView = maxFieldOfView;
+		if (!isNaN(minFov)) viewData.minimumFieldOfView = minFov;
+		if (!isNaN(maxFov)) viewData.maximumFieldOfView = maxFov;
 		if (!isNaN(minPan)) viewData.minimumPan = minPan;
 		if (!isNaN(maxPan)) viewData.maximumPan = maxPan;
 		if (!isNaN(minTilt)) viewData.minimumTilt = minTilt;
 		if (!isNaN(maxTilt)) viewData.maximumTilt = maxTilt;
+		
+		if (!isNaN(minVerticalFov)) viewData.minimumVerticalFieldOfView = minVerticalFov;
+		if (!isNaN(maxVerticalFov)) viewData.maximumVerticalFieldOfView = maxVerticalFov;
 		return viewData;
 	}
 }

@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<SaladoPlayer>				
-	<global debug="false" firstPanorama="pano1" camera="maxFieldOfView:130,minFieldOfView:60,tilt:0"/>
+<SaladoPlayer>
+	<global debug="true" firstPanorama="pano1" />
 	<panoramas>
 		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" onLeaveToAttempt="pano2:act1">
-			<hotspot id="hs1" position="pan:50.8,tilt:-41.5" path="hotspots/arrow.png" mouse="onClick:act1"/>
-		</panorama>		
-		<panorama id="pano2" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml" onLeaveToAttempt="pano1:act2,pano3:act3" >
-			<hotspot id="hs2" position="pan:49.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act2"/>			
-			<hotspot id="hs3" position="pan:-45.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act3"/>
+			<hotspot id="hs1" position="pan:50.8,tilt:-41.5" path="hotspots/arrow.png" mouse="onClick:act1b"/>
+		</panorama>
+		<panorama id="pano2" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml" onLeaveToAttempt="pano1:act2,pano3:act3">
+			<hotspot id="hs2" position="pan:49.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act2b"/>
+			<hotspot id="hs3" position="pan:-45.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act3b"/>
 		</panorama>
 		<panorama id="pano3" label="Park" path="panoramas/dz_park/park_f.xml" onLeaveToAttempt="pano2:act4">
-			<hotspot id="hs4" position="pan:-8,distance:800" path="hotspots/ExampleHotspot.swf" mouse="onClick:act4"/>
+			<hotspot id="hs4" position="pan:-8,distance:800" path="hotspots/ExampleHotspot.swf" mouse="onClick:act4b"/>
+		</panorama>
+		<panorama id="pano4" label="Park single tile" path="panoramas/dz_park_fast/park_f.xml">
+			<hotspot id="hs4" position="pan:-8,distance:800" path="hotspots/ExampleHotspot.swf" mouse="onClick:act4b"/>
 		</panorama>
 	</panoramas>
 	<actions>
@@ -23,9 +26,10 @@
 		<action id="act4" content="SaladoPlayer.moveToHotspotAnd(hs4,act4b)"/>
 		<action id="act4b" content="SaladoPlayer.loadPano(pano2)"/>
 	</actions>
-	<modules>		
+	<modules>
 		<NavigationBar path="modules/NavigationBar.swf">
 			<buttons path="modules/images/buttons_30x30_blue.png"/>
+			<logo visible="true" path="modules/images/logo.png"/>
 		</NavigationBar>
 	</modules>
 </SaladoPlayer>	

@@ -1,62 +1,38 @@
 ﻿<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-    <head>
-        <title>SaladoPlayer v0.5</title>
-         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />         
-        <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
-        <script type="text/javascript" src="embed/swfobject.js"></script>
-        <script type="text/javascript">
-            var flashvars = {};
-            flashvars.xml = "examples/settings.xml";
-            var params = {};
-            params.play = "true";
-            params.loop = "false";
-            params.menu = "false";
-            params.quality = "high";
-            params.scale = "showall";
-            params.salign = "";
-            params.wmode = "window";
-            params.bgcolor = "#FFFFFF";
-            params.devicefont = "false";
-            params.allowfullscreen = "true";
-            params.allowscriptaccess = "sameDomain";
-            var attributes = {};            
-            swfobject.embedSWF("SaladoPlayer.swf", "SaladoPlayer", "100%", "100%", "10.0.0", "embed/expressInstall.swf", flashvars, params, attributes);
-        </script>
-        <style type="text/css">							
-			body{
-				color:white;
-				font-size:14px;
-				font-family:Verdana;  
-				font-weight:bold;
-			}
-			
-			a{				
-				text-decoration:none;
-				color:white;				
-			}
-		
-			.centered_div{
-				width:800px;
-				height:500px;						
-				position:absolute;
-				top: 50%;
-				left: 50%;	
-				margin-top: -250px; 
-				margin-left: -450px;
-			}        			
-        </style>
-
-    </head>
-    <body bgcolor="#000000">		
-        <div class="centered_div">
-            <div id="SaladoPlayer">
-                <a href="http://www.adobe.com/go/getflashplayer">
-                    <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
-                </a>
-            </div>			
+	<head>
+		<title>SaladoPlayer v0.6</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+		<link href="embed/style.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="embed/swfobject.js"></script>
+		<script type="text/javascript">
+			var flashvars = {};
+			flashvars.xml = "examples/settings.xml";
+			var params = {};
+			params.play = "true";
+			params.loop = "false";
+			params.menu = "false";
+			params.quality = "high";
+			params.scale = "showall";
+			params.wmode = "window";
+			params.bgcolor = "#FFFFFF";
+			params.devicefont = "false";
+			params.allowfullscreen = "true";
+			params.allowscriptaccess = "sameDomain";
+			var attributes = {};
+			swfobject.embedSWF("SaladoPlayer.swf", "SaladoPlayer", "100%", "100%", "10.0.0", "embed/expressInstall.swf", flashvars, params, attributes);
+		</script>
+	</head>
+	<body bgcolor="#000000">
+		<div class="centered_div">
+			<div id="SaladoPlayer">
+				<a href="http://www.adobe.com/go/getflashplayer">
+					<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
+				</a>
+			</div>
 			<div style="text-align:center; margin-top:10px;">
 				<a href="http://panozona.com/wiki/">panozona.com/wiki</a> | <a href="http://github.com/mstandio/SaladoPlayer">SaladoPlayer</a> | <a href="http://github.com/mstandio/SaladoConverter">SaladoConverter</a> 
-			</div>			
-        </div>		
-    </body>
+			</div>
+		</div>
+	</body>
 </html>

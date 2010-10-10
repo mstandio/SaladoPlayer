@@ -18,31 +18,31 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.navigationbar {
 	
-	import com.panozona.modules.navigationbar.combobox.*;
-	import com.panozona.modules.navigationbar.button.Button;
-	import com.panozona.modules.navigationbar.data.BasicButton;
-	import com.panozona.modules.navigationbar.data.BonusButton;
-	import com.panozona.modules.navigationbar.data.NavigationBarData;
-	
-	import com.panozona.player.module.Module;
-	import com.panozona.player.module.data.PositionAlign;
-	import com.panozona.player.module.data.PositionMargin;
-	
+	import com.panozona.player.module.data.ModuleData;
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.StageDisplayState;
 	import flash.display.Loader;
-	
 	import flash.geom.Rectangle;
 	import flash.geom.Point;
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
+	import flash.system.ApplicationDomain;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
 	import flash.events.KeyboardEvent;
-	import flash.net.URLRequest;
-	import flash.net.navigateToURL;
-	import flash.system.ApplicationDomain;
+	
+	import com.panozona.modules.navigationbar.combobox.*;
+	import com.panozona.modules.navigationbar.button.BitmapButton;
+	import com.panozona.modules.navigationbar.data.Button;
+	import com.panozona.modules.navigationbar.data.ExtraButton;
+	import com.panozona.modules.navigationbar.data.NavigationBarData;
+	
+	import com.panozona.player.module.Module;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Move;
 	
 	/**
 	 * ...
@@ -55,38 +55,38 @@ package com.panozona.modules.navigationbar {
 	[Embed(source="assets/panosalado.png")]
 		private static var Bitmap_panosalado:Class;
 		
-		// basic buttons 
-		private var btnLeft:Button;
-		private var btnRight:Button;
-		private var btnUp:Button;
-		private var btnDown:Button;
-		private var btnZoomIn:Button;
-		private var btnZoomOut:Button;
-		private var btnDrag:Button;
-		private var btnMute:Button;
-		private var btnAutorotate:Button;
-		private var btnFullscreen:Button;
+		// basic bitmap buttons 
+		private var bitBtnLeft:BitmapButton;
+		private var bitBtnRight:BitmapButton;
+		private var bitBtnUp:BitmapButton;
+		private var bitBtnDown:BitmapButton;
+		private var bitBtnIn:BitmapButton;
+		private var bitBtnOut:BitmapButton;
+		private var bitBtnDrag:BitmapButton;
+		private var bitBtnMute:BitmapButton;
+		private var bitBtnAutorotate:BitmapButton;
+		private var bitBtnFullscreen:BitmapButton;
 		
-		private var btnsBonus:Array;
+		// extra bitmap buttons
+		private var bitmapButtonsExtra:Array;
 		
 		// buttons image loading delay fix
-		private var bonusButtonsActive:Array; 
-		private var isAutorotating:Boolean;
-		private var isFullscreen:Boolean;
+		private var bitmapButtonsExtraActive:Array;
 		
+		// loaders
 		private var buttonsLoader:Loader;
 		private var logoLoader:Loader;
-		private var backgroundBarLoader:Loader;
+		private var barLoader:Loader;
 		
 		// visible elemends 
-		private var buttonsBar:Sprite;
+		private var buttonsGroup:Sprite;
 		private var combobox:Combobox;
 		private var branding:Sprite;
 		private var logo:Sprite;
-		private var backgroundBar:Sprite;
+		private var bar:Sprite;
 		
 		private var logoBMD:BitmapData;
-		private var backgroundBarBMD:BitmapData;
+		private var barBMD:BitmapData;
 		private var buttonsBMD:BitmapData;
 		
 		private var navigationBarData:NavigationBarData;
@@ -98,17 +98,17 @@ package com.panozona.modules.navigationbar {
 		
 		public function NavigationBar() {
 			
-			super("NavigationBar", 0.4, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:NavigationBar");
+			super("NavigationBar", 0.5, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:NavigationBar");
 			
-			aboutThisModule = "This is module for interacting with panoramas and for navigating between them.<br>" +
+			aboutThisModule = "This is module for interacting with panoramas and for navigating between them. " +
 							  "All its elements can be customized (visibility and position) including: custom buttons bitmaps, "+
-							  "bar color and alpha / background image, combobox font and colors.<br>" +
+							  "bar color / background image, combobox font and colors.<br>" +
 							  "Leave branding visible to support this project.";
 			
-			moduleDescription.addFunctionDescription("changeButton", String, Boolean);
+			moduleDescription.addFunctionDescription("setExtraButtonActive", String, Boolean);
 		}	
 		
-		override protected function moduleReady():void {
+		override protected function moduleReady(moduleData:ModuleData):void {
 			
 			navigationBarData = new NavigationBarData(moduleData, debugMode); // allways first
 			
@@ -117,36 +117,34 @@ package com.panozona.modules.navigationbar {
 			CameraEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.CameraEvent") as Class;
 			LoadPanoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.LoadPanoramaEvent") as Class;
 			
-			saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0 , true);
-			saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0 , true);
-			saladoPlayer.manager.addEventListener(AutorotationEventClass.AUTOROTATION_STARTED, onAutorotationStarted, false, 0 , true);
-			saladoPlayer.manager.addEventListener(AutorotationEventClass.AUTOROTATION_STOPPED, onAutorotationStopped, false, 0 , true);
-			saladoPlayer.manager.addEventListener(CameraEventClass.ENABLED_CHANGE, onDragEnabledChanged, false, 0 , true);
+			saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
+			saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 			
+			saladoPlayer.managerData.arcBallCameraData.addEventListener(CameraEventClass.ENABLED_CHANGE, onDragEnabledChange, false, 0, true);
+			saladoPlayer.managerData.autorotationCameraData.addEventListener(AutorotationEventClass.AUTOROTATION_CHANGE, onIsAutorotatingChange, false, 0, true);
 			
-			if(navigationBarData.backgroundBar.visible){
-				backgroundBar = new Sprite();				
-				backgroundBar.alpha = navigationBarData.backgroundBar.alpha;
-				backgroundBar.mouseEnabled = false;
-				if (navigationBarData.backgroundBar.path != null){
-					backgroundBarLoader = new Loader();
-					backgroundBarLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, backgroundBarImageLost, false, 0 , true);
-					backgroundBarLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, backgroundBarImageLoaded, false, 0 , true);
-					backgroundBarLoader.load(new URLRequest(navigationBarData.backgroundBar.path));
+			if(navigationBarData.bar.visible){
+				bar = new Sprite();
+				bar.alpha = navigationBarData.bar.alpha;
+				bar.mouseEnabled = false;
+				if (navigationBarData.bar.path != null){
+					barLoader = new Loader();
+					barLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, barImageLost, false, 0 , true);
+					barLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, barImageLoaded, false, 0 , true);
+					barLoader.load(new URLRequest(navigationBarData.bar.path));
 				}
-				addChild(backgroundBar);
+				addChild(bar);
 			}
 			
 			if(navigationBarData.branding.visible){
 				branding = new Sprite();
+				branding.alpha = navigationBarData.branding.alpha;
 				var brand1:Sprite = new Sprite();
-				brand1.useHandCursor = true;
 				brand1.buttonMode = true;
 				brand1.addChild(new Bitmap(new Bitmap_saladoplayer().bitmapData, "auto", true));
 				brand1.addEventListener(MouseEvent.MOUSE_DOWN, gotoSaladoPlayer, false, 0, true);
 				branding.addChild(brand1);
 				var brand2:Sprite =  new Sprite();
-				brand2.useHandCursor = true;
 				brand2.buttonMode = true;
 				brand2.addChild(new Bitmap(new Bitmap_panosalado().bitmapData, "auto", true));
 				brand2.addEventListener(MouseEvent.MOUSE_DOWN, gotoPanoSalado, false, 0, true);
@@ -161,7 +159,7 @@ package com.panozona.modules.navigationbar {
 				logoLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, logoImageLost, false, 0 , true);
 				logoLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, logoImageLoaded, false, 0 , true);
 				logoLoader.load(new URLRequest(navigationBarData.logo.path));
-				if (navigationBarData.logo.url != null) {
+				if (navigationBarData.logo.text != null) {
 					logo.addEventListener(MouseEvent.MOUSE_DOWN, gotoLogoUrl, false, 0 , true);
 					logo.buttonMode = true;
 				}else {
@@ -178,9 +176,9 @@ package com.panozona.modules.navigationbar {
 			}
 			
 			if (navigationBarData.buttons.visible) {
-				buttonsBar = new Sprite();
-				addChild(buttonsBar);
-				bonusButtonsActive = new Array(); // buttons image loading delay fix
+				buttonsGroup = new Sprite();
+				addChild(buttonsGroup);
+				bitmapButtonsExtraActive = new Array(); // buttons image loading delay fix
 				buttonsLoader = new Loader();
 				buttonsLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonsImageLost, false, 0 , true);
 				buttonsLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, buttonsImageLoaded, false, 0 , true);
@@ -196,25 +194,23 @@ package com.panozona.modules.navigationbar {
 			// TODO: wait, AND retry
 		}
 		
-		private function logoImageLoaded(e:Event):void {			
+		private function logoImageLoaded(e:Event):void {
 			logoBMD = new BitmapData(logoLoader.width, logoLoader.height, true, 0);
 			logoBMD.draw(logoLoader);
-			logoLoader.unload();
 			logoLoader = null;
-			logo.addChild(new Bitmap(logoBMD));						
+			logo.addChild(new Bitmap(logoBMD));
 		}
 		
-		private function backgroundBarImageLost(error:IOErrorEvent):void {
+		private function barImageLost(error:IOErrorEvent):void {
 			printError(error.toString());
 			// TODO: wait, AND retry
 		}
 		
-		private function backgroundBarImageLoaded(e:Event):void {			
-			backgroundBarBMD = new BitmapData(backgroundBarLoader.width, backgroundBarLoader.height,true,0);
-			backgroundBarBMD.draw(backgroundBarLoader);
-			backgroundBarLoader.unload();
-			backgroundBarLoader = null;
-			placeBackgroundBar();			
+		private function barImageLoaded(e:Event):void {
+			barBMD = new BitmapData(barLoader.width, barLoader.height, true, 0);
+			barBMD.draw(barLoader);
+			barLoader = null;
+			placeBar();
 		}
 		
 		private function buttonsImageLost(error:IOErrorEvent):void {
@@ -224,7 +220,7 @@ package com.panozona.modules.navigationbar {
 		
 		private function buttonsImageLoaded(e:Event):void {
 			
-			buttonsBMD = new BitmapData(buttonsLoader.width, buttonsLoader.height, true,0);
+			buttonsBMD = new BitmapData(buttonsLoader.width, buttonsLoader.height, true, 0);
  			buttonsBMD.draw(buttonsLoader.content);
 			
 			buttonsLoader.unload();
@@ -232,48 +228,55 @@ package com.panozona.modules.navigationbar {
 			
 			var buttonsArray:Array = new Array();
 			
-			btnLeft = new Button("left", leftPress, leftRelease);
-			btnLeft.setBitmaps(getButtonBitmap(buttonsBMD, 0), getButtonBitmap(buttonsBMD, 10));
-			buttonsArray.push(btnLeft);
+			bitBtnLeft = new BitmapButton("left", leftPress, leftRelease);
+			bitBtnLeft.setBitmaps(getButtonBitmap(buttonsBMD, 0), getButtonBitmap(buttonsBMD, 10));
+			buttonsArray.push(bitBtnLeft);
 			
-			btnRight = new Button("right", rightPress, rightRelease);
-			btnRight.setBitmaps(getButtonBitmap(buttonsBMD,1), getButtonBitmap(buttonsBMD,11));
-			buttonsArray.push(btnRight);
+			bitBtnRight = new BitmapButton("right", rightPress, rightRelease);
+			bitBtnRight.setBitmaps(getButtonBitmap(buttonsBMD, 1), getButtonBitmap(buttonsBMD, 11));
+			buttonsArray.push(bitBtnRight);
 			
-			btnUp = new Button("up", upPress, upRelease);
-			btnUp.setBitmaps(getButtonBitmap(buttonsBMD,2), getButtonBitmap(buttonsBMD,12));
-			buttonsArray.push(btnUp);
+			bitBtnUp = new BitmapButton("up", upPress, upRelease);
+			bitBtnUp.setBitmaps(getButtonBitmap(buttonsBMD, 2), getButtonBitmap(buttonsBMD, 12));
+			buttonsArray.push(bitBtnUp);
 			
-			btnDown = new Button("down", downPress, downRelease);
-			btnDown.setBitmaps(getButtonBitmap(buttonsBMD,3), getButtonBitmap(buttonsBMD,13));
-			buttonsArray.push(btnDown);
+			bitBtnDown = new BitmapButton("down", downPress, downRelease);
+			bitBtnDown.setBitmaps(getButtonBitmap(buttonsBMD, 3), getButtonBitmap(buttonsBMD, 13));
+			buttonsArray.push(bitBtnDown);
 			
-			btnZoomIn = new Button("in", zoominPress, zoominRelease);
-			btnZoomIn.setBitmaps(getButtonBitmap(buttonsBMD,4), getButtonBitmap(buttonsBMD,14));
-			buttonsArray.push(btnZoomIn);
+			bitBtnIn = new BitmapButton("in", zoominPress, zoominRelease);
+			bitBtnIn.setBitmaps(getButtonBitmap(buttonsBMD, 4), getButtonBitmap(buttonsBMD, 14));
+			buttonsArray.push(bitBtnIn);
 			
-			btnZoomOut = new Button("out", zoomoutPress, zoomoutRelease);
-			btnZoomOut.setBitmaps(getButtonBitmap(buttonsBMD,5), getButtonBitmap(buttonsBMD,15));
-			buttonsArray.push(btnZoomOut);
+			bitBtnOut = new BitmapButton("out", zoomoutPress, zoomoutRelease);
+			bitBtnOut.setBitmaps(getButtonBitmap(buttonsBMD, 5), getButtonBitmap(buttonsBMD, 15));
+			buttonsArray.push(bitBtnOut);
 			
-			btnDrag = new Button("drag", dragToggle);
-			btnDrag.setBitmaps(getButtonBitmap(buttonsBMD,6), getButtonBitmap(buttonsBMD,16));
-			buttonsArray.push(btnDrag);
+			bitBtnDrag = new BitmapButton("drag", dragToggle);
+			bitBtnDrag.setBitmaps(getButtonBitmap(buttonsBMD, 6), getButtonBitmap(buttonsBMD, 16));
+			buttonsArray.push(bitBtnDrag);
 			
-			//btnMute = new Button("mute",);
-			//btnMute.setBitmaps(getButtonBitmap(buttonsBMD,7), getButtonBitmap(buttonsBMD,17));
-			//buttonsArray.push(btnMute);
+			if (saladoPlayer.managerData.arcBallCameraData.enabled) {
+				bitBtnDrag.setActive(true);
+			}
 			
-			btnAutorotate = new Button("autorotation", autorotateToggle);
-			btnAutorotate.setBitmaps(getButtonBitmap(buttonsBMD,8), getButtonBitmap(buttonsBMD,18));
-			buttonsArray.push(btnAutorotate);
+			//bitBtnMute = new BitmapButton("mute", muteToggle);
+			//bitBtnMute.setBitmaps(getButtonBitmap(buttonsBMD, 7), getButtonBitmap(buttonsBMD, 17));
+			//buttonsArray.push(bitBtnMute);
 			
-			// flashplayer bug - fullscreen has to use MouseEvent.MOUSE_UP
-			btnFullscreen = new Button("fullscreen", null, fullscreenToggle);
-			btnFullscreen.setBitmaps(getButtonBitmap(buttonsBMD,9), getButtonBitmap(buttonsBMD,19));
-			buttonsArray.push(btnFullscreen);
+			bitBtnAutorotate = new BitmapButton("autorotation", autorotateToggle);
+			bitBtnAutorotate.setBitmaps(getButtonBitmap(buttonsBMD, 8), getButtonBitmap(buttonsBMD, 18));
+			buttonsArray.push(bitBtnAutorotate);
 			
-			for each (var basicButton:BasicButton in navigationBarData.basicButtons.getChildren()) {
+			if (saladoPlayer.managerData.autorotationCameraData.isAutorotating){
+				bitBtnAutorotate.setActive(true);
+			}
+						
+			bitBtnFullscreen = new BitmapButton("fullscreen", null, fullscreenToggle);// flashplayer bug - fullscreen has to use MouseEvent.MOUSE_UP
+			bitBtnFullscreen.setBitmaps(getButtonBitmap(buttonsBMD, 9), getButtonBitmap(buttonsBMD, 19));
+			buttonsArray.push(bitBtnFullscreen);
+			
+			for each (var basicButton:Button in navigationBarData.buttons.getChildrenOfGivenClass(Button)) {
 				for (var i:int = 0; i < buttonsArray.length; i++ ) {
 					if (buttonsArray[i]!= null && basicButton.name == buttonsArray[i].buttonName) {
 						// configure here, for now there is only visibility
@@ -284,80 +287,80 @@ package com.panozona.modules.navigationbar {
 				}
 			}
 			
-			btnsBonus = new Array();
+			bitmapButtonsExtra = new Array();
 			
 			// bonus buttons are named [a][b][c][d][e][f][g][h][i][j]
-			for each (var bonusButton:BonusButton in navigationBarData.bonusButtons.getChildren()) {
-				var btn:Button;
-				switch(bonusButton.name) {
+			for each (var extraButton:ExtraButton in navigationBarData.buttons.getChildrenOfGivenClass(ExtraButton)) { 
+				var bitBtnExtra:BitmapButton;
+				switch(extraButton.name) { // TODO: write this in smarter way
 					case "a": 
-						btn = new Button("a", getBonusButtonFunction(bonusButton.action));
-						btn.setBitmaps(getButtonBitmap(buttonsBMD,20), getButtonBitmap(buttonsBMD,30));
+						bitBtnExtra = new BitmapButton("a", getExtraButtonFunction(extraButton.action));
+						bitBtnExtra.setBitmaps(getButtonBitmap(buttonsBMD,20), getButtonBitmap(buttonsBMD,30));
 					break;
 					case "b":
-						btn = new Button("b", getBonusButtonFunction(bonusButton.action));
-						btn.setBitmaps(getButtonBitmap(buttonsBMD,21), getButtonBitmap(buttonsBMD,31));
+						bitBtnExtra = new BitmapButton("b", getExtraButtonFunction(extraButton.action));
+						bitBtnExtra.setBitmaps(getButtonBitmap(buttonsBMD,21), getButtonBitmap(buttonsBMD,31));
 					break;
 					case "c":
-						btn = new Button("c", getBonusButtonFunction(bonusButton.action));
-						btn.setBitmaps(getButtonBitmap(buttonsBMD,22), getButtonBitmap(buttonsBMD,32));
+						bitBtnExtra = new BitmapButton("c", getExtraButtonFunction(extraButton.action));
+						bitBtnExtra.setBitmaps(getButtonBitmap(buttonsBMD,22), getButtonBitmap(buttonsBMD,32));
 					break;
 					case "d":
-						btn = new Button("d", getBonusButtonFunction(bonusButton.action));
-						btn.setBitmaps(getButtonBitmap(buttonsBMD,23), getButtonBitmap(buttonsBMD,33));
+						bitBtnExtra = new BitmapButton("d", getExtraButtonFunction(extraButton.action));
+						bitBtnExtra.setBitmaps(getButtonBitmap(buttonsBMD,23), getButtonBitmap(buttonsBMD,33));
 					break;
 					case "e":
-						btn = new Button("e", getBonusButtonFunction(bonusButton.action));
-						btn.setBitmaps(getButtonBitmap(buttonsBMD,24), getButtonBitmap(buttonsBMD,34));
+						bitBtnExtra = new BitmapButton("e", getExtraButtonFunction(extraButton.action));
+						bitBtnExtra.setBitmaps(getButtonBitmap(buttonsBMD,24), getButtonBitmap(buttonsBMD,34));
 					break;
 					case "f":
-						btn = new Button("f", getBonusButtonFunction(bonusButton.action));
-						btn.setBitmaps(getButtonBitmap(buttonsBMD,25), getButtonBitmap(buttonsBMD,35));
+						bitBtnExtra = new BitmapButton("f", getExtraButtonFunction(extraButton.action));
+						bitBtnExtra.setBitmaps(getButtonBitmap(buttonsBMD,25), getButtonBitmap(buttonsBMD,35));
 					break;
 					case "g":
-						btn = new Button("g", getBonusButtonFunction(bonusButton.action));
-						btn.setBitmaps(getButtonBitmap(buttonsBMD,26), getButtonBitmap(buttonsBMD,36));
+						bitBtnExtra = new BitmapButton("g", getExtraButtonFunction(extraButton.action));
+						bitBtnExtra.setBitmaps(getButtonBitmap(buttonsBMD,26), getButtonBitmap(buttonsBMD,36));
 					break;
 					case "h":
-						btn = new Button("h", getBonusButtonFunction(bonusButton.action));
-						btn.setBitmaps(getButtonBitmap(buttonsBMD,27), getButtonBitmap(buttonsBMD,37));
+						bitBtnExtra = new BitmapButton("h", getExtraButtonFunction(extraButton.action));
+						bitBtnExtra.setBitmaps(getButtonBitmap(buttonsBMD,27), getButtonBitmap(buttonsBMD,37));
 					break;
 					case "i":
-						btn = new Button("i", getBonusButtonFunction(bonusButton.action));
-						btn.setBitmaps(getButtonBitmap(buttonsBMD,28), getButtonBitmap(buttonsBMD,38));
+						bitBtnExtra = new BitmapButton("i", getExtraButtonFunction(extraButton.action));
+						bitBtnExtra.setBitmaps(getButtonBitmap(buttonsBMD,28), getButtonBitmap(buttonsBMD,38));
 					break;
 					case "j":
-						btn = new Button("j", getBonusButtonFunction(bonusButton.action));
-						btn.setBitmaps(getButtonBitmap(buttonsBMD,29), getButtonBitmap(buttonsBMD,39));
+						bitBtnExtra = new BitmapButton("j", getExtraButtonFunction(extraButton.action));
+						bitBtnExtra.setBitmaps(getButtonBitmap(buttonsBMD,29), getButtonBitmap(buttonsBMD,39));
 					break;
 				}
-				buttonsArray.push(btn);
-				btnsBonus.push(btn);
-			}
-			
-			var buttonX:int = 0;
-			for each (var button:Button in buttonsArray) {
-				if (button != null) {
-					button.x = buttonX;
-					buttonsBar.addChild(button);
-					buttonX += button.width
-				}
+				buttonsArray.push(bitBtnExtra);
+				bitmapButtonsExtra.push(bitBtnExtra);
 			}
 			
 			// buttons image loading delay fix
-			for each (var btn2:Button in btnsBonus) {
-				if (bonusButtonsActive[btn2.buttonName] != undefined) {
-					btn2.setActive(bonusButtonsActive[btn2.buttonName]);
+			for each (var btn2:BitmapButton in bitmapButtonsExtra) {
+				if (bitmapButtonsExtraActive[btn2.buttonName] != undefined) {
+					btn2.setActive(bitmapButtonsExtraActive[btn2.buttonName]);
 				}
-			}						
-			btnAutorotate.setActive(isAutorotating);
-			btnFullscreen.setActive(isFullscreen);
+			}			
+			bitmapButtonsExtraActive = null;
 			
-			bonusButtonsActive = null;			
+			
+			// assebmle all buttons
+			var buttonX:int = 0;
+			for each (var button:BitmapButton in buttonsArray) {
+				if (button != null) {
+					button.x = buttonX;
+					buttonsGroup.addChild(button);
+					buttonX += button.width
+				}
+			}		
+			
 			placeButtons();
 		}
 		
-		private function getBonusButtonFunction(actionId:String):Function{
+		private function getExtraButtonFunction(actionId:String):Function{
 			return function(e:MouseEvent):void {
 				saladoPlayer.manager.runAction(actionId);
 			}
@@ -386,71 +389,65 @@ package com.panozona.modules.navigationbar {
 		}
 		
 		private function handleStageResize(e:Event = null):void {
-			if (navigationBarData.backgroundBar.visible){
-				placeBackgroundBar();
+			if (navigationBarData.bar.visible){
+				placeBar();
 			}
 			if (navigationBarData.buttons.visible) {
 				placeButtons();
 			}
 			if(navigationBarData.combobox.visible){
-				placeSprite(combobox, navigationBarData.combobox.align, navigationBarData.combobox.margin);
+				placeSprite(combobox, navigationBarData.combobox.align, navigationBarData.combobox.move);
 			}
 			if (navigationBarData.logo.visible) {
-				placeSprite(logo, navigationBarData.logo.align, navigationBarData.logo.margin);
+				placeSprite(logo, navigationBarData.logo.align, navigationBarData.logo.move);
 			}
 			if(navigationBarData.branding.visible){
-				placeSprite(branding, navigationBarData.branding.align, navigationBarData.branding.margin);
+				placeSprite(branding, navigationBarData.branding.align, navigationBarData.branding.move);
 			}
-			if (stage.displayState == StageDisplayState.FULL_SCREEN) {
-				if (btnFullscreen != null){
-					btnFullscreen.setActive(true);				
-				}else {
-					isAutorotating = true;
-				}
-			}else {
-				if (btnFullscreen != null){
-					btnFullscreen.setActive(false);				
-				}else {
-					isAutorotating = false;
-				}
+			if (bitBtnFullscreen != null){				
+				bitBtnFullscreen.setActive(stage.displayState == StageDisplayState.FULL_SCREEN);				
 			}
 		}
 		
 		private function placeButtons():void {
-			placeSprite(buttonsBar, navigationBarData.buttons.align, navigationBarData.buttons.margin);
+			placeSprite(buttonsGroup, navigationBarData.buttons.align, navigationBarData.buttons.move);
 		}
 		
-		private function placeBackgroundBar():void {
-			backgroundBar.graphics.clear();
-			if (navigationBarData.backgroundBar.path == null ) {
-				backgroundBar.graphics.beginFill(navigationBarData.backgroundBar.color);
-			}else if ( backgroundBarBMD != null){
-				backgroundBar.graphics.beginBitmapFill(backgroundBarBMD, null, true);
+		private function placeBar():void {
+			bar.graphics.clear();
+			if (navigationBarData.bar.path == null ) {
+				bar.graphics.beginFill(navigationBarData.bar.color);
+			}else if ( barBMD != null){
+				bar.graphics.beginBitmapFill(barBMD, null, true);
+			}else {
+				return;
 			}
-			backgroundBar.graphics.drawRect(0, 0, boundsWidth, navigationBarData.backgroundBar.height);
-			backgroundBar.graphics.endFill();
-			placeSprite(backgroundBar, navigationBarData.backgroundBar.align, navigationBarData.backgroundBar.margin);
+			bar.graphics.drawRect(
+				0, 
+				0, 
+				(isNaN(navigationBarData.bar.size.width) ? boundsWidth : navigationBarData.bar.size.width), 
+				navigationBarData.bar.size.height);
+			bar.graphics.endFill();
+			placeSprite(bar, navigationBarData.bar.align, navigationBarData.bar.move);
 		}
 		
-		private function placeSprite(sprite:Sprite, positionAlign:PositionAlign, positionMargin:PositionMargin):void {
-			if (positionAlign.horizontal == PositionAlign.RIGHT) {
+		private function placeSprite(sprite:Sprite, align:Align, move:Move):void {
+			if (align.horizontal == Align.RIGHT) {
 				sprite.x = boundsWidth - sprite.width;
-			}else if (positionAlign.horizontal == PositionAlign.LEFT) {
+			}else if (align.horizontal == Align.LEFT) {
 				sprite.x = 0;
-			}else if (positionAlign.horizontal == PositionAlign.CENTER) {
-				sprite.x = (boundsWidth - sprite.width) * 0.5;				
+			}else if (align.horizontal == Align.CENTER) {
+				sprite.x = (boundsWidth - sprite.width) * 0.5;
 			}
-			if (positionAlign.vertical == PositionAlign.BOTTOM) {
+			if (align.vertical == Align.BOTTOM) {
 				sprite.y = boundsHeight - sprite.height;
-			}else if (positionAlign.vertical == PositionAlign.TOP) {
+			}else if (align.vertical == Align.TOP) {
 				sprite.y = 0;
-			}else if (positionAlign.vertical == PositionAlign.MIDDLE) {
+			}else if (align.vertical == Align.MIDDLE) {
 				sprite.y = (boundsHeight - sprite.height) * 0.5;
 			}
-			sprite.x += positionMargin.left;
-			sprite.x -= positionMargin.right;
-			sprite.y += positionMargin.top;			
-			sprite.y -= positionMargin.bottom;
+			sprite.x += move.horizontal;
+			sprite.y += move.vertical;
 		}
 		
 		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
@@ -466,27 +463,17 @@ package com.panozona.modules.navigationbar {
 			}
 		}
 		
-		private function onAutorotationStarted(loadPanoramaEvent:Object):void {
-			if (btnAutorotate != null) {
-				btnAutorotate.setActive(true);
-			}else {
-				isAutorotating = true;
-			}
-		}
+		private function onIsAutorotatingChange(autorotationEvent:Object):void {			
+			if (bitBtnAutorotate != null) {
+				bitBtnAutorotate.setActive(saladoPlayer.managerData.autorotationCameraData.isAutorotating);
+			}			
+		}		
 		
-		private function onAutorotationStopped(loadPanoramaEvent:Object):void {
-			if (btnAutorotate != null) {
-				btnAutorotate.setActive(false);
-			}else {
-				isAutorotating = false;
-			}
-		}
-		
-		private function onDragEnabledChanged(event:Object):void {
+		private function onDragEnabledChange(event:Object):void {
 			if (saladoPlayer.managerData.arcBallCameraData.enabled) {
-				btnDrag.setActive(true);
+				bitBtnDrag.setActive(true);
 			}else {
-				btnDrag.setActive(false);
+				bitBtnDrag.setActive(false);
 			}
 		}
 		
@@ -532,11 +519,17 @@ package com.panozona.modules.navigationbar {
 		}
 		
 		private function dragToggle(e:Event):void {
-			saladoPlayer.manager.toggleMouseCamera();
+			if (saladoPlayer.managerData.inertialMouseCameraData.enabled || ! saladoPlayer.managerData.arcBallCameraData.enabled) {
+				saladoPlayer.managerData.inertialMouseCameraData.enabled = false;
+				saladoPlayer.managerData.arcBallCameraData.enabled = true;
+			}else {
+				saladoPlayer.managerData.inertialMouseCameraData.enabled = true;
+				saladoPlayer.managerData.arcBallCameraData.enabled = false;
+			}
 		}
 		
 		private function autorotateToggle(e:Event):void {
-			saladoPlayer.manager.toggleAutorotation();
+			saladoPlayer.managerData.autorotationCameraData.isAutorotating = !saladoPlayer.managerData.autorotationCameraData.isAutorotating;
 		}
 		private function fullscreenToggle(e:Event):void {
 			stage.displayState = (stage.displayState == StageDisplayState.NORMAL) ? StageDisplayState.FULL_SCREEN : StageDisplayState.NORMAL;
@@ -546,7 +539,7 @@ package com.panozona.modules.navigationbar {
 			var request:URLRequest = new URLRequest("http://panozona.com/");
 			try {
 				navigateToURL(request, '_BLANK');
-			} catch (e:Error) {
+			} catch (error:Error) {
 				printWarning("Could not open http://panozona.com/");
 			}
 		}
@@ -555,29 +548,29 @@ package com.panozona.modules.navigationbar {
 			var request:URLRequest = new URLRequest("http://panosalado.com/");
 			try {
 				navigateToURL(request, '_BLANK');
-			} catch (e:Error) {
+			} catch (error:Error) {
 				printWarning("Could not open http://panosalado.com/");
 			}
 		}
 		
 		private function gotoLogoUrl(e:Event):void {
-			var request:URLRequest = new URLRequest("http://"+navigationBarData.logo.url);
+			var request:URLRequest = new URLRequest(navigationBarData.logo.text);
 			try {
 				navigateToURL(request, '_BLANK');
-			} catch (e:Error) {
-				printWarning("Could not open "+navigationBarData.logo.url);
+			} catch (error:Error) {
+				printWarning("Could not open "+navigationBarData.logo.text);
 			}
 		}
 		
-///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Exposed functions 
-///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		public function changeButton(name:String, active:Boolean):void {
-			if (bonusButtonsActive != null) { // when NavigationBar is not builded yet
-				bonusButtonsActive[name] = active;
+		public function setExtraButtonActive(name:String, active:Boolean):void {
+			if (bitmapButtonsExtraActive != null) { // buttons image loading delay fix
+				bitmapButtonsExtraActive[name] = active;
 			}else {
-				for each (var btn1:Button in btnsBonus) {
+				for each (var btn1:BitmapButton in bitmapButtonsExtra) {
 					if (btn1.buttonName == name) {
 						btn1.setActive(active);
 						return;

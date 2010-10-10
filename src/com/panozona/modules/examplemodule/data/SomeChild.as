@@ -18,25 +18,25 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.examplemodule.data {
 	
-	import com.panozona.player.module.data.StructureParent;
+	import com.panozona.player.module.data.structure.Parent;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
-	public class SomeChild extends StructureParent{
-					
-		override public function getChildrenType():Class {
-			return SomeGrandchild;
-		}		
+	// SomeChild is decalred structure child of SomeParent so class name is important
+	// class name must match module node name NOT CASE SENSITIVE
+	// for instance: <someParent> <someChild/> </someParent>
+	public class SomeChild extends Parent{
+		
+		// SomeChild is declared structure parent of SomeToy class 
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(SomeToy);
+			return result;
+		}
 		
 		// These var names are important
-		// They should be of the same name
-		// as attributes names in ModuleNode
-		// that is of the same name as attributes names in *.xml file 
-		// for instance <someChild id="ch1"/>
-		// you should initialize them with default values
-		// in case when var is not present in configuration	
-		public var id:String;
+		// They should be of the same name as attributes names in module node
+		// for instance <someChild happy="true"/>
+		// you should initialize them with default values in case when given value is not set in configuration
+		
+		public var happy:Boolean; 
 	}
 }

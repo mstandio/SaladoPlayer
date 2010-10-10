@@ -26,8 +26,7 @@ package com.panosalado.events {
 	 */
 	public class AutorotationEvent extends Event{
 		
-		public static const AUTOROTATION_STARTED:String = "AutorotationStarted";
-		public static const AUTOROTATION_STOPPED:String = "AutorotationStopped";		
+		public static const AUTOROTATION_CHANGE:String = "AutorotationChange";
 		
 		public function AutorotationEvent(type:String) {
 			super(type);

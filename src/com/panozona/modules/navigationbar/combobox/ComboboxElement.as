@@ -57,10 +57,10 @@ package com.panozona.modules.navigationbar.combobox{
 			
 			textField = new TextField();
 			textField.defaultTextFormat = textFormat;			
-			if (_isMainElement) {				
+			if (_isMainElement) {
 				textField.text = "";
 			}else {
-				textField.text = _object.label;
+				textField.text = (_object.label != null) ? _object.label : "no label";
 			}		
 			
 			textField.selectable = false;								

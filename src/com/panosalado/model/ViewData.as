@@ -180,6 +180,19 @@ public class ViewData extends Sprite
  	public var _maximumTilt:Number;
 	
 	/**
+	 * Minimum vertical field of view.  Can be used in place of getter for faster access.  Do NOT use in place of setter.
+	 * @see minimumVerticalFieldOfView
+	 */
+	public var _minimumVerticalFieldOfView:Number;
+	
+	/**
+	 * Maximum vertical field of view.  Can be used in place of getter for faster access.  Do NOT use in place of setter.
+	 * @see maximumVerticalFieldOfView
+	 */
+	public var _maximumVerticalFieldOfView:Number;
+
+	
+	/**
 	* Invalidation flag for all properties.  i.e. if one of them is invalid, this must be invalid as well.
 	*/
 	public var invalid					:Boolean;
@@ -316,6 +329,7 @@ public class ViewData extends Sprite
 		updateMinimumFieldOfView();
 		invalidPerspective = invalid = true;
 		if (stage) stage.invalidate();
+		adjustTiltLimits();
 	}
 	
 	/**
@@ -332,6 +346,7 @@ public class ViewData extends Sprite
 		_boundsHeight = value;
 		invalidPerspective = invalid = true;
 		if (stage) stage.invalidate();
+		adjustTiltLimits();
 	}
 	
 	/**
@@ -352,7 +367,7 @@ public class ViewData extends Sprite
 	}
 	
 	private function updateMinimumFieldOfView():void {
-		//if ( _tile != null && (_tile.tilePyramid != null && (!isNaN(_tile.tilePyramid.width))) ) // COREMOD
+		//if ( _tile != null && (_tile.tilePyramid != null && (!isNaN(_tile.tilePyramid.width))) )   // COREMOD
 			//minimumFieldOfView =  (_boundsWidth / _tile.tilePyramid.width) * 90;                 // TODO:  check why i had to comment this out
 	}
 	
@@ -526,6 +541,34 @@ public class ViewData extends Sprite
 	}
 	
 	/**
+	* minimumVerticalFieldOfView
+	* @default NaN
+	*/
+	public function get minimumVerticalFieldOfView():Number { return _minimumVerticalFieldOfView; }
+	/**
+	* @private
+	*/
+	public function set minimumVerticalFieldOfView(value:Number):void {
+		if ( _minimumVerticalFieldOfView == value || isNaN(value) ) return;
+		_minimumVerticalFieldOfView = value;		
+		adjustTiltLimits();
+	}
+	
+	/**
+	* maximumVerticalFieldOfView
+	* @default NaN
+	*/
+	public function get maximumVerticalFieldOfView():Number { return _maximumVerticalFieldOfView; }
+	/**
+	* @private
+	*/
+	public function set maximumVerticalFieldOfView(value:Number):void {
+		if ( _maximumVerticalFieldOfView == value || isNaN(value) ) return;
+		_maximumVerticalFieldOfView = value;
+		adjustTiltLimits();
+	}
+	
+	/**
 	* Clones the properties of this view data object into another.  If into arg is not null it will
 	* clone into that ViewData object, otherwise it will clone into a new ViewData
 	* @param into ViewData to clone into (optional, will create new if null)
@@ -553,9 +596,23 @@ public class ViewData extends Sprite
 		
 		ret.invalidTransform = invalidTransform
 		ret.invalidPerspective = invalidPerspective
- 	  	ret.invalid = invalid
- 	  	return ret;
+		ret.invalid = invalid
+ 		return ret;
 	}
-
+	
+	private function adjustTiltLimits():void 
+	{
+		if (stage) {
+			var cameraHFOV:Number = fieldOfView*Math.PI/180.0;
+			var adjacent:Number = (_boundsWidth*0.5)/Math.tan(cameraHFOV*0.5);
+			var cameraVFOV:Number = 2.0 * Math.atan((0.5 * _boundsHeight) / adjacent) * 180.0 / Math.PI;
+			if (!isNaN(_minimumVerticalFieldOfView)) {
+				minimumTilt = -_minimumVerticalFieldOfView - cameraVFOV;
+			}
+			if (!isNaN( -maximumFieldOfView)) {
+				maximumTilt = _maximumVerticalFieldOfView - cameraVFOV;
+			}
+		}
+	}
 }
 }

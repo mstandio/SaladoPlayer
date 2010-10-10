@@ -36,7 +36,7 @@ public class ArcBallCameraData extends EventDispatcher
 	
 	public function ArcBallCameraData()
 	{		
-		_enabled = true;
+		_enabled = false;
 		zoomIncrement = 3;
 	}
 	

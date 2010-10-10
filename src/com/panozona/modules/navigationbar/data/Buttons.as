@@ -18,18 +18,29 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.navigationbar.data{
 	
-	import com.panozona.player.module.data.PositionMargin;
-	import com.panozona.player.module.data.PositionAlign;
+	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Size;
+	import com.panozona.player.module.data.structure.Parent;
 	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class Buttons {
+	public class Buttons extends Parent{
+		
+		// children class names are important, must be same as module node name, not case sensitive
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Button);
+			result.push(ExtraButton);
+			return result;
+		}
+		
 		public var visible:Boolean = true;
 		public var path:String; // intentionally not initialized 
-		public var buttonSize:ButtonSize = new ButtonSize();
-		public var align:PositionAlign = new PositionAlign(PositionAlign.RIGHT, PositionAlign.BOTTOM); // horizontal, vertical
-		public var margin:PositionMargin = new PositionMargin(0,5,10,0); // top, right, bottom, left
+		public var buttonSize:Size = new Size(30,30);
+		public var align:Align = new Align(Align.RIGHT, Align.BOTTOM); // horizontal, vertical
+		public var move:Move = new Move(-5,-10); // horizontal, vertical
 	}
 }

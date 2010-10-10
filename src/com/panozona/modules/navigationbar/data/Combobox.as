@@ -19,8 +19,8 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.navigationbar.data {
 	
 	import com.panozona.modules.navigationbar.combobox.ComboboxStyle;
-	import com.panozona.player.module.data.PositionMargin;
-	import com.panozona.player.module.data.PositionAlign;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Move
 	
 	/**
 	 * ...
@@ -29,7 +29,7 @@ package com.panozona.modules.navigationbar.data {
 	public class Combobox {
 		public var visible:Boolean = true;
 		public var style:ComboboxStyle = new ComboboxStyle();
-		public var align:PositionAlign = new PositionAlign(PositionAlign.CENTER, PositionAlign.BOTTOM); // horizontal, vertical
-		public var margin:PositionMargin = new PositionMargin(0, 0, 14, 0); // top, right, bottom, left
+		public var align:Align = new Align(Align.CENTER, Align.BOTTOM); // horizontal, vertical
+		public var move:Move = new Move(0,-14); // horizontal, vertical
 	}
 }

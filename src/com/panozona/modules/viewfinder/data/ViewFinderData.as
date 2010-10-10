@@ -21,16 +21,26 @@ package com.panozona.modules.viewfinder.data{
 	import com.panozona.player.module.data.ModuleNode;
 	import com.panozona.player.module.data.ModuleData;
 	
-	import com.panozona.player.module.data.StructureMaster;
-		
+	import com.panozona.player.module.data.structure.Master;
+	
 	/**
-	 * ...
+	 * Part od ViewFinder module, translates moduleData to module internal data structure.
 	 * @author mstandio
 	 */
-	public class ViewFinderData extends StructureMaster{
+	public class ViewFinderData extends Master{
 		
+		/**
+		 * Part of module data structure.
+		 */
 		public var settings:Settings = new Settings();
 		
+		/**
+		 * Constructor 
+		 * Takes moduleData with and translates its content to internal data structures
+		 * Debug mode is passed from Saladoplayer
+		 * @param	moduleData
+		 * @param	debugMode
+		 */
 		public function ViewFinderData(moduleData:ModuleData, debugMode:Boolean){
 			super(debugMode);
 			
@@ -38,13 +48,13 @@ package com.panozona.modules.viewfinder.data{
 				switch (moduleNode.nodeName) {
 					case "settings":
 						readRecursive(settings, moduleNode);
-					break;					
+					break;
 					default:
 						throw new Error("Could not recognize: "+moduleNode.nodeName);
 				}
 			}
-				
+			
 			// no additional validation required
-		}		
+		}
 	}
 }

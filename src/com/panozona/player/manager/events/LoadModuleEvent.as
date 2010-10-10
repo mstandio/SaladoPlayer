@@ -19,27 +19,45 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.manager.events {
 	
 	import flash.events.Event;
-	import flash.display.DisplayObject;	
-			
+	import flash.display.DisplayObject;
+	
 	/**
-	 * ...
+	 * 
+	 * 
 	 * @author mstandio
 	 */
 	public class LoadModuleEvent extends Event {
 		
-		public static const MODULE_LOADED:String =  "moduleLoaded";
-		public static const ALL_MODULES_LOADED:String =  "allModulesLoaded";				
+		public static const MODULE_LOADED:String = "moduleLoaded";
+		public static const ALL_MODULES_LOADED:String = "allModulesLoaded";
 		
+		/**
+		 * 
+		 */
 		public var moduleName:String;
-		public var weight:int;		
-		public var module:DisplayObject		
 		
+		/**
+		 * 
+		 */
+		public var weight:int;
 		
+		/**
+		 * 
+		 */
+		public var module:DisplayObject;
+		
+		/**
+		 * 
+		 * @param	type
+		 * @param	moduleName
+		 * @param	weight
+		 * @param	module
+		 */
 		public function LoadModuleEvent(type:String, moduleName:String, weight:int, module:DisplayObject) {
-			super(type);						
+			super(type);
 			this.moduleName = moduleName;
 			this.weight = weight;
 			this.module = module;
-		}	
+		}
 	}
 }

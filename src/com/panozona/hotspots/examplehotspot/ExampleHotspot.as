@@ -18,11 +18,11 @@ along with PanoSalado.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.hotspots.examplehotspot {
 	
-	import flash.display.Bitmap;			
-	import flash.events.MouseEvent;			
-	import com.panosalado.view.SwfHotspot;	
+	import flash.display.Bitmap;
+	import flash.events.MouseEvent;
+	import com.panosalado.view.SwfHotspot;
 	import caurina.transitions.*;
-		
+	
 	/**
 	 * ...
 	 * @author mstandio
@@ -30,22 +30,22 @@ package com.panozona.hotspots.examplehotspot {
 	public class ExampleHotspot extends SwfHotspot{
 		
 		[Embed(source="assets/blue_arrow.png")]
-		private static var Bitmap_blue_arrow:Class;		
-						
+		private static var Bitmap_blue_arrow:Class;
+		
 		public function ExampleHotspot() {
-			super();			
+			super();
 		}
 		
 		override protected function hotspotReady():void {
-			var buttonBitmap:Bitmap = new Bitmap(new Bitmap_blue_arrow().bitmapData, "auto", true);			
+			var buttonBitmap:Bitmap = new Bitmap(new Bitmap_blue_arrow().bitmapData, "auto", true);
 			buttonBitmap.x = - buttonBitmap.width * 0.5;
-			buttonBitmap.y = - buttonBitmap.height * 0.5;									
-			button.addChild(buttonBitmap);			
+			buttonBitmap.y = - buttonBitmap.height * 0.5;
+			button.addChild(buttonBitmap);
 			
 			button.addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			button.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 		}
-				
+		
 		// see http://hosted.zeh.com.br/tweener/docs/en-us/
 		
 		private function mouseOver(e:MouseEvent):void {
@@ -56,6 +56,6 @@ package com.panozona.hotspots.examplehotspot {
 		private function mouseOut(e:MouseEvent):void {
 			Tweener.addTween(button, { scaleX:1, time:0.25, transition:"easeOutExpo" } );
 			Tweener.addTween(button, { scaleY:1, time:0.25, transition:"easeOutExpo" } );
-		}				
+		}
 	}
 }

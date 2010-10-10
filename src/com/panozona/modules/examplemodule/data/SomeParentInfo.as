@@ -31,8 +31,8 @@ package com.panozona.modules.examplemodule.data{
 		// for instance <someParent info="numberSubValue:-12,booleanSubValue:false"/>
 		// you should initialize them with default values
 		// in case when var is not present in configuration
-		public var numberSubValue:Number = NaN;
-		public var booleanSubValue:Boolean = false;	
+		public var numberSubValue:Number; 
+		public var booleanSubValue:Boolean;
 		public var stringSubValue:String ="default string";
 	}
 }

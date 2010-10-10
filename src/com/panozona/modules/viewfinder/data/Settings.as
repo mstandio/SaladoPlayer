@@ -18,17 +18,23 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.viewfinder.data {
 	
-	import com.panozona.player.module.data.PositionMargin;
-	import com.panozona.player.module.data.PositionAlign;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Move;
 	
 	/**
-	 * ...
+	 * Part of ViewFinder module, stores data used for module configuration.
 	 * @author mstandio
 	 */
 	public class Settings{
 		
-		public var align:PositionAlign = new PositionAlign(PositionAlign.LEFT, PositionAlign.TOP); // horizontal, vertical
-		public var margin:PositionMargin = new PositionMargin(0, 0, 0, 0); // top, right, bottom, left	
+		/**
+		 * Vertical and horizontal text fied alignment against panorama window
+		 */
+		public var align:Align = new Align(Align.LEFT, Align.TOP); // horizontal, vertical
 		
+		/**
+		 * Vertical and horizontal text field shift
+		 */
+		public var move:Move = new Move(0, 0); // horizontal, vertical
 	}
 }

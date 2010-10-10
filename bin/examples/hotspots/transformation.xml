@@ -1,14 +1,13 @@
 ﻿<!--
 	
-	Transformation
+	transformation
 	
 	- you can modify shape of hotspots after they are added to pano
-	- you can disable cursor change when over hotspot with handCursor
-	
+	- see: http://panozona.com/wiki/SaladoPlayer:Configuration#hotspot
 -->
 <?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>
-	<global debug="true" trace="initialVisibility:true" autorotation="enabled:false"/>
+	<global debug="true" autorotation="enabled:false"/>
 	<panoramas>
 		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml">
 			<hotspot id="hs1" position="pan:-20,tilt:10" transformation="scaleX:0.5" path="hotspots/arrow.png"/>
@@ -16,7 +15,7 @@
 			<hotspot id="hs3" position="pan:20,tilt:10" transformation="scaleZ:0.5" path="hotspots/arrow.png"/>
 			<hotspot id="hs4" position="pan:-20,tilt:-10" transformation="rotationX:45" path="hotspots/arrow.png"/>
 			<hotspot id="hs5" position="pan:0,tilt:-10" transformation="rotationY:45" path="hotspots/arrow.png"/>
-			<hotspot id="hs6" position="pan:20,tilt:-10" transformation="rotationZ:45" mouse="handCursor:false" path="hotspots/arrow.png"/>
+			<hotspot id="hs6" position="pan:20,tilt:-10" transformation="rotationZ:45" path="hotspots/arrow.png"/>
 		</panorama>
-	</panoramas>	
-</SaladoPlayer>	
+	</panoramas>
+</SaladoPlayer>

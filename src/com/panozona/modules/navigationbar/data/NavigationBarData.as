@@ -21,21 +21,19 @@ package com.panozona.modules.navigationbar.data {
 	import com.panozona.player.module.data.ModuleNode;
 	import com.panozona.player.module.data.ModuleData;
 	
-	import com.panozona.player.module.data.StructureMaster;
+	import com.panozona.player.module.data.structure.Master;
 	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class NavigationBarData extends StructureMaster{
+	public class NavigationBarData extends Master{
 		
+		public var bar:Bar = new Bar();
 		public var buttons:Buttons = new Buttons();
-		public var backgroundBar:BackgroundBar = new BackgroundBar();
 		public var combobox:Combobox = new Combobox();
 		public var branding:Branding = new Branding();
 		public var logo:Logo = new Logo();
-		public var basicButtons:BasicButtons = new BasicButtons();
-		public var bonusButtons:BonusButtons = new BonusButtons();
 		
 		public function NavigationBarData(moduleData:ModuleData, debugMode:Boolean) {
 			super(debugMode);
@@ -44,8 +42,8 @@ package com.panozona.modules.navigationbar.data {
 					case "buttons": 
 						readRecursive(buttons, moduleNode);
 					break;
-					case "backgroundBar": 
-						readRecursive(backgroundBar, moduleNode);
+					case "bar": 
+						readRecursive(bar, moduleNode);
 					break;
 					case "combobox": 
 						readRecursive(combobox, moduleNode);
@@ -56,27 +54,22 @@ package com.panozona.modules.navigationbar.data {
 					case "logo": 
 						readRecursive(logo, moduleNode);
 					break;
-					case "basicButtons": 
-						readRecursive(basicButtons, moduleNode);
-					break;
-					case "bonusButtons": 
-						readRecursive(bonusButtons, moduleNode);
-					break;
 					default:
-						throw new Error("Could not recognize: "+moduleNode.nodeName);
+						throw new Error("Invalid node name: "+moduleNode.nodeName);
 				}
 			}
 			
 			if (debugMode) {
+				
 				// check for mandatory data
+				
 				if (buttons.visible && buttons.path == null) {
 					throw new Error("No path specified for buttons.");
 				}
-				
 				if (logo.visible && logo.path == null) {
 					throw new Error("No path specified for logo.");
 				}
-			}			
+			}
 		}
 	}
 }

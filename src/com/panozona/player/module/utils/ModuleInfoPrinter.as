@@ -20,18 +20,20 @@ package com.panozona.player.module.utils{
 
 	import flash.display.Sprite;
 	import flash.display.Stage;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.events.TextEvent;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.events.TextEvent;
 	
 	import com.panozona.player.module.data.ModuleDescription;
 	
 	/**
-	 * ...
+	 * Displays general module info in separate window.
+	 * This window will be shown if module is opened as standalone *.swf file.
+	 * 
 	 * @author mstandio
 	 */
 	public class ModuleInfoPrinter extends Sprite {
@@ -40,6 +42,11 @@ package com.panozona.player.module.utils{
 		private var aboutThisModule:String;
 		private var moduleInfo:TextField;
 		
+		/**
+		 * Constructor builds and displays window containing module information.
+		 * @param	moduleDescription description builded in individual module constructor.
+		 * @param	aboutThisModule String value set in individual module constructor.
+		 */
 		public function ModuleInfoPrinter(moduleDescription:ModuleDescription, aboutThisModule:String){
 			
 			this.moduleDescription = moduleDescription;
@@ -51,8 +58,7 @@ package com.panozona.player.module.utils{
 		
 		private final function stageReady(e:Event = null):void {
 			
-			var moduleInfoFormat:TextFormat = new TextFormat(); // TODO: add clickable buttons for urls ect 
-			moduleInfoFormat.blockIndent = 0;
+			var moduleInfoFormat:TextFormat = new TextFormat();
 			moduleInfoFormat.font = "Courier";
 			moduleInfoFormat.color = 0xffffff;
 			moduleInfoFormat.leftMargin = 10;
@@ -63,6 +69,7 @@ package com.panozona.player.module.utils{
 			moduleInfo.background = true;
 			moduleInfo.backgroundColor = 0x000000;
 			moduleInfo.wordWrap = true;
+			moduleInfo.selectable = false;
 			moduleInfo.width  = 500;
 			moduleInfo.height = 300;
 			moduleInfo.x = (stage.stageWidth - moduleInfo.width) * 0.5;
@@ -107,8 +114,56 @@ package com.panozona.player.module.utils{
 			btnScrollDown.useHandCursor = true;
 			addChild(btnScrollDown);
 			btnScrollDown.y = moduleInfo.y + 1;
-			btnScrollDown.x = moduleInfo.x+ moduleInfo.width - btnSize;
+			btnScrollDown.x = moduleInfo.x+ moduleInfo.width - btnSize - 1;
 			
+		}
+		
+		private function printDescription(aboutThisModule:String = null):String{
+			var result:String="";
+			
+			// header
+			if (moduleDescription.moduleHomeUrl != null) {
+				result += "<br><u><font color=\u0022#0000ff\u0022><a href='event:openurl'>"+moduleDescription.moduleName+"</a></font></u>";
+				moduleInfo.addEventListener(TextEvent.LINK, onClickAnchor);
+			}else {
+				result += "<br>"+moduleDescription.moduleName;
+			}
+			result += " v"+(( Number(moduleDescription.moduleVersion.toFixed(1)) == moduleDescription.moduleVersion)?
+			moduleDescription.moduleVersion.toFixed(1):moduleDescription.moduleVersion.toFixed(2));
+			if (moduleDescription.moduleAuthor != null) {
+				result += " by ";
+				if (moduleDescription.moduleAuthorContact != null) {
+					result += "<u><font color=\u0022#0000ff\u0022><a href='event:opencontact'>"+moduleDescription.moduleAuthor+"</a></font></u>";
+					moduleInfo.addEventListener(TextEvent.LINK, onClickAnchor);
+				}else {
+					result += moduleDescription.moduleAuthor;
+				}
+			}
+			
+			// description
+			if (aboutThisModule != null) {
+				result += "<br><br>"+aboutThisModule;
+			}
+			
+			// exposed functions
+			var functions:String = "";
+			for (var functionName:String in moduleDescription.functionsDescription) { // functions won't be printed in order they were added, couse they are stored in object
+				functions += "<br> "+functionName + "(";
+				for each(var _class:Class in (moduleDescription.functionsDescription[functionName])) {
+					functions += (_class === Boolean) ? "B," : (_class === Number) ? "N," : (_class === String) ? "S," : "F,";
+				}
+				if (functions.lastIndexOf(",") == functions.length - 1) {
+					functions = functions.substring(0, functions.length - 1);
+				}
+				functions += ")";
+			}
+			if (functions != "") {
+				result += "<br/><br/>Exposed functions: "+functions;
+			}else {
+				result += "<br/><br/>No exposed functions.";
+			}
+			
+			return result;
 		}
 		
 		private function scrollUp(e:Event):void {
@@ -136,62 +191,16 @@ package com.panozona.player.module.utils{
 			removeEventListener(Event.ENTER_FRAME, scrollUpOnEnter);
 		}
 		
-		private function printDescription(aboutThisModule:String = null):String{
-			var result:String="";
-			
-			if (moduleDescription.moduleHomeUrl != null) {
-				result += "<br><u><font color=\u0022#0000ff\u0022><a href='event:openurl'>" + moduleDescription.moduleName + "</a></font></u>";
-				moduleInfo.addEventListener(TextEvent.LINK, onClickAnchor);
-			}else {
-				result += "<br>"+moduleDescription.moduleName;
-			}
-			
-			result += " v" + (( Number(moduleDescription.moduleVersion.toFixed(1)) == moduleDescription.moduleVersion)?
-			moduleDescription.moduleVersion.toFixed(1):moduleDescription.moduleVersion.toFixed(2));
-			
-			if (moduleDescription.moduleAuthor != null) {
-				result += " by ";
-				if (moduleDescription.moduleAuthorContact != null) {
-					result += "<u><font color=\u0022#0000ff\u0022><a href='event:opencontact'>" + moduleDescription.moduleAuthor + "</a></font></u>";
-					moduleInfo.addEventListener(TextEvent.LINK, onClickAnchor);
-				}else {
-					result += moduleDescription.moduleAuthor;
-				}
-			}			
-			
-			if (aboutThisModule != null) {
-				result += "<br><br>"+aboutThisModule;
-			}
-			if(moduleDescription.getFunctionsNames().length > 0){
-				result += "<br/><br/>Exposed functions: ";
-				for (var functionName:String in moduleDescription.functionsDescription) {
-					result += "<br> "+functionName + "(";
-					for each(var _class:Class in (moduleDescription.functionsDescription[functionName])) {
-						result += (_class===Boolean?"Boolean":(_class===Number?"Number":(_class===String?"String":"Error!")))+ ",";
-					}
-					if (result.lastIndexOf(",") == result.length-1) {
-						result = result.substring(0, result.length - 1);
-					}
-					result += ")";
-				}
-				
-			}else {
-				result += "<br/><br>No exposed functions.";
-			}
-			
-			return result;
-		}
-		
-		private function onClickAnchor(event:TextEvent):void {			
+		private function onClickAnchor(event:TextEvent):void {
 			try {
-				if (event.text == "opencontact") {					
+				if (event.text == "opencontact") {
 					navigateToURL(new URLRequest("mailto:"+moduleDescription.moduleAuthor), '_BLANK');
 				}else if (event.text == "openurl") {
 					navigateToURL(new URLRequest(moduleDescription.moduleHomeUrl), '_BLANK');
-				}				
-			} catch (e:Error) {
-				moduleInfo.htmlText += "<br><br> Could not open: "+moduleDescription.moduleHomeUrl;
+				}
+			} catch (error:Error) {
+				trace("Could not open: "+error.message);
 			}
-		}		
+		}
 	}
 }

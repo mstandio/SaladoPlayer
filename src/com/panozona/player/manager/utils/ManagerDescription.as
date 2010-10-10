@@ -18,7 +18,7 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils{
 	
-	import com.panozona.player.manager.data.AbstractModuleDescription;
+	import com.panozona.player.manager.data.module.AbstractModuleDescription;
 	
 	/**
 	 * ...
@@ -27,7 +27,7 @@ package com.panozona.player.manager.utils{
 	public class ManagerDescription{
 		
 		public static const name:String = "SaladoPlayer";
-		public static const version:Number = 0.5;
+		public static const version:Number = 0.6;
 		
 		private var managerDescription:Object;
 		

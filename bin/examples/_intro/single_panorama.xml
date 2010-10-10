@@ -1,0 +1,20 @@
+﻿<!-- 
+	
+	single panorama
+	
+	- you can customize NavigationBar, see navigationbar in examples
+	- see: http://panozona.com/wiki/Module:NavigationBar
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="pano1" path="panoramas/dz_park/park_f.xml"/>
+	</panoramas>
+	<modules>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_30x30_green.png"/>
+			<combobox visible="false"/>
+		</NavigationBar>
+	</modules>
+</SaladoPlayer>

@@ -18,18 +18,20 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.navigationbar.data{
 	
-	import com.panozona.player.module.data.PositionMargin;
-	import com.panozona.player.module.data.PositionAlign;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Move;
 	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class Logo{
+	public class Logo {
+		
 		public var visible:Boolean = false;
 		public var path:String; // path for logo image, intentionally not initialized
-		public var url:String;  // url opened when logo cliked, intentionally not initialized
-		public var align:PositionAlign = new PositionAlign(PositionAlign.LEFT, PositionAlign.TOP); // horizontal, vertical
-		public var margin:PositionMargin = new PositionMargin(10,0,0,10); // top, right, bottom, left
+		public var align:Align = new Align(Align.LEFT, Align.TOP); // horizontal, vertical
+		public var move:Move = new Move(10, 10); // horizontal, vertical
+		
+		public var text:String; // url opened when logo cliked, can be red as CDATA 
 	}
 }

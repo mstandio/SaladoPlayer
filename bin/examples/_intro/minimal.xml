@@ -1,12 +1,13 @@
 ﻿<!-- 
 	
-	Most minimalistic working configuration
+	minimal working configuration
 	
 	- trace window will show erros in configuration, in case of any problems check it first 
-	- set debug to "false" to hide trace window
+	- set debug to false to hide trace window
 	- panorama id is mandatory and should be unique among other panorama ids
-	- panorama path is pointing to *.xml file describing tiled front wall of cube ( name_f - front ect.)
-	- you can convert panoramas to format that can be displayed in SaladoPlayer with use of SaladoConverter
+	- panorama images must be in Deep Zoom format.
+	- panorama path is pointing to *.xml file describing tiled front wall of cube, name_f.xml - front, name_b.xml - back, ect.
+	- you can convert panoramas to Deep Zoom cubes with use of SaladoConverter 
 	
 -->
 <?xml version="1.0" encoding="utf-8" ?>

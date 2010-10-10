@@ -34,15 +34,28 @@ public class AutorotationCameraData extends EventDispatcher
 	public var mode:String;
 	public var speed:Number;  // in degrees / second
 	public var frameIncrement:Number // in degress / frame	
+	
+	protected var _isAutorotating:Boolean;
+	
 	protected var _enabled:Boolean;
 	
 	public function AutorotationCameraData()
 	{
-		delay			= 5000;
-		mode			= "speed" // speed
-		speed 			= 3;
-		frameIncrement		= 0.0333;
-		_enabled			= true; 
+		delay			 = 5000;
+		mode			 = "speed" // speed
+		speed 			 = 3;
+		frameIncrement	 = 0.0333;
+		_enabled		 = true; 
+		_isAutorotating = false;
+	}
+	
+	public function get isAutorotating():Boolean {
+		return _isAutorotating;
+	}
+	public function set isAutorotating(value:Boolean):void {
+		if (value == _isAutorotating) return;
+		_isAutorotating = value;
+		dispatchEvent( new Event(AutorotationEvent.AUTOROTATION_CHANGE));
 	}
 	
 	public function get enabled():Boolean {

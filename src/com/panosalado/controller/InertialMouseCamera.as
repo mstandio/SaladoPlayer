@@ -67,10 +67,11 @@ public class InertialMouseCamera extends Sprite implements ICamera
 	public function processDependency(reference:Object,characteristics:*):void {
 		if (characteristics == Characteristics.VIEW_DATA) { 
 			viewData = reference as ViewData;
-			mouseObject = reference as Sprite;
+			if(cameraData != null){
+				mouseObject = reference as Sprite;
+			}
 		}
-		else if (characteristics == Characteristics.INERTIAL_MOUSE_CAMERA_DATA) cameraData = reference as InertialMouseCameraData;
-		//else if (characteristics == Characteristics.PANORAMA) mouseObject = reference as Sprite;
+		else if (characteristics == Characteristics.INERTIAL_MOUSE_CAMERA_DATA) cameraData = reference as InertialMouseCameraData;		
 	}
 	
 	private function downHandler(event:MouseEvent):void
@@ -145,10 +146,6 @@ public class InertialMouseCamera extends Sprite implements ICamera
 	
 	protected function enabledChangeHandler(e:Event):void {
 		
-		if (_viewData != null) {
-			_viewData.dispatchEvent(new CameraEvent(CameraEvent.ENABLED_CHANGE));
-		}
-		
 		switch(_cameraData.enabled) {
 			case true: 
 			if (_mouseObject) {
@@ -175,20 +172,21 @@ public class InertialMouseCamera extends Sprite implements ICamera
 	{
 		if (value === _cameraData) return;
 		if (value != null) {
-			value.addEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler, false, 0, true );			
+			value.addEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler, false, 0, true );
 		}
 		else if (value == null && _cameraData != null) {
 			_cameraData.removeEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler );
-		}
-		
+		}		
 		_cameraData = value;
+		mouseObject = viewData;
 	}
 	
 	public function get mouseObject():Sprite { return _mouseObject; }
 	public function set mouseObject(value:Sprite):void
 	{
 		if ( _mouseObject === value ) return;
-		if ( value != null){
+		
+		if ( value != null && cameraData.enabled){
 			value.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
 			value.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
 			value.addEventListener( MouseEvent.ROLL_OUT, upHandler, false, 0, true );

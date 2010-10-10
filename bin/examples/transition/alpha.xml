@@ -1,0 +1,23 @@
+﻿<!--
+	
+	 apha transition
+	
+	- you can set time and tween functions
+	- you can use other properties, but it does not look good yet
+	- see: http://panozona.com/wiki/SaladoPlayer:Configuration#global
+	
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<SaladoPlayer>
+	<global debug="true" transition="tween:Linear.easeNone,property:alpha,startValue:0,endValue:1"/>
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml"/>
+		<panorama id="pano2" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml"/>
+		<panorama id="pano3" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml"/>
+	</panoramas>
+	<modules>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_30x30_green.png"/>
+		</NavigationBar>
+	</modules>
+</SaladoPlayer>
