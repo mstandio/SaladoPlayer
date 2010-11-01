@@ -15,9 +15,7 @@
 	<modules>
 		<NavigationBar path="modules/NavigationBar.swf">
 			<buttons path="modules/images/buttons_30x30_green.png"/>
-			<basicButtons>
-				<basicButton name="autorotation" visible="false"/>
-			</basicButtons>
+				<button name="autorotation" visible="false"/>
 		</NavigationBar>
 	</modules>
 </SaladoPlayer>

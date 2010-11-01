@@ -52,7 +52,6 @@ package com.panozona.player.manager.utils{
 		}
 		
 		private function moduleLoaded(e:Event):void {
-			
 			for(var i:int=0;i<loaders.length;i++){
 				if (loaders[i] != null && loaders[i].contentLoaderInfo == e.target) {
 					dispatchEvent(new LoadModuleEvent(LoadModuleEvent.MODULE_LOADED,abstractModulesData[i].moduleName, abstractModulesData[i].weight, loaders[i].content));

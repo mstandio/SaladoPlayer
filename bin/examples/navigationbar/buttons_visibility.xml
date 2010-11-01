@@ -5,7 +5,7 @@
 	- buttons are visible by default
 	- in order to hide all buttons at once, set visible attribute in buttons node to false
 	- you can hide buttons selecively by setting visible attribute to false in each button of specific name
-	- each button is visible by default, avaible names are: left, right, up, down, in, out, drag, autorotate, fullscreen
+	- each button is visible by default, avaible names are: left, right, up, down, in, out, drag, autorotation, fullscreen
 	- see: http://panozona.com/wiki/Module:NavigationBar#buttons
 	
 -->

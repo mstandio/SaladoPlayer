@@ -19,6 +19,7 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.examplemodule {
 	
 	import com.panozona.player.module.data.ModuleData;
+	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
@@ -87,7 +88,7 @@ package com.panozona.modules.examplemodule {
 			exampleModuleData = new ExampleModuleData(moduleData, debugMode); 
 			
 			// then get classes 
-			LoadPanoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.LoadPanoramaEvent") as Class;			
+			LoadPanoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.LoadPanoramaEvent") as Class;
 			
 			// then add listeners
 			saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0 , true);
@@ -141,10 +142,10 @@ package com.panozona.modules.examplemodule {
 			//   <actions>
 			//    <action id="buttonActive" content="NavigationBar.setExtraButtonActive(a,true)"/>
 			//    <action id="buttonPlain" content="NavigationBar.setExtraButtonActive(a,false)"/>
-			//   <actions>			
+			//   <actions>
 			// exampleModuleData.settings.actionActive = "buttonActive";
 			// saladoPlayer.manager.runAction(exampleModuleData.settings.actionActive);
-			// ect.			
+			// ect.
 			
 			//printInfo("Started loading: " + loadPanoramaEvent.panoramaData.id);
 		}
@@ -158,7 +159,7 @@ package com.panozona.modules.examplemodule {
 		private function onTransitionEnded(loadPanoramaEvent:Object):void {
 			//printInfo("Transition ended: " + loadPanoramaEvent.panoramaData.id);
 		}
-
+		
 		// you shuold use bounds size and not stage.stageHeight and stage.stageWidth
 		// when Saladolayer is embeded into other application
 		// elements will remain inside panorama window

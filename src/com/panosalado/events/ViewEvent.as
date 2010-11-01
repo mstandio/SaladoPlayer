@@ -23,9 +23,10 @@ package com.panosalado.events
 
 	public class ViewEvent extends Event
 	{
-		public static const RENDERED:String		= "rendered"
-		public static const PATH:String			= "path";
-		public static const NULL_PATH:String	= "nullPath";
+		public static const RENDERED:String = "rendered";
+		public static const PATH:String = "path";
+		public static const NULL_PATH:String = "nullPath";
+		public static const BOUNDS_CHANGED:String = "boundsChanged";
 		
 		public var canvas:Sprite;
 		

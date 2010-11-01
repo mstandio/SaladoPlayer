@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SaladoPlayer>
+	<global debug="true" autorotation="enabled:false"/>
+	<panoramas>
+		<panorama id="pano1" path="panoramas/dz_park/park_f.xml">
+			<hotspot id="hs1" position="pan:20" path="hotspots/arrow.png" mouse="onOver:bubShowb1,onOut:bubHide"/>
+			<hotspot id="hs2" position="pan:-20" path="hotspots/arrow.png" mouse="onOver:bubShowb2,onOut:bubHide"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="mapToggle" content="ImageMap.toggleVisibility()" />
+		<action id="mapOpened" content="NavigationBar.setExtraButtonActive(b,true)"/>
+		<action id="mapClosed" content="NavigationBar.setExtraButtonActive(b,false)"/>
+		<action id="bubShowb1" content="InfoBubble.showBubble(b1)" />
+		<action id="bubShowb2" content="InfoBubble.showBubble(b2)" />
+		<action id="bubHide" content="InfoBubble.hideBubble()"/>
+	</actions>
+	<modules>
+		<InfoBubble path="modules/InfoBubble.swf">
+			<bubbles>
+				<bubble id="b1" path="modules/bubbles/bubble1.png"/>
+				<bubble id="b2" path="modules/bubbles/bubble2.png"/>
+			</bubbles>
+		</InfoBubble>
+		<ImageMap path="modules/ImageMap.swf">
+			<settings open="false" onOpen="mapOpened" onClose="mapClosed" alpha="0.8" />
+			<maps>
+				<map id="map1" path="modules/maps/test.jpg">
+					<waypoint target="a1" position="x:150,y:100"/>
+					<waypoint target="a2" position="x:200,y:200"/>
+				</map>
+			</maps>
+		</ImageMap>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_30x30_blue.png">
+				<button name="autorotation" visible="false"/>
+				<extraButton name="b" action="mapToggle"/>
+			</buttons>
+			<combobox visible="false"/>
+		</NavigationBar>
+	</modules>
+</SaladoPlayer>

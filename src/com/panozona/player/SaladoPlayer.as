@@ -39,7 +39,7 @@ package com.panozona.player{
 	import com.panozona.player.manager.utils.ManagerDataValidator;
 	import com.panozona.player.manager.utils.ModulesLoader;
 	import com.panozona.player.manager.utils.ManagerDescription;
-	import com.panozona.player.manager.utils.Trace;	
+	import com.panozona.player.manager.utils.Trace;
 	import com.panozona.player.manager.data.ManagerData;
 	import com.panozona.player.manager.data.module.AbstractModuleData;
 	import com.panozona.player.manager.data.module.AbstractModuleDescription;
@@ -55,9 +55,19 @@ package com.panozona.player{
 	 */
 	public class SaladoPlayer extends Sprite {
 		
+		/**
+		 * Instance of main class that extends PanoSalado
+		 */
 		public var manager: Manager;
+		
+		/**
+		 * Instance of class that aggregates and stores configuration data
+		 */
 		public var managerData:ManagerData;
 		
+		/**
+		 * Instance of singleton trace window that is added to stage.
+		 */
 		public var tracer:Trace;
 		
 		private var panorama:Panorama;
@@ -76,14 +86,20 @@ package com.panozona.player{
 		private var moduleClass:Class;
 		private var abstractModuleDescriptions:Vector.<AbstractModuleDescription>;
 		
+		/**
+		 * Constructor
+		 */
 		public function SaladoPlayer() {
 			
 			managerData = new ManagerData();
 			manager = new Manager();
 			
 			initialize();
-		}	
+		}
 		
+		/**
+		 * 
+		 */
 		protected function initialize():void {
 			
 			panorama = new Panorama(); // Singleton
@@ -146,7 +162,7 @@ package com.panozona.player{
 				var managerDataParserXML:ManagerDataParserXML = new ManagerDataParserXML();
 				var settings:XML = XML(input);
 				managerDataParserXML.configureManagerData(managerData, settings);
-				addChild(manager);				
+				addChild(manager);
 				tracer.printInfo("Configuration parsing done.");
 				
 			}catch (error:Error) {

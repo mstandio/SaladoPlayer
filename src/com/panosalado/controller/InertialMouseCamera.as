@@ -37,7 +37,7 @@ import flash.utils.getTimer;
 public class InertialMouseCamera extends Sprite implements ICamera
 {
 	
-	protected var _mouseObject:Sprite;	
+	protected var _mouseObject:Sprite;
 	protected var _viewData:ViewData;
 	
 	protected var _cameraData:InertialMouseCameraData;
@@ -49,19 +49,19 @@ public class InertialMouseCamera extends Sprite implements ICamera
 	private var deltaTilt:Number;
 	private var deltaFieldOfView:Number;
 	private var mouseIsDown:Boolean;
-		
+	
 	private var mouseWheeled:Boolean;
-	private var wheelDelta:Number;	  
+	private var wheelDelta:Number;
 	
 	public function InertialMouseCamera()
 	{
-		startPointX	= 0;
-		startPointY	= 0;
+		startPointX = 0;
+		startPointY = 0;
 		deltaPan = 0;
-		deltaTilt = 0;		
+		deltaTilt = 0;
 		wheelDelta = 0;
-		mouseIsDown	= false;
-		mouseWheeled = false;		
+		mouseIsDown = false;
+		mouseWheeled = false;
 	}
 	
 	public function processDependency(reference:Object,characteristics:*):void {
@@ -71,15 +71,15 @@ public class InertialMouseCamera extends Sprite implements ICamera
 				mouseObject = reference as Sprite;
 			}
 		}
-		else if (characteristics == Characteristics.INERTIAL_MOUSE_CAMERA_DATA) cameraData = reference as InertialMouseCameraData;		
+		else if (characteristics == Characteristics.INERTIAL_MOUSE_CAMERA_DATA) cameraData = reference as InertialMouseCameraData;
 	}
 	
 	private function downHandler(event:MouseEvent):void
 	{
 		mouseIsDown = true;
-			
+		
 		startPointX = _mouseObject.mouseX;
-		startPointY = _mouseObject.mouseY;	
+		startPointY = _mouseObject.mouseY;
 		
 		__lastTimeStamp = getTimer();
 		
@@ -94,15 +94,15 @@ public class InertialMouseCamera extends Sprite implements ICamera
 	}
 	
 	private function inoutHandler(event:MouseEvent):void {
-				
+		
 		wheelDelta = event.delta;
 		mouseWheeled = true;
 		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
-		addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );		
+		addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
 	}
 	
 	private function enterFrameHandler(event:Event):void 
-	{ 		
+	{
 		if (mouseWheeled) 
 		{
 			_viewData.fieldOfView -= cameraData.zoomIncrement * wheelDelta;
@@ -176,7 +176,7 @@ public class InertialMouseCamera extends Sprite implements ICamera
 		}
 		else if (value == null && _cameraData != null) {
 			_cameraData.removeEventListener( CameraEvent.ENABLED_CHANGE, enabledChangeHandler );
-		}		
+		}
 		_cameraData = value;
 		mouseObject = viewData;
 	}
@@ -197,7 +197,6 @@ public class InertialMouseCamera extends Sprite implements ICamera
 			_mouseObject.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
 			_mouseObject.removeEventListener( MouseEvent.ROLL_OUT, upHandler );
 			_mouseObject.removeEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler );
-			
 		}
 		_mouseObject = value;
 	}

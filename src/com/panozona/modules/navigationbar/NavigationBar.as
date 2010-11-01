@@ -271,7 +271,7 @@ package com.panozona.modules.navigationbar {
 			if (saladoPlayer.managerData.autorotationCameraData.isAutorotating){
 				bitBtnAutorotate.setActive(true);
 			}
-						
+			
 			bitBtnFullscreen = new BitmapButton("fullscreen", null, fullscreenToggle);// flashplayer bug - fullscreen has to use MouseEvent.MOUSE_UP
 			bitBtnFullscreen.setBitmaps(getButtonBitmap(buttonsBMD, 9), getButtonBitmap(buttonsBMD, 19));
 			buttonsArray.push(bitBtnFullscreen);
@@ -343,7 +343,7 @@ package com.panozona.modules.navigationbar {
 				if (bitmapButtonsExtraActive[btn2.buttonName] != undefined) {
 					btn2.setActive(bitmapButtonsExtraActive[btn2.buttonName]);
 				}
-			}			
+			}
 			bitmapButtonsExtraActive = null;
 			
 			
@@ -355,7 +355,7 @@ package com.panozona.modules.navigationbar {
 					buttonsGroup.addChild(button);
 					buttonX += button.width
 				}
-			}		
+			}
 			
 			placeButtons();
 		}
@@ -404,8 +404,8 @@ package com.panozona.modules.navigationbar {
 			if(navigationBarData.branding.visible){
 				placeSprite(branding, navigationBarData.branding.align, navigationBarData.branding.move);
 			}
-			if (bitBtnFullscreen != null){				
-				bitBtnFullscreen.setActive(stage.displayState == StageDisplayState.FULL_SCREEN);				
+			if (bitBtnFullscreen != null){
+				bitBtnFullscreen.setActive(stage.displayState == StageDisplayState.FULL_SCREEN);
 			}
 		}
 		

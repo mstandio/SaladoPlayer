@@ -56,13 +56,13 @@ package com.panozona.player.manager.utils {
 		private static var __instance:Trace;
 		
 		public static function get instance():Trace {
-			if (__instance == null) {
-				__instance = new Trace();
-			}
+			if (__instance == null) __instance = new Trace();
 			return __instance;
 		}
 		
 		public function Trace() {
+			
+			if (__instance != null) throw new Error("Trace is a singleton class; please access the single instance with Trace.instance.");
 			
 			buffer = "";
 			

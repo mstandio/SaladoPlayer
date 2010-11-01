@@ -37,17 +37,13 @@ package com.panozona.player.module{
 	public class Module extends Sprite {
 		
 		/**
-		 * Ready to use SaladoPlayer reference.
-		 */
-		protected var saladoPlayer:Object;
-		
-		/**
 		 * Short description displayed when module is opened as standalone *.swf file
 		 */
 		protected var aboutThisModule:String; 
 		
 		private var _moduleData:ModuleData;
 		private var _moduleDescription:ModuleDescription;
+		private var _saladoPlayer:Object;
 		private var _tracer:Object; 
 		
 		/**
@@ -61,44 +57,31 @@ package com.panozona.player.module{
 		 * @param	moduleHomeUrl url to site containing documentation for module - optional
 		 */
 		public final function Module(moduleName:String, moduleVersion:Number, moduleAuthor:String = null, moduleAuthorContact:String = null, moduleHomeUrl:String = null) {
-			
 			_moduleDescription = new ModuleDescription(moduleName, moduleVersion, moduleAuthor, moduleAuthorContact, moduleHomeUrl);
-			
 			aboutThisModule = "This is SaladoPlayer module."; // default information
-			
 			addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
 		}
 		
 		private function stageReady(e:Event):void {
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
 			try {
-				
 				var SaladoPlayerClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.SaladoPlayer") as Class;
-				saladoPlayer = this.parent as SaladoPlayerClass;				
-				
+				_saladoPlayer = this.parent as SaladoPlayerClass;
 				var TraceClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.utils.Trace") as Class;
 				_tracer = saladoPlayer.tracer as TraceClass;
-				
 				_moduleData = new ModuleData(saladoPlayer.managerData.getAbstractModuleDataByName(_moduleDescription.moduleName));
-				
 				try {
-					
 					moduleReady(_moduleData);
-					
 				}catch (error:Error) { // error in module ready function, possibly coused by configuration inconsistency
-					
 					while(numChildren) {removeChildAt(0);}
 					printError(error.message);
 					trace(error.getStackTrace());
 				}
-			
 			}catch (error:Error) { // could not obtain SaladoPlayer or trace window reference
-				
 				while(numChildren){removeChildAt(0);}
 				addChild(new ModuleInfoPrinter(_moduleDescription, aboutThisModule)); 
 				trace(error.getStackTrace());
 			}
-			
 			_moduleDescription = null;
 			_moduleData = null;
 		}
@@ -112,6 +95,12 @@ package com.panozona.player.module{
 		protected function moduleReady(moduleData:ModuleData):void {
 			throw new Error("Function moduleReady() must be overriden by this module.");
 		}
+		/**
+		 * Ready to use SaladoPlayer reference.
+		 */
+		public final function get saladoPlayer():Object {
+			return _saladoPlayer;
+		}
 		
 		/**
 		 * Alter module description by adding descriptions of exposed functions.
@@ -120,17 +109,6 @@ package com.panozona.player.module{
 		 */
 		public final function get moduleDescription():ModuleDescription {
 			return _moduleDescription;
-		}
-		
-		/**
-		 * Used by SaladoPlayer to execute functions on module. It can also be used by other modules.
-		 * 
-		 * @param	functionName name of module function
-		 * @param	args Array of arguments applied to module function
-		 * @return  any type returned by given function
-		 */
-		public final function execute(functionName:String, args:Array):*{
-			return (this[functionName] as Function).apply(this, args);
 		}
 		
 		/**
@@ -152,6 +130,17 @@ package com.panozona.player.module{
 		 */
 		public final function get boundsHeight():Number {
 			return saladoPlayer.manager.boundsHeight;
+		}
+		
+		/**
+		 * Used by SaladoPlayer to execute functions on module. It can also be used by other modules.
+		 * 
+		 * @param	functionName name of module function
+		 * @param	args Array of arguments applied to module function
+		 * @return  any type returned by given function
+		 */
+		public final function execute(functionName:String, args:Array):*{
+			return (this[functionName] as Function).apply(this, args);
 		}
 		
 		/**

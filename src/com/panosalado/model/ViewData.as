@@ -330,6 +330,8 @@ public class ViewData extends Sprite
 		invalidPerspective = invalid = true;
 		if (stage) stage.invalidate();
 		adjustTiltLimits();
+		
+		dispatchEvent(new ViewEvent(ViewEvent.BOUNDS_CHANGED));
 	}
 	
 	/**
@@ -347,6 +349,8 @@ public class ViewData extends Sprite
 		invalidPerspective = invalid = true;
 		if (stage) stage.invalidate();
 		adjustTiltLimits();
+		
+		dispatchEvent(new ViewEvent(ViewEvent.BOUNDS_CHANGED));
 	}
 	
 	/**

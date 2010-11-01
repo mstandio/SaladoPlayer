@@ -82,7 +82,7 @@ package com.panozona.player.manager {
 			hotspotsLoader = new HotspotsLoader();
 			hotspotsLoader.addEventListener(LoadHotspotEvent.BMD_CONTENT, insertHotspot, false, 0, true);
 			hotspotsLoader.addEventListener(LoadHotspotEvent.SWF_CONTENT, insertHotspot, false, 0, true);
-			//hotspotsLoader.addEventListener(LoadHotspotEvent.XML_CONTENT, insertHotspot, false, 0, true);			
+			//hotspotsLoader.addEventListener(LoadHotspotEvent.XML_CONTENT, insertHotspot, false, 0, true);
 		}
 		
 		public override function initialize(dependencies:Array):void {
@@ -146,7 +146,7 @@ package com.panozona.player.manager {
 				return;
 			}
 			var module:Object;
-			for each(var functionData:FunctionData in actionData.functions) {				
+			for each(var functionData:FunctionData in actionData.functions) {
 				try{
 					if (functionData.owner == ManagerDescription.name) {
 						if(this[functionData.name] != undefined && this[functionData.name] is Function){
@@ -155,9 +155,9 @@ package com.panozona.player.manager {
 							Trace.instance.printWarning("Invalid function name: "+functionData.owner+"."+functionData.name);
 						}
 					}else {
-						module = _saladoPlayer.getModuleByName(functionData.owner);				
+						module = _saladoPlayer.getModuleByName(functionData.owner);
 						if (module != null) {
-							module.execute(functionData.name, functionData.args);						
+							module.execute(functionData.name, functionData.args);
 						}else {
 							Trace.instance.printWarning("Invalid owner name: " + functionData.owner + "." + functionData.name);
 						}
@@ -169,8 +169,8 @@ package com.panozona.player.manager {
 		}
 		
 		private function insertHotspot(e:LoadHotspotEvent):void {
-			var hotspotData:HotspotData = e.hotspotData;			
-			var managedChild:ManagedChild;			
+			var hotspotData:HotspotData = e.hotspotData;
+			var managedChild:ManagedChild;
 			if (e.type == LoadHotspotEvent.BMD_CONTENT){
 				managedChild = new ImageHotspot(hotspotData.content);
 				managedChild.buttonMode = hotspotData.handCursor;
@@ -178,7 +178,7 @@ package com.panozona.player.manager {
 				Object(hotspotData.content).setButtonMode(hotspotData.handCursor);
 				managedChild = ManagedChild(hotspotData.content); 
 				//managedChild.setArguments(childData.swfArguments);// TODO: set arguments to swf hotspots
-			}			
+			}
 			nameToHotspot[hotspotData.id] = managedChild;
 			
 			if (hotspotData.mouse.onClick != null) {
@@ -277,7 +277,7 @@ package com.panozona.player.manager {
 				panoramaLocked = true;
 				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
 			}
-		}		
+		}
 		
 		public function moveToHotspotAnd(childId:String, actionId:String):void {
 			if(!panoramaLocked && nameToHotspot[childId] != undefined){
@@ -328,7 +328,7 @@ package com.panozona.player.manager {
 				panoramaLocked = true;
 				swingToChild(nameToHotspot[hotspotId], fieldOfView, time, tween);	
 				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
-			}			
+			}
 		}
 		
 		public function advancedMoveToHotspotAnd(hotspotId:String, fieldOfView:Number, time:Number, tween:Function, actionId:String):void {
