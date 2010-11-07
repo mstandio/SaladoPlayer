@@ -31,6 +31,10 @@ package com.panozona.modules.imagemap.events {
 		public static const CHANGED_MOUSE_OVER:String = "changedmOver";
 		public static const CHANGED_MOUSE_DRAG:String = "changedmDrag";
 		
+		public static const CHANGED_FOCUS_POINT:String = "changedfPoint";
+		
+		public static const FOCUS_LOST:String = "focusLost";
+		
 		public function ContentViewerEvent(type:String){
 			super(type);
 		}

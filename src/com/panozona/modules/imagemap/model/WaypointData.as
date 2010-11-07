@@ -32,6 +32,7 @@ package com.panozona.modules.imagemap.model{
 		private var _waypoint:Waypoint;
 		
 		private var _showRadar:Boolean;		
+		private var _isFocused:Boolean;
 		
 		public function WaypointData(waypoint:Waypoint){
 			_waypoint = waypoint;
@@ -50,5 +51,11 @@ package com.panozona.modules.imagemap.model{
 			_showRadar = value;
 			dispatchEvent(new WaypointEvent(WaypointEvent.CHANGED_SHOW_RADAR));
 		}
+		
+		public function get isFocused():Boolean {
+			return _isFocused;
+		}
+		
+		// TODO: get? 
 	}
 }

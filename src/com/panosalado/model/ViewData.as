@@ -312,6 +312,7 @@ public class ViewData extends Sprite
 		_fieldOfView = value;
 		invalidPerspective = invalid = true;
 		if (stage) stage.invalidate();
+		adjustLimits();
 	}
 	
 	/**
@@ -329,7 +330,7 @@ public class ViewData extends Sprite
 		updateMinimumFieldOfView();
 		invalidPerspective = invalid = true;
 		if (stage) stage.invalidate();
-		adjustTiltLimits();
+		adjustLimits();
 		
 		dispatchEvent(new ViewEvent(ViewEvent.BOUNDS_CHANGED));
 	}
@@ -348,7 +349,7 @@ public class ViewData extends Sprite
 		_boundsHeight = value;
 		invalidPerspective = invalid = true;
 		if (stage) stage.invalidate();
-		adjustTiltLimits();
+		adjustLimits();
 		
 		dispatchEvent(new ViewEvent(ViewEvent.BOUNDS_CHANGED));
 	}
@@ -555,7 +556,7 @@ public class ViewData extends Sprite
 	public function set minimumVerticalFieldOfView(value:Number):void {
 		if ( _minimumVerticalFieldOfView == value || isNaN(value) ) return;
 		_minimumVerticalFieldOfView = value;		
-		adjustTiltLimits();
+		adjustLimits();
 	}
 	
 	/**
@@ -569,7 +570,7 @@ public class ViewData extends Sprite
 	public function set maximumVerticalFieldOfView(value:Number):void {
 		if ( _maximumVerticalFieldOfView == value || isNaN(value) ) return;
 		_maximumVerticalFieldOfView = value;
-		adjustTiltLimits();
+		adjustLimits();
 	}
 	
 	/**
@@ -591,8 +592,8 @@ public class ViewData extends Sprite
 		ret._tierThreshold = _tierThreshold
 		ret._path = _path
 		ret._tile = _tile
-		ret._minimumFieldOfView = _minimumFieldOfView
-		ret._maximumFieldOfView = _maximumFieldOfView
+		ret._minimumFieldOfView = _minimumFieldOfView;
+		ret._maximumFieldOfView = _maximumFieldOfView;
 		ret._minimumPan = _minimumPan
 		ret._maximumPan = _maximumPan
 		ret._minimumTilt = _minimumTilt
@@ -604,18 +605,18 @@ public class ViewData extends Sprite
  		return ret;
 	}
 	
-	private function adjustTiltLimits():void 
-	{
-		if (stage) {
-			var cameraHFOV:Number = fieldOfView*Math.PI/180.0;
-			var adjacent:Number = (_boundsWidth*0.5)/Math.tan(cameraHFOV*0.5);
-			var cameraVFOV:Number = 2.0 * Math.atan((0.5 * _boundsHeight) / adjacent) * 180.0 / Math.PI;
-			if (!isNaN(_minimumVerticalFieldOfView)) {
-				minimumTilt = -_minimumVerticalFieldOfView - cameraVFOV;
-			}
-			if (!isNaN( -maximumFieldOfView)) {
-				maximumTilt = _maximumVerticalFieldOfView - cameraVFOV;
-			}
+	/**
+	 * Sets minimumTilt, maximumTilt and maximumFieldOfView
+	 * according to minimumVerticalFieldOfView and maximumVerticalFieldOfView
+	 * needs to be called whenever panorama is loaded
+	 */
+	public function adjustLimits():void {
+		if (!isNaN(_minimumVerticalFieldOfView) && !isNaN(_maximumVerticalFieldOfView)) {
+			maximumFieldOfView = (_maximumVerticalFieldOfView - _minimumVerticalFieldOfView) * (boundsWidth / boundsHeight);
+			var cameraHFOV2:Number = (boundsHeight / boundsWidth) * fieldOfView;
+			minimumTilt = (cameraHFOV2 * 0.5 + _minimumVerticalFieldOfView);
+			maximumTilt = -(cameraHFOV2 * 0.5 - _maximumVerticalFieldOfView);
+			
 		}
 	}
 }

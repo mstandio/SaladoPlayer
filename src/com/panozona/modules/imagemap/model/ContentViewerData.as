@@ -19,6 +19,7 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.imagemap.model {
 	
 	import flash.events.EventDispatcher;
+	import flash.geom.Point;
 		
 	import com.panozona.modules.imagemap.events.ContentViewerEvent;
 	
@@ -39,12 +40,13 @@ package com.panozona.modules.imagemap.model {
 		private var _mouseOver:Boolean;
 		private var _mouseDrag:Boolean;
 		
+		private var _focusPoint:Point;
 		
 		/**
 		 * 
 		 */
 		public function ContentViewerData() {
-			
+			_focusPoint = new Point();
 		}
 		
 		/**
@@ -171,8 +173,25 @@ package com.panozona.modules.imagemap.model {
 		 */
 		public function set mouseDrag(value:Boolean):void {
 			if (value == _mouseDrag) return;
+			if (value && !_mouseOver) return;
 			_mouseDrag = value;
 			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_MOUSE_DRAG));
 		}
+		
+		/**
+		 * 
+		 */
+		public function get focusPoint():Point {
+			return _focusPoint;
+		}
+		
+		/**
+		 * @private
+		 */
+		public function set focusPoint(value:Point):void {
+			_focusPoint.x = value.x; 
+			_focusPoint.y = value.y;
+			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_FOCUS_POINT));
+		}	
 	}
 }

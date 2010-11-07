@@ -48,10 +48,9 @@ package com.panozona.modules.imagemap.view{
 			
 			// draw map window
 			window = new Sprite();
-			window.graphics.beginFill(0xFFFFFF);
+			window.graphics.beginFill(0xFFFFFF,0);
 			window.graphics.drawRect(0, 0, _imageMapData.windowData.size.width, _imageMapData.windowData.size.height);
 			window.graphics.endFill();
-			window.alpha = _imageMapData.windowData.alpha;			
 			addChild(window);
 			
 			_contentViewerView = new ContentViewerView(_imageMapData);

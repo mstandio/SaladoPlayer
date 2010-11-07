@@ -101,6 +101,8 @@ package com.panozona.modules.imagemap.controller{
 		
 		private function openWindow():void {
 			_windowView.visible = true;
+			_windowView.mouseEnabled = true;
+			_windowView.mouseChildren = true;
 			var tweenObj:Object = new Object();
 			tweenObj["time"] = _windowView.windowData.tween.time;
 			tweenObj["transition"] = _windowView.windowData.tween.transition;
@@ -129,11 +131,13 @@ package com.panozona.modules.imagemap.controller{
 					tweenObj["x"] = getWindowCloseX();
 					tweenObj["y"] = getWindowCloseY();
 			}
-			Tweener.addTween(_windowView, tweenObj);
+			_windowView.mouseEnabled = false;
+			_windowView.mouseChildren = false;
+			Tweener.addTween(_windowView, tweenObj);			
 		}
 		
 		private function closeWindowOnComplete():void {
-			_windowView.visible = false;
+			_windowView.visible = false;			
 		}
 		
 		private function placeWindow(e:Event = null):void {

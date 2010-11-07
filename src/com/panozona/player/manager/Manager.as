@@ -262,6 +262,11 @@ package com.panozona.player.manager {
 			}
 		}
 		
+		public function get currentPanoramaId():String {
+			if (currentPanoramaData == null) return null;
+			return currentPanoramaData.id;
+		}
+		
 		public function print(value:String):void {
 			Trace.instance.printInfo(value);
 		}

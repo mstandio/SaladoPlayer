@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>
-	<global debug="true" firstPanorama="pano1" />
+	<global debug="true" firstPanorama="pano0" camera="maxVerticalFov:30,minVerticalFov:-30"/>
 	<panoramas>
+		<panorama id="pano0" label="cylinder" path="panoramas/dz_cylinder/cylinder_f.xml"/>
+		<panorama id="pano05" label="eyesiscamera" path="panoramas/1285706042-265173/1285706042-265173_f.xml"/>		
 		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" onLeaveToAttempt="pano2:act1">
 			<hotspot id="hs1" position="pan:50.8,tilt:-41.5" path="hotspots/arrow.png" mouse="onClick:act1b"/>
 		</panorama>
@@ -29,7 +31,9 @@
 	<modules>
 		<NavigationBar path="modules/NavigationBar.swf">
 			<buttons path="modules/images/buttons_30x30_blue.png"/>
-			<logo visible="true" path="modules/images/logo.png"/>
+			<logo visible="false" path="modules/images/logo.png"/>
+			<bar visible="false"/>
 		</NavigationBar>
+		<ViewFinder path="modules/ViewFinder.swf"/>
 	</modules>
 </SaladoPlayer>	

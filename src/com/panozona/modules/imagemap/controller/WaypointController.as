@@ -19,6 +19,8 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.imagemap.controller {
 	
 	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import flash.system.ApplicationDomain;
 	
 	import com.panozona.player.module.Module;
@@ -38,6 +40,8 @@ package com.panozona.modules.imagemap.controller {
 		private var _tilt:Number;
 		private var _fov:Number;
 		
+		private var _isFocused:Boolean;
+		
 		public function WaypointController(waypointView:WaypointView, module:Module) {
 			_waypointView = waypointView;
 			_module = module;
@@ -45,61 +49,98 @@ package com.panozona.modules.imagemap.controller {
 			var LoadPanoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.LoadPanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 			
-			_waypointView.addEventListener(WaypointEvent.CHANGED_SHOW_RADAR, handleShowRadarChange, false, 0, true);
+			_waypointView.waypointData.addEventListener(WaypointEvent.CHANGED_SHOW_RADAR, handleShowRadarChange, false, 0, true);
+			
+			_waypointView.addEventListener(MouseEvent.CLICK, handleMouseClik, false, 0, true);
+		}
+		
+		public function unfocus():void {
+			_isFocused = false;
+		}
+		
+		private function handleMouseClik(e:Event):void {
+			if (_module.saladoPlayer.manager.currentPanoramaId != _waypointView.waypointData.waypoint.target){
+				_module.saladoPlayer.manager.loadPano(_waypointView.waypointData.waypoint.target);
+			}else {
+				_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
+			}
 		}
 		
 		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {
-			if (_waypointView.waypointData.waypoint.target != null) { // TODO: aand how about mouse events ??? it should also check onclick somehow. and parse action itself. omg
+			if (_waypointView.waypointData.waypoint.target != null) { 
+				// TODO: and how about mouse events 
 				if (loadPanoramaEvent.panoramaData.id == _waypointView.waypointData.waypoint.target) {
+					// TODO: fade in effect
 					_waypointView.waypointData.showRadar = true;
+					_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
 				}else {
+					// TODO: fade out effect
 					_waypointView.waypointData.showRadar = false;
-					
-					// perhaps some fade in fade out effects ??? 
 				}
 			}
 		}
 		
 		private function handleShowRadarChange(e:Event):void {
 			if (_waypointView.waypointData.showRadar) {
-				_pan = _module.saladoPlayer.pan;
-				_tilt = _module.saladoPlayer.tilt;
-				_fov = _module.saladoPlayer.fieldOfView;
+				_pan = NaN;
+				_tilt = NaN;
+				_fov = NaN;
+				drawRadar();
+				handleEnterFrame();
 				_module.stage.addEventListener(Event.ENTER_FRAME, handleEnterFrame, false, 0, true);
 			}else {
+				_waypointView.radar.graphics.clear();
 				_module.stage.removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
 			}
 		}
 		
-		private function handleEnterFrame(e:Event):void {
-			
-			// cos narysowac i to obracac jakos byle by dzialalo
-			// obrocic go jakos trzeba by bylo 
-			
-			//if (_module.saladoPlayer.fieldOfView != _fov) {
-				//drawRadar();
-			//}
-			
-			//_pan = _module.saladoPlayer.pan;
-			//_tilt = _module.saladoPlayer.tilt;
-			//_fov = _module.saladoPlayer.fieldOfView;
+		private function handleEnterFrame(e:Event= null):void {
+			if (_fov != _module.saladoPlayer.manager.fieldOfView) {
+				drawRadar();
+				_fov = _module.saladoPlayer.manager.fieldOfView;
+			}
+			if (_pan != _module.saladoPlayer.manager.pan || _tilt != _module.saladoPlayer.manager.tilt) {
+				_waypointView.radar.rotationZ = -_module.saladoPlayer.manager.pan - _waypointView.waypointData.waypoint.panShift; // TODO: investigate pan value
+				//_waypointView.radar.rotationY = _module.saladoPlayer.manager.tilt; // not symmetric
+				_waypointView.radar.scaleX = 1 - Math.abs(_module.saladoPlayer.manager.tilt) / 100;
+				_pan = _module.saladoPlayer.manager.pan;
+				_tilt = _module.saladoPlayer.manager.tilt;
+				
+				if (_waypointView.waypointData.showRadar && !_isFocused) {
+					_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
+					_isFocused = true;
+				}
+			}
 		}
 		
 		private function drawRadar():void {
-			/*
+			
+			//TODO: parametrise radar
+			//clean this up
+			
 			_waypointView.radar.graphics.clear();
-			this.cam.graphics.clear();
-			var r:Number = 80 * this.camSize;
-			var a:Number = zoom*0.051 +0.55; 
-			var x:Number = (r * Math.sin(a));
-			var y:Number = (Math.sqrt(r * r - x * x));
-			_waypointView.radar.graphics.beginFill(Number(this._waypointView.waypointData.color),0.75);
-			_waypointView.radar.graphics.lineStyle(2*this.camSize,0x000000,0.75);
+			var radius:Number = 80;
+			var __fov:Number = _module.saladoPlayer.manager.fieldOfView * Math.PI / 180;
+			var startAngle:Number = - __fov * 0.5;
+			var endAngle:Number = __fov * 0.5;
+			var difference:Number = Math.abs(endAngle - startAngle);
+			var divisions:Number = Math.floor(difference / (Math.PI / 4))+1;
+			var span:Number = difference / (2 * divisions);
+			var controlRadius:Number = radius / Math.cos(span);
+			_waypointView.radar.graphics.beginFill(0x00ff00);
+			_waypointView.radar.graphics.lineStyle(2, 0x000000);
 			_waypointView.radar.graphics.moveTo(0, 0);
-			_waypointView.radar.graphics.lineTo(x, y);
-			_waypointView.radar.graphics.curveTo(2*r-x, 0, x, -y);
+			_waypointView.radar.graphics.lineTo((Math.cos(startAngle)*radius), Math.sin(startAngle)*radius);
+			var controlPoint:Point;
+			var anchorPoint:Point;
+			for(var i:Number=0; i<divisions; ++i){
+				endAngle = startAngle + span;
+				startAngle  = endAngle + span;
+				controlPoint = new Point(Math.cos(endAngle)*controlRadius, Math.sin(endAngle)*controlRadius);
+				anchorPoint = new Point(Math.cos(startAngle)*radius, Math.sin(startAngle)*radius);
+				_waypointView.radar.graphics.curveTo(controlPoint.x, controlPoint.y, anchorPoint.x, anchorPoint.y);
+			}
 			_waypointView.radar.graphics.endFill();
-			*/
 		}
 	}
 }

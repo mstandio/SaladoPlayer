@@ -72,8 +72,7 @@ package com.panozona.modules.imagemap.view{
 			navigationMoveDecoy.alpha = 1 / _imageMapData.windowData.alpha;
 			addChild(navigationMoveDecoy);
 			
-			navigationMove = new Sprite(); // transparent circle over bitmap
-			navigationMove.addChild(new Bitmap(new EmbededGraphics.BitmapNavigationMove().bitmapData));
+			navigationMove = new Sprite(); // transparent circle over bitmap			
 			navigationMove.x = this.navigationMove.y = 5; 
 			navigationMove.alpha = 1 / _imageMapData.windowData.alpha;
 			navigationMove.graphics.beginFill(0x000000,0); 
@@ -172,9 +171,9 @@ package com.panozona.modules.imagemap.view{
 			zoomOut.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
 			zoomOut.addEventListener(MouseEvent.MOUSE_OUT, navZoomStop, false, 0, true);
 			
-			_container.addEventListener(MouseEvent.MOUSE_OVER, containerMouseOver, false, 0, true);
+			_container.addEventListener(MouseEvent.ROLL_OVER, containerMouseOver, false, 0, true);
 			_container.addEventListener(MouseEvent.MOUSE_DOWN, containerMouseDown, false, 0, true);
-			_container.addEventListener(MouseEvent.MOUSE_OUT, containerMouseOut, false, 0, true);
+			_container.addEventListener(MouseEvent.ROLL_OUT, containerMouseOut, false, 0, true);
 			_container.addEventListener(MouseEvent.MOUSE_UP, containerMouseUp, false, 0, true);
 		}
 		

@@ -43,7 +43,7 @@ package com.panozona.modules.imagemap.model {
 		public var move:Move = new Move( -20, 20);
 		public var size:Size = new Size(400, 300);
 		public var tween:Tween = new Tween(0.5,"linear");
-		public var alpha:Number = 1.0;
+		private var _alpha:Number = 1.0;
 		private var _animation:String = WindowData.OPEN_CLOSE_SLIDE_RIGHT;
 		
 		public var onOpen:String;  // actions executed 
@@ -51,6 +51,13 @@ package com.panozona.modules.imagemap.model {
 		
 		public function get animation():String{
 			return _animation;
+		}
+		
+		public function get open():Boolean{return _open}
+		public function set open(value:Boolean):void {
+			if (value == _open) return;
+			_open = value;
+			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_OPEN));
 		}
 		
 		public function set animation(value:String):void {
@@ -65,11 +72,10 @@ package com.panozona.modules.imagemap.model {
 			}
 		}
 		
-		public function get open():Boolean{return _open}
-		public function set open(value:Boolean):void {
-			if (value == _open) return;
-			_open = value;
-			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_OPEN));
+		public function get alpha():Number {return _alpha;}
+		public function set alpha(value:Number):void {
+			if (value == 0) throw new Error("Alpha cannot be equal: "+value);
+			_alpha = value;
 		}
 	}
 }

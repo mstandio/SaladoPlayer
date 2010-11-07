@@ -18,7 +18,6 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.controller {
 	
-	
 	import com.panozona.modules.imagemap.model.WaypointData;
 	import com.panozona.modules.imagemap.view.WaypointView;
 	import flash.display.Bitmap;
@@ -33,7 +32,9 @@ package com.panozona.modules.imagemap.controller {
 	import com.panozona.modules.imagemap.events.MapEvent;
 	
 	import com.panozona.modules.imagemap.model.structure.Map;
-	import com.panozona.modules.imagemap.model.structure.Waypoint;	
+	import com.panozona.modules.imagemap.model.structure.Waypoint;
+	
+	import com.panozona.modules.imagemap.events.ContentViewerEvent;
 	
 	/**
 	 * @author mstandio
@@ -53,12 +54,13 @@ package com.panozona.modules.imagemap.controller {
 			
 			waypointControlers = new Array();
 			
-			_mapView.mapData.addEventListener(MapEvent.CHANGED_CURRENT_MAP_ID, handleCurrentMapIdChange, false, 0, true);
+			_mapView.imageMapData.mapData.addEventListener(MapEvent.CHANGED_CURRENT_MAP_ID, handleCurrentMapIdChange, false, 0, true);
+			_mapView.imageMapData.mapData.addEventListener(ContentViewerEvent.FOCUS_LOST, handleFocuseLost, false, 0, true);
 		}
 		
 		public function loadFirstMap():void {
-			// TODO: check firstMap and if not load firs tmap in line, like below:
-			_mapView.mapData.currentMapId = (_mapView.mapData.maps.getChildrenOfGivenClass(Map)[0]).id;
+			// TODO: check firstMap and if not load first tmap in line, like below:
+			_mapView.imageMapData.mapData.currentMapId = (_mapView.imageMapData.mapData.maps.getChildrenOfGivenClass(Map)[0]).id;
 		}
 		
 		private function handleCurrentMapIdChange(e:Event):void {
@@ -69,7 +71,16 @@ package com.panozona.modules.imagemap.controller {
 			}else {
 				mapImageLoader.unload();
 			}
-			mapImageLoader.load(new URLRequest(_mapView.mapData.getMapById(_mapView.mapData.currentMapId).path));
+			_mapView.waypointsContainer.visible = false;
+			buildWaypoints();
+			mapImageLoader.load(new URLRequest(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).path));
+			// TODO: loading bar or something
+		}
+		
+		private function handleFocuseLost(e:Event):void {
+			for each( var waypointController:WaypointController in waypointControlers) {
+				waypointController.unfocus();
+			}
 		}
 		
 		private function mapImageLost(e:Event):void {
@@ -78,7 +89,7 @@ package com.panozona.modules.imagemap.controller {
 		
 		private function mapImageLoaded(e:Event):void {
 			_mapView.mapImage.bitmapData = (mapImageLoader.content as Bitmap).bitmapData;
-			buildWaypoints();
+			_mapView.waypointsContainer.visible = true;
 		}
 		
 		private function buildWaypoints():void{
@@ -86,12 +97,12 @@ package com.panozona.modules.imagemap.controller {
 				_mapView.waypointsContainer.removeChildAt(0);
 			}
 			while (waypointControlers.length) {
-				waypointControlers.pop(); // TODO: is this right ? or should i nullify array
-			}			
+				waypointControlers.pop(); // TODO: nullify array perhaps? 
+			}
 			var waypointView:WaypointView;
 			var waypointController:WaypointController;
-			for each(var waypoint:Waypoint in  _mapView.mapData.getMapById(_mapView.mapData.currentMapId).getChildrenOfGivenClass(Waypoint)) {
-				waypointView = new WaypointView(new WaypointData(waypoint));				
+			for each(var waypoint:Waypoint in  _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).getChildrenOfGivenClass(Waypoint)) {
+				waypointView = new WaypointView(_mapView.imageMapData, new WaypointData(waypoint));
 				_mapView.waypointsContainer.addChild(waypointView);
 				waypointController = new WaypointController(waypointView, _module);
 				waypointControlers.push(waypointController);
