@@ -306,13 +306,17 @@ public class ViewData extends Sprite
 	*/
 	public function set fieldOfView(value:Number):void
 	{
-		if ( _fieldOfView == value || isNaN(value) ) return;
+		if ( _fieldOfView == value || isNaN(value)) return;
 		if ( value < _minimumFieldOfView ) value = _minimumFieldOfView;
 		if ( value > _maximumFieldOfView ) value = _maximumFieldOfView;
-		_fieldOfView = value;
+		
+		if ( _fieldOfView == value ) return; //TODO: otherwise it gets here when autorotating, strange
+		
+		_fieldOfView = value;				
+		adjustLimits();
+		
 		invalidPerspective = invalid = true;
 		if (stage) stage.invalidate();
-		adjustLimits();
 	}
 	
 	/**
@@ -424,7 +428,7 @@ public class ViewData extends Sprite
 		var tile:QuadTreeCube = e.target as QuadTreeCube;
 		var path:String = e.tilePyramid.path;
 		
-		tile.removeEventListener(ReadyEvent.READY, commitPath); //NB: strongly referenced; must remove
+		tile.removeEventListener(ReadyEvent.READY, commitPath); //NB: strongly referenced; must remove		
 		
 		//push current values to secondary
 		secondaryViewData._path = _path;
@@ -555,7 +559,7 @@ public class ViewData extends Sprite
 	*/
 	public function set minimumVerticalFieldOfView(value:Number):void {
 		if ( _minimumVerticalFieldOfView == value || isNaN(value) ) return;
-		_minimumVerticalFieldOfView = value;		
+		_minimumVerticalFieldOfView = value;
 		adjustLimits();
 	}
 	
@@ -585,23 +589,26 @@ public class ViewData extends Sprite
 		ret.secondaryViewData = secondaryViewData;
 		
 		ret._pan = _pan;
-		ret._tilt = _tilt
-		ret._fieldOfView = _fieldOfView
-		ret._boundsWidth = _boundsWidth
-		ret._boundsHeight = _boundsHeight
-		ret._tierThreshold = _tierThreshold
-		ret._path = _path
-		ret._tile = _tile
+		ret._tilt = _tilt;
+		ret._fieldOfView = _fieldOfView;
+		ret._boundsWidth = _boundsWidth;
+		ret._boundsHeight = _boundsHeight;
+		ret._tierThreshold = _tierThreshold;
+		ret._path = _path;
+		ret._tile = _tile;
 		ret._minimumFieldOfView = _minimumFieldOfView;
 		ret._maximumFieldOfView = _maximumFieldOfView;
-		ret._minimumPan = _minimumPan
-		ret._maximumPan = _maximumPan
-		ret._minimumTilt = _minimumTilt
-		ret._maximumTilt = _maximumTilt
+		ret._minimumPan = _minimumPan;
+		ret._maximumPan = _maximumPan;
+		ret._minimumTilt = _minimumTilt;
+		ret._maximumTilt = _maximumTilt;
+		ret._minimumVerticalFieldOfView = _minimumVerticalFieldOfView;
+		ret._maximumVerticalFieldOfView = _maximumVerticalFieldOfView;
 		
-		ret.invalidTransform = invalidTransform
-		ret.invalidPerspective = invalidPerspective
-		ret.invalid = invalid
+		
+		ret.invalidTransform = invalidTransform;
+		ret.invalidPerspective = invalidPerspective;
+		ret.invalid = invalid;
  		return ret;
 	}
 	
@@ -610,14 +617,24 @@ public class ViewData extends Sprite
 	 * according to minimumVerticalFieldOfView and maximumVerticalFieldOfView
 	 * needs to be called whenever panorama is loaded
 	 */
-	public function adjustLimits():void {
-		if (!isNaN(_minimumVerticalFieldOfView) && !isNaN(_maximumVerticalFieldOfView)) {
-			maximumFieldOfView = (_maximumVerticalFieldOfView - _minimumVerticalFieldOfView) * (boundsWidth / boundsHeight);
-			var cameraHFOV2:Number = (boundsHeight / boundsWidth) * fieldOfView;
-			minimumTilt = (cameraHFOV2 * 0.5 + _minimumVerticalFieldOfView);
-			maximumTilt = -(cameraHFOV2 * 0.5 - _maximumVerticalFieldOfView);
-			
+	private function adjustLimits():void {
+		
+		if (isNaN(_boundsWidth) || isNaN(_boundsHeight) || isNaN(_fieldOfView)) return;
+		
+		if (!isNaN(_minimumVerticalFieldOfView) && isNaN(_maximumVerticalFieldOfView)){
+			maximumFieldOfView = (180.0/Math.PI) * 2 *
+				Math.atan((_boundsWidth/_boundsHeight) *
+				Math.tan((Math.PI/180) * 0.5 * 
+				(_maximumVerticalFieldOfView - _minimumVerticalFieldOfView)));
 		}
+		
+		var cameraVFOV:Number = (180.0/Math.PI) * 2 *
+			Math.atan((_boundsHeight/_boundsWidth) *
+			Math.tan((Math.PI/180.0) * 0.5 * 
+			_fieldOfView));
+		
+		if(!isNaN(_minimumVerticalFieldOfView))	minimumTilt = _minimumVerticalFieldOfView + cameraVFOV/2;
+		if(!isNaN(_maximumVerticalFieldOfView)) maximumTilt = _maximumVerticalFieldOfView - cameraVFOV/2;
 	}
 }
 }
