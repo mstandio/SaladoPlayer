@@ -22,7 +22,7 @@ package com.panozona.modules.infobubble{
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
-	import flash.net.URLRequest;	
+	import flash.net.URLRequest;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	
@@ -51,7 +51,7 @@ package com.panozona.modules.infobubble{
 			moduleDescription.addFunctionDescription("hideBubble");
 		}
 		
-		override protected function moduleReady(moduleData:ModuleData):void {			
+		override protected function moduleReady(moduleData:ModuleData):void {
 			infoBubbleData = new InfoBubbleData(moduleData, debugMode); // allways first
 			
 			bubbleContainer = new Sprite();
@@ -86,7 +86,8 @@ package com.panozona.modules.infobubble{
 //  Exposed functions 
 ///////////////////////////////////////////////////////////////////////////////
 		
-		public function showBubble(bubbleId:String):void{
+		public function showBubble(bubbleId:String):void {
+			trace("show");
 			for each (var bubble:Bubble in infoBubbleData.bubbles.getChildrenOfGivenClass(Bubble)) {
 				if (bubble.id == bubbleId) {
 					bubbleImageLoader.load(new URLRequest(bubble.path));
@@ -97,6 +98,7 @@ package com.panozona.modules.infobubble{
 		}
 		
 		public function hideBubble():void {
+			trace("hide");
 			bubbleContainer.visible = false;
 			while (bubbleContainer.numChildren) {
 				bubbleContainer.removeChildAt(0);

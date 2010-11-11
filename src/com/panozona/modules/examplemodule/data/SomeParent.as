@@ -32,7 +32,7 @@ package com.panozona.modules.examplemodule.data {
 		}
 		
 		// These var names are important
-		// They should be of the same name as attributes names in module node		
+		// They should be of the same name as attributes names in module node
 		// for instance <someParent info="numberSubValue:10,stringSubValue:[hello]"/>
 		// you should initialize them with default values in case when given value is not set in configuration
 		public var info:SomeParentInfo = new SomeParentInfo();

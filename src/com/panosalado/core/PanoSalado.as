@@ -324,7 +324,7 @@ public class PanoSalado extends ViewData implements ICamera
 		_params[path] = null;
 		params.path = null;
 		params.copyInto(this as ViewData);
-		super.commitPath(e,updateFOV);
+		super.commitPath(e, updateFOV);
 		dispatchEvent( new CameraEvent(CameraEvent.INACTIVE) );
 	}
 	

@@ -149,27 +149,27 @@ package com.panozona.modules.imagemap.view{
 			
 			moveLeft.addEventListener(MouseEvent.MOUSE_DOWN, navLeft, false, 0, true);
 			moveLeft.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
-			moveLeft.addEventListener(MouseEvent.MOUSE_OUT, navStop, false, 0, true);
+			moveLeft.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
 			
 			moveRight.addEventListener(MouseEvent.MOUSE_DOWN, navRight, false, 0, true);
 			moveRight.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
-			moveRight.addEventListener(MouseEvent.MOUSE_OUT, navStop, false, 0, true);
+			moveRight.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
 			
 			moveUp.addEventListener(MouseEvent.MOUSE_DOWN, navUp, false, 0, true);
 			moveUp.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
-			moveUp.addEventListener(MouseEvent.MOUSE_OUT, navStop, false, 0, true);
+			moveUp.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
 			
 			moveDown.addEventListener(MouseEvent.MOUSE_DOWN, navDown, false, 0, true);
 			moveDown.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
-			moveDown.addEventListener(MouseEvent.MOUSE_OUT, navStop, false, 0, true);
+			moveDown.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
 			
 			zoomIn.addEventListener(MouseEvent.MOUSE_DOWN, navZoomIn, false, 0, true);
 			zoomIn.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
-			zoomIn.addEventListener(MouseEvent.MOUSE_OUT, navZoomStop, false, 0, true);
+			zoomIn.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
 			
 			zoomOut.addEventListener(MouseEvent.MOUSE_DOWN, navZoomOut, false, 0, true);
 			zoomOut.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
-			zoomOut.addEventListener(MouseEvent.MOUSE_OUT, navZoomStop, false, 0, true);
+			zoomOut.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
 			
 			_container.addEventListener(MouseEvent.ROLL_OVER, containerMouseOver, false, 0, true);
 			_container.addEventListener(MouseEvent.MOUSE_DOWN, containerMouseDown, false, 0, true);
@@ -235,6 +235,7 @@ package com.panozona.modules.imagemap.view{
 		
 		private function containerMouseOver(e:Event):void {
 			contentViewerData.mouseOver = true;
+			contentViewerData.mouseDrag = false;
 		}
 		
 		private function containerMouseDown(e:Event):void {

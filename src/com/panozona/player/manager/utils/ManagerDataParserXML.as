@@ -32,8 +32,11 @@ package com.panozona.player.manager.utils {
 	import com.panozona.player.manager.data.action.FunctionData;
 	import com.panozona.player.manager.utils.Trace;
 	
-	import com.robertpenner.easing.Expo;
 	import com.robertpenner.easing.Linear;
+	import com.robertpenner.easing.Expo;
+	import com.robertpenner.easing.Elastic;
+	import com.robertpenner.easing.Back;
+	import com.robertpenner.easing.Cubic;
 	
 	/**
 	 * Translates XML to ManagerData
@@ -327,10 +330,10 @@ package com.panozona.player.manager.utils {
 										}else {
 											Trace.instance.printWarning("Invalid attribute value (Function expected): "+singleSubAttribute);
 										}
-									}else{ // this can only be String
-										try {
+									}else if (object[singleSubAttrArray[0]] == null || object[singleSubAttrArray[0]] is String) {
+										if(recognizedValue is String){
 											object[singleSubAttrArray[0]] = recognizedValue; 
-										}catch(e:Error){
+										}else {
 											Trace.instance.printWarning("Invalid attribute value (String expected): "+singleSubAttribute);
 										}
 									}
@@ -396,19 +399,20 @@ package com.panozona.player.manager.utils {
 				return (Number("0x" + content));
 			}else  if (content == "NaN"){ // Number - NaN
 				return NaN;
-			}else if (content.match(/^.+:.+$/)) { // sub-attributes
+			}else if (content.match(/^.+:.+$/)) { // Object
 				var object:Object = new Object();
 				applySubAttributes(object, content);
 				return object;
-			}else  if (content.match(/^(Linear|Expo)\.[a-zA-Z]+$/)){ // Function
+			}else if (content.match(/^\[.*\]$/)) {
+				return content.substring(1, content.length - 1); // [String]	
+			}else  if (content.match(/^(Linear|Expo|Elastic|Back)\.[a-zA-Z]+$/)){ // Function
 				return (recognizeFunction(content) as Function);
-			}else if (content.match(/^\[.+\]$/)) {
-				return content.substring(1, content.length - 1); // [String]
+			}else if(content.replace(/\s/g,"").length > 0){
+				return content; // String
 			}else {
-				return content;	// String
+				Trace.instance.printWarning("Empty content.");
+				return null;
 			}
-			Trace.instance.printWarning("Unrecognized content: "+content);
-			return null;
 		}
 		
 		protected function recognizeFunction(content:String):Function {
@@ -425,6 +429,18 @@ package com.panozona.player.manager.utils {
 				if (functionElements[1] == "easeOut") return Expo.easeOut;
 				if (functionElements[1] == "easeInOut") return Expo.easeInOut;
 				Trace.instance.printWarning("Invalid function name: "+functionElements[1]);
+				return null;
+			} else if (functionElements[0] == "Elastic") {
+				if (functionElements[1] == "easeIn") return Elastic.easeIn;
+				if (functionElements[1] == "easeOut") return Elastic.easeOut;
+				if (functionElements[1] == "easeInOut") return Elastic.easeInOut;
+				Trace.instance.printWarning("Invalid function name: " + functionElements[1]);
+				return null;
+			} else if (functionElements[0] == "Back") {
+				if (functionElements[1] == "easeIn") return Back.easeIn;
+				if (functionElements[1] == "easeOut") return Back.easeOut;
+				if (functionElements[1] == "easeInOut") return Back.easeInOut;
+				Trace.instance.printWarning("Invalid function name: " + functionElements[1]);
 				return null;
 			}else {
 				Trace.instance.printWarning("Invalid function owner: "+functionElements[0]);

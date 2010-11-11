@@ -27,6 +27,8 @@ package com.panozona.modules.imagemap.model {
 	
 	import com.panozona.modules.imagemap.events.WindowEvent;
 	
+	import caurina.transitions.Equations;
+	
 	/**
 	 * @author mstandio
 	 */
@@ -42,7 +44,7 @@ package com.panozona.modules.imagemap.model {
 		public var align:Align = new Align(Align.RIGHT, Align.TOP);
 		public var move:Move = new Move( -20, 20);
 		public var size:Size = new Size(400, 300);
-		public var tween:Tween = new Tween(0.5,"linear");
+		public var tween:Tween = new Tween(Equations.easeNone,0.5);
 		private var _alpha:Number = 1.0;
 		private var _animation:String = WindowData.OPEN_CLOSE_SLIDE_RIGHT;
 		

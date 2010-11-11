@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>
-	<global debug="true" firstPanorama="pano0" camera="maxVerticalFov:30,minVerticalFov:-30"/>
+	<global debug="false" firstPanorama="pano2" camera="minVerticalFov:-180,maxVerticalFov:90" autorotation="enabled:false" />
 	<panoramas>
 		<panorama id="pano0" label="cylinder" path="panoramas/dz_cylinder/cylinder_f.xml"/>
 		<panorama id="pano05" label="eyesiscamera" path="panoramas/1285706042-265173/1285706042-265173_f.xml"/>		
 		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" onLeaveToAttempt="pano2:act1">
 			<hotspot id="hs1" position="pan:50.8,tilt:-41.5" path="hotspots/arrow.png" mouse="onClick:act1b"/>
 		</panorama>
-		<panorama id="pano2" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml" onLeaveToAttempt="pano1:act2,pano3:act3">
-			<hotspot id="hs2" position="pan:49.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act2b"/>
-			<hotspot id="hs3" position="pan:-45.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act3b"/>
+		<panorama id="pano2" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml" camera="pan:-45" onLeaveToAttempt="pano1:act2,pano3:act3">
+			<hotspot id="hs2" position="pan:-45.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act2b"/>
+			<hotspot id="hs3" position="pan:45.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act3b"/>
 		</panorama>
 		<panorama id="pano3" label="Park" path="panoramas/dz_park/park_f.xml" onLeaveToAttempt="pano2:act4">
 			<hotspot id="hs4" position="pan:-8,distance:800" path="hotspots/ExampleHotspot.swf" mouse="onClick:act4b"/>
@@ -32,7 +32,7 @@
 		<NavigationBar path="modules/NavigationBar.swf">
 			<buttons path="modules/images/buttons_30x30_blue.png"/>
 			<logo visible="false" path="modules/images/logo.png"/>
-			<bar visible="false"/>
+			<bar visible="0"/>
 		</NavigationBar>
 		<ViewFinder path="modules/ViewFinder.swf"/>
 	</modules>

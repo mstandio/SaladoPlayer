@@ -30,6 +30,8 @@ package com.panozona.modules.imagemap.controller{
 	import com.panozona.modules.imagemap.events.ContentViewerEvent;
 	import com.panozona.modules.imagemap.model.EmbededGraphics;
 	
+	import com.panozona.modules.imagemap.events.MapEvent;
+	
 	/**
 	 * @author mstandio
 	 */
@@ -48,6 +50,8 @@ package com.panozona.modules.imagemap.controller{
 		private var mouseY:Number;
 		private var focusX:Number;
 		private var focusY:Number;
+		private var distanceX:Number;
+		private var distanceY:Number;
 		
 		private var onFocus:Boolean;
 		
@@ -64,17 +68,27 @@ package com.panozona.modules.imagemap.controller{
 		
 		public function ContentViewerController(contentViewerView:ContentViewerView, module:Module) {
 			
+			_contentViewerView = contentViewerView;
+			_module = module;
+			
 			mapControler = new MapController(contentViewerView.mapView, module);
 			mapControler.loadFirstMap();
 			
-			_contentViewerView = contentViewerView;
-			_module = module;
+			_contentViewerView.container.addEventListener(MapEvent.MAP_IMAGE_LOADED, handleMapImageLoaded, false, 0,true)
 			
 			contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_MOVE, handleMoveChange, false, 0, true);
 			contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_ZOOM, handleZoomChange, false, 0, true);
 			contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_MOUSE_OVER, handleMouseOverChange, false, 0, true);
 			contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_MOUSE_DRAG, handleMouseDragChange, false, 0, true);
 			contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_FOCUS_POINT, handleFocusPointChange, false, 0, true);
+			
+		}
+		
+		private function handleMapImageLoaded(e:Event):void {
+			trace(_contentViewerView.container.width+" "+_contentViewerView.container.height);
+			_contentViewerView.container.x = _contentViewerView.container.width * 0.5;
+			_contentViewerView.container.y = _contentViewerView.container.height * 0.5;
+			trace(_contentViewerView.container.x+" "+_contentViewerView.container.y);
 		}
 		
 		private function handleMoveChange(e:Event):void {
@@ -82,8 +96,8 @@ package com.panozona.modules.imagemap.controller{
 				_contentViewerView.contentViewerData.moveRight ||
 				_contentViewerView.contentViewerData.moveUp ||
 				_contentViewerView.contentViewerData.moveDown) {
-				moveActive = true;
 				focusActive = false;
+				moveActive = true;
 				_module.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
 			}else {
 				moveActive = false;
@@ -96,8 +110,8 @@ package com.panozona.modules.imagemap.controller{
 				_contentViewerView.contentViewerData.zoomOut) {
 				containerOrgWidth = _contentViewerView.container.width / _contentViewerView.container.scaleX;
 				containerOrgHeight = _contentViewerView.container.height / _contentViewerView.container.scaleY;
-				zoomActive = true;
 				focusActive = false;
+				zoomActive = true;
 				_module.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
 			}else {
 				zoomActive = false;
@@ -122,8 +136,8 @@ package com.panozona.modules.imagemap.controller{
 		
 		private function handleMouseDragChange(e:Event):void {
 			if (_contentViewerView.contentViewerData.mouseDrag) {
-				_contentViewerView.cursor.bitmapData = new EmbededGraphics.BitmapCursorHandClosed().bitmapData;
 				focusActive = false;
+				_contentViewerView.cursor.bitmapData = new EmbededGraphics.BitmapCursorHandClosed().bitmapData;
 				mouseX = _contentViewerView.mouseX;
 				mouseY = _contentViewerView.mouseY;
 			}else {
@@ -135,6 +149,8 @@ package com.panozona.modules.imagemap.controller{
 			if(!(moveActive || zoomActive || _contentViewerView.contentViewerData.mouseDrag)){
 				focusX = _contentViewerView.contentViewerData.focusPoint.x * _contentViewerView.container.scaleX;
 				focusY = _contentViewerView.contentViewerData.focusPoint.y * _contentViewerView.container.scaleY;
+				distanceX = Math.abs(_contentViewerView.container.x + focusX - _contentViewerView.containerMask.width * 0.5); 
+				distanceY = Math.abs(_contentViewerView.container.y + focusY - _contentViewerView.containerMask.height * 0.5);  
 				focusActive = true;
 				_module.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
 			}
@@ -190,6 +206,13 @@ package com.panozona.modules.imagemap.controller{
 						focusY = NaN;
 					}
 				}
+				if (!isNaN(focusX) && !isNaN(focusY)) {
+					if (distanceX > distanceY) {
+						deltaY *= distanceY / distanceX;
+					}else {
+						deltaX *= distanceX / distanceY;
+					}
+				}
 			}else if (moveActive) {
 				if (_contentViewerView.contentViewerData.moveLeft) {
 					deltaX = moveSpeed;
@@ -229,7 +252,6 @@ package com.panozona.modules.imagemap.controller{
 					( _contentViewerView.container.scaleX / (_contentViewerView.container.scaleX + deltaZoom) - 1);
 				}
 			}
-			
 			if (_contentViewerView.container.x + deltaX < 0) {
 				if (_contentViewerView.container.x + deltaX > _contentViewerView.containerMask.width - _contentViewerView.container.width) {
 					_contentViewerView.container.x += deltaX;
@@ -257,20 +279,20 @@ package com.panozona.modules.imagemap.controller{
 				focusY = NaN;
 			}
 			
+			if (onFocus && deltaX!=0 || deltaY!=0){
+				onFocus = false;
+				for (var i:int=0; i < _contentViewerView.container.numChildren; i++) {
+					_contentViewerView.container.getChildAt(i).dispatchEvent(new ContentViewerEvent(ContentViewerEvent.FOCUS_LOST));
+				}
+			}
+			
 			if (focusActive && isNaN(focusX) && isNaN(focusY)) {
-				focusActive = false;
 				onFocus = true;
 				if(!_contentViewerView.contentViewerData.mouseOver){
 					_module.stage.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 				}
 			}
-			
-			if (onFocus && deltaX!=0 && deltaY!=0){
-				onFocus = false;
-				for (var i:int; i < _contentViewerView.container.numChildren; i++) {
-					_contentViewerView.container.getChildAt(0).dispatchEvent(new ContentViewerEvent(ContentViewerEvent.FOCUS_LOST));
-				}
-			}
 		}
+		
 	}
 }

@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>
-	<global debug="true" autorotation="enabled:false" transition="time:0" />
+	<global debug="true" autorotation="enabled:false" transition="time:0" firstPanorama="pano2">
+		<trace open="false"/>
+	</global>
 	<panoramas>
-		<!--<panorama id="pano1" label="park infobubble" path="panoramas/dz_park/park_f.xml">
+		<!--<panorama id="pano0" label="park infobubble" path="panoramas/dz_park/park_f.xml">
 			<hotspot id="hs1" position="pan:20" path="hotspots/arrow.png" mouse="onOver:bubShowb1,onOut:bubHide"/>
-			<hotspot id="hs2" position="pan:-20" path="hotspots/arrow.png" mouse="onOver:bubShowb2,onOut:bubHide"/>		
+			<hotspot id="hs2" position="pan:-20" path="hotspots/arrow.png" mouse="onOver:bubShowb2,onOut:bubHide"/>
 		</panorama>-->
 		<panorama id="pano1" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml"/>
 		<panorama id="pano2" label="Park" path="panoramas/dz_park/park_f.xml"/>
@@ -14,19 +16,19 @@
 		<action id="mapToggle" content="ImageMap.toggleVisibility()" />
 		<action id="mapOpened" content="NavigationBar.setExtraButtonActive(b,true)"/>
 		<action id="mapClosed" content="NavigationBar.setExtraButtonActive(b,false)"/>
-		<!--<action id="bubShowb1" content="InfoBubble.showBubble(b1)" />
+		<action id="bubShowb1" content="InfoBubble.showBubble(b1);SaladoPlayer.print(open)"/>
 		<action id="bubShowb2" content="InfoBubble.showBubble(b2)" />
-		<action id="bubHide" content="InfoBubble.hideBubble()"/>-->
+		<action id="bubHide" content="InfoBubble.hideBubble();SaladoPlayer.print(close)"/>
 	</actions>
 	<modules>
-		<!--<InfoBubble path="modules/InfoBubble.swf">
+		<InfoBubble path="modules/InfoBubble.swf">
 			<bubbles>
 				<bubble id="b1" path="modules/bubbles/bubble1.png"/>
 				<bubble id="b2" path="modules/bubbles/bubble2.png"/>
 			</bubbles>
-		</InfoBubble>-->
+		</InfoBubble>
 		<ImageMap path="modules/ImageMap.swf">
-			<settings animation="fade" open="true" onOpen="mapOpened" onClose="mapClosed" alpha="0.8" />
+			<settings open="true" animation="fade" onOpen="mapOpened" onClose="mapClosed" alpha="0.8" />
 			
 			<maps>
 				<map id="map1" path="modules/maps/test.jpg">

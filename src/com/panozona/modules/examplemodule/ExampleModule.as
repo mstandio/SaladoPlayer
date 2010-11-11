@@ -33,6 +33,8 @@ package com.panozona.modules.examplemodule {
 	import com.panozona.modules.examplemodule.data.*;
 	import com.panozona.modules.examplemodule.labelledbutton.LabelledButton;
 	
+	import caurina.transitions.*;
+	
 	/**
 	 * This is example module presenting structure of module and its functionalities.
 	 * 
@@ -128,8 +130,12 @@ package com.panozona.modules.examplemodule {
 		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
 			saladoPlayer.manager.removeEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
 			foundNavigationBar = (saladoPlayer.getModuleByName("NavigationBar") != null)
-			if (exampleModuleData.settings.extraButtonName != null && foundNavigationBar){
-				this.visible = exampleModuleData.settings.open;
+			if (exampleModuleData.settings.extraButtonName != null && foundNavigationBar) {
+				if (!exampleModuleData.settings.open) {
+					this.alpha = 0;
+					this.visible = false;
+				}
+				
 				try {
 					saladoPlayer.getModuleByName("NavigationBar").execute("setExtraButtonActive", new Array(exampleModuleData.settings.extraButtonName, this.visible));
 				}catch (error:Error){
@@ -227,12 +233,23 @@ package com.panozona.modules.examplemodule {
 			}
 		}
 		
+		// powinno sie wzorowac na open 
+		
 ///////////////////////////////////////////////////////////////////////////////
 //  Exposed functions 
 ///////////////////////////////////////////////////////////////////////////////	
 		
 		public function toggleVisibility():void {
-			this.visible = !this.visible;
+			
+			if (exampleModuleData.settings.open) {
+				exampleModuleData.settings.open = false;
+				Tweener.addTween(this, {alpha:0, time:2, transition:exampleModuleData.settings.tween});
+			}else {
+				exampleModuleData.settings.open = true;
+				Tweener.addTween(this, {alpha:1, time:2, transition:exampleModuleData.settings.tween});
+			}
+			
+			//this.visible = !this.visible;
 			if (foundNavigationBar) {
 				try {
 					saladoPlayer.getModuleByName("NavigationBar").execute("setExtraButtonActive", new Array(exampleModuleData.settings.extraButtonName, this.visible));

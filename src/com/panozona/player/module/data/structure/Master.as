@@ -69,16 +69,22 @@ package com.panozona.player.module.data.structure{
 							}else {
 								throw new Error("Invalid attribute value (Number expected): "+moduleNode.attributes[name]);
 							}
-						}else if (object[name] is Function) {
+						}else if (object[name] is Function) { // assuming Function var has allways default value
 							if (moduleNode.attributes[name] is Function){
 								object[name] = moduleNode.attributes[name];
 							}else {
 								throw new Error("Invalid attribute value (Function expected): "+moduleNode.attributes[name]);
 							}
+						}else if (object[name] == null || (object[name] is String)) { // String var may not be initialised
+							if (moduleNode.attributes[name] is String) {
+								object[name] = moduleNode.attributes[name];
+							}else {
+								throw new Error("Invalid attribute value (String expected): "+moduleNode.attributes[name]);
+							}
 						}else if (getClass(moduleNode.attributes[name]) === Object) {
 							applySubAttributes(object[name], moduleNode.attributes[name]);
 						}else {
-							object[name] = (moduleNode.attributes[name] as String);
+							throw new Error("Invalid attribute value (Object expected): "+moduleNode.attributes[name]);
 						}
 					}else {
 						throw new Error("Unrecognized attribute: "+name);
@@ -121,26 +127,34 @@ package com.panozona.player.module.data.structure{
 						if (source[name] is Boolean) {
 							target[name] = source[name];
 						}else {
-							throw new Error("Invalid attribute value (Boolean expected): "+source[name]);
+							throw new Error("Invalid subattribute value (Boolean expected): "+source[name]);
 						}
 					}else if(target[name] is Number) {
 						if(source[name] is Number){
 							target[name] = source[name];
 						}else {
-							throw new Error("Invalid attribute value (Number expected): "+source[name]);
+							throw new Error("Invalid subattribute value (Number expected): "+source[name]);
 						}
-					}else if(target[name] is Function) {
+					}else if(target[name] is Function) { // assuming Function var has allways default value
 						if(source[name] is Function){
 							target[name] = source[name];
 						}else {
-							throw new Error("Invalid attribute value (Function expected): "+source[name]);
+							throw new Error("Invalid subattribute value (Function expected): "+source[name]);
 						}
-					}else{
-						target[name] = (source[name] as String); 
+					}else if (target[name] == null || target[name] is String) { // String var may not be initialised
+						if (source[name] is String) {
+							target[name] = source[name]; 
+						}else {
+							throw new Error("Invalid subattribute value (String expected): "+source[name]);
+						}
 					}
-				}
-				else {
-					throw new Error("Invalid subattribute name: "+name);
+				}else {
+					// check if creation of new atribute in object is possible
+					try{
+						target[name] = source[name];
+					}catch (e:Error){
+						throw new Error("Invalid subattribute name: "+name);
+					}
 				}
 			}
 		}

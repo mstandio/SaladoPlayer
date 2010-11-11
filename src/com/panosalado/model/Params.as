@@ -61,7 +61,7 @@ public class Params
 	}
 	
 	public function clone():Params {
-		var result:Params = new Params(path, pan, tilt, fov);
+		var result:Params = new Params(path, pan, tilt, fov); 
 		result.tierThreshold = tierThreshold;
 		result.boundsWidth = boundsWidth;
 		result.boundsHeight = boundsHeight;

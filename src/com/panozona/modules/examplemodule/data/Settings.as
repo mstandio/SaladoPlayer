@@ -18,6 +18,7 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.examplemodule.data {
 	
+	import caurina.transitions.Equations;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Move;
 	
@@ -33,6 +34,8 @@ package com.panozona.modules.examplemodule.data {
 		public var extraButtonName:String; // intentionally not initialized 
 		
 		public var align:Align = new Align(Align.LEFT, Align.MIDDLE); // horizontal, vertical
-		public var move:Move = new Move(10,0); // horizontal, vertical
+		public var move:Move = new Move(10, 0); // horizontal, vertical
+		
+		public var tween:Function = Equations.easeInBack;
 	}
 }

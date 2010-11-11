@@ -24,30 +24,12 @@ package com.panozona.player.module.data.property{
 	 */
 	public class Tween {
 		
-		public var time:Number;		
+		public var transition:Function;
+		public var time:Number;
 		
-		private var _transition:String;		
-		private var _transitions:Array;
-		
-		public function Tween(time:Number, transition:String){
-			 _transitions = new Array("linear", "easeInSine", "easeOutSine", "easeInOutSine"); 
-			 //TODO: add more http://hosted.zeh.com.br/tweener/docs/en-us/misc/transitions.html
-			 this.time = time;
+		public function Tween(transition:Function, time:Number){
 			 this.transition = transition;
-		}		
-		
-		public function set transition(value:String):void {
-			for each (var transition:String in _transitions) {
-				if (transition == value) {
-					_transition = value;
-					return;
-				}
-			}
-			throw new Error("Invalid tween tranition value: "+value);
-		}		
-		
-		public function get transition():String {
-			return _transition;
+			 this.time = time;
 		}
 	}
 }

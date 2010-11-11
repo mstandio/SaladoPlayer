@@ -198,16 +198,16 @@ package com.panozona.player.manager {
 				arrListeners.push({type:MouseEvent.MOUSE_MOVE, listener:getMouseEventHandler(e.hotspotData.mouse.onMove)});
 			}
 			if (hotspotData.mouse.onOver != null) {
-				managedChild.addEventListener(MouseEvent.MOUSE_OVER, getMouseEventHandler(hotspotData.mouse.onOver));
-				arrListeners.push({type:MouseEvent.MOUSE_OVER, listener:getMouseEventHandler(e.hotspotData.mouse.onOver)});
+				managedChild.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(hotspotData.mouse.onOver));
+				arrListeners.push({type:MouseEvent.ROLL_OVER, listener:getMouseEventHandler(e.hotspotData.mouse.onOver)});
 			}
 			if (hotspotData.mouse.onOut != null) {
-				managedChild.addEventListener(MouseEvent.MOUSE_OUT, getMouseEventHandler(hotspotData.mouse.onOut));
-				arrListeners.push({type:MouseEvent.MOUSE_OUT, listener:getMouseEventHandler(e.hotspotData.mouse.onOut)});
+				managedChild.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(hotspotData.mouse.onOut));
+				arrListeners.push({type:MouseEvent.ROLL_OUT, listener:getMouseEventHandler(e.hotspotData.mouse.onOut)});
 			}
 			
 			var piOver180:Number = Math.PI / 180;
-			var pr:Number = (-1*(hotspotData.position.pan - 90)) * piOver180; 
+			var pr:Number = (-1*(-hotspotData.position.pan - 90)) * piOver180; 
 			var tr:Number = -1*  hotspotData.position.tilt * piOver180;
 			var xc:Number = hotspotData.position.distance * Math.cos(pr) * Math.cos(tr);
 			var yc:Number = hotspotData.position.distance * Math.sin(tr);
@@ -216,7 +216,7 @@ package com.panozona.player.manager {
 			managedChild.x = xc;
 			managedChild.y = yc;
 			managedChild.z = zc;
-			managedChild.rotationY = (hotspotData.position.pan  + hotspotData.transformation.rotationY) * piOver180;
+			managedChild.rotationY = (-hotspotData.position.pan  + hotspotData.transformation.rotationY) * piOver180;
 			managedChild.rotationX = (hotspotData.position.tilt + hotspotData.transformation.rotationX) * piOver180;
 			managedChild.rotationZ = hotspotData.transformation.rotationZ * piOver180
 			

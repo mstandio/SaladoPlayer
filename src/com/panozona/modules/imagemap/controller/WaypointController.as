@@ -42,6 +42,10 @@ package com.panozona.modules.imagemap.controller {
 		
 		private var _isFocused:Boolean;
 		
+		private var pan1:Number;
+		private var pan2:Number;
+		private var pan3:Number;
+		
 		public function WaypointController(waypointView:WaypointView, module:Module) {
 			_waypointView = waypointView;
 			_module = module;
@@ -54,7 +58,7 @@ package com.panozona.modules.imagemap.controller {
 			_waypointView.addEventListener(MouseEvent.CLICK, handleMouseClik, false, 0, true);
 		}
 		
-		public function unfocus():void {
+		public function lostFocus():void {
 			_isFocused = false;
 		}
 		
@@ -100,15 +104,22 @@ package com.panozona.modules.imagemap.controller {
 				_fov = _module.saladoPlayer.manager.fieldOfView;
 			}
 			if (_pan != _module.saladoPlayer.manager.pan || _tilt != _module.saladoPlayer.manager.tilt) {
-				_waypointView.radar.rotationZ = -_module.saladoPlayer.manager.pan - _waypointView.waypointData.waypoint.panShift; // TODO: investigate pan value
+				
+				pan3 = pan2;
+				pan2 = pan1;
+				pan1 = _module.saladoPlayer.manager.pan;
+				
+				_waypointView.radar.rotationZ = _module.saladoPlayer.manager.pan - _waypointView.waypointData.waypoint.panShift;
 				//_waypointView.radar.rotationY = _module.saladoPlayer.manager.tilt; // not symmetric
 				_waypointView.radar.scaleX = 1 - Math.abs(_module.saladoPlayer.manager.tilt) / 100;
 				_pan = _module.saladoPlayer.manager.pan;
 				_tilt = _module.saladoPlayer.manager.tilt;
 				
 				if (_waypointView.waypointData.showRadar && !_isFocused) {
-					_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
-					_isFocused = true;
+					if(pan1 - pan2 < pan2 - pan3){
+						_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
+						_isFocused = true;
+					}
 				}
 			}
 		}

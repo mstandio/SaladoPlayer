@@ -43,7 +43,7 @@ public class AutorotationCameraData extends EventDispatcher
 	{
 		delay			 = 5000;
 		mode			 = "speed" // speed
-		speed 			 = 3;
+		speed 			 = 5;
 		frameIncrement	 = 0.0333;
 		_enabled		 = true; 
 		_isAutorotating = false;

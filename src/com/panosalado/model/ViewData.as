@@ -621,7 +621,8 @@ public class ViewData extends Sprite
 		
 		if (isNaN(_boundsWidth) || isNaN(_boundsHeight) || isNaN(_fieldOfView)) return;
 		
-		if (!isNaN(_minimumVerticalFieldOfView) && isNaN(_maximumVerticalFieldOfView)){
+		if (!isNaN(_minimumVerticalFieldOfView) && !isNaN(_maximumVerticalFieldOfView) &&
+		   (_maximumVerticalFieldOfView - _minimumVerticalFieldOfView) < 180){
 			maximumFieldOfView = (180.0/Math.PI) * 2 *
 				Math.atan((_boundsWidth/_boundsHeight) *
 				Math.tan((Math.PI/180) * 0.5 * 
@@ -633,7 +634,7 @@ public class ViewData extends Sprite
 			Math.tan((Math.PI/180.0) * 0.5 * 
 			_fieldOfView));
 		
-		if(!isNaN(_minimumVerticalFieldOfView))	minimumTilt = _minimumVerticalFieldOfView + cameraVFOV/2;
+		if(!isNaN(_minimumVerticalFieldOfView)) minimumTilt = _minimumVerticalFieldOfView + cameraVFOV/2;
 		if(!isNaN(_maximumVerticalFieldOfView)) maximumTilt = _maximumVerticalFieldOfView - cameraVFOV/2;
 	}
 }

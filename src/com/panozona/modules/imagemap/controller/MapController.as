@@ -55,7 +55,7 @@ package com.panozona.modules.imagemap.controller {
 			waypointControlers = new Array();
 			
 			_mapView.imageMapData.mapData.addEventListener(MapEvent.CHANGED_CURRENT_MAP_ID, handleCurrentMapIdChange, false, 0, true);
-			_mapView.imageMapData.mapData.addEventListener(ContentViewerEvent.FOCUS_LOST, handleFocuseLost, false, 0, true);
+			_mapView.imageMapData.mapData.addEventListener(ContentViewerEvent.FOCUS_LOST, handleFocusLost, false, 0, true);
 		}
 		
 		public function loadFirstMap():void {
@@ -77,9 +77,9 @@ package com.panozona.modules.imagemap.controller {
 			// TODO: loading bar or something
 		}
 		
-		private function handleFocuseLost(e:Event):void {
+		private function handleFocusLost(e:Event):void {
 			for each( var waypointController:WaypointController in waypointControlers) {
-				waypointController.unfocus();
+				waypointController.lostFocus();
 			}
 		}
 		
@@ -89,6 +89,7 @@ package com.panozona.modules.imagemap.controller {
 		
 		private function mapImageLoaded(e:Event):void {
 			_mapView.mapImage.bitmapData = (mapImageLoader.content as Bitmap).bitmapData;
+			_mapView.parent.dispatchEvent(new MapEvent(MapEvent.MAP_IMAGE_LOADED));
 			_mapView.waypointsContainer.visible = true;
 		}
 		

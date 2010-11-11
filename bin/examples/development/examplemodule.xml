@@ -9,7 +9,7 @@
 -->
 <?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>	
-	<global debug="true" stats="true">
+	<global debug="true" stats="true" autorotation="enabled:false">
 		<trace open="true"/>
 	</global>
 	<panoramas>
@@ -26,13 +26,14 @@
 			<buttons path="modules/images/buttons_30x30_blue.png"/>
 			<buttons>
 				<extraButton name="a" action="act1"/> <!-- first column of third and fourth row in buttons image, "b" for second column, ect. -->
+				<button name="autorotation" visible="false"/>
 			</buttons>
 		</NavigationBar>
 		<ExampleModule path="modules/ExampleModule.swf">
-			<settings open="true" extraButtonName="a" /> <!-- which NavigationBar extra button is changed on module internal state change -->
-			<someParent info="numberSubValue:12345,stringSubValue:[Hello],booleanSubValue:true">
+			<settings open="true" extraButtonName="a" tween="Linear.easeNone" /> <!-- which NavigationBar extra button is changed on module internal state change -->
+			<someParent info="numberSubValue:12,stringSubValue:stringu,booleanSubValue:true">
 				<someChild happy="true">
-					<someToy name="Lego" price="120.99"/>
+					<someToy name=" a" price="12"/>
 					<someToy name="Plushie" price="12.95"/>
 				</someChild>
 				<someChild happy="true">
@@ -41,7 +42,7 @@
 				<someJob wages="999">
 					<![CDATA[ cdata text with any chars :;, ]]>
 				</someJob>
-				<someJob wages="123"/>
+				<someJob wages="123" text="cant have all chars here"/>
 			</someParent>
 		</ExampleModule>
 	</modules>

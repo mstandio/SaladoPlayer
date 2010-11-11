@@ -91,7 +91,8 @@ package com.panozona.modules.viewfinder{
 		}
 		
 		private function validatePan(pan:Number):Number {
-			return - (pan - Math.round(pan / 360) * 360); 
+			if ( pan <= -180 ) return (((pan+180)%360)-180);
+			return (((pan+180)%360)-180);
 		}
 		
 		private function handleStageResize(e:Event = null):void {

@@ -46,7 +46,7 @@ package com.panozona.modules.imagemap.model {
 		 * 
 		 */
 		public function ContentViewerData() {
-			_focusPoint = new Point();
+			_focusPoint = new Point(NaN,NaN);
 		}
 		
 		/**
