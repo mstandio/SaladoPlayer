@@ -347,18 +347,18 @@ public class PanoSalado extends ViewData implements ICamera
 	}
 	
 	/**
-	* Swings the camera to the specified pan,tilt,fieldOfView over the specified time (in seconds) using the specified tween
+	* Swings the camera to the specified pan,tilt,fieldOfView with the specified speed, using the specified tween
 	* function (with a standard Robert Penner tween function signature).  NaN passed for pan, tilt, or fieldOfView will 
 	* not changed the current value. It also dispatches CameraEvent.ACTIVE and CameraEvent.INACTIVE before and after the changes
 	* to stop autorotation for the benefit of any listening objects (AutorotationCamera).
 	* @param pan Number (optional) pass NaN to use the current value
 	* @param tilt Number (optional) pass NaN to use the current value
 	* @param fieldOfView Number (optional) pass NaN to use the current value
-	* @param time Number (optional) defaults to 2.5 seconds
+	* @param speed Number (optional) defaults to 20 
 	* @param tween Function (optional) defaults to Linear.easeNone. Function must have signature: function name (t:Number, b:Number, c:Number, d:Number):Number
 	*/
 	public function swingTo(
-		pan:Number=NaN, tilt:Number=NaN, fieldOfView:Number=NaN, time:Number=2.5, tween:Function=null
+		pan:Number=NaN, tilt:Number=NaN, fieldOfView:Number=NaN, speed:Number=20, tween:Function=null
 	):void {
 		if (isNaN(pan) && isNaN(tilt) && isNaN(fieldOfView) ) return;
 		//if value is null then use current value
@@ -372,15 +372,23 @@ public class PanoSalado extends ViewData implements ICamera
 			else if (_pan - pan < -180) pan -= 360;
 			properties.push("pan");
 			values.push(pan);
+		}else {
+			pan = 0;
 		}
 		if (!isNaN(tilt)) {
 			properties.push("tilt");
 			values.push(tilt);
+		}else {
+			tilt = 0;
 		}
 		if (!isNaN(fieldOfView)) {
 			properties.push("fieldOfView");
 			values.push(fieldOfView);
 		}
+		
+		var time:Number = (Math.acos((Math.sin(_tilt * Math.PI / 180) * Math.sin(tilt * Math.PI / 180)) 
+		+ (Math.cos(_tilt*Math.PI/180) * Math.cos(tilt*Math.PI/180) * Math.cos((Math.abs(_pan - pan))*Math.PI/180)))*(180/Math.PI)) / speed;
+		
 		animation = new Animation(this,properties,values,time,tween);
 		animation.addEventListener( Event.COMPLETE, swingToComplete, false, 0, true );
 	}
@@ -394,16 +402,16 @@ public class PanoSalado extends ViewData implements ICamera
 	}
 	
 	/**
-	* Swings the camera to the specified ManagedChild, fieldOfView, over the specified time in seconds using the 
+	* Swings the camera to the specified ManagedChild, fieldOfView, with the specified speed, using the 
 	* specified tween function (standard Robert Penner style signature).  This function dispatches 
 	* CameraEvent.ACTIVE and CameraEvent.INACTIVE before the motion starts and after it ceases, respectively.
 	* @param child ManagedChild 
 	* @param fieldOfView Number (optional) pass NaN to use the current value
-	* @param time Number (optional) defaults to 2.5 seconds
+	* @param speed Number (optional) defaults to 20
 	* @param tween Function (optional) defaults to Linear.easeNone. Function must have signature: function name (t:Number, b:Number, c:Number, d:Number):Number
 	*/
 	public function swingToChild(
-		child:ManagedChild, fieldOfView:Number = NaN, time:Number=2.5, tween:Function=null
+		child:ManagedChild, fieldOfView:Number = NaN, speed:Number=20, tween:Function=null
 	):void {
 		if (child == null) return;
 		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
@@ -421,6 +429,9 @@ public class PanoSalado extends ViewData implements ICamera
 			properties.push("fieldOfView");
 			values.push(fieldOfView);
 		}
+		var time:Number = (Math.acos((Math.sin(_tilt * Math.PI / 180) * Math.sin(childTilt * Math.PI / 180)) 
+		+ (Math.cos(_tilt*Math.PI/180) * Math.cos(childTilt*Math.PI/180) * Math.cos((Math.abs(_pan - childPan))*Math.PI/180)))*(180/Math.PI)) / speed;
+		
 		animation = new Animation(this,properties,values,time,tween);
 		animation.addEventListener( Event.COMPLETE, swingToChildComplete, false, 0, true );
 	}
@@ -514,11 +525,6 @@ public class PanoSalado extends ViewData implements ICamera
 		_tiltSpeed =
 			0;
 	}
-	
-	
-	
-	
-	
 	
 	////
 	

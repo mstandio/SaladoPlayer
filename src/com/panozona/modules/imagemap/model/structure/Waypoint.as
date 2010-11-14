@@ -25,35 +25,9 @@ package com.panozona.modules.imagemap.model.structure {
 	 */
 	public class Waypoint {
 		
-		public static var GRADIENT:String = "gradient";
-		public static var GRADIENT_SHORT:String = "gradientShort";
-		public static var SOLID:String = "solid";
-		public static var SOLID_SHORT:String = "solidShort";
-		
 		public var position:Position = new Position(0,0);		
-		public var target:String; // intentionally not initialized
-		public var panShift:Number = 0;
-		
-		public var color:Number = 0x00FF00; // green
-		
-		public var maxPointSize:Number = 20;
-		public var minPointSize:Number = 200;
-		
-		public var _camType:String = Waypoint.SOLID;
-		
-		public function get camType():String {
-			return _camType;
-		}
-		
-		public function set camType(value:String):void {
-			if (value == Waypoint.SOLID ||
-				value == Waypoint.GRADIENT_SHORT ||
-				value == Waypoint.GRADIENT ||
-				value == Waypoint.GRADIENT_SHORT) {
-				_camType = value;
-			}else {
-				throw new Error("Invalid camera type value: "+value);
-			}
-		}
+		public var target:String; // intentionally not initialized		
+		public var panShift:Number = 0;		
+		public var mouse:Mouse = new Mouse();
 	}
 }

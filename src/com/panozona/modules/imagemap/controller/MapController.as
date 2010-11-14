@@ -18,22 +18,24 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.controller {
 	
-	import com.panozona.modules.imagemap.model.WaypointData;
-	import com.panozona.modules.imagemap.view.WaypointView;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.events.IOErrorEvent;
 	import flash.display.Loader;
 	import flash.net.URLRequest;
 	
 	import com.panozona.player.module.Module;
 	import com.panozona.modules.imagemap.view.MapView;
-	import com.panozona.modules.imagemap.events.MapEvent;
+	import com.panozona.modules.imagemap.view.WaypointView;
 	
+	import com.panozona.modules.imagemap.model.MapData;
+	import com.panozona.modules.imagemap.model.WaypointData;
 	import com.panozona.modules.imagemap.model.structure.Map;
 	import com.panozona.modules.imagemap.model.structure.Waypoint;
 	
+	import com.panozona.modules.imagemap.events.MapEvent;
 	import com.panozona.modules.imagemap.events.ContentViewerEvent;
 	
 	/**
@@ -45,6 +47,7 @@ package com.panozona.modules.imagemap.controller {
 		private var _module:Module;
 		
 		private var waypointControlers:Array;
+		private var arrListeners:Array;
 		
 		private var mapImageLoader:Loader;
 		
@@ -53,13 +56,13 @@ package com.panozona.modules.imagemap.controller {
 			_module = module;
 			
 			waypointControlers = new Array();
+			arrListeners = new Array();
 			
 			_mapView.imageMapData.mapData.addEventListener(MapEvent.CHANGED_CURRENT_MAP_ID, handleCurrentMapIdChange, false, 0, true);
 			_mapView.imageMapData.mapData.addEventListener(ContentViewerEvent.FOCUS_LOST, handleFocusLost, false, 0, true);
 		}
 		
 		public function loadFirstMap():void {
-			// TODO: check firstMap and if not load first tmap in line, like below:
 			_mapView.imageMapData.mapData.currentMapId = (_mapView.imageMapData.mapData.maps.getChildrenOfGivenClass(Map)[0]).id;
 		}
 		
@@ -98,15 +101,54 @@ package com.panozona.modules.imagemap.controller {
 				_mapView.waypointsContainer.removeChildAt(0);
 			}
 			while (waypointControlers.length) {
-				waypointControlers.pop(); // TODO: nullify array perhaps? 
+				waypointControlers.pop();
 			}
 			var waypointView:WaypointView;
 			var waypointController:WaypointController;
-			for each(var waypoint:Waypoint in  _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).getChildrenOfGivenClass(Waypoint)) {
-				waypointView = new WaypointView(_mapView.imageMapData, new WaypointData(waypoint));
+			var map:Map = _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId);
+			for each(var waypoint:Waypoint in map.getChildrenOfGivenClass(Waypoint)) {
+				waypointView = new WaypointView(_mapView.imageMapData, new WaypointData(waypoint, map.buttons, map.radars));
 				_mapView.waypointsContainer.addChild(waypointView);
 				waypointController = new WaypointController(waypointView, _module);
 				waypointControlers.push(waypointController);
+				
+				if (waypoint.mouse.onClick != null) {
+					waypointView.addEventListener(MouseEvent.CLICK, getMouseEventHandler(waypoint.mouse.onClick));
+					arrListeners.push({type:MouseEvent.CLICK, listener:getMouseEventHandler(waypoint.mouse.onClick)});
+				}
+				if (waypoint.mouse.onPress != null) {
+					waypointView.addEventListener(MouseEvent.MOUSE_DOWN, getMouseEventHandler(waypoint.mouse.onPress));
+					arrListeners.push({type:MouseEvent.MOUSE_DOWN, listener:getMouseEventHandler(waypoint.mouse.onPress)});
+				}
+				if (waypoint.mouse.onRelease != null) {
+					waypointView.addEventListener(MouseEvent.MOUSE_UP, getMouseEventHandler(waypoint.mouse.onRelease));
+					arrListeners.push({type:MouseEvent.MOUSE_UP, listener:getMouseEventHandler(waypoint.mouse.onRelease)});
+				}
+				if (waypoint.mouse.onOver != null) {
+					waypointView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(waypoint.mouse.onOver));
+					arrListeners.push({type:MouseEvent.ROLL_OVER, listener:getMouseEventHandler(waypoint.mouse.onOver)});
+				}
+				if (waypoint.mouse.onOut != null) {
+					waypointView.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(waypoint.mouse.onOut));
+					arrListeners.push({type:MouseEvent.ROLL_OUT, listener:getMouseEventHandler(waypoint.mouse.onOut)});
+				}
+			}
+		}
+		
+		private function getMouseEventHandler(actionId:String):Function{
+			return function(e:MouseEvent):void {
+				_module.saladoPlayer.manager.runAction(actionId);
+			}
+		}
+		
+		// TODO: remove hotspots on map change
+		private function destroyWaypoints():void {
+			for (var i:int = 0; i < _mapView.waypointsContainer.numChildren; i++ ) {
+				for(var j:Number = 0; j < arrListeners.length; j++){
+					if (_mapView.waypointsContainer.getChildAt(i).hasEventListener(arrListeners[j].type)) {
+						_mapView.waypointsContainer.getChildAt(i).removeEventListener(arrListeners[j].type, arrListeners[j].listener);
+					}
+				}
 			}
 		}
 	}

@@ -193,10 +193,6 @@ package com.panozona.player.manager {
 				managedChild.addEventListener(MouseEvent.MOUSE_UP, getMouseEventHandler(hotspotData.mouse.onRelease));
 				arrListeners.push({type:MouseEvent.MOUSE_UP, listener:getMouseEventHandler(e.hotspotData.mouse.onRelease)});
 			}
-			if (hotspotData.mouse.onMove != null) {
-				managedChild.addEventListener(MouseEvent.MOUSE_MOVE, getMouseEventHandler(hotspotData.mouse.onMove));
-				arrListeners.push({type:MouseEvent.MOUSE_MOVE, listener:getMouseEventHandler(e.hotspotData.mouse.onMove)});
-			}
 			if (hotspotData.mouse.onOver != null) {
 				managedChild.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(hotspotData.mouse.onOver));
 				arrListeners.push({type:MouseEvent.ROLL_OVER, listener:getMouseEventHandler(e.hotspotData.mouse.onOver)});
@@ -316,50 +312,57 @@ package com.panozona.player.manager {
 		}
 		
 		public function startMoving(panSpeed:Number, tiltSpeed:Number):void {
-			startInertialSwing(panSpeed, tiltSpeed);
+			if (!panoramaLocked) {
+				startInertialSwing(panSpeed, tiltSpeed);
+				panoramaLocked = true;
+			}
 		}
 		
 		public function stopMoving():void {
+			panoramaLocked = false;
 			stopInertialSwing();
 		}
 		
-		public function advancedStartMoving(panSpeed:Number, tiltSpeed:Number, sensitivity:Number, friction:Number, threshold:Number):void {
-			startInertialSwing(panSpeed, tiltSpeed, sensitivity, friction, threshold);			
-		}
-		
-		public function advancedMoveToHotspot(hotspotId:String, fieldOfView:Number, time:Number, tween:Function):void {
+		public function advancedMoveToHotspot(hotspotId:String, fieldOfView:Number, speed:Number, tween:Function):void {
 			if (!panoramaLocked && nameToHotspot[hotspotId] != undefined){
 				pendingActionId = null;
 				panoramaLocked = true;
-				swingToChild(nameToHotspot[hotspotId], fieldOfView, time, tween);	
+				swingToChild(nameToHotspot[hotspotId], fieldOfView, speed, tween);	
 				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
 			}
 		}
 		
-		public function advancedMoveToHotspotAnd(hotspotId:String, fieldOfView:Number, time:Number, tween:Function, actionId:String):void {
+		public function advancedMoveToHotspotAnd(hotspotId:String, fieldOfView:Number, speed:Number, tween:Function, actionId:String):void {
 			if(!panoramaLocked && nameToHotspot[hotspotId] != undefined){
-				swingToChild(nameToHotspot[hotspotId], fieldOfView, time, tween);
+				swingToChild(nameToHotspot[hotspotId], fieldOfView, speed, tween);
 				panoramaLocked = true;
 				pendingActionId = actionId; 
 				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
 			}
 		}
 		
-		public function advancedMoveToView(pan:Number, tilt:Number, fieldOfView:Number, time:Number, tween:Function):void {
+		public function advancedMoveToView(pan:Number, tilt:Number, fieldOfView:Number, speed:Number, tween:Function):void {
 			if (!panoramaLocked) {
 				pendingActionId = null;
 				panoramaLocked = true;
-				swingTo(pan, tilt, fieldOfView, time, tween);
+				swingTo(pan, tilt, fieldOfView, speed, tween);
 				addEventListener(PanoSaladoEvent.SWING_TO_COMPLETE, swingComplete);
 			}
 		}
 		
-		public function advancedMoveToViewAnd(pan:Number, tilt:Number, fieldOfView:Number, time:Number, tween:Function, actionId:String):void {
+		public function advancedMoveToViewAnd(pan:Number, tilt:Number, fieldOfView:Number, speed:Number, tween:Function, actionId:String):void {
 			if (!panoramaLocked) {
 				panoramaLocked = true;
 				pendingActionId = actionId;
-				swingTo(pan, tilt, fieldOfView,time, tween);
+				swingTo(pan, tilt, fieldOfView, speed, tween);
 				addEventListener(PanoSaladoEvent.SWING_TO_COMPLETE, swingComplete);
+			}
+		}		
+		
+		public function advancedStartMoving(panSpeed:Number, tiltSpeed:Number, sensitivity:Number, friction:Number, threshold:Number):void {
+			if (!panoramaLocked) {
+				startInertialSwing(panSpeed, tiltSpeed, sensitivity, friction, threshold);
+				panoramaLocked = true;
 			}
 		}
 	}

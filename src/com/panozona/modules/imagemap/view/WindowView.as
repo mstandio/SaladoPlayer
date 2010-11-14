@@ -40,7 +40,7 @@ package com.panozona.modules.imagemap.view{
 		private var _contentViewerView:ContentViewerView;
 		
 		private var window:Sprite;
-		private var windowCloseButton:SimpleButton; // TODO: it should not use simple button i guess
+		private var windowCloseButton:SimpleButton;
 		
 		public function WindowView(imageMapData:ImageMapData) {
 			
@@ -59,9 +59,9 @@ package com.panozona.modules.imagemap.view{
 			// draw close button
 			windowCloseButton = new SimpleButton();
 			var closePlainIcon:Sprite = new Sprite();
-			closePlainIcon.addChild(new Bitmap(new EmbededGraphics.BitmapIconClosePlain().bitmapData));
+			closePlainIcon.addChild(new Bitmap(new EmbededGraphics.BitmapClosePlain().bitmapData));
 			var closePressIcon:Sprite = new Sprite();
-			closePressIcon.addChild(new Bitmap(new EmbededGraphics.BitmapIconClosePress().bitmapData));
+			closePressIcon.addChild(new Bitmap(new EmbededGraphics.BitmapClosePress().bitmapData));
 			windowCloseButton.upState = closePlainIcon;
 			windowCloseButton.overState = closePlainIcon;
 			windowCloseButton.downState = closePressIcon;

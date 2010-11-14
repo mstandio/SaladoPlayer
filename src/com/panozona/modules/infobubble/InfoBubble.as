@@ -18,7 +18,6 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.infobubble{
 	
-	
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
@@ -38,10 +37,12 @@ package com.panozona.modules.infobubble{
 	 */
 	public class InfoBubble extends Module{
 		
-		private var infoBubbleData:InfoBubbleData 
+		private var infoBubbleData:InfoBubbleData;
 		
-		private var bubbleContainer:Sprite
+		private var bubbleContent:Bitmap;
 		private var bubbleImageLoader:Loader;
+		private var currentBubbleId:String;
+		private var isShowing:Boolean;
 		
 		public function InfoBubble(){
 			super("InfoBubble", 0.1, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:InfoBubble");
@@ -54,11 +55,12 @@ package com.panozona.modules.infobubble{
 		override protected function moduleReady(moduleData:ModuleData):void {
 			infoBubbleData = new InfoBubbleData(moduleData, debugMode); // allways first
 			
-			bubbleContainer = new Sprite();
-			bubbleContainer.visible = false;
-			bubbleContainer.mouseEnabled = false;
-			bubbleContainer.mouseChildren = false;
-			addChild(bubbleContainer);
+			mouseEnabled = false;
+			mouseChildren = false;
+			
+			bubbleContent = new Bitmap();
+			bubbleContent.visible = false;
+			addChild(bubbleContent);
 			
 			bubbleImageLoader = new Loader();
 			bubbleImageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, bubbleImageLost, false, 0 , true);
@@ -66,20 +68,29 @@ package com.panozona.modules.infobubble{
 		}
 		
 		private function bubbleImageLost(error:IOErrorEvent):void {
-			printError(error.toString());
+			printWarning(error.toString());
 		}
 		
 		private function bubbleImageLoaded(e:Event):void {
-			bubbleContainer.addChild(bubbleImageLoader);
+			bubbleContent.bitmapData = Bitmap(bubbleImageLoader.content).bitmapData;
 			stage.addEventListener(Event.ENTER_FRAME, handleEnterFrame, false, 0, true);
-			bubbleContainer.x = mouseX
-			bubbleContainer.y = mouseY;
-			bubbleContainer.visible = true;
+			handleEnterFrame();
+			if(isShowing) bubbleContent.visible = true;
 		}
 		
-		private function handleEnterFrame(e:Event):void {
-			bubbleContainer.x = mouseX
-			bubbleContainer.y = mouseY;
+		private function handleEnterFrame(e:Event = null):void {			
+			if (bubbleContent.width + mouseX + infoBubbleData.settings.cursorDistance > boundsWidth) {
+				bubbleContent.x = mouseX - bubbleContent.width - infoBubbleData.settings.cursorDistance;
+			}else {
+				bubbleContent.x = mouseX + infoBubbleData.settings.cursorDistance;
+			}			
+			if (mouseY + bubbleContent.height * 0.5 > boundsHeight){
+				bubbleContent.y = boundsHeight - bubbleContent.height;
+			}else if (mouseY - bubbleContent.height * 0.5 <= 0){
+				bubbleContent.y = 0;
+			}else {
+				bubbleContent.y = mouseY - bubbleContent.height * 0.5;
+			}
 		}
 		
 ///////////////////////////////////////////////////////////////////////////////
@@ -87,10 +98,16 @@ package com.panozona.modules.infobubble{
 ///////////////////////////////////////////////////////////////////////////////
 		
 		public function showBubble(bubbleId:String):void {
-			trace("show");
+			isShowing = true;
+			if (currentBubbleId == bubbleId) {
+				stage.addEventListener(Event.ENTER_FRAME, handleEnterFrame, false, 0, true);
+				bubbleContent.visible = true;
+				return;
+			}
 			for each (var bubble:Bubble in infoBubbleData.bubbles.getChildrenOfGivenClass(Bubble)) {
 				if (bubble.id == bubbleId) {
 					bubbleImageLoader.load(new URLRequest(bubble.path));
+					currentBubbleId = bubbleId;
 					return;
 				}
 			}
@@ -98,11 +115,8 @@ package com.panozona.modules.infobubble{
 		}
 		
 		public function hideBubble():void {
-			trace("hide");
-			bubbleContainer.visible = false;
-			while (bubbleContainer.numChildren) {
-				bubbleContainer.removeChildAt(0);
-			}
+			isShowing = false;
+			bubbleContent.visible = false;
 			stage.removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
 		}
 	}

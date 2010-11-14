@@ -82,8 +82,6 @@ package com.panozona.player.module{
 				addChild(new ModuleInfoPrinter(_moduleDescription, aboutThisModule)); 
 				trace(error.getStackTrace());
 			}
-			_moduleDescription = null;
-			_moduleData = null;
 		}
 		
 		/**
@@ -140,7 +138,9 @@ package com.panozona.player.module{
 		 * @return  any type returned by given function
 		 */
 		public final function execute(functionName:String, args:Array):*{
-			return (this[functionName] as Function).apply(this, args);
+			if(_moduleDescription.functionsDescription.hasOwnProperty(functionName)) {
+				return (this[functionName] as Function).apply(this, args);
+			}
 		}
 		
 		/**
@@ -148,7 +148,7 @@ package com.panozona.player.module{
 		 * @param	message
 		 */
 		public final function printInfo(message:String):void {
-			if(_tracer != null){
+			if (_tracer != null) {				
 				_tracer.printInfo(_moduleDescription.moduleName+": "+message);
 			}
 		}

@@ -27,7 +27,7 @@ package com.panozona.player.manager.utils{
 	public class ManagerDescription{
 		
 		public static const name:String = "SaladoPlayer";
-		public static const version:Number = 0.6;
+		public static const version:Number = 0.7;
 		
 		private var managerDescription:Object;
 		
@@ -47,11 +47,11 @@ package com.panozona.player.manager.utils{
 			managerDescription.functionsDescription["startMoving"] = new Array(Number, Number);
 			managerDescription.functionsDescription["stopMoving"] = new Array();
 			
-			managerDescription.functionsDescription["advancedStartMoving"] = new Array(Number, Number, Number, Number, Number);
 			managerDescription.functionsDescription["advancedMoveToHotspot"] = new Array(String, Number, Number, Function);
 			managerDescription.functionsDescription["advancedMoveToHotspotAnd"] = new Array(String, Number, Number, Function, String);
 			managerDescription.functionsDescription["advancedMoveToView"] = new Array(Number, Number, Number, Number, Function);
 			managerDescription.functionsDescription["advancedMoveToViewAnd"] = new Array(Number, Number, Number, Number, Function, String);
+			managerDescription.functionsDescription["advancedStartMoving"] = new Array(Number, Number, Number, Number, Number);
 			managerDescription.functionsDescription["runAction"] = new Array(String);
 		}
 		

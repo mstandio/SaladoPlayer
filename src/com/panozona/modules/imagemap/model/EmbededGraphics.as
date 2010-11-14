@@ -27,15 +27,25 @@ package com.panozona.modules.imagemap.model{
 			public static var BitmapCursorHandClosed:Class;
 		[Embed(source="../assets/cursor_hand_opened.png")]
 			public static var BitmapCursorHandOpened:Class;
-		[Embed(source="../assets/navigation_move.png")]
-			public static var BitmapNavigationMove:Class;
-		[Embed(source="../assets/navigation_zoom.png")]
-			public static var BitmapNavigationZoom:Class;
-		[Embed(source="../assets/icon_map.png")]
-			public static var BitmapIconMap:Class;
-		[Embed(source="../assets/icon_close_plain.png")]
-			public static var BitmapIconClosePlain:Class;
-		[Embed(source="../assets/icon_close_press.png")]
-			public static var BitmapIconClosePress:Class;
+		[Embed(source="../assets/move_plain.png")]
+			public static var BitmapMovePlain:Class;
+		[Embed(source="../assets/move_right.png")]
+			public static var BitmapMoveRight:Class;
+		[Embed(source="../assets/move_left.png")]
+			public static var BitmapMoveLeft:Class;
+		[Embed(source="../assets/move_up.png")]
+			public static var BitmapMoveUp:Class;
+		[Embed(source="../assets/move_down.png")]
+			public static var BitmapMoveDown:Class;
+		[Embed(source="../assets/zoom_plain.png")]
+			public static var BitmapZoomPlain:Class;
+		[Embed(source="../assets/zoom_in.png")]
+			public static var BitmapZoomIn:Class;
+		[Embed(source="../assets/zoom_out.png")]
+			public static var BitmapZoomOut:Class;
+		[Embed(source="../assets/close_plain.png")]
+			public static var BitmapClosePlain:Class;
+		[Embed(source="../assets/close_press.png")]
+			public static var BitmapClosePress:Class;
 	}
 }

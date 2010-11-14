@@ -54,8 +54,11 @@ package com.panozona.modules.imagemap.controller {
 			_module.saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 			
 			_waypointView.waypointData.addEventListener(WaypointEvent.CHANGED_SHOW_RADAR, handleShowRadarChange, false, 0, true);
+			_waypointView.waypointData.addEventListener(WaypointEvent.CHANGED_MOUSE_OVER, handleMouseOverChange, false, 0, true);
 			
 			_waypointView.addEventListener(MouseEvent.CLICK, handleMouseClik, false, 0, true);
+			
+			drawButton();
 		}
 		
 		public function lostFocus():void {
@@ -72,7 +75,6 @@ package com.panozona.modules.imagemap.controller {
 		
 		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {
 			if (_waypointView.waypointData.waypoint.target != null) { 
-				// TODO: and how about mouse events 
 				if (loadPanoramaEvent.panoramaData.id == _waypointView.waypointData.waypoint.target) {
 					// TODO: fade in effect
 					_waypointView.waypointData.showRadar = true;
@@ -85,6 +87,7 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function handleShowRadarChange(e:Event):void {
+			drawButton();
 			if (_waypointView.waypointData.showRadar) {
 				_pan = NaN;
 				_tilt = NaN;
@@ -98,6 +101,10 @@ package com.panozona.modules.imagemap.controller {
 			}
 		}
 		
+		public function handleMouseOverChange(e:Event):void {
+			drawButton();
+		}
+		
 		private function handleEnterFrame(e:Event= null):void {
 			if (_fov != _module.saladoPlayer.manager.fieldOfView) {
 				drawRadar();
@@ -109,11 +116,16 @@ package com.panozona.modules.imagemap.controller {
 				pan2 = pan1;
 				pan1 = _module.saladoPlayer.manager.pan;
 				
-				_waypointView.radar.rotationZ = _module.saladoPlayer.manager.pan - _waypointView.waypointData.waypoint.panShift;
-				//_waypointView.radar.rotationY = _module.saladoPlayer.manager.tilt; // not symmetric
+				_waypointView.radar.rotationZ = - _module.saladoPlayer.manager.pan - _waypointView.waypointData.waypoint.panShift;
 				_waypointView.radar.scaleX = 1 - Math.abs(_module.saladoPlayer.manager.tilt) / 100;
 				_pan = _module.saladoPlayer.manager.pan;
 				_tilt = _module.saladoPlayer.manager.tilt;
+				
+				if (_module.saladoPlayer.manager.tilt > 0) {
+					_waypointView.radarFirst();
+				}else {
+					_waypointView.buttonFirst();
+				}
 				
 				if (_waypointView.waypointData.showRadar && !_isFocused) {
 					if(pan1 - pan2 < pan2 - pan3){
@@ -125,33 +137,40 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function drawRadar():void {
-			
-			//TODO: parametrise radar
-			//clean this up
-			
 			_waypointView.radar.graphics.clear();
-			var radius:Number = 80;
-			var __fov:Number = _module.saladoPlayer.manager.fieldOfView * Math.PI / 180;
-			var startAngle:Number = - __fov * 0.5;
-			var endAngle:Number = __fov * 0.5;
-			var difference:Number = Math.abs(endAngle - startAngle);
-			var divisions:Number = Math.floor(difference / (Math.PI / 4))+1;
-			var span:Number = difference / (2 * divisions);
-			var controlRadius:Number = radius / Math.cos(span);
-			_waypointView.radar.graphics.beginFill(0x00ff00);
-			_waypointView.radar.graphics.lineStyle(2, 0x000000);
+			var startAngle:Number = - _module.saladoPlayer.manager.fieldOfView * Math.PI / 180 * 0.5;
+			var endAngle:Number = _module.saladoPlayer.manager.fieldOfView * Math.PI / 180 * 0.5;
+			var divisions:Number = Math.floor(Math.abs(endAngle - startAngle) / (Math.PI / 4))+1;
+			var span:Number = Math.abs(endAngle - startAngle) / (2 * divisions);
+			var controlRadius:Number = _waypointView.waypointData.radar.radius / Math.cos(span);
+			_waypointView.radar.graphics.beginFill(_waypointView.waypointData.radar.color);
+			_waypointView.radar.graphics.lineStyle(_waypointView.waypointData.radar.borderSize, _waypointView.waypointData.radar.borderColor);
 			_waypointView.radar.graphics.moveTo(0, 0);
-			_waypointView.radar.graphics.lineTo((Math.cos(startAngle)*radius), Math.sin(startAngle)*radius);
+			_waypointView.radar.graphics.lineTo((Math.cos(startAngle)*_waypointView.waypointData.radar.radius), Math.sin(startAngle)*_waypointView.waypointData.radar.radius);
 			var controlPoint:Point;
 			var anchorPoint:Point;
 			for(var i:Number=0; i<divisions; ++i){
 				endAngle = startAngle + span;
 				startAngle  = endAngle + span;
 				controlPoint = new Point(Math.cos(endAngle)*controlRadius, Math.sin(endAngle)*controlRadius);
-				anchorPoint = new Point(Math.cos(startAngle)*radius, Math.sin(startAngle)*radius);
+				anchorPoint = new Point(Math.cos(startAngle)*_waypointView.waypointData.radar.radius, Math.sin(startAngle)*_waypointView.waypointData.radar.radius);
 				_waypointView.radar.graphics.curveTo(controlPoint.x, controlPoint.y, anchorPoint.x, anchorPoint.y);
 			}
 			_waypointView.radar.graphics.endFill();
+		}
+		
+		private function drawButton():void {
+			_waypointView.button.graphics.clear();
+			if (_waypointView.waypointData.showRadar){
+				_waypointView.button.graphics.beginFill(_waypointView.waypointData.button.activeColor);				
+			}else if (_waypointView.waypointData.mouseOver) {
+				_waypointView.button.graphics.beginFill(_waypointView.waypointData.button.hoverColor);
+			}else { // !mouseOver
+				_waypointView.button.graphics.beginFill(_waypointView.waypointData.button.plainColor);
+			}
+			_waypointView.button.graphics.lineStyle(_waypointView.waypointData.button.borderSize, _waypointView.waypointData.button.borderColor);
+			_waypointView.button.graphics.drawCircle(0, 0, _waypointView.waypointData.button.radius);
+			_waypointView.button.graphics.endFill();
 		}
 	}
 }

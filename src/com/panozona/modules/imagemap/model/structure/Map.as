@@ -34,5 +34,8 @@ package com.panozona.modules.imagemap.model.structure{
 		public var id:String;
 		public var label:String; 
 		public var path:String;
+		
+		public var radars:Radar = new Radar(); 
+		public var buttons:Button = new Button(); 
 	}
 }

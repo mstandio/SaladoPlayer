@@ -38,8 +38,11 @@ package com.panozona.modules.imagemap.model {
 			
 			for each(var moduleNode:ModuleNode in moduleData.moduleNodes){
 				switch(moduleNode.nodeName) {
-					case "settings": 
+					case "window": 
 						readRecursive(windowData, moduleNode);
+					break;
+					case "viewer":
+						readRecursive(contentViewerData.viewer, moduleNode);
 					break;
 					case "maps": 
 						readRecursive(mapData.maps, moduleNode);

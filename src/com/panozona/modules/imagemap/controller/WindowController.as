@@ -104,10 +104,10 @@ package com.panozona.modules.imagemap.controller{
 			_windowView.mouseEnabled = true;
 			_windowView.mouseChildren = true;
 			var tweenObj:Object = new Object();
-			tweenObj["time"] = _windowView.windowData.tween.time;
-			tweenObj["transition"] = _windowView.windowData.tween.transition;
+			tweenObj["time"] = _windowView.windowData.openTween.time;
+			tweenObj["transition"] = _windowView.windowData.openTween.transition;
 			
-			switch(_windowView.windowData.animation) {
+			switch(_windowView.windowData.transitionType) {
 				case WindowData.OPEN_CLOSE_FADE: 
 					tweenObj["alpha"] = _windowView.windowData.alpha;
 				break;
@@ -120,10 +120,10 @@ package com.panozona.modules.imagemap.controller{
 		
 		private function closeWindow():void {
 			var tweenObj:Object = new Object();
-			tweenObj["time"] = _windowView.windowData.tween.time;
-			tweenObj["transition"] = _windowView.windowData.tween.transition; // TODO: transition in and out ?? 
+			tweenObj["time"] = _windowView.windowData.closeTween.time;
+			tweenObj["transition"] = _windowView.windowData.closeTween.transition; // TODO: transition in and out ?? 
 			tweenObj["onComplete"] = closeWindowOnComplete;
-			switch(_windowView.windowData.animation) {
+			switch(_windowView.windowData.transitionType) {
 				case WindowData.OPEN_CLOSE_FADE: 
 					tweenObj["alpha"] = 0;
 				break;
@@ -147,7 +147,7 @@ package com.panozona.modules.imagemap.controller{
 				_windowView.visible = true;
 			}else {
 				Tweener.addTween(_windowView, {x:getWindowCloseX(), y:getWindowCloseY()}); // no time parameter
-				if(_windowView.windowData.animation == WindowData.OPEN_CLOSE_FADE){
+				if(_windowView.windowData.transitionType == WindowData.OPEN_CLOSE_FADE){
 					_windowView.alpha = 0;
 				}
 				_windowView.visible = false;
@@ -186,7 +186,7 @@ package com.panozona.modules.imagemap.controller{
 		
 		private function getWindowCloseX():Number {
 			var result:Number = 0;
-			switch(_windowView.windowData.animation){
+			switch(_windowView.windowData.transitionType){
 				case WindowData.OPEN_CLOSE_SLIDE_RIGHT:
 					result = _module.boundsWidth;
 				break;
@@ -201,7 +201,7 @@ package com.panozona.modules.imagemap.controller{
 		
 		private function getWindowCloseY():Number{
 			var result:Number = 0;
-			switch(_windowView.windowData.animation){
+			switch(_windowView.windowData.transitionType){
 				case WindowData.OPEN_CLOSE_SLIDE_UP:
 					result = -_windowView.windowData.size.height;
 				break;

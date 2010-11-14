@@ -22,6 +22,7 @@ package com.panozona.modules.infobubble.data{
 	import com.panozona.player.module.data.ModuleNode;
 	import com.panozona.player.module.data.structure.Master;
 	
+	import com.panozona.modules.infobubble.data.structure.Settings;	
 	import com.panozona.modules.infobubble.data.structure.Bubbles;
 	
 	/**
@@ -30,6 +31,7 @@ package com.panozona.modules.infobubble.data{
 	 */
 	public class InfoBubbleData extends Master{
 		
+		public var settings:Settings = new Settings();
 		public var bubbles:Bubbles = new Bubbles();
 		
 		public function InfoBubbleData(moduleData:ModuleData, debugMode:Boolean) {
@@ -37,6 +39,9 @@ package com.panozona.modules.infobubble.data{
 			
 			for each(var moduleNode:ModuleNode in moduleData.moduleNodes){
 				switch(moduleNode.nodeName) {
+					case "settings": 
+						readRecursive(settings, moduleNode);
+					break;					
 					case "bubbles": 
 						readRecursive(bubbles, moduleNode);
 					break;					
@@ -46,7 +51,8 @@ package com.panozona.modules.infobubble.data{
 			}
 			
 			if (debugMode) {
-				// check if ids are not repeating. 
+				// TODO: if ids are not repeating
+				// TODO: if paths are not empty 
 			}
 		}
 	}

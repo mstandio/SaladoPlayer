@@ -27,7 +27,6 @@ package com.panozona.modules.imagemap.model.structure{
 		public var onClick:String;
 		public var onPress:String;
 		public var onRelease:String;
-		public var onMove:String;
 		public var onOver:String;
 		public var onOut:String;
 	}

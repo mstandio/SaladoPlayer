@@ -44,16 +44,17 @@ package com.panozona.modules.imagemap.model {
 		public var align:Align = new Align(Align.RIGHT, Align.TOP);
 		public var move:Move = new Move( -20, 20);
 		public var size:Size = new Size(400, 300);
-		public var tween:Tween = new Tween(Equations.easeNone,0.5);
+		
 		private var _alpha:Number = 1.0;
-		private var _animation:String = WindowData.OPEN_CLOSE_SLIDE_RIGHT;
 		
-		public var onOpen:String;  // actions executed 
-		public var onClose:String; // on window visibility change
+		public var onOpen:String; // actions executed on window visibility change
+		public var onClose:String;
 		
-		public function get animation():String{
-			return _animation;
-		}
+		public var openTween:Tween = new Tween(Equations.easeNone, 0.5);
+		public var closeTween:Tween = new Tween(Equations.easeNone, 0.5);
+		private var _transitionType:String = WindowData.OPEN_CLOSE_SLIDE_RIGHT;
+		
+		
 		
 		public function get open():Boolean{return _open}
 		public function set open(value:Boolean):void {
@@ -62,13 +63,17 @@ package com.panozona.modules.imagemap.model {
 			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_OPEN));
 		}
 		
-		public function set animation(value:String):void {
+		public function get transitionType():String{
+			return _transitionType;
+		}
+		
+		public function set transitionType(value:String):void {
 			if (value == WindowData.OPEN_CLOSE_SLIDE_RIGHT||
 				value == WindowData.OPEN_CLOSE_SLIDE_LEFT ||
 				value == WindowData.OPEN_CLOSE_SLIDE_UP ||
 				value == WindowData.OPEN_CLOSE_SLIDE_DOWN ||
 				value == WindowData.OPEN_CLOSE_FADE) {
-				_animation = value;
+				_transitionType = value;
 			}else {
 				throw new Error("Invalid animation value: "+value);
 			}

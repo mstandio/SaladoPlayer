@@ -46,22 +46,16 @@ package com.panozona.modules.imagemap.view {
 			
 			_radar = new Sprite();
 			_radar.mouseEnabled = false;
+			_radar.alpha = (1 / imageMapData.windowData.alpha) * _waypointData.radar.alpha;
 			_radar.x = waypointData.waypoint.position.x;
 			_radar.y = waypointData.waypoint.position.y;
 			addChild(_radar);
 			
 			_button = new Sprite();
-			_button .buttonMode = true;
-			_button.graphics.beginFill(0xffff00);            // temporary, needs more states
-			_button.graphics.drawRect(0, 0, 20, 20);
-			//_button.graphics.lineStyle(2*20, 0x000000);
-			//_button.graphics.drawCircle(0, 0, 15*20);
-			_button.graphics.endFill();
-			
+			_button.buttonMode = true;
 			_button.alpha = 1 / imageMapData.windowData.alpha;
-			
-			_button.x = _waypointData.waypoint.position.x - (_button.width * 0.5);
-			_button.y = _waypointData.waypoint.position.y - (_button.height * 0.5);
+			_button.x = _waypointData.waypoint.position.x;
+			_button.y = _waypointData.waypoint.position.y;
 			addChild(_button);
 			
 			_button.addEventListener(MouseEvent.ROLL_OVER, mouseOver);
@@ -84,12 +78,25 @@ package com.panozona.modules.imagemap.view {
 			return _button;
 		}
 		
+		public function radarFirst():void {
+			addChild(_button);
+			addChild(_radar);
+		}
+		
+		public function buttonFirst():void {
+			addChild(_radar);
+			addChild(_button);
+		}
+		
 		private function mouseOver(e:Event):void {
-			_imageMapData.contentViewerData.mouseOver = false;
+			waypointData.mouseOver = true; // button color change
+			_imageMapData.contentViewerData.mouseOver = false; // removing hand bitmap
+			
 		}
 		
 		private function mouseOut(e:Event):void {
-			_imageMapData.contentViewerData.mouseOver = true;
+			waypointData.mouseOver = false; // button color change
+			_imageMapData.contentViewerData.mouseOver = true; // adding hand bitmap
 		}
 	}
 }

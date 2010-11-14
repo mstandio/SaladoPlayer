@@ -16,19 +16,22 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.data.hotspot {
+package com.panozona.modules.imagemap.model.structure{
 	
 	/**
-	 * Binds mouse actions of given name to actions ids.
-	 * 
+	 * ...
 	 * @author mstandio
 	 */
-	public class Mouse {
+	public class Viewer{
 		
-		public var onClick:String;
-		public var onPress:String;
-		public var onRelease:String;
-		public var onOver:String;
-		public var onOut:String;
+		public var moveEnabled:Boolean = true;
+		public var moveSpeed:Number = 10;
+		
+		public var zoomEnabled:Boolean = true;
+		public var zoomSpeed:Number = 0.03;
+		
+		public var dragEnabled:Boolean = true;
+		
+		public var autofocusEnabled:Boolean = true;
 	}
 }

@@ -16,19 +16,20 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.data.hotspot {
+package com.panozona.modules.imagemap.model.structure {
 	
 	/**
-	 * Binds mouse actions of given name to actions ids.
-	 * 
+	 * ...
 	 * @author mstandio
 	 */
-	public class Mouse {
+	public class Button{
 		
-		public var onClick:String;
-		public var onPress:String;
-		public var onRelease:String;
-		public var onOver:String;
-		public var onOut:String;
+		public var radius:Number = 15;
+		public var plainColor:Number = 0x00ff00; // green
+		public var hoverColor:Number = 0xffff00; // yellow
+		public var activeColor:Number = 0xff0000; // red
+		
+		public var borderColor:Number = 0x000000; // black
+		public var borderSize:Number = 5;
 	}
 }

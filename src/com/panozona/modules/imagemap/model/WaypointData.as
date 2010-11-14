@@ -20,8 +20,10 @@ package com.panozona.modules.imagemap.model{
 	
 	import flash.events.EventDispatcher;
 	
-	import com.panozona.modules.imagemap.model.structure.Waypoint;
 	import com.panozona.modules.imagemap.events.WaypointEvent;
+	import com.panozona.modules.imagemap.model.structure.Waypoint;
+	import com.panozona.modules.imagemap.model.structure.Button;
+	import com.panozona.modules.imagemap.model.structure.Radar;
 	
 	/**
 	 * ...
@@ -29,17 +31,17 @@ package com.panozona.modules.imagemap.model{
 	 */
 	public class WaypointData extends EventDispatcher{
 		
-		private var _waypoint:Waypoint;
+		public var waypoint:Waypoint;
+		public var button:Button;
+		public var radar:Radar; 
 		
-		private var _showRadar:Boolean;		
-		private var _isFocused:Boolean;
+		private var _showRadar:Boolean;
+		private var _mouseOver:Boolean;
 		
-		public function WaypointData(waypoint:Waypoint){
-			_waypoint = waypoint;
-		}
-		
-		public function get waypoint():Waypoint {
-			return _waypoint;
+		public function WaypointData(waypoint:Waypoint, button:Button, radar:Radar){
+			this.waypoint = waypoint;
+			this.button = button;
+			this.radar = radar;
 		}
 		
 		public function get showRadar():Boolean {
@@ -52,10 +54,14 @@ package com.panozona.modules.imagemap.model{
 			dispatchEvent(new WaypointEvent(WaypointEvent.CHANGED_SHOW_RADAR));
 		}
 		
-		public function get isFocused():Boolean {
-			return _isFocused;
+		public function get mouseOver():Boolean {
+			return _mouseOver;
 		}
 		
-		// TODO: get? 
+		public function set mouseOver(value:Boolean):void {			
+			if (value == _mouseOver) return;
+			_mouseOver = value;
+			dispatchEvent(new WaypointEvent(WaypointEvent.CHANGED_MOUSE_OVER));
+		}
 	}
 }

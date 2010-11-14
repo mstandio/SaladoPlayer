@@ -22,8 +22,8 @@ package com.panozona.player.manager.utils{
 	import com.panozona.player.manager.utils.ManagerDescription;
 	import com.panozona.player.manager.data.panorama.PanoramaData;
 	import com.panozona.player.manager.data.action.*;
-	import com.panozona.player.manager.data.module.*;	
-	import com.panozona.player.manager.data.hotspot.HotspotData;	
+	import com.panozona.player.manager.data.module.*;
+	import com.panozona.player.manager.data.hotspot.HotspotData;
 	
 	/**
 	 * This class aggregates functions that validate ManagerData content
@@ -51,8 +51,8 @@ package com.panozona.player.manager.utils{
 				throw new Error("No panoramas found.");
 			}
 			
-			var panosIds:Array = new Array();
-			var hotspotsIds:Array;
+			var panosIds:Object = new Object();
+			var hotspotsIds:Object;
 			for each(var panoramaData:PanoramaData in managerData.panoramasData) {
 				if (panosIds[panoramaData.id] != undefined) {
 					Trace.instance.printWarning("Repeating panorama id: "+panoramaData.id);
@@ -68,7 +68,7 @@ package com.panozona.player.manager.utils{
 					checkActionTrigger(panoramaData.onLeaveTo);
 					checkActionTrigger(panoramaData.onLeaveToAttempt);
 					
-					hotspotsIds = new Array();
+					hotspotsIds = new Object();
 					for each(var hotspotData:HotspotData in panoramaData.hotspotsData) {
 						if (hotspotsIds[hotspotData.id] != undefined) {
 							Trace.instance.printWarning("Repeating child id: "+hotspotData.id+" in "+panoramaData.id);
@@ -94,11 +94,6 @@ package com.panozona.player.manager.utils{
 					Trace.instance.printWarning("Invalid action id: "+hotspotData.mouse.onClick+" in hotspot: " +hotspotData.id);
 				}
 			}
-			if (hotspotData.mouse.onMove != null) {
-				if (!actionExists(hotspotData.mouse.onMove)) {
-					Trace.instance.printWarning("Invalid action id: "+hotspotData.mouse.onMove+" in hotspot: " +hotspotData.id);
-				}
-			}
 			if (hotspotData.mouse.onOut != null) {
 				if (!actionExists(hotspotData.mouse.onOut)) {
 					Trace.instance.printWarning("Invalid action id: "+hotspotData.mouse.onOut+" in hotspot: " +hotspotData.id);
@@ -122,7 +117,7 @@ package com.panozona.player.manager.utils{
 		}
 		
 		private function checkModules():void {
-			var moduleNames:Array = new Array();
+			var moduleNames:Object = new Object();
 			for each(var abstractModuleData:AbstractModuleData in managerData.abstractModulesData) {
 				if (moduleNames[abstractModuleData.moduleName] != undefined) {
 					Trace.instance.printWarning("Repeating module name: "+abstractModuleData.moduleName);
@@ -140,7 +135,7 @@ package com.panozona.player.manager.utils{
 		}
 		
 		private function checkActions():void {
-			var actIds:Array = new Array();
+			var actIds:Object = new Object();
 			for each(var actionData:ActionData in managerData.actionsData) {
 				if (actIds[actionData.id] != undefined) {
 					Trace.instance.printWarning("Repeating action id: "+actionData.id);
@@ -195,8 +190,7 @@ package com.panozona.player.manager.utils{
 					}
 				}
 			}
-		}		
-		
+		}
 		
 		private function panoramaExists(panoramaId:String):void {
 			if (panoramaId != null) {

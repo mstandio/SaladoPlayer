@@ -18,8 +18,10 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model {
 	
-	import flash.events.EventDispatcher;
 	import flash.geom.Point;
+	import flash.events.EventDispatcher;
+	
+	import com.panozona.modules.imagemap.model.structure.Viewer;
 		
 	import com.panozona.modules.imagemap.events.ContentViewerEvent;
 	
@@ -28,6 +30,8 @@ package com.panozona.modules.imagemap.model {
 	 * @author mstandio
 	 */
 	public class ContentViewerData extends EventDispatcher{
+		
+		public var viewer:Viewer;
 		
 		private var _moveLeft:Boolean;
 		private var _moveRight:Boolean;
@@ -46,7 +50,8 @@ package com.panozona.modules.imagemap.model {
 		 * 
 		 */
 		public function ContentViewerData() {
-			_focusPoint = new Point(NaN,NaN);
+			_focusPoint = new Point(NaN, NaN);
+			viewer = new Viewer();
 		}
 		
 		/**

@@ -63,9 +63,6 @@ package com.panozona.modules.imagemap.controller{
 		
 		private var deltaZoom:Number;
 		
-		private static const moveSpeed:Number = 10;
-		private static const zoomSpeed:Number = 0.03;
-		
 		public function ContentViewerController(contentViewerView:ContentViewerView, module:Module) {
 			
 			_contentViewerView = contentViewerView;
@@ -76,19 +73,28 @@ package com.panozona.modules.imagemap.controller{
 			
 			_contentViewerView.container.addEventListener(MapEvent.MAP_IMAGE_LOADED, handleMapImageLoaded, false, 0,true)
 			
-			contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_MOVE, handleMoveChange, false, 0, true);
-			contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_ZOOM, handleZoomChange, false, 0, true);
-			contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_MOUSE_OVER, handleMouseOverChange, false, 0, true);
-			contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_MOUSE_DRAG, handleMouseDragChange, false, 0, true);
-			contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_FOCUS_POINT, handleFocusPointChange, false, 0, true);
+			if (_contentViewerView.contentViewerData.viewer.moveEnabled){
+				contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_MOVE, handleMoveChange, false, 0, true);
+			}
 			
+			if (_contentViewerView.contentViewerData.viewer.zoomEnabled){
+				contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_ZOOM, handleZoomChange, false, 0, true);
+			}
+			
+			if (_contentViewerView.contentViewerData.viewer.dragEnabled){
+				contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_MOUSE_OVER, handleMouseOverChange, false, 0, true);
+				contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_MOUSE_DRAG, handleMouseDragChange, false, 0, true);
+			}
+			
+			if (_contentViewerView.contentViewerData.viewer.autofocusEnabled){
+				contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_FOCUS_POINT, handleFocusPointChange, false, 0, true);
+			}
 		}
 		
 		private function handleMapImageLoaded(e:Event):void {
 			trace(_contentViewerView.container.width+" "+_contentViewerView.container.height);
-			_contentViewerView.container.x = _contentViewerView.container.width * 0.5;
-			_contentViewerView.container.y = _contentViewerView.container.height * 0.5;
-			trace(_contentViewerView.container.x+" "+_contentViewerView.container.y);
+			_contentViewerView.container.x = -_contentViewerView.container.width * 0.5;
+			_contentViewerView.container.y = -_contentViewerView.container.height * 0.5;
 		}
 		
 		private function handleMoveChange(e:Event):void {
@@ -175,12 +181,12 @@ package com.panozona.modules.imagemap.controller{
 				if (!isNaN(focusX)) {
 					if (_contentViewerView.container.x + focusX != _contentViewerView.containerMask.width * 0.5) {
 						if (_contentViewerView.container.x + focusX > _contentViewerView.containerMask.width * 0.5) {
-							deltaX = - moveSpeed;
+							deltaX = - _contentViewerView.contentViewerData.viewer.moveSpeed;
 							if (_contentViewerView.container.x + focusX + deltaX < _contentViewerView.containerMask.width * 0.5) {
 								deltaX = _contentViewerView.containerMask.width * 0.5 - _contentViewerView.container.x - focusX;
 							}
 						}else {
-							deltaX = moveSpeed;
+							deltaX = _contentViewerView.contentViewerData.viewer.moveSpeed;
 							if (_contentViewerView.container.x + focusX + deltaX > _contentViewerView.containerMask.width * 0.5) {
 								deltaX = _contentViewerView.containerMask.width * 0.5 -_contentViewerView.container.x - focusX;
 							}
@@ -192,12 +198,12 @@ package com.panozona.modules.imagemap.controller{
 				if (!isNaN(focusY)) {
 					if (_contentViewerView.container.y + focusY != _contentViewerView.containerMask.height * 0.5) {
 						if (_contentViewerView.container.y + focusY > _contentViewerView.containerMask.height * 0.5) {
-							deltaY = - moveSpeed;
+							deltaY = - _contentViewerView.contentViewerData.viewer.moveSpeed;
 							if (_contentViewerView.container.y + focusY + deltaY < _contentViewerView.containerMask.height * 0.5) {
 								deltaY = _contentViewerView.containerMask.height * 0.5 - _contentViewerView.container.y - focusY;
 							}
 						}else {
-							deltaY = moveSpeed;
+							deltaY = _contentViewerView.contentViewerData.viewer.moveSpeed;
 							if (_contentViewerView.container.y + focusY + deltaY > _contentViewerView.containerMask.height * 0.5) {
 								deltaY = _contentViewerView.containerMask.height * 0.5 -_contentViewerView.container.y - focusY;
 							}
@@ -215,23 +221,23 @@ package com.panozona.modules.imagemap.controller{
 				}
 			}else if (moveActive) {
 				if (_contentViewerView.contentViewerData.moveLeft) {
-					deltaX = moveSpeed;
+					deltaX = _contentViewerView.contentViewerData.viewer.moveSpeed;
 					deltaY = 0;
 				}else if (_contentViewerView.contentViewerData.moveRight) {
-					deltaX = -moveSpeed;
+					deltaX = - _contentViewerView.contentViewerData.viewer.moveSpeed;
 					deltaY = 0;
 				}else if (_contentViewerView.contentViewerData.moveUp) {
 					deltaX = 0
-					deltaY = moveSpeed;
+					deltaY = _contentViewerView.contentViewerData.viewer.moveSpeed;
 				}else if (_contentViewerView.contentViewerData.moveDown) {
 					deltaX = 0
-					deltaY = -moveSpeed;
+					deltaY = - _contentViewerView.contentViewerData.viewer.moveSpeed;
 				}
 			}else if (zoomActive) {
 				if (_contentViewerView.contentViewerData.zoomIn) {
-					deltaZoom = zoomSpeed;
+					deltaZoom = _contentViewerView.contentViewerData.viewer.zoomSpeed;
 				}else if (_contentViewerView.contentViewerData.zoomOut) {
-					deltaZoom = -zoomSpeed;
+					deltaZoom = - _contentViewerView.contentViewerData.viewer.zoomSpeed;
 				}
 				if (_contentViewerView.container.scaleX + deltaZoom < 2 && _contentViewerView.container.scaleY + deltaZoom < 2) {
 					if (containerOrgWidth * (_contentViewerView.container.scaleX + deltaZoom) < _contentViewerView.containerMask.width || 
