@@ -1,5 +1,4 @@
-package com.robertpenner.easing
-{
+package com.robertpenner.easing{
 	public class Expo {
 		public static function easeIn (t:Number, b:Number, c:Number, d:Number, p_params:Object = null):Number {
 			return (t==0) ? b : c * Math.pow(2, 10 * (t/d - 1)) + b;

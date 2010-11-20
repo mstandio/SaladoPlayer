@@ -31,35 +31,30 @@ package com.panozona.modules.examplemodule {
 	import com.panozona.player.module.data.property.Align;
 	
 	import com.panozona.modules.examplemodule.data.*;
-	import com.panozona.modules.examplemodule.labelledbutton.LabelledButton;
 	
-	import caurina.transitions.*;
+	import caurina.transitions.Tweener;
 	
 	/**
 	 * This is example module presenting structure of module and its functionalities.
-	 * 
-	 * @author mstandio
 	 */
 	public class ExampleModule extends Module{
 		
-		private var btnTitle:LabelledButton;
-		private var btnClose:LabelledButton;
 		private var window:Sprite;
-		private var foundNavigationBar:Boolean;
+		private var btnClose:Sprite;
 		
 		private var txt:TextField;
 		
 		private var LoadPanoramaEventClass:Class;
 		
 		private var exampleModuleData:ExampleModuleData;
-			
+		
 		// constructor should not contain anything more then showed below just for sake of clear code
 		public function ExampleModule() {
 			
 			// mandatory name, version (max two digits after decimal point)
 			// optional author, email and link to module details
 			
-			super("ExampleModule", 0.4, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:ExampleModule");
+			super("ExampleModule", 0.5, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:ExampleModule");
 			
 			aboutThisModule = "This is example module, it does nothing particular, it presents solution on " +
 							  "how to build modules for SaladoPlayer. ExampleModule can cooperate with Navigation bar " +
@@ -69,11 +64,10 @@ package com.panozona.modules.examplemodule {
 			// functions that are officially exposed, so that they can be validated 
 			// (names and types of arguments) in configuration on startup
 			// they can be used via xml: <action id="act1" content="ExampleModule.echoNothing();ExampleModule.echoString(Hello);"/>
-			// and by other modules through executeModule: 
-			// for instace: 
+			// and by other modules, for instace: 
 			// executeModule("ExampleModule", "echoNothing", new Array());
 			// executeModule("ExampleModule", "echoAll", new Array(true, 123, "hello"));
-			moduleDescription.addFunctionDescription("toggleVisibility");
+			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("echoNothing");
 			moduleDescription.addFunctionDescription("echoBoolean", Boolean);
 			moduleDescription.addFunctionDescription("echoNumber", Number);
@@ -101,21 +95,20 @@ package com.panozona.modules.examplemodule {
 			window = new Sprite();
 			addChild(window);
 			
-			btnTitle = new LabelledButton("-=# ExampleModule #=-");
-			btnTitle.useHandCursor = false;
-			window.addChild(btnTitle)
-			
-			btnClose = new LabelledButton("[x]");
+			btnClose = new Sprite();
+			btnClose.graphics.beginFill(0xff0000);
+			btnClose.graphics.drawRect(0, 0, 20, 20);
+			btnClose.graphics.endFill();
+			btnClose.buttonMode = true;
 			btnClose.addEventListener(MouseEvent.CLICK, btnCloseClick, false, 0 , true);
-			btnClose.x = window.width + 10;
+			btnClose.x = 200; 
 			window.addChild(btnClose);
 			
 			txt = new TextField();
 			txt.background = true;
 			txt.multiline = true;
-			txt.width = btnTitle.width;
-			txt.height = btnTitle.width* 1.5;
-			txt.y = btnTitle.height + 10;
+			txt.width = 200;
+			txt.height = 300;
 			window.addChild(txt);
 			
 			txt.htmlText = printSettings();
@@ -128,30 +121,22 @@ package com.panozona.modules.examplemodule {
 		// now you can try to access them to call specyfic functions
 		// each module must be ready to execute exposed functions after first panorama started loading 
 		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
+			
 			saladoPlayer.manager.removeEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
-			foundNavigationBar = (saladoPlayer.getModuleByName("NavigationBar") != null)
-			if (exampleModuleData.settings.extraButtonName != null && foundNavigationBar) {
-				if (!exampleModuleData.settings.open) {
-					this.alpha = 0;
-					this.visible = false;
-				}
-				
-				try {
-					saladoPlayer.getModuleByName("NavigationBar").execute("setExtraButtonActive", new Array(exampleModuleData.settings.extraButtonName, this.visible));
-				}catch (error:Error){
-					printWarning("Could not execute function in NavigationBar.");
-				}
+			
+			if (!exampleModuleData.settings.open) {
+				this.alpha = 0;
+				this.visible = false;
 			}
-			// instead of calling module functions directly, 
-			// smarter solution would be calling actions of specific id that contain those functions
-			// for instance: 
-			//   <actions>
-			//    <action id="buttonActive" content="NavigationBar.setExtraButtonActive(a,true)"/>
-			//    <action id="buttonPlain" content="NavigationBar.setExtraButtonActive(a,false)"/>
-			//   <actions>
-			// exampleModuleData.settings.actionActive = "buttonActive";
-			// saladoPlayer.manager.runAction(exampleModuleData.settings.actionActive);
-			// ect.
+			
+			if (exampleModuleData.settings.open) {
+				saladoPlayer.manager.runAction(exampleModuleData.settings.onOpen);
+			}else {
+				saladoPlayer.manager.runAction(exampleModuleData.settings.onClose);
+			}
+			
+			// or you could use something like this instead, but you are hard coding module dependency this way 
+			// saladoPlayer.getModuleByName("NavigationBar").execute("setExtraButtonActive", new Array(exampleModuleData.settings.extraButtonName, this.visible));
 			
 			//printInfo("Started loading: " + loadPanoramaEvent.panoramaData.id);
 		}
@@ -189,11 +174,10 @@ package com.panozona.modules.examplemodule {
 			
 			window.x += exampleModuleData.settings.move.horizontal;
 			window.y += exampleModuleData.settings.move.vertical;
-			
 		}
 		
 		private function btnCloseClick(e:Event):void {
-			toggleVisibility();
+			toggleOpen();
 		}
 		
 		// here is how to gain access to parsed settings
@@ -233,29 +217,27 @@ package com.panozona.modules.examplemodule {
 			}
 		}
 		
-		// powinno sie wzorowac na open 
+		private function onClosingFinish():void {
+			this.visible = false;
+			
+			saladoPlayer.manager.runAction(exampleModuleData.settings.onClose);
+		}
 		
 ///////////////////////////////////////////////////////////////////////////////
 //  Exposed functions 
-///////////////////////////////////////////////////////////////////////////////	
+///////////////////////////////////////////////////////////////////////////////
 		
-		public function toggleVisibility():void {
+		public function toggleOpen():void {
 			
 			if (exampleModuleData.settings.open) {
 				exampleModuleData.settings.open = false;
-				Tweener.addTween(this, {alpha:0, time:2, transition:exampleModuleData.settings.tween});
+				Tweener.addTween(this, {alpha:0, transition:exampleModuleData.settings.tween.transition, time:exampleModuleData.settings.tween.time, onComplete:onClosingFinish});
 			}else {
 				exampleModuleData.settings.open = true;
-				Tweener.addTween(this, {alpha:1, time:2, transition:exampleModuleData.settings.tween});
-			}
-			
-			//this.visible = !this.visible;
-			if (foundNavigationBar) {
-				try {
-					saladoPlayer.getModuleByName("NavigationBar").execute("setExtraButtonActive", new Array(exampleModuleData.settings.extraButtonName, this.visible));
-				}catch (error:Error){
-					printWarning("Could not execute function in NavigationBar.");
-				}
+				this.visible = true;
+				Tweener.addTween(this, { alpha:1, transition:exampleModuleData.settings.tween.transition, time:exampleModuleData.settings.tween.time } );
+				
+				saladoPlayer.manager.runAction(exampleModuleData.settings.onOpen);
 			}
 		}
 		

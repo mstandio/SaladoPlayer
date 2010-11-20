@@ -30,6 +30,6 @@ package com.panozona.modules.navigationbar.data {
 		public var visible:Boolean = true;
 		public var style:ComboboxStyle = new ComboboxStyle();
 		public var align:Align = new Align(Align.CENTER, Align.BOTTOM); // horizontal, vertical
-		public var move:Move = new Move(0,-14); // horizontal, vertical
+		public var move:Move = new Move(0,-5); // horizontal, vertical
 	}
 }

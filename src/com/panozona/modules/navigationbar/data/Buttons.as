@@ -41,6 +41,6 @@ package com.panozona.modules.navigationbar.data{
 		public var path:String; // intentionally not initialized 
 		public var buttonSize:Size = new Size(30,30);
 		public var align:Align = new Align(Align.RIGHT, Align.BOTTOM); // horizontal, vertical
-		public var move:Move = new Move(-5,-10); // horizontal, vertical
+		public var move:Move = new Move(-5,-3); // horizontal, vertical
 	}
 }

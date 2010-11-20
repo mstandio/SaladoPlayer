@@ -18,21 +18,15 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.examplemodule.data{
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class SomeParentInfo{
 		
 		// These var names are important
-		// They should be of the same name
-		// as subAttributes names in ModuleNode
-		// that is of the same name as subAttributes names in *.xml file
+		// They should be of the same name as attributes names in module node
 		// for instance <someParent info="numberSubValue:-12,booleanSubValue:false"/>
-		// you should initialize them with default values
-		// in case when var is not present in configuration
+		// you should initialize them with default values in case when var is not present in configuration
+		
 		public var numberSubValue:Number; 
 		public var booleanSubValue:Boolean;
-		public var stringSubValue:String ="default string";
+		public var stringSubValue:String;
 	}
 }

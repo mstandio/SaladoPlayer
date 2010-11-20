@@ -8,30 +8,30 @@
 	- see: http://panozona.com/wiki/Module:ExampleModule
 -->
 <?xml version="1.0" encoding="utf-8" ?>
-<SaladoPlayer>	
-	<global debug="true" stats="true" autorotation="enabled:false">
-		<trace open="true"/>
+<SaladoPlayer>
+	<global debug="true" stats="false" autorotation="enabled:false">
+		<trace open="true" size="height:250" />
 	</global>
 	<panoramas>
 		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml"/>
-		<panorama id="pano2" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml"/>
-		<panorama id="pano3" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml"/>
 	</panoramas>
 	<actions>
-		<action id="act1" content="ExampleModule.toggleVisibility()" /> <!-- action called when clicked button on NavigationBar -->
+		<action id="act1" content="ExampleModule.toggleOpen()" /> <!-- action called when clicked button on NavigationBar -->
+		<action id="act2" content="NavigationBar.setExtraButtonActive(a,true)" /> <!-- action called ExampleModule is closing -->
+		<action id="act3" content="NavigationBar.setExtraButtonActive(a,false)" /> <!-- action called ExampleModule is opening -->
 	</actions>
 	<modules>
-		
 		<NavigationBar path="modules/NavigationBar.swf">
 			<buttons path="modules/images/buttons_30x30_blue.png"/>
 			<buttons>
 				<extraButton name="a" action="act1"/> <!-- first column of third and fourth row in buttons image, "b" for second column, ect. -->
 				<button name="autorotation" visible="false"/>
-			</buttons>
+				</buttons>
+			<combobox visible="false"/>
 		</NavigationBar>
 		<ExampleModule path="modules/ExampleModule.swf">
-			<settings open="true" extraButtonName="a" tween="Linear.easeNone" /> <!-- which NavigationBar extra button is changed on module internal state change -->
-			<someParent info="numberSubValue:12,stringSubValue:stringu,booleanSubValue:true">
+			<settings open="true" tween="transition:Linear.easeNone" onOpen="act2" onClose="act3"/> 
+			<someParent info="numberSubValue:12,stringSubValue:[hello],booleanSubValue:true">
 				<someChild happy="true">
 					<someToy name=" a" price="12"/>
 					<someToy name="Plushie" price="12.95"/>
@@ -42,7 +42,7 @@
 				<someJob wages="999">
 					<![CDATA[ cdata text with any chars :;, ]]>
 				</someJob>
-				<someJob wages="123" text="cant have all chars here"/>
+				<someJob wages="123" text="cant have all chars here ay?"/>
 			</someParent>
 		</ExampleModule>
 	</modules>

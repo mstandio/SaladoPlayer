@@ -12,7 +12,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>
 	<global debug="true">
-		<trace open="true" align="horizontal:center" size="width:600"/>
+		<trace open="true" align="horizontal:left,vertical:top" size="width:600"/>
 	</global> 
 	<panoramas>
 		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml"/>

@@ -113,23 +113,23 @@ package com.panozona.modules.imagemap.controller {
 				waypointControlers.push(waypointController);
 				
 				if (waypoint.mouse.onClick != null) {
-					waypointView.addEventListener(MouseEvent.CLICK, getMouseEventHandler(waypoint.mouse.onClick));
+					waypointView.button.addEventListener(MouseEvent.CLICK, getMouseEventHandler(waypoint.mouse.onClick));
 					arrListeners.push({type:MouseEvent.CLICK, listener:getMouseEventHandler(waypoint.mouse.onClick)});
 				}
 				if (waypoint.mouse.onPress != null) {
-					waypointView.addEventListener(MouseEvent.MOUSE_DOWN, getMouseEventHandler(waypoint.mouse.onPress));
+					waypointView.button.addEventListener(MouseEvent.MOUSE_DOWN, getMouseEventHandler(waypoint.mouse.onPress));
 					arrListeners.push({type:MouseEvent.MOUSE_DOWN, listener:getMouseEventHandler(waypoint.mouse.onPress)});
 				}
 				if (waypoint.mouse.onRelease != null) {
-					waypointView.addEventListener(MouseEvent.MOUSE_UP, getMouseEventHandler(waypoint.mouse.onRelease));
+					waypointView.button.addEventListener(MouseEvent.MOUSE_UP, getMouseEventHandler(waypoint.mouse.onRelease));
 					arrListeners.push({type:MouseEvent.MOUSE_UP, listener:getMouseEventHandler(waypoint.mouse.onRelease)});
 				}
 				if (waypoint.mouse.onOver != null) {
-					waypointView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(waypoint.mouse.onOver));
+					waypointView.button.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(waypoint.mouse.onOver));
 					arrListeners.push({type:MouseEvent.ROLL_OVER, listener:getMouseEventHandler(waypoint.mouse.onOver)});
 				}
 				if (waypoint.mouse.onOut != null) {
-					waypointView.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(waypoint.mouse.onOut));
+					waypointView.button.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(waypoint.mouse.onOut));
 					arrListeners.push({type:MouseEvent.ROLL_OUT, listener:getMouseEventHandler(waypoint.mouse.onOut)});
 				}
 			}
@@ -141,13 +141,13 @@ package com.panozona.modules.imagemap.controller {
 			}
 		}
 		
-		// TODO: remove hotspots on map change
+		// TODO: remove hotspots on map change aim for buttons
 		private function destroyWaypoints():void {
 			for (var i:int = 0; i < _mapView.waypointsContainer.numChildren; i++ ) {
 				for(var j:Number = 0; j < arrListeners.length; j++){
-					if (_mapView.waypointsContainer.getChildAt(i).hasEventListener(arrListeners[j].type)) {
-						_mapView.waypointsContainer.getChildAt(i).removeEventListener(arrListeners[j].type, arrListeners[j].listener);
-					}
+					//if (_mapView.waypointsContainer.getChildAt(i).hasEventListener(arrListeners[j].type)) {
+						//_mapView.waypointsContainer.getChildAt(i).removeEventListener(arrListeners[j].type, arrListeners[j].listener);
+					//}
 				}
 			}
 		}

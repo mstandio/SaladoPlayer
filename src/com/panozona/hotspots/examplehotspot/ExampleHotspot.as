@@ -46,7 +46,7 @@ package com.panozona.hotspots.examplehotspot {
 			button.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 		}
 		
-		// see http://hosted.zeh.com.br/tweener/docs/en-us/
+		// see: http://hosted.zeh.com.br/tweener/docs/en-us/misc/transitions.html
 		
 		private function mouseOver(e:MouseEvent):void {
 			Tweener.addTween(button, { scaleX:1.5, time:0.25, transition:"easeOutBack" } );

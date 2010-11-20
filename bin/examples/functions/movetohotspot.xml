@@ -1,0 +1,25 @@
+﻿<!--
+	
+	moveToHotspot
+	
+	- functions in single acton are separated with semicolon and are executed immidietly one after another
+	- some functions can call other actions when they are done executing
+	- you can exetute only one "moveTo" at the time i.e. in "moveToHotspot(hs1);moveToHotspot(hs2)" second function will be ignored
+	- see: http://panozona.com/wiki/SaladoPlayer:Exposed_functions
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<SaladoPlayer>
+	<global debug="true" autorotation="enabled:false">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml">
+			<hotspot id="hs1" position="pan:20" path="hotspots/arrow.png" mouse="onClick:act1"/>			
+			<hotspot id="hs2" position="pan:-20" path="hotspots/arrow.png" mouse="onClick:act2"/>
+		</panorama>		
+	</panoramas>
+	<actions>		
+		<action id="act1"  content="SaladoPlayer.moveToHotspot(hs1)"/> 
+		<action id="act2" content="SaladoPlayer.advancedMoveToHotspot(hs2,90,30,Bounce.easeOut)"/> <!--hotspot id, field of view, speed, tween (Function) -->		
+	</actions>	
+</SaladoPlayer>

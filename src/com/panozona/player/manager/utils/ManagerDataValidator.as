@@ -72,7 +72,7 @@ package com.panozona.player.manager.utils{
 					for each(var hotspotData:HotspotData in panoramaData.hotspotsData) {
 						if (hotspotsIds[hotspotData.id] != undefined) {
 							Trace.instance.printWarning("Repeating child id: "+hotspotData.id+" in "+panoramaData.id);
-						}else {	
+						}else {
 							hotspotsIds[hotspotData.id] = ""; //something
 							checkHotspot(hotspotData);
 						}
@@ -183,7 +183,7 @@ package com.panozona.player.manager.utils{
 							if (!(args[i] is describedArgs[i])) {
 								if(!(describedArgs[i] === Boolean && (args[i]=="true" || args[i]=="false"))){
 									Trace.instance.printError("Not matching argument type in: " + abstractModuleDescription.moduleName + "." + functionName +" got: " + args[i] +" expected: " +
-									(describedArgs[i] === Boolean?"Boolean":(describedArgs[i] === Number?"Number":(describedArgs[i] === String?"String":(describedArgs[i] === Array?"Array":"Error!")))));
+									(describedArgs[i] === Boolean?"Boolean":(describedArgs[i] === Number?"Number":(describedArgs[i] === String?"String":(describedArgs[i] === Function?"Function":"Error!")))));
 								}
 							}
 						}

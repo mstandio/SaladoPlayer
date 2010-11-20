@@ -29,9 +29,9 @@ package com.panozona.player.manager.utils {
 	
 	import com.panozona.player.SaladoPlayer;
 	import com.panozona.player.manager.data.ManagerData;
-	import com.panozona.player.manager.data.trace.TraceData;
-	import com.panozona.player.manager.data.trace.Align;
-
+	import com.panozona.player.manager.data.global.TraceData;
+	import com.panozona.player.manager.data.global.Align;
+	
 	/**
 	 * ...
 	 * @author mstandio
@@ -95,11 +95,11 @@ package com.panozona.player.manager.utils {
 			txtFormat.color = 0xffffff;
 			
 			// btnOpen
-			var label:TextField = new TextField(); 			
+			var label:TextField = new TextField();
 			label.mouseEnabled = false;
 			label.defaultTextFormat = txtFormat;
 			label.text = "[trace]";
-			label.autoSize = TextFieldAutoSize.LEFT;			
+			label.autoSize = TextFieldAutoSize.LEFT;
 			btnOpen.addChild(label);
 			btnOpen.graphics.beginFill(0x000000);
 			btnOpen.graphics.drawRect(0,0,label.width,label.height+2);
@@ -109,7 +109,7 @@ package com.panozona.player.manager.utils {
 			if (!btnOpen.visible && !traceData.open) {
 				btnOpen.visible = true;
 			}
-			addChild(btnOpen);			
+			addChild(btnOpen);
 			
 			// window
 			window.graphics.beginFill(0x000000);
@@ -124,19 +124,19 @@ package com.panozona.player.manager.utils {
 			var styleLine:Object = new Object();
 			styleLine.color = "#FFFFFF";
 			styleLine.fontFamily = "mono";
-			styleLine.fontSize = 11;			
+			styleLine.fontSize = 11;
 			var styleError:Object = new Object();
 			styleError.color = "#FF0000";
 			styleError.fontFamily = "mono";
-			styleError.fontSize = 11;			
+			styleError.fontSize = 11;
 			var styleWarning:Object = new Object();
 			styleWarning.color = "#FFFF00";
 			styleWarning.fontFamily = "mono";
-			styleWarning.fontSize = 11;			
+			styleWarning.fontSize = 11;
 			var styleInfo:Object = new Object();
 			styleInfo.color = "#00FF00";
 			styleInfo.fontFamily = "mono";
-			styleInfo.fontSize = 11;			
+			styleInfo.fontSize = 11;
 			styleSheet = new StyleSheet();
 			styleSheet.setStyle(".line", styleLine);
 			styleSheet.setStyle(".error", styleError);
@@ -167,7 +167,7 @@ package com.panozona.player.manager.utils {
 			btnClose.graphics.moveTo(btnSize/3, btnSize*0.66);
 			btnClose.graphics.lineTo(btnSize * 0.66, btnSize / 3);
 			btnClose.addEventListener(MouseEvent.CLICK, hideWindow, false, 0, true);
-			btnClose.buttonMode = true;			
+			btnClose.buttonMode = true;
 			window.addChild(btnClose);
 			btnClose.x = traceData.size.width-btnSize - 1;
 			btnClose.y = 1;
@@ -185,7 +185,7 @@ package com.panozona.player.manager.utils {
 			btnScrollUp.addEventListener(MouseEvent.MOUSE_DOWN, scrollUp, false, 0, true);
 			btnScrollUp.addEventListener(MouseEvent.MOUSE_UP, scrollStop, false, 0, true);
 			btnScrollUp.addEventListener(MouseEvent.MOUSE_OUT, scrollStop, false, 0, true);
-			btnScrollUp.buttonMode = true;			
+			btnScrollUp.buttonMode = true;
 			window.addChild(btnScrollUp);
 			btnScrollUp.x = traceData.size.width - btnSize - 1;
 			btnScrollUp.y = btnSize;
@@ -207,7 +207,7 @@ package com.panozona.player.manager.utils {
 			window.addChild(btnScrollDown);
 			btnScrollDown.x = traceData.size.width - btnSize - 1;
 			btnScrollDown.y = traceData.size.height - btnSize - 1;
-		
+			
 			stage.addEventListener(Event.RESIZE, handleStageResize);
 			handleStageResize();
 		}
@@ -248,7 +248,7 @@ package com.panozona.player.manager.utils {
 					buffer += htmMessage;
 				}
 			}
-		}		
+		}
 		
 		private function hideWindow(e:Event = null):void {
 			if(debugMode){

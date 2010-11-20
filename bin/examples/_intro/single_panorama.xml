@@ -15,6 +15,7 @@
 		<NavigationBar path="modules/NavigationBar.swf">
 			<buttons path="modules/images/buttons_30x30_green.png"/>
 			<combobox visible="false"/>
+			<bar alpha="0.5"/>
 		</NavigationBar>
 	</modules>
 </SaladoPlayer>

@@ -18,12 +18,14 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils {
 	
+	import com.panozona.player.manager.data.global.BrandingData;
 	import flash.utils.getQualifiedClassName;
 	
 	import com.panosalado.model.Params;
 	
 	import com.panozona.player.manager.data.ManagerData;
-	import com.panozona.player.manager.data.trace.TraceData;
+	import com.panozona.player.manager.data.global.TraceData;
+	import com.panozona.player.manager.data.global.BrandingData;
 	import com.panozona.player.manager.data.panorama.PanoramaData;
 	import com.panozona.player.manager.data.hotspot.HotspotData;
 	import com.panozona.player.manager.data.module.AbstractModuleData;
@@ -34,9 +36,10 @@ package com.panozona.player.manager.utils {
 	
 	import com.robertpenner.easing.Linear;
 	import com.robertpenner.easing.Expo;
-	import com.robertpenner.easing.Elastic;
+	import com.robertpenner.easing.Bounce;
 	import com.robertpenner.easing.Back;
 	import com.robertpenner.easing.Cubic;
+	//import com.robertpenner.easing.Elastic;
 	
 	/**
 	 * Translates XML to ManagerData
@@ -115,6 +118,9 @@ package com.panozona.player.manager.utils {
 					case "trace":
 						if(_debugMode) parseTrace(managerData.traceData, globalChild);
 					break;
+					case "branding":
+						parseBranding(managerData.brandingData, globalChild);
+					break;
 					default:
 						Trace.instance.printWarning("Unrecognized global child node: "+globalChild.localName().toString());
 				}
@@ -135,6 +141,24 @@ package com.panozona.player.manager.utils {
 					break;
 					default:
 						Trace.instance.printWarning("Unrecognized trace attribute: " + traceAttribute.localName().toString());
+				}
+			}
+		}
+		
+		protected function parseBranding(brandingData:BrandingData, brandingNode:XML):void {
+			for each(var brandingAttribute:XML in brandingNode.attributes()) {
+				switch (brandingAttribute.localName().toString()) {
+					case "visible":
+						brandingData.visible = getAttributeValue(brandingAttribute, Boolean);
+					break;
+					case "align":
+						applySubAttributes(brandingData.align, brandingAttribute);
+					break;
+					case "move":
+						applySubAttributes(brandingData.move, brandingAttribute);
+					break;
+					default:
+						Trace.instance.printWarning("Unrecognized branding attribute: " + brandingAttribute.localName().toString());
 				}
 			}
 		}
@@ -404,8 +428,8 @@ package com.panozona.player.manager.utils {
 				applySubAttributes(object, content);
 				return object;
 			}else if (content.match(/^\[.*\]$/)) {
-				return content.substring(1, content.length - 1); // [String]	
-			}else  if (content.match(/^(Linear|Expo|Elastic|Back)\.[a-zA-Z]+$/)){ // Function
+				return content.substring(1, content.length - 1); // [String]
+			}else  if (content.match(/^(Linear|Expo|Back|Bounce|Cubic)\.[a-zA-Z]+$/)){ // Function
 				return (recognizeFunction(content) as Function);
 			}else if(content.replace(/\s/g,"").length > 0){
 				return content; // String
@@ -430,10 +454,23 @@ package com.panozona.player.manager.utils {
 				if (functionElements[1] == "easeInOut") return Expo.easeInOut;
 				Trace.instance.printWarning("Invalid function name: "+functionElements[1]);
 				return null;
-			} else if (functionElements[0] == "Elastic") {
+			/*} else if (functionElements[0] == "Elastic") { // TODO: too many arguments 
 				if (functionElements[1] == "easeIn") return Elastic.easeIn;
 				if (functionElements[1] == "easeOut") return Elastic.easeOut;
 				if (functionElements[1] == "easeInOut") return Elastic.easeInOut;
+				Trace.instance.printWarning("Invalid function name: " + functionElements[1]);
+				return null;
+			*/
+			} else if (functionElements[0] == "Cubic") { // TODO: too many arguments 
+				if (functionElements[1] == "easeIn") return Cubic.easeIn;
+				if (functionElements[1] == "easeOut") return Cubic.easeOut;
+				if (functionElements[1] == "easeInOut") return Cubic.easeInOut;
+				Trace.instance.printWarning("Invalid function name: " + functionElements[1]);
+				return null;
+			} else if (functionElements[0] == "Bounce") { // TODO: too many arguments 
+				if (functionElements[1] == "easeIn") return Bounce.easeIn;
+				if (functionElements[1] == "easeOut") return Bounce.easeOut;
+				if (functionElements[1] == "easeInOut") return Bounce.easeInOut;
 				Trace.instance.printWarning("Invalid function name: " + functionElements[1]);
 				return null;
 			} else if (functionElements[0] == "Back") {

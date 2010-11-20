@@ -43,7 +43,7 @@ package com.panozona.modules.imagemap{
 			super("ImageMap", 0.1, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:ImageMap");
 			aboutThisModule = "Module for displaying clickable maps built form external images, for navoigating between panoramas.";
 			
-			moduleDescription.addFunctionDescription("toggleVisibility");
+			moduleDescription.addFunctionDescription("toggleOpen");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
@@ -60,8 +60,8 @@ package com.panozona.modules.imagemap{
 //  Exposed functions 
 ///////////////////////////////////////////////////////////////////////////////
 		
-		public function toggleVisibility():void {
-			windowController.toggleVisibility();
+		public function toggleOpen():void {
+			windowController.toggleOpen();
 		}
 	}
 }

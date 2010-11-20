@@ -16,16 +16,21 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.logobutton.data{
+package com.panozona.modules.imagebutton.data.structure {
+	
+	import com.panozona.player.module.data.structure.Parent;
 	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class LogoButtonData{
+	public class Butttons extends Parent{
 		
-		public function LogoButtonData(){
-			
-		}		
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Button);
+			return result;
+		}
+		
 	}
 }

@@ -21,7 +21,7 @@
 	</panoramas>
 	<modules>
 		<NavigationBar path="modules/NavigationBar.swf">
-			<buttons path="modules/images/buttons_25x25_green.png" buttonSize="width:25,height:25" move="vertical:-12.5"/>
+			<buttons path="modules/images/buttons_25x25_green.png" buttonSize="width:25,height:25" move="vertical:-5"/>
 		</NavigationBar>
 	</modules>
 </SaladoPlayer>

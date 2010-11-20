@@ -25,7 +25,8 @@ package com.panozona.player.manager.data {
 	import com.panosalado.model.InertialMouseCameraData;
 	import com.panosalado.model.ArcBallCameraData;
 	
-	import com.panozona.player.manager.data.trace.TraceData;
+	import com.panozona.player.manager.data.global.TraceData;
+	import com.panozona.player.manager.data.global.BrandingData;
 	import com.panozona.player.manager.data.panorama.PanoramaData;
 	import com.panozona.player.manager.data.action.ActionData;
 	import com.panozona.player.manager.data.module.AbstractModuleData;
@@ -59,6 +60,7 @@ package com.panozona.player.manager.data {
 		private var _inertialMouseCameraData:InertialMouseCameraData;
 		private var _arcBallCameraData:ArcBallCameraData;
 		private var _traceData:TraceData;
+		private var _brandingData:BrandingData;
 		private var _panoramasData:Array;
 		private var _actionsData:Array;
 		private var _abstractModulesData:Array;
@@ -80,6 +82,7 @@ package com.panozona.player.manager.data {
 			_arcBallCameraData = new ArcBallCameraData();
 			_simpleTransitionData = new SimpleTransitionData();
 			_traceData = new TraceData();
+			_brandingData = new BrandingData();
 			_panoramasData = new Array;
 			_actionsData = new Array;
 			_abstractModulesData = new Array;
@@ -118,6 +121,13 @@ package com.panozona.player.manager.data {
 		 */
 		public function get traceData():TraceData{
 			return _traceData;
+		}
+		
+		/**
+		 * Stores data branding button.
+		 */
+		public function get brandingData():BrandingData{
+			return _brandingData;
 		}
 		
 		/**

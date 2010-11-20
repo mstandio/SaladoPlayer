@@ -15,18 +15,16 @@
 			<hotspot id="hs1" position="pan:-20,tilt:10" path="hotspots/arrow.png" mouse="onClick:act1"/>
 			<hotspot id="hs2" position="pan:0,tilt:10" path="hotspots/arrow.png" mouse="onPress:act2"/>
 			<hotspot id="hs3" position="pan:20,tilt:10" path="hotspots/arrow.png" mouse="onRelease:act3"/>
-			<hotspot id="hs4" position="pan:-20,tilt:0" path="hotspots/arrow.png" mouse="onMove:act4"/>
-			<hotspot id="hs5" position="pan:0,tilt:0" path="hotspots/arrow.png" mouse="onOver:act5"/>
-			<hotspot id="hs6" position="pan:20,tilt:0" path="hotspots/arrow.png" mouse="onOut:act6"/>
-			<hotspot id="hs7" position="pan:0,tilt:-10" path="hotspots/arrow.png" mouse="onPress:act2,onRelease:act3,onOver:act5,onOut:act6"/>
+			<hotspot id="hs5" position="pan:0,tilt:0" path="hotspots/arrow.png" mouse="onOver:act4"/>
+			<hotspot id="hs6" position="pan:20,tilt:0" path="hotspots/arrow.png" mouse="onOut:act5"/>
+			<hotspot id="hs7" position="pan:0,tilt:-10" path="hotspots/arrow.png" mouse="onPress:act2,onRelease:act3,onOver:act4,onOut:act5"/>
 		</panorama>
 	</panoramas>
 	<actions>
 		<action id="act1" content="SaladoPlayer.print([mouse onClick])"/>
 		<action id="act2" content="SaladoPlayer.print([mouse onPress])"/>
 		<action id="act3" content="SaladoPlayer.print([mouse onRelease])"/>
-		<action id="act4" content="SaladoPlayer.print([mouse onMove])"/>
-		<action id="act5" content="SaladoPlayer.print([mouse onOver])"/>
-		<action id="act6" content="SaladoPlayer.print([mouse onOut])"/>
+		<action id="act4" content="SaladoPlayer.print([mouse onOver])"/>
+		<action id="act5" content="SaladoPlayer.print([mouse onOut])"/>
 	</actions>
 </SaladoPlayer>

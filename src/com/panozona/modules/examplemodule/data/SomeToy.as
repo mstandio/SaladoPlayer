@@ -18,7 +18,7 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.examplemodule.data {
 	
-		
+	
 	// SomeToy is decalred structure child of SomeChild so class name is important
 	// class name must match module node name NOT CASE SENSITIVE
 	// for instance: <someChild> <someToy/> </someChild>

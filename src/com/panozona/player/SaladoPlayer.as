@@ -40,10 +40,11 @@ package com.panozona.player{
 	import com.panozona.player.manager.utils.ModulesLoader;
 	import com.panozona.player.manager.utils.ManagerDescription;
 	import com.panozona.player.manager.utils.Trace;
+	import com.panozona.player.manager.utils.Branding;
 	import com.panozona.player.manager.data.ManagerData;
 	import com.panozona.player.manager.data.module.AbstractModuleData;
 	import com.panozona.player.manager.data.module.AbstractModuleDescription;
-	import com.panozona.player.manager.data.trace.TraceData;
+	import com.panozona.player.manager.data.global.TraceData;
 	import com.panozona.player.manager.events.LoadModuleEvent;
 	
 	import performance.Stats;
@@ -222,6 +223,10 @@ package com.panozona.player{
 				}catch (error:Error) {
 					tracer.printError(error.message);
 				}
+			}
+			
+			if (managerData.brandingData.visible) {
+				addChild(new Branding());
 			}
 			
 			if (managerData.showStats) {

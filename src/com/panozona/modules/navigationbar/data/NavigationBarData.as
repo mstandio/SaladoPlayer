@@ -31,9 +31,7 @@ package com.panozona.modules.navigationbar.data {
 		
 		public var bar:Bar = new Bar();
 		public var buttons:Buttons = new Buttons();
-		public var combobox:Combobox = new Combobox();
-		public var branding:Branding = new Branding();
-		public var logo:Logo = new Logo();
+		public var combobox:Combobox = new Combobox();		
 		
 		public function NavigationBarData(moduleData:ModuleData, debugMode:Boolean) {
 			super(debugMode);
@@ -47,28 +45,14 @@ package com.panozona.modules.navigationbar.data {
 					break;
 					case "combobox": 
 						readRecursive(combobox, moduleNode);
-					break;
-					case "branding": 
-						readRecursive(branding, moduleNode);
-					break;
-					case "logo": 
-						readRecursive(logo, moduleNode);
-					break;
+					break;					
 					default:
 						throw new Error("Invalid node name: "+moduleNode.nodeName);
 				}
 			}
 			
-			if (debugMode) {
-				
+			if (debugMode) {				
 				// check for mandatory data
-				
-				if (buttons.visible && buttons.path == null) {
-					throw new Error("No path specified for buttons.");
-				}
-				if (logo.visible && logo.path == null) {
-					throw new Error("No path specified for logo.");
-				}
 			}
 		}
 	}

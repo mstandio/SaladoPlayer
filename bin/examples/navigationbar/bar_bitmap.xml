@@ -20,7 +20,7 @@
 	<modules>
 		<NavigationBar path="modules/NavigationBar.swf">
 			<buttons path="modules/images/buttons_30x30_green.png"/>
-			<bar path="modules/images/bar_40_green.png" size="height:40,width:280" move="vertical:-5"/>
+			<bar path="modules/images/bar_40_green.png" size="height:40,width:280"/>
 		</NavigationBar>
 	</modules>
 </SaladoPlayer>

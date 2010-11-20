@@ -22,14 +22,12 @@ package com.panozona.modules.examplemodule.data {
 	import com.panozona.player.module.data.ModuleNode;
 	import com.panozona.player.module.data.structure.Master
 
-	/**
-	 * ...
-	 * @author mstandio
-	 */
+	
 	public class ExampleModuleData extends Master{
 
 		// These var names are not important
 		// however, check comments in other classes in examplemodule.data
+
 		public var settings:Settings = new Settings();
 		public var someParent:SomeParent = new SomeParent();
 		

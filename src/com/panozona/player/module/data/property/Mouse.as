@@ -15,23 +15,19 @@ See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
-*/
-package com.panozona.modules.navigationbar.data{
-	
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
+*/ 
+package com.panozona.player.module.data.property{
 	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
-	public class Logo {
+	public class Mouse{
 		
-		public var visible:Boolean = false;
-		public var path:String; // path for logo image, intentionally not initialized
-		public var align:Align = new Align(Align.LEFT, Align.TOP); // horizontal, vertical
-		public var move:Move = new Move(10, 10); // horizontal, vertical
-		
-		public var text:String; // url opened when logo cliked, can be red as CDATA 
+		public var onClick:String;
+		public var onPress:String;
+		public var onRelease:String;
+		public var onOver:String;
+		public var onOut:String;
 	}
 }

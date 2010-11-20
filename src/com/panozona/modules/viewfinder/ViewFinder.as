@@ -29,6 +29,7 @@ package com.panozona.modules.viewfinder{
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
+	import flash.text.TextFieldAutoSize;
 	
 	/**
 	 * ViewFinder, SaladoPlayer module for displaying camera pan tilt and field of view.
@@ -75,8 +76,7 @@ package com.panozona.modules.viewfinder{
 			txtOutput.background = true;
 			txtOutput.backgroundColor = 0x000000;
 			txtOutput.defaultTextFormat = txtFormat;
-			txtOutput.height = 45;
-			txtOutput.width = 100;
+			txtOutput.autoSize =TextFieldAutoSize.LEFT			
 			addChild(txtOutput);
 			
 			stage.addEventListener(Event.RESIZE, handleStageResize, false, 0, true);

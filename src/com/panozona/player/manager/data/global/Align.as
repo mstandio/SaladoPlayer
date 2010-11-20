@@ -16,7 +16,7 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.data.trace{
+package com.panozona.player.manager.data.global{
 	
 	/**
 	 * It is the same class as in module.data.property.Align but I wanted to keep player and modules seperate.

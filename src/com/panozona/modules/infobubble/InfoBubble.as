@@ -24,6 +24,7 @@ package com.panozona.modules.infobubble{
 	import flash.net.URLRequest;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.system.ApplicationDomain;
 	
 	import com.panozona.player.module.Module;
 	import com.panozona.player.module.data.ModuleData;
@@ -44,16 +45,24 @@ package com.panozona.modules.infobubble{
 		private var currentBubbleId:String;
 		private var isShowing:Boolean;
 		
+		private var LoadPanoramaEventClass:Class;
+		
 		public function InfoBubble(){
 			super("InfoBubble", 0.1, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:InfoBubble");
-			aboutThisModule = "Module for displaying image-based information on variours events.";
+			aboutThisModule = "Module for displaying image-based information on variours events at cursor position.";
 			
 			moduleDescription.addFunctionDescription("showBubble", String);
 			moduleDescription.addFunctionDescription("hideBubble");
+			moduleDescription.addFunctionDescription("toggleActive");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
+			
 			infoBubbleData = new InfoBubbleData(moduleData, debugMode); // allways first
+			
+			LoadPanoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.LoadPanoramaEvent") as Class;
+			
+			saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0 , true);
 			
 			mouseEnabled = false;
 			mouseChildren = false;
@@ -67,6 +76,17 @@ package com.panozona.modules.infobubble{
 			bubbleImageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, bubbleImageLoaded, false, 0 , true);
 		}
 		
+		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
+			
+			saladoPlayer.manager.removeEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
+			
+			if (infoBubbleData.settings.active) {
+				saladoPlayer.manager.runAction(infoBubbleData.settings.onActivate);
+			}else {
+				saladoPlayer.manager.runAction(infoBubbleData.settings.onDisactivate);
+			}
+		}
+		
 		private function bubbleImageLost(error:IOErrorEvent):void {
 			printWarning(error.toString());
 		}
@@ -78,12 +98,12 @@ package com.panozona.modules.infobubble{
 			if(isShowing) bubbleContent.visible = true;
 		}
 		
-		private function handleEnterFrame(e:Event = null):void {			
+		private function handleEnterFrame(e:Event = null):void {
 			if (bubbleContent.width + mouseX + infoBubbleData.settings.cursorDistance > boundsWidth) {
 				bubbleContent.x = mouseX - bubbleContent.width - infoBubbleData.settings.cursorDistance;
 			}else {
 				bubbleContent.x = mouseX + infoBubbleData.settings.cursorDistance;
-			}			
+			}
 			if (mouseY + bubbleContent.height * 0.5 > boundsHeight){
 				bubbleContent.y = boundsHeight - bubbleContent.height;
 			}else if (mouseY - bubbleContent.height * 0.5 <= 0){
@@ -98,6 +118,9 @@ package com.panozona.modules.infobubble{
 ///////////////////////////////////////////////////////////////////////////////
 		
 		public function showBubble(bubbleId:String):void {
+			
+			if (!infoBubbleData.settings.active) return;
+			
 			isShowing = true;
 			if (currentBubbleId == bubbleId) {
 				stage.addEventListener(Event.ENTER_FRAME, handleEnterFrame, false, 0, true);
@@ -118,6 +141,16 @@ package com.panozona.modules.infobubble{
 			isShowing = false;
 			bubbleContent.visible = false;
 			stage.removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
+		}
+		
+		public function toggleActive():void {
+			if (infoBubbleData.settings.active) {
+				infoBubbleData.settings.active = false;
+				saladoPlayer.manager.runAction(infoBubbleData.settings.onDisactivate);
+			}else {
+				infoBubbleData.settings.active = true;
+				saladoPlayer.manager.runAction(infoBubbleData.settings.onActivate);
+			}
 		}
 	}
 }

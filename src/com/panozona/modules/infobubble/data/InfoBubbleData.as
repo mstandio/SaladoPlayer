@@ -22,8 +22,9 @@ package com.panozona.modules.infobubble.data{
 	import com.panozona.player.module.data.ModuleNode;
 	import com.panozona.player.module.data.structure.Master;
 	
-	import com.panozona.modules.infobubble.data.structure.Settings;	
+	import com.panozona.modules.infobubble.data.structure.Settings;
 	import com.panozona.modules.infobubble.data.structure.Bubbles;
+	import com.panozona.modules.infobubble.data.structure.Bubble;
 	
 	/**
 	 * ...
@@ -41,18 +42,26 @@ package com.panozona.modules.infobubble.data{
 				switch(moduleNode.nodeName) {
 					case "settings": 
 						readRecursive(settings, moduleNode);
-					break;					
+					break;
 					case "bubbles": 
 						readRecursive(bubbles, moduleNode);
-					break;					
+					break;
 					default:
 						throw new Error("Invalid node name: "+moduleNode.nodeName);
 				}
 			}
 			
 			if (debugMode) {
-				// TODO: if ids are not repeating
-				// TODO: if paths are not empty 
+				var bubbleIds:Object = new Object();
+				for each (var bubble:Bubble in bubbles.getChildrenOfGivenClass(Bubble)) {
+					if (bubble.id == null) throw new Error("Bubble id not specified.");
+					if (bubble.path == null) throw new Error("Bubble path not specified.");
+					if (bubbleIds[bubble.id] != undefined) {
+						throw new Error("Repeating bubble id: "+bubble.id);
+					}else {
+						bubbleIds[bubble.id] = ""; // something
+					}
+				}
 			}
 		}
 	}

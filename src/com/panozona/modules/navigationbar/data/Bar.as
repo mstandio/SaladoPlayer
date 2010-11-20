@@ -28,8 +28,8 @@ package com.panozona.modules.navigationbar.data{
 	 */
 	public class Bar {
 		
-		public var visible:Boolean = true;		
-		public var alpha:Number = 1.0;
+		public var visible:Boolean = true;
+		public var alpha:Number = 0.75;
 		public var color:Number = 0xffffff; // white
 		
 		/**
@@ -40,8 +40,8 @@ package com.panozona.modules.navigationbar.data{
 		/**
 		 * when width is set to NaN, bar uses width of panorama window
 		 */
-		public var size:Size = new Size(NaN, 30); 
+		public var size:Size = new Size(NaN, 35); 
 		public var align:Align = new Align(Align.RIGHT, Align.BOTTOM); // horizontal, vertical
-		public var move:Move = new Move(0, -10); // horizontal, vertical
+		public var move:Move = new Move(0, 0); // horizontal, vertical
 	}
 }

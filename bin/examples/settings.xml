@@ -1,22 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>
-	<global debug="false" firstPanorama="pano2" camera="minVerticalFov:-180,maxVerticalFov:90" autorotation="enabled:false" />
+	<global debug="false" firstPanorama="pano2" />
 	<panoramas>
-		<panorama id="pano0" label="cylinder" path="panoramas/dz_cylinder/cylinder_f.xml"/>
-		<panorama id="pano05" label="eyesiscamera" path="panoramas/1285706042-265173/1285706042-265173_f.xml"/>		
 		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" onLeaveToAttempt="pano2:act1">
-			<hotspot id="hs1" position="pan:50.8,tilt:-41.5" path="hotspots/arrow.png" mouse="onClick:act1b"/>
+			<hotspot id="hs1" position="pan:-50.8,tilt:-41.5" path="hotspots/arrow.png" mouse="onClick:act1b,onOver:showPano2,onOut:hide"/>
 		</panorama>
 		<panorama id="pano2" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml" camera="pan:-45" onLeaveToAttempt="pano1:act2,pano3:act3">
-			<hotspot id="hs2" position="pan:-45.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act2b"/>
-			<hotspot id="hs3" position="pan:45.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act3b"/>
+			<hotspot id="hs2" position="pan:-45.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act2b,onOver:showPano1,onOut:hide"/>
+			<hotspot id="hs3" position="pan:45.8,tilt:-4.5,distance:1000" path="hotspots/arrow.png" mouse="onClick:act3b,onOver:showPano3,onOut:hide"/>
 		</panorama>
 		<panorama id="pano3" label="Park" path="panoramas/dz_park/park_f.xml" onLeaveToAttempt="pano2:act4">
-			<hotspot id="hs4" position="pan:-8,distance:800" path="hotspots/ExampleHotspot.swf" mouse="onClick:act4b"/>
+			<hotspot id="hs4" position="pan:0,distance:800" path="hotspots/ExampleHotspot.swf" mouse="onClick:act4b,onOver:showPano2,onOut:hide"/>
 		</panorama>
-		<panorama id="pano4" label="Park single tile" path="panoramas/dz_park_fast/park_f.xml">
-			<hotspot id="hs4" position="pan:-8,distance:800" path="hotspots/ExampleHotspot.swf" mouse="onClick:act4b"/>
-		</panorama>
+		<panorama id="pano4" label="Park single tile" path="panoramas/dz_park_fast/park_f.xml"/>
 	</panoramas>
 	<actions>
 		<action id="act1" content="SaladoPlayer.moveToHotspotAnd(hs1,act1b)"/>
@@ -27,13 +23,48 @@
 		<action id="act3b" content="SaladoPlayer.loadPano(pano3)"/>
 		<action id="act4" content="SaladoPlayer.moveToHotspotAnd(hs4,act4b)"/>
 		<action id="act4b" content="SaladoPlayer.loadPano(pano2)"/>
+		<action id="mapToggle" content="ImageMap.toggleOpen()"/>
+		<action id="mapOpened" content="NavigationBar.setExtraButtonActive(b,true)"/>
+		<action id="mapClosed" content="NavigationBar.setExtraButtonActive(b,false)"/>
+		<action id="showPano1" content="InfoBubble.showBubble(b1)"/>
+		<action id="showPano2" content="InfoBubble.showBubble(b2)"/>
+		<action id="showPano3" content="InfoBubble.showBubble(b3)"/>
+		<action id="hide" content="InfoBubble.hideBubble()"/>
+		<action id="bubToggle" content="InfoBubble.toggleActive()"/>
+		<action id="onBubAct" content="NavigationBar.setExtraButtonActive(c,true)"/>
+		<action id="onBubDisact" content="NavigationBar.setExtraButtonActive(c,false)"/>
 	</actions>
 	<modules>
+		<InfoBubble path="modules/InfoBubble.swf">
+			<settings onActivate="onBubAct" onDisactivate="onBubDisact"/>
+			<bubbles>
+				<bubble id="b1" path="modules/bubbles/shopping_mall.jpg"/>
+				<bubble id="b2" path="modules/bubbles/volleyball.jpg"/>
+				<bubble id="b3" path="modules/bubbles/park.jpg"/>
+			</bubbles>
+		</InfoBubble>
+		<ImageMap path="modules/ImageMap.swf">
+			<window open="true" transitionType="slideRight" openTween="transition:Cubic.easeOut,time:1" closeTween="transition:Cubic.easeOut,time:1" onOpen="mapOpened" onClose="mapClosed" alpha="0.8"/>
+			<viewer moveEnabled="true" dragEnabled="true" zoomEnabled="true"/>
+			<maps>
+				<map id="map1" path="modules/maps/test.jpg">
+					<waypoint target="pano1" position="x:750,y:200" mouse="onOver:showPano1,onOut:hide" panShift="-90"/>
+					<waypoint target="pano2" position="x:500,y:400" mouse="onOver:showPano2,onOut:hide" panShift="90"/>
+					<waypoint target="pano3" position="x:250,y:150" mouse="onOver:showPano3,onOut:hide" panShift="-70"/>
+				</map>
+			</maps>
+		</ImageMap>
 		<NavigationBar path="modules/NavigationBar.swf">
-			<buttons path="modules/images/buttons_30x30_blue.png"/>
-			<logo visible="false" path="modules/images/logo.png"/>
-			<bar visible="0"/>
+			<buttons path="modules/images/buttons_30x30_blue.png" move="vertical:-3">
+				<extraButton name="b" action="mapToggle"/>
+				<extraButton name="c" action="bubToggle"/>
+				<button name="up" visible="false" />
+				<button name="down" visible="false" />
+				<button name="left" visible="false" />
+				<button name="right" visible="false" />
+			</buttons>
+			<bar alpha="0.75" color="#337ab7" move="vertical:0" size="height:35" />
+			<combobox style="fontColor:#000000,backgroundColor:#337ab7,selectedColor:#3ab2f0,borderColor:#000000" move="vertical:-5"/>
 		</NavigationBar>
-		<ViewFinder path="modules/ViewFinder.swf"/>
 	</modules>
 </SaladoPlayer>	

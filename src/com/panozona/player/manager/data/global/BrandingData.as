@@ -16,31 +16,35 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.data.trace {
-	
-	import com.panozona.player.manager.data.trace.Align;	
-	import com.panozona.player.manager.data.trace.Size;
+package com.panozona.player.manager.data.global{
+
+	import com.panozona.player.manager.data.global.Align;
+	import com.panozona.player.manager.data.global.Move;
 	
 	/**
-	 * Stores data that is used to configure trace window.
-	 * 
+	 * ...
 	 * @author mstandio
 	 */
-	public class TraceData {
+	public class BrandingData {
 		
 		/**
-		 * If trace window is by default opened on lounching SaladoPlayer
+		 * If branding button is visible
 		 */
-		public var open:Boolean = false;
+		public var visible:Boolean = true;
 		
 		/**
-		 * Determinses position of trace window inside panorama.
+		 * Transparency of branding button
 		 */
-		public var align:Align = new Align(Align.RIGHT, Align.TOP);
+		public var alpha:Number = 0.5;
 		
 		/**
-		 * Determines size of trace window.
+		 * Determinses position of branding button inside panorama.
 		 */
-		public var size:Size = new Size(400,100);		
+		public var align:Align = new Align(Align.LEFT, Align.BOTTOM);
+		
+		/**
+		 * Moves button horizontally and vertically with given distances. 
+		 */
+		public var move:Move = new Move(3,0);
 	}
 }

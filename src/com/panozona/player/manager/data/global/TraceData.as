@@ -16,22 +16,31 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.data.trace{
+package com.panozona.player.manager.data.global {
+	
+	import com.panozona.player.manager.data.global.Align;
+	import com.panozona.player.manager.data.global.Size;
 	
 	/**
-	 * It is the same class as in module.data.property.Size but I wanted to keep player and modules seperate.
+	 * Stores data that is used to configure trace window.
 	 * 
 	 * @author mstandio
 	 */
-	public class Size {
+	public class TraceData {
 		
-		public var width:Number;
+		/**
+		 * If trace window is by default opened on lounching SaladoPlayer
+		 */
+		public var open:Boolean = false;
 		
-		public var height:Number;
+		/**
+		 * Determinses position of trace window inside panorama.
+		 */
+		public var align:Align = new Align(Align.RIGHT, Align.TOP);
 		
-		public function Size(defaultWidth:Number, defaultHeight:Number) {
-			width = defaultWidth;
-			height = defaultHeight;
-		}
+		/**
+		 * Determines size of trace window.
+		 */
+		public var size:Size = new Size(400,100);
 	}
 }

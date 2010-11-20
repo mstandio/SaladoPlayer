@@ -22,7 +22,12 @@ package com.panozona.modules.infobubble.data.structure {
 	 * ...
 	 * @author mstandio
 	 */
-	public class Settings{
+	public class Settings {
+		
+		public var onActivate:String;  // action ids executed
+		public var onDisactivate:String; // on enabled change state
+		
+		public var active:Boolean = true;
 		public var cursorDistance:Number = 20;
 	}
 }

@@ -28,7 +28,7 @@ package com.panozona.modules.examplemodule.data {
 		// for instance <someJob wages="999" text="[something something]"/>
 		// you should initialize them with default values in case when given value is not set in configuration
 		
-		public var wages:Number; // intentionally not initialized		
+		public var wages:Number; // intentionally not initialized
 		
 		// if data structure class has var with that name, it can take CDATA text. 
 		// <someJob>
@@ -37,7 +37,7 @@ package com.panozona.modules.examplemodule.data {
 		//	]]>
 		// <someJob/>
 		// text can also be red as regular attribute but without forbidden chars :;,
-		// <someJob text="[something something]"/>
+		// <someJob text="[can't have any chars here]"/>
 		public var text:String; 
 	}
 }

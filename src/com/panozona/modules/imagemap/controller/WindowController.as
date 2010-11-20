@@ -18,7 +18,7 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.controller{
 	
-	import flash.events.Event;	
+	import flash.events.Event;
 	import flash.system.ApplicationDomain;
 	
 	import caurina.transitions.*;
@@ -67,7 +67,7 @@ package com.panozona.modules.imagemap.controller{
 		 * Changes window "open" state to opposite value.
 		 * @param	event 
 		 */
-		public function toggleVisibility(event:Event = null):void {
+		public function toggleOpen(event:Event = null):void {
 			_windowView.windowData.open = !_windowView.windowData.open;
 		}
 		
@@ -133,11 +133,11 @@ package com.panozona.modules.imagemap.controller{
 			}
 			_windowView.mouseEnabled = false;
 			_windowView.mouseChildren = false;
-			Tweener.addTween(_windowView, tweenObj);			
+			Tweener.addTween(_windowView, tweenObj);
 		}
 		
 		private function closeWindowOnComplete():void {
-			_windowView.visible = false;			
+			_windowView.visible = false;
 		}
 		
 		private function placeWindow(e:Event = null):void {

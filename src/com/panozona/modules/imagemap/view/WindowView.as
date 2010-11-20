@@ -46,6 +46,8 @@ package com.panozona.modules.imagemap.view{
 			
 			_imageMapData = imageMapData;
 			
+			this.alpha = _imageMapData.windowData.alpha;
+			
 			// draw map window
 			window = new Sprite();
 			window.graphics.beginFill(0xFFFFFF,0);

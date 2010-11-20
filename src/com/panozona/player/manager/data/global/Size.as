@@ -15,19 +15,23 @@ See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
-*/ 
-package com.panozona.modules.imagemap.model.structure{
+*/
+package com.panozona.player.manager.data.global{
 	
 	/**
-	 * ...
+	 * It is the same class as in module.data.property.Size but I wanted to keep player and modules seperate.
+	 * 
 	 * @author mstandio
 	 */
-	public class Mouse{
+	public class Size {
 		
-		public var onClick:String;
-		public var onPress:String;
-		public var onRelease:String;
-		public var onOver:String;
-		public var onOut:String;
+		public var width:Number;
+		
+		public var height:Number;
+		
+		public function Size(defaultWidth:Number, defaultHeight:Number) {
+			width = defaultWidth;
+			height = defaultHeight;
+		}
 	}
 }

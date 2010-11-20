@@ -1,0 +1,35 @@
+﻿<!-- 
+	
+	ImageButton 
+	- you can assign custom mouse events to buttons
+	- you can open/close buttons of given id with
+	- see: http://panozona.com/wiki/Module:ImageButton
+	
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<SaladoPlayer>
+	<global debug="true" autorotation="enabled:false" />
+	<panoramas>
+		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml"/>
+	</panoramas>
+	<actions>
+		<action id="act1" content="ImageButton.close(button2);ImageButton.open(button3)"/>
+		<action id="act2" content="ImageButton.close(button3);ImageButton.open(button1)"/>
+		<action id="act3" content="ImageButton.close(button1);ImageButton.open(button2)"/>
+	</actions>
+	<modules>
+		<ImageButton path="modules/ImageButton.swf">
+			<buttons>
+				<button id="button1" path="modules/images/logo.png" align="vertical:top" move="horizontal:30,vertical:30" mouse="onClick:act1"/>
+				<button id="button2" path="modules/images/logo.png" align="vertical:middle" move="horizontal:30,vertical:0" mouse="onClick:act2" openTween="transition:Cubic.easeInOut,time:0.75" closeTween="transition:Cubic.easeOut,time:0.75"/>
+				<button id="button3" path="modules/images/logo.png" align="vertical:bottom" move="horizontal:30,vertical:-60" mouse="onClick:act3"/>
+			</buttons>
+		</ImageButton>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_30x30_green.png">
+				<button name="autorotation" visible="false"/>
+			</buttons>
+			<combobox visible="false"/>
+		</NavigationBar>
+	</modules>
+</SaladoPlayer>

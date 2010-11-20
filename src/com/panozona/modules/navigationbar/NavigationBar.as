@@ -18,42 +18,37 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.navigationbar {
 	
-	import com.panozona.player.module.data.ModuleData;
 	import flash.display.Sprite;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.StageDisplayState;
 	import flash.display.Loader;
+	import flash.net.URLRequest;
 	import flash.geom.Rectangle;
 	import flash.geom.Point;
-	import flash.net.URLRequest;
-	import flash.net.navigateToURL;
+	
 	import flash.system.ApplicationDomain;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
 	import flash.events.KeyboardEvent;
 	
-	import com.panozona.modules.navigationbar.combobox.*;
+	import com.panozona.player.module.Module;
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Move;
+	
+	import com.panozona.modules.navigationbar.combobox.*;	
 	import com.panozona.modules.navigationbar.button.BitmapButton;
 	import com.panozona.modules.navigationbar.data.Button;
 	import com.panozona.modules.navigationbar.data.ExtraButton;
 	import com.panozona.modules.navigationbar.data.NavigationBarData;
-	
-	import com.panozona.player.module.Module;
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
 	
 	/**
 	 * ...
 	 * @author mstandio
 	 */
 	public class NavigationBar extends Module{
-	
-	[Embed(source="assets/saladoplayer.png")]
-		private static var Bitmap_saladoplayer:Class;
-	[Embed(source="assets/panosalado.png")]
-		private static var Bitmap_panosalado:Class;
 		
 		// basic bitmap buttons 
 		private var bitBtnLeft:BitmapButton;
@@ -74,27 +69,24 @@ package com.panozona.modules.navigationbar {
 		private var bitmapButtonsExtraActive:Array;
 		
 		// loaders
-		private var buttonsLoader:Loader;
-		private var logoLoader:Loader;
+		private var buttonsLoader:Loader;		
 		private var barLoader:Loader;
 		
 		// visible elemends 
 		private var buttonsGroup:Sprite;
-		private var combobox:Combobox;
-		private var branding:Sprite;
-		private var logo:Sprite;
-		private var bar:Sprite;
+		private var combobox:Combobox;		
+		private var bar:Sprite;		
 		
-		private var logoBMD:BitmapData;
 		private var barBMD:BitmapData;
 		private var buttonsBMD:BitmapData;
 		
-		private var navigationBarData:NavigationBarData;
+		// configuration 
+		private var navigationBarData:NavigationBarData;		
 		
 		private var CameraKeyBindingsClass:Class;
 		private var AutorotationEventClass:Class;
-		private var CameraEventClass:Class;
 		private var LoadPanoramaEventClass:Class;
+		private var CameraEventClass:Class;
 		
 		public function NavigationBar() {
 			
@@ -105,6 +97,7 @@ package com.panozona.modules.navigationbar {
 							  "bar color / background image, combobox font and colors.<br>" +
 							  "Leave branding visible to support this project.";
 			
+			//exposed functions
 			moduleDescription.addFunctionDescription("setExtraButtonActive", String, Boolean);
 		}	
 		
@@ -136,38 +129,6 @@ package com.panozona.modules.navigationbar {
 				addChild(bar);
 			}
 			
-			if(navigationBarData.branding.visible){
-				branding = new Sprite();
-				branding.alpha = navigationBarData.branding.alpha;
-				var brand1:Sprite = new Sprite();
-				brand1.buttonMode = true;
-				brand1.addChild(new Bitmap(new Bitmap_saladoplayer().bitmapData, "auto", true));
-				brand1.addEventListener(MouseEvent.MOUSE_DOWN, gotoSaladoPlayer, false, 0, true);
-				branding.addChild(brand1);
-				var brand2:Sprite =  new Sprite();
-				brand2.buttonMode = true;
-				brand2.addChild(new Bitmap(new Bitmap_panosalado().bitmapData, "auto", true));
-				brand2.addEventListener(MouseEvent.MOUSE_DOWN, gotoPanoSalado, false, 0, true);
-				branding.addChild(brand2);
-				brand2.y = brand1.height;
-				addChild(branding);
-			}
-			
-			if (navigationBarData.logo.visible){
-				logo = new Sprite();
-				logoLoader = new Loader();
-				logoLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, logoImageLost, false, 0 , true);
-				logoLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, logoImageLoaded, false, 0 , true);
-				logoLoader.load(new URLRequest(navigationBarData.logo.path));
-				if (navigationBarData.logo.text != null) {
-					logo.addEventListener(MouseEvent.MOUSE_DOWN, gotoLogoUrl, false, 0 , true);
-					logo.buttonMode = true;
-				}else {
-					logo.mouseEnabled = false;
-				}
-				addChild(logo);
-			}
-			
 			if(navigationBarData.combobox.visible){
 				combobox = new Combobox(saladoPlayer.managerData.panoramasData, navigationBarData.combobox.style);
 				combobox.addEventListener(ComboboxEvent.LABEL_CHANGED, comboBoxLabelChanged, false, 0 , true);
@@ -187,18 +148,6 @@ package com.panozona.modules.navigationbar {
 			
 			stage.addEventListener(Event.RESIZE, handleStageResize, false, 0, true);
 			handleStageResize();
-		}
-		
-		private function logoImageLost(error:IOErrorEvent):void {
-			printError(error.toString());
-			// TODO: wait, AND retry
-		}
-		
-		private function logoImageLoaded(e:Event):void {
-			logoBMD = new BitmapData(logoLoader.width, logoLoader.height, true, 0);
-			logoBMD.draw(logoLoader);
-			logoLoader = null;
-			logo.addChild(new Bitmap(logoBMD));
 		}
 		
 		private function barImageLost(error:IOErrorEvent):void {
@@ -397,13 +346,7 @@ package com.panozona.modules.navigationbar {
 			}
 			if(navigationBarData.combobox.visible){
 				placeSprite(combobox, navigationBarData.combobox.align, navigationBarData.combobox.move);
-			}
-			if (navigationBarData.logo.visible) {
-				placeSprite(logo, navigationBarData.logo.align, navigationBarData.logo.move);
-			}
-			if(navigationBarData.branding.visible){
-				placeSprite(branding, navigationBarData.branding.align, navigationBarData.branding.move);
-			}
+			}			
 			if (bitBtnFullscreen != null){
 				bitBtnFullscreen.setActive(stage.displayState == StageDisplayState.FULL_SCREEN);
 			}
@@ -481,6 +424,8 @@ package com.panozona.modules.navigationbar {
 			saladoPlayer.manager.loadPanoramaById(e.panoramaData.id);
 		}
 		
+		// TODO: dont use keayboard  events, perhaps?
+		
 		private function leftPress(e:Event):void {
 			stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, true, 0, CameraKeyBindingsClass.LEFT)); 
 		}
@@ -533,33 +478,6 @@ package com.panozona.modules.navigationbar {
 		}
 		private function fullscreenToggle(e:Event):void {
 			stage.displayState = (stage.displayState == StageDisplayState.NORMAL) ? StageDisplayState.FULL_SCREEN : StageDisplayState.NORMAL;
-		}
-		
-		private function gotoSaladoPlayer(e:Event):void {
-			var request:URLRequest = new URLRequest("http://panozona.com/");
-			try {
-				navigateToURL(request, '_BLANK');
-			} catch (error:Error) {
-				printWarning("Could not open http://panozona.com/");
-			}
-		}
-		
-		private function gotoPanoSalado(e:Event):void {
-			var request:URLRequest = new URLRequest("http://panosalado.com/");
-			try {
-				navigateToURL(request, '_BLANK');
-			} catch (error:Error) {
-				printWarning("Could not open http://panosalado.com/");
-			}
-		}
-		
-		private function gotoLogoUrl(e:Event):void {
-			var request:URLRequest = new URLRequest(navigationBarData.logo.text);
-			try {
-				navigateToURL(request, '_BLANK');
-			} catch (error:Error) {
-				printWarning("Could not open "+navigationBarData.logo.text);
-			}
 		}
 		
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
