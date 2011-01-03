@@ -1,0 +1,9 @@
+SaladoPlayer.swf
+modules/ExampleModule.swf
+modules/ImageButton.swf
+modules/ImageMap.swf
+modules/InfoBubble.swf
+modules/NavigationBar.swf
+modules/ViewFinder.swf
+hotspots/ExampleHotspot.swf
+hotspots/VideoHotspot.swf
