@@ -25,22 +25,22 @@ import com.panosalado.model.*;
 public class PanoramaImageType
 {	
 	public static var DEEP_ZOOM_CUBE			:String = "deepZoomCube";
-	public static var ZOOMIFY_CUBE				:String = "zoomifyCube";
-	public static var DEEP_ZOOM_EQUIRECTANGULAR	:String = "deepZoomEquirectangular";
-	public static var ZOOMIFY_EQUIRECTANGULAR	:String = "deepZoomEquirectangular";
+	//public static var ZOOMIFY_CUBE				:String = "zoomifyCube";
+	//public static var DEEP_ZOOM_EQUIRECTANGULAR	:String = "deepZoomEquirectangular";
+	//public static var ZOOMIFY_EQUIRECTANGULAR	:String = "deepZoomEquirectangular";
 	public static var CUBE						:String = "cube";
-	public static var EQUIRECTANGULAR			:String = "equirectangular";
-	public static var QTVR						:String = "qtvr";
-	public static var CYLINDER					:String = "cylinder";
+	//public static var EQUIRECTANGULAR			:String = "equirectangular";
+	//public static var QTVR						:String = "qtvr";
+	//public static var CYLINDER					:String = "cylinder";
 	
 	public static var concordance:Dictionary = new Dictionary();
 	{
 		//TODO: implement commented classes.
 		concordance[DEEP_ZOOM_CUBE] 			= DeepZoomTilePyramid;
 // 		concordance[ZOOMIFY_CUBE] 				= ZoomifyTilePyramid;
- 		concordance[DEEP_ZOOM_EQUIRECTANGULAR] 	= DeepZoomTilePyramid;
+// 		concordance[DEEP_ZOOM_EQUIRECTANGULAR] 	= DeepZoomTilePyramid;
 // 		concordance[ZOOMIFY_EQUIRECTANGULAR] 	= ZoomifyTilePyramid;
-// 		concordance[CUBE] 						= EquirectangularTilePyramid;
+ 		concordance[CUBE] 						= EquirectangularTilePyramid;
 // 		concordance[EQUIRECTANGULAR] 			= EquirectangularTilePyramid;
 // 		concordance[QTVR] 						= QTVRTilePyramid;
 // 		concordance[CYLINDER] 					= EquirectangularTilePyramid;

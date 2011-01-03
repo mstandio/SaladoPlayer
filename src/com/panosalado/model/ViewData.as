@@ -267,7 +267,7 @@ public class ViewData extends Sprite
 	public function set pan(value:Number):void
 	{ //clamp values to -180 to 180. camera controller can do further clamping if desired.
 		if ( _pan == value || isNaN(value) ) return;
-		if ( value <= -180 ) value = (((value+180)%360)-180);
+		if ( value <= -180 ) value = (((value+180)%360)+180);
 		if ( value > 180 ) value = (((value+180)%360)-180);
 		if ( value < _minimumPan ) value = _minimumPan;
 		if ( value > _maximumPan ) value = _maximumPan;
@@ -287,7 +287,7 @@ public class ViewData extends Sprite
 	public function set tilt(value:Number):void
 	{ //clamp values to -180 to 180. camera controller can do further clamping if desired.
 		if ( _tilt == value || isNaN(value) ) return; 
-		if ( value <= -180 ) value = (((value+180)%360)-180);
+		if ( value <= -180 ) value = (((value+180)%360)+180);
 		if ( value > 180 ) value = (((value+180)%360)-180);
 		if ( value < _minimumTilt ) value = _minimumTilt;
 		if ( value > _maximumTilt ) value = _maximumTilt;

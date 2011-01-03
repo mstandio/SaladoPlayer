@@ -4,9 +4,21 @@
 <flex-config>
   <target-player>10.0.0</target-player>
   <compiler>
+    <define append="true">
+      <name>CONFIG::debug</name>
+      <value>false</value>
+    </define>
+    <define append="true">
+      <name>CONFIG::release</name>
+      <value>true</value>
+    </define>
+    <define append="true">
+      <name>CONFIG::timeStamp</name>
+      <value>'2011-01-03'</value>
+    </define>
     <source-path append="true">
       <path-element>F:\SaladoPlayer\src</path-element>
-      <path-element>e:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
+      <path-element>E:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
       <path-element>F:\SaladoPlayer\lib\tweener.swc</path-element>

@@ -91,8 +91,7 @@ package com.panozona.modules.imagemap.controller{
 			}
 		}
 		
-		private function handleMapImageLoaded(e:Event):void {
-			trace(_contentViewerView.container.width+" "+_contentViewerView.container.height);
+		private function handleMapImageLoaded(e:Event):void {			
 			_contentViewerView.container.x = -_contentViewerView.container.width * 0.5;
 			_contentViewerView.container.y = -_contentViewerView.container.height * 0.5;
 		}

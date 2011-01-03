@@ -16,17 +16,21 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player{
+package com.panozona.player {
 	
 	import flash.display.Sprite;
 	import flash.display.DisplayObject;
 	import flash.utils.ByteArray;
 	import flash.events.IOErrorEvent;
 	import flash.events.Event;
+	import flash.events.ContextMenuEvent;
 	import flash.system.ApplicationDomain;
+	import flash.ui.ContextMenu;
+	import flash.ui.ContextMenuItem;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
 	import flash.external.ExternalInterface;
 	
 	import com.panosalado.model.*;
@@ -48,7 +52,9 @@ package com.panozona.player{
 	import com.panozona.player.manager.events.LoadModuleEvent;
 	
 	import performance.Stats;
-
+	
+	import com.spikything.utils.MouseWheelTrap;	
+	
 	[SWF(width="500", height="375", frameRate="60", backgroundColor="#FFFFFF")] // default size is mandatory
 	
 	/**
@@ -104,7 +110,7 @@ package com.panozona.player{
 		protected function initialize():void {
 			
 			panorama = new Panorama(); // Singleton
-			resizer	= new Resizer();
+			resizer = new Resizer();
 			inertialMouseCamera = new InertialMouseCamera();
 			arcBallCamera = new ArcBallCamera();
 			keyboardCamera = new KeyboardCamera();
@@ -175,9 +181,9 @@ package com.panozona.player{
 			if (managerData.abstractModulesData.length == 0) {
 				finalOperations();
 			}else {
-				modulesLoader = new ModulesLoader();
-				modulesLoader.addEventListener(LoadModuleEvent.MODULE_LOADED, insertModule, false, 0, true);
-				modulesLoader.addEventListener(LoadModuleEvent.ALL_MODULES_LOADED, modulesLoadingComplete, false, 0, true);
+				var modulesLoader:ModulesLoader = new ModulesLoader();
+				modulesLoader.addEventListener(LoadModuleEvent.MODULE_LOADED, insertModule);
+				modulesLoader.addEventListener(LoadModuleEvent.ALL_MODULES_LOADED, modulesLoadingComplete);
 				modulesLoader.load(managerData.abstractModulesData);
 			}
 		}
@@ -202,7 +208,9 @@ package com.panozona.player{
 			}
 		}
 		
-		private function modulesLoadingComplete(e:Event):void {
+		protected function modulesLoadingComplete(e:LoadModuleEvent):void {
+			e.target.removeEventListener(LoadModuleEvent.MODULE_LOADED, insertModule);
+			e.target.removeEventListener(LoadModuleEvent.ALL_MODULES_LOADED, modulesLoadingComplete);
 			for (var i:int = moduleByDepth.length - 1; i >= 0 ; i--) {
 				var addedModule:DisplayObject = moduleByDepth[i];
 				if (addedModule != null){
@@ -212,7 +220,11 @@ package com.panozona.player{
 			finalOperations();
 		}
 		
-		private function finalOperations():void {
+		protected function finalOperations():void {
+			
+			MouseWheelTrap.setup(stage);
+			
+			ExternalInterface.call("s = function(){document.getElementById('EyesisPlayer').focus(); }");
 			
 			if (managerData.debugMode) {
 			abstractModuleDescriptions.push(new ManagerDescription().description);
@@ -227,6 +239,14 @@ package com.panozona.player{
 			
 			if (managerData.brandingData.visible) {
 				addChild(new Branding());
+			}
+			
+			if (managerData.brandingData.contextMenu) {
+				var menu:ContextMenu = new ContextMenu();
+				var item:ContextMenuItem = new ContextMenuItem("Powered by SaladoPlayer");
+				item.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, function(e:Event):void{ navigateToURL(new URLRequest("http://www.panozona.com"))});
+				menu.customItems.push(item);
+				contextMenu = menu;
 			}
 			
 			if (managerData.showStats) {

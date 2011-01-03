@@ -183,6 +183,10 @@ public class QuadTreeCube extends Tile
 				" face id:" + input.id + 
 				" extension:" + input.extension);
 		}
+		 trace("ret 0 " + ret[0]);
+		 trace("ret 1 " + ret[1]);
+		 trace("ret 2 "+ret[2]);
+		
 		return ret;
 	}
 	

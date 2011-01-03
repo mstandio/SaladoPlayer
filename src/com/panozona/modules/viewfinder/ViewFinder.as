@@ -48,7 +48,7 @@ package com.panozona.modules.viewfinder{
 		 * @private
 		 */
 		public function ViewFinder() {
-			super("ViewFinder", 0.4, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:ViewFinder");
+			super("ViewFinder", 0.5, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:ViewFinder");
 			aboutThisModule = "This module shows pan, tilt and field of view of current camera view, marked as a circle in the middle of panorama window. " +
 							  "Module is usefull i.e. for determining position of hotspots during configuration process.";
 		}
@@ -76,7 +76,7 @@ package com.panozona.modules.viewfinder{
 			txtOutput.background = true;
 			txtOutput.backgroundColor = 0x000000;
 			txtOutput.defaultTextFormat = txtFormat;
-			txtOutput.autoSize =TextFieldAutoSize.LEFT			
+			txtOutput.autoSize = TextFieldAutoSize.LEFT
 			addChild(txtOutput);
 			
 			stage.addEventListener(Event.RESIZE, handleStageResize, false, 0, true);
@@ -85,14 +85,9 @@ package com.panozona.modules.viewfinder{
 		}
 		
 		private function enterFrameHandler(event:Event):void {
-			txtOutput.text = "pan  " + validatePan(saladoPlayer.manager._pan).toFixed(2) + 
+			txtOutput.text = "pan  " + saladoPlayer.manager._pan.toFixed(2) + 
 			"\ntilt " + saladoPlayer.manager._tilt.toFixed(2) + 
 			"\nfov  " + saladoPlayer.manager._fieldOfView.toFixed(2);
-		}
-		
-		private function validatePan(pan:Number):Number {
-			if ( pan <= -180 ) return (((pan+180)%360)-180);
-			return (((pan+180)%360)-180);
 		}
 		
 		private function handleStageResize(e:Event = null):void {

@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils{
-
+	
 	import flash.display.Loader;
 	import flash.system.LoaderContext;
 	import flash.system.ApplicationDomain;
@@ -29,31 +29,26 @@ package com.panozona.player.manager.utils{
 	import com.panozona.player.manager.events.LoadModuleEvent;
 	import com.panozona.player.manager.data.module.AbstractModuleData;
 	
-	/**
-	 * 
-	 * 
-	 * @author mstandio
-	 */
 	public class ModulesLoader extends EventDispatcher{
 		
 		private var loaders:Vector.<Loader>;
-		private var abstractModulesData:Array
+		private var abstractModulesData:Array;
 		
 		public function load(abstractModulesData:Array):void {
 			this.abstractModulesData = abstractModulesData;
 			loaders = new Vector.<Loader>();
 			var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);
-			for(var i:int=0; i<abstractModulesData.length; i++){
+			for(var i:int = 0; i < abstractModulesData.length; i++){
 				loaders[i] = new Loader();
-				loaders[i].contentLoaderInfo.addEventListener(Event.COMPLETE, moduleLoaded, false, 0, true);
-				loaders[i].contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, moduleLost, false, 0, true);
+				loaders[i].contentLoaderInfo.addEventListener(Event.COMPLETE, moduleLoaded);
+				loaders[i].contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, moduleLost);
 				loaders[i].load(new URLRequest(abstractModulesData[i].path), context);
 			}
 		}
 		
 		private function moduleLoaded(e:Event):void {
-			for(var i:int=0;i<loaders.length;i++){
-				if (loaders[i] != null && loaders[i].contentLoaderInfo == e.target) {
+			for(var i:int = 0; i < loaders.length; i++){
+				if (loaders[i] != null && loaders[i].contentLoaderInfo === e.target) {
 					dispatchEvent(new LoadModuleEvent(LoadModuleEvent.MODULE_LOADED,abstractModulesData[i].moduleName, abstractModulesData[i].weight, loaders[i].content));
 					loaders[i].contentLoaderInfo.removeEventListener(Event.COMPLETE, moduleLoaded);
 					loaders[i].contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, moduleLost);
@@ -64,14 +59,15 @@ package com.panozona.player.manager.utils{
 		}
 		
 		private function moduleLost(e:IOErrorEvent):void {
-			for(var i:int=0;i<loaders.length;i++){
-				if (loaders[i] != null && loaders[i].contentLoaderInfo == e.target) {
+			for (var i:int = 0; i < loaders.length; i++) {
+				if (loaders[i] != null && loaders[i].contentLoaderInfo === e.target) {
 					loaders[i].contentLoaderInfo.removeEventListener(Event.COMPLETE, moduleLoaded);
 					loaders[i].contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, moduleLost);
 					loaders[i] = null;
 				}
 			}
-			Trace.instance.printError("Could not load module: " + e.toString());
+			Trace.instance.printError("Could not load module: "+e.text);
+			checkLoadingState();
 		}
 		
 		private function checkLoadingState():void {

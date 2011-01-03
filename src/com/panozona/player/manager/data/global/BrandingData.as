@@ -45,6 +45,11 @@ package com.panozona.player.manager.data.global{
 		/**
 		 * Moves button horizontally and vertically with given distances. 
 		 */
-		public var move:Move = new Move(3,0);
+		public var move:Move = new Move(3, 0);
+		
+		/**
+		 * Adds "Powered by SaladoPlayer" item to context menu
+		 */
+		public var contextMenu:Boolean = true;
 	}
 }

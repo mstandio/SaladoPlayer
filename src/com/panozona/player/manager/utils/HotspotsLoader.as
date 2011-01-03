@@ -42,7 +42,7 @@ package com.panozona.player.manager.utils {
 		
 		/**
 		 * 
-		 * @param	childrenData
+		 * @param	hotspotsData
 		 */
 		public function load(hotspotsData:Vector.<HotspotData>):void {
 			_hotspotsData = hotspotsData;
@@ -50,7 +50,7 @@ package com.panozona.player.manager.utils {
 			var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);
 			for(var i:int = 0; i < _hotspotsData.length; i++){
 				_loaders[i] = new Loader();
-				_loaders[i].contentLoaderInfo.addEventListener(Event.COMPLETE, hotspotLoaded, false, 0, true);
+				_loaders[i].contentLoaderInfo.addEventListener(Event.COMPLETE, hotspotLoaded);
 				_loaders[i].contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, hotspotLost);
 				_loaders[i].load(new URLRequest(hotspotsData[i].path), context);
 			}
@@ -90,7 +90,7 @@ package com.panozona.player.manager.utils {
 					_loaders[i] = null;
 				}
 			}
-			Trace.instance.printError("Could not load hotspot file: "+error.toString());
+			Trace.instance.printError("Could not load hotspot file: "+error.text);
 		}
 	}
 }
