@@ -30,7 +30,7 @@ package com.panozona.modules.imagebutton.data{
 		public var button:Button;
 		public var sprite:Sprite;
 		
-		public function Wrapper(button:Button, sprite:Sprite):void {
+		public function Wrapper(button:Button, sprite:Sprite) {
 			this.button = button;
 			this.sprite = sprite;
 		}

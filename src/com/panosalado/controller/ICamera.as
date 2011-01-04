@@ -19,11 +19,11 @@ along with PanoSalado.  If not, see <http://www.gnu.org/licenses/>.
 package com.panosalado.controller
 {
 
-import flash.display.Stage;
-import flash.display.Sprite;
+//import flash.display.Stage;
+//import flash.display.Sprite;
 
-import com.panosalado.model.ViewData;
-import com.panosalado.model.TilePyramid;
+//import com.panosalado.model.ViewData;
+//import com.panosalado.model.TilePyramid;
 
 public interface ICamera
 {

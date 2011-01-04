@@ -27,7 +27,6 @@ package com.panozona.modules.imagemap.view{
 	import com.panozona.modules.imagemap.model.ImageMapData;
 	import com.panozona.modules.imagemap.model.WindowData;
 	import com.panozona.modules.imagemap.events.WindowEvent;
-	import com.panozona.modules.imagemap.view.ContentViewerView;
 	import com.panozona.modules.imagemap.model.EmbededGraphics;
 	
 	/**

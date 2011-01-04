@@ -24,7 +24,7 @@ import com.panosalado.model.SimpleTransitionData;
 import com.panosalado.model.Characteristics;
 import com.panosalado.utils.Animation;
 import com.panosalado.events.ViewEvent;
-import com.panosalado.events.CameraEvent;
+//import com.panosalado.events.CameraEvent;
 import com.panosalado.controller.ICamera;
 
 import com.robertpenner.easing.*;

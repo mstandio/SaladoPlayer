@@ -30,7 +30,7 @@ package com.panozona.modules.imagemap.controller {
 	import com.panozona.modules.imagemap.view.MapView;
 	import com.panozona.modules.imagemap.view.WaypointView;
 	
-	import com.panozona.modules.imagemap.model.MapData;
+	//import com.panozona.modules.imagemap.model.MapData;
 	import com.panozona.modules.imagemap.model.WaypointData;
 	import com.panozona.modules.imagemap.model.structure.Map;
 	import com.panozona.modules.imagemap.model.structure.Waypoint;

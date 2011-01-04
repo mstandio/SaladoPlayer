@@ -40,7 +40,7 @@ public class PanoramaImageType
 // 		concordance[ZOOMIFY_CUBE] 				= ZoomifyTilePyramid;
 // 		concordance[DEEP_ZOOM_EQUIRECTANGULAR] 	= DeepZoomTilePyramid;
 // 		concordance[ZOOMIFY_EQUIRECTANGULAR] 	= ZoomifyTilePyramid;
- 		concordance[CUBE] 						= EquirectangularTilePyramid;
+// 		concordance[CUBE] 						= EquirectangularTilePyramid;
 // 		concordance[EQUIRECTANGULAR] 			= EquirectangularTilePyramid;
 // 		concordance[QTVR] 						= QTVRTilePyramid;
 // 		concordance[CYLINDER] 					= EquirectangularTilePyramid;

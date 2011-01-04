@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<docProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <pageTitle>PanoZona</pageTitle>
+  <classPaths>F:\SaladoPlayer\src\com\panozona\modules\viewfinder;F:\SaladoPlayer\src\com\panozona\player\module</classPaths>
+  <sourcesList />
+  <outputDirectory>F:\SaladoPlayer\docs</outputDirectory>
+  <activeCompiler>1</activeCompiler>
+  <extraOptions>-library-path f:\SaladoPlayer\lib\tweener.swc</extraOptions>
+</docProject>

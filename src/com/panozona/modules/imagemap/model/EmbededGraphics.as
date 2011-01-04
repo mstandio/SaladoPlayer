@@ -24,28 +24,28 @@ package com.panozona.modules.imagemap.model{
 	public class EmbededGraphics{
 		
 		[Embed(source="../assets/cursor_hand_closed.png")]
-			public static var BitmapCursorHandClosed:Class;
+			public static const BitmapCursorHandClosed:Class;
 		[Embed(source="../assets/cursor_hand_opened.png")]
-			public static var BitmapCursorHandOpened:Class;
+			public static const BitmapCursorHandOpened:Class;
 		[Embed(source="../assets/move_plain.png")]
-			public static var BitmapMovePlain:Class;
+			public static const BitmapMovePlain:Class;
 		[Embed(source="../assets/move_right.png")]
-			public static var BitmapMoveRight:Class;
+			public static const BitmapMoveRight:Class;
 		[Embed(source="../assets/move_left.png")]
-			public static var BitmapMoveLeft:Class;
+			public static const BitmapMoveLeft:Class;
 		[Embed(source="../assets/move_up.png")]
-			public static var BitmapMoveUp:Class;
+			public static const BitmapMoveUp:Class;
 		[Embed(source="../assets/move_down.png")]
-			public static var BitmapMoveDown:Class;
+			public static const BitmapMoveDown:Class;
 		[Embed(source="../assets/zoom_plain.png")]
-			public static var BitmapZoomPlain:Class;
+			public static const BitmapZoomPlain:Class;
 		[Embed(source="../assets/zoom_in.png")]
-			public static var BitmapZoomIn:Class;
+			public static const BitmapZoomIn:Class;
 		[Embed(source="../assets/zoom_out.png")]
-			public static var BitmapZoomOut:Class;
+			public static const BitmapZoomOut:Class;
 		[Embed(source="../assets/close_plain.png")]
-			public static var BitmapClosePlain:Class;
+			public static const BitmapClosePlain:Class;
 		[Embed(source="../assets/close_press.png")]
-			public static var BitmapClosePress:Class;
+			public static const BitmapClosePress:Class;
 	}
 }

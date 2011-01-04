@@ -38,7 +38,7 @@ package com.panozona.modules.navigationbar {
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Move;
 	
-	import com.panozona.modules.navigationbar.combobox.*;	
+	import com.panozona.modules.navigationbar.combobox.*;
 	import com.panozona.modules.navigationbar.button.BitmapButton;
 	import com.panozona.modules.navigationbar.data.Button;
 	import com.panozona.modules.navigationbar.data.ExtraButton;
@@ -69,19 +69,19 @@ package com.panozona.modules.navigationbar {
 		private var bitmapButtonsExtraActive:Array;
 		
 		// loaders
-		private var buttonsLoader:Loader;		
+		private var buttonsLoader:Loader;
 		private var barLoader:Loader;
 		
 		// visible elemends 
 		private var buttonsGroup:Sprite;
-		private var combobox:Combobox;		
-		private var bar:Sprite;		
+		private var combobox:Combobox;
+		private var bar:Sprite;
 		
 		private var barBMD:BitmapData;
 		private var buttonsBMD:BitmapData;
 		
 		// configuration 
-		private var navigationBarData:NavigationBarData;		
+		private var navigationBarData:NavigationBarData;
 		
 		private var CameraKeyBindingsClass:Class;
 		private var AutorotationEventClass:Class;
@@ -229,7 +229,7 @@ package com.panozona.modules.navigationbar {
 				for (var i:int = 0; i < buttonsArray.length; i++ ) {
 					if (buttonsArray[i]!= null && basicButton.name == buttonsArray[i].buttonName) {
 						// configure here, for now there is only visibility
-						if (basicButton.visible == false) {
+						if (!basicButton.visible) {
 							buttonsArray[i] = null;
 						}
 					}

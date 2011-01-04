@@ -18,22 +18,20 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.viewfinder{
 	
-	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.Module;
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
-	
 	import com.panozona.modules.viewfinder.data.*;
-	
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.Module;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
-	import flash.text.TextFormat;
 	import flash.text.TextFieldAutoSize;
+	import flash.text.TextFormat;
 	
 	/**
 	 * ViewFinder, SaladoPlayer module for displaying camera pan tilt and field of view.
-	 * @author mstandio
+	 * 
+	 * @see http://panozona.com/wiki/Module:ViewFinder
 	 */
 	public class ViewFinder extends Module {
 		
@@ -44,24 +42,34 @@ package com.panozona.modules.viewfinder{
 		private var viewFinderData:ViewFinderData;
 		
 		/**
-		 * Constructor
-		 * @private
+		 * Constructor. Calls parent constructor responsible for obtaining configuration data.
+		 * Sets basic module information, in particular module name.
+		 * 
+		 * @see com.panozona.player.module.Module#Module()
 		 */
 		public function ViewFinder() {
 			super("ViewFinder", 0.5, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:ViewFinder");
-			aboutThisModule = "This module shows pan, tilt and field of view of current camera view, marked as a circle in the middle of panorama window. " +
-							  "Module is usefull i.e. for determining position of hotspots during configuration process.";
+			aboutThisModule = "This module shows pan, tilt and field of view of current camera view, " +
+			"marked as a circle in the middle of panorama window. Module is usefull i.e. for determining "+
+			"position of hotspots during configuration process.";
 		}
 		
+		/**
+		 * Module entry point. Function is called in constructor of parent class. 
+		 * 
+		 * <p>Builds display objects, adds RESIZE and ENTER_FRAME listeners.</p>
+		 * 
+		 * @param	moduleData Structure containing module configuration data.
+		 */
 		override protected function moduleReady(moduleData:ModuleData):void {
 			
 			viewFinderData = new ViewFinderData(moduleData, debugMode); // allways first
 			
 			pointer = new Sprite();
-			pointer.graphics.beginFill(0x000000); 
+			pointer.graphics.beginFill(0x000000);
 			pointer.graphics.drawCircle(0, 0, 3);
 			pointer.graphics.endFill();
-			pointer.graphics.beginFill(0xffffff); 
+			pointer.graphics.beginFill(0xffffff);
 			pointer.graphics.drawCircle(0, 0, 2);
 			pointer.graphics.endFill();
 			pointer.mouseEnabled = false;

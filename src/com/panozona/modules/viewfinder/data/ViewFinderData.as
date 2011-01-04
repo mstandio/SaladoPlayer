@@ -18,39 +18,36 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.viewfinder.data{
 	
-	import com.panozona.player.module.data.ModuleNode;
 	import com.panozona.player.module.data.ModuleData;
-	
+	import com.panozona.player.module.data.ModuleNode;
 	import com.panozona.player.module.data.structure.Master;
 	
 	/**
-	 * Part od ViewFinder module, translates moduleData to module internal data structure.
-	 * @author mstandio
+	 * Part od ViewFinder module, translates moduleData into module internal data structure.
 	 */
 	public class ViewFinderData extends Master{
 		
 		/**
-		 * Part of module data structure.
+		 * Part of module data structure determinig text field position.
 		 */
-		public var settings:Settings = new Settings();
+		public const settings:Settings = new Settings();
 		
 		/**
-		 * Constructor 
-		 * Takes moduleData with and translates its content to internal data structures
-		 * Debug mode is passed from Saladoplayer
-		 * @param	moduleData
-		 * @param	debugMode
+		 * Constructor. Uses inherited functions to validate and translate moduleData into module internal data structure.
+		 * 
+		 * @param	moduleData Structure containing module configuration data.
+		 * @param	debugMode Determines if additional validation is performed.
+		 * 
+		 * @see com.panozona.player.module.data.structure.Master#readRecursive()
 		 */
 		public function ViewFinderData(moduleData:ModuleData, debugMode:Boolean){
 			super(debugMode);
 			
 			for each(var moduleNode:ModuleNode in moduleData.moduleNodes) {
-				switch (moduleNode.nodeName) {
-					case "settings":
-						readRecursive(settings, moduleNode);
-					break;
-					default:
-						throw new Error("Could not recognize: "+moduleNode.nodeName);
+				if (moduleNode.nodeName == "settings") {
+					readRecursive(settings, moduleNode);
+				}else {
+					throw new Error("Could not recognize: "+moduleNode.nodeName);
 				}
 			}
 			

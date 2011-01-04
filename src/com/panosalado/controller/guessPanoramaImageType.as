@@ -46,9 +46,10 @@ name.mov						QTVR
 		var equi:RegExp				= /(_f|front){0}\.(jpg|jpeg|JPG|JPEG|gif|GIF|png|PNG)$/;
 		var qtvr:RegExp				= /\.(mov|MOV)$/;
 		
-		if 		( path.match(deepZoomCube) ) {
+		if ( path.match(deepZoomCube) ) {
 			return PanoramaImageType.DEEP_ZOOM_CUBE;
 		}
+		/*
 		else if ( path.match(zoomifyCube) ) {
 			return PanoramaImageType.ZOOMIFY_CUBE;
 		}
@@ -67,8 +68,9 @@ name.mov						QTVR
 		else if ( path.match(qtvr) ) {
 			return PanoramaImageType.QTVR;
 		}
+		*/
 		else {
-			return null;  
+			return null;
 		}
 	}
 }

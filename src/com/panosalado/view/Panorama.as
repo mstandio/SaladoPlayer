@@ -21,15 +21,15 @@ package com.panosalado.view
 import performance.profiler.*;
 
 import com.panosalado.model.QuadTreeCube;
-import com.panosalado.controller.ICamera;
-import com.panosalado.controller.IResizer;
+//import com.panosalado.controller.ICamera;
+//import com.panosalado.controller.IResizer;
 import com.panosalado.model.Characteristics;
 import com.panosalado.model.Tile;
 import com.panosalado.model.TilePyramid;
 import com.panosalado.model.Capicua;
 import com.panosalado.model.ViewData;
-import com.panosalado.events.ReadyEvent;
-import com.panosalado.events.ViewEvent;
+//import com.panosalado.events.ReadyEvent;
+//import com.panosalado.events.ViewEvent;
 import com.panosalado.loading.LoadingStatistics;
 import com.panosalado.loading.TileLoader;
 import com.panosalado.loading.IOErrorEventHandler;

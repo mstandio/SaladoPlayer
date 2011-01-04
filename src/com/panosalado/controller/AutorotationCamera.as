@@ -22,7 +22,7 @@ package com.panosalado.controller
 import com.panosalado.controller.ICamera;
 import com.panosalado.model.AutorotationCameraData;
 import com.panosalado.model.ViewData;
-import com.panosalado.model.CameraKeyBindings;
+//import com.panosalado.model.CameraKeyBindings;
 import com.panosalado.model.TilePyramid;
 import com.panosalado.loading.LoadingStatistics;
 import com.panosalado.events.ViewEvent;

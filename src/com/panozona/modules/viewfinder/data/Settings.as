@@ -23,18 +23,21 @@ package com.panozona.modules.viewfinder.data {
 	
 	/**
 	 * Part of ViewFinder module, stores data used for module configuration.
-	 * @author mstandio
 	 */
 	public class Settings{
 		
 		/**
-		 * Vertical and horizontal text fied alignment against panorama window
+		 * Horizontal and vertical text fied alignment against panorama window.
+		 * 
+		 * @default "new Align(Align.LEFT, Align.TOP)"
 		 */
-		public var align:Align = new Align(Align.LEFT, Align.TOP); // horizontal, vertical
+		public const align:Align = new Align(Align.LEFT, Align.TOP);
 		
 		/**
-		 * Vertical and horizontal text field shift
+		 * Horizontal and vertical text field position shift.
+		 * 
+		 * @default "new Move(0, 0)"
 		 */
-		public var move:Move = new Move(0, 0); // horizontal, vertical
+		public const move:Move = new Move(0, 0);
 	}
 }

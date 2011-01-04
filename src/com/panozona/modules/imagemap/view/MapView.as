@@ -22,7 +22,7 @@ package com.panozona.modules.imagemap.view {
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
-	import com.panozona.modules.imagemap.model.MapData;
+	//import com.panozona.modules.imagemap.model.MapData;
 	import com.panozona.modules.imagemap.model.ImageMapData;
 	
 	import com.panozona.modules.imagemap.events.ContentViewerEvent;

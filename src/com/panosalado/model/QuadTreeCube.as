@@ -30,7 +30,7 @@ import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
 
 import com.panosalado.events.ReadyEvent;
-import com.panosalado.model.AssetDescriptor
+// import com.panosalado.model.AssetDescriptor
 
 public class QuadTreeCube extends Tile 
 {
@@ -71,7 +71,7 @@ public class QuadTreeCube extends Tile
 		}
 	
 		var ct:Tile;
-		var nt:Tile;
+		var nt:Tile; // not used ? 
 		var v:Vector.<Vector3D>;
 		var across:Number;
 		var at:Number;

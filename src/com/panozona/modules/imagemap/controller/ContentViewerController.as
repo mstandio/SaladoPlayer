@@ -25,7 +25,7 @@ package com.panozona.modules.imagemap.controller{
 	
 	import com.panozona.player.module.Module;
 	
-	import com.panozona.modules.imagemap.model.ContentViewerData;
+	//import com.panozona.modules.imagemap.model.ContentViewerData;
 	import com.panozona.modules.imagemap.view.ContentViewerView;
 	import com.panozona.modules.imagemap.events.ContentViewerEvent;
 	import com.panozona.modules.imagemap.model.EmbededGraphics;
@@ -91,7 +91,7 @@ package com.panozona.modules.imagemap.controller{
 			}
 		}
 		
-		private function handleMapImageLoaded(e:Event):void {			
+		private function handleMapImageLoaded(e:Event):void {
 			_contentViewerView.container.x = -_contentViewerView.container.width * 0.5;
 			_contentViewerView.container.y = -_contentViewerView.container.height * 0.5;
 		}
@@ -154,8 +154,8 @@ package com.panozona.modules.imagemap.controller{
 			if(!(moveActive || zoomActive || _contentViewerView.contentViewerData.mouseDrag)){
 				focusX = _contentViewerView.contentViewerData.focusPoint.x * _contentViewerView.container.scaleX;
 				focusY = _contentViewerView.contentViewerData.focusPoint.y * _contentViewerView.container.scaleY;
-				distanceX = Math.abs(_contentViewerView.container.x + focusX - _contentViewerView.containerMask.width * 0.5); 
-				distanceY = Math.abs(_contentViewerView.container.y + focusY - _contentViewerView.containerMask.height * 0.5);  
+				distanceX = Math.abs(_contentViewerView.container.x + focusX - _contentViewerView.containerMask.width * 0.5);
+				distanceY = Math.abs(_contentViewerView.container.y + focusY - _contentViewerView.containerMask.height * 0.5);
 				focusActive = true;
 				_module.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
 			}
@@ -252,7 +252,7 @@ package com.panozona.modules.imagemap.controller{
 					_contentViewerView.container.scaleX += deltaZoom;
 					_contentViewerView.container.scaleY += deltaZoom;
 					deltaX = ( - _contentViewerView.container.x + _contentViewerView.containerMask.width * 0.5) * 
-					( _contentViewerView.container.scaleX / (_contentViewerView.container.scaleX + deltaZoom)  - 1);
+					( _contentViewerView.container.scaleX / (_contentViewerView.container.scaleX + deltaZoom) - 1);
 					deltaY = ( - _contentViewerView.container.y + _contentViewerView.containerMask.height * 0.5) * 
 					( _contentViewerView.container.scaleX / (_contentViewerView.container.scaleX + deltaZoom) - 1);
 				}

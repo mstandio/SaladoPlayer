@@ -19,7 +19,6 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.manager.utils{
 
 	import com.panozona.player.manager.data.ManagerData;
-	import com.panozona.player.manager.utils.ManagerDescription;
 	import com.panozona.player.manager.data.panorama.PanoramaData;
 	import com.panozona.player.manager.data.action.*;
 	import com.panozona.player.manager.data.module.*;

@@ -17,9 +17,6 @@ You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.data.global{
-
-	import com.panozona.player.manager.data.global.Align;
-	import com.panozona.player.manager.data.global.Move;
 	
 	/**
 	 * ...

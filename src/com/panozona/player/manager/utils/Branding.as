@@ -28,7 +28,7 @@ package com.panozona.player.manager.utils{
 	import com.panozona.player.SaladoPlayer;
 	import com.panozona.player.manager.data.global.BrandingData;
 	import com.panozona.player.manager.data.global.Align;
-	import com.panozona.player.manager.data.global.Move;
+	//import com.panozona.player.manager.data.global.Move;
 	
 	/**
 	* ...

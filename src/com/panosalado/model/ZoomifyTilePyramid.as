@@ -31,21 +31,22 @@ public class ZoomifyTilePyramid extends TilePyramid
 	public function ZoomifyTilePyramid():void {
 		offsets = new Vector.<int>();
 	}
-	
-	override public function loadDescriptor(path:String):void
+	/*
+	public function loadDescriptor(path:String):void
 	{ 
 		var l:URLLoader = new URLLoader();
 		var r:URLRequest = new URLRequest(path);
 		l.addEventListener(Event.COMPLETE, descriptorLoaded, false, 0, true);
 		l.load(r);
 	}
-	
+	*/
+	/*
 	protected function descriptorLoaded(event:Event):void
 	{
 		var descriptor:XML = XML( URLLoader(event.target).data );
-		/*
-		<IMAGE_PROPERTIES WIDTH="5885" HEIGHT="5885" NUMTILES="723" NUMIMAGES="1" VERSION="1.8" TILESIZE="256" />
-		*/
+		
+		//<IMAGE_PROPERTIES WIDTH="5885" HEIGHT="5885" NUMTILES="723" NUMIMAGES="1" VERSION="1.8" TILESIZE="256" />
+		
 		width 		= descriptor.@WIDTH; 
 		height 		= descriptor.@HEIGHT;
 		numTiles 	= descriptor.@NUMTILES;
@@ -55,10 +56,10 @@ public class ZoomifyTilePyramid extends TilePyramid
 		
 		deriveProperties();
 		
-		dispatchEvent( new ReadyEvent(ReadyEvent.READY, this) );
-	}
+		//dispatchEvent( new ReadyEvent(ReadyEvent.READY, this) );
+	}*/
 	
-	override public function resolveURL(t:int, c:int, r:int) : String {
+	public function resolveURL(t:int, c:int, r:int) : String {
 		var group:int = r * columns[t] + c + offsets[t];
 		group = int(group / 256);
 		
@@ -68,7 +69,7 @@ public class ZoomifyTilePyramid extends TilePyramid
 			+ String( r ) + "." + format;
 	}
 	
-	override public function clone() : TilePyramid {
+	/*public function clone() : TilePyramid {
 		var clone:ZoomifyTilePyramid = new ZoomifyTilePyramid();
 		clone.width = width;
 		clone.height = height;
@@ -86,7 +87,7 @@ public class ZoomifyTilePyramid extends TilePyramid
 		clone.path = path;
 		
 		return clone;
-	}
+	}*/
 	
 	protected function deriveProperties():void
 	{

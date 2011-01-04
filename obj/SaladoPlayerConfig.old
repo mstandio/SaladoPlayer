@@ -14,18 +14,18 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'2011-01-03'</value>
+      <value>'2011-01-04'</value>
     </define>
     <source-path append="true">
       <path-element>F:\SaladoPlayer\src</path-element>
-      <path-element>E:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
+      <path-element>e:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
       <path-element>F:\SaladoPlayer\lib\tweener.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>F:\SaladoPlayer\src\com\panozona\modules\navigationbar\NavigationBar.as</path-element>
+    <path-element>F:\SaladoPlayer\src\com\panozona\modules\viewfinder\ViewFinder.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>

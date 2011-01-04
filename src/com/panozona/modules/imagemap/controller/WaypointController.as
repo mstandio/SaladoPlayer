@@ -162,7 +162,7 @@ package com.panozona.modules.imagemap.controller {
 		private function drawButton():void {
 			_waypointView.button.graphics.clear();
 			if (_waypointView.waypointData.showRadar){
-				_waypointView.button.graphics.beginFill(_waypointView.waypointData.button.activeColor);				
+				_waypointView.button.graphics.beginFill(_waypointView.waypointData.button.activeColor);
 			}else if (_waypointView.waypointData.mouseOver) {
 				_waypointView.button.graphics.beginFill(_waypointView.waypointData.button.hoverColor);
 			}else { // !mouseOver

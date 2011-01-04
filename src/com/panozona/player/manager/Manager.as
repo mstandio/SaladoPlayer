@@ -29,7 +29,7 @@ package com.panozona.player.manager {
 	import com.panosalado.view.ImageHotspot;
 	import com.panosalado.view.ManagedChild;
 	import com.panosalado.controller.SimpleTransition;
-	import com.panosalado.controller.AutorotationCamera;
+	//import com.panosalado.controller.AutorotationCamera;
 	import com.panosalado.events.AutorotationEvent;
 	import com.panosalado.core.PanoSalado;
 	import com.panosalado.events.PanoSaladoEvent;
@@ -40,7 +40,7 @@ package com.panozona.player.manager {
 	import com.panozona.player.manager.data.action.ActionData;
 	import com.panozona.player.manager.data.action.FunctionData;
 	import com.panozona.player.manager.data.hotspot.HotspotData;
-	import com.panozona.player.manager.data.hotspot.Mouse;
+	//import com.panozona.player.manager.data.hotspot.Mouse;
 	import com.panozona.player.manager.utils.HotspotsLoader;
 	import com.panozona.player.manager.utils.ManagerDescription;
 	import com.panozona.player.manager.utils.Trace;

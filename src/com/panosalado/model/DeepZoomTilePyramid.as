@@ -128,7 +128,7 @@ public class DeepZoomTilePyramid extends TilePyramid
 	
 	protected function deriveProperties( width  : uint, height : uint, tileSize : uint ) : void
 	{
-		var originalWidth:int = width
+		var originalWidth:int = width // never used 
 		var originalHeight:int = height
 		
 		numTiers = int( getMaximumLevel( width, height ) )

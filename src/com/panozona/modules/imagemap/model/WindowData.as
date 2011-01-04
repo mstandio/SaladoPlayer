@@ -34,11 +34,11 @@ package com.panozona.modules.imagemap.model {
 	 */
 	public class WindowData extends EventDispatcher{
 		
-		public static var OPEN_CLOSE_FADE:String = "fade";
-		public static var OPEN_CLOSE_SLIDE_UP:String = "slideUp";
-		public static var OPEN_CLOSE_SLIDE_DOWN:String = "slideDown";
-		public static var OPEN_CLOSE_SLIDE_LEFT:String = "slideLeft";
-		public static var OPEN_CLOSE_SLIDE_RIGHT:String = "slideRight";
+		public static const OPEN_CLOSE_FADE:String = "fade";
+		public static const OPEN_CLOSE_SLIDE_UP:String = "slideUp";
+		public static const OPEN_CLOSE_SLIDE_DOWN:String = "slideDown";
+		public static const OPEN_CLOSE_SLIDE_LEFT:String = "slideLeft";
+		public static const OPEN_CLOSE_SLIDE_RIGHT:String = "slideRight";
 		
 		private var _open:Boolean = true;
 		public var align:Align = new Align(Align.RIGHT, Align.TOP);

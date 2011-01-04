@@ -19,8 +19,6 @@ along with PanoSalado.  If not, see <http://www.gnu.org/licenses/>.
 package com.panosalado.model
 {
 
-import com.panosalado.model.ViewData;
-
 /**
 * Params object used by PanoSalado.loadPanorama(params:Params) to specify the path for the new panorama,
 * as well as any view data values to use for it.  Unspecified values will be untouched.

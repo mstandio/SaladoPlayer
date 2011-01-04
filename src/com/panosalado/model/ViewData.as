@@ -30,8 +30,8 @@ import flash.geom.Vector3D;
 
 import com.panosalado.events.ReadyEvent;
 import com.panosalado.events.ViewEvent;
-import com.panosalado.controller.guessPanoramaImageType;
-import com.panosalado.model.Characteristics;
+//import com.panosalado.controller.guessPanoramaImageType;
+
 /**
 * Model class.  Uses a getter/setter + public underlying property style implementation to allow fast access to properties.
 * The properties should NEVER be set directly using the "_" prefixed property.  The setters for all of the properties 

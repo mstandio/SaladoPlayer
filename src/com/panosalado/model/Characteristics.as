@@ -29,13 +29,13 @@ public class Characteristics
 	If there are going to be multiple dependencies propagated through the dependency relay, it might be simpler to write in string literals,
 	instead of using this class, exactly as you can use the Event.COMPLETE or "complete".
 	*/
-	public static var PANORAMA:String 							= "com.panosalado.view::Panorama"
-	public static var VIEW_DATA:String 							= "com.panosalado.model::ViewData";
-	public static var INERTIAL_MOUSE_CAMERA_DATA:String 		= "com.panosalado.model::InertialMouseCameraData";
-	public static var ARC_BALL_CAMERA_DATA:String 				= "com.panosalado.model::ArcBallCameraData";
-	public static var KEYBOARD_CAMERA_DATA:String 				= "com.panosalado.model::KeyboardCameraData";
-	public static var AUTOROTATION_CAMERA_DATA:String 			= "com.panosalado.model::AutorotationCameraData";
-	public static var SIMPLE_TRANSITION_DATA:String				= "com.panosalado.model::SimpleTransitionData";
+	public static const PANORAMA:String 							= "com.panosalado.view::Panorama"
+	public static const VIEW_DATA:String 							= "com.panosalado.model::ViewData";
+	public static const INERTIAL_MOUSE_CAMERA_DATA:String 		= "com.panosalado.model::InertialMouseCameraData";
+	public static const ARC_BALL_CAMERA_DATA:String 				= "com.panosalado.model::ArcBallCameraData";
+	public static const KEYBOARD_CAMERA_DATA:String 				= "com.panosalado.model::KeyboardCameraData";
+	public static const AUTOROTATION_CAMERA_DATA:String 			= "com.panosalado.model::AutorotationCameraData";
+	public static const SIMPLE_TRANSITION_DATA:String				= "com.panosalado.model::SimpleTransitionData";
 	
 }
 }
