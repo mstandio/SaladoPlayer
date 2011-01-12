@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2010 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,27 +16,14 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.hotspots.viedohotspot {
+package com.panozona.hotspots.videohotspot.model {
 	
-	import com.panosalado.view.SwfHotspot;
-	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
-	public class VideoHotspot extends SwfHotspot{		
-			
-		public function VideoHotspot(){
-			super();
-		}	
+	public class VideoHotspotData {
 		
-		
-		override protected function hotspotReady():void {
-			
-			var pl:Player = new Player();
-			addChild(pl.Movie(500, 300));
-			//pl.Play("delicatessen.mp4");
-			pl.Play("hotspots/movies/Kasabian - Vlad the Impaler [www.keepvid.com].mp4");			
-		}
+		public var settings:Settings = new Settings();
+		public var streamData:StreamData = new StreamData();
+		public var windowData:WindowData = new WindowData();
+		// todo: parse and verify settings 
+		// throw errors to manager or something, dunno
 	}
 }
