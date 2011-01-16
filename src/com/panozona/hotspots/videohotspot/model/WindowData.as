@@ -26,17 +26,17 @@ package com.panozona.hotspots.videohotspot.model {
 		public const barHeightHidden:Number = 5;
 		public const barHeightExpanded:Number = 15;
 		
-		private var _navigationExpanded:Boolean;
+		private var _mouseIsOver:Boolean;
 		private var _pointerDragged:Boolean;
 		
-		public function get navigationExpanded():Boolean {
-			return _navigationExpanded;
+		public function get mouseIsOver():Boolean {
+			return _mouseIsOver;
 		}
 		
-		public function set navigationExpanded(value:Boolean):void{
-			if (value == _navigationExpanded) return;
-			_navigationExpanded = value;
-			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_NAVIGATION_EXPANDED));
+		public function set mouseIsOver(value:Boolean):void{
+			if (value == _mouseIsOver) return;
+			_mouseIsOver = value;
+			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_MOUSE_IS_OVER));
 		}
 		
 		public function get pointerDragged():Boolean {

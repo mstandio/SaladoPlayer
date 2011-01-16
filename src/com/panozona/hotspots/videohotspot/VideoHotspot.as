@@ -18,13 +18,15 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.hotspots.videohotspot {
 	
-	import com.panosalado.view.SwfHotspot;
+	//import com.panosalado.view.SwfHotspot;
 	import com.panozona.hotspots.videohotspot.conroller.WindowController;
 	import com.panozona.hotspots.videohotspot.model.VideoHotspotData;
 	import com.panozona.hotspots.videohotspot.view.WindowView;
 	import flash.events.Event;
+	import flash.display.Sprite;
 	
-	public class VideoHotspot extends SwfHotspot {
+	//public class VideoHotspot extends SwfHotspot {
+	public class VideoHotspot extends Sprite {
 		
 		private var videoHotspotData:VideoHotspotData;
 		
@@ -32,19 +34,19 @@ package com.panozona.hotspots.videohotspot {
 		private var windowController:WindowController;
 		
 		public function VideoHotspot():void {
-			//if (stage) init();
-			//else addEventListener(Event.ADDED_TO_STAGE, init);
-			super();
+			if (stage) init();
+			else addEventListener(Event.ADDED_TO_STAGE, init);
+			//super();
 		}
 		
-		//private function init(e:Event = null):void {
-			//removeEventListener(Event.ADDED_TO_STAGE, init);
-		override protected function hotspotReady():void {
+		private function init(e:Event = null):void {
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+		//override protected function hotspotReady():void {
 			videoHotspotData = new VideoHotspotData(); // TODO: hook it up with SaladoPlayer
 			
 			windowView = new WindowView(videoHotspotData);
-			windowView.x = - windowView.width * 0.5;
-			windowView.y = - windowView.height * 0.5;
+			//windowView.x = - windowView.width * 0.5;
+			//windowView.y = - windowView.height * 0.5;
 			addChild(windowView);
 			
 			windowController = new WindowController(windowView);

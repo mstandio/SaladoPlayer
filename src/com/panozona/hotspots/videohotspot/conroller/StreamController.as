@@ -41,6 +41,8 @@ package com.panozona.hotspots.videohotspot.conroller {
 		public function StreamController(videoHotspotData:VideoHotspotData) {
 			_videoHotspotData = videoHotspotData;
 			
+			soundTransform = new SoundTransform();
+			
 			var netConnection:NetConnection = new NetConnection();
 			netConnection.connect(null);
 			netStream = new NetStream(netConnection);
@@ -89,6 +91,7 @@ package com.panozona.hotspots.videohotspot.conroller {
 			_videoHotspotData.streamData.streamState = StreamData.STATE_PLAYING; // i tutaj to samo - konflikt
 			dataPropagationTimer.start();
 			netStream.play(_videoHotspotData.settings.videoPath);
+				mute = true; // TODO: remove
 			return result;
 		}
 		

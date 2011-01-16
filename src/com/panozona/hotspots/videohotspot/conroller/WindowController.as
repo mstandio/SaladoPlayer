@@ -32,8 +32,8 @@ package com.panozona.hotspots.videohotspot.conroller {
 	public class WindowController {
 		
 		private var streamController:StreamController;
-		
 		private var _windowView:WindowView;
+		private var navigationExpanded:Boolean;
 		
 		public function WindowController(windowView:WindowView){
 			_windowView = windowView;
@@ -49,30 +49,65 @@ package com.panozona.hotspots.videohotspot.conroller {
 			
 			_windowView.playBigButton.addEventListener(MouseEvent.CLICK, performPlay, false, 0, true);
 			_windowView.replayBigButton.addEventListener(MouseEvent.CLICK, performReplay, false, 0, true);
-			
 			_windowView.pauseSmallButton.addEventListener(MouseEvent.CLICK, performPause, false, 0, true);
 			_windowView.stopSmallButton.addEventListener(MouseEvent.CLICK, performStop, false, 0, true);
 			
 			_windowView.videoHotspotData.streamData.addEventListener(StreamEvent.CHANGED_STREAM_STATE, handleStreamStateChange, false, 0, true);
 			_windowView.videoHotspotData.streamData.addEventListener(StreamEvent.CHANGED_LOAD_PROGRESS, drawProgressBar, false, 0, true);
 			_windowView.videoHotspotData.streamData.addEventListener(StreamEvent.CHANGED_VIEW_PROGRESS, drawProgressBar, false, 0, true);
-			_windowView.videoHotspotData.streamData.addEventListener(StreamEvent.CHANGED_IS_BUFFERING, handleStreamBufferingChange, false, 0 , true);			
-			_windowView.videoHotspotData.windowData.addEventListener(WindowEvent.CHANGED_NAVIGATION_EXPANDED, handleNavigationExpandedChange, false, 0 , true);
+			_windowView.videoHotspotData.streamData.addEventListener(StreamEvent.CHANGED_IS_BUFFERING, handleStreamBufferingChange, false, 0 , true);
+			_windowView.videoHotspotData.windowData.addEventListener(WindowEvent.CHANGED_MOUSE_IS_OVER, handleMouseIsOverChange, false, 0 , true);
+			_windowView.videoHotspotData.windowData.addEventListener(WindowEvent.CHANGED_POINTER_DRAGGED, handlePointerDraggedChange, false, 0 , true);
 			
 			_windowView.progressBar.addEventListener(MouseEvent.CLICK, seek, false, 0, true);
 		}
 		
-		private function handleStreamBufferingChange (e:Event):void {
+		private function handleStreamBufferingChange(e:Event):void {
 			 // show/hide throbber 
 			 // show/hide controlls
 			 // TODO: temp throbber if this one is not working
 		}
 		
-		private function handleNavigationExpandedChange(e:Event):void {
-			if (_windowView.videoHotspotData.windowData.navigationExpanded) {
+		private function handleMouseIsOverChange(e:Event):void {
+			trace("is over " + _windowView.videoHotspotData.windowData.mouseIsOver);
+			 if (_windowView.videoHotspotData.windowData.mouseIsOver
+				|| (!_windowView.videoHotspotData.windowData.mouseIsOver && _windowView.videoHotspotData.windowData.pointerDragged)) {
+				navigationExpanded = true;
 				_windowView.panelSmallButtons.visible = true;
+				_windowView.pointer.visible = true;
 			}else {
+				navigationExpanded = false;
 				_windowView.panelSmallButtons.visible = false;
+				_windowView.pointer.visible = false;
+			}
+			
+			if (navigationExpanded) {
+				_windowView.progressBar.y = _windowView.videoHotspotData.settings.height - _windowView.videoHotspotData.windowData.barHeightExpanded;
+			}else {
+				_windowView.progressBar.y = _windowView.videoHotspotData.settings.height - _windowView.videoHotspotData.windowData.barHeightHidden;
+			}
+			
+			drawProgressBar();
+		}
+		
+		private function handlePointerDraggedChange(e:Event):void {
+			if (_windowView.videoHotspotData.windowData.pointerDragged) {
+				_windowView.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
+			}else {
+				_windowView.stage.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+				seek();
+			}
+		}
+		
+		private function onEnterFrame(e:Event):void {
+			if (_windowView.progressBar.mouseX >= _windowView.videoHotspotData.settings.width - _windowView.pointer.width * 0.5){
+				_windowView.pointer.x = _windowView.videoHotspotData.settings.width - _windowView.pointer.width * 0.5;
+			}else if (_windowView.progressBar.mouseX <= _windowView.pointer.width * 0.5){
+				_windowView.pointer.x = _windowView.pointer.width * 0.5;
+			}else if (_windowView.progressBar.mouseX >= (_windowView.videoHotspotData.settings.width - _windowView.pointer.width) * _windowView.videoHotspotData.streamData.loadProgress ) {
+				_windowView.pointer.x = (_windowView.videoHotspotData.settings.width - _windowView.pointer.width) * _windowView.videoHotspotData.streamData.loadProgress;
+			}else {
+				_windowView.pointer.x = _windowView.progressBar.mouseX - _windowView.pointer.width * 0.5;
 			}
 		}
 		
@@ -151,34 +186,56 @@ package com.panozona.hotspots.videohotspot.conroller {
 		private function performStop(e:Event):void {
 			streamController.stop();
 		}
-		private function seek(e:MouseEvent):void {
-			streamController.seek((_windowView.progressBar.mouseX * _windowView.videoHotspotData.streamData.totalTime) / _windowView.progressBar.width);
+		private function seek(e:Event = null):void {
+			if (_windowView.progressBar.mouseX <= _windowView.pointer.width * 0.5) {
+				streamController.seek(0);
+			}else if (_windowView.progressBar.mouseX >= _windowView.videoHotspotData.settings.width - _windowView.pointer.width * 0.5) {
+				streamController.seek(_windowView.videoHotspotData.streamData.totalTime - 1);
+			}else {
+				streamController.seek(((_windowView.progressBar.mouseX - _windowView.pointer.width * 0.5) * _windowView.videoHotspotData.streamData.totalTime) /
+				(_windowView.videoHotspotData.settings.width - _windowView.pointer.width));
+			}
 		}
 		
 		private function drawProgressBar(e:Event = null):void {
 			_windowView.progressBar.graphics.clear();
 			// background
-			_windowView.progressBar.graphics.beginFill(0x000000, 1);
+			_windowView.progressBar.graphics.beginFill(0x000000, 0);
 			_windowView.progressBar.graphics.drawRect(0, 0,
 				_windowView.videoHotspotData.settings.width,
-				(_windowView.videoHotspotData.windowData.navigationExpanded ? _windowView.videoHotspotData.windowData.barHeightExpanded : _windowView.videoHotspotData.windowData.barHeightHidden));
-			// buffer
-			_windowView.progressBar.graphics.beginFill(0xff7f7f, 1);
-			
+				(navigationExpanded?
+				_windowView.videoHotspotData.windowData.barHeightExpanded:
+				_windowView.videoHotspotData.windowData.barHeightHidden)
+			);
+			// load progresss
+			_windowView.progressBar.graphics.beginFill(0xff7f7f, 0.65);
 			_windowView.progressBar.graphics.drawRect(0, 0,
-				_windowView.videoHotspotData.settings.width * _windowView.videoHotspotData.streamData.loadProgress,
-				(_windowView.videoHotspotData.windowData.navigationExpanded ? _windowView.videoHotspotData.windowData.barHeightExpanded : _windowView.videoHotspotData.windowData.barHeightHidden));
-			// progress
-			_windowView.progressBar.graphics.beginFill(0xff0000, 1);
+				(_windowView.videoHotspotData.streamData.loadProgress < 1)?
+				((_windowView.videoHotspotData.settings.width - _windowView.pointer.width) *
+				_windowView.videoHotspotData.streamData.loadProgress + _windowView.pointer.width * 0.5):
+				_windowView.videoHotspotData.settings.width,
+				(navigationExpanded?
+				_windowView.videoHotspotData.windowData.barHeightExpanded:
+				_windowView.videoHotspotData.windowData.barHeightHidden)
+			);
+			// view progress
+			_windowView.progressBar.graphics.beginFill(0xff0000, 0.85);
 			_windowView.progressBar.graphics.drawRect(0, 0,
-				_windowView.videoHotspotData.settings.width * _windowView.videoHotspotData.streamData.viewProgress,
-				(_windowView.videoHotspotData.windowData.navigationExpanded ? _windowView.videoHotspotData.windowData.barHeightExpanded : _windowView.videoHotspotData.windowData.barHeightHidden));
+				(_windowView.videoHotspotData.streamData.viewProgress < 1)?
+				((_windowView.videoHotspotData.settings.width - _windowView.pointer.width) *
+				_windowView.videoHotspotData.streamData.viewProgress + _windowView.pointer.width * 0.5):
+				_windowView.videoHotspotData.settings.width,
+				(navigationExpanded?
+				_windowView.videoHotspotData.windowData.barHeightExpanded:
+				_windowView.videoHotspotData.windowData.barHeightHidden)
+			);
 			_windowView.progressBar.graphics.endFill();
+			
+			if (!_windowView.videoHotspotData.windowData.pointerDragged && navigationExpanded) {
+				_windowView.pointer.x = (_windowView.videoHotspotData.settings.width - _windowView.pointer.width) *
+				_windowView.videoHotspotData.streamData.viewProgress;
+			}
 		}
 		
-		private function dragCursor():void{
-			// ograniczyc do zaladowanego 
-			// ograniczyc do szerokosci paska 
-		}
 	}
 }

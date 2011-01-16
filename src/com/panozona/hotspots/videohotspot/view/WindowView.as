@@ -76,18 +76,26 @@ package com.panozona.hotspots.videohotspot.view {
 			replayBigButton.visible = false;
 			
 			pointer = new Sprite();
-			pointer.graphics.beginFill(0xffffff);
-			pointer.graphics.drawRect(0, 0, videoHotspotData.windowData.barHeightExpanded, videoHotspotData.windowData.barHeightExpanded);
-			pointer.graphics.endFill();
 			pointer.graphics.beginFill(0x000000);
-			pointer.graphics.drawRect(2, 2, videoHotspotData.windowData.barHeightExpanded - 4, videoHotspotData.windowData.barHeightExpanded - 4);
+			pointer.graphics.drawCircle(videoHotspotData.windowData.barHeightExpanded * 0.5,
+				videoHotspotData.windowData.barHeightExpanded * 0.5,
+				videoHotspotData.windowData.barHeightExpanded * 0.5 + 2);
+			pointer.graphics.endFill();
+			pointer.graphics.beginFill(0xffffff);
+			pointer.graphics.drawCircle(videoHotspotData.windowData.barHeightExpanded * 0.5,
+			videoHotspotData.windowData.barHeightExpanded * 0.5,
+			videoHotspotData.windowData.barHeightExpanded * 0.5 - 1);
 			pointer.graphics.endFill();
 			pointer.visible = false;
+			pointer.addEventListener(MouseEvent.MOUSE_DOWN, dragStart, false, 0, true);
+			pointer.addEventListener(MouseEvent.MOUSE_UP, dragStop, false, 0, true);
+			addEventListener(MouseEvent.MOUSE_UP, dragStop, false, 0, true);
+			if (stage) addStageListeners();
+			else addEventListener(Event.ADDED_TO_STAGE, addStageListeners);
 			
 			progressBar = new Sprite();
 			progressBar.addChild(pointer);
 			progressBar.buttonMode = true;
-			progressBar.y = videoHotspotData.settings.height;
 			progressBar.visible = false;
 			
 			pauseSmallButton = new Sprite();
@@ -106,7 +114,7 @@ package com.panozona.hotspots.videohotspot.view {
 			panelSmallButtons.addChild(pauseSmallButton);
 			panelSmallButtons.addChild(stopSmallButton);
 			panelSmallButtons.x = videoHotspotData.settings.width - panelSmallButtons.width - 10;
-			panelSmallButtons.y = videoHotspotData.settings.height - panelSmallButtons.height - 10;
+			panelSmallButtons.y = videoHotspotData.settings.height - panelSmallButtons.height - 10 - videoHotspotData.windowData.barHeightExpanded;
 			
 			arrangeChildren();
 			
@@ -114,12 +122,25 @@ package com.panozona.hotspots.videohotspot.view {
 			addEventListener(MouseEvent.ROLL_OUT, mouseOut, false, 0, true);
 		}
 		
+		private function addStageListeners(e:Event = null):void {
+			removeEventListener(Event.ADDED_TO_STAGE, addStageListeners);
+			stage.addEventListener(MouseEvent.MOUSE_UP, dragStop, false, 0, true);
+		}
+		
 		private function mouseOver(e:Event):void {
-			videoHotspotData.windowData.navigationExpanded = true;
+			videoHotspotData.windowData.mouseIsOver = true;
 		}
 		
 		private function mouseOut(e:Event):void {
-			videoHotspotData.windowData.navigationExpanded = false;
+			videoHotspotData.windowData.mouseIsOver = false;
+		}
+		
+		private function dragStart(e:Event):void {
+			videoHotspotData.windowData.pointerDragged = true;
+		}
+		
+		private function dragStop(e:Event):void {
+			videoHotspotData.windowData.pointerDragged = false;
 		}
 		
 		public function arrangeChildren():void {

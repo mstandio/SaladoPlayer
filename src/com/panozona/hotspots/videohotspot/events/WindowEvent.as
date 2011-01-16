@@ -22,7 +22,7 @@ package com.panozona.hotspots.videohotspot.events {
 	
 	public class WindowEvent extends Event{
 		
-		public static const CHANGED_NAVIGATION_EXPANDED:String = "chngdNavExpanded";
+		public static const CHANGED_MOUSE_IS_OVER:String = "chngdMouseIsOver";
 		public static const CHANGED_POINTER_DRAGGED:String = "chngdPoiDragged";
 		
 		public function WindowEvent(type:String) {
