@@ -22,7 +22,7 @@ package com.panozona.hotspots.videohotspot.model {
 		
 		public var settings:Settings = new Settings();
 		public var streamData:StreamData = new StreamData();
-		public var windowData:WindowData = new WindowData();
+		public var playerData:PlayerData = new PlayerData();
 		// todo: parse and verify settings 
 		// throw errors to manager or something, dunno
 	}

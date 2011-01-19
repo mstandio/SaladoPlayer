@@ -23,12 +23,12 @@ package com.panozona.hotspots.videohotspot.model{
 	
 	public class StreamData extends EventDispatcher{
 		
-		public static const STATE_PLAYING:String = "StatePlaying";
-		public static const STATE_PAUSED:String = "StatePaused";
-		public static const STATE_STOPPED:String = "StateStopped";
-		public static const STATE_FINISHED:String = "StateFinished";
+		public static const STATE_PLAY:String = "StatePlay";
+		public static const STATE_PAUSE:String = "StatePause";
+		public static const STATE_STOP:String = "StateStop";
 		
 		private var _totalTime:Number;
+		private var _totalBytes:Number;
 		
 		private var _videoNominalWidth:Number;
 		private var _videoNominalHeight:Number;
@@ -36,21 +36,31 @@ package com.panozona.hotspots.videohotspot.model{
 		private var _isBuffering:Boolean;
 		private var _streamState:String;
 		
-		private var _loadProgress:Number; // 0.0 to 1.0
-		private var _viewProgress:Number; // 0.0 to 1.0
+		private var _loadedBytes:Number;
+		private var _viewTime:Number;
+		private var _seekTime:Number;
+		private var _volumeValue:Number;
 		
 		public function StreamData():void{
-			_streamState = StreamData.STATE_STOPPED;
+			_streamState = StreamData.STATE_STOP;
+			_loadedBytes = 0;
+			_viewTime = 0;
+			_volumeValue = 1;
 		}
 		
-		public function streamInitiation(totalTime:Number, videoNominalWidth:Number, videoNominalHeight:Number):void {
+		public function streamInitiation(totalTime:Number, totalBytes:Number, videoNominalWidth:Number, videoNominalHeight:Number):void {
 			_totalTime = totalTime;
+			_totalBytes = totalBytes;
 			_videoNominalWidth = videoNominalWidth;
 			_videoNominalHeight = videoNominalHeight;
 		}
 		
 		public function get totalTime():Number {
 			return _totalTime;
+		}
+		
+		public function get totalBytes():Number {
+			return _totalBytes;
 		}
 		
 		public function get videoNominalWidth():Number {
@@ -73,10 +83,9 @@ package com.panozona.hotspots.videohotspot.model{
 		
 		public function set streamState(value:String):void {
 			if (value == _streamState) return;
-			if (value != StreamData.STATE_PLAYING
-			&& value != StreamData.STATE_PAUSED
-			&& value != StreamData.STATE_STOPPED
-			&& value != StreamData.STATE_FINISHED) return;
+			if (value != StreamData.STATE_PLAY
+			&& value != StreamData.STATE_PAUSE
+			&& value != StreamData.STATE_STOP) return;
 			_streamState = value;
 			dispatchEvent(new StreamEvent(StreamEvent.CHANGED_STREAM_STATE));
 		}
@@ -85,26 +94,45 @@ package com.panozona.hotspots.videohotspot.model{
 			return _streamState;
 		}
 		
-		public function get loadProgress():Number {
-			if (isNaN(_loadProgress)) return 0;
-			return _loadProgress;
+		public function get loadedBytes():Number {
+			return _loadedBytes;
 		}
 		
-		public function set loadProgress(value:Number):void {
-			if (value == _loadProgress) return;
-			_loadProgress = value;
-			dispatchEvent(new StreamEvent(StreamEvent.CHANGED_LOAD_PROGRESS));
+		public function set loadedBytes(value:Number):void {
+			if (value == _loadedBytes) return;
+			_loadedBytes = value;
+			dispatchEvent(new StreamEvent(StreamEvent.CHANGED_BYTES_LOADED));
 		}
 		
-		public function get viewProgress():Number {
-			if (isNaN(_viewProgress)) return 0;
-			return _viewProgress;
+		public function get viewTime():Number {
+			return _viewTime;
 		}
 		
-		public function set viewProgress(value:Number):void {
-			if (value == _viewProgress) return;
-			_viewProgress = value;
-			dispatchEvent(new StreamEvent(StreamEvent.CHANGED_VIEW_PROGRESS));
+		public function set viewTime(value:Number):void {
+			if (value == _viewTime) return;
+			_viewTime = value;
+			_seekTime = value; // watch out!
+			dispatchEvent(new StreamEvent(StreamEvent.CHANGED_VIEW_TIME));
+		}
+		
+		public function get seekTime():Number {
+			return _seekTime;
+		}
+		
+		public function set seekTime(value:Number):void {
+			if (value == _seekTime) return;
+			_seekTime = value;
+			dispatchEvent(new StreamEvent(StreamEvent.CHANGED_SEEK_TIME));
+		}
+		
+		public function get volumeValue():Number {
+			return _volumeValue;
+		}
+		
+		public function set volumeValue(value:Number):void {
+			if (value == _volumeValue) return;
+			_volumeValue = value;
+			dispatchEvent(new StreamEvent(StreamEvent.CHANGED_VOLUME_VALUE));
 		}
 	}
 }

@@ -19,9 +19,9 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.hotspots.videohotspot {
 	
 	//import com.panosalado.view.SwfHotspot;
-	import com.panozona.hotspots.videohotspot.conroller.WindowController;
+	import com.panozona.hotspots.videohotspot.conroller.PlayerController;
 	import com.panozona.hotspots.videohotspot.model.VideoHotspotData;
-	import com.panozona.hotspots.videohotspot.view.WindowView;
+	import com.panozona.hotspots.videohotspot.view.PlayerView;
 	import flash.events.Event;
 	import flash.display.Sprite;
 	
@@ -30,8 +30,8 @@ package com.panozona.hotspots.videohotspot {
 		
 		private var videoHotspotData:VideoHotspotData;
 		
-		private var windowView:WindowView;
-		private var windowController:WindowController;
+		private var playerView:PlayerView;
+		private var playerController:PlayerController;
 		
 		public function VideoHotspot():void {
 			if (stage) init();
@@ -44,12 +44,12 @@ package com.panozona.hotspots.videohotspot {
 		//override protected function hotspotReady():void {
 			videoHotspotData = new VideoHotspotData(); // TODO: hook it up with SaladoPlayer
 			
-			windowView = new WindowView(videoHotspotData);
-			//windowView.x = - windowView.width * 0.5;
-			//windowView.y = - windowView.height * 0.5;
-			addChild(windowView);
+			playerView = new PlayerView(videoHotspotData);
+			//playerView.x = - playerView.width * 0.5;
+			//playerView.y = - playerView.height * 0.5;
+			addChild(playerView);
 			
-			windowController = new WindowController(windowView);
+			playerController = new PlayerController(playerView);
 		}
 	}
 }

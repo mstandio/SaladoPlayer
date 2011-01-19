@@ -18,11 +18,12 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.hotspots.videohotspot.conroller {
 	
+	import com.panozona.hotspots.videohotspot.events.StreamEvent;
 	import com.panozona.hotspots.videohotspot.model.StreamData;
 	import com.panozona.hotspots.videohotspot.model.VideoHotspotData;
 	import flash.events.Event;
-	import flash.events.TimerEvent;
 	import flash.events.NetStatusEvent;
+	import flash.events.TimerEvent;
 	import flash.media.SoundTransform;
 	import flash.media.Video;
 	import flash.net.NetConnection;
@@ -33,9 +34,8 @@ package com.panozona.hotspots.videohotspot.conroller {
 		
 		private var netStream:NetStream;
 		private var soundTransform:SoundTransform;
-		private var _mute:Boolean;
-		private var volumeCache:Number;
 		private var dataPropagationTimer:Timer;
+		private var isPaused:Boolean;
 		private var _videoHotspotData:VideoHotspotData;
 		
 		public function StreamController(videoHotspotData:VideoHotspotData) {
@@ -46,107 +46,86 @@ package com.panozona.hotspots.videohotspot.conroller {
 			var netConnection:NetConnection = new NetConnection();
 			netConnection.connect(null);
 			netStream = new NetStream(netConnection);
-			netStream.bufferTime = 5; //seconds of video buffered before playing start
+			netStream.bufferTime = 5; //seconds of video buffered before start playing
 			netStream.addEventListener(NetStatusEvent.NET_STATUS, handleStatusChange);
 			
 			var client:Object = new Object();
 			var metaDO:Object = function(metaData:Object):void {
-				_videoHotspotData.streamData.streamInitiation(metaData.duration, metaData.width, metaData.height);
+				_videoHotspotData.streamData.streamInitiation(metaData.duration, netStream.bytesTotal, metaData.width, metaData.height);
 			}
 			client.onMetaData = metaDO;
 			netStream.client = client;
 			
-			dataPropagationTimer = new Timer(100); // on every 1/10 second
+			dataPropagationTimer = new Timer(100);
 			dataPropagationTimer.addEventListener(TimerEvent.TIMER, onTick);
+			
+			_videoHotspotData.streamData.addEventListener(StreamEvent.CHANGED_VOLUME_VALUE, handleVolumeChange, false, 0, true);
+			_videoHotspotData.streamData.addEventListener(StreamEvent.CHANGED_STREAM_STATE, handleStreamStateChange, false, 0, true);
+			_videoHotspotData.streamData.addEventListener(StreamEvent.CHANGED_SEEK_TIME, handleSeekTimeChange, false, 0, true);
+		}
+		
+		public function makeVideo():Video {
+			var result:Video = new Video(_videoHotspotData.settings.width, _videoHotspotData.settings.height);
+			result.smoothing = true;
+			result.attachNetStream(netStream);
+			return result;
 		}
 		
 		private function handleStatusChange(e:NetStatusEvent):void {
 			switch(e.info.code){
 				case "NetStream.Play.Start" :
-					_videoHotspotData.streamData.streamState = StreamData.STATE_PLAYING;
 					dataPropagationTimer.start();
 				break;
 				case "NetStream.Buffer.Empty" :
-					_videoHotspotData.streamData.isBuffering = true;
+					_videoHotspotData.streamData.isBuffering = true; // huh
 				break;
 				case "NetStream.Buffer.Full" :
-					_videoHotspotData.streamData.isBuffering = false;
+					_videoHotspotData.streamData.isBuffering = false; // huh
 				break;
-				case "NetStream.Play.Stop" :
-					_videoHotspotData.streamData.streamState = StreamData.STATE_FINISHED;
+				case "NetStream.Play.Stop" : // finished playing
 					dataPropagationTimer.stop();
+					netStream.close();
 				break;
 			}
 		}
 		
-		private function onTick(e:Event):void {
-			_videoHotspotData.streamData.viewProgress = netStream.time / _videoHotspotData.streamData.totalTime;
-			_videoHotspotData.streamData.loadProgress = netStream.bytesLoaded / netStream.bytesTotal;
-		}
-		
-		public function makeVideo():Video {
-			var result:Video = new Video(_videoHotspotData.settings.width, _videoHotspotData.settings.height); // TODO: change proportions perhaps
-			result.smoothing = true;
-			result.attachNetStream(netStream);
-			_videoHotspotData.streamData.streamState = StreamData.STATE_PLAYING; // i tutaj to samo - konflikt
-			dataPropagationTimer.start();
-			netStream.play(_videoHotspotData.settings.videoPath);
-				mute = true; // TODO: remove
-			return result;
-		}
-		
-		public function play():void {
-			_videoHotspotData.streamData.streamState = StreamData.STATE_PLAYING;
-			dataPropagationTimer.start();
-			netStream.resume();
-		}
-		
-		public function pause():void {
-			_videoHotspotData.streamData.streamState = StreamData.STATE_PAUSED;
-			dataPropagationTimer.stop();
-			netStream.pause();
-		}
-		
-		public function stop():void {
-			_videoHotspotData.streamData.streamState = StreamData.STATE_STOPPED;
-			dataPropagationTimer.stop();
-			netStream.close();
-		}
-		
-		public function replay():void {
-			_videoHotspotData.streamData.streamState = StreamData.STATE_PLAYING;
-			dataPropagationTimer.start();
-			netStream.seek(0);
-		}
-		
-		public function seek(point:Number):void {
-			netStream.seek(point);
-			dataPropagationTimer.start(); // TODO: GAH!
-		}
-		
-		public function get volume():Number { //TODO: hook up volume control
-			return netStream.soundTransform.volume;
-		}
-		
-		public function set volume(value:Number):void {
-			soundTransform.volume = value;
+		private function handleVolumeChange(e:Event):void {
+			soundTransform.volume = _videoHotspotData.streamData.volumeValue;
 			netStream.soundTransform = soundTransform;
 		}
 		
-		public function get mute():Boolean {
-			return _mute;
+		private function handleStreamStateChange(e:Event):void {
+			switch(_videoHotspotData.streamData.streamState) {
+				case StreamData.STATE_PLAY:
+					if (isPaused) {
+						isPaused = false;
+						netStream.resume();
+					}else {
+						dataPropagationTimer.start();
+						netStream.play(_videoHotspotData.settings.videoPath);
+					}
+				break;
+				case StreamData.STATE_PAUSE:
+					isPaused = true;
+					netStream.pause();
+				break;
+				case StreamData.STATE_STOP:
+					dataPropagationTimer.stop();
+					netStream.close();
+				break
+			}
 		}
 		
-		public function set mute(value:Boolean):void {
-			if (mute == value) return;
-			if (mute) {
-				volumeCache = soundTransform.volume;
-				soundTransform.volume = 0;
-				netStream.soundTransform = soundTransform;
-			}else {
-				soundTransform.volume = volumeCache;
-				netStream.soundTransform = soundTransform;
+		private function handleSeekTimeChange(e:Event):void {
+			if (_videoHotspotData.streamData.streamState == StreamData.STATE_PAUSE ||
+				_videoHotspotData.streamData.streamState == StreamData.STATE_PLAY){
+				netStream.seek(_videoHotspotData.streamData.seekTime);
 			}
+		}
+		
+		private function onTick(e:Event = null):void {
+			_videoHotspotData.streamData.viewTime = netStream.time;
+			_videoHotspotData.streamData.loadedBytes = netStream.bytesLoaded;
 		}
 	}
 }

@@ -20,12 +20,15 @@ package com.panozona.hotspots.videohotspot.events {
 	
 	import flash.events.Event;
 	
-	public class WindowEvent extends Event{
+	public class PlayerEvent extends Event{
 		
-		public static const CHANGED_MOUSE_IS_OVER:String = "chngdMouseIsOver";
-		public static const CHANGED_POINTER_DRAGGED:String = "chngdPoiDragged";
+		public static const CHANGED_NAVIGATION_ACTIVE:String = "chngdNaviActive";
+		public static const CHANGED_PROGRESS_POINTER_DRAGGED:String = "chngdPrPoiDragged";
+		public static const CHANGED_VOLUME_BAR_OPEN:String = "chngdVoBarOpen";
+		public static const CHANGED_VOLUME_POINTER_DRAGGED:String = "chngdVoPoiDragged";
+		public static const CHANGED_IS_MUTE:String = "chngdIsMute";
 		
-		public function WindowEvent(type:String) {
+		public function PlayerEvent(type:String) {
 			super(type);
 		}
 	}
