@@ -23,10 +23,6 @@ package com.panozona.hotspots.videohotspot.events {
 	public class PlayerEvent extends Event{
 		
 		public static const CHANGED_NAVIGATION_ACTIVE:String = "chngdNaviActive";
-		public static const CHANGED_PROGRESS_POINTER_DRAGGED:String = "chngdPrPoiDragged";
-		public static const CHANGED_VOLUME_BAR_OPEN:String = "chngdVoBarOpen";
-		public static const CHANGED_VOLUME_POINTER_DRAGGED:String = "chngdVoPoiDragged";
-		public static const CHANGED_IS_MUTE:String = "chngdIsMute";
 		
 		public function PlayerEvent(type:String) {
 			super(type);

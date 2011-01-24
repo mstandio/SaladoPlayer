@@ -111,7 +111,7 @@ package com.panozona.hotspots.videohotspot.model{
 		public function set viewTime(value:Number):void {
 			if (value == _viewTime) return;
 			_viewTime = value;
-			_seekTime = value; // watch out!
+			_seekTime = value; // TODO: is this nessesery ? watch out!
 			dispatchEvent(new StreamEvent(StreamEvent.CHANGED_VIEW_TIME));
 		}
 		

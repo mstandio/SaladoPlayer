@@ -23,6 +23,8 @@ package com.panozona.hotspots.videohotspot.model {
 		public var settings:Settings = new Settings();
 		public var streamData:StreamData = new StreamData();
 		public var playerData:PlayerData = new PlayerData();
+		public var soundData:SoundData = new SoundData();
+		public var barData:BarData = new BarData(); // should use getters 
 		// todo: parse and verify settings 
 		// throw errors to manager or something, dunno
 	}

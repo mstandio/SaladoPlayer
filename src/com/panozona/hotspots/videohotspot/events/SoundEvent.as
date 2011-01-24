@@ -16,26 +16,18 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.hotspots.videohotspot.model {
+package com.panozona.hotspots.videohotspot.events{
 	
-	import com.panozona.hotspots.videohotspot.events.PlayerEvent;
-	import flash.events.EventDispatcher;
+	import flash.events.Event;
 	
-	public class PlayerData extends EventDispatcher{
+	public class SoundEvent extends Event{
 		
-		public const barHeightHidden:Number = 5;
-		public const barHeightExpanded:Number = 15;
+		public static const CHANGED_VOLUME_BAR_OPEN:String = "chngdVoBarOpen";
+		public static const CHANGED_VOLUME_POINTER_DRAGGED:String = "chngdVoPoiDragged";
+		public static const CHANGED_MUTE:String = "chngdMute";
 		
-		private var _navigationActive:Boolean;
-		
-		public function get navigationActive():Boolean {
-			return _navigationActive;
-		}
-		
-		public function set navigationActive(value:Boolean):void{
-			if (value == _navigationActive) return;
-			_navigationActive = value;
-			dispatchEvent(new PlayerEvent(PlayerEvent.CHANGED_NAVIGATION_ACTIVE));
+		public function SoundEvent(type:String) {
+			super(type);
 		}
 	}
 }

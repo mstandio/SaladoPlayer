@@ -80,11 +80,10 @@ package com.panozona.hotspots.videohotspot.conroller {
 					_videoHotspotData.streamData.isBuffering = true; // huh
 				break;
 				case "NetStream.Buffer.Full" :
-					_videoHotspotData.streamData.isBuffering = false; // huh
+					_videoHotspotData.streamData.isBuffering = false; // huuuhhh
 				break;
 				case "NetStream.Play.Stop" : // finished playing
-					dataPropagationTimer.stop();
-					netStream.close();
+					_videoHotspotData.streamData.streamState = StreamData.STATE_STOP;
 				break;
 			}
 		}
@@ -92,6 +91,7 @@ package com.panozona.hotspots.videohotspot.conroller {
 		private function handleVolumeChange(e:Event):void {
 			soundTransform.volume = _videoHotspotData.streamData.volumeValue;
 			netStream.soundTransform = soundTransform;
+			trace("mam " + soundTransform.volume);
 		}
 		
 		private function handleStreamStateChange(e:Event):void {
@@ -110,6 +110,7 @@ package com.panozona.hotspots.videohotspot.conroller {
 					netStream.pause();
 				break;
 				case StreamData.STATE_STOP:
+					isPaused = false;
 					dataPropagationTimer.stop();
 					netStream.close();
 				break
