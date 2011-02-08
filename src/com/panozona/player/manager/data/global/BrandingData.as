@@ -18,35 +18,12 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.data.global{
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
+	import com.panozona.player.component.data.property.*;
+	
 	public class BrandingData {
-		
-		/**
-		 * If branding button is visible
-		 */
 		public var visible:Boolean = true;
-		
-		/**
-		 * Transparency of branding button
-		 */
 		public var alpha:Number = 0.5;
-		
-		/**
-		 * Determinses position of branding button inside panorama.
-		 */
-		public var align:Align = new Align(Align.LEFT, Align.BOTTOM);
-		
-		/**
-		 * Moves button horizontally and vertically with given distances. 
-		 */
-		public var move:Move = new Move(3, 0);
-		
-		/**
-		 * Adds "Powered by SaladoPlayer" item to context menu
-		 */
-		public var contextMenu:Boolean = true;
+		public const align:Align = new Align(Align.LEFT, Align.BOTTOM);
+		public const move:Move = new Move(3, 0);
 	}
 }

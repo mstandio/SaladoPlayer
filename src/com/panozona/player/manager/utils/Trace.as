@@ -27,15 +27,14 @@ package com.panozona.player.manager.utils {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	import com.panozona.player.component.data.property.Align;
+	import com.panozona.player.component.data.property.Move;
+	import com.panozona.player.component.data.property.Size;
+	
 	import com.panozona.player.SaladoPlayer;
 	import com.panozona.player.manager.data.ManagerData;
 	import com.panozona.player.manager.data.global.TraceData;
-	import com.panozona.player.manager.data.global.Align;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class Trace extends Sprite {
 		
 		private var output:TextField;
@@ -79,8 +78,8 @@ package com.panozona.player.manager.utils {
 			
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
 			
-			traceData = (this.parent as SaladoPlayer).managerData.traceData;
-			debugMode = (this.parent as SaladoPlayer).managerData.debugMode;
+			//traceData = (this.parent as SaladoPlayer).managerData.traceData;
+			//debugMode = (this.parent as SaladoPlayer).managerData.debugMode;
 			
 			if (!debugMode){
 				buffer = "";

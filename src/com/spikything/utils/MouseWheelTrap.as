@@ -15,11 +15,11 @@
 	 */
 	public class MouseWheelTrap {
 		
-		private static private var _mouseWheelTrapped :Boolean;
+		private static var _mouseWheelTrapped :Boolean;
 		
 		public static function setup(stage:Stage):void {
-			stage.addEventListener(MouseEvent.MOUSE_MOVE, function():void {allowBrowserScroll(false);}); // TODO: mouse_move can be too expensive
-			stage.addEventListener(Event.MOUSE_LEAVE, function():void {allowBrowserScroll(true);});
+			stage.addEventListener(MouseEvent.ROLL_OVER, function():void {allowBrowserScroll(false);});
+			stage.addEventListener(MouseEvent.ROLL_OUT, function():void {allowBrowserScroll(true);});
 		}
 		
 		private static function allowBrowserScroll(allow:Boolean):void {
@@ -35,7 +35,46 @@
 			}
 			_mouseWheelTrapped = true;
 			if (ExternalInterface.available) {
-				ExternalInterface.call("eval", "var browserScrolling;function allowBrowserScroll(value){browserScrolling=value;}function handle(delta){if(!browserScrolling){return false;}return true;}function wheel(event){var delta=0;if(!event){event=window.event;}if(event.wheelDelta){delta=event.wheelDelta/120;if(window.opera){delta=-delta;}}else if(event.detail){delta=-event.detail/3;}if(delta){handle(delta);}if(!browserScrolling){if(event.preventDefault){event.preventDefault();}event.returnValue=false;}}if(window.addEventListener){window.addEventListener('DOMMouseScroll',wheel,false);}window.onmousewheel=document.onmousewheel=wheel;allowBrowserScroll(true);");
+				ExternalInterface.call("eval",
+					"var browserScrolling;" +
+					"function allowBrowserScroll(value){" + 
+						"browserScrolling = value;" +
+					"}" +
+					"function handle(delta){" +
+						"if(!browserScrolling){" +
+							"return false;" +
+						"}" +
+						"return true;" +
+					"}" +
+					"function wheel(event){" +
+						"var delta = 0;" +
+						"if(!event){" +
+							"event = window.event;" +
+						"}" +
+						"if(event.wheelDelta){" +
+							"delta = event.wheelDelta / 120;" +
+							"if(window.opera){" +
+								"delta = -delta;" +
+							"}" +
+						"}else if(event.detail){" +
+							"delta = -event.detail / 3;" +
+						"}" +
+						"if(delta){" +
+							"handle(delta);" +
+						"}" +
+						"if(!browserScrolling){" +
+							"if(event.preventDefault){" +
+								"event.preventDefault();" +
+							"}" +
+							"event.returnValue = false;" +
+						"}" +
+					"}" +
+					"if(window.addEventListener){" +
+						"window.addEventListener('DOMMouseScroll', wheel, false);" +
+					"}" +
+					"window.onmousewheel = document.onmousewheel = wheel;" +
+					"allowBrowserScroll(true);"
+				);
 			}
 		}
 	}

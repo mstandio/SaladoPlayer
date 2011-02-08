@@ -21,30 +21,21 @@ package com.panozona.player.manager.events {
 	import flash.events.Event;
 	import flash.display.DisplayObject;
 	
-	/**
-	 * 
-	 * 
-	 * @author mstandio
-	 */
 	public class LoadPanoramaEvent extends Event{
 		
 		public static const PANORAMA_STARTED_LOADING:String = "panoramaStartedLoading";
 		public static const PANORAMA_LOADED:String = "panoramaLoaded";
 		public static const TRANSITION_ENDED:String = "transitionEnded";
 		
-		/**
-		 * 
-		 */
+		// todo: add hotspots loaded perhaps ??
+		
 		public var panoramaData:Object;
 		
-		/**
-		 * 
-		 * @param	type
-		 * @param	panoramaData
-		 */
 		public function LoadPanoramaEvent(type:String, panoramaData:Object) {
 			super(type);
 			this.panoramaData = panoramaData;
 		}
+		
+		// TODO: add clone
 	}
 }

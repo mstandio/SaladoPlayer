@@ -4,7 +4,7 @@
   <output>
     <movie disabled="False" />
     <movie input="" />
-    <movie path="bin2\VideoHotspot.swf" />
+    <movie path="bin\Test.swf" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
@@ -14,6 +14,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
+    <class path="testsrc" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -48,6 +49,9 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="lib\tweener.swc" />
+    <element path="testlib\flexunit-4.0.0.swc" />
+    <element path="testlib\flexunit-uilistener-4.0.0.swc" />
+    <element path="testlib\hamcrest-1.0.2.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
@@ -67,7 +71,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\com\panozona\hotspots\videohotspot\VideoHotspot.as" />
+    <compile path="testsrc\suite\XmlConfiguration.mxml" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>

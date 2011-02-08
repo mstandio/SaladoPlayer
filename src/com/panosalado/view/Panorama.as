@@ -18,7 +18,7 @@ along with PanoSalado.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panosalado.view
 {
-import performance.profiler.*;
+//import performance.profiler.*;
 
 import com.panosalado.model.QuadTreeCube;
 //import com.panosalado.controller.ICamera;
@@ -63,7 +63,7 @@ import flash.display.BitmapData;
 import flash.display.GraphicsStroke;
 import flash.display.GraphicsSolidFill;
 
-import performance.profiler.*;
+//import performance.profiler.*;
 
 final public class Panorama
 {
