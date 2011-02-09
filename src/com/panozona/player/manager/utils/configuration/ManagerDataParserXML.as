@@ -301,31 +301,36 @@ package com.panozona.player.manager.utils.configuration {
 			var actionData:ActionData;
 			var actionId:*;
 			for each(var actionNode:XML in actionsNode.elements()) {
-				actionId = recognizeContent(actionNode.@id);
-				if (!(actionId is String)) {
+				if (actionNode.@id == undefined) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Could not find action id."));
-					continue;
-				}
-				actionData = new ActionData(actionId);
-				for each(var actionAttribute:XML in actionNode.attributes()) {
-					if (actionAttribute.localName().toString() == "content") {
-						parseActionContent(actionData, actionAttribute);
-					}else if (actionAttribute.localName().toString() != "id") {
+				}else {
+					actionId = recognizeContent(actionNode.@id);
+					if (!(actionId is String)) {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Unrecognized action attribute: " + actionAttribute.localName().toString()));
+							"Invalid action id format" + actionId));
+					}else {
+						actionData = new ActionData(actionId);
+						for each(var actionAttribute:XML in actionNode.attributes()) {
+							if (actionAttribute.localName().toString() == "content") {
+								parseActionContent(actionData, actionAttribute);
+							}else if (actionAttribute.localName().toString() != "id") {
+								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+									"Unrecognized action attribute: " + actionAttribute.localName()));
+							}
+						}
+						actionsData.push(actionData);
 					}
 				}
-				actionsData.push(actionData);
 			}
 		}
 		
 		protected function parseActionContent(actionData:ActionData, content:String):void {
+			var allFunctions:Array = content.split(";");
 			var singleFunctionArray:Array;
 			var allArguments:Array;
 			var singleArgument:String;
 			var functionData:FunctionData;
-			var allFunctions:Array = content.split(";");
 			var recognizedValue:*;
 			for each(var singleFunction:String in allFunctions) {
 				if (singleFunction.match(/^[\w]+\.[\w]+\(.*\)$/)) {
@@ -363,7 +368,7 @@ package com.panozona.player.manager.utils.configuration {
 						functionData = new TargetFunctionData(singleFunctionArray[0], singleFunctionArray[1], singleFunctionArray[2]);
 						 // function has parameters
 						if (singleFunctionArray.length == 4) {
-							allArguments = singleFunctionArray[4].split(",");
+							allArguments = singleFunctionArray[3].split(",");
 							for each(singleArgument in allArguments) {
 								recognizedValue = recognizeContent(singleArgument);
 								functionData.args.push(recognizedValue);
@@ -373,7 +378,7 @@ package com.panozona.player.manager.utils.configuration {
 					}
 				}else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Wrong format of function: " + singleFunction));
+						"Wrong format of action content: " + singleFunction));
 				}
 			}
 		}

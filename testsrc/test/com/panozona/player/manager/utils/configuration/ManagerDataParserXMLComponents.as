@@ -174,7 +174,10 @@ package test.com.panozona.player.manager.utils.configuration {
 			var callCount : int = 0;
 			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
 			
+			// path not found
 			var nodeXML_a:XML = new XML("<root><ca><a/><b/></ca><cb path=\"path_b\"><c/><d/></cb></root>");
+			
+			// path not String
 			var nodeXML_b:XML = new XML("<root><ca path=\"true\"><a/><b/></ca><cb path=\"path_b\"><c/><d/></cb></root>");
 			
 			parseComponents(componentDatas_2, nodeXML_a);
