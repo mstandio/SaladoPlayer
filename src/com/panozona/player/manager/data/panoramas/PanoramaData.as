@@ -21,7 +21,7 @@ package com.panozona.player.manager.data.panoramas {
 	import com.panosalado.model.*;
 	
 	public class PanoramaData {
-
+		
 		public var onEnter:String;
 		public var onTransitionEnd:String;
 		public var onLeave:String;

@@ -16,7 +16,7 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.events {
+package com.panozona.player.manager.utils.loading {
 	
 	import flash.display.DisplayObject;
 	import flash.events.Event;

@@ -19,7 +19,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.component {
 	
 	import com.panozona.player.component.*;
-	import com.panozona.player.manager.utils.*;
+	import com.panozona.player.manager.utils.loading.*;
 	
 	public class ComponentData implements ILoadable{
 		

@@ -14,16 +14,16 @@
 		import org.flexunit.runner.Request;
 		import org.flexunit.runner.notification.async.XMLListener;
 		
-		import test.com.panozona.player.manager.utils.configuration.ManagerDataParserXMLRecognize;
-		import test.com.panozona.player.manager.utils.configuration.ManagerDataParserXMLComponents;
-		import test.com.panozona.player.manager.utils.configuration.ManagerDataParserXMLActions;
+		import suite.configuration.Parser;
+		import suite.configuration.Validator;
 		
 		private var core:FlexUnitCore;
 		
 		public function runMe():void {
 			core = new FlexUnitCore();
 			core.addListener( new UIListener( uiListener ));
-			core.run(ManagerDataParserXMLRecognize, ManagerDataParserXMLComponents, ManagerDataParserXMLActions);
+			
+			core.run(Parser, Validator);
 		}
 		
 		]]>

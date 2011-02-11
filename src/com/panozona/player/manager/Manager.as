@@ -33,7 +33,7 @@ package com.panozona.player.manager {
 	
 	public class Manager extends PanoSalado{
 		
-		public const description:ComponentDescription = new ComponentDescription("SaladoPlayer", 0.8, "http://panozona.com/");
+		public const description:ComponentDescription = new ComponentDescription("SaladoPlayer", "1.0.1", "http://panozona.com/");
 		
 		private var currentPanoramaData:PanoramaData;
 		private var previousPanoramaData:PanoramaData;
@@ -83,8 +83,8 @@ package com.panozona.player.manager {
 		}
 		
 		public function loadFirstPanorama():void {
-			if (_managerData.firstPanorama != null) {
-				loadPanoramaById(_managerData.firstPanorama);
+			if (_managerData.allPanoramasData.firstPanorama != null) {
+				loadPanoramaById(_managerData.allPanoramasData.firstPanorama);
 			}else {
 				if (_managerData.panoramasData != null && _managerData.panoramasData.length > 0) {
 					loadPanoramaById(_managerData.panoramasData[0].id);

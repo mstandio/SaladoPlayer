@@ -1,31 +1,28 @@
 ﻿/*
-Copyright 2010 Marek Standio.
+Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
 
 SaladoPlayer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published 
-by the Free Software Foundation, either version 3 of the License, 
+it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
 
 SaladoPlayer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+but WITHOUT ANY WARRANTY; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
+along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.utils{
+package com.panozona.player.manager.utils.loading{
 	
-	import com.panozona.player.manager.events.LoadLoadableEvent;
-	import flash.display.Loader;
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.events.IOErrorEvent;
-	import flash.net.URLRequest;
-	import flash.system.ApplicationDomain;
-	import flash.system.LoaderContext;
+	import com.panozona.player.manager.utils.loading.*;
+	import flash.display.*;
+	import flash.events.*;
+	import flash.net.*;
+	import flash.system.*;
 	
 	public class LoadablesLoader extends EventDispatcher{
 		
@@ -59,7 +56,6 @@ package com.panozona.player.manager.utils{
 					return;
 				}
 			}
-			
 		}
 		
 		private function loadableLoaded(e:Event):void {

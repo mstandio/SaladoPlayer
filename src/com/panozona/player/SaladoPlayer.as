@@ -27,6 +27,7 @@ package com.panozona.player {
 	import com.panozona.player.manager.data.*;
 	import com.panozona.player.manager.utils.configuration.*;
 	import com.panozona.player.manager.events.*;
+	import com.panozona.player.manager.utils.loading.*;
 	import com.panozona.player.manager.utils.*;
 	import flash.display.*;
 	import flash.events.*;
@@ -80,15 +81,15 @@ package com.panozona.player {
 				panorama,
 				DeepZoomTilePyramid,
 				resizer,
-				managerData.keyboardCameraData,
+				managerData.controlData.keyboardCameraData,
 				keyboardCamera,
-				managerData.inertialMouseCameraData,
+				managerData.controlData.inertialMouseCameraData,
 				inertialMouseCamera,
-				managerData.arcBallCameraData,
+				managerData.controlData.arcBallCameraData,
 				arcBallCamera,
-				managerData.autorotationCameraData,
+				managerData.controlData.autorotationCameraData,
 				autorotationCamera,
-				managerData.simpleTransitionData,
+				managerData.controlData.simpleTransitionData,
 				simpleTransition,
 				nanny
 			]);

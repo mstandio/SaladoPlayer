@@ -29,7 +29,7 @@ package com.panozona.player.component{
 		public const functionsDescription:Object = new Object();
 		
 		private var _name:String;
-		private var _version:Number;
+		private var _version:String;
 		private var _homeUrl:String;
 		
 		/**
@@ -37,7 +37,7 @@ package com.panozona.player.component{
 		 * @param	version mandatory component version
 		 * @param	homeUrl optional url address containing component description
 		 */
-		public function ComponentDescription(name:String, version:Number, homeUrl:String = null) {
+		public function ComponentDescription(name:String, version:String, homeUrl:String = null) {
 			_name = name;
 			_version = version;
 			_homeUrl = homeUrl;
@@ -47,7 +47,7 @@ package com.panozona.player.component{
 			return _name;
 		}
 		
-		public final function get version():Number{
+		public final function get version():String{
 			return _version;
 		}
 		

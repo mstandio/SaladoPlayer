@@ -2,7 +2,7 @@ package test.com.panozona.player.manager.utils.configuration {
 	
 	import com.panozona.player.component.*;
 	import com.panozona.player.manager.data.actions.ActionData;
-	import com.panozona.player.manager.data.actions.TargetFunctionData;
+	import com.panozona.player.manager.data.actions.FunctionDataTarget;
 	import com.panozona.player.manager.utils.configuration.*;
 	import com.robertpenner.easing.*;
 	import flash.events.*;
@@ -18,9 +18,9 @@ package test.com.panozona.player.manager.utils.configuration {
 			
 			Assert.assertEquals(3, actionData.functions.length);
 			
-			Assert.assertFalse(actionData.functions[0] is TargetFunctionData);
-			Assert.assertFalse(actionData.functions[1] is TargetFunctionData);
-			Assert.assertFalse(actionData.functions[2] is TargetFunctionData);
+			Assert.assertFalse(actionData.functions[0] is FunctionDataTarget);
+			Assert.assertFalse(actionData.functions[1] is FunctionDataTarget);
+			Assert.assertFalse(actionData.functions[2] is FunctionDataTarget);
 			
 			Assert.assertStrictlyEquals("owna", actionData.functions[0].owner);
 			Assert.assertStrictlyEquals("nama", actionData.functions[0].name);
@@ -79,21 +79,21 @@ package test.com.panozona.player.manager.utils.configuration {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna[targa].nama();ownb[targb].namb();ownc[targc].namc()");
 			Assert.assertEquals(3, actionData.functions.length);
-			Assert.assertTrue(actionData.functions[0] is TargetFunctionData);
-			Assert.assertTrue(actionData.functions[1] is TargetFunctionData);
-			Assert.assertTrue(actionData.functions[2] is TargetFunctionData);
+			Assert.assertTrue(actionData.functions[0] is FunctionDataTarget);
+			Assert.assertTrue(actionData.functions[1] is FunctionDataTarget);
+			Assert.assertTrue(actionData.functions[2] is FunctionDataTarget);
 			
 			Assert.assertStrictlyEquals("owna", actionData.functions[0].owner);
 			Assert.assertStrictlyEquals("nama", actionData.functions[0].name);
-			Assert.assertStrictlyEquals("targa", (actionData.functions[0] as TargetFunctionData).target);
+			Assert.assertStrictlyEquals("targa", (actionData.functions[0] as FunctionDataTarget).target);
 			
 			Assert.assertStrictlyEquals("ownb", actionData.functions[1].owner);
 			Assert.assertStrictlyEquals("namb", actionData.functions[1].name);
-			Assert.assertStrictlyEquals("targb", (actionData.functions[1] as TargetFunctionData).target);
+			Assert.assertStrictlyEquals("targb", (actionData.functions[1] as FunctionDataTarget).target);
 			
 			Assert.assertStrictlyEquals("ownc", actionData.functions[2].owner);
 			Assert.assertStrictlyEquals("namc", actionData.functions[2].name);
-			Assert.assertStrictlyEquals("targc", (actionData.functions[2] as TargetFunctionData).target);
+			Assert.assertStrictlyEquals("targc", (actionData.functions[2] as FunctionDataTarget).target);
 		}
 		
 		[Test]
@@ -145,16 +145,16 @@ package test.com.panozona.player.manager.utils.configuration {
 			
 			Assert.assertEquals(3, actionData.functions.length);
 			
-			Assert.assertFalse(actionData.functions[0] is TargetFunctionData);
-			Assert.assertTrue(actionData.functions[1] is TargetFunctionData);
-			Assert.assertFalse(actionData.functions[2] is TargetFunctionData);
+			Assert.assertFalse(actionData.functions[0] is FunctionDataTarget);
+			Assert.assertTrue(actionData.functions[1] is FunctionDataTarget);
+			Assert.assertFalse(actionData.functions[2] is FunctionDataTarget);
 			
 			Assert.assertStrictlyEquals("owna", actionData.functions[0].owner);
 			Assert.assertStrictlyEquals("nama", actionData.functions[0].name);
 			
 			Assert.assertStrictlyEquals("ownb", actionData.functions[1].owner);
 			Assert.assertStrictlyEquals("namb", actionData.functions[1].name);
-			Assert.assertStrictlyEquals("targb", (actionData.functions[1] as TargetFunctionData).target);
+			Assert.assertStrictlyEquals("targb", (actionData.functions[1] as FunctionDataTarget).target);
 			
 			Assert.assertStrictlyEquals("ownc", actionData.functions[2].owner);
 			Assert.assertStrictlyEquals("namc", actionData.functions[2].name);
@@ -247,7 +247,7 @@ package test.com.panozona.player.manager.utils.configuration {
 			
 			Assert.assertStrictlyEquals("ownb", actionsData[0].functions[1].owner);
 			Assert.assertStrictlyEquals("namb", actionsData[0].functions[1].name);
-			Assert.assertStrictlyEquals("targb", (actionsData[0].functions[1] as TargetFunctionData).target);
+			Assert.assertStrictlyEquals("targb", (actionsData[0].functions[1] as FunctionDataTarget).target);
 			Assert.assertStrictlyEquals("foo", actionsData[0].functions[1].args[0]);
 			Assert.assertStrictlyEquals(Linear.easeNone, actionsData[0].functions[1].args[1]);
 			
@@ -260,7 +260,7 @@ package test.com.panozona.player.manager.utils.configuration {
 			
 			Assert.assertStrictlyEquals("ownd", actionsData[1].functions[1].owner);
 			Assert.assertStrictlyEquals("namd", actionsData[1].functions[1].name);
-			Assert.assertStrictlyEquals("targd", (actionsData[1].functions[1] as TargetFunctionData).target);
+			Assert.assertStrictlyEquals("targd", (actionsData[1].functions[1] as FunctionDataTarget).target);
 			Assert.assertStrictlyEquals(0x00ff00, actionsData[1].functions[1].args[0]);
 			Assert.assertStrictlyEquals("bar", actionsData[1].functions[1].args[1]);
 		}
@@ -273,13 +273,16 @@ package test.com.panozona.player.manager.utils.configuration {
 			// action id missing
 			parseActions(new Vector.<ActionData>(), new XML("<root><action content=\"foo.bar()\"/></root>"));
 			
+			// action content missing
+			parseActions(new Vector.<ActionData>(), new XML("<root><action id=\"act1\"/></root>"));
+			
 			// action id wrong format
 			parseActions(new Vector.<ActionData>(), new XML("<root><action id=\"12\" content=\"foo.bar()\"/></root>"));
 			
-			// action no content
-			parseActions(new Vector.<ActionData>(), new XML("<root><action id=\"12\"/></root>"));
+			// action unknown attrubute
+			parseActions(new Vector.<ActionData>(), new XML("<root><action id=\"act1\" functions=\"foo.bar()\"/></root>"));
 			
-			Assert.assertEquals(3, callCount);
+			Assert.assertEquals(4, callCount);
 		}
 	}
 }

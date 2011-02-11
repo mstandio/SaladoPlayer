@@ -32,39 +32,16 @@ package com.panozona.player.manager.data {
 		 */
 		public var debugMode:Boolean = true;
 		
-		/**
-		 * id of panorama that will be loaded,
-		 * if not set, SaladoPlayer will load first panorama in line. 
-		 */
-		public var firstPanorama:String;
-		
-		/**
-		 * Stores size of panorama window, camera limits and initial values.
-		 * When some value is set, it will overwrite default values in all panoramas.
-		 */
-		public const params:Params = new Params(null); // empty path
-		public const keyboardCameraData:KeyboardCameraData = new KeyboardCameraData();
-		public const inertialMouseCameraData:InertialMouseCameraData = new InertialMouseCameraData();
-		public const arcBallCameraData:ArcBallCameraData = new ArcBallCameraData();
-		public const autorotationCameraData:AutorotationCameraData = new AutorotationCameraData();
-		public const simpleTransitionData:SimpleTransitionData = new SimpleTransitionData();
-		
+		public const controlData:ControlData = new ControlData();
+		public const allPanoramasData:AllPanoramasData = new AllPanoramasData();
 		public const traceData:TraceData = new TraceData();
-		public const statsData:StatsData = new StatsData();
 		public const brandingData:BrandingData = new BrandingData();
+		public const statsData:StatsData = new StatsData();
 		
 		public const panoramasData:Vector.<PanoramaData> = new Vector.<PanoramaData>();
 		public const actionsData:Vector.<ActionData> = new Vector.<ActionData>();
 		public const modulesData:Vector.<ComponentData> = new Vector.<ComponentData>();
 		public const factoriesData:Vector.<ComponentData> = new Vector.<ComponentData>();
-		
-		/**
-		 * Sets default Field of view limits for global params
-		 */
-		public function ManagerData() {
-			params.minFov = 30;
-			params.maxFov = 120;
-		}
 		
 		public function getPanoramaDataById(id:String):PanoramaData {
 			for each(var panoramaData:PanoramaData in panoramasData) {
@@ -102,25 +79,34 @@ package com.panozona.player.manager.data {
 			return null;
 		}
 		
+		public function getComponentDataByName(name:String):ComponentData {
+			var componentData:ComponentData;
+			componentData = getModuleDataByName(name);
+			if (componentData != null) return componentData;
+			componentData = getFactoryDataByName(name);
+			if (componentData != null) return componentData;
+			return null;
+		}
+		
 		/**
 		 * Copies param values over all panorama param values that were left default.
 		 */
 		public function populateGlobalParams():void {
 			for each(var panoramaData:PanoramaData in panoramasData) {
-				if (isNaN(panoramaData.params.pan))            panoramaData.params.pan = params.pan;
-				if (isNaN(panoramaData.params.tilt))           panoramaData.params.tilt = params.tilt;
-				if (isNaN(panoramaData.params.fov))            panoramaData.params.fov = params.fov;
-				if (isNaN(panoramaData.params.maxPan))         panoramaData.params.maxPan = params.maxPan;
-				if (isNaN(panoramaData.params.minPan))         panoramaData.params.minPan = params.minPan;
-				if (isNaN(panoramaData.params.maxTilt))        panoramaData.params.maxTilt = params.maxTilt;
-				if (isNaN(panoramaData.params.minTilt))        panoramaData.params.minTilt = params.minTilt;
-				if (isNaN(panoramaData.params.maxFov))         panoramaData.params.maxFov = params.maxFov;
-				if (isNaN(panoramaData.params.minFov))         panoramaData.params.minFov = params.minFov;
-				if (isNaN(panoramaData.params.minVerticalFov)) panoramaData.params.minVerticalFov = params.minVerticalFov;
-				if (isNaN(panoramaData.params.maxVerticalFov)) panoramaData.params.maxVerticalFov = params.maxVerticalFov;
-				if (isNaN(panoramaData.params.boundsWidth))    panoramaData.params.boundsWidth = params.boundsWidth;
-				if (isNaN(panoramaData.params.boundsHeight))   panoramaData.params.boundsHeight = params.boundsHeight;
-				if (isNaN(panoramaData.params.tierThreshold))  panoramaData.params.tierThreshold = params.tierThreshold;
+				if (isNaN(panoramaData.params.pan))            panoramaData.params.pan = allPanoramasData.params.pan;
+				if (isNaN(panoramaData.params.tilt))           panoramaData.params.tilt = allPanoramasData.params.tilt;
+				if (isNaN(panoramaData.params.fov))            panoramaData.params.fov = allPanoramasData.params.fov;
+				if (isNaN(panoramaData.params.maxPan))         panoramaData.params.maxPan = allPanoramasData.params.maxPan;
+				if (isNaN(panoramaData.params.minPan))         panoramaData.params.minPan = allPanoramasData.params.minPan;
+				if (isNaN(panoramaData.params.maxTilt))        panoramaData.params.maxTilt = allPanoramasData.params.maxTilt;
+				if (isNaN(panoramaData.params.minTilt))        panoramaData.params.minTilt = allPanoramasData.params.minTilt;
+				if (isNaN(panoramaData.params.maxFov))         panoramaData.params.maxFov = allPanoramasData.params.maxFov;
+				if (isNaN(panoramaData.params.minFov))         panoramaData.params.minFov = allPanoramasData.params.minFov;
+				if (isNaN(panoramaData.params.minVerticalFov)) panoramaData.params.minVerticalFov = allPanoramasData.params.minVerticalFov;
+				if (isNaN(panoramaData.params.maxVerticalFov)) panoramaData.params.maxVerticalFov = allPanoramasData.params.maxVerticalFov;
+				if (isNaN(panoramaData.params.boundsWidth))    panoramaData.params.boundsWidth = allPanoramasData.params.boundsWidth;
+				if (isNaN(panoramaData.params.boundsHeight))   panoramaData.params.boundsHeight = allPanoramasData.params.boundsHeight;
+				if (isNaN(panoramaData.params.tierThreshold))  panoramaData.params.tierThreshold = allPanoramasData.params.tierThreshold;
 			}
 		}
 	}

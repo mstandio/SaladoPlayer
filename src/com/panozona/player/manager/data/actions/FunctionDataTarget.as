@@ -25,11 +25,11 @@ package com.panozona.player.manager.data.actions{
 	 * 
 	 * @see FunctionData
 	 */
-	public class TargetFunctionData extends FunctionData{
+	public class FunctionDataTarget extends FunctionData{
 		
 		private var _target:String;
 		
-		public function TargetFunctionData(owner:String, target:String, name:String) {
+		public function FunctionDataTarget(owner:String, target:String, name:String) {
 			super (owner, name);
 			_target = target;
 		}

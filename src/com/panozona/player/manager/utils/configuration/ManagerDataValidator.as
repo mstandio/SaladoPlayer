@@ -29,161 +29,210 @@ package com.panozona.player.manager.utils.configuration{
 		
 		public function validate(managerData:ManagerData):void {
 			checkPanoramas(managerData.panoramasData, managerData.actionsData);
-			checkComponents(managerData.modulesData);
+			checkComponents(managerData.modulesData, managerData.factoriesData);
 			checkActions(managerData);
 		}
 		
 		private function checkPanoramas(panoramasData:Vector.<PanoramaData>, actionsData:Vector.<ActionData>):void {
 			if (panoramasData.length < 1) {
-				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR, "No panoramas found."));
+				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+					"No panoramas found."));
 				return;
 			}
 			var panosId:Object = new Object();
 			var hotspotsId:Object = new Object();
 			for each(var panoramaData:PanoramaData in panoramasData) {
+				if (panoramaData.id == null) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+						"Missig panorama id."));
+					continue;
+				}
+				if (panoramaData.params.path == null) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+						"Missig panorama path."));
+					continue;
+				}
 				if (panosId[panoramaData.id] != undefined) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Repeating panorama id: " + panoramaData.id));
-				}else {
-					if (panoramaData.id == null) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR, "Missig panorama id."));
-						return;
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Repeating panorama id: " + panoramaData.id));
+					continue;
+				}
+				panosId[panoramaData.id] = ""; // not undefined
+				
+				actionExists(panoramaData.onEnter, actionsData);
+				actionExists(panoramaData.onLeave, actionsData);
+				actionExists(panoramaData.onTransitionEnd, actionsData);
+				checkActionTrigger(panoramaData.id, panoramaData.onEnterFrom, panoramasData, actionsData);
+				checkActionTrigger(panoramaData.id, panoramaData.onTransitionEndFrom, panoramasData, actionsData);
+				checkActionTrigger(panoramaData.id, panoramaData.onLeaveTo, panoramasData, actionsData);
+				checkActionTrigger(panoramaData.id, panoramaData.onLeaveToAttempt, panoramasData, actionsData);
+				
+				for each(var hotspotData:HotspotData in panoramaData.hotspotsData) {
+					if (hotspotData.id == null) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+							"Missig hotspot id."));
+						continue;
 					}
-					if (panoramaData.params.path == null) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR, "Missig panorama path."));
-						return;
+					if (hotspotsId[hotspotData.id] != undefined) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, 
+							"Repeating hotspot id: " + hotspotData.id));
+						continue;
 					}
-					panosId[panoramaData.id] = null; // not undefined
-					actionExists(panoramaData.onEnter, actionsData);
-					actionExists(panoramaData.onLeave, actionsData);
-					actionExists(panoramaData.onTransitionEnd, actionsData);
-					checkActionTrigger(panoramaData.onEnterFrom, panoramasData, actionsData);
-					checkActionTrigger(panoramaData.onTransitionEndFrom, panoramasData, actionsData);
-					checkActionTrigger(panoramaData.onLeaveTo, panoramasData, actionsData);
-					checkActionTrigger(panoramaData.onLeaveToAttempt, panoramasData, actionsData);
-					for each(var hotspotData:HotspotData in panoramaData.hotspotsData) {
-						if (hotspotsId[hotspotData.id] != undefined) {
-							dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Repeating hotspot id: " + hotspotData.id));
-						}else {
-							hotspotsId[hotspotData.id] = null; // not undefined
-							checkHotspot(hotspotData, actionsData);
-						}
-					}
+					hotspotsId[hotspotData.id] = ""; // not undefined
+					
+					actionExists(hotspotData.mouse.onClick, actionsData);
+					actionExists(hotspotData.mouse.onOut, actionsData);
+					actionExists(hotspotData.mouse.onOver, actionsData);
+					actionExists(hotspotData.mouse.onPress, actionsData);
+					actionExists(hotspotData.mouse.onRelease, actionsData);
 				}
 			}
 		}
 		
-		private function actionExists(actionId:String, actionsData:Vector.<ActionData>):Boolean{
+		private function actionExists(actionId:String, actionsData:Vector.<ActionData>):void {
+			if (actionId == null) return;
 			for each(var actionData:ActionData in actionsData) {
-				if (actionData.id == actionId) {
-					return true;
+				if (actionData.id == actionId) return;
+			}
+			dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+				"Action not found: " + actionId));
+		}
+		
+		private function checkActionTrigger(panoramaId:String, actionTrigger:Object, panoramasData:Vector.<PanoramaData>, actionsData:Vector.<ActionData>):void {
+			for (var checkedPanoramaId:String in actionTrigger) {
+				panoramaExists(checkedPanoramaId, panoramasData);
+				actionExists(actionTrigger[checkedPanoramaId], actionsData);
+				if (panoramaId == checkedPanoramaId) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Same panorama id not allowed: " + panoramaId));
 				}
 			}
-			dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Action not found: " + actionId));
-			return false;
 		}
 		
-		private function checkActionTrigger(actionTrigger:Object, panoramasData:Vector.<PanoramaData>, actionsData:Vector.<ActionData>):void {
-			for (var panoramaId:String in actionTrigger) {
-				panoramaExists(panoramaId, panoramasData);
-				actionExists(actionTrigger[panoramaId], actionsData);
-			}
-		}
-		
-		private function panoramaExists(panoramaId:String, panoramasData:Vector.<PanoramaData>):Boolean {
+		private function panoramaExists(panoramaId:String, panoramasData:Vector.<PanoramaData>):void{
 			for each(var panoramaData:PanoramaData in panoramasData) {
-				if (panoramaData.id == panoramaId) {
-					return true;
-				}
+				if (panoramaData.id == panoramaId) return;
 			}
-			dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Panorama not found: " + panoramaId));
-			return false;
+			dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+				"Panorama not found: " + panoramaId));
 		}
 		
-		private function checkHotspot(hotspotData:HotspotData, actionsData:Vector.<ActionData>):void {
-			if (hotspotData.id == null) {
-				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR, "Missig hotspot id."));
-				return;
-			}
-			actionExists(hotspotData.mouse.onClick, actionsData);
-			actionExists(hotspotData.mouse.onOut, actionsData);
-			actionExists(hotspotData.mouse.onOver, actionsData);
-			actionExists(hotspotData.mouse.onPress, actionsData);
-			actionExists(hotspotData.mouse.onRelease, actionsData);
-		}
-		
-		private function checkComponents(componentsData:Vector.<ComponentData>):void {
+		private function checkComponents(...componentDataVectors):void {
+			var componentsData:Vector.<ComponentData>;
 			var componentsName:Object = new Object();
-			for each(var componentData:ComponentData in componentsData) {
-				if (componentData.name == null) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR, "Missig component id."));
-					return;
-				}
-				if (componentData.path == null) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR, "Missig path in: " + componentData.name));
-					return;
-				}
-				if (componentsName[componentData.name] != undefined) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Repeating name: " + componentData.name));
-				}else{
-					componentsName[componentData.name] = null; // not undefined
+			for (var i:uint = 0; i < componentDataVectors.length; i++) {
+				componentsData = componentDataVectors [i] as Vector.<ComponentData>;
+				for each(var componentData:ComponentData in componentsData) {
+					if (componentData.name == null) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+							"Missig component id."));
+						continue;
+					}
+					if (componentData.path == null) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+							"Missig path in: " + componentData.name));
+						continue;
+					}
+					if (componentData.descriptionReference == null) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+							"Missig description for: " + componentData.name));
+						// proceed anyway
+					}
+					if (componentsName[componentData.name] != undefined) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+							"Repeating name: " + componentData.name));
+					}else{
+						componentsName[componentData.name] = ""; // not undefined
+					}
 				}
 			}
 		}
 		
 		private function checkActions(managerData:ManagerData):void {
-			var acttionsId:Object = new Object();
+			var actionsId:Object = new Object();
 			for each(var actionData:ActionData in managerData.actionsData) {
 				if (actionData.id == null) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR, "Missig action id."));
-					return;
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+						"Missig action id."));
+					continue;
 				}
-				if (actionData.functions.length == 0) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR, "Missing functions in: " + actionData.id));
-					return;
+				if (actionsId[actionData.id] != undefined) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Repeating action id: " + actionData.id));
+					continue;
 				}
-				if (acttionsId[actionData.id] != undefined) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Repeating action id: " + actionData.id));
-				}else {
-					acttionsId[actionData.id] = null; // not undefined
-					for each(var functionData:FunctionData in actionData.functions) {
-						checkFunction(functionData, managerData);
-					}
+				actionsId[actionData.id] = ""; // not undefined
+				for each(var functionData:FunctionData in actionData.functions) {
+					checkFunction(functionData, managerData);
 				}
 			}
 		}
 		
 		private function checkFunction(functionData:FunctionData, managerData:ManagerData):void {
-			if (managerData.getModuleDataByName(functionData.name) == null) {
-				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Owner not found: " + functionData.owner + "." + functionData.name));
-			}else {
-				if (managerData.getModuleDataByName(functionData.name).descriptionReference != null) {
-					verifyFunction(functionData, managerData.getModuleDataByName(functionData.name).descriptionReference);
-				}
+			if (managerData.getComponentDataByName(functionData.owner) == null) {
+				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+					"Owner not found: " + functionData.owner + "." + functionData.name));
+				return;
+			}
+			if (managerData.getComponentDataByName(functionData.owner).descriptionReference != null) {
+				verifyFunction(functionData, managerData);
 			}
 		}
 		
-		private function verifyFunction(functionData:FunctionData, componentDescription:ComponentDescription):void {
+		private function verifyFunction(functionData:FunctionData, managerData:ManagerData):void {
+			var componentDescription:ComponentDescription = managerData.getComponentDataByName(functionData.owner).descriptionReference;
 			if (componentDescription.functionsDescription[functionData.name] == undefined) {
-				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Function not found: " + functionData.owner + "." + functionData.name));
+				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+					"Function not found: " + functionData.owner + "." + functionData.name));
 				return;
 			}
-			if (componentDescription.functionsDescription.length != functionData.args.length) {
-				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Wrong number of arguments in: " +
-					componentDescription.name + "." + functionData.name +
+			if ((componentDescription.functionsDescription[functionData.name] as Vector.<Class>).length != functionData.args.length) {
+				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+					"Wrong number of arguments in: " +
+					functionData.owner + "." + functionData.name +
 					" got: " + functionData.args.length +
-					" expected: "+componentDescription.functionsDescription.length));
+					" expected: " + (componentDescription.functionsDescription[functionData.name] as Vector.<Class>).length));
 				return;
 			}
-			if(componentDescription.functionsDescription[functionData.name].args > 0){ // TODO: rzutowanie 
-				for (var i:int = 0; i < functionData.args.length; i++) {
-					if (!(functionData.args[i] is componentDescription.functionsDescription[i])) {
-						if (!(componentDescription.functionsDescription[i] === Boolean && (functionData.args[i] == "true" || functionData.args[i] == "false"))) {
-							dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Wrong argument type in: " +
-								componentDescription.name + "." + functionData.name +
-								" got: " + functionData.args[i] +
-								" expected: " + getQualifiedClassName(componentDescription.functionsDescription[i]).match(/[^:]+$/)[0]));
-							return;
+			if (functionData is FunctionDataTarget ) {
+				var target:String = (functionData as FunctionDataTarget).target;
+				var found:Boolean;
+				for each (var panoramaData:PanoramaData in managerData.panoramasData) {
+					for each (var hotspotData:HotspotData in panoramaData.hotspotsData) {
+						if (hotspotData.id == target) {
+							found = true;
+							break;
 						}
+					}
+					if (found) break;
+				}
+				if (!found) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Target not found: " + functionData.owner + "[" + target + "]." + functionData.name));
+					return;
+				}
+				found = false;
+				for each (var componentData:ComponentData in managerData.factoriesData) {
+					if (componentData.name == functionData.owner) {
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Target must be assigned to factory: " + functionData.owner + "[" + target + "]." + functionData.name));
+					return;
+				}
+			}
+			if ((componentDescription.functionsDescription[functionData.name] as Vector.<Class>).length > 0){
+				for (var i:uint = 0; i < functionData.args.length; i++) {
+					if (!(functionData.args[i] is (componentDescription.functionsDescription[functionData.name] as Vector.<Class>)[i])) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+							"Wrong argument type in: " +
+							componentDescription.name + "." + functionData.name +
+							" got: " + functionData.args[i] +
+							" expected: " + getQualifiedClassName(componentDescription.functionsDescription[i]).match(/[^:]+$/)[0]));
+						return;
 					}
 				}
 			}

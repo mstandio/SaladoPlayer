@@ -33,12 +33,19 @@ package com.panozona.player.manager.utils.configuration {
 		protected var debugMode:Boolean = true;
 		
 		public function configureManagerData(managerData:ManagerData, settings:XML):void {
-			try {
-				managerData.debugMode = recognizeContent(settings.global.@debug);
-			}catch (e:Error){
-				managerData.debugMode = true;
+			if (settings.global != undefined) {
+				if (settings.global.@debug != undefined) {
+					var debugValue:*;
+					debugValue = recognizeContent(settings.global.@debug);
+					if (!(debugValue is Boolean)) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+							"Unrecognized main node: " + mainNodeName));
+					}else {
+						managerData.debugMode = debugValue;
+						debugMode = managerData.debugMode;
+					}
+				}
 			}
-			debugMode = managerData.debugMode;
 			var mainNodeName:String;
 			for each(var mainNode:XML in settings.children()) {
 				mainNodeName = mainNode.localName().toString();
@@ -62,7 +69,7 @@ package com.panozona.player.manager.utils.configuration {
 		protected function parseGlobal(managerData:ManagerData, globalNode:XML):void {
 			var globalChildNodeName:String;
 			for each(var globalChildNode:XML in globalNode.children()) {
-				globalChildNodeName = globalChildNode.localName().toString();
+				globalChildNodeName = globalChildNode.localName();
 				if (globalChildNodeName == "trace") {
 					parseTrace(managerData.traceData, globalChildNode);
 				}else if (globalChildNodeName == "stats") {
@@ -70,9 +77,9 @@ package com.panozona.player.manager.utils.configuration {
 				}else if (globalChildNodeName == "branding") {
 					parseBranding(managerData.brandingData, globalChildNode);
 				}else if (globalChildNodeName == "control") {
-					parseControl(managerData, globalChildNode);
+					parseControl(managerData.controlData, globalChildNode);
 				}else if (globalChildNodeName == "panoramas") {
-					parseGlobalPanoramas(managerData, globalChildNode);
+					parseGlobalPanoramas(managerData.allPanoramasData, globalChildNode);
 				}else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Unrecognized global node: " + globalChildNodeName));
@@ -80,14 +87,14 @@ package com.panozona.player.manager.utils.configuration {
 			}
 		}
 		
-		protected function parseGlobalPanoramas(managerData:ManagerData, globalPanoramasNode:XML):void {
+		protected function parseGlobalPanoramas(allPanoramasData:AllPanoramasData, globalPanoramasNode:XML):void {
 			var globalPanoAttributeName:String;
 			for each(var globalPanoAttribute:XML in globalPanoramasNode.attributes()) {
-				globalPanoAttributeName = globalPanoAttribute.localName().toString();
+				globalPanoAttributeName = globalPanoAttribute.localName();
 				if (globalPanoAttributeName == "firstPanorama") {
-					managerData.firstPanorama = getAttributeValue(globalPanoAttribute, String);
+					allPanoramasData.firstPanorama = getAttributeValue(globalPanoAttribute, String);
 				} else if (globalPanoAttributeName == "camera") {
-					applySubAttributes(managerData.params, globalPanoAttribute);
+					applySubAttributes(allPanoramasData.params, globalPanoAttribute);
 				} else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Unrecognized global panoramas attribute: " + globalPanoAttributeName));
@@ -95,20 +102,20 @@ package com.panozona.player.manager.utils.configuration {
 			}
 		}
 		
-		protected function parseControl(managerData:ManagerData, controlNode:XML):void {
+		protected function parseControl(controlData:ControlData, controlNode:XML):void {
 			var controlAttributeName:String;
 			for each(var controlAttribute:XML in controlNode.attributes()) {
-				controlAttributeName = controlAttribute.localName().toString();
+				controlAttributeName = controlAttribute.localName();
 				if (controlAttributeName == "autorotation") {
-					applySubAttributes(managerData.autorotationCameraData, controlAttribute);
+					applySubAttributes(controlData.autorotationCameraData, controlAttribute);
 				} else if (controlAttributeName == "transition") {
-					applySubAttributes(managerData.simpleTransitionData, controlAttribute);
+					applySubAttributes(controlData.simpleTransitionData, controlAttribute);
 				} else if (controlAttributeName == "keyboard") {
-					applySubAttributes(managerData.keyboardCameraData, controlAttribute);
+					applySubAttributes(controlData.keyboardCameraData, controlAttribute);
 				} else if (controlAttributeName == "mouseInertial") {
-					applySubAttributes(managerData.inertialMouseCameraData, controlAttribute);
+					applySubAttributes(controlData.inertialMouseCameraData, controlAttribute);
 				} else if (controlAttributeName == "mouseDrag") {
-					applySubAttributes(managerData.arcBallCameraData, controlAttribute);
+					applySubAttributes(controlData.arcBallCameraData, controlAttribute);
 				} else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Unrecognized control attribute: " + controlAttributeName));
@@ -119,7 +126,7 @@ package com.panozona.player.manager.utils.configuration {
 		protected function parseTrace(traceData:TraceData, traceNode:XML):void {
 			var traceAttributeName:String;
 			for each(var traceAttribute:XML in traceNode.attributes()) {
-				traceAttributeName = traceAttribute.localName().toString();
+				traceAttributeName = traceAttribute.localName();
 				if (traceAttributeName == "open") {
 					traceData.open = getAttributeValue(traceAttribute, String);
 				}else if (traceAttributeName == "size") {
@@ -138,7 +145,7 @@ package com.panozona.player.manager.utils.configuration {
 		protected function parseBranding(brandingData:BrandingData, brandingNode:XML):void {
 			var brandingAttributeName:String;
 			for each(var brandingAttribute:XML in brandingNode.attributes()) {
-				brandingAttributeName = brandingAttribute.localName().toString();
+				brandingAttributeName = brandingAttribute.localName();
 				if (brandingAttributeName == "visible") {
 					brandingData.visible = getAttributeValue(brandingAttribute, String);
 				}else if (brandingAttributeName == "align") {
@@ -155,7 +162,7 @@ package com.panozona.player.manager.utils.configuration {
 		protected function parseStats(statsData:StatsData, statsNode:XML):void {
 			var statsAttributeName:String;
 			for each(var statsAttribute:XML in statsNode.attributes()) {
-				statsAttributeName = statsAttribute.localName().toString();
+				statsAttributeName = statsAttribute.localName();
 				if (statsAttributeName == "visible") {
 					statsData.visible = getAttributeValue(statsAttribute, Boolean); // TODO: can be risky...
 				}else if (statsAttributeName == "align") {
@@ -175,20 +182,26 @@ package com.panozona.player.manager.utils.configuration {
 			var panoramaPath:*;
 			var panoramaAttributeName:String;
 			for each(var panoramaNode:XML in panoramasNode.elements()) {
-				panoramaId = recognizeContent(panoramaNode.@id);
-				panoramaPath = recognizeContent(panoramaNode.@path);
-				if (!panoramaId is String ) {
+				if (panoramaNode.@id == undefined) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Could not find panorama id."));
 					continue;
-				}else if (!panoramaPath is String) {
+				}
+				if (panoramaNode.@path == undefined) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Could not find panorama path."));
 					continue;
 				}
+				panoramaId = recognizeContent(panoramaNode.@id);
+				panoramaPath = recognizeContent(panoramaNode.@path);
+				if (!(panoramaId is String) || !(panoramaPath is String)) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Invalid panorama id or path format."));
+					continue;
+				}
 				panoramaData = new PanoramaData(panoramaId, panoramaPath);
 				for each(var panoramaAttribute:XML in panoramaNode.attributes()) {
-					panoramaAttributeName = panoramaAttribute.localName().toString();
+					panoramaAttributeName = panoramaAttribute.localName();
 					if (panoramaAttributeName == "camera") {
 						applySubAttributes(panoramaData.params, panoramaAttribute);
 					}else if (panoramaAttributeName == "onEnter") {
@@ -220,20 +233,25 @@ package com.panozona.player.manager.utils.configuration {
 			var hotspotId:*;
 			var hotspotAttributeName:String;
 			for each(var hotspotNode:XML in panoramaNode.elements()) {
-				hotspotId = recognizeContent(hotspotNode.@id);
-				if (!(hotspotId is String)) {
+				if(hotspotNode.@id == undefined) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Could not find hotspot id."));
 					continue;
 				}
+				hotspotId = recognizeContent(hotspotNode.@id);
+				if (!(hotspotId is String)) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Invalid hotspot id format: " + hotspotId));
+					continue;
+				}
 				hotspotData = new HotspotData(hotspotId);
 				for each (var hotspotAttribute:XML in hotspotNode) {
-					hotspotAttributeName = hotspotAttribute.localName().toString();
+					hotspotAttributeName = hotspotAttribute.localName();
 					if (hotspotAttributeName == "path") {
 						hotspotData.path = getAttributeValue(hotspotAttribute, String);
 					}else if (hotspotAttributeName == "location"){
 						applySubAttributes(hotspotData.location, hotspotAttribute);
-					}else if (hotspotAttributeName == "mause") {
+					}else if (hotspotAttributeName == "mouse") {
 						applySubAttributes(hotspotData.mouse, hotspotAttribute);
 					}else if (hotspotAttributeName == "transform") {
 						applySubAttributes(hotspotData.transform, hotspotAttribute);
@@ -241,10 +259,10 @@ package com.panozona.player.manager.utils.configuration {
 						applySubAttributes(hotspotData.swfArguments, hotspotAttribute);
 					}else if (hotspotAttributeName != "id") {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Unrecognized hotspot attribute: "+hotspotAttribute.localName().toString()));
+							"Unrecognized hotspot attribute: "+hotspotAttribute.localName()));
 					}
+					hotspotsData.push(hotspotData);
 				}
-				hotspotsData.push(hotspotData);
 			}
 		}
 		
@@ -256,21 +274,21 @@ package com.panozona.player.manager.utils.configuration {
 				if(componentDataNode.@path == undefined ) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"No path for component: " + componentDataNode.localName()));
-				}else {
-					componentDataPath = recognizeContent(componentDataNode.@path);
-					if (!(componentDataPath is String)) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Invalid path format" + componentDataNode.localName()));
-					}else{
-						componentData = new ComponentData(componentDataNode.localName(), componentDataPath);
-						for each(var componentChildNode:XML in componentDataNode.elements()) {
-							componentNode = new ComponentNode(componentChildNode.localName());
-							parseComponentNodeRecursive(componentNode, componentChildNode);
-							componentData.nodes.push(componentNode);
-						}
-						componentsData.push(componentData);
-					}
+					continue;
 				}
+				componentDataPath = recognizeContent(componentDataNode.@path);
+				if (!(componentDataPath is String)) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Invalid path format" + componentDataNode.localName()));
+					continue;
+				}
+				componentData = new ComponentData(componentDataNode.localName(), componentDataPath);
+				for each(var componentChildNode:XML in componentDataNode.elements()) {
+					componentNode = new ComponentNode(componentChildNode.localName());
+					parseComponentNodeRecursive(componentNode, componentChildNode);
+					componentData.nodes.push(componentNode);
+				}
+				componentsData.push(componentData);
 			}
 		}
 		
@@ -304,24 +322,29 @@ package com.panozona.player.manager.utils.configuration {
 				if (actionNode.@id == undefined) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Could not find action id."));
-				}else {
-					actionId = recognizeContent(actionNode.@id);
-					if (!(actionId is String)) {
+					continue;
+				}
+				if (actionNode.@content == undefined) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Could not find action content."));
+					continue;
+				}
+				actionId = recognizeContent(actionNode.@id);
+				if (!(actionId is String)) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Invalid action id format" + actionId));
+					continue;
+				}
+				actionData = new ActionData(actionId);
+				for each(var actionAttribute:XML in actionNode.attributes()) {
+					if (actionAttribute.localName() == "content") {
+						parseActionContent(actionData, actionAttribute);
+					}else if (actionAttribute.localName() != "id") {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Invalid action id format" + actionId));
-					}else {
-						actionData = new ActionData(actionId);
-						for each(var actionAttribute:XML in actionNode.attributes()) {
-							if (actionAttribute.localName().toString() == "content") {
-								parseActionContent(actionData, actionAttribute);
-							}else if (actionAttribute.localName().toString() != "id") {
-								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-									"Unrecognized action attribute: " + actionAttribute.localName()));
-							}
-						}
-						actionsData.push(actionData);
+							"Unrecognized action attribute: " + actionAttribute.localName()));
 					}
 				}
+				actionsData.push(actionData);
 			}
 		}
 		
@@ -342,18 +365,17 @@ package com.panozona.player.manager.utils.configuration {
 					if (singleFunctionArray.length < 2 || singleFunctionArray.length > 3) {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 							"Wrong format of function: " + singleFunction));
-					}else {
-						functionData = new FunctionData(singleFunctionArray[0], singleFunctionArray[1]);
-						 // function has parameters
-						if (singleFunctionArray.length == 3) {
-							allArguments = singleFunctionArray[2].split(",");
-							for each(singleArgument in allArguments) {
-								recognizedValue = recognizeContent(singleArgument);
-								functionData.args.push(recognizedValue);
-							}
-						}
-						actionData.functions.push(functionData);
+						continue;
 					}
+					functionData = new FunctionData(singleFunctionArray[0], singleFunctionArray[1]);
+					if (singleFunctionArray.length == 3) {
+						allArguments = singleFunctionArray[2].split(",");
+						for each(singleArgument in allArguments) {
+							recognizedValue = recognizeContent(singleArgument);
+							functionData.args.push(recognizedValue);
+						}
+					}
+					actionData.functions.push(functionData);
 				}else if (singleFunction.match(/^[\w]+\[[^\[\]]+\]\.[\w]+\(.*\)$/)) {
 					singleFunctionArray = singleFunction.match(/(^[\w]+)|(?<=(\w\[)).+(?=\]\.)|([\w]+(?=\())|((?<=\().+(?=\)))/g);
 					//owner.function(arguments)
@@ -364,18 +386,17 @@ package com.panozona.player.manager.utils.configuration {
 					if (singleFunctionArray.length < 3 || singleFunctionArray.length > 4) {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 							"Wrong format of function: " + singleFunction));
-					}else {
-						functionData = new TargetFunctionData(singleFunctionArray[0], singleFunctionArray[1], singleFunctionArray[2]);
-						 // function has parameters
-						if (singleFunctionArray.length == 4) {
-							allArguments = singleFunctionArray[3].split(",");
-							for each(singleArgument in allArguments) {
-								recognizedValue = recognizeContent(singleArgument);
-								functionData.args.push(recognizedValue);
-							}
-						}
-						actionData.functions.push(functionData);
+						continue;
 					}
+					functionData = new FunctionDataTarget(singleFunctionArray[0], singleFunctionArray[1], singleFunctionArray[2]);
+					if (singleFunctionArray.length == 4) {
+						allArguments = singleFunctionArray[3].split(",");
+						for each(singleArgument in allArguments) {
+							recognizedValue = recognizeContent(singleArgument);
+							functionData.args.push(recognizedValue);
+						}
+					}
+					actionData.functions.push(functionData);
 				}else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Wrong format of action content: " + singleFunction));
@@ -403,52 +424,50 @@ package com.panozona.player.manager.utils.configuration {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Invalid sub-attribute format: " + singleSubAttribute));
 					continue;
-				}else{
-					singleSubAttrArray = singleSubAttribute.match(/[^:]+/g);
-					recognizedValue = recognizeContent(singleSubAttrArray[1]);
-					if (!debugMode) {
-						object[singleSubAttrArray[0]] = recognizedValue;
-						continue;
-					}else {
-						if (object.hasOwnProperty(singleSubAttrArray[0])) {
-							if (object[singleSubAttrArray[0]] is Boolean) {
-								if (recognizedValue is Boolean) {
-									object[singleSubAttrArray[0]] = recognizedValue;
-								}else {
-									dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-										"Invalid attribute value (Boolean expected): " + singleSubAttribute));
-								}
-							}else if (object[singleSubAttrArray[0]] is Number) {
-								if(recognizedValue is Number){
+				}
+				singleSubAttrArray = singleSubAttribute.match(/[^:]+/g);
+				recognizedValue = recognizeContent(singleSubAttrArray[1]);
+				if (!debugMode) {
+					object[singleSubAttrArray[0]] = recognizedValue;
+				}else {
+					if (object.hasOwnProperty(singleSubAttrArray[0])) {
+						if (object[singleSubAttrArray[0]] is Boolean) {
+							if (recognizedValue is Boolean) {
 								object[singleSubAttrArray[0]] = recognizedValue;
-								}else {
-									dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-										"Invalid attribute value (Number expected): " + singleSubAttribute));
-								}
-							}else if (object[singleSubAttrArray[0]] is Function) {
-								if(recognizedValue is Function){
-									object[singleSubAttrArray[0]] = recognizedValue;
-								}else {
-									dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-										"Invalid attribute value (Function expected): " + singleSubAttribute));
-								}
-							}else if (object[singleSubAttrArray[0]] == null || object[singleSubAttrArray[0]] is String) {
-								if(recognizedValue is String){
-									object[singleSubAttrArray[0]] = recognizedValue; 
-								}else {
-									dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-										"Invalid attribute value (String expected): " + singleSubAttribute));
-								}
-							}
-						}else {
-							// check if creation of new atribute in object is possible
-							// used in onEnterSource, onLeaveTarget, ect.
-							try{
-								object[singleSubAttrArray[0]] = recognizedValue;
-							}catch (e:Error) {
+							}else {
 								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-									"Invalid attribute name (cannot apply): "+singleSubAttrArray[0]));
+									"Invalid attribute value (Boolean expected): " + singleSubAttribute));
 							}
+						}else if (object[singleSubAttrArray[0]] is Number) {
+							if(recognizedValue is Number){
+								object[singleSubAttrArray[0]] = recognizedValue;
+							}else {
+								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+									"Invalid attribute value (Number expected): " + singleSubAttribute));
+							}
+						}else if (object[singleSubAttrArray[0]] is Function) {
+							if(recognizedValue is Function){
+								object[singleSubAttrArray[0]] = recognizedValue;
+							}else {
+								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+									"Invalid attribute value (Function expected): " + singleSubAttribute));
+							}
+						}else if (object[singleSubAttrArray[0]] == null || object[singleSubAttrArray[0]] is String) {
+							if(recognizedValue is String){
+								object[singleSubAttrArray[0]] = recognizedValue; 
+							}else {
+								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+									"Invalid attribute value (String expected): " + singleSubAttribute));
+							}
+						}
+					}else {
+						// check if creation of new atribute in object is possible
+						// used in onEnterSource, onLeaveTarget, ect.
+						try{
+							object[singleSubAttrArray[0]] = recognizedValue;
+						}catch (e:Error) {
+							dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+								"Invalid attribute name (cannot apply): "+singleSubAttrArray[0]));
 						}
 					}
 				}
