@@ -1,15 +1,10 @@
 package test.com.panozona.player.manager.utils.configuration{
 	
 	import com.panozona.player.component.*;
-	import com.panozona.player.manager.data.actions.ActionData;
-	import com.panozona.player.manager.data.actions.FunctionDataTarget;
-	import com.panozona.player.manager.data.global.BrandingData;
-	import com.panozona.player.manager.data.global.ControlData;
-	import com.panozona.player.manager.data.global.StatsData;
-	import com.panozona.player.manager.data.global.TraceData;
-	import com.panozona.player.manager.data.ManagerData;
+	import com.panozona.player.manager.data.*;
+	import com.panozona.player.manager.data.global.*;
+	import com.panozona.player.manager.events.*;
 	import com.panozona.player.manager.utils.configuration.*;
-	import com.panozona.player.manager.utils.Stats;
 	import com.robertpenner.easing.*;
 	import flash.events.*;
 	import flexunit.framework.*;

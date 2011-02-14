@@ -1,12 +1,10 @@
 package test.com.panozona.player.manager.utils.configuration{
 	
 	import com.panozona.player.component.*;
-	import com.panozona.player.manager.data.actions.ActionData;
-	import com.panozona.player.manager.data.actions.FunctionData;
-	import com.panozona.player.manager.data.actions.FunctionDataTarget;
-	import com.panozona.player.manager.data.ManagerData;
-	import com.panozona.player.manager.data.panoramas.HotspotData;
-	import com.panozona.player.manager.data.panoramas.PanoramaData;
+	import com.panozona.player.manager.data.*;
+	import com.panozona.player.manager.data.actions.*;
+	import com.panozona.player.manager.data.panoramas.*;
+	import com.panozona.player.manager.events.*;
 	import com.panozona.player.manager.utils.configuration.*;
 	import com.robertpenner.easing.*;
 	import flash.events.*;

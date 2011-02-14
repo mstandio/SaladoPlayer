@@ -19,6 +19,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.manager.utils.loading{
 	
 	import com.panozona.player.manager.utils.loading.*;
+	import com.panozona.player.manager.events.*;
 	import flash.display.*;
 	import flash.events.*;
 	import flash.net.*;

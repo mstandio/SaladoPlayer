@@ -1,10 +1,10 @@
 package test.com.panozona.player.manager.utils.configuration{
 	
-	import com.panozona.player.manager.utils.configuration.ManagerDataParserXML;
-	import com.panozona.player.manager.utils.configuration.ConfigurationEvent;
+	import com.panozona.player.manager.events.*;
+	import com.panozona.player.manager.utils.configuration.*;
 	import com.robertpenner.easing.*;
-	import flash.events.Event;
-	import flexunit.framework.Assert;
+	import flash.events.*;
+	import flexunit.framework.*;
 	
 	public class ManagerDataParserXMLRecognize extends com.panozona.player.manager.utils.configuration.ManagerDataParserXML{
 		

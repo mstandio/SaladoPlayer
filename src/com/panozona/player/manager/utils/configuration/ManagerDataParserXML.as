@@ -20,6 +20,7 @@ package com.panozona.player.manager.utils.configuration {
 	
 	import com.panozona.player.component.*;
 	import com.panozona.player.manager.data.*;
+	import com.panozona.player.manager.events.*;
 	import com.panozona.player.manager.data.actions.*;
 	import com.panozona.player.manager.data.global.*;
 	import com.panozona.player.manager.data.panoramas.*;
