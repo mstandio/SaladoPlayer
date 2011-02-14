@@ -738,7 +738,7 @@ final public class Panorama
 				if (__loaders.length > 0) { tileLoader = __loaders[__loaders.length-1]; __loaders.length--; }
 				else 
 					tileLoader = new TileLoader(); 
-				__urlRequest.url = tile.url;  trace("tilw "+tile.url);
+				__urlRequest.url = tile.url;  //trace("tilw "+tile.url);
 				//loader.contentLoaderInfo.addEventListener(Event.COMPLETE, 	tile.bitmapLoadedHandler, 	false, 1, true);
 				tileLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, 	bitmapLoadedHandler,		false, 0, true); 
 				tileLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, 	IOErrorEventHandler, 	false, 0, true);

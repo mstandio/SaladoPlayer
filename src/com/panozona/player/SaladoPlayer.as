@@ -46,9 +46,10 @@ package com.panozona.player {
 		/**
 		 * Instance of class that aggregates and stores configuration data
 		 */
-		private const managerData:ManagerData = new ManagerData();
+		public const managerData:ManagerData = new ManagerData();
 		
-		private var loadedModules:Dictionary;
+		private var loadedModules:Dictionary; // a moze loaded components ???
+		
 		private var traceWindow:Trace;
 		
 		private var panorama:Panorama;
@@ -127,11 +128,11 @@ package com.panozona.player {
 				return;
 			}
 			
-			//var managerDataParserXML:ManagerDataParserXML = new ManagerDataParserXML(settings);
-			//managerDataParserXML.addEventListener(ConfigurationEvent.INFO, printConfigurationMessage, false, 0, true);
-			//managerDataParserXML.addEventListener(ConfigurationEvent.WARNING, printConfigurationMessage, false, 0, true);
-			//managerDataParserXML.addEventListener(ConfigurationEvent.ERROR, printConfigurationMessage, false, 0, true);
-			//managerDataParserXML.configureManagerData(managerData);
+			var managerDataParserXML:ManagerDataParserXML = new ManagerDataParserXML();
+			managerDataParserXML.addEventListener(ConfigurationEvent.INFO, printConfigurationMessage, false, 0, true);
+			managerDataParserXML.addEventListener(ConfigurationEvent.WARNING, printConfigurationMessage, false, 0, true);
+			managerDataParserXML.addEventListener(ConfigurationEvent.ERROR, printConfigurationMessage, false, 0, true);
+			managerDataParserXML.configureManagerData(managerData, settings);
 			
 			addChild(manager);
 			

@@ -69,6 +69,7 @@ package com.panozona.player.manager {
 		private function stageReady(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
 			_saladoPlayer = SaladoPlayer(this.parent.root);
+			_managerData = _saladoPlayer.managerData;
 		}
 		
 		public override function initialize(dependencies:Array):void {
@@ -83,6 +84,7 @@ package com.panozona.player.manager {
 		}
 		
 		public function loadFirstPanorama():void {
+			
 			if (_managerData.allPanoramasData.firstPanorama != null) {
 				loadPanoramaById(_managerData.allPanoramasData.firstPanorama);
 			}else {

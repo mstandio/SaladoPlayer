@@ -1,27 +1,27 @@
 ﻿/*
-Copyright 2010 Marek Standio.
+Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
 
 SaladoPlayer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published 
-by the Free Software Foundation, either version 3 of the License, 
+it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
 
 SaladoPlayer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+but WITHOUT ANY WARRANTY; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
+along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.viewfinder{
 	
 	import com.panozona.modules.viewfinder.data.*;
-	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.Module;
+	import com.panozona.player.component.Component;
+	import com.panozona.player.component.ComponentData;
+	import com.panozona.player.component.data.property.Align
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
@@ -33,7 +33,7 @@ package com.panozona.modules.viewfinder{
 	 * 
 	 * @see http://panozona.com/wiki/Module:ViewFinder
 	 */
-	public class ViewFinder extends Module {
+	public class ViewFinder extends Component {
 		
 		private var txtOutput:TextField;
 		private var txtFormat:TextFormat;
@@ -48,10 +48,11 @@ package com.panozona.modules.viewfinder{
 		 * @see com.panozona.player.module.Module#Module()
 		 */
 		public function ViewFinder() {
-			super("ViewFinder", 0.5, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:ViewFinder");
-			aboutThisModule = "This module shows pan, tilt and field of view of current camera view, " +
-			"marked as a circle in the middle of panorama window. Module is usefull i.e. for determining "+
-			"position of hotspots during configuration process.";
+			super("ViewFinder", 0.5, "http://panozona.com/wiki/Module:ViewFinder");
+			// aboutThisComponent = "This module shows pan, tilt and field of view of current camera view, " +
+			// "marked as a circle in the middle of panorama window. Module is usefull i.e. for determining "+
+			// "position of hotspots during configuration process.";
+			// co z tym gownem trzeba bedzie zrobic 
 		}
 		
 		/**
@@ -61,9 +62,9 @@ package com.panozona.modules.viewfinder{
 		 * 
 		 * @param	moduleData Structure containing module configuration data.
 		 */
-		override protected function moduleReady(moduleData:ModuleData):void {
+		override protected function componentReady(componentData:ComponentData):void {
 			
-			viewFinderData = new ViewFinderData(moduleData, debugMode); // allways first
+			viewFinderData = new ViewFinderData(componentData, debugMode); // allways first
 			
 			pointer = new Sprite();
 			pointer.graphics.beginFill(0x000000);
@@ -99,23 +100,20 @@ package com.panozona.modules.viewfinder{
 		}
 		
 		private function handleStageResize(e:Event = null):void {
-			
 			if (viewFinderData.settings.align.horizontal == Align.LEFT) {
 				txtOutput.x = 0;
 			}else if (viewFinderData.settings.align.horizontal == Align.RIGHT) {
 				txtOutput.x = boundsWidth - txtOutput.width;
-			}else if (viewFinderData.settings.align.horizontal == Align.CENTER) {
+			}else { // CENTER
 				txtOutput.x = (boundsWidth - txtOutput.width) * 0.5;
 			}
-			
 			if (viewFinderData.settings.align.vertical == Align.TOP){
 				txtOutput.y = 0;
-			}else if (viewFinderData.settings.align.vertical == Align.MIDDLE) {
-				txtOutput.y = (boundsHeight - txtOutput.height) * 0.5;
 			}else if (viewFinderData.settings.align.vertical == Align.BOTTOM) {
 				txtOutput.y = boundsHeight - txtOutput.height;
+			}else { // MIDDLE
+				txtOutput.y = (boundsHeight - txtOutput.height) * 0.5;
 			}
-			
 			txtOutput.x += viewFinderData.settings.move.horizontal;
 			txtOutput.y += viewFinderData.settings.move.vertical;
 			

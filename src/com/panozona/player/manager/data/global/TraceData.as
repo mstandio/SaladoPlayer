@@ -22,6 +22,7 @@ package com.panozona.player.manager.data.global{
 	
 	public class TraceData {
 		public var open:Boolean = false;
+		public var lineLimit:Number = 100;
 		public const size:Size = new Size(400, 100);
 		public const align:Align = new Align(Align.RIGHT, Align.TOP);
 		public const move:Move = new Move(0, 0);

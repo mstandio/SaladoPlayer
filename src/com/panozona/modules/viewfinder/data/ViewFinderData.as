@@ -18,9 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.viewfinder.data{
 	
-	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.data.structure.Master;
+	import com.panozona.player.component.ComponentData;
+	import com.panozona.player.component.ComponentNode;
+	import com.panozona.player.component.data.structure.Translator;
 	
 	/**
 	 * Part od ViewFinder module, translates moduleData 

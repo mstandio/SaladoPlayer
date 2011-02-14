@@ -41,7 +41,7 @@ package com.panozona.player.manager.utils {
 		private var buffer:String;
 		private var styleSheet:StyleSheet;
 		
-		private const btnSize:Number = 20;
+		private var lineCount:Number = 0;
 		
 		private var window:Sprite;
 		private var btnOpen:Sprite;
@@ -60,7 +60,6 @@ package com.panozona.player.manager.utils {
 		}
 		
 		public function Trace() {
-			
 			if (__instance != null) throw new Error("Trace is a singleton class; please access the single instance with Trace.instance.");
 			
 			buffer = "";
@@ -78,8 +77,8 @@ package com.panozona.player.manager.utils {
 			
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
 			
-			//traceData = (this.parent as SaladoPlayer).managerData.traceData;
-			//debugMode = (this.parent as SaladoPlayer).managerData.debugMode;
+			traceData = (this.parent as SaladoPlayer).managerData.traceData;
+			debugMode = (this.parent as SaladoPlayer).managerData.debugMode;
 			
 			if (!debugMode){
 				buffer = "";
@@ -88,6 +87,8 @@ package com.panozona.player.manager.utils {
 				if (isNaN(traceData.size.width)  || traceData.size.width  < 100) traceData.size.width = 100;
 				if (isNaN(traceData.size.height) || traceData.size.height < 50) traceData.size.height = 50;
 			}
+			
+			var btnSize:Number = 20;
 			
 			var txtFormat:TextFormat = new TextFormat();
 			txtFormat.font = "Courier"
@@ -216,6 +217,7 @@ package com.panozona.player.manager.utils {
 				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"error\">" + message + "</span><br/>";
 				if (output != null) {
 					output.htmlText += htmMessage;
+					countAndTruncate();
 					output.scrollV = output.maxScrollV;
 				}else{
 					buffer += htmMessage;
@@ -229,6 +231,7 @@ package com.panozona.player.manager.utils {
 				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"warning\">" + message + "</span><br/>";
 				if (output != null) {
 					output.htmlText += htmMessage;
+					countAndTruncate();
 					output.scrollV = output.maxScrollV;
 				}else{
 					buffer += htmMessage;
@@ -242,10 +245,21 @@ package com.panozona.player.manager.utils {
 				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"info\">" + message + "</span><br/>";
 				if (output != null) {
 					output.htmlText += htmMessage;
+					countAndTruncate();
 					output.scrollV = output.maxScrollV;
 				}else{
 					buffer += htmMessage;
 				}
+			}
+		}
+		
+		private function countAndTruncate():void {
+			lineCount++;
+			if (lineCount > traceData.lineLimit) {
+				output.htmlText = output.htmlText.substring(output.htmlText.indexOf("<span class=\"line\">)"));
+				output.htmlText = output.htmlText.substring(output.htmlText.indexOf("<span class=\"line\">)"));
+				output.htmlText = output.htmlText.substring(output.htmlText.indexOf("<span class=\"line\">)"));
+				lineCount = -3;
 			}
 		}
 		
@@ -314,6 +328,12 @@ package com.panozona.player.manager.utils {
 				btnOpen.y = (boundsHeight - btnOpen.height)*0.5;
 				window.y = (boundsHeight - traceData.size.height)*0.5;
 			}
+			
+			btnOpen.x += traceData.move.horizontal;
+			window.x += traceData.move.horizontal;
+			
+			btnOpen.y += traceData.move.vertical;
+			window.y += traceData.move.vertical;
 		}
 	}
 }

@@ -18,8 +18,8 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.viewfinder.data {
 	
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.component.data.property.Align;
+	import com.panozona.player.component.data.property.Move;
 	
 	/**
 	 * Part of ViewFinder module, stores data used for module configuration.

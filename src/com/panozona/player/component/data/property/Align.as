@@ -18,7 +18,10 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.component.data.property{
 	
-	public class Align{
+	import flash.events.EventDispatcher;
+	import com.panozona.player.component.events.ConfigurationEvent;
+	
+	public class Align extends EventDispatcher{
 		
 		public static const RIGHT:String = "right";
 		public static const LEFT:String = "left";
@@ -39,6 +42,8 @@ package com.panozona.player.component.data.property{
 		public function set horizontal(value:String):void {
 			if (value == Align.RIGHT || value == Align.LEFT || value == Align.CENTER) {
 				_horizontal = value;
+			}else {
+				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Invalid align horizontal value: " + value));
 			}
 		}
 		
@@ -49,6 +54,8 @@ package com.panozona.player.component.data.property{
 		public final function set vertical(value:String):void {
 			if (value == Align.BOTTOM || value == Align.TOP || value == Align.MIDDLE) {
 				_vertical = value;
+			}else {
+				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Invalid align vertical value: " + value));
 			}
 		}
 		

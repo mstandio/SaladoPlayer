@@ -1,39 +1,30 @@
 ﻿/*
-Copyright 2010 Marek Standio.
+Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
 
 SaladoPlayer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published 
-by the Free Software Foundation, either version 3 of the License, 
+it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
 
 SaladoPlayer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+but WITHOUT ANY WARRANTY; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
+along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils{
 	
-	import flash.display.Sprite;
-	import flash.display.Bitmap;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.net.URLRequest;
-	import flash.net.navigateToURL;
+	import com.panozona.player.component.data.property.*;
+	import com.panozona.player.manager.data.global.*;
+	import com.panozona.player.manager.utils.*;
+	import flash.display.*;
+	import flash.events.*;
+	import flash.net.*;
 	
-	import com.panozona.player.SaladoPlayer;
-	import com.panozona.player.manager.data.global.BrandingData;
-	import com.panozona.player.manager.data.global.Align;
-	//import com.panozona.player.manager.data.global.Move;
-	
-	/**
-	* ...
-	* @author mstandio
-	*/
 	public class Branding extends Sprite{
 		
 		[Embed(source="../assets/powered_by_saladoplayer.png")]
@@ -43,23 +34,20 @@ package com.panozona.player.manager.utils{
 		
 		private var brandingData:BrandingData;
 		
-		public function Branding() {
+		public function Branding(brandingData:BrandingData) {
+			this.brandingData = brandingData;
 			
 			if (stage) stageReady();
 			else addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
 		}
 		
 		private function stageReady(e:Event = null):void {
-			
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
-			
-			brandingData = (this.parent as SaladoPlayer).managerData.brandingData;
-			
 			brandingButton = new Sprite();
 			brandingButton.alpha = brandingData.alpha;
 			brandingButton.buttonMode = true;
 			brandingButton.addChild(new Bitmap(new Bitmap_pbsp().bitmapData, "auto", true));
-			brandingButton.addEventListener(MouseEvent.MOUSE_DOWN, gotoPanoZona, false, 0, true);
+			brandingButton.addEventListener(MouseEvent.CLICK, gotoPanoZona, false, 0, true);
 			addChild(brandingButton);
 			
 			stage.addEventListener(Event.RESIZE, handleStageResize);
@@ -95,7 +83,7 @@ package com.panozona.player.manager.utils{
 			try {
 				navigateToURL(request, '_BLANK');
 			} catch (error:Error) {
-				(this.parent as SaladoPlayer).tracer.printWarning("Could not open http://panozona.com/");
+				Trace.printWarning("Could not open: http://panozona.com/");
 			}
 		}
 	}

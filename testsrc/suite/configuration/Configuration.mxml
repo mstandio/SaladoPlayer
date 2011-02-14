@@ -16,6 +16,7 @@
 		
 		import suite.configuration.Parser;
 		import suite.configuration.Validator;
+		import suite.configuration.Translator;
 		
 		private var core:FlexUnitCore;
 		
@@ -23,7 +24,7 @@
 			core = new FlexUnitCore();
 			core.addListener( new UIListener( uiListener ));
 			
-			core.run(Parser, Validator);
+			core.run(Parser, Validator, Translator);
 		}
 		
 		]]>
