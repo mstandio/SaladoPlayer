@@ -48,9 +48,10 @@ package com.panozona.player {
 		 */
 		public const managerData:ManagerData = new ManagerData();
 		
-		private var loadedModules:Dictionary; // a moze loaded components ???
+		public const traceWindow:Trace.instance;
 		
-		private var traceWindow:Trace;
+		private var loadedModules:Dictionary;
+		private var loadedFactories:Dictionary;
 		
 		private var panorama:Panorama;
 		private var stageReference:StageReference;
@@ -65,7 +66,7 @@ package com.panozona.player {
 		public function SaladoPlayer() {
 			
 			loadedModules = new Dictionary();
-			traceWindow = Trace.instance;
+			loadedFactories = new Dictionary();
 			
 			panorama = new Panorama(); // Singleton
 			resizer = new Resizer();

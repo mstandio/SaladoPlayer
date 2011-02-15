@@ -18,59 +18,47 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.component{
 	
-	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.ApplicationDomain;
 	
 	public class Component extends Sprite {
 		
-		/**
-		 * Short description displayed when module is opened as standalone *.swf file
-		 */
-		protected var aboutThisComponent:String; 
-		
 		private var _componentData:ComponentData;
 		private var _componentDescription:ComponentDescription;
 		private var _saladoPlayer:Object;
 		
-		
-		public function Component(componentName:String, componentVersion:String, homeUrl:String){
-			_componentDescription = new ComponentDescription(componentName, componentVersion, homeUrl);
-			aboutThisComponent = "This is SaladoPlayer 1.x component."; // default information
-			addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
+		public function Component(componentName:String, componentVersion:String){
+			_componentDescription = new ComponentDescription(componentName, componentVersion);
 		}
 		
-		private function stageReady(e:Event):void {
-			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
+		/**
+		 * Reference set by SaladoPlayer when component is accepted.
+		 * Calls componentReady overriden by descendant. 
+		 * function componentReady is surrounded with try/catch
+		 */
+		public function set saladoPlayer(value:Object):void {
+			if (_saladoPlayer != null) return;
+			var SaladoPlayerClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.SaladoPlayer") as Class;
+			_saladoPlayer = value as SaladoPlayerClass;
+			_componentData = _saladoPlayer.managerData.getComponentDataByName(_componentDescription.name) as ComponentData;
 			try {
-				var SaladoPlayerClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.SaladoPlayer") as Class;
-				_saladoPlayer = this.parent as SaladoPlayerClass;
-				_moduleData = new ModuleData(saladoPlayer.managerData.getAbstractModuleDataByName(_moduleDescription.moduleName));
-				try {
-					moduleReady(_moduleData);
-				}catch (error:Error) { // error in module ready function, possibly coused by configuration inconsistency
-					while(numChildren) {removeChildAt(0);}
-					printError(error.message);
-					trace(error.getStackTrace());
-				}
-			}catch (error:Error) { // could not obtain SaladoPlayer reference
-				while(numChildren){removeChildAt(0);}
-				//addChild(new ModuleInfoPrinter(_moduleDescription));
+				componentReady(_componentData);
+			}catch (error:Error) {
+				while (numChildren) {removeChildAt(0);}
+				printError(error.message);
 				trace(error.getStackTrace());
 			}
 		}
 		
-		/**
-		 * Entry point for component, at this point it is allready added to stage and it obtained reference to Saladoplayer.
-		 * In this function raw configuration should be parsed and validated. Function is surrounded with try - catch block
-		 * in case of any errors all children will be removed and error will be printed in [trace] window as well as in 
-		 * standard trace.
-		 * @param	moduleData Raw module configuration data.
-		 */
 		protected function componentReady(componentData:ComponentData):void {
-			throw new Error("Function componentReady() must be overriden by this component.");
+			throw new Error("Function componentReady() must be overriden.");
 		}
+		
+		public function extecute(functionData:Object):void {
+			throw new Error("Function extecute() must be overriden.");
+		}
+		
 		/**
 		 * Ready to use SaladoPlayer reference.
 		 */
@@ -109,19 +97,6 @@ package com.panozona.player.component{
 		 */
 		public final function get boundsHeight():Number {
 			return saladoPlayer.manager.boundsHeight;
-		}
-		
-		/**
-		 * Used by SaladoPlayer to execute functions on module. It can also be used by other modules.
-		 * 
-		 * @param	functionName name of module function
-		 * @param	args Array of arguments applied to module function
-		 * @return  any type returned by given function
-		 */
-		public final function execute(functionName:String, args:Array):*{ // tutaj trzeba bedzie podejsc inaczej ...
-			if(_componentDescription.functionsDescription.hasOwnProperty(functionName)) {
-				return (this[functionName] as Function).apply(this, args);
-			}
 		}
 		
 		/**

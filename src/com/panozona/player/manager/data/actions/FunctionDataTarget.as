@@ -21,21 +21,19 @@ package com.panozona.player.manager.data.actions{
 	/**
 	 * Stores function description: function owner, target, function name and function arguments.
 	 * Same as in FunctionData but owner can be only a Factory and target referrs to factory product.
-	 * For instance: owner[target].name(arguments)
+	 * For instance: owner[target,target2].name(arguments)
 	 * 
 	 * @see FunctionData
 	 */
 	public class FunctionDataTarget extends FunctionData{
 		
-		private var _target:String;
+		public const targets:Vector.<String> = new Vector.<String>;
 		
-		public function FunctionDataTarget(owner:String, target:String, name:String) {
+		public function FunctionDataTarget(owner:String, targets:Array, name:String) {
+			for each (var target:String in targets) {
+				this.targets.push(target);
+			}
 			super (owner, name);
-			_target = target;
-		}
-		
-		public function get target():String {
-			return _target;
 		}
 	}
 }

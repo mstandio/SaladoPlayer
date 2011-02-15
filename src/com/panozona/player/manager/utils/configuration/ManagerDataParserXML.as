@@ -132,8 +132,13 @@ package com.panozona.player.manager.utils.configuration {
 					traceData.open = getAttributeValue(traceAttribute, String);
 				}else if (traceAttributeName == "size") {
 					applySubAttributes(traceData.size, traceAttribute);
-				}else if (traceAttributeName == "align") {
-					applySubAttributes(traceData.align, traceAttribute);
+				}else if (traceAttributeName == "align"){
+					try{
+						applySubAttributes(traceData.align, traceAttribute);
+					}catch (error:Error) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+							error.message));
+					}
 				}else if (traceAttributeName == "move") {
 					applySubAttributes(traceData.move, traceAttribute);
 				}else {
@@ -150,7 +155,12 @@ package com.panozona.player.manager.utils.configuration {
 				if (brandingAttributeName == "visible") {
 					brandingData.visible = getAttributeValue(brandingAttribute, String);
 				}else if (brandingAttributeName == "align") {
-					applySubAttributes(brandingData.align, brandingAttribute);
+					try{
+						applySubAttributes(brandingData.align, brandingAttribute);
+					}catch (error:Error) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+							error.message));
+					}
 				}else if (brandingAttributeName == "move") {
 					applySubAttributes(brandingData.move, brandingAttribute);
 				}else {
@@ -167,7 +177,12 @@ package com.panozona.player.manager.utils.configuration {
 				if (statsAttributeName == "visible") {
 					statsData.visible = getAttributeValue(statsAttribute, Boolean); // TODO: can be risky...
 				}else if (statsAttributeName == "align") {
-					applySubAttributes(statsData.align, statsAttribute);
+					try{
+						applySubAttributes(statsData.align, statsAttribute);
+					}catch (error:Error) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+							error.message));
+					}
 				}else if (statsAttributeName == "move") {
 					applySubAttributes(statsData.move, statsAttribute);
 				}else {
@@ -232,6 +247,7 @@ package com.panozona.player.manager.utils.configuration {
 		protected function parseHotspots(hotspotsData:Vector.<HotspotData>, panoramaNode:XML):void {
 			var hotspotData:HotspotData;
 			var hotspotId:*;
+			var hotspotAttr:*;
 			var hotspotAttributeName:String;
 			for each(var hotspotNode:XML in panoramaNode.elements()) {
 				if(hotspotNode.@id == undefined) {
@@ -245,20 +261,42 @@ package com.panozona.player.manager.utils.configuration {
 						"Invalid hotspot id format: " + hotspotId));
 					continue;
 				}
-				hotspotData = new HotspotData(hotspotId);
+				if (hotspotNode.@path != undefined) {
+					hotspotAttr = recognizeContent(hotspotNode.@path);
+					if (!(hotspotAttr is String)) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+							"Invalid hotspot path format: " + hotspotId));
+						continue;
+					}
+					hotspotData = new HotspotDataLoad(hotspotId, hotspotAttr);
+					if (hotspotNode.@arguemtns != undefined) {
+						applySubAttributes((hotspotData as HotspotDataLoad).swfArguments, hotspotNode.@arguemtns);
+					}
+				}else if (hotspotNode.@factory != undefined) {
+					hotspotAttr = recognizeContent(hotspotNode.@factory);
+					if (!(hotspotAttr is String)) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+							"Invalid hotspot factory format: " + hotspotId));
+						continue;
+					}
+					hotspotData = new HotspotDataProduct(hotspotId, hotspotAttr);
+				}else {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Invalid hotspot type: " + hotspotId));
+					continue;
+				}
 				for each (var hotspotAttribute:XML in hotspotNode) {
 					hotspotAttributeName = hotspotAttribute.localName();
-					if (hotspotAttributeName == "path") {
-						hotspotData.path = getAttributeValue(hotspotAttribute, String);
-					}else if (hotspotAttributeName == "location"){
+					if (hotspotAttributeName == "location"){
 						applySubAttributes(hotspotData.location, hotspotAttribute);
 					}else if (hotspotAttributeName == "mouse") {
 						applySubAttributes(hotspotData.mouse, hotspotAttribute);
 					}else if (hotspotAttributeName == "transform") {
 						applySubAttributes(hotspotData.transform, hotspotAttribute);
-					}else if (hotspotAttributeName == "arguments") {
-						applySubAttributes(hotspotData.swfArguments, hotspotAttribute);
-					}else if (hotspotAttributeName != "id") {
+					}else if (hotspotAttributeName != "id" ||
+						hotspotAttributeName != "path" ||
+						hotspotAttributeName != "factory" ||
+						hotspotAttributeName != "arguments"){
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 							"Unrecognized hotspot attribute: "+hotspotAttribute.localName()));
 					}
@@ -389,7 +427,7 @@ package com.panozona.player.manager.utils.configuration {
 							"Wrong format of function: " + singleFunction));
 						continue;
 					}
-					functionData = new FunctionDataTarget(singleFunctionArray[0], singleFunctionArray[1], singleFunctionArray[2]);
+					functionData = new FunctionDataTarget(singleFunctionArray[0],singleFunctionArray[1].split(","), singleFunctionArray[2]);
 					if (singleFunctionArray.length == 4) {
 						allArguments = singleFunctionArray[3].split(",");
 						for each(singleArgument in allArguments) {

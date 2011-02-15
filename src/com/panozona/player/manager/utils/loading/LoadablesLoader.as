@@ -35,8 +35,9 @@ package com.panozona.player.manager.utils.loading{
 			loaders = new Vector.<Loader>();
 			var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);
 			for (var i:int = 0; i < loadables.length; i++) {
-				if (loadables[i].path == null || !loadables[i].path.match(/^.+(.jpg|.jpeg|.png|.bmp|.gif|.swf)$/i)) {
+				if (loadables[i].path == null || !loadables[i].path.match(/^.+(.jpg|.jpeg|.png|.gif|.swf)$/i)) {
 					dispatchEvent(new LoadLoadableEvent(LoadLoadableEvent.LOST, loadables[i].path));
+					loaders[i] = null;
 					continue;
 				}
 				loaders[i] = new Loader();
@@ -44,6 +45,17 @@ package com.panozona.player.manager.utils.loading{
 				loaders[i].contentLoaderInfo.addEventListener(Event.COMPLETE, loadableLoaded);
 				loaders[i].load(new URLRequest(loadables[i].path), context);
 			}
+			checkLoadingState(); // perhaps there is nothing to load 
+		}
+		
+		public function abort():void{
+			for (var i:int = 0; i < loaders.length; i++) {
+				if (loaders[i] != null) {
+					loaders[i].unload();
+					loaders[i] = null;
+				}
+			}
+			dispatchEvent(new LoadLoadableEvent(LoadLoadableEvent.ABORTED));
 		}
 		
 		private function loadableLost(e:IOErrorEvent):void {
@@ -78,7 +90,7 @@ package com.panozona.player.manager.utils.loading{
 					return;
 				}
 			}
-			dispatchEvent(new LoadLoadableEvent(LoadLoadableEvent.FINISHED, null)); // TODO: argh
+			dispatchEvent(new LoadLoadableEvent(LoadLoadableEvent.FINISHED));
 		}
 	}
 }

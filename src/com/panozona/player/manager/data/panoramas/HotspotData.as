@@ -21,17 +21,15 @@ package com.panozona.player.manager.data.panoramas {
 	import com.panozona.player.component.data.property.*;
 	import flash.display.*;
 	
-	public class HotspotData {
+	public class HotspotData{
 		
 		public const location:Location = new Location();
 		public const transform:Transform = new Transform();
-		public const mouse:Mouse = new Mouse();
-		public const swfArguments:Object = new Object();
 		
-		public var path:String; 
-		public var factory:String;
-		public var content:DisplayObject;
+		public const mouse:Mouse = new Mouse();
 		public var handCursor:Boolean = true;
+		
+		public var content:DisplayObject;
 		
 		private var _id:String;
 		

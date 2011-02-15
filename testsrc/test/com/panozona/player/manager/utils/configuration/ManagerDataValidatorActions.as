@@ -102,15 +102,15 @@ package test.com.panozona.player.manager.utils.configuration{
 			
 			managerData.actionsData.push(new ActionData("act1"));
 			
-			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", "hs_a_a", "fun_b_emp"));
+			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", ["hs_a_a"], "fun_b_emp"));
 			
-			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", "hs_a_a", "fun_b_num"));
+			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", ["hs_a_a"], "fun_b_num"));
 			managerData.actionsData[0].functions[1].args.push(-12.12);
 			
-			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", "hs_a_b", "fun_b_boo"));
+			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", ["hs_a_b"], "fun_b_boo"));
 			managerData.actionsData[0].functions[2].args.push(false);
 			
-			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", "hs_a_b", "fun_b_all"));
+			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", ["hs_a_b"], "fun_b_all"));
 			managerData.actionsData[0].functions[3].args.push("string");
 			managerData.actionsData[0].functions[3].args.push(-12.12);
 			managerData.actionsData[0].functions[3].args.push(false);
@@ -129,10 +129,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			managerData.actionsData.push(new ActionData("act1"));
 			
 			// nonexistant target
-			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", "hs_nonexixtant", "fun_b_emp"));
+			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", ["hs_nonexixtant"], "fun_b_emp"));
 			
 			// target for module
-			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_a", "hs_a_a", "fun_a_emp"));
+			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_a", ["hs_a_a"], "fun_a_emp"));
 			
 			validate(managerData);
 			

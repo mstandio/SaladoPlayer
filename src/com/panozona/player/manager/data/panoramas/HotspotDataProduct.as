@@ -16,12 +16,19 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.component {
+package com.panozona.player.manager.data.panoramas{
 	
-	public class ComponentDescriptionPrinter {
+	public class HotspotDataProduct extends HotspotData{
 		
-		public function ComponentDescriptionPrinter() {
-			
+		private var _factory:String;
+		
+		public function HotspotDataProduct(id:String, factory:String):void {
+			super(id);
+			_factory = factory;
+		}
+		
+		public function get factory():String {
+			return _factory;
 		}
 	}
 }

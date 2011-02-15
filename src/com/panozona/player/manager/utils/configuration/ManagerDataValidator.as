@@ -196,27 +196,28 @@ package com.panozona.player.manager.utils.configuration{
 				return;
 			}
 			if (functionData is FunctionDataTarget ) {
-				var target:String = (functionData as FunctionDataTarget).target;
-				var found:Boolean;
-				for each (var panoramaData:PanoramaData in managerData.panoramasData) {
-					for each (var hotspotData:HotspotData in panoramaData.hotspotsData) {
-						if (hotspotData.id == target) {
+				for each(var target:String in (functionData as FunctionDataTarget).targets){
+					var found:Boolean;
+					for each (var panoramaData:PanoramaData in managerData.panoramasData) {
+						for each (var hotspotData:HotspotData in panoramaData.hotspotsData) {
+							if (hotspotData.id == target) {
+								found = true;
+								break;
+							}
+						}
+						if (found) break;
+					}
+					if (!found) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+							"Target not found: " + functionData.owner + "[" + target + "]." + functionData.name));
+						return;
+					}
+					found = false;
+					for each (var componentData:ComponentData in managerData.factoriesData) {
+						if (componentData.name == functionData.owner) {
 							found = true;
 							break;
 						}
-					}
-					if (found) break;
-				}
-				if (!found) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Target not found: " + functionData.owner + "[" + target + "]." + functionData.name));
-					return;
-				}
-				found = false;
-				for each (var componentData:ComponentData in managerData.factoriesData) {
-					if (componentData.name == functionData.owner) {
-						found = true;
-						break;
 					}
 				}
 				if (!found) {

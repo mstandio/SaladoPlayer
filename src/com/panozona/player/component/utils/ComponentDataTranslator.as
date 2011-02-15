@@ -19,13 +19,11 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.component.utils{
 	
 	import com.panozona.player.component.ComponentNode;
-	import com.panozona.player.component.events.ConfigurationEvent;
 	import com.panozona.player.component.data.structure.DataParent;
-	import flash.events.EventDispatcher;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	
-	public class ComponentDataTranslator extends EventDispatcher{
+	public class ComponentDataTranslator{
 		
 		protected var debugMode:Boolean;
 		

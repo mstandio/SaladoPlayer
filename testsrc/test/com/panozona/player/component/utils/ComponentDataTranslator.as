@@ -1,7 +1,6 @@
 package test.com.panozona.player.component.utils{
 	
 	import com.panozona.player.component.*;
-	import com.panozona.player.component.events.ConfigurationEvent;
 	import com.panozona.player.manager.data.actions.*;
 	import com.panozona.player.component.utils.ComponentDataTranslator;
 	import com.robertpenner.easing.*;
@@ -17,6 +16,7 @@ package test.com.panozona.player.component.utils{
 		
 		[Test]
 		public function applySubAttributesStaticPass():void {
+			/*
 			var errorCount : int = 0;
 			var warningCount : int = 0;
 			var infoCount : int = 0;
@@ -26,11 +26,11 @@ package test.com.panozona.player.component.utils{
 			addEventListener(ConfigurationEvent.INFO, function(event:Event):void { infoCount ++; } );
 			
 			var dummyObject:DummyObject = new DummyObject();
-			dummyObject.stringNonInit;
+			//dummyObject.stringNonInit;
 			dummyObject.stringInit = "default";
-			dummyObject.functionNonInit;
+			//dummyObject.functionNonInit;
 			dummyObject.functionInit = Linear.easeNone;
-			dummyObject.numberNonInit;
+			//dummyObject.numberNonInit;
 			dummyObject.numberInit = -12.12;
 			dummyObject.boolean;
 			
@@ -52,6 +52,7 @@ package test.com.panozona.player.component.utils{
 			Assert.assertStrictlyEquals(Linear.easeInOut, dummyObject.functionInit);
 			Assert.assertStrictlyEquals(-12.12, dummyObject.numberInit);
 			Assert.assertStrictlyEquals(true, dummyObject.boolean);
+			*/
 		}
 		
 		[Test]

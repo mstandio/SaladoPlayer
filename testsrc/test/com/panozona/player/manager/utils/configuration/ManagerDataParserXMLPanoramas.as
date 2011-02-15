@@ -16,9 +16,9 @@ package test.com.panozona.player.manager.utils.configuration{
 			var hotspotsData:Vector.<HotspotData> = new Vector.<HotspotData>();
 			var nodeXML:XML = new XML(
 			"<root>" +
-				"<hotspot id=\"hs1\"/>" + 
-				"<hotspot id=\"hs2\"/>" +
-				"<hotspot id=\"hs3\"/>" +
+				"<hotspot id=\"hs1\" path=\"hspath\"/>" + 
+				"<hotspot id=\"hs2\" path=\"hspath\"/>" +
+				"<hotspot id=\"hs3\" path=\"hspath\"/>" +
 			"</root>");
 			parseHotspots(hotspotsData, nodeXML);
 			
@@ -52,11 +52,11 @@ package test.com.panozona.player.manager.utils.configuration{
 			var nodeXML:XML = new XML(
 				"<root>" +
 					"<panorama id=\"pano1\" path=\"path1\">" +
-						"<hotspot id=\"hs1\"/>" +
+						"<hotspot id=\"hs1\" path=\"hspath\"/>" +
 					"</panorama>" +
 					"<panorama id=\"pano2\" path=\"path2\">" +
-						"<hotspot id=\"hs2\"/>" +
-						"<hotspot id=\"hs3\"/>" +
+						"<hotspot id=\"hs2\" path=\"hspath\"/>" +
+						"<hotspot id=\"hs3\" path=\"hspath\"/>" +
 					"</panorama>" +
 					"<panorama id=\"pano3\" path=\"path3\"/>" +
 				"</root>");

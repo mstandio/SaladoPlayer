@@ -1,5 +1,5 @@
-﻿/*
-Copyright 2010 Marek Standio.
+/*
+Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -16,25 +16,23 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.events {
+package com.panozona.player.component{
 	
-	import flash.display.DisplayObject;
-	import flash.events.Event;
+	import flash.system.ApplicationDomain;
 	
-	public class LoadLoadableEvent extends Event {
+	public class Module extends Component {
 		
-		public static const LOADED:String = "loadableLoaded";
-		public static const LOST:String = "loadableLost";
-		public static const FINISHED:String = "allLoadablesLoaded";
-		public static const ABORTED:String = "loadablesAborted";
+		private var functionDataClass:Class;
 		
-		public var path:String;
-		public var content:DisplayObject;
+		public function Module(name:String, version:String){
+			super(name, version);
+			functionDataClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.data.actions.FunctionData") as Class;
+		}
 		
-		public function LoadLoadableEvent(eventType:String, path:String = null, component:DisplayObject = null) {
-			super(eventType);
-			this.path = path;
-			this.content = content;
+		override public function execute(functionData:Object):void {
+			if(functionData is functionDataClass && componentDescription.functionsDescription.hasOwnProperty(functionData.name)) {
+				this[functionData.name] as Function).apply(this, functionData.args;
+			}
 		}
 	}
 }

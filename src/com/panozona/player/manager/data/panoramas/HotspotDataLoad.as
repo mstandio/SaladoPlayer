@@ -16,25 +16,21 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.component.events {
+package com.panozona.player.manager.data.panoramas{
 	
-	import flash.events.Event;
-	
-	public class ConfigurationEvent extends Event{
+	public class HotspotDataLoad extends HotspotData{
 		
-		public static const ERROR:String = "error";
-		public static const WARNING:String = "warning";
-		public static const INFO:String = "info";
+		public const swfArguments:Object = new Object();
 		
-		private var _message:String;
+		private var _path:String;
 		
-		public function ConfigurationEvent(type:String, message:String) {
-			super(type);
-			_message = message;
+		public function HotspotDataLoad(id:String, path:String){
+			super(id);
+			_path = path;
 		}
 		
-		public function get message():String {
-			return _message;
+		public function get path():String {
+			return _path;
 		}
 	}
 }
