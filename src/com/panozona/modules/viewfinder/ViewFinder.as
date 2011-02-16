@@ -19,9 +19,10 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.viewfinder{
 	
 	import com.panozona.modules.viewfinder.data.*;
-	import com.panozona.player.component.Component;
+	import com.panozona.player.component.Module;
 	import com.panozona.player.component.ComponentData;
-	import com.panozona.player.component.data.property.Align
+	import com.panozona.player.component.data.property.Align;
+	import com.panozona.player.component.data.property.Move;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
@@ -33,7 +34,7 @@ package com.panozona.modules.viewfinder{
 	 * 
 	 * @see http://panozona.com/wiki/Module:ViewFinder
 	 */
-	public class ViewFinder extends Component {
+	public class ViewFinder extends Module {
 		
 		private var txtOutput:TextField;
 		private var txtFormat:TextFormat;
@@ -47,12 +48,8 @@ package com.panozona.modules.viewfinder{
 		 * 
 		 * @see com.panozona.player.module.Module#Module()
 		 */
-		public function ViewFinder() {
-			super("ViewFinder", 0.5, "http://panozona.com/wiki/Module:ViewFinder");
-			// aboutThisComponent = "This module shows pan, tilt and field of view of current camera view, " +
-			// "marked as a circle in the middle of panorama window. Module is usefull i.e. for determining "+
-			// "position of hotspots during configuration process.";
-			// co z tym gownem trzeba bedzie zrobic 
+		public function ViewFinder():void{
+			super("ViewFinder", "0.5");
 		}
 		
 		/**

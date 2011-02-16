@@ -234,7 +234,8 @@ package com.panozona.player.manager.utils.configuration {
 						applySubAttributes(panoramaData.onLeaveTo, panoramaAttribute);
 					}else if (panoramaAttributeName == "onLeaveToAttempt") {
 						applySubAttributes(panoramaData.onLeaveToAttempt, panoramaAttribute);
-					}else if (panoramaAttributeName != "id" && panoramaAttributeName != "path") {
+					}else if (panoramaAttributeName != "id" &&
+						panoramaAttributeName != "path") {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 							"Unrecognized panorama attribute: " + panoramaAttribute.localName().toString()));
 					}
@@ -269,8 +270,8 @@ package com.panozona.player.manager.utils.configuration {
 						continue;
 					}
 					hotspotData = new HotspotDataLoad(hotspotId, hotspotAttr);
-					if (hotspotNode.@arguemtns != undefined) {
-						applySubAttributes((hotspotData as HotspotDataLoad).swfArguments, hotspotNode.@arguemtns);
+					if (hotspotNode.@arguments != undefined) {
+						applySubAttributes((hotspotData as HotspotDataLoad).swfArguments, hotspotNode.@arguments);
 					}
 				}else if (hotspotNode.@factory != undefined) {
 					hotspotAttr = recognizeContent(hotspotNode.@factory);
@@ -285,7 +286,7 @@ package com.panozona.player.manager.utils.configuration {
 						"Invalid hotspot type: " + hotspotId));
 					continue;
 				}
-				for each (var hotspotAttribute:XML in hotspotNode) {
+				for each (var hotspotAttribute:XML in hotspotNode.attributes()) {
 					hotspotAttributeName = hotspotAttribute.localName();
 					if (hotspotAttributeName == "location"){
 						applySubAttributes(hotspotData.location, hotspotAttribute);
@@ -293,15 +294,15 @@ package com.panozona.player.manager.utils.configuration {
 						applySubAttributes(hotspotData.mouse, hotspotAttribute);
 					}else if (hotspotAttributeName == "transform") {
 						applySubAttributes(hotspotData.transform, hotspotAttribute);
-					}else if (hotspotAttributeName != "id" ||
-						hotspotAttributeName != "path" ||
-						hotspotAttributeName != "factory" ||
+					}else if (hotspotAttributeName != "id" &&
+						hotspotAttributeName != "path" &&
+						hotspotAttributeName != "factory" &&
 						hotspotAttributeName != "arguments"){
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 							"Unrecognized hotspot attribute: "+hotspotAttribute.localName()));
 					}
-					hotspotsData.push(hotspotData);
 				}
+				hotspotsData.push(hotspotData);
 			}
 		}
 		

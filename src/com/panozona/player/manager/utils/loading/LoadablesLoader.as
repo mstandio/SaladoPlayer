@@ -36,7 +36,7 @@ package com.panozona.player.manager.utils.loading{
 			var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);
 			for (var i:int = 0; i < loadables.length; i++) {
 				if (loadables[i].path == null || !loadables[i].path.match(/^.+(.jpg|.jpeg|.png|.gif|.swf)$/i)) {
-					dispatchEvent(new LoadLoadableEvent(LoadLoadableEvent.LOST, loadables[i].path));
+					dispatchEvent(new LoadLoadableEvent(LoadLoadableEvent.LOST, loadables[i]));
 					loaders[i] = null;
 					continue;
 				}
@@ -61,7 +61,7 @@ package com.panozona.player.manager.utils.loading{
 		private function loadableLost(e:IOErrorEvent):void {
 			for(var i:int = 0; i < loaders.length; i++) {
 				if (loaders[i] != null && loaders[i].contentLoaderInfo === e.target) {
-					dispatchEvent(new LoadLoadableEvent(LoadLoadableEvent.LOST, loaders[i].contentLoaderInfo.url));
+					dispatchEvent(new LoadLoadableEvent(LoadLoadableEvent.LOST, loadables[i]));
 					loaders[i].contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, loadableLost);
 					loaders[i].contentLoaderInfo.removeEventListener(Event.COMPLETE, loadableLoaded);
 					loaders[i] = null;
@@ -74,7 +74,7 @@ package com.panozona.player.manager.utils.loading{
 		private function loadableLoaded(e:Event):void {
 			for(var i:int = 0; i < loaders.length; i++){
 				if (loaders[i] != null && loaders[i].contentLoaderInfo === e.target) {
-					dispatchEvent(new LoadLoadableEvent(LoadLoadableEvent.LOADED, loaders[i].contentLoaderInfo.url, loaders[i].content));
+					dispatchEvent(new LoadLoadableEvent(LoadLoadableEvent.LOADED, loadables[i], loaders[i].content));
 					loaders[i].contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, loadableLost);
 					loaders[i].contentLoaderInfo.removeEventListener(Event.COMPLETE, loadableLoaded);
 					loaders[i] = null;

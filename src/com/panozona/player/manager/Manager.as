@@ -29,7 +29,10 @@ package com.panozona.player.manager {
 	import com.panozona.player.manager.data.panoramas.*;
 	import com.panozona.player.manager.events.*;
 	import com.panozona.player.manager.utils.*;
+	import com.panozona.player.manager.utils.loading.ILoadable;
+	import com.panozona.player.manager.utils.loading.LoadablesLoader;
 	import flash.events.*;
+	import flash.utils.*;
 	
 	public class Manager extends PanoSalado{
 		
@@ -38,7 +41,10 @@ package com.panozona.player.manager {
 		private var currentPanoramaData:PanoramaData;
 		private var previousPanoramaData:PanoramaData;
 		private var arrListeners:Array;  // hold hotspots mouse event listeners so that they can be removed
-		private var nameToHotspot:Array; // fix for unable set .name for loaded swf files ... ??  // this need to be structured better 
+		
+		private var _loadedHotspots:Dictionary;
+		private var _productHotspots:Dictionary;
+		
 		private var panoramaLocked:Boolean;
 		private var pendingActionId:String;
 		private var panoramaLoadingCanceled:Boolean;
@@ -47,6 +53,7 @@ package com.panozona.player.manager {
 		private var _saladoPlayer:SaladoPlayer; // parent needed to access loaded modules
 		
 		public function Manager() {
+			
 			description.addFunctionDescription("print", String);
 			description.addFunctionDescription("loadPano", String);
 			description.addFunctionDescription("moveToHotspot", String);
@@ -78,13 +85,12 @@ package com.panozona.player.manager {
 			for (var i:int = 0; i < dependencies.length; i++ ) {
 				if (dependencies[i] is SimpleTransition){
 					dependencies[i].addEventListener( Event.COMPLETE, transitionComplete, false, 0, true);
-					// WRONG it should throw to viewData here events by himslef.
+					// WRONG it should throw to viewData here events by himslef. just as autorotation 
 				}
 			}
 		}
 		
 		public function loadFirstPanorama():void {
-			
 			if (_managerData.allPanoramasData.firstPanorama != null) {
 				loadPanoramaById(_managerData.allPanoramasData.firstPanorama);
 			}else {
@@ -105,7 +111,6 @@ package com.panozona.player.manager {
 				}
 				
 				panoramaLoadingCanceled = false;
-				
 				previousPanoramaData = currentPanoramaData;
 				currentPanoramaData = panoramaData;
 				panoramaLocked = true;
@@ -115,8 +120,8 @@ package com.panozona.player.manager {
 					runAction(previousPanoramaData.onLeaveTo[currentPanoramaData.id]);
 				}
 				
-				Trace.instance.printInfo("loading: "+panoramaData.id+" ("+panoramaData.params.path+")");
-			
+				Trace.instance.printInfo("loading: " + panoramaData.id + " (" + panoramaData.params.path + ")");
+				
 				for (var i:int = 0; i < _managedChildren.numChildren; i++ ) {
 					for(var j:Number = 0; j < arrListeners.length; j++){
 						if (_managedChildren.getChildAt(i).hasEventListener(arrListeners[j].type)) {
@@ -160,62 +165,79 @@ package com.panozona.player.manager {
 			}
 		}
 		
-		
-		private function insertHotspot(e:Event):void { // TODO: loadhotspot event
-			/*
-			var hotspotData:HotspotData = e.hotspotData;
-			var managedChild:ManagedChild;
-			if (e.type == LoadHotspotEvent.BMD_CONTENT){
-				managedChild = new ImageHotspot(hotspotData.content);
-				managedChild.buttonMode = hotspotData.handCursor;
-			}else if (e.type == LoadHotspotEvent.SWF_CONTENT) {
-				Object(hotspotData.content).setButtonMode(hotspotData.handCursor);
-				managedChild = ManagedChild(hotspotData.content); 
-				//managedChild.setArguments(childData.swfArguments);// TODO: set arguments to swf hotspots
+		protected function loadHotspots(panoramaData:PanoramaData):void {
+			var hotspotsLoader:LoadablesLoader = new LoadablesLoader();
+			hotspotsLoader.addEventListener(LoadLoadableEvent.LOST, hotspotLost);
+			hotspotsLoader.addEventListener(LoadLoadableEvent.LOADED, hotspotLoaded);
+			hotspotsLoader.addEventListener(LoadLoadableEvent.FINISHED, hotspotsFinished);
+			hotspotsLoader.load(Vector.<ILoadable>(panoramaData.hotspotsDataLoad));
+			for each(var hotspotDataProduct:HotspotDataProduct in panoramaData.hotspotsDataProduct) {
+				// call factory and insert hotspots....
 			}
-			nameToHotspot[hotspotData.id] = managedChild;
+		}
+		
+		protected function hotspotLost(event:LoadLoadableEvent):void {
+			_saladoPlayer.traceWindow.printError("Could not load hotspot: " + event.loadable.path);
+		}
+		
+		protected function hotspotLoaded(event:LoadLoadableEvent):void {
+			var hotspotData:HotspotData = (event.loadable as HotspotData);
+			var managedChild:ManagedChild;
+			
+			//if (event.content is Sprite){
+				// moze zrobic inny typ moze cos takiego 
+			//}else {
+			managedChild = new Hotspot(event.content);
+			//}
+			
+			_loadedHotspots = new Dictionary();
+			_loadedHotspots[hotspotData as HotspotDataLoad] = managedChild
 			
 			if (hotspotData.mouse.onClick != null) {
 				managedChild.addEventListener(MouseEvent.CLICK, getMouseEventHandler(hotspotData.mouse.onClick));
-				arrListeners.push({type:MouseEvent.CLICK, listener:getMouseEventHandler(e.hotspotData.mouse.onClick)});
+				arrListeners.push({type:MouseEvent.CLICK, listener:getMouseEventHandler(hotspotData.mouse.onClick)});
 			}
 			if (hotspotData.mouse.onPress != null) {
 				managedChild.addEventListener(MouseEvent.MOUSE_DOWN, getMouseEventHandler(hotspotData.mouse.onPress));
-				arrListeners.push({type:MouseEvent.MOUSE_DOWN, listener:getMouseEventHandler(e.hotspotData.mouse.onPress)});
+				arrListeners.push({type:MouseEvent.MOUSE_DOWN, listener:getMouseEventHandler(hotspotData.mouse.onPress)});
 			}
 			if (hotspotData.mouse.onRelease != null) {
 				managedChild.addEventListener(MouseEvent.MOUSE_UP, getMouseEventHandler(hotspotData.mouse.onRelease));
-				arrListeners.push({type:MouseEvent.MOUSE_UP, listener:getMouseEventHandler(e.hotspotData.mouse.onRelease)});
+				arrListeners.push({type:MouseEvent.MOUSE_UP, listener:getMouseEventHandler(hotspotData.mouse.onRelease)});
 			}
 			if (hotspotData.mouse.onOver != null) {
 				managedChild.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(hotspotData.mouse.onOver));
-				arrListeners.push({type:MouseEvent.ROLL_OVER, listener:getMouseEventHandler(e.hotspotData.mouse.onOver)});
+				arrListeners.push({type:MouseEvent.ROLL_OVER, listener:getMouseEventHandler(hotspotData.mouse.onOver)});
 			}
 			if (hotspotData.mouse.onOut != null) {
 				managedChild.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(hotspotData.mouse.onOut));
-				arrListeners.push({type:MouseEvent.ROLL_OUT, listener:getMouseEventHandler(e.hotspotData.mouse.onOut)});
+				arrListeners.push({type:MouseEvent.ROLL_OUT, listener:getMouseEventHandler(hotspotData.mouse.onOut)});
 			}
 			
 			var piOver180:Number = Math.PI / 180;
-			var pr:Number = (-1 * (-hotspotData.position.pan - 90)) * piOver180;
-			var tr:Number = -1 * hotspotData.position.tilt * piOver180;
-			var xc:Number = hotspotData.position.distance * Math.cos(pr) * Math.cos(tr);
-			var yc:Number = hotspotData.position.distance * Math.sin(tr);
-			var zc:Number = hotspotData.position.distance * Math.sin(pr) * Math.cos(tr);
+			var pr:Number = (-1 * (-hotspotData.location.pan - 90)) * piOver180;
+			var tr:Number = -1 * hotspotData.location.tilt * piOver180;
+			var xc:Number = hotspotData.location.distance * Math.cos(pr) * Math.cos(tr);
+			var yc:Number = hotspotData.location.distance * Math.sin(tr);
+			var zc:Number = hotspotData.location.distance * Math.sin(pr) * Math.cos(tr);
 			
 			managedChild.x = xc;
 			managedChild.y = yc;
 			managedChild.z = zc;
-			managedChild.rotationY = (-hotspotData.position.pan  + hotspotData.transform.rotationY) * piOver180;
-			managedChild.rotationX = (hotspotData.position.tilt + hotspotData.transform.rotationX) * piOver180;
+			managedChild.rotationY = (- hotspotData.location.pan  + hotspotData.transform.rotationY) * piOver180;
+			managedChild.rotationX = (hotspotData.location.tilt + hotspotData.transform.rotationX) * piOver180;
 			managedChild.rotationZ = hotspotData.transform.rotationZ * piOver180
 			
 			managedChild.scaleX = hotspotData.transform.scaleX;
 			managedChild.scaleY = hotspotData.transform.scaleY;
 			managedChild.scaleZ = hotspotData.transform.scaleZ;
-			
 			addChild(managedChild);
-			*/
+		}
+		
+		protected function hotspotsFinished(event:LoadLoadableEvent):void {
+			event.target.removeEventListener(LoadLoadableEvent.LOST, hotspotLost);
+			event.target.removeEventListener(LoadLoadableEvent.LOADED, hotspotLoaded);
+			event.target.removeEventListener(LoadLoadableEvent.FINISHED, hotspotsFinished);
 		}
 		
 		private function getMouseEventHandler(id:String):Function{
@@ -226,9 +248,8 @@ package com.panozona.player.manager {
 		
 		private function panoramaLoaded(e:Event):void {
 			arrListeners = new Array();
-			nameToHotspot = new Array();
-			//hotspotsLoader.load(currentPanoramaData.hotspotsData);
 			panoramaLocked = false;
+			loadHotspots(currentPanoramaData);
 			runAction(currentPanoramaData.onEnter);
 			if (previousPanoramaData != null ){
 				runAction(currentPanoramaData.onEnterFrom[previousPanoramaData.id]);
@@ -271,21 +292,25 @@ package com.panozona.player.manager {
 		}
 		
 		public function moveToHotspot(hotspotId:String):void {
+			/*
 			if (!panoramaLocked && nameToHotspot[hotspotId] != undefined) {
 				pendingActionId = null;
 				swingToChild(nameToHotspot[hotspotId]);
 				panoramaLocked = true;
 				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
 			}
+			*/
 		}
 		
 		public function moveToHotspotAnd(childId:String, actionId:String):void {
+			/*
 			if(!panoramaLocked && nameToHotspot[childId] != undefined){
 				swingToChild(nameToHotspot[childId]);
 				panoramaLocked = true;
 				pendingActionId = actionId; 
 				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
 			}
+			*/
 		}
 		
 		public function moveToView(pan:Number, tilt:Number, fieldOfView:Number):void {
@@ -323,21 +348,25 @@ package com.panozona.player.manager {
 		}
 		
 		public function advancedMoveToHotspot(hotspotId:String, fieldOfView:Number, speed:Number, tween:Function):void {
+			/*
 			if (!panoramaLocked && nameToHotspot[hotspotId] != undefined){
 				pendingActionId = null;
 				panoramaLocked = true;
 				swingToChild(nameToHotspot[hotspotId], fieldOfView, speed, tween);	
 				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
 			}
+			*/
 		}
 		
 		public function advancedMoveToHotspotAnd(hotspotId:String, fieldOfView:Number, speed:Number, tween:Function, actionId:String):void {
+			/*
 			if(!panoramaLocked && nameToHotspot[hotspotId] != undefined){
 				swingToChild(nameToHotspot[hotspotId], fieldOfView, speed, tween);
 				panoramaLocked = true;
 				pendingActionId = actionId; 
 				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
 			}
+			*/
 		}
 		
 		public function advancedMoveToView(pan:Number, tilt:Number, fieldOfView:Number, speed:Number, tween:Function):void {

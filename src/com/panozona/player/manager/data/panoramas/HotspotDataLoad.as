@@ -16,9 +16,11 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.data.panoramas{
+package com.panozona.player.manager.data.panoramas {
 	
-	public class HotspotDataLoad extends HotspotData{
+	import com.panozona.player.manager.utils.loading.ILoadable;
+	
+	public class HotspotDataLoad extends HotspotData implements ILoadable {
 		
 		public const swfArguments:Object = new Object();
 		

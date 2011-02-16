@@ -1,9 +1,3 @@
-SaladoPlayer.swf
-modules/ExampleModule.swf
-modules/ImageButton.swf
-modules/ImageMap.swf
-modules/InfoBubble.swf
-modules/NavigationBar.swf
-modules/ViewFinder.swf
-hotspots/ExampleHotspot.swf
-hotspots/VideoHotspot.swf
+src/com/panozona/player/SaladoPlayer.as -> SaladoPlayer.swf
+src/com/panozona/modules/viewfinder/ViewFinder.as -> modules/ViewFinder.swf
+src/com/panozona/modules/examplemodule/ExampleModule.as -> modules/ExampleModule.swf

@@ -39,16 +39,19 @@ package com.panozona.player {
 	public class SaladoPlayer extends Sprite {
 		
 		/**
-		 * Instance of main class that extends PanoSalado
+		 * Instance of main class that extends PanoSalado.
 		 */
 		public const manager:Manager = new Manager();
 		
 		/**
-		 * Instance of class that aggregates and stores configuration data
+		 * Instance of class that aggregates and stores configuration data.
 		 */
 		public const managerData:ManagerData = new ManagerData();
 		
-		public const traceWindow:Trace.instance;
+		/**
+		 * Instance of Trace window. Trace can alsa be accessed as singleton.
+		 */
+		public const traceWindow:Trace = Trace.instance;
 		
 		private var loadedModules:Dictionary;
 		private var loadedFactories:Dictionary;
@@ -137,48 +140,38 @@ package com.panozona.player {
 			
 			addChild(manager);
 			
-			if (managerData.modulesData.length == 0){
-				finalOperations();
-			}else {
-				var modulesLoader:LoadablesLoader = new LoadablesLoader();
-				modulesLoader.addEventListener(LoadLoadableEvent.LOST, moduleLost);
-				modulesLoader.addEventListener(LoadLoadableEvent.LOADED, moduleLoaded);
-				modulesLoader.addEventListener(LoadLoadableEvent.FINISHED, modulesFinished);
-				modulesLoader.load(managerData.modulesData as Vector.<ILoadable>);
-			}
+			var modulesLoader:LoadablesLoader = new LoadablesLoader();
+			modulesLoader.addEventListener(LoadLoadableEvent.LOST, componentLost);
+			modulesLoader.addEventListener(LoadLoadableEvent.LOADED, componentLoaded);
+			modulesLoader.addEventListener(LoadLoadableEvent.FINISHED, componentsFinished);
+			modulesLoader.load(Vector.<ILoadable>(managerData.componentsData));
 		}
 		
-		private function moduleLost(event:LoadLoadableEvent):void {
-			Trace.instance.printError("Clould not load module: " + event.path);
+		private function componentLost(event:LoadLoadableEvent):void {
+			Trace.instance.printError("Clould not load module: " + event.loadable.path);
 		}
 		
-		private function moduleLoaded(event:LoadLoadableEvent):void {
-			for each (var componentData:ComponentData in managerData.modulesData){
-				if (componentData.path == event.path) {
-					loadedModules[componentData] = event.content;
-					// TODO: jezeli jest modulem to dodaj tutaj referencje ..
-					loadedModules.push(event.content); 
+		private function componentLoaded(event:LoadLoadableEvent):void {
+			loadedModules[event.loadable as ComponentData] = event.content;
+			if (event.content is Component){
+				for each (var componentData:ComponentData in managerData.modulesData) {
+					if ((event.loadable as ComponentData) === componentData) {
+						componentData.descriptionReference = (event.content as Component).componentDescription;
+					}
 					return;
 				}
 			}
 		}
 		
-		private function modulesFinished(event:LoadLoadableEvent):void {
-			event.target.removeEventListener(LoadLoadableEvent.LOST, moduleLost);
-			event.target.removeEventListener(LoadLoadableEvent.LOADED, moduleLoaded);
-			event.target.removeEventListener(LoadLoadableEvent.FINISHED, modulesFinished);
-			var displayObject:DisplayObject;
-			for (var i:int = managerData.modulesData.length - 1; i >= 0 ; i--) {
-				displayObject = loadedModules[managerData.modulesData[i]];
-				// pass configuration to module 
-				addChild(displayObject);
+		protected function componentsFinished(event:LoadLoadableEvent):void {
+			event.target.removeEventListener(LoadLoadableEvent.LOST, componentLost);
+			event.target.removeEventListener(LoadLoadableEvent.LOADED, componentLoaded);
+			event.target.removeEventListener(LoadLoadableEvent.FINISHED, componentsFinished);
+			for (var j:int = managerData.factoriesData.length - 1; j >= 0 ; j--) {
+				addChild(loadedModules[managerData.factoriesData[j]] as DisplayObject);
 			}
-			if (managerData.debugMode) {
-				var managerDataValidator:ManagerDataValidator = new ManagerDataValidator();
-				managerDataValidator.addEventListener(ConfigurationEvent.INFO, printConfigurationMessage, false, 0, true);
-				managerDataValidator.addEventListener(ConfigurationEvent.WARNING, printConfigurationMessage, false, 0, true);
-				managerDataValidator.addEventListener(ConfigurationEvent.ERROR, printConfigurationMessage, false, 0, true);
-				managerDataValidator.validate(managerData);
+			for (var i:int = managerData.modulesData.length - 1; i >= 0 ; i--) {
+				addChild(loadedModules[managerData.modulesData[i]] as DisplayObject);
 			}
 			finalOperations();
 		}
@@ -194,7 +187,23 @@ package com.panozona.player {
 			}
 		}
 		
+		protected function runValidator():void {
+			var fakeComponentData:ComponentData = new ComponentData(manager.description.name, "fake path");
+			fakeComponentData.descriptionReference = manager.description;
+			managerData.modulesData.push(fakeComponentData);
+			var managerDataValidator:ManagerDataValidator = new ManagerDataValidator();
+			managerDataValidator.addEventListener(ConfigurationEvent.INFO, printConfigurationMessage, false, 0, true);
+			managerDataValidator.addEventListener(ConfigurationEvent.WARNING, printConfigurationMessage, false, 0, true);
+			managerDataValidator.addEventListener(ConfigurationEvent.ERROR, printConfigurationMessage, false, 0, true);
+			managerDataValidator.validate(managerData);
+			managerData.modulesData.pop();
+		}
+		
 		private function finalOperations():void {
+			if (managerData.debugMode) {
+				runValidator();
+			}
+			
 			addChild(traceWindow); // to make it most on top
 			manager.loadFirstPanorama();
 		}
@@ -210,6 +219,22 @@ package com.panozona.player {
 			for each(var moduleData:ComponentData in managerData.modulesData) {
 				if (moduleData.name == name) {
 					return loadedModules[moduleData];
+				}
+			}
+			return null;
+		}
+		
+		/**
+		 * Returns reference to module (swf file)
+		 * by its name declared in configuration
+		 * 
+		 * @param name of module
+		 * @return module as DisplayObject, null if not found
+		 */
+		public function getFactoryByName(name:String):DisplayObject {
+			for each(var factoryData:ComponentData in managerData.factoriesData) {
+				if (factoryData.name == name) {
+					return loadedFactories[factoryData];
 				}
 			}
 			return null;

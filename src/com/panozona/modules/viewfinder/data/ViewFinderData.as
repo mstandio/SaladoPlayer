@@ -20,30 +20,27 @@ package com.panozona.modules.viewfinder.data{
 	
 	import com.panozona.player.component.ComponentData;
 	import com.panozona.player.component.ComponentNode;
-	import com.panozona.player.component.data.structure.Translator;
+	import com.panozona.player.component.utils.ComponentDataTranslator;
 	
 	/**
 	 * Part od ViewFinder module, translates moduleData 
 	 * into module internal data structure.
 	 */
-	public class ViewFinderData extends Master{
+	public class ViewFinderData {
 		
 		public const settings:Settings = new Settings();
 		
-		public function ViewFinderData(moduleData:ModuleData, debugMode:Boolean){
+		public function ViewFinderData(componentData:ComponentData, debugMode:Boolean){
 			
-			super(debugMode); // nie chche tego dla uzywania pojedynczej tylko funkcji parent ok 
+			var tarnslator:ComponentDataTranslator = new ComponentDataTranslator(debugMode);
 			
-			//moze structure Parent 
-			
-			for each(var moduleNode:ModuleNode in moduleData.moduleNodes) {
-				if (moduleNode.nodeName == "settings") {
-					readRecursive(settings, moduleNode);
+			for each(var componentNode:ComponentNode in componentData.nodes) {
+				if (componentNode.name == "settings") {
+					tarnslator.translateComponentNodeToObject(componentNode, settings);
 				}else {
-					throw new Error("Could not recognize: "+moduleNode.nodeName);
+					throw new Error("Could not recognize: "+componentNode.name);
 				}
 			}
-			
 			// no additional validation required
 		}
 	}

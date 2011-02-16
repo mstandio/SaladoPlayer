@@ -41,7 +41,6 @@ package com.panozona.player.manager.utils.configuration{
 				return;
 			}
 			var panosId:Object = new Object();
-			var hotspotsId:Object = new Object();
 			for each(var panoramaData:PanoramaData in panoramasData) {
 				if (panoramaData.id == null) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
@@ -68,7 +67,8 @@ package com.panozona.player.manager.utils.configuration{
 				checkActionTrigger(panoramaData.id, panoramaData.onLeaveTo, panoramasData, actionsData);
 				checkActionTrigger(panoramaData.id, panoramaData.onLeaveToAttempt, panoramasData, actionsData);
 				
-				for each(var hotspotData:HotspotData in panoramaData.hotspotsData) {
+				var hotspotsId:Object = new Object();
+				for each(var hotspotData:HotspotData in panoramaData.hotspotsData){
 					if (hotspotData.id == null) {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 							"Missig hotspot id."));

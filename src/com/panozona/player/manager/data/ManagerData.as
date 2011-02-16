@@ -88,6 +88,17 @@ package com.panozona.player.manager.data {
 			return null;
 		}
 		
+		public function get componentsData():Vector.<ComponentData> {
+			var result:Vector.<ComponentData> = new Vector.<ComponentData>();
+			for each(var componentDataModule:ComponentData in modulesData) {
+				result.push(componentDataModule);
+			}
+			for each(var componentDataFactory:ComponentData in factoriesData) {
+				result.push(componentDataFactory);
+			}
+			return result;
+		}
+		
 		/**
 		 * Copies param values over all panorama param values that were left default.
 		 */

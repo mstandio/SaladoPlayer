@@ -9,6 +9,7 @@ package test.com.panozona.player.manager.utils.loading {
 		
 		protected var loadablesLoader:LoadablesLoader;
 		protected var loadables:Vector.<ILoadable>;
+		protected var dummyLoadables:Vector.<DummyLoadable>;
 		
 		protected var loadedCounter:Number;
 		protected var lostCounter:Number;
@@ -17,6 +18,7 @@ package test.com.panozona.player.manager.utils.loading {
 		public function setUp():void {
 			loadablesLoader = new LoadablesLoader();
 			loadables = new Vector.<ILoadable>();
+			dummyLoadables = new Vector.<DummyLoadable>();
 			loadedCounter = 0;
 			lostCounter = 0;
 		}
@@ -59,6 +61,27 @@ package test.com.panozona.player.manager.utils.loading {
 			Assert.assertEquals(3, loadedCounter);
 		}
 		protected function handleTimeoutCorrect(passThroughData:Object):void {
+			Assert.fail( "Timeout reached before event");
+		}
+		
+		[Test(async)]
+		public function allPathsCorrect2():void {
+		var asyncHandler:Function = Async.asyncHandler( this, handleFinishedCorrect2, 500, null, handleTimeoutCorrect2);
+			loadablesLoader.addEventListener(LoadLoadableEvent.FINISHED, asyncHandler, false, 0, true);
+			loadablesLoader.addEventListener(LoadLoadableEvent.LOADED, function(e:LoadLoadableEvent):void {loadedCounter ++ }, false, 0, true);
+			loadablesLoader.addEventListener(LoadLoadableEvent.LOST, function(e:LoadLoadableEvent):void{lostCounter ++}, false, 0, true);
+			
+			dummyLoadables.push(new DummyLoadable("assets/blue.png"));
+			dummyLoadables.push(new DummyLoadable("assets/red.jpg"));
+			dummyLoadables.push(new DummyLoadable("assets/yellow.gif"));
+			loadablesLoader.load(Vector.<ILoadable>(dummyLoadables));
+		}
+		protected function handleFinishedCorrect2(event:LoadLoadableEvent, passThroughData:Object):void {
+			Assert.assertEquals(LoadLoadableEvent.FINISHED, event.type);
+			Assert.assertEquals(0, lostCounter);
+			Assert.assertEquals(3, loadedCounter);
+		}
+		protected function handleTimeoutCorrect2(passThroughData:Object):void {
 			Assert.fail( "Timeout reached before event");
 		}
 		

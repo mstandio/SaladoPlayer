@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2010 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,26 +16,14 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.events {
+package com.panosalado.view{
 	
-	import com.panozona.player.manager.utils.loading.ILoadable;
 	import flash.display.DisplayObject;
-	import flash.events.Event;
-	
-	public class LoadLoadableEvent extends Event {
 		
-		public static const LOADED:String = "loadableLoaded";
-		public static const LOST:String = "loadableLost";
-		public static const FINISHED:String = "allLoadablesLoaded";
-		public static const ABORTED:String = "loadablesAborted";
+	public class Hotspot extends ManagedChild{
 		
-		public var loadable:ILoadable;
-		public var content:DisplayObject;
-		
-		public function LoadLoadableEvent(eventType:String, loadable:ILoadable = null, content:DisplayObject = null) {
-			super(eventType);
-			this.loadable = loadable;
-			this.content = content;
+		public function Hotspot(content:DisplayObject){
+			addChild(content);
 		}
 	}
 }

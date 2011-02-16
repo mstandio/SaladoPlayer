@@ -31,7 +31,7 @@ package com.panozona.player.component{
 		
 		override public function execute(functionData:Object):void {
 			if(functionData is functionDataClass && componentDescription.functionsDescription.hasOwnProperty(functionData.name)) {
-				this[functionData.name] as Function).apply(this, functionData.args;
+				(this[functionData.name] as Function).apply(this, functionData.args)
 			}
 		}
 	}

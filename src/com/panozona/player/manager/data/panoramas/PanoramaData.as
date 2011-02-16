@@ -69,6 +69,15 @@ package com.panozona.player.manager.data.panoramas {
 			return _params;
 		}
 		
+		public final function hotspotsDataLoadById(id:String):HotspotDataLoad {
+			for (var i:int = 0; i < hotspotsData.length; i++) {
+				if (hotspotsData[i] is HotspotDataLoad && hotspotsData[i].id == id) {
+					return (hotspotsData[i] as HotspotDataLoad);
+				}
+			}
+			return null;
+		}
+		
 		public final function get hotspotsDataLoad():Vector.<HotspotDataLoad> {
 			var result:Vector.<HotspotDataLoad> = new Vector.<HotspotDataLoad>();
 			for (var i:int = 0; i < hotspotsData.length; i++) {
@@ -77,6 +86,15 @@ package com.panozona.player.manager.data.panoramas {
 				}
 			}
 			return result;
+		}
+		
+		public final function hotspotsDataProductById(id:String):HotspotDataProduct {
+			for (var i:int = 0; i < hotspotsData.length; i++) {
+				if (hotspotsData[i] is HotspotDataProduct && hotspotsData[i].id == id) {
+					return (hotspotsData[i] as HotspotDataProduct);
+				}
+			}
+			return null;
 		}
 		
 		public final function get hotspotsDataProduct():Vector.<HotspotDataProduct> {

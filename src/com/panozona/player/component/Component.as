@@ -28,20 +28,27 @@ package com.panozona.player.component{
 		private var _componentDescription:ComponentDescription;
 		private var _saladoPlayer:Object;
 		
-		public function Component(componentName:String, componentVersion:String){
-			_componentDescription = new ComponentDescription(componentName, componentVersion);
-		}
-		
 		/**
 		 * Reference set by SaladoPlayer when component is accepted.
 		 * Calls componentReady overriden by descendant. 
 		 * function componentReady is surrounded with try/catch
 		 */
-		public function set saladoPlayer(value:Object):void {
-			if (_saladoPlayer != null) return;
-			var SaladoPlayerClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.SaladoPlayer") as Class;
-			_saladoPlayer = value as SaladoPlayerClass;
-			_componentData = _saladoPlayer.managerData.getComponentDataByName(_componentDescription.name) as ComponentData;
+		public function Component(componentName:String, componentVersion:String){
+			_componentDescription = new ComponentDescription(componentName, componentVersion);
+			if (stage) stageReady();
+			else addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
+		}
+		
+		private function stageReady(e:Event = null):void {
+			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
+			try{
+				var SaladoPlayerClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.SaladoPlayer") as Class;
+				_saladoPlayer = this.parent as SaladoPlayerClass;
+				_componentData = _saladoPlayer.managerData.getComponentDataByName(_componentDescription.name) as ComponentData;
+			}catch (error:Error) {
+				trace("Try: " + _componentDescription.homeUrl);
+				trace(error.getStackTrace());
+			}
 			try {
 				componentReady(_componentData);
 			}catch (error:Error) {
@@ -55,7 +62,7 @@ package com.panozona.player.component{
 			throw new Error("Function componentReady() must be overriden.");
 		}
 		
-		public function extecute(functionData:Object):void {
+		public function execute(functionData:Object):void {
 			throw new Error("Function extecute() must be overriden.");
 		}
 		
