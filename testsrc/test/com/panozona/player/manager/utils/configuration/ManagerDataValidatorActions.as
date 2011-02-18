@@ -13,15 +13,29 @@ package test.com.panozona.player.manager.utils.configuration{
 	
 	public class ManagerDataValidatorActions extends com.panozona.player.manager.utils.configuration.ManagerDataValidator {
 		
+		protected var infoCount:int;
+		protected var warningCount:int;
+		protected var errorCount:int;
+		
 		protected var managerData:ManagerData;
 		
+		public function ManagerDataParserXMLActions():void {
+			addEventListener(ConfigurationEvent.INFO, function(event:Event):void {infoCount++;});
+			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void{warningCount++;});
+			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void{errorCount++;});
+		}
+		
 		[Before]
-		public function prepareManagerData():void {
+		public function beforeTest():void {
+			infoCount = 0;
+			warningCount = 0;
+			errorCount = 0;
+			
 			managerData = new ManagerData();
 			
 			managerData.panoramasData.push(new PanoramaData("pano_a", "path_a"));
-			managerData.panoramasData[0].hotspotsData.push(new HotspotData("hs_a_a"));
-			managerData.panoramasData[0].hotspotsData.push(new HotspotData("hs_a_b"));
+			managerData.panoramasData[0].hotspotsDataProduct.push(new HotspotData("hs_a_a"));
+			managerData.panoramasData[0].hotspotsDataProduct.push(new HotspotData("hs_a_b"));
 			
 			var componentDataModule:ComponentData = new ComponentData("comp_a","path_a");
 			componentDataModule.descriptionReference = new ComponentDescription("comp_a", "1.0.1 beta");
@@ -46,34 +60,29 @@ package test.com.panozona.player.manager.utils.configuration{
 		
 		[Test]
 		public function actionIdRepeats():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; });
-			
 			managerData.actionsData.push(new ActionData("act1"));
 			managerData.actionsData.push(new ActionData("act1"));
 			
 			validate(managerData);
 			
-			Assert.assertEquals(1, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function actionIdMissing():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void { callCount++; });
-			
 			managerData.actionsData.push(new ActionData(null));
 			
 			validate(managerData);
 			
-			Assert.assertEquals(1, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(1, errorCount);
 		}
 		
 		[Test]
 		public function ownerCheckPass():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			managerData.actionsData.push(new ActionData("act1"));
 			
 			managerData.actionsData[0].functions.push(new FunctionData("comp_a", "fun_a_emp"));
@@ -92,14 +101,13 @@ package test.com.panozona.player.manager.utils.configuration{
 			
 			validate(managerData);
 			
-			Assert.assertEquals(0, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function ownerTargetCheckPass():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			managerData.actionsData.push(new ActionData("act1"));
 			
 			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", ["hs_a_a"], "fun_b_emp"));
@@ -118,14 +126,13 @@ package test.com.panozona.player.manager.utils.configuration{
 			
 			validate(managerData);
 			
-			Assert.assertEquals(0, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function ownerTargetCheck():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			managerData.actionsData.push(new ActionData("act1"));
 			
 			// nonexistant target
@@ -136,14 +143,13 @@ package test.com.panozona.player.manager.utils.configuration{
 			
 			validate(managerData);
 			
-			Assert.assertEquals(2, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(2, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function ownerCheck():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			managerData.actionsData.push(new ActionData("act1"));
 			managerData.actionsData.push(new ActionData("act2"));
 			managerData.actionsData.push(new ActionData("act3"));
@@ -192,7 +198,9 @@ package test.com.panozona.player.manager.utils.configuration{
 			
 			validate(managerData);
 			
-			Assert.assertEquals(8, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(8, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 	}
 }

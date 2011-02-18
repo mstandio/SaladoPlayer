@@ -8,10 +8,31 @@ package test.com.panozona.player.manager.utils.configuration{
 	
 	public class ManagerDataParserXMLRecognize extends com.panozona.player.manager.utils.configuration.ManagerDataParserXML{
 		
+		protected var infoCount:int;
+		protected var warningCount:int;
+		protected var errorCount:int;
+		
+		public function ManagerDataParserXMLRecognize ():void {
+			addEventListener(ConfigurationEvent.INFO, function(event:Event):void {infoCount++;});
+			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void{warningCount++;});
+			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void{errorCount++;});
+		}
+		
+		[Before]
+		public function beforeTest():void {
+			infoCount = 0;
+			warningCount = 0;
+			errorCount = 0;
+		}
+		
 		[Test]
 		public function recognizeContentBooleanPass():void {
 			Assert.assertStrictlyEquals(true, recognizeContent("true"));
 			Assert.assertStrictlyEquals(false, recognizeContent("false"));
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -21,6 +42,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertFalse(recognizeContent(" false ") is Boolean);
 			Assert.assertFalse(recognizeContent("True") is Boolean);
 			Assert.assertFalse(recognizeContent("False") is Boolean);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -36,6 +61,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertStrictlyEquals(0xff00ff, recognizeContent("#ff00ff"));
 			Assert.assertStrictlyEquals(0xff00ff, recognizeContent("#FF00FF"));
 			Assert.assertTrue(isNaN(recognizeContent("NaN")));
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -53,6 +82,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertFalse(recognizeContent(" #ff00ff ") is Number);
 			Assert.assertFalse(recognizeContent("# ff00ff") is Number);
 			Assert.assertFalse(recognizeContent("##ff00ff") is Number);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -68,6 +101,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertStrictlyEquals("http://panozona.com", recognizeContent("[http://panozona.com]"));
 			Assert.assertStrictlyEquals(" ", recognizeContent("[ ]"));
 			Assert.assertStrictlyEquals("", recognizeContent("[]"));
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -78,6 +115,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertFalse(recognizeContent("a:b") is String);
 			Assert.assertFalse(recognizeContent("http://panozona.com") is String);
 			Assert.assertFalse(recognizeContent("Linear.easeNone") is String);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(2, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -101,6 +142,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertStrictlyEquals(Elastic.easeIn, recognizeFunction("Elastic.easeIn"));
 			Assert.assertStrictlyEquals(Elastic.easeInOut, recognizeFunction("Elastic.easeInOut"));
 			Assert.assertStrictlyEquals(Elastic.easeOut, recognizeFunction("Elastic.easeOut"));
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -111,15 +156,20 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertStrictlyEquals(true, obj.bool);
 			Assert.assertStrictlyEquals(-12.12, obj.num);
 			Assert.assertStrictlyEquals(Elastic.easeInOut, obj.fun);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function recognizeContentWarning():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void{callCount++;});
 			recognizeContent("");
 			recognizeContent(" ");
-			Assert.assertEquals(2, callCount);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(2, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -128,6 +178,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			applySubAttributes(dummyObject, "stringInit:a,stringNonInit:b");
 			Assert.assertStrictlyEquals("a", dummyObject.stringInit);
 			Assert.assertStrictlyEquals("b", dummyObject.stringNonInit);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -135,6 +189,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			var dummyObject:DummyObject = new DummyObject();
 			applySubAttributes(dummyObject, "number:NaN");
 			Assert.assertTrue(isNaN(dummyObject.number));
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -143,6 +201,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			dummyObject.boolean = false;
 			applySubAttributes(dummyObject, "boolean:true");
 			Assert.assertStrictlyEquals(true, dummyObject.boolean);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -151,6 +213,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			dummyObject.functionInit = Bounce.easeInOut;
 			applySubAttributes(dummyObject, "functionInit:Bounce.easeInOut");
 			Assert.assertStrictlyEquals(dummyObject.functionInit, Bounce.easeInOut);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -162,13 +228,14 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertStrictlyEquals(true, obj.bool);
 			Assert.assertStrictlyEquals(-12.12, obj.num);
 			Assert.assertStrictlyEquals(Elastic.easeInOut, obj.fun);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function applySubattributesWarning():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; });
-			
 			// invalid format
 			applySubAttributes(new Object(), "abcd:");
 			applySubAttributes(new Object(), "12:");
@@ -199,7 +266,9 @@ package test.com.panozona.player.manager.utils.configuration{
 			// deny creation of new attribute
 			applySubAttributes(dummyObject, "newAttr:foo");
 			
-			Assert.assertEquals(16, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(16, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 	}
 }

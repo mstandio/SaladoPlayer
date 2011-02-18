@@ -131,37 +131,7 @@ package com.panozona.player.manager {
 				}
 				dispatchEvent(new LoadPanoramaEvent(LoadPanoramaEvent.PANORAMA_STARTED_LOADING, panoramaData));
 				super.loadPanorama(panoramaData.params.clone());
-			}
-		}
-		
-		public function runAction(actionId:String):void {
-			var actionData:ActionData = _managerData.getActionDataById(actionId);
-			if (actionData == null) {
-				if (actionId != null)Trace.instance.printWarning("Action not found: "+actionId);
-				return;
-			}
-			var module:Object;
-			for each(var functionData:FunctionData in actionData.functions) {
-				try{
-					if (functionData.owner == description.name) {
-						if(this[functionData.name] != undefined && this[functionData.name] is Function){
-							(this[functionData.name] as Function).apply(this, functionData.args);
-						}else {
-							Trace.instance.printWarning("Invalid function name: "+functionData.owner+"."+functionData.name);
-						}
-					}else {
-						/*
-						module = _saladoPlayer.getModuleByName(functionData.owner);
-						if (module != null) {
-							module.execute(functionData.name, functionData.args);
-						}else {
-							Trace.instance.printWarning("Invalid owner name: " + functionData.owner + "." + functionData.name);
-						}
-						*/
-					}
-				}catch (error:Error) {
-					Trace.instance.printError("Could not execute "+functionData.owner+"."+functionData.name+": "+error.message);
-				}
+				loadHotspots(currentPanoramaData);
 			}
 		}
 		
@@ -170,10 +140,10 @@ package com.panozona.player.manager {
 			hotspotsLoader.addEventListener(LoadLoadableEvent.LOST, hotspotLost);
 			hotspotsLoader.addEventListener(LoadLoadableEvent.LOADED, hotspotLoaded);
 			hotspotsLoader.addEventListener(LoadLoadableEvent.FINISHED, hotspotsFinished);
-			hotspotsLoader.load(Vector.<ILoadable>(panoramaData.hotspotsDataLoad));
-			for each(var hotspotDataProduct:HotspotDataProduct in panoramaData.hotspotsDataProduct) {
-				// call factory and insert hotspots....
-			}
+			hotspotsLoader.load(panoramaData.getHotspotsLoadable());
+			//for each(var hotspotDataProduct:HotspotDataProduct in panoramaData.hotspotsDataProduct) {
+				//
+			//}
 		}
 		
 		protected function hotspotLost(event:LoadLoadableEvent):void {
@@ -182,17 +152,20 @@ package com.panozona.player.manager {
 		
 		protected function hotspotLoaded(event:LoadLoadableEvent):void {
 			var hotspotData:HotspotData = (event.loadable as HotspotData);
+			
 			var managedChild:ManagedChild;
 			
 			//if (event.content is Sprite){
 				// moze zrobic inny typ moze cos takiego 
 			//}else {
+			
 			managedChild = new Hotspot(event.content);
 			//}
 			
 			_loadedHotspots = new Dictionary();
-			_loadedHotspots[hotspotData as HotspotDataLoad] = managedChild
+			_loadedHotspots[hotspotData as HotspotData] = managedChild;
 			
+			/*
 			if (hotspotData.mouse.onClick != null) {
 				managedChild.addEventListener(MouseEvent.CLICK, getMouseEventHandler(hotspotData.mouse.onClick));
 				arrListeners.push({type:MouseEvent.CLICK, listener:getMouseEventHandler(hotspotData.mouse.onClick)});
@@ -213,6 +186,7 @@ package com.panozona.player.manager {
 				managedChild.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(hotspotData.mouse.onOut));
 				arrListeners.push({type:MouseEvent.ROLL_OUT, listener:getMouseEventHandler(hotspotData.mouse.onOut)});
 			}
+			*/
 			
 			var piOver180:Number = Math.PI / 180;
 			var pr:Number = (-1 * (-hotspotData.location.pan - 90)) * piOver180;
@@ -232,9 +206,11 @@ package com.panozona.player.manager {
 			managedChild.scaleY = hotspotData.transform.scaleY;
 			managedChild.scaleZ = hotspotData.transform.scaleZ;
 			addChild(managedChild);
+			_saladoPlayer.traceWindow.printWarning("trzy");
 		}
 		
 		protected function hotspotsFinished(event:LoadLoadableEvent):void {
+			_saladoPlayer.traceWindow.printWarning("finished");
 			event.target.removeEventListener(LoadLoadableEvent.LOST, hotspotLost);
 			event.target.removeEventListener(LoadLoadableEvent.LOADED, hotspotLoaded);
 			event.target.removeEventListener(LoadLoadableEvent.FINISHED, hotspotsFinished);
@@ -249,7 +225,6 @@ package com.panozona.player.manager {
 		private function panoramaLoaded(e:Event):void {
 			arrListeners = new Array();
 			panoramaLocked = false;
-			loadHotspots(currentPanoramaData);
 			runAction(currentPanoramaData.onEnter);
 			if (previousPanoramaData != null ){
 				runAction(currentPanoramaData.onEnterFrom[previousPanoramaData.id]);
@@ -282,6 +257,37 @@ package com.panozona.player.manager {
 ///////////////////////////////////////////////////////////////////////////////
 //  Exposed functions 
 ///////////////////////////////////////////////////////////////////////////////
+		
+			public function runAction(actionId:String):void {
+			var actionData:ActionData = _managerData.getActionDataById(actionId);
+			if (actionData == null) {
+				if (actionId != null)Trace.instance.printWarning("Action not found: "+actionId);
+				return;
+			}
+			var module:Object;
+			for each(var functionData:FunctionData in actionData.functions) {
+				try{
+					if (functionData.owner == description.name) {
+						if(this[functionData.name] != undefined && this[functionData.name] is Function){
+							(this[functionData.name] as Function).apply(this, functionData.args);
+						}else {
+							Trace.instance.printWarning("Invalid function name: "+functionData.owner+"."+functionData.name);
+						}
+					}else {
+						/*
+						module = _saladoPlayer.getModuleByName(functionData.owner);
+						if (module != null) {
+							module.execute(functionData.name, functionData.args);
+						}else {
+							Trace.instance.printWarning("Invalid owner name: " + functionData.owner + "." + functionData.name);
+						}
+						*/
+					}
+				}catch (error:Error) {
+					Trace.instance.printError("Could not execute "+functionData.owner+"."+functionData.name+": "+error.message);
+				}
+			}
+		}
 		
 		public function print(value:String):void {
 			Trace.instance.printInfo(value);

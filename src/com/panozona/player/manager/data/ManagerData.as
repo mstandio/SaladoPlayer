@@ -88,7 +88,7 @@ package com.panozona.player.manager.data {
 			return null;
 		}
 		
-		public function get componentsData():Vector.<ComponentData> {
+		public function getComponentsData():Vector.<ComponentData> {
 			var result:Vector.<ComponentData> = new Vector.<ComponentData>();
 			for each(var componentDataModule:ComponentData in modulesData) {
 				result.push(componentDataModule);

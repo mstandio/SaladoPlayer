@@ -20,10 +20,10 @@ package com.panozona.player.manager.utils.configuration {
 	
 	import com.panozona.player.component.*;
 	import com.panozona.player.manager.data.*;
-	import com.panozona.player.manager.events.*;
 	import com.panozona.player.manager.data.actions.*;
 	import com.panozona.player.manager.data.global.*;
 	import com.panozona.player.manager.data.panoramas.*;
+	import com.panozona.player.manager.events.*;
 	import com.panozona.player.manager.utils.*;
 	import com.robertpenner.easing.*;
 	import flash.events.*;
@@ -193,29 +193,28 @@ package com.panozona.player.manager.utils.configuration {
 		}
 		
 		protected function parsePanoramas(panoramasData:Vector.<PanoramaData>, panoramasNode:XML):void {
-			var panoramaData:PanoramaData;
 			var panoramaId:*;
-			var panoramaPath:*;
+			var panoramaData:PanoramaData;
 			var panoramaAttributeName:String;
 			for each(var panoramaNode:XML in panoramasNode.elements()) {
 				if (panoramaNode.@id == undefined) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Could not find panorama id."));
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+						"Missing panorama id."));
 					continue;
 				}
 				if (panoramaNode.@path == undefined) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Could not find panorama path."));
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+						"Missing panorama path."));
 					continue;
 				}
 				panoramaId = recognizeContent(panoramaNode.@id);
-				panoramaPath = recognizeContent(panoramaNode.@path);
-				if (!(panoramaId is String) || !(panoramaPath is String)) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Invalid panorama id or path format."));
+				if (!(panoramaId is String)) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+						"Invalid panorama id format."));
 					continue;
 				}
-				panoramaData = new PanoramaData(panoramaId, panoramaPath);
+				panoramaData = new PanoramaData(panoramaId, panoramaNode.@path);
+				panoramasData.push(panoramaData);
 				for each(var panoramaAttribute:XML in panoramaNode.attributes()) {
 					panoramaAttributeName = panoramaAttribute.localName();
 					if (panoramaAttributeName == "camera") {
@@ -234,56 +233,55 @@ package com.panozona.player.manager.utils.configuration {
 						applySubAttributes(panoramaData.onLeaveTo, panoramaAttribute);
 					}else if (panoramaAttributeName == "onLeaveToAttempt") {
 						applySubAttributes(panoramaData.onLeaveToAttempt, panoramaAttribute);
-					}else if (panoramaAttributeName != "id" &&
-						panoramaAttributeName != "path") {
+					}else if (panoramaAttributeName != "id" && panoramaAttributeName != "path") {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Unrecognized panorama attribute: " + panoramaAttribute.localName().toString()));
+							"Unrecognized panorama attribute: " + panoramaAttribute.localName()));
 					}
 				}
-				parseHotspots(panoramaData.hotspotsData, panoramaNode);
-				panoramasData.push(panoramaData);
+				parseHotspots(panoramaData, panoramaNode);
 			}
 		}
 		
-		protected function parseHotspots(hotspotsData:Vector.<HotspotData>, panoramaNode:XML):void {
-			var hotspotData:HotspotData;
+		protected function parseHotspots(panoramaData:PanoramaData, panoramaNode:XML):void {
 			var hotspotId:*;
-			var hotspotAttr:*;
+			var hotspotData:HotspotData;
 			var hotspotAttributeName:String;
 			for each(var hotspotNode:XML in panoramaNode.elements()) {
 				if(hotspotNode.@id == undefined) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Could not find hotspot id."));
+				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+					"Missing hotspot id."));
 					continue;
 				}
 				hotspotId = recognizeContent(hotspotNode.@id);
 				if (!(hotspotId is String)) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 						"Invalid hotspot id format: " + hotspotId));
 					continue;
 				}
-				if (hotspotNode.@path != undefined) {
-					hotspotAttr = recognizeContent(hotspotNode.@path);
-					if (!(hotspotAttr is String)) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Invalid hotspot path format: " + hotspotId));
+				if (hotspotNode.localName() == "image" || hotspotNode.localName() == "swf") {
+					if (hotspotNode.@path == undefined) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+							"Missing hotspot path: " + hotspotId));
 						continue;
 					}
-					hotspotData = new HotspotDataLoad(hotspotId, hotspotAttr);
-					if (hotspotNode.@arguments != undefined) {
-						applySubAttributes((hotspotData as HotspotDataLoad).swfArguments, hotspotNode.@arguments);
+					if (hotspotNode.localName() == "image") {
+						 hotspotData = new HotspotDataImage(hotspotId, hotspotNode.@path);
+						 panoramaData.hotspotsDataImage.push(hotspotData as HotspotDataImage);
+					}else {
+						 hotspotData = new HotspotDataSwf(hotspotId, hotspotNode.@path, hotspotNode);
+						 panoramaData.hotspotsDataSwf.push(hotspotData as HotspotDataSwf);
 					}
-				}else if (hotspotNode.@factory != undefined) {
-					hotspotAttr = recognizeContent(hotspotNode.@factory);
-					if (!(hotspotAttr is String)) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Invalid hotspot factory format: " + hotspotId));
+				}else if (hotspotNode.localName() == "product") {
+					if (hotspotNode.@factory == undefined) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+							"Missing hotspot factory: " + hotspotId));
 						continue;
 					}
-					hotspotData = new HotspotDataProduct(hotspotId, hotspotAttr);
+					hotspotData = new HotspotDataProduct(hotspotId, hotspotNode.@factory);
+					panoramaData.hotspotsDataProduct.push(hotspotData as HotspotDataProduct);
 				}else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Invalid hotspot type: " + hotspotId));
+						"Unrecognized hotspot type: " + hotspotNode.localName()));
 					continue;
 				}
 				for each (var hotspotAttribute:XML in hotspotNode.attributes()) {
@@ -294,41 +292,30 @@ package com.panozona.player.manager.utils.configuration {
 						applySubAttributes(hotspotData.mouse, hotspotAttribute);
 					}else if (hotspotAttributeName == "transform") {
 						applySubAttributes(hotspotData.transform, hotspotAttribute);
-					}else if (hotspotAttributeName != "id" &&
-						hotspotAttributeName != "path" &&
-						hotspotAttributeName != "factory" &&
-						hotspotAttributeName != "arguments"){
+					}else if (hotspotAttributeName != "id" && hotspotAttributeName != "path" && hotspotAttributeName != "factory"){
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Unrecognized hotspot attribute: "+hotspotAttribute.localName()));
+							"Unrecognized hotspot attribute: " + hotspotAttribute.localName()));
 					}
 				}
-				hotspotsData.push(hotspotData);
 			}
 		}
 		
 		protected function parseComponents(componentsData:Vector.<ComponentData>, componentsDataNode:XML):void {
-			var componentDataPath:*;
 			var componentData:ComponentData;
 			var componentNode:ComponentNode;
 			for each(var componentDataNode:XML in componentsDataNode.elements()) {
 				if(componentDataNode.@path == undefined ) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"No path for component: " + componentDataNode.localName()));
+						"Missing path for: " + componentDataNode.localName()));
 					continue;
 				}
-				componentDataPath = recognizeContent(componentDataNode.@path);
-				if (!(componentDataPath is String)) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Invalid path format" + componentDataNode.localName()));
-					continue;
-				}
-				componentData = new ComponentData(componentDataNode.localName(), componentDataPath);
+				componentData = new ComponentData(componentDataNode.localName(), componentDataNode.@path);
+				componentsData.push(componentData);
 				for each(var componentChildNode:XML in componentDataNode.elements()) {
 					componentNode = new ComponentNode(componentChildNode.localName());
 					parseComponentNodeRecursive(componentNode, componentChildNode);
 					componentData.nodes.push(componentNode);
 				}
-				componentsData.push(componentData);
 			}
 		}
 		
@@ -349,8 +336,8 @@ package com.panozona.player.manager.utils.configuration {
 					}
 				}else {
 					componentChildNode = new ComponentNode(childNode.localName());
-					parseComponentNodeRecursive(componentChildNode, childNode);
 					componentNode.childNodes.push(componentChildNode);
+					parseComponentNodeRecursive(componentChildNode, childNode);
 				}
 			}
 		}
@@ -360,22 +347,24 @@ package com.panozona.player.manager.utils.configuration {
 			var actionId:*;
 			for each(var actionNode:XML in actionsNode.elements()) {
 				if (actionNode.@id == undefined) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Could not find action id."));
-					continue;
-				}
-				if (actionNode.@content == undefined) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Could not find action content."));
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+						"Missing action id."));
 					continue;
 				}
 				actionId = recognizeContent(actionNode.@id);
 				if (!(actionId is String)) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 						"Invalid action id format" + actionId));
 					continue;
 				}
+				
+				if (actionNode.@content == undefined) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+						"Missing action content."));
+					continue;
+				}
 				actionData = new ActionData(actionId);
+				actionsData.push(actionData);
 				for each(var actionAttribute:XML in actionNode.attributes()) {
 					if (actionAttribute.localName() == "content") {
 						parseActionContent(actionData, actionAttribute);
@@ -384,7 +373,6 @@ package com.panozona.player.manager.utils.configuration {
 							"Unrecognized action attribute: " + actionAttribute.localName()));
 					}
 				}
-				actionsData.push(actionData);
 			}
 		}
 		
@@ -408,6 +396,7 @@ package com.panozona.player.manager.utils.configuration {
 						continue;
 					}
 					functionData = new FunctionData(singleFunctionArray[0], singleFunctionArray[1]);
+					actionData.functions.push(functionData);
 					if (singleFunctionArray.length == 3) {
 						allArguments = singleFunctionArray[2].split(",");
 						for each(singleArgument in allArguments) {
@@ -415,7 +404,6 @@ package com.panozona.player.manager.utils.configuration {
 							functionData.args.push(recognizedValue);
 						}
 					}
-					actionData.functions.push(functionData);
 				}else if (singleFunction.match(/^[\w]+\[[^\[\]]+\]\.[\w]+\(.*\)$/)) {
 					singleFunctionArray = singleFunction.match(/(^[\w]+)|(?<=(\w\[)).+(?=\]\.)|([\w]+(?=\())|((?<=\().+(?=\)))/g);
 					//owner.function(arguments)
@@ -428,7 +416,8 @@ package com.panozona.player.manager.utils.configuration {
 							"Wrong format of function: " + singleFunction));
 						continue;
 					}
-					functionData = new FunctionDataTarget(singleFunctionArray[0],singleFunctionArray[1].split(","), singleFunctionArray[2]);
+					functionData = new FunctionDataTarget(singleFunctionArray[0], singleFunctionArray[1].split(","), singleFunctionArray[2]);
+					actionData.functions.push(functionData);
 					if (singleFunctionArray.length == 4) {
 						allArguments = singleFunctionArray[3].split(",");
 						for each(singleArgument in allArguments) {
@@ -436,7 +425,6 @@ package com.panozona.player.manager.utils.configuration {
 							functionData.args.push(recognizedValue);
 						}
 					}
-					actionData.functions.push(functionData);
 				}else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Wrong format of action content: " + singleFunction));

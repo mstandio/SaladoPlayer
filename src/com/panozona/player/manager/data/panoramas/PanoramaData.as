@@ -18,12 +18,24 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.data.panoramas {
 	
-	import com.panosalado.model.*;
+	import com.panosalado.model.Params;
+	import com.panozona.player.manager.utils.loading.ILoadable;
 	
 	public class PanoramaData {
 		
+		/**
+		 * Action called on entering this panorama
+		 */
 		public var onEnter:String;
+		
+		/**
+		 * Action called on transition effect finished in this panorama
+		 */
 		public var onTransitionEnd:String;
+		
+		/**
+		 * Action called on leaving this panorama
+		 */
 		public var onLeave:String;
 		
 		/**
@@ -51,7 +63,9 @@ package com.panozona.player.manager.data.panoramas {
 		 */
 		public const onLeaveToAttempt:Object = new Object();
 		
-		public const hotspotsData:Vector.<HotspotData> = new Vector.<HotspotData>();
+		public const hotspotsDataImage:Vector.<HotspotDataImage> = new Vector.<HotspotDataImage>();
+		public const hotspotsDataSwf:Vector.<HotspotDataSwf> = new Vector.<HotspotDataSwf>();
+		public const hotspotsDataProduct:Vector.<HotspotDataProduct> = new Vector.<HotspotDataProduct>();
 		
 		private var _id:String;
 		private var _params:Params;
@@ -69,40 +83,54 @@ package com.panozona.player.manager.data.panoramas {
 			return _params;
 		}
 		
-		public final function hotspotsDataLoadById(id:String):HotspotDataLoad {
-			for (var i:int = 0; i < hotspotsData.length; i++) {
-				if (hotspotsData[i] is HotspotDataLoad && hotspotsData[i].id == id) {
-					return (hotspotsData[i] as HotspotDataLoad);
+		public final function hotspotsDataImageById(id:String):HotspotDataImage {
+			for (var i:int = 0; i < hotspotsDataImage.length; i++) {
+				if (hotspotsDataImage[i].id == id) {
+					return hotspotsDataImage[i];
 				}
 			}
 			return null;
 		}
 		
-		public final function get hotspotsDataLoad():Vector.<HotspotDataLoad> {
-			var result:Vector.<HotspotDataLoad> = new Vector.<HotspotDataLoad>();
-			for (var i:int = 0; i < hotspotsData.length; i++) {
-				if (hotspotsData[i] is HotspotDataLoad) {
-					result.push(hotspotsData[i] as HotspotDataLoad);
+		public final function hotspotsDataSwfById(id:String):HotspotDataSwf {
+			for (var i:int = 0; i < hotspotsDataSwf.length; i++) {
+				if (hotspotsDataSwf[i].id == id) {
+					return hotspotsDataSwf[i];
 				}
+			}
+			return null;
+		}
+		
+		public final function hotspotsDataProductById(id:String):HotspotDataProduct {
+			for (var i:int = 0; i < hotspotsDataProduct.length; i++) {
+				if (hotspotsDataProduct[i].id == id) {
+					return hotspotsDataProduct[i];
+				}
+			}
+			return null;
+		}
+		
+		public function getHotspotsLoadable():Vector.<ILoadable> {
+			var result:Vector.<ILoadable> = new Vector.<ILoadable>();
+			for (var i:int = 0; i < hotspotsDataImage.length; i++) {
+				result.push(hotspotsDataImage[i] as ILoadable);
+			}
+			for (i = 0; i < hotspotsDataSwf.length; i++) {
+				result.push(hotspotsDataSwf[i] as ILoadable);
 			}
 			return result;
 		}
 		
-		public final function hotspotsDataProductById(id:String):HotspotDataProduct {
-			for (var i:int = 0; i < hotspotsData.length; i++) {
-				if (hotspotsData[i] is HotspotDataProduct && hotspotsData[i].id == id) {
-					return (hotspotsData[i] as HotspotDataProduct);
-				}
+		public function getHotspotsData():Vector.<HotspotData> {
+			var result:Vector.<HotspotData> = new Vector.<HotspotData>();
+			for (var i:int = 0; i < hotspotsDataImage.length; i++) {
+				result.push(hotspotsDataImage[i] as HotspotData);
 			}
-			return null;
-		}
-		
-		public final function get hotspotsDataProduct():Vector.<HotspotDataProduct> {
-			var result:Vector.<HotspotDataProduct> = new Vector.<HotspotDataProduct>();
-			for (var i:int = 0; i < hotspotsData.length; i++) {
-				if (hotspotsData[i] is HotspotDataProduct) {
-					result.push(hotspotsData[i] as HotspotDataProduct);
-				}
+			for (i = 0; i < hotspotsDataSwf.length; i++) {
+				result.push(hotspotsDataSwf[i] as HotspotData);
+			}
+			for (i = 0; i < hotspotsDataProduct.length; i++) {
+				result.push(hotspotsDataProduct[i] as HotspotData);
 			}
 			return result;
 		}

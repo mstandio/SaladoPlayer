@@ -41,6 +41,5 @@ package com.panozona.player.manager.data.global{
 			params.minFov = 30;
 			params.maxFov = 120;
 		}
-		
 	}
 }

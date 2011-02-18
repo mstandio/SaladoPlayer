@@ -12,8 +12,21 @@ package test.com.panozona.player.manager.utils.configuration{
 	
 	public class ManagerDataParserXMLGlobal extends com.panozona.player.manager.utils.configuration.ManagerDataParserXML{
 		
+		protected var infoCount:int;
+		protected var warningCount:int;
+		protected var errorCount:int;
+		
+		public function ManagerDataParserXMLGlobal():void {
+			addEventListener(ConfigurationEvent.INFO, function(event:Event):void {infoCount++;});
+			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void{warningCount++;});
+			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void{errorCount++;});
+		}
+		
 		[Before]
-		public function masterBefore():void {
+		public function beforeTest():void {
+			infoCount = 0;
+			warningCount = 0;
+			errorCount = 0;
 			debugMode = true;
 		}
 		
@@ -23,6 +36,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			var nodeXML_a:XML = new XML("<root><global debug=\"true\"/></root>");
 			
 			configureManagerData(new ManagerData(), nodeXML_a)
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 			
 			Assert.assertTrue(debugMode);
 		}
@@ -34,25 +51,26 @@ package test.com.panozona.player.manager.utils.configuration{
 			
 			configureManagerData(new ManagerData(), nodeXML_a)
 			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
+			
 			Assert.assertFalse(debugMode);
 		}
 		
 		[Test]
 		public function debugWarning():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
 			
 			var nodeXML_a:XML = new XML("<root><global debug=\"123\"/></root>");
 			configureManagerData(new ManagerData(), nodeXML_a)
 			
-			Assert.assertEquals(1, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function parseGlobalWarning():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			// unknown global node
 			var nodeXML_a:XML = new XML(
 				"<root>" +
@@ -70,61 +88,58 @@ package test.com.panozona.player.manager.utils.configuration{
 			parseGlobal(new ManagerData(), nodeXML_a);
 			parseGlobal(new ManagerData(), nodeXML_b)
 			
-			Assert.assertEquals(2, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(2, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function parseTraceWarning():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			// unknown trace attribute
 			var nodeXML_a:XML = new XML("<trace something=\"false\"/>");
 			
 			// TODO: invalid align value ect.
-			
-			
 			parseTrace(new TraceData(), nodeXML_a);
 			
-			Assert.assertEquals(1, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function parseStatsWarning():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			// unknown stats attribute
 			var nodeXML_a:XML = new XML("<stats something=\"false\"/>");
-				
+			
 			parseStats(new StatsData(), nodeXML_a);
 			
-			Assert.assertEquals(1, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function parseBrandingWarning():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			// unknown branding attribute
 			var nodeXML_a:XML = new XML("<branding something=\"false\"/>");
 			
 			parseBranding(new BrandingData(), nodeXML_a);
 			
-			Assert.assertEquals(1, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function parseControlWarning():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			// unknown control attribute
 			var nodeXML_a:XML = new XML("<control something=\"false\"/>");
 			
 			parseControl(new ControlData(), nodeXML_a);
-			Assert.assertEquals(1, callCount);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 	}
 }

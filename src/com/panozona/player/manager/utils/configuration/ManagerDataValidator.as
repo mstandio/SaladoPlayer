@@ -19,10 +19,10 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.manager.utils.configuration{
 	
 	import com.panozona.player.component.*;
-	import com.panozona.player.manager.events.*;
 	import com.panozona.player.manager.data.*;
 	import com.panozona.player.manager.data.actions.*;
 	import com.panozona.player.manager.data.panoramas.*;
+	import com.panozona.player.manager.events.*;
 	import flash.events.*;
 	import flash.utils.*;
 	
@@ -34,7 +34,7 @@ package com.panozona.player.manager.utils.configuration{
 			checkActions(managerData);
 		}
 		
-		private function checkPanoramas(panoramasData:Vector.<PanoramaData>, actionsData:Vector.<ActionData>):void {
+		protected function checkPanoramas(panoramasData:Vector.<PanoramaData>, actionsData:Vector.<ActionData>):void {
 			if (panoramasData.length < 1) {
 				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 					"No panoramas found."));
@@ -68,7 +68,7 @@ package com.panozona.player.manager.utils.configuration{
 				checkActionTrigger(panoramaData.id, panoramaData.onLeaveToAttempt, panoramasData, actionsData);
 				
 				var hotspotsId:Object = new Object();
-				for each(var hotspotData:HotspotData in panoramaData.hotspotsData){
+				for each(var hotspotData:HotspotData in panoramaData.getHotspotsData()){
 					if (hotspotData.id == null) {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 							"Missig hotspot id."));
@@ -90,16 +90,16 @@ package com.panozona.player.manager.utils.configuration{
 			}
 		}
 		
-		private function actionExists(actionId:String, actionsData:Vector.<ActionData>):void {
+		protected function actionExists(actionId:String, actionsData:Vector.<ActionData>):void {
 			if (actionId == null) return;
 			for each(var actionData:ActionData in actionsData) {
 				if (actionData.id == actionId) return;
 			}
-			dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+			dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 				"Action not found: " + actionId));
 		}
 		
-		private function checkActionTrigger(panoramaId:String, actionTrigger:Object, panoramasData:Vector.<PanoramaData>, actionsData:Vector.<ActionData>):void {
+		protected function checkActionTrigger(panoramaId:String, actionTrigger:Object, panoramasData:Vector.<PanoramaData>, actionsData:Vector.<ActionData>):void {
 			for (var checkedPanoramaId:String in actionTrigger) {
 				panoramaExists(checkedPanoramaId, panoramasData);
 				actionExists(actionTrigger[checkedPanoramaId], actionsData);
@@ -110,15 +110,15 @@ package com.panozona.player.manager.utils.configuration{
 			}
 		}
 		
-		private function panoramaExists(panoramaId:String, panoramasData:Vector.<PanoramaData>):void{
+		protected function panoramaExists(panoramaId:String, panoramasData:Vector.<PanoramaData>):void{
 			for each(var panoramaData:PanoramaData in panoramasData) {
 				if (panoramaData.id == panoramaId) return;
 			}
-			dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+			dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 				"Panorama not found: " + panoramaId));
 		}
 		
-		private function checkComponents(...componentDataVectors):void {
+		protected function checkComponents(...componentDataVectors):void {
 			var componentsData:Vector.<ComponentData>;
 			var componentsName:Object = new Object();
 			for (var i:uint = 0; i < componentDataVectors.length; i++) {
@@ -149,7 +149,7 @@ package com.panozona.player.manager.utils.configuration{
 			}
 		}
 		
-		private function checkActions(managerData:ManagerData):void {
+		protected function checkActions(managerData:ManagerData):void {
 			var actionsId:Object = new Object();
 			for each(var actionData:ActionData in managerData.actionsData) {
 				if (actionData.id == null) {
@@ -169,7 +169,7 @@ package com.panozona.player.manager.utils.configuration{
 			}
 		}
 		
-		private function checkFunction(functionData:FunctionData, managerData:ManagerData):void {
+		protected function checkFunction(functionData:FunctionData, managerData:ManagerData):void {
 			if (managerData.getComponentDataByName(functionData.owner) == null) {
 				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 					"Owner not found: " + functionData.owner + "." + functionData.name));
@@ -180,7 +180,7 @@ package com.panozona.player.manager.utils.configuration{
 			}
 		}
 		
-		private function verifyFunction(functionData:FunctionData, managerData:ManagerData):void {
+		protected function verifyFunction(functionData:FunctionData, managerData:ManagerData):void {
 			var componentDescription:ComponentDescription = managerData.getComponentDataByName(functionData.owner).descriptionReference;
 			if (componentDescription.functionsDescription[functionData.name] == undefined) {
 				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
@@ -199,7 +199,7 @@ package com.panozona.player.manager.utils.configuration{
 				for each(var target:String in (functionData as FunctionDataTarget).targets){
 					var found:Boolean;
 					for each (var panoramaData:PanoramaData in managerData.panoramasData) {
-						for each (var hotspotData:HotspotData in panoramaData.hotspotsData) {
+						for each (var hotspotData:HotspotData in panoramaData.getHotspotsData()) {
 							if (hotspotData.id == target) {
 								found = true;
 								break;

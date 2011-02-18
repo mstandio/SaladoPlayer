@@ -24,7 +24,7 @@
 			core = new FlexUnitCore();
 			core.addListener( new UIListener( uiListener ));
 			
-			core.run(Parser, Validator, Translator);
+			core.run(Parser, Validator);//, Translator);
 		}
 		
 		]]>

@@ -29,15 +29,13 @@ package com.panozona.player.manager.data.panoramas {
 		public const mouse:Mouse = new Mouse();
 		public var handCursor:Boolean = true;
 		
-		public var content:DisplayObject;
-		
 		private var _id:String;
 		
-		public function HotspotData(id:String) {
+		public function HotspotData(id:String){
 			_id = id;
 		}
 		
-		public final function get id():String {
+		public final function get id():String{
 			return _id;
 		}
 	}

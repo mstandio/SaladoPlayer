@@ -144,7 +144,7 @@ package com.panozona.player {
 			modulesLoader.addEventListener(LoadLoadableEvent.LOST, componentLost);
 			modulesLoader.addEventListener(LoadLoadableEvent.LOADED, componentLoaded);
 			modulesLoader.addEventListener(LoadLoadableEvent.FINISHED, componentsFinished);
-			modulesLoader.load(Vector.<ILoadable>(managerData.componentsData));
+			modulesLoader.load(Vector.<ILoadable>(managerData.getComponentsData));
 		}
 		
 		private function componentLost(event:LoadLoadableEvent):void {

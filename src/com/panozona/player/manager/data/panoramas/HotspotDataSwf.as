@@ -20,19 +20,23 @@ package com.panozona.player.manager.data.panoramas {
 	
 	import com.panozona.player.manager.utils.loading.ILoadable;
 	
-	public class HotspotDataLoad extends HotspotData implements ILoadable {
+	public class HotspotDataSwf extends HotspotData implements ILoadable {
 		
-		public const swfArguments:Object = new Object();
+		private var _xml:XML;
 		
 		private var _path:String;
 		
-		public function HotspotDataLoad(id:String, path:String){
+		public function HotspotDataSwf(id:String, path:String, xml:XML){
 			super(id);
 			_path = path;
 		}
 		
 		public function get path():String {
 			return _path;
+		}
+		
+		public function get xml():XML {
+			return _xml;
 		}
 	}
 }

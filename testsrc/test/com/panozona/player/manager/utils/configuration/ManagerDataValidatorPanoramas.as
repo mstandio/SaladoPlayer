@@ -13,70 +13,63 @@ package test.com.panozona.player.manager.utils.configuration{
 	
 	public class ManagerDataValidatorPanoramas extends com.panozona.player.manager.utils.configuration.ManagerDataValidator{
 		
+		protected var infoCount:int;
+		protected var warningCount:int;
+		protected var errorCount:int;
+		
 		protected var managerData:ManagerData;
 		
+		public function ManagerDataValidatorPanoramas():void {
+			addEventListener(ConfigurationEvent.INFO, function(event:Event):void {infoCount++;});
+			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void{warningCount++;});
+			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void{errorCount++;});
+		}
+		
 		[Before]
-		public function masterBefore():void {
+		public function beforeTest():void {
+			infoCount = 0;
+			warningCount = 0;
+			errorCount = 0;
+			
 			managerData = new ManagerData();
 		}
 		
 		[Test]
 		public function repeatingPanoramaId():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void{callCount++;});
-			
 			managerData.panoramasData.push(new PanoramaData("a","patha"));
 			managerData.panoramasData.push(new PanoramaData("a","patha"));
 			
 			validate(managerData);
 			
-			Assert.assertEquals(1, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
-		public function panoramaError():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void{callCount++;});
-			
+		public function panoramaNullPath():void {
 			managerData.panoramasData.push(new PanoramaData(null, "path"));
-			managerData.panoramasData.push(new PanoramaData("a", null));
-			
 			validate(managerData);
 			
-			Assert.assertEquals(2, callCount);
-		}
-		
-		[Test]
-		public function hotspotError():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void{callCount++;});
-			
-			managerData.panoramasData.push(new PanoramaData(null, "path"));
-			managerData.panoramasData.push(new PanoramaData("a", null));
-			
-			validate(managerData);
-			
-			Assert.assertEquals(2, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(1, errorCount);
 		}
 		
 		[Test]
 		public function panoramaSimpleActionTrigger():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			managerData.panoramasData.push(new PanoramaData("a", "patha"));
 			managerData.panoramasData[0].onEnter = "nonexistantActionId";
 			
 			validate(managerData);
 			
-			Assert.assertEquals(1, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function panoramaComplexActionTrigger():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			managerData.panoramasData.push(new PanoramaData("pano_a", "path_a"));
 			managerData.panoramasData.push(new PanoramaData("pano_b", "path_b"));
 			managerData.panoramasData.push(new PanoramaData("pano_c", "path_c"));
@@ -103,64 +96,63 @@ package test.com.panozona.player.manager.utils.configuration{
 			
 			validate(managerData);
 			
-			Assert.assertEquals(3, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(3, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function repeatingHotspotSamePanorama():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			managerData.panoramasData.push(new PanoramaData("a", "patha"));
 			
-			managerData.panoramasData[0].hotspotsData.push(new HotspotData("h2"));
-			managerData.panoramasData[0].hotspotsData.push(new HotspotData("h2"));
+			managerData.panoramasData[0].hotspotsDataImage.push(new HotspotDataImage("h2","path2"));
+			managerData.panoramasData[0].hotspotsDataImage.push(new HotspotDataImage("h2","path3"));
 			
 			validate(managerData);
 			
-			Assert.assertEquals(1, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function repeatingHotspotDifferentPanorama():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			managerData.panoramasData.push(new PanoramaData("a", "patha"));
 			managerData.panoramasData.push(new PanoramaData("b", "pathb"));
 			
-			managerData.panoramasData[0].hotspotsData.push(new HotspotData("h1"));
-			managerData.panoramasData[0].hotspotsData.push(new HotspotData("h2"));
+			managerData.panoramasData[0].hotspotsDataImage.push(new HotspotDataImage("h1","path1"));
+			managerData.panoramasData[0].hotspotsDataImage.push(new HotspotDataImage("h2","path2"));
 			
-			managerData.panoramasData[1].hotspotsData.push(new HotspotData("h2"));
-			managerData.panoramasData[1].hotspotsData.push(new HotspotData("h3"));
+			managerData.panoramasData[1].hotspotsDataImage.push(new HotspotDataImage("h2","path3"));
+			managerData.panoramasData[1].hotspotsDataImage.push(new HotspotDataImage("h3","path4"));
 			
 			validate(managerData);
 			
-			Assert.assertEquals(1, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function hotspotMouse():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
-			
 			managerData.actionsData.push(new ActionData("act_1"));
 			managerData.actionsData.push(new ActionData("act_2"));
 			managerData.actionsData.push(new ActionData("act_3"));
 			managerData.actionsData.push(new ActionData("act_4"));
 			
 			managerData.panoramasData.push(new PanoramaData("a", "patha"));
-			managerData.panoramasData[0].hotspotsData.push(new HotspotData("h1"));
-			managerData.panoramasData[0].hotspotsData[0].mouse.onClick = "act_1";
-			managerData.panoramasData[0].hotspotsData[0].mouse.onOut = "act_2";
-			managerData.panoramasData[0].hotspotsData[0].mouse.onOver = "act_3";
-			managerData.panoramasData[0].hotspotsData[0].mouse.onPress = "act_4";
-			managerData.panoramasData[0].hotspotsData[0].mouse.onRelease = "act_nonexistant";
+			managerData.panoramasData[0].hotspotsDataImage.push(new HotspotDataImage("h1", "path1"));
+			managerData.panoramasData[0].hotspotsDataImage[0].mouse.onClick = "act_1";
+			managerData.panoramasData[0].hotspotsDataImage[0].mouse.onOut = "act_2";
+			managerData.panoramasData[0].hotspotsDataImage[0].mouse.onOver = "act_3";
+			managerData.panoramasData[0].hotspotsDataImage[0].mouse.onPress = "act_4";
+			managerData.panoramasData[0].hotspotsDataImage[0].mouse.onRelease = "act_nonexistant";
 			
 			validate(managerData);
 			
-			Assert.assertEquals(1, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 	}
 }

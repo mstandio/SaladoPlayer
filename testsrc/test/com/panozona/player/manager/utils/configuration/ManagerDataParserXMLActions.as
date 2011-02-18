@@ -11,10 +11,31 @@ package test.com.panozona.player.manager.utils.configuration {
 	
 	public class ManagerDataParserXMLActions extends com.panozona.player.manager.utils.configuration.ManagerDataParserXML{
 		
+		protected var infoCount:int;
+		protected var warningCount:int;
+		protected var errorCount:int;
+		
+		public function ManagerDataParserXMLActions():void {
+			addEventListener(ConfigurationEvent.INFO, function(event:Event):void {infoCount++;});
+			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void{warningCount++;});
+			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void{errorCount++;});
+		}
+		
+		[Before]
+		public function beforeTest():void {
+			infoCount = 0;
+			warningCount = 0;
+			errorCount = 0;
+		}
+		
 		[Test]
 		public function parseActionContentPlainStructure():void {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna.nama();ownb.namb();ownc.namc()");
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 			
 			Assert.assertEquals(3, actionData.functions.length);
 			
@@ -37,6 +58,10 @@ package test.com.panozona.player.manager.utils.configuration {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna.nama(foo);ownb.namb([bar]);ownc.namc(foo,[bar])");
 			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
+			
 			Assert.assertStrictlyEquals("foo", actionData.functions[0].args[0]);
 			Assert.assertStrictlyEquals("bar", actionData.functions[1].args[0]);
 			Assert.assertStrictlyEquals("foo", actionData.functions[2].args[0]);
@@ -48,6 +73,10 @@ package test.com.panozona.player.manager.utils.configuration {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna.nama(-12.12);ownb.namb(#ff00ff);ownc.namc(NaN)");
 			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
+			
 			Assert.assertStrictlyEquals(-12.12, actionData.functions[0].args[0]);
 			Assert.assertStrictlyEquals(0xff00ff, actionData.functions[1].args[0]);
 			Assert.assertTrue(isNaN(actionData.functions[2].args[0]));
@@ -57,6 +86,10 @@ package test.com.panozona.player.manager.utils.configuration {
 		public function parseActionContentPlainBoolean():void {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna.nama(true);ownb.namb(false);ownc.namc(true,false)");
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 			
 			Assert.assertStrictlyEquals(true, actionData.functions[0].args[0]);
 			Assert.assertStrictlyEquals(false, actionData.functions[1].args[0]);
@@ -69,6 +102,10 @@ package test.com.panozona.player.manager.utils.configuration {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna.nama(Linear.easeNone);ownb.namb(Linear.easeNone,Linear.easeIn)");
 			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
+			
 			Assert.assertStrictlyEquals(Linear.easeNone, actionData.functions[0].args[0]);
 			Assert.assertStrictlyEquals(Linear.easeNone, actionData.functions[1].args[0]);
 			Assert.assertStrictlyEquals(Linear.easeIn, actionData.functions[1].args[1]);
@@ -78,6 +115,11 @@ package test.com.panozona.player.manager.utils.configuration {
 		public function parseActionContentTargetStructure():void {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna[targa].nama();ownb[targb].namb();ownc[targc].namc()");
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
+			
 			Assert.assertEquals(3, actionData.functions.length);
 			Assert.assertTrue(actionData.functions[0] is FunctionDataTarget);
 			Assert.assertTrue(actionData.functions[1] is FunctionDataTarget);
@@ -101,6 +143,10 @@ package test.com.panozona.player.manager.utils.configuration {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna[targa].nama(foo);ownb[targb].namb([bar]);ownc[targc].namc(foo,[bar])");
 			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
+			
 			Assert.assertStrictlyEquals("foo", actionData.functions[0].args[0]);
 			Assert.assertStrictlyEquals("bar", actionData.functions[1].args[0]);
 			Assert.assertStrictlyEquals("foo", actionData.functions[2].args[0]);
@@ -112,6 +158,10 @@ package test.com.panozona.player.manager.utils.configuration {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna[targa].nama(-12.12);ownb[targb].namb(#ff00ff);ownc[targc].namc(NaN)");
 			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
+			
 			Assert.assertStrictlyEquals(-12.12, actionData.functions[0].args[0]);
 			Assert.assertStrictlyEquals(0xff00ff, actionData.functions[1].args[0]);
 			Assert.assertTrue(isNaN(actionData.functions[2].args[0]));
@@ -121,6 +171,10 @@ package test.com.panozona.player.manager.utils.configuration {
 		public function parseActionContentTargetBoolean():void {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna[targa].nama(true);ownb[targb].namb(false);ownc[targc].namc(true,false)");
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 			
 			Assert.assertStrictlyEquals(true, actionData.functions[0].args[0]);
 			Assert.assertStrictlyEquals(false, actionData.functions[1].args[0]);
@@ -133,6 +187,10 @@ package test.com.panozona.player.manager.utils.configuration {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna[targa].nama(Linear.easeNone);ownb[targb].namb(Linear.easeNone,Linear.easeIn)");
 			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
+			
 			Assert.assertStrictlyEquals(Linear.easeNone, actionData.functions[0].args[0]);
 			Assert.assertStrictlyEquals(Linear.easeNone, actionData.functions[1].args[0]);
 			Assert.assertStrictlyEquals(Linear.easeIn, actionData.functions[1].args[1]);
@@ -142,6 +200,10 @@ package test.com.panozona.player.manager.utils.configuration {
 		public function parseActionContentMixedStructure():void {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna.nama();ownb[targb].namb();ownc.namc()");
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 			
 			Assert.assertEquals(3, actionData.functions.length);
 			
@@ -165,6 +227,10 @@ package test.com.panozona.player.manager.utils.configuration {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna.nama(foo);ownb[targb].namb([bar]);ownc.namc(foo,[bar])");
 			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
+			
 			Assert.assertStrictlyEquals("foo", actionData.functions[0].args[0]);
 			Assert.assertStrictlyEquals("bar", actionData.functions[1].args[0]);
 			Assert.assertStrictlyEquals("foo", actionData.functions[2].args[0]);
@@ -176,6 +242,10 @@ package test.com.panozona.player.manager.utils.configuration {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna.nama(-12.12);ownb[targb].namb(#ff00ff);ownc.namc(NaN)");
 			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
+			
 			Assert.assertStrictlyEquals(-12.12, actionData.functions[0].args[0]);
 			Assert.assertStrictlyEquals(0xff00ff, actionData.functions[1].args[0]);
 			Assert.assertTrue(isNaN(actionData.functions[2].args[0]));
@@ -185,6 +255,10 @@ package test.com.panozona.player.manager.utils.configuration {
 		public function parseActionContentMixedBoolean():void {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna.nama(true);ownb[targb].namb(false);ownc.namc(true,false)");
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 			
 			Assert.assertStrictlyEquals(true, actionData.functions[0].args[0]);
 			Assert.assertStrictlyEquals(false, actionData.functions[1].args[0]);
@@ -197,30 +271,77 @@ package test.com.panozona.player.manager.utils.configuration {
 			var actionData:ActionData = new ActionData("a");
 			parseActionContent(actionData, "owna.nama(Linear.easeNone);ownb[targb].namb(Linear.easeNone,Linear.easeIn)");
 			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
+			
 			Assert.assertStrictlyEquals(Linear.easeNone, actionData.functions[0].args[0]);
 			Assert.assertStrictlyEquals(Linear.easeNone, actionData.functions[1].args[0]);
 			Assert.assertStrictlyEquals(Linear.easeIn, actionData.functions[1].args[1]);
 		}
 		
 		[Test]
-		public function parseActionContentWarning():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void{callCount++;});
-			
-			// wrong foramt of action content
+		public function wrongFunction1():void {
 			parseActionContent(new ActionData("a"),"owna.nama");
-			parseActionContent(new ActionData("b"),"owna.nama;ownb.namb"); // dispatches two events 
-			parseActionContent(new ActionData("c"),"owna.nama,ownb.namb");
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
+		}
+		
+		[Test]
+		public function wrongFunction2():void {
+			parseActionContent(new ActionData("a"), "owna.nama");
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
+		}
+		
+		[Test]
+		public function wrongFunction3():void {
+			parseActionContent(new ActionData("b"), "owna.nama;ownb.namb"); // dispatches two events 
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(2, warningCount);
+			Assert.assertEquals(0, errorCount);
+		}
+		
+		[Test]
+		public function wrongFunction4():void {
+			parseActionContent(new ActionData("c"), "owna.nama,ownb.namb");
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
+		}
+		
+		[Test]
+		public function wrongFunction5():void {
 			parseActionContent(new ActionData("d"), "owna.nama;"); // dispathes two events
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(2, warningCount);
+			Assert.assertEquals(0, errorCount);
+		}
+		
+		[Test]
+		public function wrongFunction6():void {
 			parseActionContent(new ActionData("e"), "");
-			
-			// wrong format of function
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
+		}
+		
+		[Test]
+		public function wrongFunction7():void {
 			parseActionContent(new ActionData("f"), "owna.nama([foo;bar])"); // dispatches two events 
-			
-			// wrong format of function (target)
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(2, warningCount);
+			Assert.assertEquals(0, errorCount);
+		}
+		
+		[Test]
+		public function wrongFunction8():void {
 			parseActionContent(new ActionData("h"), "owna.targa.nama([foo;bar])"); // dispatches two events 
-			
-			Assert.assertEquals(11, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(2, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -232,6 +353,10 @@ package test.com.panozona.player.manager.utils.configuration {
 				"<action id=\"act2\" content=\"ownc.namc(-12.12,Linear.easeNone);ownd[targd].namd(#00ff00,bar)\"/>" +
 				"</root>");
 			parseActions(actionsData, nodeXML);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 			
 			Assert.assertEquals(2, actionsData.length);
 			Assert.assertEquals(2, actionsData[0].functions.length);
@@ -266,23 +391,39 @@ package test.com.panozona.player.manager.utils.configuration {
 		}
 		
 		[Test]
-		public function parseActionsWarning():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void{callCount++;});
-			
+		public function wrongAction1():void {
 			// action id missing
 			parseActions(new Vector.<ActionData>(), new XML("<root><action content=\"foo.bar()\"/></root>"));
-			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(1, errorCount);
+		}
+		
+		[Test]
+		public function wrongAction2():void {
 			// action content missing
 			parseActions(new Vector.<ActionData>(), new XML("<root><action id=\"act1\"/></root>"));
-			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(1, errorCount);
+		}
+		
+		[Test]
+		public function wrongAction3():void {
 			// action id wrong format
 			parseActions(new Vector.<ActionData>(), new XML("<root><action id=\"12\" content=\"foo.bar()\"/></root>"));
-			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(1, errorCount);
+		}
+		
+		[Test]
+		public function wrongAction4():void {
 			// action unknown attrubute
 			parseActions(new Vector.<ActionData>(), new XML("<root><action id=\"act1\" functions=\"foo.bar()\"/></root>"));
-			
-			Assert.assertEquals(4, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(1, errorCount);
 		}
 	}
 }
