@@ -21,6 +21,6 @@ package com.panozona.player.component.data.property{
 	public class Location {
 		public var pan:Number = 0;
 		public var tilt:Number = 0;
-		public var distance:Number = 0;
+		public var distance:Number = 400;
 	}
 }

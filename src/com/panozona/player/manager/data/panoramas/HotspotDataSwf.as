@@ -29,6 +29,7 @@ package com.panozona.player.manager.data.panoramas {
 		public function HotspotDataSwf(id:String, path:String, xml:XML){
 			super(id);
 			_path = path;
+			_xml = xml;
 		}
 		
 		public function get path():String {

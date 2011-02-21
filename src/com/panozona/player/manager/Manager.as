@@ -1,20 +1,20 @@
 ﻿/*
-Copyright 2010 Marek Standio.
+Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
 
 SaladoPlayer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published 
-by the Free Software Foundation, either version 3 of the License, 
+it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
 
 SaladoPlayer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+but WITHOUT ANY WARRANTY; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
+along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager {
 	
@@ -29,8 +29,8 @@ package com.panozona.player.manager {
 	import com.panozona.player.manager.data.panoramas.*;
 	import com.panozona.player.manager.events.*;
 	import com.panozona.player.manager.utils.*;
-	import com.panozona.player.manager.utils.loading.ILoadable;
-	import com.panozona.player.manager.utils.loading.LoadablesLoader;
+	import com.panozona.player.manager.utils.loading.*;
+	import flash.display.*;
 	import flash.events.*;
 	import flash.utils.*;
 	
@@ -40,9 +40,10 @@ package com.panozona.player.manager {
 		
 		private var currentPanoramaData:PanoramaData;
 		private var previousPanoramaData:PanoramaData;
+		
 		private var arrListeners:Array;  // hold hotspots mouse event listeners so that they can be removed
 		
-		private var _loadedHotspots:Dictionary;
+		public var _loadedHotspots:Dictionary;
 		private var _productHotspots:Dictionary;
 		
 		private var panoramaLocked:Boolean;
@@ -136,6 +137,8 @@ package com.panozona.player.manager {
 		}
 		
 		protected function loadHotspots(panoramaData:PanoramaData):void {
+			_loadedHotspots = new Dictionary();
+			
 			var hotspotsLoader:LoadablesLoader = new LoadablesLoader();
 			hotspotsLoader.addEventListener(LoadLoadableEvent.LOST, hotspotLost);
 			hotspotsLoader.addEventListener(LoadLoadableEvent.LOADED, hotspotLoaded);
@@ -151,21 +154,21 @@ package com.panozona.player.manager {
 		}
 		
 		protected function hotspotLoaded(event:LoadLoadableEvent):void {
-			var hotspotData:HotspotData = (event.loadable as HotspotData);
-			
 			var managedChild:ManagedChild;
+			var hotspotData:HotspotData = (event.loadable as HotspotData);
+			if (hotspotData is HotspotDataSwf) {
+				if ("references" in (event.content as Object)) {
+					try {(event.content as Object).references(_saladoPlayer, (hotspotData as HotspotDataSwf))} catch (e:Error){}
+				}
+				managedChild = new SwfHotspot(event.content as Sprite);
+				managedChild.buttonMode = hotspotData.handCursor;
+			}else {
+				managedChild = new ImageHotspot(event.content as Bitmap);
+				managedChild.buttonMode = hotspotData.handCursor;
+			}
 			
-			//if (event.content is Sprite){
-				// moze zrobic inny typ moze cos takiego 
-			//}else {
-			
-			managedChild = new Hotspot(event.content);
-			//}
-			
-			_loadedHotspots = new Dictionary();
 			_loadedHotspots[hotspotData as HotspotData] = managedChild;
 			
-			/*
 			if (hotspotData.mouse.onClick != null) {
 				managedChild.addEventListener(MouseEvent.CLICK, getMouseEventHandler(hotspotData.mouse.onClick));
 				arrListeners.push({type:MouseEvent.CLICK, listener:getMouseEventHandler(hotspotData.mouse.onClick)});
@@ -186,7 +189,6 @@ package com.panozona.player.manager {
 				managedChild.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(hotspotData.mouse.onOut));
 				arrListeners.push({type:MouseEvent.ROLL_OUT, listener:getMouseEventHandler(hotspotData.mouse.onOut)});
 			}
-			*/
 			
 			var piOver180:Number = Math.PI / 180;
 			var pr:Number = (-1 * (-hotspotData.location.pan - 90)) * piOver180;
@@ -205,12 +207,11 @@ package com.panozona.player.manager {
 			managedChild.scaleX = hotspotData.transform.scaleX;
 			managedChild.scaleY = hotspotData.transform.scaleY;
 			managedChild.scaleZ = hotspotData.transform.scaleZ;
+			
 			addChild(managedChild);
-			_saladoPlayer.traceWindow.printWarning("trzy");
 		}
 		
 		protected function hotspotsFinished(event:LoadLoadableEvent):void {
-			_saladoPlayer.traceWindow.printWarning("finished");
 			event.target.removeEventListener(LoadLoadableEvent.LOST, hotspotLost);
 			event.target.removeEventListener(LoadLoadableEvent.LOADED, hotspotLoaded);
 			event.target.removeEventListener(LoadLoadableEvent.FINISHED, hotspotsFinished);
@@ -358,7 +359,7 @@ package com.panozona.player.manager {
 			if (!panoramaLocked && nameToHotspot[hotspotId] != undefined){
 				pendingActionId = null;
 				panoramaLocked = true;
-				swingToChild(nameToHotspot[hotspotId], fieldOfView, speed, tween);	
+				swingToChild(nameToHotspot[hotspotId], fieldOfView, speed, tween);
 				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
 			}
 			*/

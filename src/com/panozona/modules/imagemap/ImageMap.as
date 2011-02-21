@@ -28,9 +28,6 @@ package com.panozona.modules.imagemap{
 	import com.panozona.modules.imagemap.view.WindowView;
 	import com.panozona.modules.imagemap.controller.WindowController;
 	
-	/**
-	 * @author mstandio
-	 */
 	public class ImageMap extends Module {
 		
 		private var imageMapData:ImageMapData;

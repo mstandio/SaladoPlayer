@@ -54,8 +54,7 @@ package com.panozona.modules.viewfinder{
 		
 		/**
 		 * Module entry point. Function is called in constructor of parent class. 
-		 * 
-		 * <p>Builds display objects, adds RESIZE and ENTER_FRAME listeners.</p>
+		 * Builds display objects, adds RESIZE and ENTER_FRAME listeners.
 		 * 
 		 * @param	moduleData Structure containing module configuration data.
 		 */

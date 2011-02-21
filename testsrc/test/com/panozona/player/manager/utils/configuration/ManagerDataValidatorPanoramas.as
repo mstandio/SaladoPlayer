@@ -64,8 +64,8 @@ package test.com.panozona.player.manager.utils.configuration{
 			validate(managerData);
 			
 			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(1, warningCount);
-			Assert.assertEquals(0, errorCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(1, errorCount);
 		}
 		
 		[Test]
@@ -97,8 +97,8 @@ package test.com.panozona.player.manager.utils.configuration{
 			validate(managerData);
 			
 			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(3, warningCount);
-			Assert.assertEquals(0, errorCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(2, errorCount);
 		}
 		
 		[Test]
@@ -129,8 +129,8 @@ package test.com.panozona.player.manager.utils.configuration{
 			validate(managerData);
 			
 			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(1, warningCount);
-			Assert.assertEquals(0, errorCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount); //TODO: really ?
 		}
 		
 		[Test]
@@ -151,8 +151,8 @@ package test.com.panozona.player.manager.utils.configuration{
 			validate(managerData);
 			
 			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(1, warningCount);
-			Assert.assertEquals(0, errorCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(1, errorCount);
 		}
 	}
 }

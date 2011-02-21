@@ -22,26 +22,22 @@ package com.panosalado.view {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class SwfHotspot extends ManagedChild{
 		
-		protected var button:Sprite;
+		//protected var button:Sprite;
 		
-		public function SwfHotspot() {
-			button = new Sprite();
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init, false, 0 , true);
+		public function SwfHotspot(sprite:Sprite) {
+			addChild(sprite);
+			//button = new Sprite();
+			//if (stage) init();
+			//else addEventListener(Event.ADDED_TO_STAGE, init, false, 0 , true);
 		}
-		
+		/*
 		private function init(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			addChild(button);
 			hotspotReady();
 		}
-		
 		
 		protected function hotspotReady():void {
 			throw new Error("Function hotspotReady() must be overrided");
@@ -57,6 +53,7 @@ package com.panosalado.view {
 		
 		public function setButtonMode(value:Boolean):void{
 			button.buttonMode = value;
-		}	
+		}
+		*/
 	}
 }

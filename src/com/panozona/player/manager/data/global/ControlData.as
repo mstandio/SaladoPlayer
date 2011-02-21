@@ -21,7 +21,6 @@ package com.panozona.player.manager.data.global{
 	import com.panosalado.model.*;
 	
 	public class ControlData{
-		
 		public const keyboardCameraData:KeyboardCameraData = new KeyboardCameraData();
 		public const inertialMouseCameraData:InertialMouseCameraData = new InertialMouseCameraData();
 		public const arcBallCameraData:ArcBallCameraData = new ArcBallCameraData();

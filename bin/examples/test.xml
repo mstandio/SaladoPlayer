@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="pano1" path="../../panoramas/dz_park/park_f.xml">
+			<!--<image id="hs1" path="hotspots/arrow.png" location="pan:14,tilt:10" />
+			<image id="hs2" path="hotspots/arrow.png"/>
+			<swf id="hs3" path="hotspots/SimpleHotspot.swf"/>-->
+			<swf id="hs4" path="hotspots/AdvancedHotspot.swf">
+				<settings imagePath="hotspots/arrow.png"/>
+			</swf>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ViewFinder path="modules/ViewFinder.swf">
+			<settings move="horizontal:30,vertical:40"/>
+		</ViewFinder>
+	</modules>
+</SaladoPlayer>

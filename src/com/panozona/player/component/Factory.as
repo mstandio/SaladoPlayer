@@ -27,7 +27,7 @@ package com.panozona.player.component {
 		
 		public function Factory(name:String, version:String){
 			super(name, version);
-			functionDataClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.data.actions.FunctionDataTarget") as Class;
+			functionDataTargetClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.data.actions.FunctionDataTarget") as Class;
 		}
 		
 		public function returnProduct(id:String):DisplayObject {
@@ -41,5 +41,6 @@ package com.panozona.player.component {
 				}
 			}
 		}
+		// TODO: get product or something 
 	}
 }

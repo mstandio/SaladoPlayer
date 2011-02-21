@@ -53,18 +53,18 @@ package com.panozona.player {
 		 */
 		public const traceWindow:Trace = Trace.instance;
 		
-		private var loadedModules:Dictionary;
-		private var loadedFactories:Dictionary;
+		protected var loadedModules:Dictionary;
+		protected var loadedFactories:Dictionary;
 		
-		private var panorama:Panorama;
-		private var stageReference:StageReference;
-		private var resizer:IResizer;
-		private var inertialMouseCamera:ICamera;
-		private var arcBallCamera:ICamera;
-		private var keyboardCamera:ICamera;
-		private var autorotationCamera:ICamera;
-		private var simpleTransition:SimpleTransition;
-		private var nanny:Nanny;
+		protected var panorama:Panorama;
+		protected var stageReference:StageReference;
+		protected var resizer:IResizer;
+		protected var inertialMouseCamera:ICamera;
+		protected var arcBallCamera:ICamera;
+		protected var keyboardCamera:ICamera;
+		protected var autorotationCamera:ICamera;
+		protected var simpleTransition:SimpleTransition;
+		protected var nanny:Nanny;
 		
 		public function SaladoPlayer() {
 			
@@ -80,7 +80,7 @@ package com.panozona.player {
 			simpleTransition = new SimpleTransition();
 			nanny = new Nanny();
 			
-			Trace.instance.printInfo(manager.description.name +" v"+manager.description.version);
+			traceWindow.printInfo(manager.description.name +" v"+manager.description.version);
 			
 			manager.initialize([
 				panorama,
@@ -107,7 +107,7 @@ package com.panozona.player {
 				xmlLoader.addEventListener(Event.COMPLETE, configurationLoaded);
 			}catch (error:Error) {
 				addChild(traceWindow);
-				Trace.instance.printError("Could not load configuration, security error: " + error.message);
+				traceWindow.printError("Could not load configuration, security error: " + error.message);
 			}
 		}
 		
@@ -115,7 +115,7 @@ package com.panozona.player {
 			event.target.removeEventListener(IOErrorEvent.IO_ERROR, configurationLost);
 			event.target.removeEventListener(Event.COMPLETE, configurationLoaded);
 			addChild(traceWindow);
-			Trace.instance.printError("Could not load configuration file: " + event.text);
+			traceWindow.printError("Could not load configuration file: " + event.text);
 		}
 		
 		private function configurationLoaded(event:Event):void {
@@ -128,7 +128,7 @@ package com.panozona.player {
 				settings = XML(input);
 			}catch (error:Error) {
 				addChild(traceWindow);
-				Trace.instance.printError("Error in configuration file structure: " + error.message);
+				traceWindow.printError("Error in configuration file structure: " + error.message);
 				return;
 			}
 			
@@ -144,21 +144,25 @@ package com.panozona.player {
 			modulesLoader.addEventListener(LoadLoadableEvent.LOST, componentLost);
 			modulesLoader.addEventListener(LoadLoadableEvent.LOADED, componentLoaded);
 			modulesLoader.addEventListener(LoadLoadableEvent.FINISHED, componentsFinished);
-			modulesLoader.load(Vector.<ILoadable>(managerData.getComponentsData));
+			modulesLoader.load(Vector.<ILoadable>(managerData.getComponentsData()));
 		}
 		
 		private function componentLost(event:LoadLoadableEvent):void {
-			Trace.instance.printError("Clould not load module: " + event.loadable.path);
+			traceWindow.printError("Clould not load module: " + event.loadable.path);
 		}
 		
 		private function componentLoaded(event:LoadLoadableEvent):void {
-			loadedModules[event.loadable as ComponentData] = event.content;
+			if (event.content is Factory) {
+				loadedFactories[event.loadable as ComponentData] = event.content;
+			}else {
+				loadedModules[event.loadable as ComponentData] = event.content;
+			}
 			if (event.content is Component){
 				for each (var componentData:ComponentData in managerData.modulesData) {
 					if ((event.loadable as ComponentData) === componentData) {
 						componentData.descriptionReference = (event.content as Component).componentDescription;
+						return;
 					}
-					return;
 				}
 			}
 		}
@@ -167,11 +171,15 @@ package com.panozona.player {
 			event.target.removeEventListener(LoadLoadableEvent.LOST, componentLost);
 			event.target.removeEventListener(LoadLoadableEvent.LOADED, componentLoaded);
 			event.target.removeEventListener(LoadLoadableEvent.FINISHED, componentsFinished);
-			for (var j:int = managerData.factoriesData.length - 1; j >= 0 ; j--) {
-				addChild(loadedModules[managerData.factoriesData[j]] as DisplayObject);
+			for (var j:int = managerData.factoriesData.length - 1; j >= 0; j--) {
+				if (loadedFactories[managerData.factoriesData[j]] != undefined){
+					addChild(loadedFactories[managerData.factoriesData[j]] as DisplayObject);
+				}
 			}
-			for (var i:int = managerData.modulesData.length - 1; i >= 0 ; i--) {
-				addChild(loadedModules[managerData.modulesData[i]] as DisplayObject);
+			for (var i:int = managerData.modulesData.length - 1; i >= 0; i--) {
+				if (loadedModules[managerData.modulesData[i]] != undefined){
+					addChild(loadedModules[managerData.modulesData[i]] as DisplayObject);
+				}
 			}
 			finalOperations();
 		}
@@ -209,6 +217,16 @@ package com.panozona.player {
 		}
 		
 		/**
+		 * Dictionary, where key is componentData object
+		 * and value is loaded module (swf file)
+		 * 
+		 * @return componentData to DisplayObject
+		 */
+		public function getModules(): Dictionary {
+			return loadedModules;
+		}
+		
+		/**
 		 * Returns reference to module (swf file)
 		 * by its name declared in configuration
 		 * 
@@ -225,10 +243,20 @@ package com.panozona.player {
 		}
 		
 		/**
-		 * Returns reference to module (swf file)
+		 * Dictionary, where key is componentData object
+		 * and value is loaded factory (swf file)
+		 * 
+		 * @return componentData to DisplayObject
+		 */
+		public function getFactories():Dictionary {
+			return loadedFactories;
+		}
+		
+		/**
+		 * Returns reference to factory (swf file)
 		 * by its name declared in configuration
 		 * 
-		 * @param name of module
+		 * @param name of factory
 		 * @return module as DisplayObject, null if not found
 		 */
 		public function getFactoryByName(name:String):DisplayObject {
