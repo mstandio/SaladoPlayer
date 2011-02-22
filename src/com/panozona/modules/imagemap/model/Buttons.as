@@ -1,17 +1,9 @@
-﻿package com.panozona.modules.imagemap.model 
-{
-	/**
-	 * ...
-	 * @author mstandio
-	 */
-	public class Buttons
-	{
+﻿package com.panozona.modules.imagemap.model{
+	
+	public class Buttons{
 		
-		public function Buttons() 
-		{
+		public function Buttons(){
 			
 		}
-		
 	}
-
 }

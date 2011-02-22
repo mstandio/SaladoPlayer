@@ -18,12 +18,9 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model.structure{
 	
-	import com.panozona.player.module.data.structure.Parent;
+	import com.panozona.player.component.data.structure.DataParent;
 	
-	/**
-	 * @author mstandio
-	 */
-	public class Map extends Parent{
+	public class Map extends DataParent{
 		
 		override public function getChildrenTypes():Vector.<Class>{
 			var result:Vector.<Class> = new Vector.<Class>();

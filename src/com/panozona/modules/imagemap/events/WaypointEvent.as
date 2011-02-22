@@ -20,10 +20,6 @@ package com.panozona.modules.imagemap.events{
 	
 	import flash.events.Event;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class WaypointEvent extends Event{
 		
 		public static const CHANGED_SHOW_RADAR:String  = "changedShowRadar";

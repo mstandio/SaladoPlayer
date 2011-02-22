@@ -20,10 +20,6 @@ package com.panozona.modules.imagemap.events {
 	
 	import flash.events.Event;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class WindowEvent extends Event{
 		
 		public static const CHANGED_OPEN:String = "changedOpen";

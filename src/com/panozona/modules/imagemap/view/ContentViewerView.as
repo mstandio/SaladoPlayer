@@ -18,23 +18,15 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.view{
 	
-	
-	import flash.ui.Mouse;
-	import flash.display.Sprite;
+	import com.panozona.modules.imagemap.model.ContentViewerData;
+	import com.panozona.modules.imagemap.model.EmbededGraphics;
+	import com.panozona.modules.imagemap.model.ImageMapData;
+	import com.panozona.modules.imagemap.view.MapView;
 	import flash.display.Bitmap;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	import com.panozona.modules.imagemap.model.ImageMapData;
-	import com.panozona.modules.imagemap.events.ContentViewerEvent;
-	import com.panozona.modules.imagemap.model.ContentViewerData;
-	import com.panozona.modules.imagemap.view.MapView;
-	import com.panozona.modules.imagemap.model.EmbededGraphics;
-	
-	/**
-	 * 
-	 * @author mstandio
-	 */
 	public class ContentViewerView extends Sprite{
 		
 		private var _imageMapData:ImageMapData;

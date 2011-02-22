@@ -18,13 +18,9 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.data.structure {
 	
-	import com.panozona.player.module.data.structure.Parent;
+	import com.panozona.player.component.data.structure.DataParent;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
-	public class Butttons extends Parent{
+	public class Butttons extends DataParent{
 		
 		override public function getChildrenTypes():Vector.<Class>{
 			var result:Vector.<Class> = new Vector.<Class>();

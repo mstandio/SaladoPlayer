@@ -18,30 +18,22 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton{
 	
-	import flash.display.Sprite;
-	import flash.display.Bitmap;
-	import flash.display.Loader;
-	import flash.events.IOErrorEvent;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.net.URLRequest;
-	import flash.net.navigateToURL;
-	
-	import com.panozona.player.module.Module;
-	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
-	
-	import com.panozona.modules.imagebutton.data.ImageButtonData
-	import com.panozona.modules.imagebutton.data.Wrapper;
-	import com.panozona.modules.imagebutton.data.structure.Button;
-	
 	import caurina.transitions.Tweener;
+	import com.panozona.modules.imagebutton.data.ImageButtonData;
+	import com.panozona.modules.imagebutton.data.structure.Button;
+	import com.panozona.modules.imagebutton.data.Wrapper;
+	import com.panozona.player.component.data.ComponentData;
+	import com.panozona.player.component.data.property.Align;
+	import com.panozona.player.component.data.property.Move;
+	import com.panozona.player.component.Module;
+	import flash.display.Loader;
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.IOErrorEvent;
+	import flash.events.MouseEvent;
+	import flash.net.navigateToURL;
+	import flash.net.URLRequest;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class ImageButton extends Module {
 		
 		private var imageButtondata:ImageButtonData;
@@ -50,15 +42,14 @@ package com.panozona.modules.imagebutton{
 		private var wrappers:Vector.<Wrapper>;
 		
 		public function ImageButton(){
-			super("ImageButton", 0.1, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:ImageButton");
-			aboutThisModule = "Module for clickable buttons with any bitmap and position with option to open urls.";
+			super("ImageButton", "1.0");
 			
-			moduleDescription.addFunctionDescription("open", String);
-			moduleDescription.addFunctionDescription("close", String);
+			componentDescription.addFunctionDescription("open", String);
+			componentDescription.addFunctionDescription("close", String);
 		}
 		
-		override protected function moduleReady(moduleData:ModuleData):void {
-			imageButtondata = new ImageButtonData(moduleData, debugMode);
+		override protected function componentReady(componentData:ComponentData):void {
+			imageButtondata = new ImageButtonData(componentData, saladoPlayer.managerData.debugMode);
 			var button:Button;
 			wrappers = new Vector.<Wrapper>();
 			loaders = new Vector.<Loader>();
@@ -80,7 +71,6 @@ package com.panozona.modules.imagebutton{
 		}
 		
 		private function buttonLoaded(e:Event):void {
-			
 			for(var i:int = 0; i < loaders.length; i++){
 				if (loaders[i] != null && loaders[i].contentLoaderInfo === e.target) {
 					if (loaders[i].contentLoaderInfo.url.match(/^(.*)\.(png|gif|jpg|jpeg)$/i)) {
@@ -112,7 +102,7 @@ package com.panozona.modules.imagebutton{
 						}
 						
 					}else {
-						printError("Not supported file: "+loaders[i].contentLoaderInfo.url);
+						printError("Not supported file: " + loaders[i].contentLoaderInfo.url);
 					}
 					
 					loaders[i].contentLoaderInfo.removeEventListener(Event.COMPLETE, buttonLoaded);
@@ -142,23 +132,23 @@ package com.panozona.modules.imagebutton{
 					loaders[i] = null;
 				}
 			}
-			printError("Could not load button images: "+error.toString());
+			printError("Could not load button images: " + error.toString());
 		}
 		
 		private function placeSprite(sprite:Sprite, align:Align, move:Move):void {
 			if (align.horizontal == Align.RIGHT) {
-				sprite.x = boundsWidth - sprite.width;
+				sprite.x = saladoPlayer.manager.boundsWidth - sprite.width;
 			}else if (align.horizontal == Align.LEFT) {
 				sprite.x = 0;
 			}else if (align.horizontal == Align.CENTER) {
-				sprite.x = (boundsWidth - sprite.width) * 0.5;
+				sprite.x = (saladoPlayer.manager.boundsWidth - sprite.width) * 0.5;
 			}
 			if (align.vertical == Align.BOTTOM) {
-				sprite.y = boundsHeight - sprite.height;
+				sprite.y = saladoPlayer.manager.boundsHeight - sprite.height;
 			}else if (align.vertical == Align.TOP) {
 				sprite.y = 0;
 			}else if (align.vertical == Align.MIDDLE) {
-				sprite.y = (boundsHeight - sprite.height) * 0.5;
+				sprite.y = (saladoPlayer.manager.boundsHeight - sprite.height) * 0.5;
 			}
 			sprite.x += move.horizontal;
 			sprite.y += move.vertical;
@@ -169,7 +159,7 @@ package com.panozona.modules.imagebutton{
 			try {
 				navigateToURL(request, '_BLANK');
 			} catch (error:Error) {
-				printWarning("Could not open "+url);
+				printWarning("Could not open " + url);
 			}
 		}
 		
@@ -181,7 +171,10 @@ package com.panozona.modules.imagebutton{
 			for each (var wrapper:Wrapper in wrappers) {
 				if (wrapper.button.id == buttonId) {
 					wrapper.sprite.visible = true;
-					Tweener.addTween(wrapper.sprite, {alpha:1, transition:wrapper.button.openTween.transition, time:wrapper.button.openTween.time});
+					Tweener.addTween(wrapper.sprite,{
+						alpha:1, 
+						transition:wrapper.button.openTween.transition, 
+						time:wrapper.button.openTween.time});
 					return;
 				}
 			}
@@ -190,7 +183,11 @@ package com.panozona.modules.imagebutton{
 		public function close(buttonId:String):void {
 			for each (var wrapper:Wrapper in wrappers) {
 				if (wrapper.button.id == buttonId) {
-					Tweener.addTween(wrapper.sprite, {alpha:0, transition:wrapper.button.closeTween.transition, time:wrapper.button.closeTween.time, onComplete:function():void{ wrapper.sprite.visible = false; }});
+					Tweener.addTween(wrapper.sprite, {
+						alpha:0,
+						transition:wrapper.button.closeTween.transition,
+						time:wrapper.button.closeTween.time,
+						onComplete:function():void{ wrapper.sprite.visible = false; }});
 					return;
 				}
 			}

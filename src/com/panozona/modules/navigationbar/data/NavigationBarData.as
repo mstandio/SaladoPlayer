@@ -23,15 +23,11 @@ package com.panozona.modules.navigationbar.data {
 	
 	import com.panozona.player.module.data.structure.Master;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class NavigationBarData extends Master{
 		
 		public var bar:Bar = new Bar();
 		public var buttons:Buttons = new Buttons();
-		public var combobox:Combobox = new Combobox();		
+		public var combobox:Combobox = new Combobox();
 		
 		public function NavigationBarData(moduleData:ModuleData, debugMode:Boolean) {
 			super(debugMode);

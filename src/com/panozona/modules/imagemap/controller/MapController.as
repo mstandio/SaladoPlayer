@@ -18,29 +18,22 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.controller {
 	
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.events.IOErrorEvent;
-	import flash.display.Loader;
-	import flash.net.URLRequest;
-	
-	import com.panozona.player.module.Module;
-	import com.panozona.modules.imagemap.view.MapView;
-	import com.panozona.modules.imagemap.view.WaypointView;
-	
-	//import com.panozona.modules.imagemap.model.MapData;
-	import com.panozona.modules.imagemap.model.WaypointData;
+	import com.panozona.modules.imagemap.events.ContentViewerEvent;
+	import com.panozona.modules.imagemap.events.MapEvent;
 	import com.panozona.modules.imagemap.model.structure.Map;
 	import com.panozona.modules.imagemap.model.structure.Waypoint;
+	import com.panozona.modules.imagemap.model.WaypointData;
+	import com.panozona.modules.imagemap.view.MapView;
+	import com.panozona.modules.imagemap.view.WaypointView;
+	import com.panozona.player.component.Module;
+	import flash.display.Bitmap;
+	import flash.display.Loader;
+	import flash.events.Event;
+	import flash.events.IOErrorEvent;
+	import flash.events.MouseEvent;
+	import flash.net.URLRequest;
+	//import com.panozona.modules.imagemap.model.MapData;
 	
-	import com.panozona.modules.imagemap.events.MapEvent;
-	import com.panozona.modules.imagemap.events.ContentViewerEvent;
-	
-	/**
-	 * @author mstandio
-	 */
 	public class MapController {
 		
 		private var _mapView:MapView; 

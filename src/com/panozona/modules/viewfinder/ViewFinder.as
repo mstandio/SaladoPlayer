@@ -19,20 +19,16 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.viewfinder{
 	
 	import com.panozona.modules.viewfinder.data.*;
-	import com.panozona.player.component.Module;
-	import com.panozona.player.component.ComponentData;
-	import com.panozona.player.component.data.property.Align;
-	import com.panozona.player.component.data.property.Move;
-	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFormat;
+	import com.panozona.player.component.*;
+	import com.panozona.player.component.data.*;
+	import com.panozona.player.component.data.property.*;
+	import flash.display.*;
+	import flash.events.*;
+	import flash.text.*;
 	
 	/**
 	 * ViewFinder, SaladoPlayer module for displaying camera pan tilt and field of view.
-	 * 
-	 * @see http://panozona.com/wiki/Module:ViewFinder
+	 * see <http://panozona.com/wiki/Module:ViewFinder>
 	 */
 	public class ViewFinder extends Module {
 		
@@ -43,13 +39,11 @@ package com.panozona.modules.viewfinder{
 		private var viewFinderData:ViewFinderData;
 		
 		/**
-		 * Constructor. Calls parent constructor responsible for obtaining configuration data.
-		 * Sets basic module information, in particular module name.
-		 * 
-		 * @see com.panozona.player.module.Module#Module()
+		 * Sets module name and version. Name is used 
+		 * to obtain configuration data for given module
 		 */
 		public function ViewFinder():void{
-			super("ViewFinder", "0.5");
+			super("ViewFinder", "1.0");
 		}
 		
 		/**
@@ -60,7 +54,7 @@ package com.panozona.modules.viewfinder{
 		 */
 		override protected function componentReady(componentData:ComponentData):void {
 			
-			viewFinderData = new ViewFinderData(componentData, debugMode); // allways first
+			viewFinderData = new ViewFinderData(componentData, saladoPlayer.managerData.debugMode); // always first
 			
 			pointer = new Sprite();
 			pointer.graphics.beginFill(0x000000);
@@ -99,22 +93,22 @@ package com.panozona.modules.viewfinder{
 			if (viewFinderData.settings.align.horizontal == Align.LEFT) {
 				txtOutput.x = 0;
 			}else if (viewFinderData.settings.align.horizontal == Align.RIGHT) {
-				txtOutput.x = boundsWidth - txtOutput.width;
+				txtOutput.x = saladoPlayer.manager.boundsWidth - txtOutput.width;
 			}else { // CENTER
-				txtOutput.x = (boundsWidth - txtOutput.width) * 0.5;
+				txtOutput.x = (saladoPlayer.manager.boundsWidth - txtOutput.width) * 0.5;
 			}
 			if (viewFinderData.settings.align.vertical == Align.TOP){
 				txtOutput.y = 0;
 			}else if (viewFinderData.settings.align.vertical == Align.BOTTOM) {
-				txtOutput.y = boundsHeight - txtOutput.height;
+				txtOutput.y = saladoPlayer.manager.boundsHeight - txtOutput.height;
 			}else { // MIDDLE
-				txtOutput.y = (boundsHeight - txtOutput.height) * 0.5;
+				txtOutput.y = (saladoPlayer.manager.boundsHeight - txtOutput.height) * 0.5;
 			}
 			txtOutput.x += viewFinderData.settings.move.horizontal;
 			txtOutput.y += viewFinderData.settings.move.vertical;
 			
-			pointer.x = (boundsWidth - pointer.width) * 0.5;
-			pointer.y = (boundsHeight - pointer.height) * 0.5;
+			pointer.x = (saladoPlayer.manager.boundsWidth - pointer.width) * 0.5;
+			pointer.y = (saladoPlayer.manager.boundsHeight - pointer.height) * 0.5;
 		}
 	}
 }

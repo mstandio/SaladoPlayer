@@ -1,6 +1,7 @@
 package test.com.panozona.player.manager.utils.configuration {
 	
 	import com.panozona.player.component.*;
+	import com.panozona.player.component.data.*;
 	import com.panozona.player.manager.events.*;
 	import com.panozona.player.manager.utils.configuration.*;
 	import com.robertpenner.easing.*;

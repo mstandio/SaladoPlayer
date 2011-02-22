@@ -25,12 +25,8 @@ package com.panozona.hotspots.advancedhotspot{
 	import flash.system.*;
 	
 	/**
-	 * Same as SimpleHotspot but it can be configured. If Swf has public method saladoPlayer(reference:Object) SaladoPlayer 
-	 * tries setting its own reference. Then if Swf has public function 
-	 * public function xml(value:XML) is called by SaladoPlayer 
-	 * before hotspot is added to stage. Function sets xml node of hotspot configuration to be interpreted 
-	 * by hotspot. Difference between swf hotspot and product hotspot is that swf cannot be validated.
-	 * For instance <swf id="hs1" path=[...]><settings imagePath="hotspots/arrow.png" mouseOverTween="Linear.easeNone"/></swf>
+	 * Same as SimpleHotspot but it can be configured. If Swf has public method "references"
+	 * SaladoPlayer calls it before hotspot is added to panorama. 
 	 */
 	public class AdvancedHotspot extends Sprite{
 		
@@ -47,6 +43,7 @@ package com.panozona.hotspots.advancedhotspot{
 		protected var tweenScale:Number = 2;
 		protected var imagePath:String;
 		
+		// mandatory references 
 		protected var saladoPlayer:Object;
 		protected var hotspotDataSwf:Object;
 		

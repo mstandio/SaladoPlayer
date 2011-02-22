@@ -17,12 +17,9 @@ You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.events{
-
+	
 	import flash.events.Event;
 	
-	/**
-	 * @author mstandio
-	 */
 	public class MapEvent extends Event {
 		
 		public static const CHANGED_CURRENT_MAP_ID:String  = "changedCurrMapId";

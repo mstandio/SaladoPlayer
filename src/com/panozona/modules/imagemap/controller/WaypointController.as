@@ -18,19 +18,14 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.controller {
 	
+	import com.panozona.modules.imagemap.events.WaypointEvent;
+	import com.panozona.modules.imagemap.view.WaypointView;
+	import com.panozona.player.component.Module;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.system.ApplicationDomain;
 	
-	import com.panozona.player.module.Module;
-	
-	import com.panozona.modules.imagemap.view.WaypointView;
-	import com.panozona.modules.imagemap.events.WaypointEvent;
-	
-	/**
-	 * @author mstandio
-	 */
 	public class WaypointController {
 		
 		private var _waypointView:WaypointView; 

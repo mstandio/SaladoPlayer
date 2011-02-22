@@ -1,0 +1,27 @@
+﻿<!--
+	
+	buttions bitmaps
+	
+	- path is pointing to image, where single button field is of different size then default 30x30 pixels
+	- odd rows contain bitmaps for buttons in default state and even rows contain bitmaps for buttons in active state
+	- rows 1 and 2 contain bitmaps for basic buttons, their sequence can not be changed
+	- rows 3 and 4 are left empty for extra buttons, they can be used i.e. by other modules
+	- you can create your own buttons bitmap, with any size of single field, yet with all fields of the same size
+	- you can alter buttons position with align and move attributes
+	- see: http://panozona.com/wiki/Module:NavigationBar#buttons
+	
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml"/>
+		<panorama id="pano2" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml"/>
+		<panorama id="pano3" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml"/>
+	</panoramas>
+	<modules>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_25x25_green.png" buttonSize="width:25,height:25" move="vertical:-5"/>
+		</NavigationBar>
+	</modules>
+</SaladoPlayer>

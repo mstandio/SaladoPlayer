@@ -23,12 +23,8 @@ package com.panozona.modules.navigationbar.button {
 	import flash.display.Bitmap;
 	import flash.display.BlendMode;
 	import flash.events.Event;
-	import flash.events.MouseEvent;	
+	import flash.events.MouseEvent;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class BitmapButton extends Sprite {
 		
 		public var buttonName:String;

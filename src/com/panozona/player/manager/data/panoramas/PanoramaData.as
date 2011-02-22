@@ -134,5 +134,15 @@ package com.panozona.player.manager.data.panoramas {
 			}
 			return result;
 		}
+		
+		public function getHotspotDataById(id:String):HotspotData {
+			var hotspotsData:Vector.<HotspotData> = getHotspotsData();
+			for (var i:int = 0; i < hotspotsData.length; i++) {
+				if (hotspotsData[i].id == id) {
+					return hotspotsData[i];
+				}
+			}
+			return null;
+		}
 	}
 }

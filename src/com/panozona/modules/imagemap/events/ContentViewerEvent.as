@@ -20,9 +20,6 @@ package com.panozona.modules.imagemap.events {
 	
 	import flash.events.Event;
 	
-	/**
-	 * @author mstandio
-	 */
 	public class ContentViewerEvent extends Event{
 		
 		public static const CHANGED_MOVE:String = "changedMove";

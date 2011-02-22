@@ -18,20 +18,14 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model {
 	
+	import caurina.transitions.Equations;
+	import com.panozona.modules.imagemap.events.WindowEvent;
+	import com.panozona.player.component.data.property.Align;
+	import com.panozona.player.component.data.property.Move;
+	import com.panozona.player.component.data.property.Size;
+	import com.panozona.player.component.data.property.Tween;
 	import flash.events.EventDispatcher;
 	
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
-	import com.panozona.player.module.data.property.Size;
-	import com.panozona.player.module.data.property.Tween;
-	
-	import com.panozona.modules.imagemap.events.WindowEvent;
-	
-	import caurina.transitions.Equations;
-	
-	/**
-	 * @author mstandio
-	 */
 	public class WindowData extends EventDispatcher{
 		
 		public static const OPEN_CLOSE_FADE:String = "fade";
@@ -53,8 +47,6 @@ package com.panozona.modules.imagemap.model {
 		public var openTween:Tween = new Tween(Equations.easeNone, 0.5);
 		public var closeTween:Tween = new Tween(Equations.easeNone, 0.5);
 		private var _transitionType:String = WindowData.OPEN_CLOSE_SLIDE_RIGHT;
-		
-		
 		
 		public function get open():Boolean{return _open}
 		public function set open(value:Boolean):void {

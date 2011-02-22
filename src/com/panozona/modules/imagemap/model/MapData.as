@@ -18,41 +18,24 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model{
 	
+	import com.panozona.modules.imagemap.events.MapEvent;
+	import com.panozona.modules.imagemap.model.structure.Map;
+	import com.panozona.modules.imagemap.model.structure.Maps;
 	import flash.events.EventDispatcher;
 	
-	import com.panozona.modules.imagemap.events.MapEvent;
-	import com.panozona.modules.imagemap.model.structure.Maps;
-	import com.panozona.modules.imagemap.model.structure.Map;
-	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class MapData extends EventDispatcher{
 		
 		private var _maps:Maps;
-		
 		private var _currentMapId:String;
 		
-		/**
-		 * 
-		 */
 		public function MapData() {
 			_maps = new Maps();
 		}
 		
-		/**
-		 * 
-		 */
 		public function get maps():Maps {
 			return _maps;
 		}
 		
-		/**
-		 * 
-		 * @param	mapId
-		 * @return
-		 */
 		public function getMapById(mapId:String):Map {
 			for each(var map:Map in _maps.getChildrenOfGivenClass(Map)) {
 				if (map.id == mapId) return map;
@@ -60,16 +43,10 @@ package com.panozona.modules.imagemap.model{
 			return null;
 		}
 		
-		/**
-		 * 
-		 */
 		public function get currentMapId():String {
 			return _currentMapId;
 		}
 		
-		/**
-		 * @private
-		 */
 		public function set currentMapId(value:String):void {
 			if (value == _currentMapId || value == null) return;
 			_currentMapId = value;

@@ -18,14 +18,10 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model.structure {
 	
-	import com.panozona.player.module.data.property.Position;
-	import com.panozona.player.module.data.property.Mouse;
+	import com.panozona.player.component.data.property.Position;
+	import com.panozona.player.component.data.property.Mouse;
 	
-	/**
-	 * @author mstandio
-	 */
 	public class Waypoint {
-		
 		public var position:Position = new Position(0,0);
 		public var target:String; // intentionally not initialized
 		public var panShift:Number = 0;

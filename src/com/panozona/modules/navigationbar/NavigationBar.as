@@ -18,36 +18,28 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.navigationbar {
 	
-	import flash.display.Sprite;
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
-	import flash.display.StageDisplayState;
-	import flash.display.Loader;
-	import flash.net.URLRequest;
-	import flash.geom.Rectangle;
-	import flash.geom.Point;
-	
-	import flash.system.ApplicationDomain;
-	import flash.events.Event;
-	import flash.events.IOErrorEvent;
-	import flash.events.MouseEvent;
-	import flash.events.KeyboardEvent;
-	
-	import com.panozona.player.module.Module;
-	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
-	
-	import com.panozona.modules.navigationbar.combobox.*;
 	import com.panozona.modules.navigationbar.button.BitmapButton;
+	import com.panozona.modules.navigationbar.combobox.*;
 	import com.panozona.modules.navigationbar.data.Button;
 	import com.panozona.modules.navigationbar.data.ExtraButton;
 	import com.panozona.modules.navigationbar.data.NavigationBarData;
+	import com.panozona.player.component.data.ComponentData;
+	import com.panozona.player.component.data.property.Align;
+	import com.panozona.player.component.data.property.Move;
+	import com.panozona.player.component.Module;
+	import flash.display.BitmapData;
+	import flash.display.Loader;
+	import flash.display.Sprite;
+	import flash.display.StageDisplayState;
+	import flash.events.Event;
+	import flash.events.IOErrorEvent;
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	import flash.net.URLRequest;
+	import flash.system.ApplicationDomain;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class NavigationBar extends Module{
 		
 		// basic bitmap buttons 
@@ -90,20 +82,14 @@ package com.panozona.modules.navigationbar {
 		
 		public function NavigationBar() {
 			
-			super("NavigationBar", 0.5, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:NavigationBar");
-			
-			aboutThisModule = "This is module for interacting with panoramas and for navigating between them. " +
-							  "All its elements can be customized (visibility and position) including: custom buttons bitmaps, "+
-							  "bar color / background image, combobox font and colors.<br>" +
-							  "Leave branding visible to support this project.";
-			
+			super("NavigationBar", "1.0");
 			//exposed functions
 			moduleDescription.addFunctionDescription("setExtraButtonActive", String, Boolean);
-		}	
+		}
 		
-		override protected function moduleReady(moduleData:ModuleData):void {
+		override protected function componentReady(componentData:ComponentData):void {
 			
-			navigationBarData = new NavigationBarData(moduleData, debugMode); // allways first
+			navigationBarData = new NavigationBarData(componentData, debugMode); // allways first
 			
 			AutorotationEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.AutorotationEvent") as Class;
 			CameraKeyBindingsClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.model.CameraKeyBindings") as Class;
@@ -406,11 +392,11 @@ package com.panozona.modules.navigationbar {
 			}
 		}
 		
-		private function onIsAutorotatingChange(autorotationEvent:Object):void {			
+		private function onIsAutorotatingChange(autorotationEvent:Object):void {
 			if (bitBtnAutorotate != null) {
 				bitBtnAutorotate.setActive(saladoPlayer.managerData.autorotationCameraData.isAutorotating);
-			}			
-		}		
+			}
+		}
 		
 		private function onDragEnabledChange(event:Object):void {
 			if (saladoPlayer.managerData.arcBallCameraData.enabled) {

@@ -14,6 +14,6 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="pano1" path="panoramas/dz_park/park_f.xml"/>
+		<panorama id="pano1" path="../../panoramas/dz_park/park_f.xml"/>
 	</panoramas>
 </SaladoPlayer>

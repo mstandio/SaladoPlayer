@@ -18,17 +18,12 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model{
 	
-	import flash.events.EventDispatcher;
-	
 	import com.panozona.modules.imagemap.events.WaypointEvent;
-	import com.panozona.modules.imagemap.model.structure.Waypoint;
 	import com.panozona.modules.imagemap.model.structure.Button;
 	import com.panozona.modules.imagemap.model.structure.Radar;
+	import com.panozona.modules.imagemap.model.structure.Waypoint;
+	import flash.events.EventDispatcher;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class WaypointData extends EventDispatcher{
 		
 		public var waypoint:Waypoint;
@@ -48,7 +43,7 @@ package com.panozona.modules.imagemap.model{
 			return _showRadar;
 		}
 		
-		public function set showRadar(value:Boolean):void {			
+		public function set showRadar(value:Boolean):void {
 			if (value == _showRadar) return;
 			_showRadar = value;
 			dispatchEvent(new WaypointEvent(WaypointEvent.CHANGED_SHOW_RADAR));
@@ -58,7 +53,7 @@ package com.panozona.modules.imagemap.model{
 			return _mouseOver;
 		}
 		
-		public function set mouseOver(value:Boolean):void {			
+		public function set mouseOver(value:Boolean):void {
 			if (value == _mouseOver) return;
 			_mouseOver = value;
 			dispatchEvent(new WaypointEvent(WaypointEvent.CHANGED_MOUSE_OVER));

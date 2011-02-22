@@ -18,10 +18,6 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model.structure {
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class Button{
 		
 		public var radius:Number = 15;

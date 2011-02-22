@@ -18,7 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils.configuration {
 	
-	import com.panozona.player.component.*;
+	import com.panozona.player.component.data.*;
 	import com.panozona.player.manager.data.*;
 	import com.panozona.player.manager.data.actions.*;
 	import com.panozona.player.manager.data.global.*;
@@ -537,9 +537,8 @@ package com.panozona.player.manager.utils.configuration {
 					"Invalid function format: " + content));
 				return null;
 			}
-			var functionClass:Object;
 			try{
-				functionClass = getDefinitionByName("com.robertpenner.easing." + functionElements[0]);
+				var functionClass:Object = getDefinitionByName("com.robertpenner.easing." + functionElements[0]);
 				try {
 					return functionClass[functionElements[1]] as Function;
 				}catch (nameError:Error) {

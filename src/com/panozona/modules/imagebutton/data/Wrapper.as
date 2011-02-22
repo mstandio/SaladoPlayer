@@ -17,14 +17,10 @@ You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.data{
-
-	import flash.display.Sprite;
-	import com.panozona.modules.imagebutton.data.structure.Button;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
+	import com.panozona.modules.imagebutton.data.structure.Button;
+	import flash.display.Sprite;
+	
 	public class Wrapper {
 		
 		public var button:Button;

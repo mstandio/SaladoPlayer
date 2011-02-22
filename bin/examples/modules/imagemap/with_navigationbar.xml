@@ -1,0 +1,44 @@
+﻿<!--
+	ImageMap
+	
+	- ImageMap should use other module to be opened
+	- Here is how it can cooperate with NavigationBar
+	- see: http://panozona.com/wiki/Module:ImageMap
+	
+-->
+<?xml version="1.0" encoding="utf-8" ?>
+<SaladoPlayer>
+	<global debug="false" autorotation="enabled:false">
+		<trace open="false"/>
+	</global>
+	<panoramas>
+		<panorama id="pano1" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml"/>
+		<panorama id="pano2" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml"/>
+		<panorama id="pano3" label="Park" path="panoramas/dz_park/park_f.xml"/>
+	</panoramas>
+	<actions>
+		<action id="mapToggle" content="ImageMap.toggleOpen()"/>
+		<action id="mapOpened" content="NavigationBar.setExtraButtonActive(b,true)"/>
+		<action id="mapClosed" content="NavigationBar.setExtraButtonActive(b,false)"/>
+	</actions>
+	<modules>
+		<ImageMap path="modules/ImageMap.swf">
+			<window open="false" transitionType="slideRight" openTween="transition:Back.easeOut" onOpen="mapOpened" onClose="mapClosed" alpha="0.8"/>
+			<viewer moveEnabled="true" dragEnabled="true" zoomEnabled="true"/>
+			<maps>
+				<map id="map1" path="modules/maps/test.jpg">
+					<waypoint target="pano1" position="x:150,y:100" panShift="90"/> <!-- how many degrees radar is shifted horizntally -->
+					<waypoint target="pano2" position="x:800,y:200"/>
+					<waypoint target="pano3" position="x:500,y:300"/>
+				</map>
+			</maps>
+		</ImageMap>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_30x30_blue.png">
+				<button name="autorotation" visible="false"/>
+				<extraButton name="b" action="mapToggle"/>
+			</buttons>
+			<combobox visible="true"/>
+		</NavigationBar>
+	</modules>
+</SaladoPlayer>

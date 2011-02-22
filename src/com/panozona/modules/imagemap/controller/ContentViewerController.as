@@ -18,23 +18,15 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.controller{
 	
-	import flash.display.Stage;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.ui.Mouse;
-	
-	import com.panozona.player.module.Module;
-	
-	//import com.panozona.modules.imagemap.model.ContentViewerData;
-	import com.panozona.modules.imagemap.view.ContentViewerView;
 	import com.panozona.modules.imagemap.events.ContentViewerEvent;
-	import com.panozona.modules.imagemap.model.EmbededGraphics;
-	
 	import com.panozona.modules.imagemap.events.MapEvent;
+	import com.panozona.modules.imagemap.model.EmbededGraphics;
+	import com.panozona.modules.imagemap.view.ContentViewerView;
+	import com.panozona.player.component.Module;
+	import flash.events.Event;
+	import flash.ui.Mouse;
+	//import com.panozona.modules.imagemap.model.ContentViewerData;
 	
-	/**
-	 * @author mstandio
-	 */
 	public class ContentViewerController{
 		
 		private var _contentViewerView:ContentViewerView;

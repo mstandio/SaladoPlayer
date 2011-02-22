@@ -24,6 +24,7 @@ package com.panozona.player.manager {
 	import com.panosalado.view.*;
 	import com.panozona.player.*;
 	import com.panozona.player.component.*;
+	import com.panozona.player.component.utils.*;
 	import com.panozona.player.manager.data.*;
 	import com.panozona.player.manager.data.actions.*;
 	import com.panozona.player.manager.data.panoramas.*;
@@ -38,36 +39,37 @@ package com.panozona.player.manager {
 		
 		public const description:ComponentDescription = new ComponentDescription("SaladoPlayer", "1.0.1", "http://panozona.com/");
 		
-		private var currentPanoramaData:PanoramaData;
-		private var previousPanoramaData:PanoramaData;
+		/**
+		 * Dictionary, where key is hotspotData object
+		 * and value is loaded hotspot (DisplayObject)
+		 */
+		public var hotspots:Dictionary;
 		
-		private var arrListeners:Array;  // hold hotspots mouse event listeners so that they can be removed
+		protected var panoramaIsMoving:Boolean;
+		protected var pendingActionId:String;
+		protected var panoramaLoadingCanceled:Boolean; // czy to zostawic 
 		
-		public var _loadedHotspots:Dictionary;
-		private var _productHotspots:Dictionary;
+		protected var _managerData:ManagerData;
+		protected var _saladoPlayer:SaladoPlayer; // parent needed to access loaded modules
 		
-		private var panoramaLocked:Boolean;
-		private var pendingActionId:String;
-		private var panoramaLoadingCanceled:Boolean;
-		
-		private var _managerData:ManagerData;
-		private var _saladoPlayer:SaladoPlayer; // parent needed to access loaded modules
+		protected var _currentPanoramaData:PanoramaData; // hmmm czy tutja to powinno byc publczne 
+		protected var _previousPanoramaData:PanoramaData; // to tak samo chyba nie powinno to tak wygladac 
+		protected var arrListeners:Array;  // hold hotspots mouse event listeners so that they can be removed
 		
 		public function Manager() {
-			
 			description.addFunctionDescription("print", String);
 			description.addFunctionDescription("loadPano", String);
 			description.addFunctionDescription("moveToHotspot", String);
-			description.addFunctionDescription("moveToHotspotAnd", String, String);
+			description.addFunctionDescription("moveToHotspotThen", String, String);
 			description.addFunctionDescription("moveToView", Number, Number, Number);
-			description.addFunctionDescription("moveToViewAnd", Number, Number, Number, String);
+			description.addFunctionDescription("moveToViewThen", Number, Number, Number, String);
 			description.addFunctionDescription("jumpToView", Number, Number, Number);
 			description.addFunctionDescription("startMoving", Number, Number);
 			description.addFunctionDescription("stopMoving");
 			description.addFunctionDescription("advancedMoveToHotspot", String, Number, Number, Function);
-			description.addFunctionDescription("advancedMoveToHotspotAnd", String, Number, Number, Function, String);
+			description.addFunctionDescription("advancedMoveToHotspotThen", String, Number, Number, Function, String);
 			description.addFunctionDescription("advancedMoveToView", Number, Number, Number, Number, Function);
-			description.addFunctionDescription("advancedMoveToViewAnd", Number, Number, Number, Number, Function, String);
+			description.addFunctionDescription("advancedMoveToViewThen", Number, Number, Number, Number, Function, String);
 			description.addFunctionDescription("advancedStartMoving", Number, Number, Number, Number, Number);
 			description.addFunctionDescription("runAction", String);
 			if (stage) stageReady();
@@ -83,12 +85,10 @@ package com.panozona.player.manager {
 		public override function initialize(dependencies:Array):void {
 			super.initialize(dependencies);
 			addEventListener(Event.COMPLETE, panoramaLoaded, false, 0, true);
-			for (var i:int = 0; i < dependencies.length; i++ ) {
-				if (dependencies[i] is SimpleTransition){
-					dependencies[i].addEventListener( Event.COMPLETE, transitionComplete, false, 0, true);
-					// WRONG it should throw to viewData here events by himslef. just as autorotation 
-				}
-			}
+		}
+		
+		public function get currentPanoramaData():PanoramaData {
+			return _currentPanoramaData
 		}
 		
 		public function loadFirstPanorama():void {
@@ -101,24 +101,23 @@ package com.panozona.player.manager {
 			}
 		}
 		
-		// TODO: this locekd should be better aimed 
 		public function loadPanoramaById(panoramaId:String):void {
 			var panoramaData:PanoramaData = _managerData.getPanoramaDataById(panoramaId);
-			if (panoramaData != null && !panoramaLocked && panoramaData !== currentPanoramaData) {
-				if (!panoramaLoadingCanceled && currentPanoramaData != null && currentPanoramaData.onLeaveToAttempt[panoramaData.id] != null) {
+			if (panoramaData != null && !panoramaIsMoving && panoramaData !== _currentPanoramaData){
+				if (!panoramaLoadingCanceled && _currentPanoramaData != null && _currentPanoramaData.onLeaveToAttempt[panoramaData.id] != null) {
 					panoramaLoadingCanceled = true;
-					runAction(currentPanoramaData.onLeaveToAttempt[panoramaData.id]);
+					runAction(_currentPanoramaData.onLeaveToAttempt[panoramaData.id]);
 					return;
 				}
 				
 				panoramaLoadingCanceled = false;
-				previousPanoramaData = currentPanoramaData;
-				currentPanoramaData = panoramaData;
-				panoramaLocked = true;
+				_previousPanoramaData = _currentPanoramaData;
+				_currentPanoramaData = panoramaData;
+				panoramaIsMoving = true;
 			
-				if(previousPanoramaData != null){
-					runAction(previousPanoramaData.onLeave);
-					runAction(previousPanoramaData.onLeaveTo[currentPanoramaData.id]);
+				if(_previousPanoramaData != null){
+					runAction(_previousPanoramaData.onLeave);
+					runAction(_previousPanoramaData.onLeaveTo[currentPanoramaData.id]);
 				}
 				
 				Trace.instance.printInfo("loading: " + panoramaData.id + " (" + panoramaData.params.path + ")");
@@ -130,23 +129,22 @@ package com.panozona.player.manager {
 						}
 					}
 				}
-				dispatchEvent(new LoadPanoramaEvent(LoadPanoramaEvent.PANORAMA_STARTED_LOADING, panoramaData));
+				dispatchEvent(new PanoramaEvent(PanoramaEvent.PANORAMA_STARTED_LOADING));
 				super.loadPanorama(panoramaData.params.clone());
 				loadHotspots(currentPanoramaData);
 			}
 		}
 		
 		protected function loadHotspots(panoramaData:PanoramaData):void {
-			_loadedHotspots = new Dictionary();
-			
+			hotspots = new Dictionary();
 			var hotspotsLoader:LoadablesLoader = new LoadablesLoader();
 			hotspotsLoader.addEventListener(LoadLoadableEvent.LOST, hotspotLost);
 			hotspotsLoader.addEventListener(LoadLoadableEvent.LOADED, hotspotLoaded);
 			hotspotsLoader.addEventListener(LoadLoadableEvent.FINISHED, hotspotsFinished);
 			hotspotsLoader.load(panoramaData.getHotspotsLoadable());
-			//for each(var hotspotDataProduct:HotspotDataProduct in panoramaData.hotspotsDataProduct) {
-				//
-			//}
+			for each(var hotspotDataProduct:HotspotDataProduct in panoramaData.hotspotsDataProduct) {
+				// TODO: get form factory...
+			}
 		}
 		
 		protected function hotspotLost(event:LoadLoadableEvent):void {
@@ -166,8 +164,6 @@ package com.panozona.player.manager {
 				managedChild = new ImageHotspot(event.content as Bitmap);
 				managedChild.buttonMode = hotspotData.handCursor;
 			}
-			
-			_loadedHotspots[hotspotData as HotspotData] = managedChild;
 			
 			if (hotspotData.mouse.onClick != null) {
 				managedChild.addEventListener(MouseEvent.CLICK, getMouseEventHandler(hotspotData.mouse.onClick));
@@ -208,13 +204,8 @@ package com.panozona.player.manager {
 			managedChild.scaleY = hotspotData.transform.scaleY;
 			managedChild.scaleZ = hotspotData.transform.scaleZ;
 			
+			hotspots[hotspotData as HotspotData] = managedChild;
 			addChild(managedChild);
-		}
-		
-		protected function hotspotsFinished(event:LoadLoadableEvent):void {
-			event.target.removeEventListener(LoadLoadableEvent.LOST, hotspotLost);
-			event.target.removeEventListener(LoadLoadableEvent.LOADED, hotspotLoaded);
-			event.target.removeEventListener(LoadLoadableEvent.FINISHED, hotspotsFinished);
 		}
 		
 		private function getMouseEventHandler(id:String):Function{
@@ -223,75 +214,71 @@ package com.panozona.player.manager {
 			}
 		}
 		
-		private function panoramaLoaded(e:Event):void {
+		protected function hotspotsFinished(event:LoadLoadableEvent):void {
+			event.target.removeEventListener(LoadLoadableEvent.LOST, hotspotLost);
+			event.target.removeEventListener(LoadLoadableEvent.LOADED, hotspotLoaded);
+			event.target.removeEventListener(LoadLoadableEvent.FINISHED, hotspotsFinished);
+			dispatchEvent(new PanoramaEvent(PanoramaEvent.HOTSPOTS_LOADED));
+		}
+		
+		protected function panoramaLoaded(e:Event):void {
 			arrListeners = new Array();
-			panoramaLocked = false;
+			panoramaIsMoving = false;
 			runAction(currentPanoramaData.onEnter);
-			if (previousPanoramaData != null ){
-				runAction(currentPanoramaData.onEnterFrom[previousPanoramaData.id]);
+			if (_previousPanoramaData != null ){
+				runAction(currentPanoramaData.onEnterFrom[_previousPanoramaData.id]);
 			}
-			dispatchEvent(new LoadPanoramaEvent(LoadPanoramaEvent.PANORAMA_LOADED, currentPanoramaData));
+			dispatchEvent(new PanoramaEvent(PanoramaEvent.PANORAMA_LOADED));
 		}
 		
-		private function transitionComplete(e:Event):void {
+		protected function transitionComplete(e:Event):void {
 			runAction(currentPanoramaData.onTransitionEnd);
-			if(previousPanoramaData != null){
-				runAction(currentPanoramaData.onTransitionEndFrom[previousPanoramaData.id]);
+			if(_previousPanoramaData != null){
+				runAction(currentPanoramaData.onTransitionEndFrom[_previousPanoramaData.id]);
 			}
-			dispatchEvent(new LoadPanoramaEvent(LoadPanoramaEvent.TRANSITION_ENDED, currentPanoramaData));
+			dispatchEvent(new PanoramaEvent(PanoramaEvent.TRANSITION_ENDED));
 		}
 		
-		private function swingComplete(e:PanoSaladoEvent):void {
+		protected function swingComplete(e:PanoSaladoEvent):void {
 			removeEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
 			removeEventListener(PanoSaladoEvent.SWING_TO_COMPLETE, swingComplete);
-			panoramaLocked = false;
+			panoramaIsMoving = false;
 			if (pendingActionId != null) {
 				runAction(pendingActionId);
 			}
-		}
-		
-		public function get currentPanoramaId():String {
-			if (currentPanoramaData == null) return null;
-			return currentPanoramaData.id;
 		}
 		
 ///////////////////////////////////////////////////////////////////////////////
 //  Exposed functions 
 ///////////////////////////////////////////////////////////////////////////////
 		
-			public function runAction(actionId:String):void {
+		public function runAction(actionId:String):void {
 			var actionData:ActionData = _managerData.getActionDataById(actionId);
 			if (actionData == null) {
-				if (actionId != null)Trace.instance.printWarning("Action not found: "+actionId);
+				if (actionId != null) Trace.instance.printWarning("Action not found: " + actionId);
 				return;
 			}
-			var module:Object;
 			for each(var functionData:FunctionData in actionData.functions) {
 				try{
 					if (functionData.owner == description.name) {
-						if(this[functionData.name] != undefined && this[functionData.name] is Function){
+						if (description.functionsDescription[functionData.name] != undefined){
 							(this[functionData.name] as Function).apply(this, functionData.args);
 						}else {
-							Trace.instance.printWarning("Invalid function name: "+functionData.owner+"."+functionData.name);
+							_saladoPlayer.traceWindow.printError("Unknown function: " + functionData.owner + "." + functionData.name);
 						}
+					}else if (functionData is FunctionDataTarget) {
+						(_saladoPlayer.getFactoryByName(functionData.owner) as Object).execute(functionData);
 					}else {
-						/*
-						module = _saladoPlayer.getModuleByName(functionData.owner);
-						if (module != null) {
-							module.execute(functionData.name, functionData.args);
-						}else {
-							Trace.instance.printWarning("Invalid owner name: " + functionData.owner + "." + functionData.name);
-						}
-						*/
+						(_saladoPlayer.getModuleByName(functionData.owner) as Object).execute(functionData);
 					}
 				}catch (error:Error) {
-					Trace.instance.printError("Could not execute "+functionData.owner+"."+functionData.name+": "+error.message);
+					_saladoPlayer.traceWindow.printError("Could not execute " + functionData.owner + "." + functionData.name + ": " + error.message);
 				}
 			}
 		}
 		
 		public function print(value:String):void {
-			Trace.instance.printInfo(value);
+			_saladoPlayer.traceWindow.printInfo(value);
 		}
 		
 		public function loadPano(panramaId:String):void {
@@ -299,106 +286,89 @@ package com.panozona.player.manager {
 		}
 		
 		public function moveToHotspot(hotspotId:String):void {
-			/*
-			if (!panoramaLocked && nameToHotspot[hotspotId] != undefined) {
-				pendingActionId = null;
-				swingToChild(nameToHotspot[hotspotId]);
-				panoramaLocked = true;
-				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
-			}
-			*/
+			if (panoramaIsMoving) return;
+			panoramaIsMoving = true;
+			pendingActionId = null;
+			addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
+			swingToChild(hotspots[currentPanoramaData.getHotspotDataById(hotspotId)]);
 		}
 		
-		public function moveToHotspotAnd(childId:String, actionId:String):void {
-			/*
-			if(!panoramaLocked && nameToHotspot[childId] != undefined){
-				swingToChild(nameToHotspot[childId]);
-				panoramaLocked = true;
-				pendingActionId = actionId; 
-				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
-			}
-			*/
+		public function moveToHotspotThen(hotspotId:String, actionId:String):void {
+			if (panoramaIsMoving) return;
+			panoramaIsMoving = true;
+			pendingActionId = actionId; 
+			addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
+			swingToChild(hotspots[currentPanoramaData.getHotspotDataById(hotspotId)]);
 		}
 		
 		public function moveToView(pan:Number, tilt:Number, fieldOfView:Number):void {
-			if (!panoramaLocked) {
-				pendingActionId = null;
-				panoramaLocked = true;
-				swingTo(pan, tilt, fieldOfView);
-				addEventListener(PanoSaladoEvent.SWING_TO_COMPLETE, swingComplete);
-			}
+			if (panoramaIsMoving) return;
+			panoramaIsMoving = true;
+			pendingActionId = null;
+			addEventListener(PanoSaladoEvent.SWING_TO_COMPLETE, swingComplete);
+			swingTo(pan, tilt, fieldOfView);
 		}
 		
-		public function moveToViewAnd(pan:Number, tilt:Number, fieldOfView:Number, actionId:String):void {
-			if (!panoramaLocked) {
-				panoramaLocked = true;
-				pendingActionId = actionId;
-				swingTo(pan, tilt, fieldOfView);
-				addEventListener(PanoSaladoEvent.SWING_TO_COMPLETE, swingComplete);
-			}
+		public function moveToViewThen(pan:Number, tilt:Number, fieldOfView:Number, actionId:String):void {
+			if (panoramaIsMoving) return;
+			panoramaIsMoving = true;
+			pendingActionId = actionId;
+			addEventListener(PanoSaladoEvent.SWING_TO_COMPLETE, swingComplete);
+			swingTo(pan, tilt, fieldOfView);
 		}
 		
 		public function jumpToView(pan:Number, tilt:Number, fieldOfView:Number):void {
+			if (panoramaIsMoving) return;
 			renderAt(pan, tilt, fieldOfView);
 		}
 		
 		public function startMoving(panSpeed:Number, tiltSpeed:Number):void {
-			if (!panoramaLocked) {
-				startInertialSwing(panSpeed, tiltSpeed);
-				panoramaLocked = true;
-			}
+			if (panoramaIsMoving) return;
+			panoramaIsMoving = true;
+			startInertialSwing(panSpeed, tiltSpeed);
 		}
 		
 		public function stopMoving():void {
-			panoramaLocked = false;
+			panoramaIsMoving = false;
 			stopInertialSwing();
 		}
 		
 		public function advancedMoveToHotspot(hotspotId:String, fieldOfView:Number, speed:Number, tween:Function):void {
-			/*
-			if (!panoramaLocked && nameToHotspot[hotspotId] != undefined){
-				pendingActionId = null;
-				panoramaLocked = true;
-				swingToChild(nameToHotspot[hotspotId], fieldOfView, speed, tween);
-				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
-			}
-			*/
+			if (panoramaIsMoving) return;
+			panoramaIsMoving = true;
+			pendingActionId = null;
+			addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
+			swingToChild(hotspots[currentPanoramaData.getHotspotDataById(hotspotId)], fieldOfView, speed, tween);
 		}
 		
-		public function advancedMoveToHotspotAnd(hotspotId:String, fieldOfView:Number, speed:Number, tween:Function, actionId:String):void {
-			/*
-			if(!panoramaLocked && nameToHotspot[hotspotId] != undefined){
-				swingToChild(nameToHotspot[hotspotId], fieldOfView, speed, tween);
-				panoramaLocked = true;
-				pendingActionId = actionId; 
-				addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
-			}
-			*/
+		public function advancedMoveToHotspotThen(hotspotId:String, fieldOfView:Number, speed:Number, tween:Function, actionId:String):void {
+			if (panoramaIsMoving) return;
+			panoramaIsMoving = true;
+			pendingActionId = actionId;
+			addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
+			swingToChild(hotspots[currentPanoramaData.getHotspotDataById(hotspotId)], fieldOfView, speed, tween);
 		}
 		
 		public function advancedMoveToView(pan:Number, tilt:Number, fieldOfView:Number, speed:Number, tween:Function):void {
-			if (!panoramaLocked) {
-				pendingActionId = null;
-				panoramaLocked = true;
-				swingTo(pan, tilt, fieldOfView, speed, tween);
-				addEventListener(PanoSaladoEvent.SWING_TO_COMPLETE, swingComplete);
-			}
+			if (panoramaIsMoving) return;
+			panoramaIsMoving = true;
+			pendingActionId = null;
+			addEventListener(PanoSaladoEvent.SWING_TO_COMPLETE, swingComplete);
+			swingTo(pan, tilt, fieldOfView, speed, tween);
 		}
 		
-		public function advancedMoveToViewAnd(pan:Number, tilt:Number, fieldOfView:Number, speed:Number, tween:Function, actionId:String):void {
-			if (!panoramaLocked) {
-				panoramaLocked = true;
-				pendingActionId = actionId;
-				swingTo(pan, tilt, fieldOfView, speed, tween);
-				addEventListener(PanoSaladoEvent.SWING_TO_COMPLETE, swingComplete);
-			}
+		public function advancedMoveToViewThen(pan:Number, tilt:Number, fieldOfView:Number, speed:Number, tween:Function, actionId:String):void {
+			if (panoramaIsMoving) return;
+			panoramaIsMoving = true;
+			pendingActionId = actionId;
+			addEventListener(PanoSaladoEvent.SWING_TO_COMPLETE, swingComplete);
+			swingTo(pan, tilt, fieldOfView, speed, tween);
 		}
 		
 		public function advancedStartMoving(panSpeed:Number, tiltSpeed:Number, sensitivity:Number, friction:Number, threshold:Number):void {
-			if (!panoramaLocked) {
-				startInertialSwing(panSpeed, tiltSpeed, sensitivity, friction, threshold);
-				panoramaLocked = true;
-			}
+			if (panoramaIsMoving) return;
+			panoramaIsMoving = true;
+			startInertialSwing(panSpeed, tiltSpeed, sensitivity, friction, threshold);
 		}
 	}
 }

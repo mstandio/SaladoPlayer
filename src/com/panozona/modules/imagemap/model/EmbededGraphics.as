@@ -18,9 +18,6 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model{
 	
-	/**	 
-	 * @author mstandio
-	 */
 	public class EmbededGraphics{
 		
 		[Embed(source="../assets/cursor_hand_closed.png")]

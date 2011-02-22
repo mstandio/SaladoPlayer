@@ -1,0 +1,31 @@
+﻿<!--
+	
+	onTransitionEndFrom events
+	
+	 - navigate btween panoramas and read trace communicates
+	 - see: http://panozona.com/wiki/SaladoPlayer:Configuration#panorama
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="pano1" label="Park" path="panoramas/dz_park/park_f.xml" onTransitionEndFrom="pano2:act1,pano3:act2"/>
+		<panorama id="pano2" label="Shopping mall" path="panoramas/dz_shoppingmall/sm_f.xml" onTransitionEndFrom="pano1:act3,pano3:act4"/>
+		<panorama id="pano3" label="Volleyball" path="panoramas/dz_volleyball/vb_f.xml" onTransitionEndFrom="pano1:act5,pano2:act6"/>
+	</panoramas>
+	<actions>
+		<action id="act1" content="SaladoPlayer.print(Transition ended in pano1 from pano2)"/>
+		<action id="act2" content="SaladoPlayer.print(Transition ended in pano1 from pano3)"/>
+		<action id="act3" content="SaladoPlayer.print(Transition ended in pano2 from pano1)"/>
+		<action id="act4" content="SaladoPlayer.print(Transition ended in pano2 from pano3)"/>
+		<action id="act5" content="SaladoPlayer.print(Transition ended in pano3 from pano1)"/>
+		<action id="act6" content="SaladoPlayer.print(Transition ended in pano3 from pano2)"/>
+	</actions>
+	<modules>
+		<NavigationBar path="modules/NavigationBar.swf">
+			<buttons path="modules/images/buttons_30x30_green.png"/>
+		</NavigationBar>
+	</modules>
+</SaladoPlayer>

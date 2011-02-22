@@ -18,8 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.viewfinder.data{
 	
-	import com.panozona.player.component.ComponentData;
-	import com.panozona.player.component.ComponentNode;
+	import com.panozona.player.component.data.ComponentData;
+	import com.panozona.player.component.data.ComponentNode;
 	import com.panozona.player.component.utils.ComponentDataTranslator;
 	
 	/**

@@ -18,6 +18,8 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.component{
 	
+	import com.panozona.player.component.data.*;
+	import com.panozona.player.component.utils.*;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.ApplicationDomain;
@@ -48,12 +50,13 @@ package com.panozona.player.component{
 			}catch (error:Error) {
 				trace("Try: " + _componentDescription.homeUrl);
 				trace(error.getStackTrace());
+				trace(error.getStackTrace());
 			}
 			try {
 				componentReady(_componentData);
 			}catch (error:Error) {
 				while (numChildren) {removeChildAt(0);}
-				printError(error.message);
+				_saladoPlayer.traceWindow.printError(error.message);
 				trace(error.getStackTrace());
 			}
 		}
@@ -83,33 +86,9 @@ package com.panozona.player.component{
 		}
 		
 		/**
-		 * Determines if SaladoPlayer runs in debug mode. 
-		 * This value is supposed to be used for skipping consistency checking and validation.
-		 */
-		public final function get debugMode():Boolean {
-			return saladoPlayer.managerData.debugMode;
-		}
-		
-		/**
-		 * Width of panorama window. It should be used instead of stage.stageWidth - 
-		 * in case when SaladoPlayer is emebeded into another *.swf file
-		 */
-		public final function get boundsWidth():Number {
-			return saladoPlayer.manager.boundsWidth;
-		}
-		
-		/**
-		 * Height of panorama window. It should be used instead of stage.stageHeight -
-		 * in case when SaladoPlayer is emebeded into another *.swf file
-		 */
-		public final function get boundsHeight():Number {
-			return saladoPlayer.manager.boundsHeight;
-		}
-		
-		/**
 		 * Prints message in green text in trace window.
 		 * Printing "info" does not trigger trace window open.
-		 * @param	message
+		 * @param message
 		 */
 		public final function printInfo(message:String):void {
 			_saladoPlayer.traceWindow.printInfo(_componentDescription.name + ": " + message);
@@ -118,16 +97,16 @@ package com.panozona.player.component{
 		/**
 		 * Prints message in yellow text in trace window.
 		 * Printing warning triggers trace window open.
-		 * @param	message
+		 * @param message
 		 */
 		public final function printWarning(message:String):void {
 			_saladoPlayer.traceWindow.printWarning(_componentDescription.name + ": " + message);
 		}
 		
-		/**
+		 /**
 		 * Prints message in red text in trace window.
 		 * Printing error triggers trace window open.
-		 * @param	message
+		 * @param message
 		 */
 		public final function printError(message:String):void {
 			_saladoPlayer.traceWindow.printError(_componentDescription.name + ": " + message);

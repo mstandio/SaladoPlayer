@@ -21,10 +21,6 @@ package com.panozona.modules.imagemap.utils{
 	import com.panozona.modules.imagemap.model.*;
 	import com.panozona.modules.imagemap.model.structure.*;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class ImageMapDataValidator{
 		
 		public function validate(imageMapData:ImageMapData):void{

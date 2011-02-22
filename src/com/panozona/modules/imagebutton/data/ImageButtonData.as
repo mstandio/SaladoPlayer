@@ -18,31 +18,23 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.data{
 	
-	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.data.structure.Master;
-	
 	import com.panozona.modules.imagebutton.data.structure.Button;
 	import com.panozona.modules.imagebutton.data.structure.Butttons;
+	import com.panozona.player.component.data.ComponentData;
+	import com.panozona.player.component.data.ComponentNode;
+	import com.panozona.player.component.utils.ComponentDataTranslator;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
-	public class ImageButtonData extends Master {
+	public class ImageButtonData{
 		
 		public var buttons:Butttons = new Butttons();
 		
-		public function ImageButtonData(moduleData:ModuleData, debugMode:Boolean) {
-			super(debugMode);
-			
-			for each(var moduleNode:ModuleNode in moduleData.moduleNodes){
-				switch(moduleNode.nodeName) {
-					case "buttons": 
-						readRecursive(buttons, moduleNode);
-					break;
-					default:
-						throw new Error("Invalid node name: "+moduleNode.nodeName);
+		public function ImageButtonData(componentData:ComponentData, debugMode:Boolean) {
+			var tarnslator:ComponentDataTranslator = new ComponentDataTranslator(debugMode);
+			for each(var componentNode:ComponentNode in componentData.nodes) {
+				if (componentNode.name == "buttons") {
+					tarnslator.translateComponentNodeToObject(componentNode, buttons);
+				}else {
+					throw new Error("Invalid node name: " + componentData.name);
 				}
 			}
 			

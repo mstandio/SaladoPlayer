@@ -1,8 +1,8 @@
 package test.com.panozona.player.component.utils{
 	
 	import com.panozona.player.component.*;
+	import com.panozona.player.component.utils.*;
 	import com.panozona.player.manager.data.actions.*;
-	import com.panozona.player.component.utils.ComponentDataTranslator;
 	import com.robertpenner.easing.*;
 	import flash.events.*;
 	import flexunit.framework.*;

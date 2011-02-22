@@ -19,7 +19,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.manager.data {
 	
 	import com.panosalado.model.*;
-	import com.panozona.player.component.*;
+	import com.panozona.player.component.data.*;
 	import com.panozona.player.manager.data.actions.*;
 	import com.panozona.player.manager.data.global.*;
 	import com.panozona.player.manager.data.panoramas.*;

@@ -18,23 +18,15 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.controller{
 	
+	import caurina.transitions.*;
+	import com.panozona.modules.imagemap.events.WindowEvent;
+	import com.panozona.modules.imagemap.model.WindowData;
+	import com.panozona.modules.imagemap.view.WindowView;
+	import com.panozona.player.component.data.property.Align;
+	import com.panozona.player.component.Module;
 	import flash.events.Event;
 	import flash.system.ApplicationDomain;
 	
-	import caurina.transitions.*;
-	
-	import com.panozona.player.module.Module;
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
-	
-	import com.panozona.modules.imagemap.model.WindowData;
-	import com.panozona.modules.imagemap.view.WindowView;
-	import com.panozona.modules.imagemap.events.WindowEvent;
-	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class WindowController{
 		
 		private var _windowView:WindowView;
@@ -59,8 +51,8 @@ package com.panozona.modules.imagemap.controller{
 			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
 			
-			var LoadPanoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.LoadPanoramaEvent") as Class;
-			_module.saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0 , true);
+			var PanoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+			_module.saladoPlayer.manager.addEventListener(PanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0 , true);
 		}
 		
 		/**
@@ -158,13 +150,13 @@ package com.panozona.modules.imagemap.controller{
 			var result:Number = 0;
 			switch(_windowView.windowData.align.horizontal) {
 				case Align.RIGHT:
-					result += _module.boundsWidth - _windowView.windowData.size.width + _windowView.windowData.move.horizontal;
+					result += _module.saladoPlayer.manager.boundsWidth - _windowView.windowData.size.width + _windowView.windowData.move.horizontal;
 				break;
 				case Align.LEFT:
 					result += _windowView.windowData.move.horizontal;
 				break;
 				default: // CENTER
-					result += (_module.boundsWidth - _windowView.windowData.size.width)*0.5 + _windowView.windowData.move.horizontal;
+					result += (_module.saladoPlayer.manager.boundsWidth - _windowView.windowData.size.width)*0.5 + _windowView.windowData.move.horizontal;
 			}
 			return result;
 		}
@@ -176,10 +168,10 @@ package com.panozona.modules.imagemap.controller{
 					result += _windowView.windowData.move.vertical;
 				break;
 				case Align.BOTTOM:
-					result += _module.boundsHeight - _windowView.windowData.size.height + _windowView.windowData.move.vertical;
+					result += _module.saladoPlayer.manager.boundsHeight - _windowView.windowData.size.height + _windowView.windowData.move.vertical;
 				break;
 				default: // MIDDLE
-					result += (_module.boundsHeight - _windowView.windowData.size.height)*0.5 + _windowView.windowData.move.vertical;
+					result += (_module.saladoPlayer.manager.boundsHeight - _windowView.windowData.size.height)*0.5 + _windowView.windowData.move.vertical;
 			}
 			return result;
 		}
@@ -188,7 +180,7 @@ package com.panozona.modules.imagemap.controller{
 			var result:Number = 0;
 			switch(_windowView.windowData.transitionType){
 				case WindowData.OPEN_CLOSE_SLIDE_RIGHT:
-					result = _module.boundsWidth;
+					result = _module.saladoPlayer.manager.boundsWidth;
 				break;
 				case WindowData.OPEN_CLOSE_SLIDE_LEFT:
 					result = -_windowView.windowData.size.width;

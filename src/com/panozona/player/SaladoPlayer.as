@@ -23,6 +23,7 @@ package com.panozona.player {
 	import com.panosalado.model.*;
 	import com.panosalado.view.*;
 	import com.panozona.player.component.*;
+	import com.panozona.player.component.data.*;
 	import com.panozona.player.manager.*;
 	import com.panozona.player.manager.data.*;
 	import com.panozona.player.manager.utils.configuration.*;
@@ -53,8 +54,11 @@ package com.panozona.player {
 		 */
 		public const traceWindow:Trace = Trace.instance;
 		
-		protected var loadedModules:Dictionary;
-		protected var loadedFactories:Dictionary;
+		/**
+		 * Dictionary, where key is componentData object
+		 * and value is loaded module or factory(swf file)
+		 */
+		public const components:Dictionary = new Dictionary();
 		
 		protected var panorama:Panorama;
 		protected var stageReference:StageReference;
@@ -67,9 +71,6 @@ package com.panozona.player {
 		protected var nanny:Nanny;
 		
 		public function SaladoPlayer() {
-			
-			loadedModules = new Dictionary();
-			loadedFactories = new Dictionary();
 			
 			panorama = new Panorama(); // Singleton
 			resizer = new Resizer();
@@ -111,14 +112,14 @@ package com.panozona.player {
 			}
 		}
 		
-		private function configurationLost(event:IOErrorEvent):void {
+		protected function configurationLost(event:IOErrorEvent):void {
 			event.target.removeEventListener(IOErrorEvent.IO_ERROR, configurationLost);
 			event.target.removeEventListener(Event.COMPLETE, configurationLoaded);
 			addChild(traceWindow);
 			traceWindow.printError("Could not load configuration file: " + event.text);
 		}
 		
-		private function configurationLoaded(event:Event):void {
+		protected function configurationLoaded(event:Event):void {
 			event.target.removeEventListener(IOErrorEvent.IO_ERROR, configurationLost);
 			event.target.removeEventListener(Event.COMPLETE, configurationLoaded);
 			var input:ByteArray = event.target.data;
@@ -147,18 +148,14 @@ package com.panozona.player {
 			modulesLoader.load(Vector.<ILoadable>(managerData.getComponentsData()));
 		}
 		
-		private function componentLost(event:LoadLoadableEvent):void {
-			traceWindow.printError("Clould not load module: " + event.loadable.path);
+		protected function componentLost(event:LoadLoadableEvent):void {
+			traceWindow.printError("Clould not load component: " + event.loadable.path);
 		}
 		
-		private function componentLoaded(event:LoadLoadableEvent):void {
-			if (event.content is Factory) {
-				loadedFactories[event.loadable as ComponentData] = event.content;
-			}else {
-				loadedModules[event.loadable as ComponentData] = event.content;
-			}
+		protected function componentLoaded(event:LoadLoadableEvent):void {
+			components[event.loadable] = event.content;
 			if (event.content is Component){
-				for each (var componentData:ComponentData in managerData.modulesData) {
+				for each (var componentData:ComponentData in managerData.getComponentsData()) {
 					if ((event.loadable as ComponentData) === componentData) {
 						componentData.descriptionReference = (event.content as Component).componentDescription;
 						return;
@@ -172,25 +169,25 @@ package com.panozona.player {
 			event.target.removeEventListener(LoadLoadableEvent.LOADED, componentLoaded);
 			event.target.removeEventListener(LoadLoadableEvent.FINISHED, componentsFinished);
 			for (var j:int = managerData.factoriesData.length - 1; j >= 0; j--) {
-				if (loadedFactories[managerData.factoriesData[j]] != undefined){
-					addChild(loadedFactories[managerData.factoriesData[j]] as DisplayObject);
+				if (components[managerData.factoriesData[j]] != undefined){
+					addChild(components[managerData.factoriesData[j]] as DisplayObject);
 				}
 			}
 			for (var i:int = managerData.modulesData.length - 1; i >= 0; i--) {
-				if (loadedModules[managerData.modulesData[i]] != undefined){
-					addChild(loadedModules[managerData.modulesData[i]] as DisplayObject);
+				if (components[managerData.modulesData[i]] != undefined){
+					addChild(components[managerData.modulesData[i]] as DisplayObject);
 				}
 			}
 			finalOperations();
 		}
 		
-		private function printConfigurationMessage(event:ConfigurationEvent):void {
+		protected function printConfigurationMessage(event:ConfigurationEvent):void {
 			if (event.type == ConfigurationEvent.INFO) {
-				Trace.instance.printInfo(event.message);
+				traceWindow.printInfo(event.message);
 			}else if (event.type == ConfigurationEvent.WARNING) {
-				Trace.instance.printWarning(event.message);
+				traceWindow.printWarning(event.message);
 			}else if (event.type == ConfigurationEvent.ERROR) {
-				Trace.instance.printError(event.message);
+				traceWindow.printError(event.message);
 				// TODO indicate crash!
 			}
 		}
@@ -207,23 +204,12 @@ package com.panozona.player {
 			managerData.modulesData.pop();
 		}
 		
-		private function finalOperations():void {
+		protected function finalOperations():void {
 			if (managerData.debugMode) {
 				runValidator();
 			}
-			
 			addChild(traceWindow); // to make it most on top
 			manager.loadFirstPanorama();
-		}
-		
-		/**
-		 * Dictionary, where key is componentData object
-		 * and value is loaded module (swf file)
-		 * 
-		 * @return componentData to DisplayObject
-		 */
-		public function getModules(): Dictionary {
-			return loadedModules;
 		}
 		
 		/**
@@ -236,20 +222,10 @@ package com.panozona.player {
 		public function getModuleByName(name:String):DisplayObject {
 			for each(var moduleData:ComponentData in managerData.modulesData) {
 				if (moduleData.name == name) {
-					return loadedModules[moduleData];
+					return components[moduleData];
 				}
 			}
 			return null;
-		}
-		
-		/**
-		 * Dictionary, where key is componentData object
-		 * and value is loaded factory (swf file)
-		 * 
-		 * @return componentData to DisplayObject
-		 */
-		public function getFactories():Dictionary {
-			return loadedFactories;
 		}
 		
 		/**
@@ -262,7 +238,7 @@ package com.panozona.player {
 		public function getFactoryByName(name:String):DisplayObject {
 			for each(var factoryData:ComponentData in managerData.factoriesData) {
 				if (factoryData.name == name) {
-					return loadedFactories[factoryData];
+					return components[factoryData];
 				}
 			}
 			return null;

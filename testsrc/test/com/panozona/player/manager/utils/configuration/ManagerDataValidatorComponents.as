@@ -1,6 +1,8 @@
 package test.com.panozona.player.manager.utils.configuration{
 	
 	import com.panozona.player.component.*;
+	import com.panozona.player.component.data.*;
+	import com.panozona.player.component.utils.*;
 	import com.panozona.player.manager.data.*;
 	import com.panozona.player.manager.data.panoramas.*;
 	import com.panozona.player.manager.events.*;
