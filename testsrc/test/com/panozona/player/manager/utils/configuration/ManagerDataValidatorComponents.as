@@ -14,75 +14,88 @@ package test.com.panozona.player.manager.utils.configuration{
 	
 	public class ManagerDataValidatorComponents extends com.panozona.player.manager.utils.configuration.ManagerDataValidator{
 		
-		protected var managerData:ManagerData;
+		protected var infoCount:int;
+		protected var warningCount:int;
+		protected var errorCount:int;
+		
+		protected var componentsData:Vector.<ComponentData>
+		
+		public function ManagerDataValidatorComponents():void {
+			addEventListener(ConfigurationEvent.INFO, function(event:Event):void {infoCount++;});
+			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void{warningCount++;});
+			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void { errorCount++; } );
+		}
 		
 		[Before]
-		public function prepareManagerData():void {
-			managerData = new ManagerData();
-			managerData.panoramasData.push(new PanoramaData("pano_id", "pano_path"));
+		public function beforeTest():void {
+			componentsData = new Vector.<ComponentData>();
+			
+			infoCount = 0;
+			warningCount = 0;
+			errorCount = 0;
 		}
 		
 		[Test]
-		public function componentEvents():void {
-			var errCount : int = 0;
-			var warCount : int = 0;
-			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void { errCount++; } );
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { warCount++; } );
+		public function checkComponentsPass():void {
+			componentsData.push(new ComponentData("name_a", "patha_a"));
+			componentsData[0].descriptionReference = new ComponentDescription("name_a", "1.0");
+			componentsData.push(new ComponentData("name_b", "patha_b"));
+			componentsData[1].descriptionReference = new ComponentDescription("name_b", "1.0");
 			
-			//missing component name
-			managerData.modulesData.push(new ComponentData(null, "path_a"));
-			managerData.factoriesData.push(new ComponentData(null, "path_b"));
-			managerData.modulesData[0].descriptionReference = new ComponentDescription("comp_a", "v");
-			managerData.factoriesData[0].descriptionReference = new ComponentDescription("comp_b", "v");
+			checkComponents(componentsData);
 			
-			// missing component path
-			managerData.modulesData.push(new ComponentData("comp_c", null));
-			managerData.factoriesData.push(new ComponentData("comp_d", null));
-			managerData.modulesData[1].descriptionReference = new ComponentDescription("comp_c", "v");
-			managerData.factoriesData[1].descriptionReference = new ComponentDescription("comp_d", "v");
-			
-			// missing component description
-			managerData.modulesData.push(new ComponentData("comp_e", "path_e"));
-			managerData.factoriesData.push(new ComponentData("comp_f", "path_f"));
-			
-			validate(managerData);
-			
-			Assert.assertEquals(4, errCount);
-			Assert.assertEquals(2, warCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
-		public function componentRepeatNameSame():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
+		public function checkComponentsNoName():void {
+			componentsData.push(new ComponentData(null, "path_a"));
+			componentsData[0].descriptionReference = new ComponentDescription("name_a", "1.0");
 			
-			managerData.modulesData.push(new ComponentData("comp_a", "path_a"));
-			managerData.modulesData[0].descriptionReference = new ComponentDescription("comp_a", "v");
-			managerData.modulesData.push(new ComponentData("comp_a", "path_b"));
-			managerData.modulesData[1].descriptionReference = new ComponentDescription("comp_b", "v");
-			managerData.factoriesData.push(new ComponentData("comp_c", "path_c"));
-			managerData.factoriesData[0].descriptionReference = new ComponentDescription("comp_c", "v");
-			managerData.factoriesData.push(new ComponentData("comp_c", "path_d"));
-			managerData.factoriesData[1].descriptionReference = new ComponentDescription("comp_d", "v");
+			checkComponents(componentsData);
 			
-			validate(managerData);
-			
-			Assert.assertEquals(2, callCount);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(1, errorCount);
 		}
 		
 		[Test]
-		public function componentRepeatNameAll():void {
-			var callCount : int = 0;
-			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void { callCount++; } );
+		public function checkComponentsNoPath():void {
+			componentsData.push(new ComponentData("name_a", null));
+			componentsData[0].descriptionReference = new ComponentDescription("name_a", "1.0");
 			
-			managerData.modulesData.push(new ComponentData("comp_a", "path_a"));
-			managerData.modulesData[0].descriptionReference = new ComponentDescription("comp_a", "v");
-			managerData.factoriesData.push(new ComponentData("comp_a", "path_b"));
-			managerData.factoriesData[0].descriptionReference = new ComponentDescription("comp_b", "v");
+			checkComponents(componentsData);
 			
-			validate(managerData);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(0, warningCount);
+			Assert.assertEquals(1, errorCount);
+		}
+		
+		[Test]
+		public function checkComponentsNoDescription():void {
+			componentsData.push(new ComponentData("name_a", "path_a"));
 			
-			Assert.assertEquals(1, callCount);
+			checkComponents(componentsData);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
+		}
+		
+		[Test]
+		public function checkComponentsRepeatName():void {
+			componentsData.push(new ComponentData("comp_a", "path_a"));
+			componentsData[0].descriptionReference = new ComponentDescription("comp_a", "1.0");
+			componentsData.push(new ComponentData("comp_a", "path_b"));
+			componentsData[1].descriptionReference = new ComponentDescription("comp_b", "1.0");
+			
+			checkComponents(componentsData);
+			
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 	}
 }

@@ -277,8 +277,8 @@ package com.panozona.player.manager.utils.configuration {
 							"Missing hotspot factory: " + hotspotId));
 						continue;
 					}
-					hotspotData = new HotspotDataProduct(hotspotId, hotspotNode.@factory);
-					panoramaData.hotspotsDataProduct.push(hotspotData as HotspotDataProduct);
+					hotspotData = new HotspotDataFactory(hotspotId, hotspotNode.@factory);
+					panoramaData.hotspotsDataProduct.push(hotspotData as HotspotDataFactory);
 				}else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Unrecognized hotspot type: " + hotspotNode.localName()));
@@ -416,7 +416,7 @@ package com.panozona.player.manager.utils.configuration {
 							"Wrong format of function: " + singleFunction));
 						continue;
 					}
-					functionData = new FunctionDataTarget(singleFunctionArray[0], singleFunctionArray[1].split(","), singleFunctionArray[2]);
+					functionData = new FunctionDataFactory(singleFunctionArray[0], singleFunctionArray[1].split(","), singleFunctionArray[2]);
 					actionData.functions.push(functionData);
 					if (singleFunctionArray.length == 4) {
 						allArguments = singleFunctionArray[3].split(",");

@@ -34,31 +34,14 @@ package test.com.panozona.player.manager.utils.configuration{
 			errorCount = 0;
 			
 			managerData = new ManagerData();
-			
-			managerData.panoramasData.push(new PanoramaData("pano_a", "path_a"));
-			managerData.panoramasData[0].hotspotsDataProduct.push(new HotspotData("hs_a_a"));
-			managerData.panoramasData[0].hotspotsDataProduct.push(new HotspotData("hs_a_b"));
-			
-			var componentDataModule:ComponentData = new ComponentData("comp_a","path_a");
-			componentDataModule.descriptionReference = new ComponentDescription("comp_a", "1.0.1 beta");
-			componentDataModule.descriptionReference.addFunctionDescription("fun_a_emp");
-			componentDataModule.descriptionReference.addFunctionDescription("fun_a_str", String);
-			componentDataModule.descriptionReference.addFunctionDescription("fun_a_num", Number);
-			componentDataModule.descriptionReference.addFunctionDescription("fun_a_boo", Boolean);
-			componentDataModule.descriptionReference.addFunctionDescription("fun_a_fun", Function);
-			componentDataModule.descriptionReference.addFunctionDescription("fun_a_all", String, Number, Boolean, Function);
-			managerData.modulesData.push(componentDataModule);
-			
-			var componentDataFactory:ComponentData = new ComponentData("comp_b","path_b");
-			componentDataFactory.descriptionReference = new ComponentDescription("comp_b", "1.0.2 beta");
-			componentDataFactory.descriptionReference.addFunctionDescription("fun_b_emp");
-			componentDataFactory.descriptionReference.addFunctionDescription("fun_b_str", String);
-			componentDataFactory.descriptionReference.addFunctionDescription("fun_b_num", Number);
-			componentDataFactory.descriptionReference.addFunctionDescription("fun_b_boo", Boolean);
-			componentDataFactory.descriptionReference.addFunctionDescription("fun_b_fun", Function);
-			componentDataFactory.descriptionReference.addFunctionDescription("fun_b_all", String, Number, Boolean, Function);
-			managerData.factoriesData.push(componentDataFactory);
+			// moze tutaj builda zrobic 
 		}
+		
+		[Test]
+		public function verifyFunction
+		
+		
+		
 		
 		[Test]
 		public function actionIdRepeats():void {
@@ -112,15 +95,15 @@ package test.com.panozona.player.manager.utils.configuration{
 		public function ownerTargetCheckPass():void {
 			managerData.actionsData.push(new ActionData("act1"));
 			
-			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", ["hs_a_a"], "fun_b_emp"));
+			managerData.actionsData[0].functions.push(new FunctionDataFactory("comp_b", ["hs_a_a"], "fun_b_emp"));
 			
-			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", ["hs_a_a"], "fun_b_num"));
+			managerData.actionsData[0].functions.push(new FunctionDataFactory("comp_b", ["hs_a_a"], "fun_b_num"));
 			managerData.actionsData[0].functions[1].args.push(-12.12);
 			
-			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", ["hs_a_b"], "fun_b_boo"));
+			managerData.actionsData[0].functions.push(new FunctionDataFactory("comp_b", ["hs_a_b"], "fun_b_boo"));
 			managerData.actionsData[0].functions[2].args.push(false);
 			
-			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", ["hs_a_b"], "fun_b_all"));
+			managerData.actionsData[0].functions.push(new FunctionDataFactory("comp_b", ["hs_a_b"], "fun_b_all"));
 			managerData.actionsData[0].functions[3].args.push("string");
 			managerData.actionsData[0].functions[3].args.push(-12.12);
 			managerData.actionsData[0].functions[3].args.push(false);
@@ -138,10 +121,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			managerData.actionsData.push(new ActionData("act1"));
 			
 			// nonexistant target
-			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_b", ["hs_nonexixtant"], "fun_b_emp"));
+			managerData.actionsData[0].functions.push(new FunctionDataFactory("comp_b", ["hs_nonexixtant"], "fun_b_emp"));
 			
 			// target for module
-			managerData.actionsData[0].functions.push(new FunctionDataTarget("comp_a", ["hs_a_a"], "fun_a_emp"));
+			managerData.actionsData[0].functions.push(new FunctionDataFactory("comp_a", ["hs_a_a"], "fun_a_emp"));
 			
 			validate(managerData);
 			

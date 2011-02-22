@@ -42,33 +42,31 @@ package com.panozona.player.manager.data.panoramas {
 		 * Object where keys are ids of panoramas and values are ids of actions.
 		 * Action is executed when entering from panorama of given id.
 		 */
-		public const onEnterFrom:Object = new Object();
+		public var onEnterFrom:Object = new Object();
 		
 		/**
 		 * Object where keys are ids of panoramas and values are ids of actions.
 		 * Action is executed when transition effect is finished after entering from panorama of given id.
 		 */
-		public const onTransitionEndFrom:Object = new Object();
+		public var onTransitionEndFrom:Object = new Object();
 		
 		/**
 		 * Object where keys are ids of panoramas and values are ids of actions.
 		 * Action is executed when leaving to panorama of given id.
 		 */
-		public const onLeaveTo:Object = new Object();
+		public var onLeaveTo:Object = new Object();
 		
 		/**
 		 * Object where keys are ids of panoramas and values are ids of actions.
 		 * Setting this attribute prevents from loading panorama.
 		 * Action is executed when user tries to leave to panorama of given id.
 		 */
-		public const onLeaveToAttempt:Object = new Object();
+		public var onLeaveToAttempt:Object = new Object();
 		
-		public const hotspotsDataImage:Vector.<HotspotDataImage> = new Vector.<HotspotDataImage>();
-		public const hotspotsDataSwf:Vector.<HotspotDataSwf> = new Vector.<HotspotDataSwf>();
-		public const hotspotsDataProduct:Vector.<HotspotDataProduct> = new Vector.<HotspotDataProduct>();
+		public var hotspotsDataAbstract:Vector.<HotspotDataAbstract> = new Vector.<HotspotDataAbstract>();
 		
-		private var _id:String;
-		private var _params:Params;
+		protected var _id:String;
+		protected var _params:Params;
 		
 		public function PanoramaData(id:String, path:String) {
 			_id = id;
@@ -83,28 +81,10 @@ package com.panozona.player.manager.data.panoramas {
 			return _params;
 		}
 		
-		public final function hotspotsDataImageById(id:String):HotspotDataImage {
-			for (var i:int = 0; i < hotspotsDataImage.length; i++) {
-				if (hotspotsDataImage[i].id == id) {
-					return hotspotsDataImage[i];
-				}
-			}
-			return null;
-		}
-		
-		public final function hotspotsDataSwfById(id:String):HotspotDataSwf {
-			for (var i:int = 0; i < hotspotsDataSwf.length; i++) {
-				if (hotspotsDataSwf[i].id == id) {
-					return hotspotsDataSwf[i];
-				}
-			}
-			return null;
-		}
-		
-		public final function hotspotsDataProductById(id:String):HotspotDataProduct {
-			for (var i:int = 0; i < hotspotsDataProduct.length; i++) {
-				if (hotspotsDataProduct[i].id == id) {
-					return hotspotsDataProduct[i];
+		public function hotspotsDataAbstractById(id:String):HotspotDataAbstract {
+			for (var i:int = 0; i < hotspotsDataAbstract.length; i++) {
+				if (hotspotsDataAbstract[i].id == id) {
+					return hotspotsDataAbstract[i];
 				}
 			}
 			return null;
@@ -112,37 +92,22 @@ package com.panozona.player.manager.data.panoramas {
 		
 		public function getHotspotsLoadable():Vector.<ILoadable> {
 			var result:Vector.<ILoadable> = new Vector.<ILoadable>();
-			for (var i:int = 0; i < hotspotsDataImage.length; i++) {
-				result.push(hotspotsDataImage[i] as ILoadable);
-			}
-			for (i = 0; i < hotspotsDataSwf.length; i++) {
-				result.push(hotspotsDataSwf[i] as ILoadable);
-			}
-			return result;
-		}
-		
-		public function getHotspotsData():Vector.<HotspotData> {
-			var result:Vector.<HotspotData> = new Vector.<HotspotData>();
-			for (var i:int = 0; i < hotspotsDataImage.length; i++) {
-				result.push(hotspotsDataImage[i] as HotspotData);
-			}
-			for (i = 0; i < hotspotsDataSwf.length; i++) {
-				result.push(hotspotsDataSwf[i] as HotspotData);
-			}
-			for (i = 0; i < hotspotsDataProduct.length; i++) {
-				result.push(hotspotsDataProduct[i] as HotspotData);
-			}
-			return result;
-		}
-		
-		public function getHotspotDataById(id:String):HotspotData {
-			var hotspotsData:Vector.<HotspotData> = getHotspotsData();
-			for (var i:int = 0; i < hotspotsData.length; i++) {
-				if (hotspotsData[i].id == id) {
-					return hotspotsData[i];
+			for (var i:int = 0; i < hotspotsDataAbstract.length; i++) {
+				if (hotspotsDataAbstract[i] is ILoadable) {
+					result.push(hotspotsDataAbstract[i] as ILoadable);
 				}
 			}
-			return null;
+			return result;
+		}
+		
+		public function getHotspotsFactory():Vector.<HotspotDataFactory> {
+			var result:Vector.<HotspotDataFactory> = new Vector.<HotspotDataFactory>();
+			for (var i:int = 0; i < hotspotsDataAbstract.length; i++) {
+				if (hotspotsDataAbstract[i] is HotspotDataFactory) {
+					result.push(hotspotsDataAbstract[i] as HotspotDataFactory);
+				}
+			}
+			return result;
 		}
 	}
 }

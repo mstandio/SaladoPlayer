@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,27 +16,24 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.manager.data.panoramas {
+package com.panozona.player.manager.data.actions{
 	
-	import com.panozona.player.component.data.property.*;
-	import flash.display.*;
-	
-	public class HotspotData{
+	/**
+	 * Stores function description: function owner, target, function name and function arguments.
+	 * Same as in FunctionData but owner can be only a Factory and target referrs to factory product.
+	 * For instance: owner[target,target2].name(arguments)
+	 * 
+	 * @see FunctionData
+	 */
+	public class FunctionDataFactory extends FunctionData{
 		
-		public const location:Location = new Location();
-		public const transform:Transform = new Transform();
+		public var targets:Vector.<String> = new Vector.<String>;
 		
-		public const mouse:Mouse = new Mouse();
-		public var handCursor:Boolean = true;
-		
-		private var _id:String;
-		
-		public function HotspotData(id:String){
-			_id = id;
-		}
-		
-		public final function get id():String{
-			return _id;
+		public function FunctionDataFactory(owner:String, targets:Array, name:String) {
+			for each (var target:String in targets) {
+				this.targets.push(target);
+			}
+			super (owner, name);
 		}
 	}
 }

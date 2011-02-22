@@ -142,7 +142,7 @@ package com.panozona.player.manager {
 			hotspotsLoader.addEventListener(LoadLoadableEvent.LOADED, hotspotLoaded);
 			hotspotsLoader.addEventListener(LoadLoadableEvent.FINISHED, hotspotsFinished);
 			hotspotsLoader.load(panoramaData.getHotspotsLoadable());
-			for each(var hotspotDataProduct:HotspotDataProduct in panoramaData.hotspotsDataProduct) {
+			for each(var hotspotDataFactory:HotspotDataFactory in panoramaData.hotspotsDataProduct) {
 				// TODO: get form factory...
 			}
 		}
@@ -266,7 +266,7 @@ package com.panozona.player.manager {
 						}else {
 							_saladoPlayer.traceWindow.printError("Unknown function: " + functionData.owner + "." + functionData.name);
 						}
-					}else if (functionData is FunctionDataTarget) {
+					}else if (functionData is FunctionDataFactory) {
 						(_saladoPlayer.getFactoryByName(functionData.owner) as Object).execute(functionData);
 					}else {
 						(_saladoPlayer.getModuleByName(functionData.owner) as Object).execute(functionData);

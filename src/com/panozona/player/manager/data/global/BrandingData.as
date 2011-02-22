@@ -23,7 +23,7 @@ package com.panozona.player.manager.data.global{
 	public class BrandingData {
 		public var visible:Boolean = true;
 		public var alpha:Number = 0.5;
-		public const align:Align = new Align(Align.LEFT, Align.BOTTOM);
-		public const move:Move = new Move(3, 0);
+		public var align:Align = new Align(Align.LEFT, Align.BOTTOM);
+		public var move:Move = new Move(3, 0);
 	}
 }

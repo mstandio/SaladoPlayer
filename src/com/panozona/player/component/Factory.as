@@ -23,21 +23,21 @@ package com.panozona.player.component {
 	
 	public class Factory extends Component{
 		
-		protected var functionDataTargetClass:Class;
+		protected var functionDataFactoryClass:Class;
 		
 		public function Factory(name:String, version:String){
 			super(name, version);
-			functionDataTargetClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.data.actions.FunctionDataTarget") as Class;
+			functionDataFactoryClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.data.actions.FunctionDataFactory") as Class;
 		}
 		
 		public function returnProduct(productId:String):DisplayObject {
 			throw new Error("Function returnProduct() must be overriden.");
 		}
 		
-		override public function execute(functionDataTarget:Object):void {
+		override public function execute(functionDataFactory:Object):void {
 			var product:Object;
-			if (functionDataTarget is functionDataTargetClass && componentDescription.functionsDescription[functionData.name] != undefined) {
-				for each(var target:String in functionDataTarget.targets) {
+			if (functionDataFactory is functionDataFactoryClass && componentDescription.functionsDescription[functionData.name] != undefined) {
+				for each(var target:String in functionDataFactory.targets) {
 					product = returnProduct(target);
 					product[functionData.name].apply(product, functionData.args)
 				}

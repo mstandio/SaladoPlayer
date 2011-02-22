@@ -28,6 +28,9 @@ package test.com.panozona.player.manager.utils.configuration{
 			errorCount = 0;
 		}
 		
+		
+		
+		
 		[Test]
 		public function parseHotspotsSmokeTest():void {
 			var panoramaData:PanoramaData = new PanoramaData("pano1", "panopath1");

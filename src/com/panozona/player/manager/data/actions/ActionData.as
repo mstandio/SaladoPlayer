@@ -24,8 +24,9 @@ package com.panozona.player.manager.data.actions {
 	 */
 	public class ActionData{
 		
-		public const functions:Vector.<FunctionData> = new Vector.<FunctionData>();
-		private var _id:String;
+		public var functions:Vector.<FunctionData> = new Vector.<FunctionData>();
+		
+		protected var _id:String;
 		
 		public function ActionData(id:String) {
 			_id = id;

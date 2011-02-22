@@ -21,10 +21,10 @@ package com.panozona.player.manager.data.global{
 	import com.panosalado.model.*;
 	
 	public class ControlData{
-		public const keyboardCameraData:KeyboardCameraData = new KeyboardCameraData();
-		public const inertialMouseCameraData:InertialMouseCameraData = new InertialMouseCameraData();
-		public const arcBallCameraData:ArcBallCameraData = new ArcBallCameraData();
-		public const autorotationCameraData:AutorotationCameraData = new AutorotationCameraData();
-		public const simpleTransitionData:SimpleTransitionData = new SimpleTransitionData();
+		public var keyboardCameraData:KeyboardCameraData = new KeyboardCameraData();
+		public var inertialMouseCameraData:InertialMouseCameraData = new InertialMouseCameraData();
+		public var arcBallCameraData:ArcBallCameraData = new ArcBallCameraData();
+		public var autorotationCameraData:AutorotationCameraData = new AutorotationCameraData();
+		public var simpleTransitionData:SimpleTransitionData = new SimpleTransitionData();
 	}
 }

@@ -39,9 +39,9 @@ package test.com.panozona.player.manager.utils.configuration {
 			
 			Assert.assertEquals(3, actionData.functions.length);
 			
-			Assert.assertFalse(actionData.functions[0] is FunctionDataTarget);
-			Assert.assertFalse(actionData.functions[1] is FunctionDataTarget);
-			Assert.assertFalse(actionData.functions[2] is FunctionDataTarget);
+			Assert.assertFalse(actionData.functions[0] is FunctionDataFactory);
+			Assert.assertFalse(actionData.functions[1] is FunctionDataFactory);
+			Assert.assertFalse(actionData.functions[2] is FunctionDataFactory);
 			
 			Assert.assertStrictlyEquals("owna", actionData.functions[0].owner);
 			Assert.assertStrictlyEquals("nama", actionData.functions[0].name);
@@ -121,21 +121,21 @@ package test.com.panozona.player.manager.utils.configuration {
 			Assert.assertEquals(0, errorCount);
 			
 			Assert.assertEquals(3, actionData.functions.length);
-			Assert.assertTrue(actionData.functions[0] is FunctionDataTarget);
-			Assert.assertTrue(actionData.functions[1] is FunctionDataTarget);
-			Assert.assertTrue(actionData.functions[2] is FunctionDataTarget);
+			Assert.assertTrue(actionData.functions[0] is FunctionDataFactory);
+			Assert.assertTrue(actionData.functions[1] is FunctionDataFactory);
+			Assert.assertTrue(actionData.functions[2] is FunctionDataFactory);
 			
 			Assert.assertStrictlyEquals("owna", actionData.functions[0].owner);
 			Assert.assertStrictlyEquals("nama", actionData.functions[0].name);
-			Assert.assertStrictlyEquals("targa", (actionData.functions[0] as FunctionDataTarget).targets[0]);
+			Assert.assertStrictlyEquals("targa", (actionData.functions[0] as FunctionDataFactory).targets[0]);
 			
 			Assert.assertStrictlyEquals("ownb", actionData.functions[1].owner);
 			Assert.assertStrictlyEquals("namb", actionData.functions[1].name);
-			Assert.assertStrictlyEquals("targb", (actionData.functions[1] as FunctionDataTarget).targets[0]);
+			Assert.assertStrictlyEquals("targb", (actionData.functions[1] as FunctionDataFactory).targets[0]);
 			
 			Assert.assertStrictlyEquals("ownc", actionData.functions[2].owner);
 			Assert.assertStrictlyEquals("namc", actionData.functions[2].name);
-			Assert.assertStrictlyEquals("targc", (actionData.functions[2] as FunctionDataTarget).targets[0]);
+			Assert.assertStrictlyEquals("targc", (actionData.functions[2] as FunctionDataFactory).targets[0]);
 		}
 		
 		[Test]
@@ -207,16 +207,16 @@ package test.com.panozona.player.manager.utils.configuration {
 			
 			Assert.assertEquals(3, actionData.functions.length);
 			
-			Assert.assertFalse(actionData.functions[0] is FunctionDataTarget);
-			Assert.assertTrue(actionData.functions[1] is FunctionDataTarget);
-			Assert.assertFalse(actionData.functions[2] is FunctionDataTarget);
+			Assert.assertFalse(actionData.functions[0] is FunctionDataFactory);
+			Assert.assertTrue(actionData.functions[1] is FunctionDataFactory);
+			Assert.assertFalse(actionData.functions[2] is FunctionDataFactory);
 			
 			Assert.assertStrictlyEquals("owna", actionData.functions[0].owner);
 			Assert.assertStrictlyEquals("nama", actionData.functions[0].name);
 			
 			Assert.assertStrictlyEquals("ownb", actionData.functions[1].owner);
 			Assert.assertStrictlyEquals("namb", actionData.functions[1].name);
-			Assert.assertStrictlyEquals("targb", (actionData.functions[1] as FunctionDataTarget).targets[0]);
+			Assert.assertStrictlyEquals("targb", (actionData.functions[1] as FunctionDataFactory).targets[0]);
 			
 			Assert.assertStrictlyEquals("ownc", actionData.functions[2].owner);
 			Assert.assertStrictlyEquals("namc", actionData.functions[2].name);
@@ -372,7 +372,7 @@ package test.com.panozona.player.manager.utils.configuration {
 			
 			Assert.assertStrictlyEquals("ownb", actionsData[0].functions[1].owner);
 			Assert.assertStrictlyEquals("namb", actionsData[0].functions[1].name);
-			Assert.assertStrictlyEquals("targb", (actionsData[0].functions[1] as FunctionDataTarget).targets[0]);
+			Assert.assertStrictlyEquals("targb", (actionsData[0].functions[1] as FunctionDataFactory).targets[0]);
 			Assert.assertStrictlyEquals("foo", actionsData[0].functions[1].args[0]);
 			Assert.assertStrictlyEquals(Linear.easeNone, actionsData[0].functions[1].args[1]);
 			
@@ -385,7 +385,7 @@ package test.com.panozona.player.manager.utils.configuration {
 			
 			Assert.assertStrictlyEquals("ownd", actionsData[1].functions[1].owner);
 			Assert.assertStrictlyEquals("namd", actionsData[1].functions[1].name);
-			Assert.assertStrictlyEquals("targd", (actionsData[1].functions[1] as FunctionDataTarget).targets[0]);
+			Assert.assertStrictlyEquals("targd", (actionsData[1].functions[1] as FunctionDataFactory).targets[0]);
 			Assert.assertStrictlyEquals(0x00ff00, actionsData[1].functions[1].args[0]);
 			Assert.assertStrictlyEquals("bar", actionsData[1].functions[1].args[1]);
 		}

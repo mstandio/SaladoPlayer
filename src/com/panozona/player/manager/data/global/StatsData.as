@@ -22,7 +22,7 @@ package com.panozona.player.manager.data.global{
 	
 	public class StatsData {
 		public var visible:Boolean = false;
-		public const align:Align = new Align(Align.LEFT, Align.TOP);
-		public const move:Move = new Move(0, 0);
+		public var align:Align = new Align(Align.LEFT, Align.TOP);
+		public var move:Move = new Move(0, 0);
 	}
 }

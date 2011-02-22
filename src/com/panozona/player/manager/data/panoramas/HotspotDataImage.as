@@ -20,9 +20,9 @@ package com.panozona.player.manager.data.panoramas {
 	
 	import com.panozona.player.manager.utils.loading.ILoadable;
 	
-	public class HotspotDataImage extends HotspotData implements ILoadable {
+	public class HotspotDataImage extends HotspotDataAbstract implements ILoadable {
 		
-		private var _path:String;
+		protected var _path:String;
 		
 		public function HotspotDataImage(id:String, path:String){
 			super(id);

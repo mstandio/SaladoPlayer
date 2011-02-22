@@ -32,7 +32,7 @@ package com.panozona.player.manager.data.global{
 		 * Stores size of panorama window, camera limits and initial values.
 		 * When some value is set, it will overwrite default values in all panoramas.
 		 */
-		public const params:Params = new Params(null); // empty path
+		public var params:Params = new Params(null); // empty path
 		
 		/**
 		 * Sets default Field of view limits for global params

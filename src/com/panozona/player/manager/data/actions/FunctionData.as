@@ -25,9 +25,10 @@ package com.panozona.player.manager.data.actions {
 	 */
 	public class FunctionData {
 		
-		public const args:Array = new Array();
-		private var _owner:String;
-		private var _name:String;
+		public var args:Array = new Array();
+		
+		protected var _owner:String;
+		protected var _name:String;
 		
 		public function FunctionData(owner:String, name:String){
 			_owner = owner;

@@ -32,7 +32,7 @@ package com.panozona.player.manager.utils.configuration{
 		
 		public function validate(managerData:ManagerData):void {
 			checkPanoramas(managerData.panoramasData, managerData.actionsData);
-			checkComponents(managerData.modulesData, managerData.factoriesData);
+			checkComponents(managerData.getComponentsData());
 			checkActions(managerData);
 		}
 		
@@ -42,7 +42,8 @@ package com.panozona.player.manager.utils.configuration{
 					"No panoramas found."));
 				return;
 			}
-			var panosId:Object = new Object();
+			var panoramasId:Object = new Object();
+			var hotspotsId:Object = new Object();
 			for each(var panoramaData:PanoramaData in panoramasData) {
 				if (panoramaData.id == null) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
@@ -54,12 +55,12 @@ package com.panozona.player.manager.utils.configuration{
 						"Missig panorama path."));
 					continue;
 				}
-				if (panosId[panoramaData.id] != undefined) {
+				if (panoramasId[panoramaData.id] != undefined) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Repeating panorama id: " + panoramaData.id));
 					continue;
 				}
-				panosId[panoramaData.id] = ""; // not undefined
+				panoramasId[panoramaData.id] = ""; // not undefined
 				
 				actionExists(panoramaData.onEnter, actionsData);
 				actionExists(panoramaData.onLeave, actionsData);
@@ -69,7 +70,6 @@ package com.panozona.player.manager.utils.configuration{
 				checkActionTrigger(panoramaData.id, panoramaData.onLeaveTo, panoramasData, actionsData);
 				checkActionTrigger(panoramaData.id, panoramaData.onLeaveToAttempt, panoramasData, actionsData);
 				
-				var hotspotsId:Object = new Object();
 				for each(var hotspotData:HotspotData in panoramaData.getHotspotsData()){
 					if (hotspotData.id == null) {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
@@ -88,6 +88,24 @@ package com.panozona.player.manager.utils.configuration{
 					actionExists(hotspotData.mouse.onOver, actionsData);
 					actionExists(hotspotData.mouse.onPress, actionsData);
 					actionExists(hotspotData.mouse.onRelease, actionsData);
+					
+					if ((hotspotData is HotspotDataImage) || (hotspotData is HotspotDataSwf)){
+						// sprawdzic scieche 
+					
+					}else if (hotspotData is HotspotDataFactory) {
+						var found:Boolean;
+						for each (var componentData:ComponentData in managerData.factoriesData) {
+							if (componentData.name == (hotspotData as HotspotDataFactory).factory) {
+								found = true;
+								break;
+							}
+						}
+						if (!found) {
+							dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+								"Target must be assigned to factory: " + functionData.owner + "[" + target + "]." + functionData.name));
+							return;
+						}
+					}
 				}
 			}
 		}
@@ -120,33 +138,30 @@ package com.panozona.player.manager.utils.configuration{
 				"Panorama not found: " + panoramaId));
 		}
 		
-		protected function checkComponents(...componentDataVectors):void {
-			var componentsData:Vector.<ComponentData>;
+		protected function checkComponents(componentsData:Vector.<ComponentData>):void {
 			var componentsName:Object = new Object();
-			for (var i:uint = 0; i < componentDataVectors.length; i++) {
-				componentsData = componentDataVectors [i] as Vector.<ComponentData>;
-				for each(var componentData:ComponentData in componentsData) {
-					if (componentData.name == null) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-							"Missig component id."));
-						continue;
-					}
-					if (componentData.path == null) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-							"Missig path in: " + componentData.name));
-						continue;
-					}
-					if (componentData.descriptionReference == null) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Missig description for: " + componentData.name));
-						// proceed anyway
-					}
-					if (componentsName[componentData.name] != undefined) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Repeating name: " + componentData.name));
-					}else{
-						componentsName[componentData.name] = ""; // not undefined
-					}
+			for each(var componentData:ComponentData in componentsData) {
+				if (componentData.name == null) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+						"Missig component id."));
+					continue;
+				}
+				if (componentData.path == null) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+						"Missig path in: " + componentData.name));
+					continue;
+				}
+				if (componentData.descriptionReference == null) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Missig description for: " + componentData.name));
+					// proceed
+				}
+				if (componentsName[componentData.name] != undefined) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Repeating name: " + componentData.name));
+					// proceed
+				}else{
+					componentsName[componentData.name] = ""; // not undefined
 				}
 			}
 		}
@@ -197,35 +212,23 @@ package com.panozona.player.manager.utils.configuration{
 					" expected: " + (componentDescription.functionsDescription[functionData.name] as Vector.<Class>).length));
 				return;
 			}
-			if (functionData is FunctionDataTarget ) {
-				for each(var target:String in (functionData as FunctionDataTarget).targets){
-					var found:Boolean;
-					for each (var panoramaData:PanoramaData in managerData.panoramasData) {
-						for each (var hotspotData:HotspotData in panoramaData.getHotspotsData()) {
-							if (hotspotData.id == target) {
+			if (functionData is FunctionDataFactory ) {
+				var found:Boolean;
+				for each(var target:String in (functionData as FunctionDataFactory).targets) {
+					found = false;
+					panoramasLoop: for each (var panoramaData:PanoramaData in managerData.panoramasData) {
+						for each (var hotspotDataFactory:HotspotDataFactory in panoramaData.hotspotsDataProduct) {
+							if (hotspotDataFactory.id == target) {
 								found = true;
-								break;
+								break panoramasLoop;
 							}
 						}
-						if (found) break;
 					}
 					if (!found) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 							"Target not found: " + functionData.owner + "[" + target + "]." + functionData.name));
 						return;
 					}
-					found = false;
-					for each (var componentData:ComponentData in managerData.factoriesData) {
-						if (componentData.name == functionData.owner) {
-							found = true;
-							break;
-						}
-					}
-				}
-				if (!found) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Target must be assigned to factory: " + functionData.owner + "[" + target + "]." + functionData.name));
-					return;
 				}
 			}
 			if ((componentDescription.functionsDescription[functionData.name] as Vector.<Class>).length > 0){
