@@ -18,9 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.viewfinder.data{
 	
-	import com.panozona.player.component.data.ComponentData;
-	import com.panozona.player.component.data.ComponentNode;
-	import com.panozona.player.component.utils.ComponentDataTranslator;
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.data.ModuleNode;
+	import com.panozona.player.module.utils.ModuleDataTranslator;
 	
 	/**
 	 * Part od ViewFinder module, translates moduleData 
@@ -30,15 +30,15 @@ package com.panozona.modules.viewfinder.data{
 		
 		public const settings:Settings = new Settings();
 		
-		public function ViewFinderData(componentData:ComponentData, debugMode:Boolean){
+		public function ViewFinderData(moduleData:ModuleData, debugMode:Boolean){
 			
-			var tarnslator:ComponentDataTranslator = new ComponentDataTranslator(debugMode);
+			var tarnslator:ModuleDataTranslator = new ModuleDataTranslator(debugMode);
 			
-			for each(var componentNode:ComponentNode in componentData.nodes) {
-				if (componentNode.name == "settings") {
-					tarnslator.translateComponentNodeToObject(componentNode, settings);
+			for each(var moduleNode:ModuleNode in moduleData.nodes) {
+				if (moduleNode.name == "settings") {
+					tarnslator.translateModuleNodeToObject(moduleNode, settings);
 				}else {
-					throw new Error("Could not recognize: "+componentNode.name);
+					throw new Error("Could not recognize: "+moduleNode.name);
 				}
 			}
 			// no additional validation required

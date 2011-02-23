@@ -20,7 +20,7 @@ package com.panozona.player.manager.data.panoramas {
 	
 	import com.panozona.player.manager.utils.loading.ILoadable;
 	
-	public class HotspotDataSwf extends HotspotDataAbstract implements ILoadable{
+	public class HotspotDataSwf extends HotspotData implements ILoadable{
 		
 		protected var _path:String;
 		protected var _xml:XML;

@@ -22,8 +22,8 @@ package com.panozona.player {
 	import com.panosalado.core.*;
 	import com.panosalado.model.*;
 	import com.panosalado.view.*;
-	import com.panozona.player.component.*;
-	import com.panozona.player.component.data.*;
+	import com.panozona.player.module.*;
+	import com.panozona.player.module.data.*;
 	import com.panozona.player.manager.*;
 	import com.panozona.player.manager.data.*;
 	import com.panozona.player.manager.utils.configuration.*;
@@ -42,23 +42,23 @@ package com.panozona.player {
 		/**
 		 * Instance of main class that extends PanoSalado.
 		 */
-		public const manager:Manager = new Manager();
+		public var manager:Manager = new Manager();
 		
 		/**
 		 * Instance of class that aggregates and stores configuration data.
 		 */
-		public const managerData:ManagerData = new ManagerData();
+		public var managerData:ManagerData = new ManagerData();
 		
 		/**
 		 * Instance of Trace window. Trace can alsa be accessed as singleton.
 		 */
-		public const traceWindow:Trace = Trace.instance;
+		public var traceWindow:Trace = Trace.instance;
 		
 		/**
-		 * Dictionary, where key is componentData object
+		 * Dictionary, where key is moduleData object
 		 * and value is loaded module or factory(swf file)
 		 */
-		public const components:Dictionary = new Dictionary();
+		public var modules:Dictionary = new Dictionary();
 		
 		protected var panorama:Panorama;
 		protected var stageReference:StageReference;
@@ -142,40 +142,35 @@ package com.panozona.player {
 			addChild(manager);
 			
 			var modulesLoader:LoadablesLoader = new LoadablesLoader();
-			modulesLoader.addEventListener(LoadLoadableEvent.LOST, componentLost);
-			modulesLoader.addEventListener(LoadLoadableEvent.LOADED, componentLoaded);
-			modulesLoader.addEventListener(LoadLoadableEvent.FINISHED, componentsFinished);
-			modulesLoader.load(Vector.<ILoadable>(managerData.getComponentsData()));
+			modulesLoader.addEventListener(LoadLoadableEvent.LOST, moduleLost);
+			modulesLoader.addEventListener(LoadLoadableEvent.LOADED, moduleLoaded);
+			modulesLoader.addEventListener(LoadLoadableEvent.FINISHED, modulesFinished);
+			modulesLoader.load(Vector.<ILoadable>(managerData.modulesData));
 		}
 		
-		protected function componentLost(event:LoadLoadableEvent):void {
-			traceWindow.printError("Clould not load component: " + event.loadable.path);
+		protected function moduleLost(event:LoadLoadableEvent):void {
+			traceWindow.printError("Clould not load module: " + event.loadable.path);
 		}
 		
-		protected function componentLoaded(event:LoadLoadableEvent):void {
-			components[event.loadable] = event.content;
-			if (event.content is Component){
-				for each (var componentData:ComponentData in managerData.getComponentsData()) {
-					if ((event.loadable as ComponentData) === componentData) {
-						componentData.descriptionReference = (event.content as Component).componentDescription;
+		protected function moduleLoaded(event:LoadLoadableEvent):void {
+			modules[event.loadable] = event.content;
+			if (event.content is Module){
+				for each (var moduleData:ModuleData in managerData.modulesData) {
+					if ((event.loadable as ModuleData) === moduleData) {
+						moduleData.descriptionReference = (event.content as Module).moduleDescription;
 						return;
 					}
 				}
 			}
 		}
 		
-		protected function componentsFinished(event:LoadLoadableEvent):void {
-			event.target.removeEventListener(LoadLoadableEvent.LOST, componentLost);
-			event.target.removeEventListener(LoadLoadableEvent.LOADED, componentLoaded);
-			event.target.removeEventListener(LoadLoadableEvent.FINISHED, componentsFinished);
-			for (var j:int = managerData.factoriesData.length - 1; j >= 0; j--) {
-				if (components[managerData.factoriesData[j]] != undefined){
-					addChild(components[managerData.factoriesData[j]] as DisplayObject);
-				}
-			}
-			for (var i:int = managerData.modulesData.length - 1; i >= 0; i--) {
-				if (components[managerData.modulesData[i]] != undefined){
-					addChild(components[managerData.modulesData[i]] as DisplayObject);
+		protected function modulesFinished(event:LoadLoadableEvent):void {
+			event.target.removeEventListener(LoadLoadableEvent.LOST, moduleLost);
+			event.target.removeEventListener(LoadLoadableEvent.LOADED, moduleLoaded);
+			event.target.removeEventListener(LoadLoadableEvent.FINISHED, modulesFinished);
+			for (var j:int = managerData.modulesData.length - 1; j >= 0; j--) {
+				if (modules[managerData.modulesData[j]] != undefined){
+					addChild(modules[managerData.modulesData[j]] as DisplayObject);
 				}
 			}
 			finalOperations();
@@ -193,9 +188,9 @@ package com.panozona.player {
 		}
 		
 		protected function runValidator():void {
-			var fakeComponentData:ComponentData = new ComponentData(manager.description.name, "fake path");
-			fakeComponentData.descriptionReference = manager.description;
-			managerData.modulesData.push(fakeComponentData);
+			var fakeModuleData:ModuleData = new ModuleData(manager.description.name, "fake path");
+			fakeModuleData.descriptionReference = manager.description;
+			managerData.modulesData.push(fakeModuleData);
 			var managerDataValidator:ManagerDataValidator = new ManagerDataValidator();
 			managerDataValidator.addEventListener(ConfigurationEvent.INFO, printConfigurationMessage, false, 0, true);
 			managerDataValidator.addEventListener(ConfigurationEvent.WARNING, printConfigurationMessage, false, 0, true);
@@ -220,25 +215,9 @@ package com.panozona.player {
 		 * @return module as DisplayObject, null if not found
 		 */
 		public function getModuleByName(name:String):DisplayObject {
-			for each(var moduleData:ComponentData in managerData.modulesData) {
+			for each(var moduleData:ModuleData in managerData.modulesData) {
 				if (moduleData.name == name) {
-					return components[moduleData];
-				}
-			}
-			return null;
-		}
-		
-		/**
-		 * Returns reference to factory (swf file)
-		 * by its name declared in configuration
-		 * 
-		 * @param name of factory
-		 * @return module as DisplayObject, null if not found
-		 */
-		public function getFactoryByName(name:String):DisplayObject {
-			for each(var factoryData:ComponentData in managerData.factoriesData) {
-				if (factoryData.name == name) {
-					return components[factoryData];
+					return modules[moduleData];
 				}
 			}
 			return null;

@@ -15,27 +15,14 @@ See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
-*/
-package com.panozona.player.component.data.structure{
+*/ 
+package com.panozona.player.module.data.property{
 	
-	public class DataParent{
-		
-		private var _children:Array = new Array();
-		
-		public function getChildrenOfGivenClass(childClass:Class):Array {
-			var result:Array = new Array;
-			for each (var child:Object in _children) {
-				if (child is childClass) result.push(child);
-			}
-			return result;
-		}
-		
-		public function getAllChildren():Array {
-			return _children;
-		}
-		
-		public function getChildrenTypes():Vector.<Class> {
-			throw new Error("You must override getChildrenTypes()");
-		}
+	public class Mouse{
+		public var onClick:String;
+		public var onPress:String;
+		public var onRelease:String;
+		public var onOver:String;
+		public var onOut:String;
 	}
 }

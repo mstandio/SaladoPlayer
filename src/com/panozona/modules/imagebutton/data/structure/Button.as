@@ -19,10 +19,10 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.imagebutton.data.structure {
 	
 	import caurina.transitions.Equations;
-	import com.panozona.player.component.data.property.Align;
-	import com.panozona.player.component.data.property.Mouse;
-	import com.panozona.player.component.data.property.Move;
-	import com.panozona.player.component.data.property.Tween;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Mouse;
+	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.Tween;
 	
 	public class Button {
 		

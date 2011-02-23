@@ -18,11 +18,11 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap{
 	
-	import com.panozona.player.component.data.ComponentData;
+	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.modules.imagemap.controller.WindowController;
 	import com.panozona.modules.imagemap.model.ImageMapData;
 	import com.panozona.modules.imagemap.view.WindowView;
-	import com.panozona.player.component.Module;
+	import com.panozona.player.module.Module;
 	
 	public class ImageMap extends Module {
 		
@@ -33,13 +33,13 @@ package com.panozona.modules.imagemap{
 		
 		public function ImageMap() {
 			super("ImageMap", "1.0");
-			componentDescription.addFunctionDescription("toggleOpen");
-			componentDescription.addFunctionDescription("setOpen", Boolean);
+			moduleDescription.addFunctionDescription("toggleOpen");
+			moduleDescription.addFunctionDescription("setOpen", Boolean);
 		}
 		
-		override protected function componentReady(componentData:ComponentData):void {
+		override protected function moduleReady(moduleData:ModuleData):void {
 			
-			imageMapData = new ImageMapData(componentData, saladoPlayer.managerData.debugMode); // always first
+			imageMapData = new ImageMapData(moduleData, saladoPlayer.managerData.debugMode); // always first
 			
 			windowView = new WindowView(imageMapData);
 			windowController = new WindowController(windowView, this);

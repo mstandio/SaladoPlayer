@@ -20,21 +20,21 @@ package com.panozona.modules.imagebutton.data{
 	
 	import com.panozona.modules.imagebutton.data.structure.Button;
 	import com.panozona.modules.imagebutton.data.structure.Butttons;
-	import com.panozona.player.component.data.ComponentData;
-	import com.panozona.player.component.data.ComponentNode;
-	import com.panozona.player.component.utils.ComponentDataTranslator;
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.data.ModuleNode;
+	import com.panozona.player.module.utils.ModuleDataTranslator;
 	
 	public class ImageButtonData{
 		
 		public var buttons:Butttons = new Butttons();
 		
-		public function ImageButtonData(componentData:ComponentData, debugMode:Boolean) {
-			var tarnslator:ComponentDataTranslator = new ComponentDataTranslator(debugMode);
-			for each(var componentNode:ComponentNode in componentData.nodes) {
-				if (componentNode.name == "buttons") {
-					tarnslator.translateComponentNodeToObject(componentNode, buttons);
+		public function ImageButtonData(moduleData:ModuleData, debugMode:Boolean) {
+			var tarnslator:ModuleDataTranslator = new ModuleDataTranslator(debugMode);
+			for each(var moduleNode:ModuleNode in moduleData.nodes) {
+				if (moduleNode.name == "buttons") {
+					tarnslator.translateModuleNodeToObject(moduleNode, buttons);
 				}else {
-					throw new Error("Invalid node name: " + componentData.name);
+					throw new Error("Invalid node name: " + moduleData.name);
 				}
 			}
 			

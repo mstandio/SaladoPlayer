@@ -20,10 +20,10 @@ package com.panozona.modules.imagemap.model {
 	
 	import caurina.transitions.Equations;
 	import com.panozona.modules.imagemap.events.WindowEvent;
-	import com.panozona.player.component.data.property.Align;
-	import com.panozona.player.component.data.property.Move;
-	import com.panozona.player.component.data.property.Size;
-	import com.panozona.player.component.data.property.Tween;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.Size;
+	import com.panozona.player.module.data.property.Tween;
 	import flash.events.EventDispatcher;
 	
 	public class WindowData extends EventDispatcher{

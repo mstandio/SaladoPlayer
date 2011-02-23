@@ -16,21 +16,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.component.data {
+package com.panozona.player.module.data.property{
 	
-	public class ComponentNode {
+	public class Transform{
 		
-		public const attributes:Object = new Object();
-		public const childNodes:Vector.<ComponentNode> = new Vector.<ComponentNode>();
+		public var scaleX:Number = 1;
+		public var scaleY:Number = 1;
+		public var scaleZ:Number = 1;
 		
-		private var _name:String;
-		
-		public function ComponentNode(name:String) {
-			_name = name;
-		}
-		
-		public final function get name():String {
-			return _name;
-		}
+		public var rotationX:Number = 0;
+		public var rotationY:Number = 0;
+		public var rotationZ:Number = 0;
 	}
 }

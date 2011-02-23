@@ -27,9 +27,9 @@ package com.panozona.player.manager.utils {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	import com.panozona.player.component.data.property.Align;
-	import com.panozona.player.component.data.property.Move;
-	import com.panozona.player.component.data.property.Size;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.Size;
 	
 	import com.panozona.player.SaladoPlayer;
 	import com.panozona.player.manager.data.ManagerData;

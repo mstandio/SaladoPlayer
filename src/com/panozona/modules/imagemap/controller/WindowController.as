@@ -22,8 +22,8 @@ package com.panozona.modules.imagemap.controller{
 	import com.panozona.modules.imagemap.events.WindowEvent;
 	import com.panozona.modules.imagemap.model.WindowData;
 	import com.panozona.modules.imagemap.view.WindowView;
-	import com.panozona.player.component.data.property.Align;
-	import com.panozona.player.component.Module;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.Module;
 	import flash.events.Event;
 	import flash.system.ApplicationDomain;
 	

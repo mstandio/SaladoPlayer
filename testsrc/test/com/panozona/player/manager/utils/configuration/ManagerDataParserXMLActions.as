@@ -1,6 +1,6 @@
 package test.com.panozona.player.manager.utils.configuration {
 	
-	import com.panozona.player.component.*;
+	import com.panozona.player.module.*;
 	import com.panozona.player.manager.data.actions.*;
 	import com.panozona.player.manager.events.*;
 	import com.panozona.player.manager.utils.configuration.*;
@@ -349,8 +349,8 @@ package test.com.panozona.player.manager.utils.configuration {
 			var actionsData:Vector.<ActionData> = new Vector.<ActionData>();
 			var nodeXML:XML = new XML(
 				"<root>" +
-				"<action id=\"act1\" content=\"owna.nama(NaN,false,[foo]);ownb[targb].namb(foo,Linear.easeNone)\"/>" + 
-				"<action id=\"act2\" content=\"ownc.namc(-12.12,Linear.easeNone);ownd[targd].namd(#00ff00,bar)\"/>" +
+					"<action id=\"act1\" content=\"owna.nama(NaN,false,[foo]);ownb[targb].namb(foo,Linear.easeNone)\"/>" + 
+					"<action id=\"act2\" content=\"ownc.namc(-12.12,Linear.easeNone);ownd[targd].namd(#00ff00,bar)\"/>" +
 				"</root>");
 			parseActions(actionsData, nodeXML);
 			
@@ -393,7 +393,10 @@ package test.com.panozona.player.manager.utils.configuration {
 		[Test]
 		public function wrongAction1():void {
 			// action id missing
-			parseActions(new Vector.<ActionData>(), new XML("<root><action content=\"foo.bar()\"/></root>"));
+			parseActions(new Vector.<ActionData>(), new XML(
+				"<root>" +
+					"<action content=\"foo.bar()\"/>" +
+				"</root>"));
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(1, errorCount);
@@ -402,7 +405,10 @@ package test.com.panozona.player.manager.utils.configuration {
 		[Test]
 		public function wrongAction2():void {
 			// action content missing
-			parseActions(new Vector.<ActionData>(), new XML("<root><action id=\"act1\"/></root>"));
+			parseActions(new Vector.<ActionData>(), new XML(
+				"<root>" +
+					"<action id=\"act1\"/>" +
+				"</root>"));
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(1, errorCount);
@@ -411,7 +417,10 @@ package test.com.panozona.player.manager.utils.configuration {
 		[Test]
 		public function wrongAction3():void {
 			// action id wrong format
-			parseActions(new Vector.<ActionData>(), new XML("<root><action id=\"12\" content=\"foo.bar()\"/></root>"));
+			parseActions(new Vector.<ActionData>(), new XML(
+				"<root>" +
+					"<action id=\"12\" content=\"foo.bar()\"/>" +
+				"</root>"));
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(1, errorCount);
@@ -420,7 +429,10 @@ package test.com.panozona.player.manager.utils.configuration {
 		[Test]
 		public function wrongAction4():void {
 			// action unknown attrubute
-			parseActions(new Vector.<ActionData>(), new XML("<root><action id=\"act1\" functions=\"foo.bar()\"/></root>"));
+			parseActions(new Vector.<ActionData>(), new XML(
+				"<root>" +
+					"<action id=\"act1\" functions=\"foo.bar()\"/>" +
+				"</root>"));
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(1, errorCount);

@@ -19,9 +19,9 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.imagemap.model {
 	
 	import com.panozona.modules.imagemap.utils.ImageMapDataValidator;
-	import com.panozona.player.component.data.ComponentData;
-	import com.panozona.player.component.data.ComponentNode;
-	import com.panozona.player.component.utils.ComponentDataTranslator;
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.data.ModuleNode;
+	import com.panozona.player.module.utils.ModuleDataTranslator;
 	
 	public class ImageMapData {
 		
@@ -29,17 +29,17 @@ package com.panozona.modules.imagemap.model {
 		public var contentViewerData:ContentViewerData = new ContentViewerData();
 		public var mapData:MapData = new MapData();
 		
-		public function ImageMapData(componentData:ComponentData, debugMode:Boolean) {
-			var tarnslator:ComponentDataTranslator = new ComponentDataTranslator(debugMode);
-			for each(var componentNode:ComponentNode in componentData.nodes) {
-				if (componentNode.name == "window") {
-					tarnslator.translateComponentNodeToObject(componentNode, windowData);
-				}else if (componentNode.name == "viewer") {
-					tarnslator.translateComponentNodeToObject(componentNode, contentViewerData.viewer);
-				}else if (componentNode.name == "maps") {
-					tarnslator.translateComponentNodeToObject(componentNode, mapData.maps);
+		public function ImageMapData(moduleData:ModuleData, debugMode:Boolean) {
+			var tarnslator:ModuleDataTranslator = new ModuleDataTranslator(debugMode);
+			for each(var moduleNode:ModuleNode in moduleData.nodes) {
+				if (moduleNode.name == "window") {
+					tarnslator.translateModuleNodeToObject(moduleNode, windowData);
+				}else if (moduleNode.name == "viewer") {
+					tarnslator.translateModuleNodeToObject(moduleNode, contentViewerData.viewer);
+				}else if (moduleNode.name == "maps") {
+					tarnslator.translateModuleNodeToObject(moduleNode, mapData.maps);
 				}else {
-					throw new Error("Invalid node name: " + componentNode.name);
+					throw new Error("Invalid node name: " + moduleNode.name);
 				}
 			}
 			

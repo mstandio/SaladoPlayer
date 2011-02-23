@@ -18,7 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils.configuration {
 	
-	import com.panozona.player.component.data.*;
+	import com.panozona.player.module.data.*;
 	import com.panozona.player.manager.data.*;
 	import com.panozona.player.manager.data.actions.*;
 	import com.panozona.player.manager.data.global.*;
@@ -55,9 +55,7 @@ package com.panozona.player.manager.utils.configuration {
 				}else if (mainNode.localName().toString() == "panoramas") {
 					parsePanoramas(managerData.panoramasData, mainNode);
 				}else if (mainNode.localName().toString() == "modules") {
-					parseComponents(managerData.modulesData, mainNode);
-				}else if (mainNode.localName().toString() == "factories") {
-					parseComponents(managerData.factoriesData, mainNode);
+					parseModules(managerData.modulesData, mainNode);
 				}else if (mainNode.localName().toString() == "actions") {
 					parseActions(managerData.actionsData, mainNode);
 				}else {
@@ -137,7 +135,7 @@ package com.panozona.player.manager.utils.configuration {
 						applySubAttributes(traceData.align, traceAttribute);
 					}catch (error:Error) {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							error.message));
+							"Invalid align value: " + error.message));
 					}
 				}else if (traceAttributeName == "move") {
 					applySubAttributes(traceData.move, traceAttribute);
@@ -159,7 +157,7 @@ package com.panozona.player.manager.utils.configuration {
 						applySubAttributes(brandingData.align, brandingAttribute);
 					}catch (error:Error) {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							error.message));
+							"Invalid align value: " + error.message));
 					}
 				}else if (brandingAttributeName == "move") {
 					applySubAttributes(brandingData.move, brandingAttribute);
@@ -181,7 +179,7 @@ package com.panozona.player.manager.utils.configuration {
 						applySubAttributes(statsData.align, statsAttribute);
 					}catch (error:Error) {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							error.message));
+							"Invalid align value: " + error.message));
 					}
 				}else if (statsAttributeName == "move") {
 					applySubAttributes(statsData.move, statsAttribute);
@@ -266,10 +264,10 @@ package com.panozona.player.manager.utils.configuration {
 					}
 					if (hotspotNode.localName() == "image") {
 						 hotspotData = new HotspotDataImage(hotspotId, hotspotNode.@path);
-						 panoramaData.hotspotsDataImage.push(hotspotData as HotspotDataImage);
+						 panoramaData.hotspotsData.push(hotspotData as HotspotDataImage);
 					}else {
 						 hotspotData = new HotspotDataSwf(hotspotId, hotspotNode.@path, hotspotNode);
-						 panoramaData.hotspotsDataSwf.push(hotspotData as HotspotDataSwf);
+						 panoramaData.hotspotsData.push(hotspotData as HotspotDataSwf);
 					}
 				}else if (hotspotNode.localName() == "product") {
 					if (hotspotNode.@factory == undefined) {
@@ -278,7 +276,7 @@ package com.panozona.player.manager.utils.configuration {
 						continue;
 					}
 					hotspotData = new HotspotDataFactory(hotspotId, hotspotNode.@factory);
-					panoramaData.hotspotsDataProduct.push(hotspotData as HotspotDataFactory);
+					panoramaData.hotspotsData.push(hotspotData as HotspotDataFactory);
 				}else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Unrecognized hotspot type: " + hotspotNode.localName()));
@@ -300,44 +298,60 @@ package com.panozona.player.manager.utils.configuration {
 			}
 		}
 		
-		protected function parseComponents(componentsData:Vector.<ComponentData>, componentsDataNode:XML):void {
-			var componentData:ComponentData;
-			var componentNode:ComponentNode;
-			for each(var componentDataNode:XML in componentsDataNode.elements()) {
-				if(componentDataNode.@path == undefined ) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Missing path for: " + componentDataNode.localName()));
+		protected function parseModules(modulesData:Vector.<ModuleData>, modulesDataNode:XML):void {
+			var moduleData:ModuleData;
+			var moduleNode:ModuleNode;
+			for each(var moduleDataNode:XML in modulesDataNode.elements()) {
+				if(moduleDataNode.@name == undefined ) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+						"Missing name for: " + moduleDataNode.localName()));
 					continue;
 				}
-				componentData = new ComponentData(componentDataNode.localName(), componentDataNode.@path);
-				componentsData.push(componentData);
-				for each(var componentChildNode:XML in componentDataNode.elements()) {
-					componentNode = new ComponentNode(componentChildNode.localName());
-					parseComponentNodeRecursive(componentNode, componentChildNode);
-					componentData.nodes.push(componentNode);
+				if(moduleDataNode.@path == undefined ) {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+						"Missing path for: " + moduleDataNode.@name));
+					continue;
+				}
+				if (moduleDataNode.localName() == "module") {
+					moduleData = new ModuleData(moduleDataNode.@name, moduleDataNode.@path);
+					modulesData.push(moduleData);
+				}else if (moduleDataNode.localName() == "factory") {
+					moduleData = new ModuleDataFactory(moduleDataNode.@name, moduleDataNode.@path);
+					if (moduleDataNode.@definition != undefined ) {
+						applySubAttributes((moduleData as ModuleDataFactory).definition, moduleDataNode.@definition);
+					}
+					modulesData.push(moduleData as ModuleData);
+				}else {
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+						"Unrecognized module node: " + moduleDataNode.localName()));
+				}
+				for each(var moduleChildNode:XML in moduleDataNode.elements()) {
+					moduleNode = new ModuleNode(moduleChildNode.localName());
+					parseModuleNodeRecursive(moduleNode, moduleChildNode);
+					moduleData.nodes.push(moduleNode);
 				}
 			}
 		}
 		
-		protected function parseComponentNodeRecursive(componentNode:ComponentNode, xmlNode:XML):void {
+		protected function parseModuleNodeRecursive(moduleNode:ModuleNode, xmlNode:XML):void {
 			var recognizedValue:*;
 			for each(var attribute:XML in xmlNode.attributes()) {
 				recognizedValue = recognizeContent(attribute);
-				componentNode.attributes[attribute.name().toString()] = recognizedValue;
+				moduleNode.attributes[attribute.name().toString()] = recognizedValue;
 			}
-			var componentChildNode:ComponentNode;
+			var moduleChildNode:ModuleNode;
 			for each(var childNode:XML in xmlNode.children()){
 				if (childNode.nodeKind() == "text"){
-					if (componentNode.attributes["text"] == undefined) {
-						componentNode.attributes["text"] = childNode;
+					if (moduleNode.attributes["text"] == undefined) {
+						moduleNode.attributes["text"] = childNode;
 					}else {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Text value allready exists in: " + componentNode.name));
+							"Text value allready exists in: " + moduleNode.name));
 					}
 				}else {
-					componentChildNode = new ComponentNode(childNode.localName());
-					componentNode.childNodes.push(componentChildNode);
-					parseComponentNodeRecursive(componentChildNode, childNode);
+					moduleChildNode = new ModuleNode(childNode.localName());
+					moduleNode.childNodes.push(moduleChildNode);
+					parseModuleNodeRecursive(moduleChildNode, childNode);
 				}
 			}
 		}

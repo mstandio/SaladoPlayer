@@ -25,7 +25,7 @@ package com.panozona.modules.imagemap.controller {
 	import com.panozona.modules.imagemap.model.WaypointData;
 	import com.panozona.modules.imagemap.view.MapView;
 	import com.panozona.modules.imagemap.view.WaypointView;
-	import com.panozona.player.component.Module;
+	import com.panozona.player.module.Module;
 	import flash.display.Bitmap;
 	import flash.display.Loader;
 	import flash.events.Event;

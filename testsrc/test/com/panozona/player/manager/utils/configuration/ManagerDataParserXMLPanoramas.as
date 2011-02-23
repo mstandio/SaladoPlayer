@@ -1,6 +1,6 @@
 package test.com.panozona.player.manager.utils.configuration{
 	
-	import com.panozona.player.component.*;
+	import com.panozona.player.module.*;
 	import com.panozona.player.manager.data.panoramas.*;
 	import com.panozona.player.manager.events.*;
 	import com.panozona.player.manager.utils.configuration.*;
@@ -28,9 +28,6 @@ package test.com.panozona.player.manager.utils.configuration{
 			errorCount = 0;
 		}
 		
-		
-		
-		
 		[Test]
 		public function parseHotspotsSmokeTest():void {
 			var panoramaData:PanoramaData = new PanoramaData("pano1", "panopath1");
@@ -46,19 +43,19 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
 			
-			Assert.assertEquals(3, panoramaData.getHotspotsData().length);
+			Assert.assertEquals(3, panoramaData.hotspotsData.length);
 			
-			Assert.assertStrictlyEquals("hs1", panoramaData.hotspotsDataImage[0].id);
-			Assert.assertStrictlyEquals("hs2", panoramaData.hotspotsDataSwf[0].id);
-			Assert.assertStrictlyEquals("hs3", panoramaData.hotspotsDataProduct[0].id);
+			Assert.assertStrictlyEquals("hs1", panoramaData.hotspotsData[0].id);
+			Assert.assertStrictlyEquals("hs2", panoramaData.hotspotsData[1].id);
+			Assert.assertStrictlyEquals("hs3", panoramaData.hotspotsData[2].id);
 			
-			Assert.assertStrictlyEquals("hspath1", panoramaData.hotspotsDataImage[0].path);
-			Assert.assertStrictlyEquals("hspath2", panoramaData.hotspotsDataSwf[0].path);
-			Assert.assertStrictlyEquals("hspath3", panoramaData.hotspotsDataProduct[0].factory);
+			Assert.assertTrue(panoramaData.hotspotsData[0] is HotspotDataImage);
+			Assert.assertTrue(panoramaData.hotspotsData[1] is HotspotDataSwf);
+			Assert.assertTrue(panoramaData.hotspotsData[2] is HotspotDataFactory);
 			
-			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(0, errorCount);
+			Assert.assertStrictlyEquals("hspath1", (panoramaData.hotspotsData[0] as HotspotDataImage).path);
+			Assert.assertStrictlyEquals("hspath2", (panoramaData.hotspotsData[1] as HotspotDataSwf).path);
+			Assert.assertStrictlyEquals("hspath3", (panoramaData.hotspotsData[2] as HotspotDataFactory).factory);
 		}
 		
 		[Test]
@@ -125,18 +122,18 @@ package test.com.panozona.player.manager.utils.configuration{
 			
 			Assert.assertStrictlyEquals("pano1", panoramasData[0].id);
 			Assert.assertStrictlyEquals("path1", panoramasData[0].params.path);
-			Assert.assertEquals(1, panoramasData[0].hotspotsDataProduct.length);
-			Assert.assertStrictlyEquals("hs1", panoramasData[0].hotspotsDataProduct[0].id);
+			Assert.assertEquals(1, panoramasData[0].hotspotsData.length);
+			Assert.assertStrictlyEquals("hs1", panoramasData[0].hotspotsData[0].id);
 			
 			Assert.assertStrictlyEquals("pano2", panoramasData[1].id);
 			Assert.assertStrictlyEquals("path2", panoramasData[1].params.path);
-			Assert.assertEquals(2, panoramasData[1].getHotspotsData().length);
-			Assert.assertStrictlyEquals("hs2", panoramasData[1].hotspotsDataImage[0].id);
-			Assert.assertStrictlyEquals("hs3", panoramasData[1].hotspotsDataSwf[0].id);
+			Assert.assertEquals(2, panoramasData[1].hotspotsData.length);
+			Assert.assertStrictlyEquals("hs2", panoramasData[1].hotspotsData[0].id);
+			Assert.assertStrictlyEquals("hs3", panoramasData[1].hotspotsData[1].id);
 			
 			Assert.assertStrictlyEquals("pano3", panoramasData[2].id);
 			Assert.assertStrictlyEquals("path3", panoramasData[2].params.path);
-			Assert.assertEquals(0, panoramasData[2].getHotspotsData().length);
+			Assert.assertEquals(0, panoramasData[2].hotspotsData.length);
 		}
 		
 		[Test]
@@ -149,7 +146,10 @@ package test.com.panozona.player.manager.utils.configuration{
 		
 		[Test]
 		public function wrongPanoramaId():void {
-			parsePanoramas(new Vector.<PanoramaData>(), new XML("<root><panorama id=\"1\"/></root>"));
+			parsePanoramas(new Vector.<PanoramaData>(), new XML(
+				"<root>" +
+					"<panorama id=\"1\"/>" +
+				"</root>"));
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(1, errorCount);
@@ -157,7 +157,10 @@ package test.com.panozona.player.manager.utils.configuration{
 		
 		[Test]
 		public function noPanoramaPath():void {
-			parsePanoramas(new Vector.<PanoramaData>(), new XML("<root><panorama id=\"pano1\"/></root>"));
+			parsePanoramas(new Vector.<PanoramaData>(), new XML(
+				"<root>" +
+					"<panorama id=\"pano1\"/>" +
+				"</root>"));
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(1, errorCount);
@@ -165,7 +168,10 @@ package test.com.panozona.player.manager.utils.configuration{
 		
 		[Test]
 		public function unknownPanoramaAttribute():void {
-			parsePanoramas(new Vector.<PanoramaData>(), new XML("<root><panorama id=\"pano1\" path=\"foo\" something=\"bar\"/></root>"));
+			parsePanoramas(new Vector.<PanoramaData>(), new XML(
+				"<root>" +
+					"<panorama id=\"pano1\" path=\"foo\" something=\"bar\"/>" +
+				"</root>"));
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(1, warningCount);
 			Assert.assertEquals(0, errorCount);

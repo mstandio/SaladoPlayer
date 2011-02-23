@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -18,19 +18,25 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.data.panoramas {
 	
-	import com.panozona.player.manager.utils.loading.ILoadable;
+	import com.panozona.player.module.data.property.*;
+	import flash.display.*;
 	
-	public class HotspotDataImage extends HotspotData implements ILoadable {
+	public class HotspotData{
 		
-		protected var _path:String;
+		public var location:Location = new Location();
+		public var transform:Transform = new Transform();
 		
-		public function HotspotDataImage(id:String, path:String){
-			super(id);
-			_path = path;
+		public var mouse:Mouse = new Mouse();
+		public var handCursor:Boolean = true;
+		
+		protected var _id:String;
+		
+		public function HotspotData(id:String){
+			_id = id;
 		}
 		
-		public function get path():String {
-			return _path;
+		public final function get id():String{
+			return _id;
 		}
 	}
 }

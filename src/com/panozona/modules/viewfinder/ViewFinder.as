@@ -19,9 +19,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.viewfinder{
 	
 	import com.panozona.modules.viewfinder.data.*;
-	import com.panozona.player.component.*;
-	import com.panozona.player.component.data.*;
-	import com.panozona.player.component.data.property.*;
+	import com.panozona.player.module.*;
+	import com.panozona.player.module.data.*;
+	import com.panozona.player.module.data.property.*;
 	import flash.display.*;
 	import flash.events.*;
 	import flash.text.*;
@@ -52,9 +52,9 @@ package com.panozona.modules.viewfinder{
 		 * 
 		 * @param	moduleData Structure containing module configuration data.
 		 */
-		override protected function componentReady(componentData:ComponentData):void {
+		override protected function moduleReady(moduleData:ModuleData):void {
 			
-			viewFinderData = new ViewFinderData(componentData, saladoPlayer.managerData.debugMode); // always first
+			viewFinderData = new ViewFinderData(moduleData, saladoPlayer.managerData.debugMode); // always first
 			
 			pointer = new Sprite();
 			pointer.graphics.beginFill(0x000000);

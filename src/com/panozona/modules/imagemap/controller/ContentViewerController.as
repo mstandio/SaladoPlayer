@@ -22,7 +22,7 @@ package com.panozona.modules.imagemap.controller{
 	import com.panozona.modules.imagemap.events.MapEvent;
 	import com.panozona.modules.imagemap.model.EmbededGraphics;
 	import com.panozona.modules.imagemap.view.ContentViewerView;
-	import com.panozona.player.component.Module;
+	import com.panozona.player.module.Module;
 	import flash.events.Event;
 	import flash.ui.Mouse;
 	//import com.panozona.modules.imagemap.model.ContentViewerData;

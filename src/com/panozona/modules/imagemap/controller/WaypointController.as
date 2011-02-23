@@ -20,7 +20,7 @@ package com.panozona.modules.imagemap.controller {
 	
 	import com.panozona.modules.imagemap.events.WaypointEvent;
 	import com.panozona.modules.imagemap.view.WaypointView;
-	import com.panozona.player.component.Module;
+	import com.panozona.player.module.Module;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;

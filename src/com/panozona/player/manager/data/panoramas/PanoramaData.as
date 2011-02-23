@@ -63,7 +63,7 @@ package com.panozona.player.manager.data.panoramas {
 		 */
 		public var onLeaveToAttempt:Object = new Object();
 		
-		public var hotspotsDataAbstract:Vector.<HotspotDataAbstract> = new Vector.<HotspotDataAbstract>();
+		public var hotspotsData:Vector.<HotspotData> = new Vector.<HotspotData>();
 		
 		protected var _id:String;
 		protected var _params:Params;
@@ -81,10 +81,10 @@ package com.panozona.player.manager.data.panoramas {
 			return _params;
 		}
 		
-		public function hotspotsDataAbstractById(id:String):HotspotDataAbstract {
-			for (var i:int = 0; i < hotspotsDataAbstract.length; i++) {
-				if (hotspotsDataAbstract[i].id == id) {
-					return hotspotsDataAbstract[i];
+		public function hotspotDataById(id:String):HotspotData {
+			for (var i:int = 0; i < hotspotsData.length; i++) {
+				if (hotspotsData[i].id == id) {
+					return hotspotsData[i];
 				}
 			}
 			return null;
@@ -92,9 +92,9 @@ package com.panozona.player.manager.data.panoramas {
 		
 		public function getHotspotsLoadable():Vector.<ILoadable> {
 			var result:Vector.<ILoadable> = new Vector.<ILoadable>();
-			for (var i:int = 0; i < hotspotsDataAbstract.length; i++) {
-				if (hotspotsDataAbstract[i] is ILoadable) {
-					result.push(hotspotsDataAbstract[i] as ILoadable);
+			for (var i:int = 0; i < hotspotsData.length; i++) {
+				if (hotspotsData[i] is ILoadable) {
+					result.push(hotspotsData[i] as ILoadable);
 				}
 			}
 			return result;
@@ -102,9 +102,9 @@ package com.panozona.player.manager.data.panoramas {
 		
 		public function getHotspotsFactory():Vector.<HotspotDataFactory> {
 			var result:Vector.<HotspotDataFactory> = new Vector.<HotspotDataFactory>();
-			for (var i:int = 0; i < hotspotsDataAbstract.length; i++) {
-				if (hotspotsDataAbstract[i] is HotspotDataFactory) {
-					result.push(hotspotsDataAbstract[i] as HotspotDataFactory);
+			for (var i:int = 0; i < hotspotsData.length; i++) {
+				if (hotspotsData[i] is HotspotDataFactory) {
+					result.push(hotspotsData[i] as HotspotDataFactory);
 				}
 			}
 			return result;

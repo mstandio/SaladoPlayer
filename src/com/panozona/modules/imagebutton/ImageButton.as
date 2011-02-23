@@ -22,10 +22,10 @@ package com.panozona.modules.imagebutton{
 	import com.panozona.modules.imagebutton.data.ImageButtonData;
 	import com.panozona.modules.imagebutton.data.structure.Button;
 	import com.panozona.modules.imagebutton.data.Wrapper;
-	import com.panozona.player.component.data.ComponentData;
-	import com.panozona.player.component.data.property.Align;
-	import com.panozona.player.component.data.property.Move;
-	import com.panozona.player.component.Module;
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.Module;
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -44,12 +44,12 @@ package com.panozona.modules.imagebutton{
 		public function ImageButton(){
 			super("ImageButton", "1.0");
 			
-			componentDescription.addFunctionDescription("open", String);
-			componentDescription.addFunctionDescription("close", String);
+			moduleDescription.addFunctionDescription("open", String);
+			moduleDescription.addFunctionDescription("close", String);
 		}
 		
-		override protected function componentReady(componentData:ComponentData):void {
-			imageButtondata = new ImageButtonData(componentData, saladoPlayer.managerData.debugMode);
+		override protected function moduleReady(moduleData:ModuleData):void {
+			imageButtondata = new ImageButtonData(moduleData, saladoPlayer.managerData.debugMode);
 			var button:Button;
 			wrappers = new Vector.<Wrapper>();
 			loaders = new Vector.<Loader>();

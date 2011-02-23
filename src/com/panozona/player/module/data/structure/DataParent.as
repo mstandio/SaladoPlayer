@@ -1,5 +1,5 @@
-/*
-Copyright 2011 Marek Standio.
+﻿/*
+Copyright 2010 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -16,23 +16,26 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.component{
+package com.panozona.player.module.data.structure{
 	
-	import flash.system.ApplicationDomain;
-	
-	public class Module extends Component {
+	public class DataParent{
 		
-		private var functionDataClass:Class;
+		protected var _children:Array = new Array();
 		
-		public function Module(name:String, version:String){
-			super(name, version);
-			functionDataClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.data.actions.FunctionData") as Class;
+		public final function getChildrenOfGivenClass(childClass:Class):Array {
+			var result:Array = new Array;
+			for each (var child:Object in _children) {
+				if (child is childClass) result.push(child);
+			}
+			return result;
 		}
 		
-		override public function execute(functionData:Object):void {
-			if(functionData is functionDataClass && componentDescription.functionsDescription.hasOwnProperty(functionData.name)) {
-				(this[functionData.name] as Function).apply(this, functionData.args);
-			}
+		public final function getAllChildren():Array {
+			return _children;
+		}
+		
+		public function getChildrenTypes():Vector.<Class> {
+			throw new Error("You must override getChildrenTypes()");
 		}
 	}
 }

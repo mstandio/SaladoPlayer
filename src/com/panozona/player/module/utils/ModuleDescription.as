@@ -16,9 +16,9 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.component.utils{
+package com.panozona.player.module.utils{
 	
-	public class ComponentDescription {
+	public class ModuleDescription {
 		
 		/**
 		 * Object where keys are function names 
@@ -33,11 +33,11 @@ package com.panozona.player.component.utils{
 		private var _homeUrl:String;
 		
 		/**
-		 * @param	name mandatory component name
-		 * @param	version mandatory component version
-		 * @param	homeUrl optional url address containing component description
+		 * @param	name mandatory module name
+		 * @param	version mandatory module version
+		 * @param	homeUrl optional url address containing module description
 		 */
-		public function ComponentDescription(name:String, version:String, homeUrl:String = null) {
+		public function ModuleDescription(name:String, version:String, homeUrl:String = null) {
 			_name = name;
 			_version = version;
 			_homeUrl = homeUrl;
@@ -56,8 +56,8 @@ package com.panozona.player.component.utils{
 		}
 		
 		/**
-		 * Used for adding descriptions of component functions that are recognized by SaladoPlayer.
-		 * Usage of this function is supposed to be hard-coded into component constructor.
+		 * Used for adding descriptions of module functions that are recognized by SaladoPlayer.
+		 * Usage of this function is supposed to be hard-coded into module constructor.
 		 * For instance function foo(arg1:Boolean, arg2:Number, arg3:String, arg4:Function) 
 		 * should be added as folows: addFunctionDescription("foo", Boolean, Number, String, Function);
 		 * 

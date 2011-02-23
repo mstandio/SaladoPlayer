@@ -18,7 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model.structure{
 	
-	import com.panozona.player.component.data.structure.DataParent;
+	import com.panozona.player.module.data.structure.DataParent;
 	
 	public class Maps extends DataParent{
 		

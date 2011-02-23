@@ -1,8 +1,8 @@
 package test.com.panozona.player.manager.utils.configuration{
 	
-	import com.panozona.player.component.*;
-	import com.panozona.player.component.data.*;
-	import com.panozona.player.component.utils.*;
+	import com.panozona.player.module.*;
+	import com.panozona.player.module.data.*;
+	import com.panozona.player.module.utils.*;
 	import com.panozona.player.manager.data.*;
 	import com.panozona.player.manager.data.actions.*;
 	import com.panozona.player.manager.data.panoramas.*;
@@ -21,7 +21,7 @@ package test.com.panozona.player.manager.utils.configuration{
 		
 		protected var managerData:ManagerData;
 		
-		public function ManagerDataParserXMLActions():void {
+		public function ManagerDataValidatorActions():void {
 			addEventListener(ConfigurationEvent.INFO, function(event:Event):void {infoCount++;});
 			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void{warningCount++;});
 			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void{errorCount++;});
@@ -34,32 +34,30 @@ package test.com.panozona.player.manager.utils.configuration{
 			errorCount = 0;
 			
 			managerData = new ManagerData();
-			// moze tutaj builda zrobic 
-		}
-		
-		[Test]
-		public function verifyFunction
-		
-		
-		
-		
-		[Test]
-		public function actionIdRepeats():void {
-			managerData.actionsData.push(new ActionData("act1"));
-			managerData.actionsData.push(new ActionData("act1"));
+			managerData.modulesData.push(new ModuleData("module_a", "path_a"));
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("module_a", "1.0");
+			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_emp");
+			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_boo", Boolean);
+			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_num", Number);
+			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_str", String);
+			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_fun", Function);
+			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_all", Boolean, Number, String, Function);
 			
-			validate(managerData);
-			
-			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(1, warningCount);
-			Assert.assertEquals(0, errorCount);
+			managerData.modulesData.push(new ModuleDataFactory("module_b", "path_b"));
+			managerData.modulesData[1].descriptionReference = new ModuleDescription("module_b", "1.0");
+			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_emp");
+			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_boo", Boolean);
+			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_num", Number);
+			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_str", String);
+			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_fun", Function);
+			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_all", Boolean, Number, String, Function);
 		}
 		
 		[Test]
 		public function actionIdMissing():void {
 			managerData.actionsData.push(new ActionData(null));
 			
-			validate(managerData);
+			checkActions(managerData);
 			
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
@@ -67,24 +65,43 @@ package test.com.panozona.player.manager.utils.configuration{
 		}
 		
 		[Test]
-		public function ownerCheckPass():void {
+		public function actionIdRepeats():void {
+			managerData.actionsData.push(new ActionData("act1"));
 			managerData.actionsData.push(new ActionData("act1"));
 			
-			managerData.actionsData[0].functions.push(new FunctionData("comp_a", "fun_a_emp"));
+			checkActions(managerData);
 			
-			managerData.actionsData[0].functions.push(new FunctionData("comp_a", "fun_a_num"));
-			managerData.actionsData[0].functions[1].args.push(-12.12);
+			Assert.assertEquals(0, infoCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
+		}
+		
+		[Test]
+		public function functionSmokeTest():void {
 			
-			managerData.actionsData[0].functions.push(new FunctionData("comp_a", "fun_a_boo"));
-			managerData.actionsData[0].functions[2].args.push(false);
+			managerData.actionsData.push(new ActionData("act1"));
 			
-			managerData.actionsData[0].functions.push(new FunctionData("comp_a", "fun_a_all"));
-			managerData.actionsData[0].functions[3].args.push("string");
-			managerData.actionsData[0].functions[3].args.push(-12.12);
-			managerData.actionsData[0].functions[3].args.push(false);
-			managerData.actionsData[0].functions[3].args.push(Linear.easeNone);
+			managerData.actionsData[0].functions.push(new FunctionData("module_a", "fun_a_emp"));
 			
-			validate(managerData);
+			managerData.actionsData[0].functions.push(new FunctionData("module_a", "fun_a_boo"));
+			managerData.actionsData[0].functions[1].args.push(false);
+			
+			managerData.actionsData[0].functions.push(new FunctionData("module_a", "fun_a_num"));
+			managerData.actionsData[0].functions[2].args.push( -12.12);
+			
+			managerData.actionsData[0].functions.push(new FunctionData("module_a", "fun_a_str"));
+			managerData.actionsData[0].functions[3].args.push("foo");
+			
+			managerData.actionsData[0].functions.push(new FunctionData("module_a", "fun_a_fun"));
+			managerData.actionsData[0].functions[4].args.push(Linear.easeNone);
+			
+			managerData.actionsData[0].functions.push(new FunctionData("module_a", "fun_a_all"));
+			managerData.actionsData[0].functions[5].args.push(false);
+			managerData.actionsData[0].functions[5].args.push(-12.12);
+			managerData.actionsData[0].functions[5].args.push("string");
+			managerData.actionsData[0].functions[5].args.push(Linear.easeNone);
+			
+			checkActions(managerData);
 			
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
@@ -92,22 +109,32 @@ package test.com.panozona.player.manager.utils.configuration{
 		}
 		
 		[Test]
-		public function ownerTargetCheckPass():void {
+		public function functionFactorySmokeTest():void {
+			
+			managerData.panoramasData.push(new PanoramaData("pano_1", "path_1"));
+			managerData.panoramasData[0].hotspotsData.push(new HotspotDataFactory("hs_1", "module_b"));
+			managerData.panoramasData[0].hotspotsData.push(new HotspotDataFactory("hs_2", "module_b"));
+			
 			managerData.actionsData.push(new ActionData("act1"));
+			managerData.actionsData[0].functions.push(new FunctionDataFactory("module_b", ["hs_1", "hs_2"], "fun_b_emp"));
 			
-			managerData.actionsData[0].functions.push(new FunctionDataFactory("comp_b", ["hs_a_a"], "fun_b_emp"));
+			managerData.actionsData[0].functions.push(new FunctionDataFactory("module_b", ["hs_1", "hs_2"], "fun_b_boo"));
+			managerData.actionsData[0].functions[1].args.push(false);
 			
-			managerData.actionsData[0].functions.push(new FunctionDataFactory("comp_b", ["hs_a_a"], "fun_b_num"));
-			managerData.actionsData[0].functions[1].args.push(-12.12);
+			managerData.actionsData[0].functions.push(new FunctionDataFactory("module_b", ["hs_1", "hs_2"], "fun_b_num"));
+			managerData.actionsData[0].functions[2].args.push(-12.12);
 			
-			managerData.actionsData[0].functions.push(new FunctionDataFactory("comp_b", ["hs_a_b"], "fun_b_boo"));
-			managerData.actionsData[0].functions[2].args.push(false);
+			managerData.actionsData[0].functions.push(new FunctionDataFactory("module_b", ["hs_1", "hs_2"], "fun_b_str"));
+			managerData.actionsData[0].functions[3].args.push("foo");
 			
-			managerData.actionsData[0].functions.push(new FunctionDataFactory("comp_b", ["hs_a_b"], "fun_b_all"));
-			managerData.actionsData[0].functions[3].args.push("string");
-			managerData.actionsData[0].functions[3].args.push(-12.12);
-			managerData.actionsData[0].functions[3].args.push(false);
-			managerData.actionsData[0].functions[3].args.push(Linear.easeNone);
+			managerData.actionsData[0].functions.push(new FunctionDataFactory("module_b", ["hs_1", "hs_2"], "fun_b_fun"));
+			managerData.actionsData[0].functions[4].args.push(Linear.easeNone);
+			
+			managerData.actionsData[0].functions.push(new FunctionDataFactory("module_b", ["hs_1", "hs_2"], "fun_b_all"));
+			managerData.actionsData[0].functions[5].args.push(false);
+			managerData.actionsData[0].functions[5].args.push(-12.12);
+			managerData.actionsData[0].functions[5].args.push("string");
+			managerData.actionsData[0].functions[5].args.push(Linear.easeNone);
 			
 			validate(managerData);
 			
@@ -115,7 +142,7 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
 		}
-		
+		/*
 		[Test]
 		public function ownerTargetCheck():void {
 			managerData.actionsData.push(new ActionData("act1"));
@@ -187,5 +214,6 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertEquals(8, warningCount);
 			Assert.assertEquals(0, errorCount);
 		}
+		*/
 	}
 }

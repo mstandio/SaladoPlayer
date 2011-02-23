@@ -18,7 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.data.panoramas{
 	
-	public class HotspotDataFactory extends HotspotDataAbstract{
+	public class HotspotDataFactory extends HotspotData{
 		
 		protected var _factory:String;
 		

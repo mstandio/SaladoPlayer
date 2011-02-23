@@ -16,16 +16,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.component {
+package com.panozona.player.module {
 	
 	import flash.display.DisplayObject;
 	import flash.system.ApplicationDomain;
 	
-	public class Factory extends Component{
+	public class ModuleFactory extends Module{
 		
 		protected var functionDataFactoryClass:Class;
 		
-		public function Factory(name:String, version:String){
+		public function ModuleFactory(name:String, version:String){
 			super(name, version);
 			functionDataFactoryClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.data.actions.FunctionDataFactory") as Class;
 		}
@@ -36,7 +36,7 @@ package com.panozona.player.component {
 		
 		override public function execute(functionDataFactory:Object):void {
 			var product:Object;
-			if (functionDataFactory is functionDataFactoryClass && componentDescription.functionsDescription[functionData.name] != undefined) {
+			if (functionDataFactory is functionDataFactoryClass && moduleDescription.functionsDescription[functionData.name] != undefined) {
 				for each(var target:String in functionDataFactory.targets) {
 					product = returnProduct(target);
 					product[functionData.name].apply(product, functionData.args)

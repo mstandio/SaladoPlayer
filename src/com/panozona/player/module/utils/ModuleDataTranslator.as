@@ -16,84 +16,84 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.player.component.utils{
+package com.panozona.player.module.utils{
 	
-	import com.panozona.player.component.data.ComponentNode;
-	import com.panozona.player.component.data.structure.DataParent;
+	import com.panozona.player.module.data.ModuleNode;
+	import com.panozona.player.module.data.structure.DataParent;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	
-	public class ComponentDataTranslator{
+	public class ModuleDataTranslator{
 		
 		protected var debugMode:Boolean;
 		
-		public function ComponentDataTranslator (debugMode:Boolean):void {
+		public function ModuleDataTranslator (debugMode:Boolean):void {
 			this.debugMode = debugMode;
 		}
 		
-		public function translateComponentNodeToObject(componentNode:ComponentNode, object:Object):void {
+		public function translateModuleNodeToObject(moduleNode:ModuleNode, object:Object):void {
 			if (!debugMode) {
 				// read all attributes 
-				for (var name:String in componentNode.attributes) {
-					if (getClass(componentNode.attributes[name]) === Object) {
-						for (var subName:String in componentNode.attributes[name]) {
-							object[name][subName] = componentNode.attributes[name][subName];
+				for (var name:String in moduleNode.attributes) {
+					if (getClass(moduleNode.attributes[name]) === Object) {
+						for (var subName:String in moduleNode.attributes[name]) {
+							object[name][subName] = moduleNode.attributes[name][subName];
 						}
 					}else {
-						object[name] = componentNode.attributes[name]
+						object[name] = moduleNode.attributes[name]
 					}
 				}
 				return;
 			}
 			// read all attributes 
-			for (name in componentNode.attributes) {
+			for (name in moduleNode.attributes) {
 				if (!object.hasOwnProperty(name)) {
 					throw new Error("Unrecognized attribute: " + name);
 					return;
 				}
 				if (object[name] is Boolean) {
-					if (componentNode.attributes[name] is Boolean) {
-						object[name] = componentNode.attributes[name];
+					if (moduleNode.attributes[name] is Boolean) {
+						object[name] = moduleNode.attributes[name];
 					}else {
-						throw new Error("Invalid attribute value (Boolean expected): " + componentNode.attributes[name]);
+						throw new Error("Invalid attribute value (Boolean expected): " + moduleNode.attributes[name]);
 					}
 				}else if (object[name] is Number) {
-					if (componentNode.attributes[name] is Number ){
-						object[name] = componentNode.attributes[name];
+					if (moduleNode.attributes[name] is Number ){
+						object[name] = moduleNode.attributes[name];
 					}else {
-						throw new Error("Invalid attribute value (Number expected): " + componentNode.attributes[name]);
+						throw new Error("Invalid attribute value (Number expected): " + moduleNode.attributes[name]);
 					}
 				}else if (object[name] is Function) { // assuming Function var has allways default value
-					if (componentNode.attributes[name] is Function){
-						object[name] = componentNode.attributes[name];
+					if (moduleNode.attributes[name] is Function){
+						object[name] = moduleNode.attributes[name];
 					}else {
-						throw new Error("Invalid attribute value (Function expected): " + componentNode.attributes[name]);
+						throw new Error("Invalid attribute value (Function expected): " + moduleNode.attributes[name]);
 					}
 				}else if (object[name] == null || (object[name] is String)) { // String var may not be initialised
-					if (componentNode.attributes[name] is String) {
-						object[name] = componentNode.attributes[name];
+					if (moduleNode.attributes[name] is String) {
+						object[name] = moduleNode.attributes[name];
 					}else {
-						throw new Error("Invalid attribute value (String expected): " + componentNode.attributes[name]);
+						throw new Error("Invalid attribute value (String expected): " + moduleNode.attributes[name]);
 					}
-				}else if (getClass(componentNode.attributes[name]) === Object) {
-					applySubAttributes(object[name], componentNode.attributes[name]);
+				}else if (getClass(moduleNode.attributes[name]) === Object) {
+					applySubAttributes(object[name], moduleNode.attributes[name]);
 				}else {
-					throw new Error("Invalid attribute value (Object expected): " + componentNode.attributes[name]);
+					throw new Error("Invalid attribute value (Object expected): " + moduleNode.attributes[name]);
 				}
 			}
 			//read children
-			if (componentNode.childNodes.length > 0){
+			if (moduleNode.childNodes.length > 0){
 				var structureParent:DataParent;
 				var child:Object;
 				var classVector:Vector.<Class>;
 				if (object is DataParent) {
 					structureParent = object as DataParent;
-					for each(var cNode:ComponentNode in componentNode.childNodes) {
+					for each(var cNode:ModuleNode in moduleNode.childNodes) {
 						classVector = structureParent.getChildrenTypes();
 						for (var i:int = 0; i < classVector.length; i++) {
 							if (cNode.name.toLowerCase() == getQualifiedClassName(structureParent.getChildrenTypes()[i]).match(/[^:]+$/)[0].toLowerCase()){
 								child = new classVector[i]();
-								translateComponentNodeToObject(cNode, child);
+								translateModuleNodeToObject(cNode, child);
 								structureParent.getAllChildren().push(child);
 								break;
 							}
@@ -103,7 +103,7 @@ package com.panozona.player.component.utils{
 						}
 					}
 				}else {
-					throw new Error("Redundant children for: "+componentNode.name);
+					throw new Error("Redundant children for: "+moduleNode.name);
 				}
 			}
 		}
@@ -123,7 +123,7 @@ package com.panozona.player.component.utils{
 						}else {
 							throw new Error("Invalid subattribute value (Number expected): " + source[name]);
 						}
-					}else if(target[name] is Function) { // assuming Function var has allways default value
+					}else if(target[name] is Function) { // assuming Function has allways default value
 						if(source[name] is Function){
 							target[name] = source[name];
 						}else {

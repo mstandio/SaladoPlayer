@@ -23,8 +23,8 @@ package com.panozona.player.manager {
 	import com.panosalado.events.*;
 	import com.panosalado.view.*;
 	import com.panozona.player.*;
-	import com.panozona.player.component.*;
-	import com.panozona.player.component.utils.*;
+	import com.panozona.player.module.*;
+	import com.panozona.player.module.utils.*;
 	import com.panozona.player.manager.data.*;
 	import com.panozona.player.manager.data.actions.*;
 	import com.panozona.player.manager.data.panoramas.*;
@@ -37,7 +37,7 @@ package com.panozona.player.manager {
 	
 	public class Manager extends PanoSalado{
 		
-		public const description:ComponentDescription = new ComponentDescription("SaladoPlayer", "1.0.1", "http://panozona.com/");
+		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.0.1", "http://panozona.com/");
 		
 		/**
 		 * Dictionary, where key is hotspotData object
@@ -142,7 +142,7 @@ package com.panozona.player.manager {
 			hotspotsLoader.addEventListener(LoadLoadableEvent.LOADED, hotspotLoaded);
 			hotspotsLoader.addEventListener(LoadLoadableEvent.FINISHED, hotspotsFinished);
 			hotspotsLoader.load(panoramaData.getHotspotsLoadable());
-			for each(var hotspotDataFactory:HotspotDataFactory in panoramaData.hotspotsDataProduct) {
+			for each(var hotspotDataFactory:HotspotDataFactory in panoramaData.getHotspotsFactory()) {
 				// TODO: get form factory...
 			}
 		}
@@ -266,9 +266,7 @@ package com.panozona.player.manager {
 						}else {
 							_saladoPlayer.traceWindow.printError("Unknown function: " + functionData.owner + "." + functionData.name);
 						}
-					}else if (functionData is FunctionDataFactory) {
-						(_saladoPlayer.getFactoryByName(functionData.owner) as Object).execute(functionData);
-					}else {
+					}else{
 						(_saladoPlayer.getModuleByName(functionData.owner) as Object).execute(functionData);
 					}
 				}catch (error:Error) {
@@ -290,7 +288,7 @@ package com.panozona.player.manager {
 			panoramaIsMoving = true;
 			pendingActionId = null;
 			addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
-			swingToChild(hotspots[currentPanoramaData.getHotspotDataById(hotspotId)]);
+			swingToChild(hotspots[currentPanoramaData.hotspotDataById(hotspotId)]);
 		}
 		
 		public function moveToHotspotThen(hotspotId:String, actionId:String):void {
@@ -298,7 +296,7 @@ package com.panozona.player.manager {
 			panoramaIsMoving = true;
 			pendingActionId = actionId; 
 			addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
-			swingToChild(hotspots[currentPanoramaData.getHotspotDataById(hotspotId)]);
+			swingToChild(hotspots[currentPanoramaData.hotspotDataById(hotspotId)]);
 		}
 		
 		public function moveToView(pan:Number, tilt:Number, fieldOfView:Number):void {
@@ -338,7 +336,7 @@ package com.panozona.player.manager {
 			panoramaIsMoving = true;
 			pendingActionId = null;
 			addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
-			swingToChild(hotspots[currentPanoramaData.getHotspotDataById(hotspotId)], fieldOfView, speed, tween);
+			swingToChild(hotspots[currentPanoramaData.hotspotDataById(hotspotId)], fieldOfView, speed, tween);
 		}
 		
 		public function advancedMoveToHotspotThen(hotspotId:String, fieldOfView:Number, speed:Number, tween:Function, actionId:String):void {
@@ -346,7 +344,7 @@ package com.panozona.player.manager {
 			panoramaIsMoving = true;
 			pendingActionId = actionId;
 			addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
-			swingToChild(hotspots[currentPanoramaData.getHotspotDataById(hotspotId)], fieldOfView, speed, tween);
+			swingToChild(hotspots[currentPanoramaData.hotspotDataById(hotspotId)], fieldOfView, speed, tween);
 		}
 		
 		public function advancedMoveToView(pan:Number, tilt:Number, fieldOfView:Number, speed:Number, tween:Function):void {

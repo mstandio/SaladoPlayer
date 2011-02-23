@@ -18,7 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils{
 	
-	import com.panozona.player.component.data.property.*;
+	import com.panozona.player.module.data.property.*;
 	import com.panozona.player.manager.data.global.*;
 	import com.panozona.player.manager.utils.*;
 	import flash.display.*;

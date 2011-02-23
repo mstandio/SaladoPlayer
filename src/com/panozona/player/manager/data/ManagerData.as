@@ -19,7 +19,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.manager.data {
 	
 	import com.panosalado.model.*;
-	import com.panozona.player.component.data.*;
+	import com.panozona.player.module.data.*;
 	import com.panozona.player.manager.data.actions.*;
 	import com.panozona.player.manager.data.global.*;
 	import com.panozona.player.manager.data.panoramas.*;
@@ -36,7 +36,7 @@ package com.panozona.player.manager.data {
 		
 		public var panoramasData:Vector.<PanoramaData> = new Vector.<PanoramaData>();
 		public var actionsData:Vector.<ActionData> = new Vector.<ActionData>();
-		public var componentsData:Vector.<ComponentData> = new Vector.<ComponentData>();
+		public var modulesData:Vector.<ModuleData> = new Vector.<ModuleData>();
 		
 		public function getPanoramaDataById(id:String):PanoramaData {
 			for each(var panoramaData:PanoramaData in panoramasData) {
@@ -56,10 +56,10 @@ package com.panozona.player.manager.data {
 			return null;
 		}
 		
-		public function getComponentDataByName(name:String):ComponentData{
-			for each(var componentData:ComponentData in componentsData) {
-				if (componentData.name == name) {
-					return componentData;
+		public function getModuleDataByName(name:String):ModuleData{
+			for each(var moduleData:ModuleData in modulesData) {
+				if (moduleData.name == name) {
+					return moduleData;
 				}
 			}
 			return null;

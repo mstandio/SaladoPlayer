@@ -19,10 +19,10 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.factories.examplefactory {
 	
 	import com.panozona.modules.viewfinder.data.*;
-	import com.panozona.player.component.Factory;
-	import com.panozona.player.component.ComponentData;
-	import com.panozona.player.component.data.property.Align;
-	import com.panozona.player.component.data.property.Move;
+	import com.panozona.player.module.Factory;
+	import com.panozona.player.module.ModuleData;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Move;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
@@ -38,8 +38,8 @@ package com.panozona.factories.examplefactory {
 			super("ExampleFactory", "0.5");
 		}
 		
-		override protected function componentReady(componentData:ComponentData):void {
-			exampleFactoryData = new ExampleFactoryData(componentData, saladoPlayer.managerData.debugMode);
+		override protected function moduleReady(moduleData:ModuleData):void {
+			exampleFactoryData = new ExampleFactoryData(moduleData, saladoPlayer.managerData.debugMode);
 		}
 		
 		override public function returnProduct(productId:String):DisplayObject {

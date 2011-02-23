@@ -23,10 +23,10 @@ package com.panozona.modules.navigationbar {
 	import com.panozona.modules.navigationbar.data.Button;
 	import com.panozona.modules.navigationbar.data.ExtraButton;
 	import com.panozona.modules.navigationbar.data.NavigationBarData;
-	import com.panozona.player.component.data.ComponentData;
-	import com.panozona.player.component.data.property.Align;
-	import com.panozona.player.component.data.property.Move;
-	import com.panozona.player.component.Module;
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.Module;
 	import flash.display.BitmapData;
 	import flash.display.Loader;
 	import flash.display.Sprite;
@@ -87,9 +87,9 @@ package com.panozona.modules.navigationbar {
 			moduleDescription.addFunctionDescription("setExtraButtonActive", String, Boolean);
 		}
 		
-		override protected function componentReady(componentData:ComponentData):void {
+		override protected function moduleReady(moduleData:ModuleData):void {
 			
-			navigationBarData = new NavigationBarData(componentData, debugMode); // allways first
+			navigationBarData = new NavigationBarData(moduleData, debugMode); // allways first
 			
 			AutorotationEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.AutorotationEvent") as Class;
 			CameraKeyBindingsClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.model.CameraKeyBindings") as Class;
