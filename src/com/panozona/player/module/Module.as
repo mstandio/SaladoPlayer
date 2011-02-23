@@ -37,7 +37,7 @@ package com.panozona.player.module{
 		 * Calls moduleReady overriden by descendant. 
 		 * function moduleReady is surrounded with try/catch
 		 */
-		public function Module(moduleName:String, moduleVersion:String){
+		public function Module(moduleName:String, moduleVersion:String) {
 			_moduleDescription = new ModuleDescription(moduleName, moduleVersion);
 			if (stage) stageReady();
 			else addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
@@ -53,13 +53,12 @@ package com.panozona.player.module{
 			}catch (error:Error) {
 				trace("Try: " + _moduleDescription.homeUrl);
 				trace(error.getStackTrace());
-				trace(error.getStackTrace());
 			}
 			try {
 				moduleReady(_moduleData);
 			}catch (error:Error) {
 				while (numChildren) {removeChildAt(0);}
-				_saladoPlayer.traceWindow.printError(error.message);
+				printError(error.message);
 				trace(error.getStackTrace());
 			}
 		}

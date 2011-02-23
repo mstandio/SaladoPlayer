@@ -168,9 +168,9 @@ package com.panozona.player {
 			event.target.removeEventListener(LoadLoadableEvent.LOST, moduleLost);
 			event.target.removeEventListener(LoadLoadableEvent.LOADED, moduleLoaded);
 			event.target.removeEventListener(LoadLoadableEvent.FINISHED, modulesFinished);
-			for (var j:int = managerData.modulesData.length - 1; j >= 0; j--) {
-				if (modules[managerData.modulesData[j]] != undefined){
-					addChild(modules[managerData.modulesData[j]] as DisplayObject);
+			for (var i:int = managerData.modulesData.length - 1; i >= 0; i--) {
+				if (modules[managerData.modulesData[i]] != undefined){
+					addChild(modules[managerData.modulesData[i]] as DisplayObject);
 				}
 			}
 			finalOperations();

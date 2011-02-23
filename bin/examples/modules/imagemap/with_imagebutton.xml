@@ -1,12 +1,11 @@
-﻿<!--
-	ImageMap
-	
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
 	- ImageMap should use other module to be opened
 	- Here is how it can cooperate with ImageButton
 	- see: http://panozona.com/wiki/Module:ImageMap
-	
 -->
-<?xml version="1.0" encoding="utf-8" ?>
+
 <SaladoPlayer>
 	<global debug="true" autorotation="enabled:false">
 		<trace open="false"/>

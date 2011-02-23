@@ -43,7 +43,6 @@ package com.panozona.modules.imagebutton{
 		
 		public function ImageButton(){
 			super("ImageButton", "1.0");
-			
 			moduleDescription.addFunctionDescription("open", String);
 			moduleDescription.addFunctionDescription("close", String);
 		}

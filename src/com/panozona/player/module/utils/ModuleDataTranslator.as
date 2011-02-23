@@ -43,42 +43,43 @@ package com.panozona.player.module.utils{
 						object[name] = moduleNode.attributes[name]
 					}
 				}
-				return;
-			}
-			// read all attributes 
-			for (name in moduleNode.attributes) {
-				if (!object.hasOwnProperty(name)) {
-					throw new Error("Unrecognized attribute: " + name);
-					return;
-				}
-				if (object[name] is Boolean) {
-					if (moduleNode.attributes[name] is Boolean) {
-						object[name] = moduleNode.attributes[name];
-					}else {
-						throw new Error("Invalid attribute value (Boolean expected): " + moduleNode.attributes[name]);
+				
+			}else{
+				// read all attributes 
+				for (name in moduleNode.attributes) {
+					if (!object.hasOwnProperty(name)) {
+						throw new Error("Unrecognized attribute: " + name);
+						return;
 					}
-				}else if (object[name] is Number) {
-					if (moduleNode.attributes[name] is Number ){
-						object[name] = moduleNode.attributes[name];
+					if (object[name] is Boolean) {
+						if (moduleNode.attributes[name] is Boolean) {
+							object[name] = moduleNode.attributes[name];
+						}else {
+							throw new Error("Invalid attribute value (Boolean expected): " + moduleNode.attributes[name]);
+						}
+					}else if (object[name] is Number) {
+						if (moduleNode.attributes[name] is Number ){
+							object[name] = moduleNode.attributes[name];
+						}else {
+							throw new Error("Invalid attribute value (Number expected): " + moduleNode.attributes[name]);
+						}
+					}else if (object[name] is Function) { // assuming Function var has allways default value
+						if (moduleNode.attributes[name] is Function){
+							object[name] = moduleNode.attributes[name];
+						}else {
+							throw new Error("Invalid attribute value (Function expected): " + moduleNode.attributes[name]);
+						}
+					}else if (object[name] == null || (object[name] is String)) { // String var may not be initialised
+						if (moduleNode.attributes[name] is String) {
+							object[name] = moduleNode.attributes[name];
+						}else {
+							throw new Error("Invalid attribute value (String expected): " + moduleNode.attributes[name]);
+						}
+					}else if (getClass(moduleNode.attributes[name]) === Object) {
+						applySubAttributes(object[name], moduleNode.attributes[name]);
 					}else {
-						throw new Error("Invalid attribute value (Number expected): " + moduleNode.attributes[name]);
+						throw new Error("Invalid attribute value (Object expected): " + moduleNode.attributes[name]);
 					}
-				}else if (object[name] is Function) { // assuming Function var has allways default value
-					if (moduleNode.attributes[name] is Function){
-						object[name] = moduleNode.attributes[name];
-					}else {
-						throw new Error("Invalid attribute value (Function expected): " + moduleNode.attributes[name]);
-					}
-				}else if (object[name] == null || (object[name] is String)) { // String var may not be initialised
-					if (moduleNode.attributes[name] is String) {
-						object[name] = moduleNode.attributes[name];
-					}else {
-						throw new Error("Invalid attribute value (String expected): " + moduleNode.attributes[name]);
-					}
-				}else if (getClass(moduleNode.attributes[name]) === Object) {
-					applySubAttributes(object[name], moduleNode.attributes[name]);
-				}else {
-					throw new Error("Invalid attribute value (Object expected): " + moduleNode.attributes[name]);
 				}
 			}
 			//read children

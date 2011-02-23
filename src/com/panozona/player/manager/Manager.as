@@ -37,7 +37,7 @@ package com.panozona.player.manager {
 	
 	public class Manager extends PanoSalado{
 		
-		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.0.1", "http://panozona.com/");
+		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.0", "http://panozona.com/");
 		
 		/**
 		 * Dictionary, where key is hotspotData object

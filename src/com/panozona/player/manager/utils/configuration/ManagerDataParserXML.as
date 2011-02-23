@@ -516,6 +516,7 @@ package com.panozona.player.manager.utils.configuration {
 			}
 		}
 		
+		Linear; Expo; Back; Bounce; Cubic; Elastic; 
 		protected function recognizeContent(content:String):*{
 			if (content == null){ // TODO: this brings chaos
 				return null;

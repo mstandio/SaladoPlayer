@@ -267,7 +267,7 @@ package com.panozona.player.manager.utils.configuration{
 							"Wrong argument type in: " +
 							moduleDescription.name + "." + functionData.name +
 							" got: " + functionData.args[i] +
-							" expected: " + getQualifiedClassName(moduleDescription.functionsDescription[i]).match(/[^:]+$/)[0]));
+							" expected: " + getQualifiedClassName((moduleDescription.functionsDescription[functionData.name] as Vector.<Class>)[i]).match(/[^:]+$/)[0]));
 						return;
 					}
 				}
