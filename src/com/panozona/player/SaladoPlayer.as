@@ -81,7 +81,7 @@ package com.panozona.player {
 			simpleTransition = new SimpleTransition();
 			nanny = new Nanny();
 			
-			traceWindow.printInfo(manager.description.name +" v"+manager.description.version);
+			traceWindow.printLink(manager.description.homeUrl, manager.description.name+" "+manager.description.version);
 			
 			manager.initialize([
 				panorama,

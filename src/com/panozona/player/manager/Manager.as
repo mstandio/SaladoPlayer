@@ -122,13 +122,18 @@ package com.panozona.player.manager {
 				
 				Trace.instance.printInfo("loading: " + panoramaData.id + " (" + panoramaData.params.path + ")");
 				
-				for (var i:int = 0; i < _managedChildren.numChildren; i++ ) {
-					for(var j:Number = 0; j < arrListeners.length; j++){
-						if (_managedChildren.getChildAt(i).hasEventListener(arrListeners[j].type)) {
-							_managedChildren.getChildAt(i).removeEventListener(arrListeners[j].type, arrListeners[j].listener);
+				if (arrListeners != null){
+					for (var i:int = 0; i < _managedChildren.numChildren; i++ ) {
+						for(var j:Number = 0; j < arrListeners.length; j++){
+							if (_managedChildren.getChildAt(i).hasEventListener(arrListeners[j].type)) {
+								_managedChildren.getChildAt(i).removeEventListener(arrListeners[j].type, arrListeners[j].listener);
+							}
 						}
 					}
 				}
+				
+				arrListeners = new Array();
+				
 				dispatchEvent(new PanoramaEvent(PanoramaEvent.PANORAMA_STARTED_LOADING));
 				super.loadPanorama(panoramaData.params.clone());
 				loadHotspots(currentPanoramaData);
@@ -222,7 +227,7 @@ package com.panozona.player.manager {
 		}
 		
 		protected function panoramaLoaded(e:Event):void {
-			arrListeners = new Array();
+			
 			panoramaIsMoving = false;
 			runAction(currentPanoramaData.onEnter);
 			if (_previousPanoramaData != null ){

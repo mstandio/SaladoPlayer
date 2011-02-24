@@ -23,10 +23,6 @@ package com.panozona.modules.navigationbar.data{
 	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.data.structure.Parent;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class Buttons extends Parent{
 		
 		// children class names are important, must be same as module node name, not case sensitive

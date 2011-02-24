@@ -17,31 +17,20 @@ You should have received a copy of the GNU General Public License
 along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils {
-
-	import flash.display.Sprite;
-	import flash.geom.Rectangle;
-	import flash.text.TextField;
-	import flash.text.TextFormat;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.StyleSheet;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
 	
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
-	import com.panozona.player.module.data.property.Size;
-	
-	import com.panozona.player.SaladoPlayer;
-	import com.panozona.player.manager.data.ManagerData;
-	import com.panozona.player.manager.data.global.TraceData;
+	import com.panozona.player.*;
+	import com.panozona.player.manager.data.global.*;
+	import com.panozona.player.module.data.property.*;
+	import flash.display.*;
+	import flash.events.*;
+	import flash.net.*;
+	import flash.text.*;
 	
 	public class Trace extends Sprite {
 		
 		private var output:TextField;
 		private var buffer:String;
 		private var styleSheet:StyleSheet;
-		
-		private var lineCount:Number = 0;
 		
 		private var window:Sprite;
 		private var btnOpen:Sprite;
@@ -137,11 +126,16 @@ package com.panozona.player.manager.utils {
 			styleInfo.color = "#00FF00";
 			styleInfo.fontFamily = "mono";
 			styleInfo.fontSize = 11;
+			var styleLink:Object = new Object();
+			styleLink.color = "#0000FF";
+			styleLink.fontFamily = "mono";
+			styleLink.fontSize = 11;
 			styleSheet = new StyleSheet();
 			styleSheet.setStyle(".line", styleLine);
 			styleSheet.setStyle(".error", styleError);
 			styleSheet.setStyle(".warning", styleWarning);
 			styleSheet.setStyle(".info", styleInfo);
+			styleSheet.setStyle(".link", styleLink);
 			
 			// window textfield
 			output = new TextField();
@@ -154,6 +148,7 @@ package com.panozona.player.manager.utils {
 			output.htmlText += buffer;
 			buffer = "";
 			output.scrollV = output.maxScrollV;
+			output.addEventListener(TextEvent.LINK, onLinkClicked);
 			window.addChild(output);
 			
 			// window close button
@@ -214,13 +209,13 @@ package com.panozona.player.manager.utils {
 		
 		public function printError(message:String):void {
 			if(debugMode){
-				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"error\">" + message + "</span><br/>";
+				var htmlMessage:String = "<span class=\"line\">&gt;</span><span class=\"error\">" + message + "</span><br/>";
 				if (output != null) {
-					output.htmlText += htmMessage;
+					output.htmlText += htmlMessage;
 					countAndTruncate();
 					output.scrollV = output.maxScrollV;
 				}else{
-					buffer += htmMessage;
+					buffer += htmlMessage;
 				}
 			}
 			showWindow();
@@ -228,13 +223,13 @@ package com.panozona.player.manager.utils {
 		
 		public function printWarning(message:String):void {
 			if(debugMode){
-				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"warning\">" + message + "</span><br/>";
+				var htmlMessage:String = "<span class=\"line\">&gt;</span><span class=\"warning\">" + message + "</span><br/>";
 				if (output != null) {
-					output.htmlText += htmMessage;
+					output.htmlText += htmlMessage;
 					countAndTruncate();
 					output.scrollV = output.maxScrollV;
 				}else{
-					buffer += htmMessage;
+					buffer += htmlMessage;
 				}
 			}
 			showWindow();
@@ -242,24 +237,51 @@ package com.panozona.player.manager.utils {
 		
 		public function printInfo(message:String):void {
 			if(debugMode){
-				var htmMessage:String = "<span class=\"line\">&gt;</span><span class=\"info\">" + message + "</span><br/>";
+				var htmlMessage:String = "<span class=\"line\">&gt;</span><span class=\"info\">" + message + "</span><br/>";
 				if (output != null) {
-					output.htmlText += htmMessage;
+					output.htmlText += htmlMessage;
 					countAndTruncate();
 					output.scrollV = output.maxScrollV;
 				}else{
-					buffer += htmMessage;
+					buffer += htmlMessage;
 				}
 			}
 		}
 		
+		public function printLink(url:String, text:String):void {
+			if(debugMode){
+				var htmlMessage:String = "<span class=\"line\">&gt;</span><span class=\"link\"><a href=\"event:"+url+"\">"+text+"</a></span><br/>";
+				if (output != null) {
+					output.htmlText += htmlMessage;
+					countAndTruncate();
+					output.scrollV = output.maxScrollV;
+				}else{
+					buffer += htmlMessage;
+				}
+			}
+		}
+		
+		private var lineCount:Number = 0;
+		
 		private function countAndTruncate():void {
 			lineCount++;
 			if (lineCount > traceData.lineLimit) {
-				output.htmlText = output.htmlText.substring(output.htmlText.indexOf("<span class=\"line\">)"));
-				output.htmlText = output.htmlText.substring(output.htmlText.indexOf("<span class=\"line\">)"));
-				output.htmlText = output.htmlText.substring(output.htmlText.indexOf("<span class=\"line\">)"));
-				lineCount = -3;
+				var htmlText:String = output.htmlText;
+				htmlText = htmlText.substring(htmlText.indexOf("<br/>") + 5);
+				htmlText = htmlText.substring(htmlText.indexOf("<br/>") + 5);
+				htmlText = htmlText.substring(htmlText.indexOf("<br/>") + 5);
+				htmlText = htmlText.substring(htmlText.indexOf("<br/>") + 5);
+				htmlText = htmlText.substring(htmlText.indexOf("<br/>") + 5);
+				output.htmlText = htmlText;
+				lineCount -= 5;
+			}
+		}
+		
+		private function onLinkClicked(textEvent:TextEvent):void {
+			try {
+				navigateToURL(new URLRequest(textEvent.text), "_BANK");
+			}catch (error:Error){
+				printError("Could not open: " + textEvent.text);
 			}
 		}
 		
@@ -303,10 +325,8 @@ package com.panozona.player.manager.utils {
 		}
 		
 		private function handleStageResize(e:Event = null):void {
-			
 			var boundsWidth:Number = (this.parent as SaladoPlayer).manager.boundsWidth;
 			var boundsHeight:Number = (this.parent as SaladoPlayer).manager.boundsHeight;
-			
 			if (traceData.align.horizontal == Align.RIGHT) {
 				btnOpen.x = boundsWidth - btnOpen.width;
 				window.x = boundsWidth - traceData.size.width;
@@ -317,7 +337,6 @@ package com.panozona.player.manager.utils {
 				btnOpen.x = (boundsWidth - btnOpen.width)*0.5;
 				window.x = (boundsWidth - traceData.size.width) * 0.5;
 			}
-			
 			if (traceData.align.vertical == Align.TOP) {
 				btnOpen.y = 0;
 				window.y = 0;
@@ -328,10 +347,8 @@ package com.panozona.player.manager.utils {
 				btnOpen.y = (boundsHeight - btnOpen.height)*0.5;
 				window.y = (boundsHeight - traceData.size.height)*0.5;
 			}
-			
 			btnOpen.x += traceData.move.horizontal;
 			window.x += traceData.move.horizontal;
-			
 			btnOpen.y += traceData.move.vertical;
 			window.y += traceData.move.vertical;
 		}

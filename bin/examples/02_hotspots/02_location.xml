@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Positioning hotspots inside panorama.
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="GreenChecker" path="panoramas/dz_green_check/green_check_f.xml">
+			<image id="greenArrow" path="hotspots/images/green_arrow.png" location="pan:30" />
+			<image id="blueArrow" path="hotspots/images/blue_arrow.png" location="tilt:10,distance:600" />
+		</panorama>
+	</panoramas>
+</SaladoPlayer>

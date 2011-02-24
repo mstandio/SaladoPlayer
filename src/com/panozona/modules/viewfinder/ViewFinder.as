@@ -39,11 +39,11 @@ package com.panozona.modules.viewfinder{
 		private var viewFinderData:ViewFinderData;
 		
 		/**
-		 * Sets module name and version. Name is used 
-		 * to obtain configuration data for given module
+		 * Sets module name version and homeUrl. Name is used 
+		 * to obtain configuration data for given module.
 		 */
 		public function ViewFinder():void{
-			super("ViewFinder", "1.0");
+			super("ViewFinder", "1.0", "http://panozona.com/wiki/Module:ViewFinder");
 		}
 		
 		/**
@@ -54,7 +54,7 @@ package com.panozona.modules.viewfinder{
 		 */
 		override protected function moduleReady(moduleData:ModuleData):void {
 			
-			viewFinderData = new ViewFinderData(moduleData, saladoPlayer.managerData.debugMode); // always first
+			viewFinderData = new ViewFinderData(moduleData, saladoPlayer); // always first
 			
 			pointer = new Sprite();
 			pointer.graphics.beginFill(0x000000);

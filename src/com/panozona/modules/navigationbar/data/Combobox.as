@@ -22,10 +22,6 @@ package com.panozona.modules.navigationbar.data {
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Move
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class Combobox {
 		public var visible:Boolean = true;
 		public var style:ComboboxStyle = new ComboboxStyle();

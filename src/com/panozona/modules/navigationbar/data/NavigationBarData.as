@@ -41,13 +41,13 @@ package com.panozona.modules.navigationbar.data {
 					break;
 					case "combobox": 
 						readRecursive(combobox, moduleNode);
-					break;					
+					break;
 					default:
 						throw new Error("Invalid node name: "+moduleNode.nodeName);
 				}
 			}
 			
-			if (debugMode) {				
+			if (debugMode) {
 				// check for mandatory data
 			}
 		}

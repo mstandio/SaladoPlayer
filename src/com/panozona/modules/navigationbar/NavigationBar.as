@@ -18,27 +18,17 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.navigationbar {
 	
-	import com.panozona.modules.navigationbar.button.BitmapButton;
+	import com.panozona.modules.navigationbar.button.*;
 	import com.panozona.modules.navigationbar.combobox.*;
-	import com.panozona.modules.navigationbar.data.Button;
-	import com.panozona.modules.navigationbar.data.ExtraButton;
-	import com.panozona.modules.navigationbar.data.NavigationBarData;
-	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
-	import com.panozona.player.module.Module;
-	import flash.display.BitmapData;
-	import flash.display.Loader;
-	import flash.display.Sprite;
-	import flash.display.StageDisplayState;
-	import flash.events.Event;
-	import flash.events.IOErrorEvent;
-	import flash.events.KeyboardEvent;
-	import flash.events.MouseEvent;
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
-	import flash.net.URLRequest;
-	import flash.system.ApplicationDomain;
+	import com.panozona.modules.navigationbar.data.*;
+	import com.panozona.player.module.*;
+	import com.panozona.player.module.data.*;
+	import com.panozona.player.module.data.property.*;
+	import flash.display.*;
+	import flash.events.*;
+	import flash.geom.*;
+	import flash.net.*;
+	import flash.system.*;
 	
 	public class NavigationBar extends Module{
 		

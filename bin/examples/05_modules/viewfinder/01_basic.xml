@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Inserting ViewFinder module into SaladoPlayer.
+-->
 <SaladoPlayer>
 	<global debug="true">
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="pano1" path="panoramas/dz_green_check/green_check_f.xml">
-		</panorama>
+		<panorama id="pano1" path="panoramas/dz_green_check/green_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<module name="ExampleModule" path="modules/ExampleModule-1.0.swf"/>
+		<module name="ViewFinder" path="modules/ViewFinder-1.0.swf"/>
 	</modules>
 </SaladoPlayer>

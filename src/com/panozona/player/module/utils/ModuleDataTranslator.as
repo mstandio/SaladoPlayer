@@ -31,7 +31,7 @@ package com.panozona.player.module.utils{
 			this.debugMode = debugMode;
 		}
 		
-		public function translateModuleNodeToObject(moduleNode:ModuleNode, object:Object):void {
+		public function moduleNodeToObject(moduleNode:ModuleNode, object:Object):void {
 			if (!debugMode) {
 				// read all attributes 
 				for (var name:String in moduleNode.attributes) {
@@ -94,7 +94,7 @@ package com.panozona.player.module.utils{
 						for (var i:int = 0; i < classVector.length; i++) {
 							if (cNode.name.toLowerCase() == getQualifiedClassName(structureParent.getChildrenTypes()[i]).match(/[^:]+$/)[0].toLowerCase()){
 								child = new classVector[i]();
-								translateModuleNodeToObject(cNode, child);
+								moduleNodeToObject(cNode, child);
 								structureParent.getAllChildren().push(child);
 								break;
 							}

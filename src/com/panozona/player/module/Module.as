@@ -20,61 +20,72 @@ package com.panozona.player.module{
 	
 	import com.panozona.player.module.data.*;
 	import com.panozona.player.module.utils.*;
-	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.system.ApplicationDomain;
+	import flash.display.*;
+	import flash.events.*;
+	import flash.system.*;
 	
 	public class Module extends Sprite {
 		
-		private var _moduleData:ModuleData;
-		private var _moduleDescription:ModuleDescription;
-		private var _saladoPlayer:Object;
-		
 		protected var functionDataClass:Class;
 		
+		private var _saladoPlayer:Object;
+		private var _moduleDescription:ModuleDescription;
+		
 		/**
-		 * Reference set by SaladoPlayer when module is accepted.
-		 * Calls moduleReady overriden by descendant. 
-		 * function moduleReady is surrounded with try/catch
+		 * Constructor creates moduleDescription instance and performs, and performs stage ready check.
+		 * Once Module is added to stage it sets reference to SaladoPlayer and calls moduleReady function 
+		 * with argument of ModuleData object containing configuration data.
+		 * @param	moduleName
+		 * @param	moduleVersion
+		 * @param	homeUrl
 		 */
-		public function Module(moduleName:String, moduleVersion:String) {
-			_moduleDescription = new ModuleDescription(moduleName, moduleVersion);
+		public function Module(moduleName:String, moduleVersion:String, homeUrl:String) {
+			_moduleDescription = new ModuleDescription(moduleName, moduleVersion, homeUrl);
 			if (stage) stageReady();
 			else addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
 		}
 		
 		private function stageReady(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
+			var _moduleData:ModuleData;
 			try {
 				functionDataClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.data.actions.FunctionData") as Class;
 				var SaladoPlayerClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.SaladoPlayer") as Class;
 				_saladoPlayer = this.parent as SaladoPlayerClass;
 				_moduleData = _saladoPlayer.managerData.getModuleDataByName(_moduleDescription.name) as ModuleData;
 			}catch (error:Error) {
-				trace("Try: " + _moduleDescription.homeUrl);
+				trace(error.message);
 				trace(error.getStackTrace());
 			}
 			try {
+				_saladoPlayer.traceWindow.printLink(_moduleDescription.homeUrl, _moduleDescription.name + " " + _moduleDescription.version);
 				moduleReady(_moduleData);
 			}catch (error:Error) {
 				while (numChildren) {removeChildAt(0);}
 				printError(error.message);
+				trace(error.message);
 				trace(error.getStackTrace());
 			}
 		}
 		
+		/**
+		 * This function has to be overriden by Module descendant. 
+		 * At the point when this function is called, module is allready constructed
+		 * added to stage and SaladoPlayer reference is ready to be used.
+		 * @param	moduleData
+		 */
 		protected function moduleReady(moduleData:ModuleData):void {
 			throw new Error("Function moduleReady() must be overriden.");
 		}
 		
 		public function execute(functionData:Object):void {
-			if(functionData is functionDataClass && moduleDescription.functionsDescription.hasOwnProperty(functionData.name)) {
+			if(functionData is functionDataClass && _moduleDescription.functionsDescription.hasOwnProperty(functionData.name)) {
 				(this[functionData.name] as Function).apply(this, functionData.args);
 			}
 		}
 		
 		/**
-		 * Ready to use SaladoPlayer reference.
+		 * SaladoPlayer reference avaible since moduleReady is called.
 		 */
 		public final function get saladoPlayer():Object {
 			return _saladoPlayer;

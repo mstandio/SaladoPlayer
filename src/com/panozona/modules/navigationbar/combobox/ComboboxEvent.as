@@ -20,10 +20,6 @@ package com.panozona.modules.navigationbar.combobox{
 	
 	import flash.events.Event;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class ComboboxEvent extends Event {
 		
 		public static const LABEL_CHANGED :String = "labelChanged"
@@ -33,12 +29,10 @@ package com.panozona.modules.navigationbar.combobox{
 		public function ComboboxEvent(type:String, panoramaData:Object){
 			super(type);
 			this.panoramaData = panoramaData;
-		}			
+		}
 		
 		override public function clone():Event{
 			return new ComboboxEvent( type, panoramaData);
 		}
 	}
-	
-	
 }

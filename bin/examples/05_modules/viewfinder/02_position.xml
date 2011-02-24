@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Positioning ViewFinder module in SaladoPlayer.
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="pano1" path="panoramas/dz_green_check/green_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<module name="ViewFinder" path="modules/ViewFinder-1.0.swf">
+			<settings align="horizontal:center,vertical:bottom" move="vertical:-100,horizontal:50"/>
+		</module>
+	</modules>
+</SaladoPlayer>

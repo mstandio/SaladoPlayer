@@ -30,15 +30,15 @@ package com.panozona.modules.viewfinder.data{
 		
 		public const settings:Settings = new Settings();
 		
-		public function ViewFinderData(moduleData:ModuleData, debugMode:Boolean){
+		public function ViewFinderData(moduleData:ModuleData, saladoPlayer:Object){
 			
-			var tarnslator:ModuleDataTranslator = new ModuleDataTranslator(debugMode);
+			var tarnslator:ModuleDataTranslator = new ModuleDataTranslator(saladoPlayer.managerData.debugMode);
 			
 			for each(var moduleNode:ModuleNode in moduleData.nodes) {
 				if (moduleNode.name == "settings") {
-					tarnslator.translateModuleNodeToObject(moduleNode, settings);
+					tarnslator.moduleNodeToObject(moduleNode, settings);
 				}else {
-					throw new Error("Could not recognize: "+moduleNode.name);
+					throw new Error("Could not recognize: " + moduleNode.name);
 				}
 			}
 			// no additional validation required

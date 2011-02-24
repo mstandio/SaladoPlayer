@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Executing actions on mouse on hotspot interaction.
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="GreenChecker" path="panoramas/dz_green_check/green_check_f.xml">
+			<image id="hs1" location="pan:-20,tilt:10" path="hotspots/images/green_arrow.png" mouse="onClick:act1"/>
+			<image id="hs2" location="pan:0,tilt:10" path="hotspots/images/green_arrow.png" mouse="onPress:act2"/>
+			<image id="hs3" location="pan:20,tilt:10" path="hotspots/images/green_arrow.png" mouse="onRelease:act3"/>
+			<image id="hs4" location="pan:-20,tilt:-10" path="hotspots/images/green_arrow.png" mouse="onOver:act4"/>
+			<image id="hs5" location="pan:0,tilt:-10" path="hotspots/images/green_arrow.png" mouse="onOut:act5"/>
+			<image id="hs6" location="pan:20,tilt:-10" path="hotspots/images/green_arrow.png"mouse="onPress:act2,onRelease:act3,onOver:act4,onOut:act5"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="act1" content="SaladoPlayer.print(onClick!)"/>
+		<action id="act2" content="SaladoPlayer.print(onPress!)"/>
+		<action id="act3" content="SaladoPlayer.print(onRelease!)"/>
+		<action id="act4" content="SaladoPlayer.print(onOver!)"/>
+		<action id="act5" content="SaladoPlayer.print(onOut!)"/>
+	</actions>
+</SaladoPlayer>

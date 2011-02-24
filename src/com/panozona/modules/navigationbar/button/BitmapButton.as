@@ -18,12 +18,8 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.navigationbar.button {
 	
-	import flash.display.BitmapData;
-	import flash.display.Sprite;
-	import flash.display.Bitmap;
-	import flash.display.BlendMode;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
+	import flash.display.*;
+	import flash.events.*;
 	
 	public class BitmapButton extends Sprite {
 		
@@ -64,7 +60,7 @@ package com.panozona.modules.navigationbar.button {
 				addEventListener(MouseEvent.MOUSE_DOWN, masterMouseDown, false, 0, true);
 				addEventListener(MouseEvent.MOUSE_UP, masterMouseUp, false, 0, true);
 				addEventListener(MouseEvent.MOUSE_OUT, masterMouseUp, false, 0, true);
-			}else if (masterMouseDown != null && masterMouseUp == null) {	
+			}else if (masterMouseDown != null && masterMouseUp == null) {
 				addEventListener(MouseEvent.MOUSE_DOWN, masterMouseDown, false, 0, true);
 			}else if (masterMouseDown == null && masterMouseUp != null) {
 				addEventListener(MouseEvent.MOUSE_UP, masterMouseUp, false, 0, true);

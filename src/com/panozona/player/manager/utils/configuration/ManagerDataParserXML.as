@@ -127,7 +127,7 @@ package com.panozona.player.manager.utils.configuration {
 			for each(var traceAttribute:XML in traceNode.attributes()) {
 				traceAttributeName = traceAttribute.localName();
 				if (traceAttributeName == "open") {
-					traceData.open = getAttributeValue(traceAttribute, String);
+					traceData.open = getAttributeValue(traceAttribute, Boolean);
 				}else if (traceAttributeName == "size") {
 					applySubAttributes(traceData.size, traceAttribute);
 				}else if (traceAttributeName == "align"){
@@ -290,6 +290,8 @@ package com.panozona.player.manager.utils.configuration {
 						applySubAttributes(hotspotData.mouse, hotspotAttribute);
 					}else if (hotspotAttributeName == "transform") {
 						applySubAttributes(hotspotData.transform, hotspotAttribute);
+					}else if (hotspotAttributeName == "handCursor") {
+						hotspotData.handCursor = getAttributeValue(hotspotAttribute, Boolean);
 					}else if (hotspotAttributeName != "id" && hotspotAttributeName != "path" && hotspotAttributeName != "factory"){
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 							"Unrecognized hotspot attribute: " + hotspotAttribute.localName()));
@@ -478,28 +480,28 @@ package com.panozona.player.manager.utils.configuration {
 								object[singleSubAttrArray[0]] = recognizedValue;
 							}else {
 								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-									"Invalid attribute value (Boolean expected): " + singleSubAttribute));
+									"Invalid subattribute value (Boolean expected): " + singleSubAttribute));
 							}
 						}else if (object[singleSubAttrArray[0]] is Number) {
 							if(recognizedValue is Number){
 								object[singleSubAttrArray[0]] = recognizedValue;
 							}else {
 								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-									"Invalid attribute value (Number expected): " + singleSubAttribute));
+									"Invalid subattribute value (Number expected): " + singleSubAttribute));
 							}
 						}else if (object[singleSubAttrArray[0]] is Function) {
 							if(recognizedValue is Function){
 								object[singleSubAttrArray[0]] = recognizedValue;
 							}else {
 								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-									"Invalid attribute value (Function expected): " + singleSubAttribute));
+									"Invalid subattribute value (Function expected): " + singleSubAttribute));
 							}
 						}else if (object[singleSubAttrArray[0]] == null || object[singleSubAttrArray[0]] is String) {
 							if(recognizedValue is String){
 								object[singleSubAttrArray[0]] = recognizedValue; 
 							}else {
 								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-									"Invalid attribute value (String expected): " + singleSubAttribute));
+									"Invalid subattribute value (String expected): " + singleSubAttribute));
 							}
 						}
 					}else {

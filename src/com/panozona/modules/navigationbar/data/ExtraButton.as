@@ -18,10 +18,6 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.navigationbar.data{
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class ExtraButton{ // here class name is important, must be same as module node name, not case sensitive
 		
 		public var name:String; // intentionally not initialized 

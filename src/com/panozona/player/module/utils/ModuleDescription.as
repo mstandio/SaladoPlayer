@@ -21,10 +21,8 @@ package com.panozona.player.module.utils{
 	public class ModuleDescription {
 		
 		/**
-		 * Object where keys are function names 
-		 * values are Vectors of Classes 
-		 * (Boolean, Number, String or Function),
-		 * that describe functions parameters.
+		 * Object where keys are function names values are Vectors of Classes 
+		 * (Boolean, Number, String or Function) that describe functions parameters.
 		 */
 		public const functionsDescription:Object = new Object();
 		
@@ -33,11 +31,14 @@ package com.panozona.player.module.utils{
 		private var _homeUrl:String;
 		
 		/**
+		 * Setting basic data for module description. name is used to indentify loaded module 
+		 * name version and homeUrl are displayed in trace window.
+		 * 
 		 * @param	name mandatory module name
 		 * @param	version mandatory module version
-		 * @param	homeUrl optional url address containing module description
+		 * @param	homeUrl url address containing module description
 		 */
-		public function ModuleDescription(name:String, version:String, homeUrl:String = null) {
+		public function ModuleDescription(name:String, version:String, homeUrl:String) {
 			_name = name;
 			_version = version;
 			_homeUrl = homeUrl;
@@ -62,18 +63,12 @@ package com.panozona.player.module.utils{
 		 * should be added as folows: addFunctionDescription("foo", Boolean, Number, String, Function);
 		 * 
 		 * @param	functionName name of added function
-		 * @param	... args classes, only allowed classes are Boolean, Number, String and Function
+		 * @param	... args classes, supposedly only allowed classes are Boolean, Number, String and Function
 		 */
 		public function addFunctionDescription(functionName:String, ... args):void {
-			
 			functionsDescription[functionName] = new Vector.<Class>;
-			
 			for(var i:int = 0; i < args.length; i++){
-				if (args[i] === Boolean ||  args[i] === Number || args[i] === String || args[i] === Function) {
-					(functionsDescription[functionName])[i] = args[i];
-				}else {
-					throw new Error("Ivalid " + (i + 1) + ". argument in: " + functionName); 
-				}
+				(functionsDescription[functionName])[i] = args[i];
 			}
 		}
 	}

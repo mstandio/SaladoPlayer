@@ -18,10 +18,6 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.navigationbar.combobox {
 	
-	/**	 
-	 * ...
-	 * @author mstandio
-	 */
 	public class ComboboxStyle {
 		
 		public var opensUp:Boolean = true;
@@ -33,5 +29,5 @@ package com.panozona.modules.navigationbar.combobox {
 		public var backgroundColor:Number = 0xffffff; //white
 		public var selectedColor:Number = 0xe0e0e0; // light gray
 		public var borderColor:Number = 0xacacac; // dark gray
-	}	
+	}
 }

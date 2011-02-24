@@ -22,10 +22,6 @@ package com.panozona.modules.navigationbar.data{
 	import com.panozona.player.module.data.property.Move;
 	import com.panozona.player.module.data.property.Size;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class Bar {
 		
 		public var visible:Boolean = true;
