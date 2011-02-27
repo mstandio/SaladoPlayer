@@ -297,7 +297,7 @@ package com.panozona.modules.navigationbar {
 		// [10][11][12][13][14][15][16][17][18][19]
 		// [20][21][22][23][24][25][26][27][28][29]
 		// [30][31][32][33][34][35][36][37][38][39]
-		private function getButtonBitmap(sourceBirmaData:BitmapData, buttonId:int):BitmapData {			
+		private function getButtonBitmap(sourceBirmaData:BitmapData, buttonId:int):BitmapData {
 			var bmd:BitmapData = new BitmapData(navigationBarData.buttons.buttonSize.width, navigationBarData.buttons.buttonSize.height,true,0);
 			bmd.copyPixels(
 				sourceBirmaData,
@@ -322,7 +322,7 @@ package com.panozona.modules.navigationbar {
 			}
 			if(navigationBarData.combobox.visible){
 				placeSprite(combobox, navigationBarData.combobox.align, navigationBarData.combobox.move);
-			}			
+			}
 			if (bitBtnFullscreen != null){
 				bitBtnFullscreen.setActive(stage.displayState == StageDisplayState.FULL_SCREEN);
 			}

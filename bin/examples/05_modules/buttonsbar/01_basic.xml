@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<module name="ButtonsBar" path="modules/ButtonsBar-1.0.swf">
+			<bar path="modules/images/buttonsbar/bar/bar_40_green.png"/>
+			<buttons path="modules/images/buttonsbar/buttons/buttons_30x30_blue.png">
+				<button name="up"/>
+				<button name="down"/>
+				<button name="left"/>
+				<button name="right"/>
+				<button name="in"/>
+				<button name="out"/>
+				<button name="drag"/>
+				<button name="autorotation"/>
+				<button name="fullscreen"/>
+				<extraButton name="a" action="printHello"/>
+			</buttons>
+		</module>
+	</modules>
+	<actions>
+		<action id="printHello" content="SaladoPlayer.print(hello)"/>
+	</actions>
+</SaladoPlayer>

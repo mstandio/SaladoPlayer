@@ -94,7 +94,7 @@ package com.panozona.modules.navigationbar.button {
 			if(!active){
 				replace(press);
 			}
-		}	
+		}
 		
 		private function ButtonMouseUp(e:Event = null):void {
 			if(!active){

@@ -22,7 +22,7 @@ package com.panozona.modules.navigationbar.combobox {
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.MouseEvent;	
+	import flash.events.MouseEvent;
 	
 	/**
 	 * Simple lightweight combobox
