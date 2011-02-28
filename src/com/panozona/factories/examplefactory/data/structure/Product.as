@@ -16,12 +16,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.factories.examplefactory.product{
+package com.panozona.factories.examplefactory.data.structure{
 		
-	public class Product extends Sprite{
+	public class Product{
 		
-		public function Product(){
+		public function Product() {
+			// moze sie odwolywac od konretnych elementow 
+			// product maker 
+			// no wiec jezeli bede chcial pokazac i zchowac
 			
+			// echhhh
 		}
 	}
 }

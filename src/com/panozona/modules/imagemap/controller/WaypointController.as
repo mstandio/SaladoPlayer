@@ -45,8 +45,8 @@ package com.panozona.modules.imagemap.controller {
 			_waypointView = waypointView;
 			_module = module;
 			
-			var LoadPanoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.LoadPanoramaEvent") as Class;
-			_module.saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
+			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 			
 			_waypointView.waypointData.addEventListener(WaypointEvent.CHANGED_SHOW_RADAR, handleShowRadarChange, false, 0, true);
 			_waypointView.waypointData.addEventListener(WaypointEvent.CHANGED_MOUSE_OVER, handleMouseOverChange, false, 0, true);
@@ -68,9 +68,9 @@ package com.panozona.modules.imagemap.controller {
 			}
 		}
 		
-		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {
+		private function onPanoramaLoaded(panoramaEvent:Object):void {
 			if (_waypointView.waypointData.waypoint.target != null) { 
-				if (loadPanoramaEvent.panoramaData.id == _waypointView.waypointData.waypoint.target) {
+				if (_module.saladoPlayer.manager.currentPanoramaData.id == _waypointView.waypointData.waypoint.target) {
 					// TODO: fade in effect
 					_waypointView.waypointData.showRadar = true;
 					_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);

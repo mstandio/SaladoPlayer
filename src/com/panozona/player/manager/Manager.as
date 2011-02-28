@@ -57,6 +57,8 @@ package com.panozona.player.manager {
 		protected var arrListeners:Array;  // hold hotspots mouse event listeners so that they can be removed
 		
 		public function Manager() {
+			description.addFunctionDescription("runAction", String);
+			description.addFunctionDescription("waitThen", Number, String);
 			description.addFunctionDescription("print", String);
 			description.addFunctionDescription("loadPano", String);
 			description.addFunctionDescription("moveToHotspot", String);
@@ -71,7 +73,7 @@ package com.panozona.player.manager {
 			description.addFunctionDescription("advancedMoveToView", Number, Number, Number, Number, Function);
 			description.addFunctionDescription("advancedMoveToViewThen", Number, Number, Number, Number, Function, String);
 			description.addFunctionDescription("advancedStartMoving", Number, Number, Number, Number, Number);
-			description.addFunctionDescription("runAction", String);
+			
 			if (stage) stageReady();
 			else addEventListener(Event.ADDED_TO_STAGE, stageReady);
 		}
@@ -135,6 +137,22 @@ package com.panozona.player.manager {
 				arrListeners = new Array();
 				
 				dispatchEvent(new PanoramaEvent(PanoramaEvent.PANORAMA_STARTED_LOADING));
+				
+				if (isNaN(panoramaData.params.pan))            panoramaData.params.pan            = _managerData.allPanoramasData.params.pan;
+				if (isNaN(panoramaData.params.tilt))           panoramaData.params.tilt           = _managerData.allPanoramasData.params.tilt;
+				if (isNaN(panoramaData.params.fov))            panoramaData.params.fov            = _managerData.allPanoramasData.params.fov;
+				if (isNaN(panoramaData.params.maxPan))         panoramaData.params.maxPan         = _managerData.allPanoramasData.params.maxPan;
+				if (isNaN(panoramaData.params.minPan))         panoramaData.params.minPan         = _managerData.allPanoramasData.params.minPan;
+				if (isNaN(panoramaData.params.maxTilt))        panoramaData.params.maxTilt        = _managerData.allPanoramasData.params.maxTilt;
+				if (isNaN(panoramaData.params.minTilt))        panoramaData.params.minTilt        = _managerData.allPanoramasData.params.minTilt;
+				if (isNaN(panoramaData.params.maxFov))         panoramaData.params.maxFov         = _managerData.allPanoramasData.params.maxFov;
+				if (isNaN(panoramaData.params.minFov))         panoramaData.params.minFov         = _managerData.allPanoramasData.params.minFov;
+				if (isNaN(panoramaData.params.minVerticalFov)) panoramaData.params.minVerticalFov = _managerData.allPanoramasData.params.minVerticalFov;
+				if (isNaN(panoramaData.params.maxVerticalFov)) panoramaData.params.maxVerticalFov = _managerData.allPanoramasData.params.maxVerticalFov;
+				if (isNaN(panoramaData.params.boundsWidth))    panoramaData.params.boundsWidth    = _managerData.allPanoramasData.params.boundsWidth;
+				if (isNaN(panoramaData.params.boundsHeight))   panoramaData.params.boundsHeight   = _managerData.allPanoramasData.params.boundsHeight;
+				if (isNaN(panoramaData.params.tierThreshold))  panoramaData.params.tierThreshold  = _managerData.allPanoramasData.params.tierThreshold;
+				
 				super.loadPanorama(panoramaData.params.clone());
 				loadHotspots(currentPanoramaData);
 			}
@@ -148,7 +166,7 @@ package com.panozona.player.manager {
 			hotspotsLoader.addEventListener(LoadLoadableEvent.FINISHED, hotspotsFinished);
 			hotspotsLoader.load(panoramaData.getHotspotsLoadable());
 			for each(var hotspotDataFactory:HotspotDataFactory in panoramaData.getHotspotsFactory()) {
-				// TODO: get form factory...
+				insertHotspot(new SwfHotspot((_saladoPlayer.getModuleByName(hotspotDataFactory.factory) as ModuleFactory).returnProduct(hotspotDataFactory.id) as Sprite), hotspotDataFactory);
 			}
 		}
 		
@@ -164,11 +182,16 @@ package com.panozona.player.manager {
 					try {(event.content as Object).references(_saladoPlayer, (hotspotData as HotspotDataSwf))} catch (e:Error){}
 				}
 				managedChild = new SwfHotspot(event.content as Sprite);
-				managedChild.buttonMode = hotspotData.handCursor;
+				
 			}else {
 				managedChild = new ImageHotspot(event.content as Bitmap);
-				managedChild.buttonMode = hotspotData.handCursor;
 			}
+			insertHotspot(managedChild, hotspotData);
+		}
+		
+		protected function insertHotspot(managedChild:ManagedChild, hotspotData:HotspotData):void{
+			
+			managedChild.buttonMode = hotspotData.handCursor;
 			
 			if (hotspotData.mouse.onClick != null) {
 				managedChild.addEventListener(MouseEvent.CLICK, getMouseEventHandler(hotspotData.mouse.onClick));
@@ -278,6 +301,10 @@ package com.panozona.player.manager {
 					_saladoPlayer.traceWindow.printError("Could not execute " + functionData.owner + "." + functionData.name + ": " + error.message);
 				}
 			}
+		}
+		
+		public function waitThen(time:Number, actionId:String):void {
+			// TODO: timer
 		}
 		
 		public function print(value:String):void {

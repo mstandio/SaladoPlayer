@@ -32,7 +32,7 @@ package com.panozona.modules.imagebutton.data{
 			var tarnslator:ModuleDataTranslator = new ModuleDataTranslator(debugMode);
 			for each(var moduleNode:ModuleNode in moduleData.nodes) {
 				if (moduleNode.name == "buttons") {
-					tarnslator.translateModuleNodeToObject(moduleNode, buttons);
+					tarnslator.moduleNodeToObject(moduleNode, buttons);
 				}else {
 					throw new Error("Invalid node name: " + moduleData.name);
 				}

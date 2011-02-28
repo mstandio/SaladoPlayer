@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+	Initial camera values
+	- pan can take values -180 to 180, turning camera 90 degrees left is 90 and turning right is -90
+	- tilt can take values -90 to 90, turning camera 45 degrees up is 45 and turning down is -45
+	- fov (field of view) can take values 1 to 179 where 90 means that camera shows 90 degrees of 360 degrees view
+	- initial fov is by default limited from 90 to 120, see camera_global
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml" camera="pan:90,tilt:30,fov:120"/>
+	</panoramas>
+</SaladoPlayer>

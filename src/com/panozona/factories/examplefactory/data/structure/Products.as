@@ -16,12 +16,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.factories.examplefactory.model{
+package com.panozona.factories.examplefactory.data.structure{
 	
-	public class ExampleFactoryData{
+	import com.panozona.player.module.data.structure.DataParent;
+	
+	public class Products extends DataParent{
 		
-		public function ExampleFactoryData(){
-			
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Product);
+			return result;
 		}
 	}
 }

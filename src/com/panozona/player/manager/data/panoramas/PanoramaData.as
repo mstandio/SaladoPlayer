@@ -63,6 +63,9 @@ package com.panozona.player.manager.data.panoramas {
 		 */
 		public var onLeaveToAttempt:Object = new Object();
 		
+		
+		protected var _direction:Number = 0;
+		
 		public var hotspotsData:Vector.<HotspotData> = new Vector.<HotspotData>();
 		
 		protected var _id:String;
@@ -79,6 +82,20 @@ package com.panozona.player.manager.data.panoramas {
 		
 		public final function get params():Params {
 			return _params;
+		}
+		
+		/**
+		 * Describes geographical direction where panorama image is pointing. Takes values 0 to 360
+		 * For instance: North is 0, East is 90 South is 180, West is 270
+		 */
+		public function get direction():Number { return direction; }
+		public function set direction(value:Number):void {
+			if (isNaN(value) || _direction == value) return;
+			if ( value <= 0 || value > 360 ) {
+				_direction = ((value + 360) % 360);
+			}else {
+				_direction = value;
+			}
 		}
 		
 		public function hotspotDataById(id:String):HotspotData {

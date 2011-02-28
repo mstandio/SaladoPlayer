@@ -65,9 +65,9 @@ package com.panozona.modules.dropdown.controller{
 			if (_boxView.dropDownData.settings.align.vertical == Align.TOP){
 				_boxView.y = 0;
 			}else if (_boxView.dropDownData.settings.align.vertical == Align.BOTTOM) {
-				_boxView.y = _module.saladoPlayer.manager.boundsHeight - _boxView.height;
+				_boxView.y = _module.saladoPlayer.manager.boundsHeight - _boxView.textField.height;
 			}else { // MIDDLE
-				_boxView.y = (_module.saladoPlayer.manager.boundsHeight - _boxView.height) * 0.5;
+				_boxView.y = (_module.saladoPlayer.manager.boundsHeight - _boxView.textField.height) * 0.5;
 			}
 			_boxView.x += _boxView.dropDownData.settings.move.horizontal;
 			_boxView.y += _boxView.dropDownData.settings.move.vertical;

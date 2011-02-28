@@ -33,11 +33,11 @@ package com.panozona.modules.imagemap.model {
 			var tarnslator:ModuleDataTranslator = new ModuleDataTranslator(debugMode);
 			for each(var moduleNode:ModuleNode in moduleData.nodes) {
 				if (moduleNode.name == "window") {
-					tarnslator.translateModuleNodeToObject(moduleNode, windowData);
+					tarnslator.moduleNodeToObject(moduleNode, windowData);
 				}else if (moduleNode.name == "viewer") {
-					tarnslator.translateModuleNodeToObject(moduleNode, contentViewerData.viewer);
+					tarnslator.moduleNodeToObject(moduleNode, contentViewerData.viewer);
 				}else if (moduleNode.name == "maps") {
-					tarnslator.translateModuleNodeToObject(moduleNode, mapData.maps);
+					tarnslator.moduleNodeToObject(moduleNode, mapData.maps);
 				}else {
 					throw new Error("Invalid node name: " + moduleNode.name);
 				}

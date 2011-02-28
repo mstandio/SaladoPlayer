@@ -12,7 +12,7 @@
 		<panorama id="yellowChecker" path="panoramas/dz_yellow_check/yellow_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<module name="DropDown" path="modules/DropDown-1.0.swf">
+		<DropDown path="modules/DropDown-1.0.swf">
 			<settings/>
 			<elements>
 				<element label="Blue checker" panorama="blueChecker"/>
@@ -20,6 +20,6 @@
 				<element label="Red checker" panorama="redChecker"/>
 				<element label="Yellow checker" panorama="yellowChecker"/>
 			</elements>
-		</module>
+		</DropDown>
 	</modules>
 </SaladoPlayer>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+	Initial camera values
+	- 
+	- pan can take values -180 to 180 where turning camera 90 degrees left is 90 and turnign right is -90 degrees
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml" camera="maxPan:90,minTilt:30,maxFov:120"/>
+	</panoramas>
+</SaladoPlayer>

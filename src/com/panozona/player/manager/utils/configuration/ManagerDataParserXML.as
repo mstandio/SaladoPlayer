@@ -56,6 +56,8 @@ package com.panozona.player.manager.utils.configuration {
 					parsePanoramas(managerData.panoramasData, mainNode);
 				}else if (mainNode.localName().toString() == "modules") {
 					parseModules(managerData.modulesData, mainNode);
+				}else if (mainNode.localName().toString() == "factories") {
+					parseModules(managerData.modulesData, mainNode);
 				}else if (mainNode.localName().toString() == "actions") {
 					parseActions(managerData.actionsData, mainNode);
 				}else {
@@ -217,6 +219,8 @@ package com.panozona.player.manager.utils.configuration {
 					panoramaAttributeName = panoramaAttribute.localName();
 					if (panoramaAttributeName == "camera") {
 						applySubAttributes(panoramaData.params, panoramaAttribute);
+					}else if (panoramaAttributeName == "direction") {
+						panoramaData.direction = getAttributeValue(panoramaAttribute, Number);
 					}else if (panoramaAttributeName == "onEnter") {
 						panoramaData.onEnter = getAttributeValue(panoramaAttribute, String);
 					}else if (panoramaAttributeName == "onTransitionEnd") {
@@ -304,28 +308,20 @@ package com.panozona.player.manager.utils.configuration {
 			var moduleData:ModuleData;
 			var moduleNode:ModuleNode;
 			for each(var moduleDataNode:XML in modulesDataNode.elements()) {
-				if(moduleDataNode.@name == undefined ) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Missing name for: " + moduleDataNode.localName()));
-					continue;
-				}
 				if(moduleDataNode.@path == undefined ) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Missing path for: " + moduleDataNode.@name));
+						"Missing path for: " + moduleDataNode.localName()));
 					continue;
 				}
-				if (moduleDataNode.localName() == "module") {
-					moduleData = new ModuleData(moduleDataNode.@name, moduleDataNode.@path);
+				if (modulesDataNode.localName() == "modules") {
+					moduleData = new ModuleData(moduleDataNode.localName(), moduleDataNode.@path);
 					modulesData.push(moduleData);
-				}else if (moduleDataNode.localName() == "factory") {
-					moduleData = new ModuleDataFactory(moduleDataNode.@name, moduleDataNode.@path);
+				}else if (modulesDataNode.localName() == "factories") {
+					moduleData = new ModuleDataFactory(moduleDataNode.localName(), moduleDataNode.@path);
 					if (moduleDataNode.@definition != undefined ) {
 						applySubAttributes((moduleData as ModuleDataFactory).definition, moduleDataNode.@definition);
 					}
 					modulesData.push(moduleData as ModuleData);
-				}else {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Unrecognized module node: " + moduleDataNode.localName()));
 				}
 				for each(var moduleChildNode:XML in moduleDataNode.elements()) {
 					moduleNode = new ModuleNode(moduleChildNode.localName());

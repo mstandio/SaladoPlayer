@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+	 Apha transition
+	- you can set time and tween functions
+	- you can use other properties, but it does not look good yet
+	- see: http://panozona.com/wiki/SaladoPlayer:Configuration#global
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control transition="tween:Linear.easeNone,property:alpha,startValue:0,endValue:1"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
+		<panorama id="blueChecker" path="panoramas/dz_blue_check/green_blue_f.xml"/>
+		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<DropDown path="modules/DropDown-1.0.swf">
+			<elements>
+				<element label="Green checker" panorama="greenChecker"/>
+				<element label="Blue checker" panorama="blueChecker"/>
+				<element label="Red checker" panorama="redChecker"/>
+			</elements>
+		</DropDown>
+	</modules>
+</SaladoPlayer>

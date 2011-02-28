@@ -42,7 +42,7 @@ package com.panozona.modules.imagebutton{
 		private var wrappers:Vector.<Wrapper>;
 		
 		public function ImageButton(){
-			super("ImageButton", "1.0");
+			super("ImageButton", "1.0", "http://panozona.com/wiki/Module:ImageButton");
 			moduleDescription.addFunctionDescription("open", String);
 			moduleDescription.addFunctionDescription("close", String);
 		}

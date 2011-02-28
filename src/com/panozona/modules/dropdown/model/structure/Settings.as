@@ -22,9 +22,8 @@ package com.panozona.modules.dropdown.model.structure{
 	import com.panozona.player.module.data.property.Move;
 	
 	public class Settings {
-		
 		public var move:Move = new Move(0, 0);
-		public var align:Align = new Align(Align.CENTER, Align.MIDDLE);
+		public var align:Align = new Align(Align.CENTER, Align.BOTTOM);
 		public var style:Style = new Style();
 	}
 }

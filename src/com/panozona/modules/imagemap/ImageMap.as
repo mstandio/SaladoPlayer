@@ -32,7 +32,7 @@ package com.panozona.modules.imagemap{
 		private var windowController:WindowController;
 		
 		public function ImageMap() {
-			super("ImageMap", "1.0");
+			super("ImageMap", "1.0", "http://panozona.com/wiki/Module:ImageMap");
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 		}
@@ -56,7 +56,9 @@ package com.panozona.modules.imagemap{
 		}
 		
 		public function setOpen(value:Boolean):void {
-			//windowController.toggleOpen();
+			if (value != imageMapData.windowData.open){
+				windowController.toggleOpen();
+			}
 		}
 	}
 }

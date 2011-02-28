@@ -25,8 +25,8 @@ package com.panozona.player.module {
 		
 		protected var functionDataFactoryClass:Class;
 		
-		public function ModuleFactory(name:String, version:String){
-			super(name, version);
+		public function ModuleFactory(name:String, version:String, homeUrl:String){
+			super(name, version, homeUrl);
 			functionDataFactoryClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.data.actions.FunctionDataFactory") as Class;
 		}
 		
@@ -36,10 +36,10 @@ package com.panozona.player.module {
 		
 		override public function execute(functionDataFactory:Object):void {
 			var product:Object;
-			if (functionDataFactory is functionDataFactoryClass && moduleDescription.functionsDescription[functionData.name] != undefined) {
+			if (functionDataFactory is functionDataFactoryClass && moduleDescription.functionsDescription[functionDataFactory.name] != undefined) {
 				for each(var target:String in functionDataFactory.targets) {
 					product = returnProduct(target);
-					product[functionData.name].apply(product, functionData.args)
+					product[functionDataFactory.name].apply(product, functionDataFactory.args);
 				}
 			}
 		}

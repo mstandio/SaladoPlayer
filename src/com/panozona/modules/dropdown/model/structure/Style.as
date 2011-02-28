@@ -29,7 +29,6 @@ package com.panozona.modules.dropdown.model.structure {
 		public var plainColor:Number = 0xffffff; //white
 		public var hoverColor:Number = 0xe0e0e0; // light gray
 		public var activeColor:Number = 0xe0e0e0; // light gray
-		
 		public var borderColor:Number = 0xacacac; // dark gray
 	}
 }

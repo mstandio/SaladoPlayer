@@ -18,32 +18,34 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.factories.examplefactory {
 	
-	import com.panozona.modules.viewfinder.data.*;
-	import com.panozona.player.module.Factory;
-	import com.panozona.player.module.ModuleData;
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
-	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFormat;
-	import com.panozona.factories.examplefactory.model.ExampleFactoryData;
+	import com.panozona.factories.examplefactory.data.ExampleFactoryData;
+	import com.panozona.factories.examplefactory.product.ProductMaker;
+	import com.panozona.player.module.data.ModuleDataFactory;
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.ModuleFactory;
+	import flash.display.DisplayObject;
 	
-	public class ExampleFactory extends Factory{
+	public class ExampleFactory extends ModuleFactory{
 		
 		protected var exampleFactoryData:ExampleFactoryData;
+		protected var productMaker:ProductMaker;
+		protected var productReferences:Object;
 		
 		public function ExampleFactory(){
-			super("ExampleFactory", "0.5");
+			super("ExampleFactory", "1.0", "http://panozona.com/wiki/Factory:ExampleFactory");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
-			exampleFactoryData = new ExampleFactoryData(moduleData, saladoPlayer.managerData.debugMode);
+			exampleFactoryData = new ExampleFactoryData(moduleData as ModuleDataFactory, saladoPlayer);
+			productMaker = new ProductMaker(exampleFactoryData, this);
+			productReferences = new Object();
 		}
 		
 		override public function returnProduct(productId:String):DisplayObject {
-			
+			if (productReferences[productId] == undefined || productReferences[productId] == null) {
+				productReferences[productId] = productMaker.make(productId);
+			}
+			return productReferences[productId] as DisplayObject;
 		}
 	}
 }
