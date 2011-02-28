@@ -48,7 +48,9 @@ package com.panozona.modules.imagebutton{
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
-			imageButtondata = new ImageButtonData(moduleData, saladoPlayer.managerData.debugMode);
+			
+			imageButtondata = new ImageButtonData(moduleData, saladoPlayer);
+			
 			var button:Button;
 			wrappers = new Vector.<Wrapper>();
 			loaders = new Vector.<Loader>();

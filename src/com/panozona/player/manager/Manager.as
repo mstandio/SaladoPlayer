@@ -166,7 +166,7 @@ package com.panozona.player.manager {
 			hotspotsLoader.addEventListener(LoadLoadableEvent.FINISHED, hotspotsFinished);
 			hotspotsLoader.load(panoramaData.getHotspotsLoadable());
 			for each(var hotspotDataFactory:HotspotDataFactory in panoramaData.getHotspotsFactory()) {
-				insertHotspot(new SwfHotspot((_saladoPlayer.getModuleByName(hotspotDataFactory.factory) as ModuleFactory).returnProduct(hotspotDataFactory.id) as Sprite), hotspotDataFactory);
+				insertHotspot(new Hotspot((_saladoPlayer.getModuleByName(hotspotDataFactory.factory) as ModuleFactory).returnProduct(hotspotDataFactory.id)), hotspotDataFactory);
 			}
 		}
 		
@@ -181,10 +181,10 @@ package com.panozona.player.manager {
 				if ("references" in (event.content as Object)) {
 					try {(event.content as Object).references(_saladoPlayer, (hotspotData as HotspotDataSwf))} catch (e:Error){}
 				}
-				managedChild = new SwfHotspot(event.content as Sprite);
+				managedChild = new Hotspot(event.content as Sprite);
 				
 			}else {
-				managedChild = new ImageHotspot(event.content as Bitmap);
+				managedChild = new Hotspot(event.content as Bitmap);
 			}
 			insertHotspot(managedChild, hotspotData);
 		}

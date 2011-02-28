@@ -1,41 +1,34 @@
 ﻿/*
-Copyright 2010 Marek Standio.
+Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
 
 SaladoPlayer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published 
-by the Free Software Foundation, either version 3 of the License, 
+it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
 
 SaladoPlayer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+but WITHOUT ANY WARRANTY; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
+along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.infobubble{
 	
-	import flash.display.Loader;
-	import flash.display.Sprite;
-	import flash.display.Bitmap;
-	import flash.net.URLRequest;
-	import flash.events.Event;
-	import flash.events.IOErrorEvent;
-	import flash.system.ApplicationDomain;
-	
-	import com.panozona.player.module.Module;
-	import com.panozona.player.module.data.ModuleData;
-	
 	import com.panozona.modules.infobubble.data.InfoBubbleData;
 	import com.panozona.modules.infobubble.data.structure.Bubble;
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.Module;
+	import flash.display.Bitmap;
+	import flash.display.Loader;
+	import flash.events.Event;
+	import flash.events.IOErrorEvent;
+	import flash.net.URLRequest;
+	import flash.system.ApplicationDomain;
 	
-	/**
-	 * ...
-	 * @author mstandio
-	 */
 	public class InfoBubble extends Module{
 		
 		private var infoBubbleData:InfoBubbleData;
@@ -45,11 +38,10 @@ package com.panozona.modules.infobubble{
 		private var currentBubbleId:String;
 		private var isShowing:Boolean;
 		
-		private var LoadPanoramaEventClass:Class;
+		private var panoramaEventClass:Class;
 		
 		public function InfoBubble(){
-			super("InfoBubble", 0.1, "Marek Standio", "mstandio@o2.pl", "http://panozona.com/wiki/Module:InfoBubble");
-			aboutThisModule = "Module for displaying image-based information on variours events at cursor position.";
+			super("InfoBubble", "1.0", "http://panozona.com/wiki/Module:InfoBubble");
 			
 			moduleDescription.addFunctionDescription("showBubble", String);
 			moduleDescription.addFunctionDescription("hideBubble");
@@ -58,11 +50,10 @@ package com.panozona.modules.infobubble{
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			
-			infoBubbleData = new InfoBubbleData(moduleData, debugMode); // allways first
+			infoBubbleData = new InfoBubbleData(moduleData, saladoPlayer); // allways first
 			
-			LoadPanoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.LoadPanoramaEvent") as Class;
-			
-			saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0 , true);
+			panoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.panoramaEvent") as Class;
+			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0 , true);
 			
 			mouseEnabled = false;
 			mouseChildren = false;
@@ -78,7 +69,7 @@ package com.panozona.modules.infobubble{
 		
 		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
 			
-			saladoPlayer.manager.removeEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
+			saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
 			
 			if (infoBubbleData.settings.active) {
 				saladoPlayer.manager.runAction(infoBubbleData.settings.onActivate);
@@ -99,13 +90,13 @@ package com.panozona.modules.infobubble{
 		}
 		
 		private function handleEnterFrame(e:Event = null):void {
-			if (bubbleContent.width + mouseX + infoBubbleData.settings.cursorDistance > boundsWidth) {
+			if (bubbleContent.width + mouseX + infoBubbleData.settings.cursorDistance > saladoPlayer.manager.boundsWidth) {
 				bubbleContent.x = mouseX - bubbleContent.width - infoBubbleData.settings.cursorDistance;
 			}else {
 				bubbleContent.x = mouseX + infoBubbleData.settings.cursorDistance;
 			}
-			if (mouseY + bubbleContent.height * 0.5 > boundsHeight){
-				bubbleContent.y = boundsHeight - bubbleContent.height;
+			if (mouseY + bubbleContent.height * 0.5 > saladoPlayer.manager.boundsHeight){
+				bubbleContent.y = saladoPlayer.manager.boundsHeight - bubbleContent.height;
 			}else if (mouseY - bubbleContent.height * 0.5 <= 0){
 				bubbleContent.y = 0;
 			}else {
