@@ -31,9 +31,12 @@ package com.panozona.modules.buttonsbar.view{
 			_buttonsBarData = buttonsBarData;
 			
 			_backgroundBar = new Sprite();
-			_backgroundBar.alpha = _buttonsBarData.bar.alpha;
-			_backgroundBar.mouseEnabled = false;
-			addChild(_backgroundBar);
+			if (_buttonsBarData.bar.visible) {
+				mouseEnabled = false;
+				_backgroundBar.alpha = _buttonsBarData.bar.alpha;
+				_backgroundBar.mouseEnabled = false;
+				addChild(_backgroundBar);
+			}
 			
 			_buttonsContainer = new Sprite();
 			addChild(_buttonsContainer);

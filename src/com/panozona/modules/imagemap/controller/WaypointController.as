@@ -61,7 +61,7 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function handleMouseClik(e:Event):void {
-			if (_module.saladoPlayer.manager.currentPanoramaId != _waypointView.waypointData.waypoint.target){
+			if (_module.saladoPlayer.manager.currentPanoramaData.id != _waypointView.waypointData.waypoint.target){
 				_module.saladoPlayer.manager.loadPano(_waypointView.waypointData.waypoint.target);
 			}else {
 				_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);

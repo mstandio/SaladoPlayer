@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	- Exampple of data that can be interpreted by Examplemodule
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="GreenChecker" path="panoramas/dz_green_check/green_check_f.xml">
+			<image id="ExampleModuleOpener" path="hotspots/images/blue_arrow.png" mouse="onClick:toggleOpenExampleModule"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ExampleModule path="modules/ExampleModule-1.0.swf">
+			<settings onOpen="sayHello" onClose="sayGoodbeye" />
+			<someParent info="num:-12.12,bool:true,str:foo">
+				<someChild happy="true">
+					<someToy name="car" price="12"/>
+				</someChild>
+				<someJob wages="99.99" text="bar"/>
+			</someParent>
+		</ExampleModule>
+	</modules>
+	<actions>
+		<action id="toggleOpenExampleModule" content="ExampleModule.toggleOpen()"/>
+		<action id="sayHello" content="SaladoPlayer.print(hello)"/>
+		<action id="sayGoodbeye" content="SaladoPlayer.print(beye)"/>
+	</actions>
+</SaladoPlayer>

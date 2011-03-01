@@ -70,12 +70,12 @@ package com.panozona.modules.examplemodule.data {
 					}
 				}
 				if (settings.onOpen != null) {
-					if (saladoPlayer.manager.managerData.getActionById(settings.onOpen) == null) {
+					if (saladoPlayer.managerData.getActionDataById(settings.onOpen) == null) {
 						throw new Error("Action " + settings.onOpen + "does not exist.");
 					}
 				}
 				if (settings.onClose != null) {
-					if (saladoPlayer.manager.managerData.getActionById(settings.onClose) == null) {
+					if (saladoPlayer.managerData.getActionDataById(settings.onClose) == null) {
 						throw new Error("Action " + settings.onClose + "does not exist.");
 					}
 				}

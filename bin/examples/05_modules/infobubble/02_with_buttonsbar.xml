@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+	- display images at mouse cursor 
+	- bubbles adjust themselves atumatically to fit to panorama window
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml">
+			<image id="blueArrow" location="pan:0" path="hotspots/images/blue_arrow.png" mouse="onOver:showb1,onOut:hide"/>
+			<image id="redArrow" location="pan:40" path="hotspots/images/red_arrow.png" mouse="onOver:showb2,onOut:hide"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<InfoBubble path="modules/InfoBubble-1.0.swf">
+			<settings onActivate="onBubAct" onDisactivate="onBubDisact"/>
+			<bubbles>
+				<bubble id="b1" path="modules/images/infobubble/blue.jpg"/>
+				<bubble id="b2" path="modules/images/infobubble/red.jpg"/>
+			</bubbles>
+		</InfoBubble>
+		<ButtonsBar path="modules/ButtonsBar-1.0.swf">
+			<buttons path="modules/images/buttonsbar/buttons/buttons_30x30_blue.png">
+				<extraButton name="a" action="bubToggle"/>
+			</buttons>
+		</ButtonsBar>
+	</modules>
+	<actions>
+		<action id="showb1" content="InfoBubble.showBubble(b1)"/>
+		<action id="showb2" content="InfoBubble.showBubble(b2)"/>
+		<action id="hide" content="InfoBubble.hideBubble()"/>
+		<action id="bubToggle" content="InfoBubble.toggleActive()"/>
+		<action id="onBubAct" content="ButtonsBar.setExtraButtonActive(a,true)"/>
+		<action id="onBubDisact" content="ButtonsBar.setExtraButtonActive(a,false)"/>
+	</actions>
+</SaladoPlayer>

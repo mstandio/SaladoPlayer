@@ -160,7 +160,7 @@ package com.panozona.modules.examplemodule {
 		/**
 		 * First panorama started loading, so all modules are loaded and added to stage
 		 * now you can call other modules either directly or by executing proper actions
-		 * each module must be ready to execute exposed functions after first panorama started loading;		 
+		 * each module must be ready to execute exposed functions after first panorama started loading;
 		 */
 		private function onFirstPanoramaStartedLoading(e:Event):void {
 			saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onFirstPanoramaStartedLoading);
@@ -180,7 +180,7 @@ package com.panozona.modules.examplemodule {
 		 * user is leaving to other panorama.
 		 */
 		private function onPanoramaStartedLoading(e:Event):void {
-			printInfo("Started loading: " + saladoPlayer.manager.currentPanorama);
+			printInfo("Started loading: " + saladoPlayer.manager.currentPanoramaData.id);
 		}
 		
 		/**
@@ -188,7 +188,7 @@ package com.panozona.modules.examplemodule {
 		 * but transition effect (if there is any) has not finished yet.
 		 */
 		private function onPanoramaLoaded(e:Event):void {
-			printInfo("Done loading: " + saladoPlayer.manager.currentPanorama);
+			printInfo("Done loading: " + saladoPlayer.manager.currentPanoramaData.id);
 		}
 		
 		/**
@@ -196,7 +196,7 @@ package com.panozona.modules.examplemodule {
 		 * This can be considered entry point in new panorama.
 		 */
 		private function onTransitionEnded(e:Event):void {
-			printInfo("Transition ended: " + saladoPlayer.manager.currentPanorama);
+			printInfo("Transition ended: " + saladoPlayer.manager.currentPanoramaData.id);
 		}
 		
 		/**

@@ -10,8 +10,8 @@
 	</global>
 	<panoramas>
 		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml">
-			<image id="greenArrow" location="pan:-20" path="hotspots/images/blue_arrow.png" mouse="onClick:setActive"/>
-			<image id="blueArrow" location="pan:-20" path="hotspots/images/green_arrow.png" mouse="onClick:setInactive"/>
+			<image id="greenArrow" location="pan:-20" path="hotspots/images/green_arrow.png" mouse="onClick:setActive"/>
+			<image id="blueArrow" location="pan:20" path="hotspots/images/red_arrow.png" mouse="onClick:setInactive"/>
 		</panorama>
 	</panoramas>
 	<modules>
@@ -21,11 +21,12 @@
 				<button name="out"/>
 				<button name="drag"/>
 				<button name="fullscreen"/>
-				<extraButton name="a" action="setInactive"/>
+				<extraButton name="a" action="printHello"/>
 			</buttons>
 		</ButtonsBar>
 	</modules>
 	<actions>
+		<action id="printHello" content="SaladoPlayer.print(Hello I am extraButton a)"/>
 		<action id="setActive" content="ButtonsBar.setExtraButtonActive(a,true)"/>
 		<action id="setInactive" content="ButtonsBar.setExtraButtonActive(a,false)"/>
 	</actions>

@@ -78,7 +78,12 @@ package com.panozona.modules.imagebutton{
 						
 						wrappers[i].sprite.addChild(loaders[i].content);
 						
-						wrappers[i].sprite.buttonMode = wrappers[i].button.handCursor;
+						if (!wrappers[i].button.handCursor){
+							wrappers[i].sprite.buttonMode = false;
+							wrappers[i].sprite.mouseEnabled = false;
+						}else {
+							wrappers[i].sprite.buttonMode = true
+						}
 						
 						addChild(wrappers[i].sprite);
 						placeSprite(wrappers[i].sprite, wrappers[i].button.align, wrappers[i].button.move);

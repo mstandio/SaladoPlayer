@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	- path in <buttons/> node is mandatory, it points to the grid of buttons bitmaps
-	- to remove button from bar, remove <button/> node form the bar
-	- order of <button/> nodes determines order of buttons on the bar
+	- buttons bitmap inside grid can have different sizes 
+	- bar can have bitmap background -x and -y repeated to fill its defined size
 -->
 <SaladoPlayer>
-	<global debug="true"/>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
 	<panoramas>
 		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
 	</panoramas>
 	<modules>
 		<ButtonsBar path="modules/ButtonsBar-1.0.swf">
-			<bar color="#ff0000" visible="false" />
-			<buttons path="modules/images/buttonsbar/buttons/buttons_30x30_blue.png">
+			<bar path="modules/images/buttonsbar/bar/bar_40_green.png" align="vertical:top" />
+			<buttons path="modules/images/buttonsbar/buttons/buttons_30x30_blue.png" align="vertical:top,horizontal:left" move="horizontal:5,vertical:5">
 				<button name="up"/>
 				<button name="down"/>
 				<button name="left"/>
@@ -20,7 +21,6 @@
 				<button name="in"/>
 				<button name="out"/>
 				<button name="drag"/>
-				<button name="autorotation"/>
 				<button name="fullscreen"/>
 			</buttons>
 		</ButtonsBar>

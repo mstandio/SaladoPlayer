@@ -52,7 +52,7 @@ package com.panozona.modules.infobubble{
 			
 			infoBubbleData = new InfoBubbleData(moduleData, saladoPlayer); // allways first
 			
-			panoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.panoramaEvent") as Class;
+			panoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0 , true);
 			
 			mouseEnabled = false;

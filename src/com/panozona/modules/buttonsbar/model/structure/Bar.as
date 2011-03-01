@@ -36,7 +36,7 @@ package com.panozona.modules.buttonsbar.model.structure{
 		/**
 		 * when width is set to NaN, bar uses width of panorama window
 		 */
-		public var size:Size = new Size(NaN, 35); 
+		public var size:Size = new Size(NaN, 40); 
 		public var align:Align = new Align(Align.RIGHT, Align.BOTTOM); // horizontal, vertical
 		public var move:Move = new Move(0, 0); // horizontal, vertical
 	}

@@ -35,6 +35,7 @@ package com.panozona.modules.buttonsbar {
 		
 		public function ButtonsBar(){
 			super("ButtonsBar", "1.0", "http://panozona.com/wiki/Module:ButtonsBar");
+			moduleDescription.addFunctionDescription("setExtraButtonActive", String, Boolean);
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {

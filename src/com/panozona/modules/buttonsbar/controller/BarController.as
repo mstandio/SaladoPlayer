@@ -69,19 +69,17 @@ package com.panozona.modules.buttonsbar.controller{
 			_module.saladoPlayer.managerData.controlData.arcBallCameraData.addEventListener(cameraEventClass.ENABLED_CHANGE, onDragEnabledChange, false, 0, true);
 			_module.saladoPlayer.managerData.controlData.autorotationCameraData.addEventListener(autorotationEventClass.AUTOROTATION_CHANGE, onIsAutorotatingChange, false, 0, true);
 			
-			if (_barView.buttonsBarData.bar.path != null){
+			if (_barView.buttonsBarData.bar.visible && _barView.buttonsBarData.bar.path != null){
 				var barLoader:Loader = new Loader();
 				barLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, barImageLost, false, 0, true);
 				barLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, barImageLoaded, false, 0, true);
 				barLoader.load(new URLRequest(_barView.buttonsBarData.bar.path));
 			}
 			
-			if (_barView.buttonsBarData.barData.buttons.visible) {
-				var buttonsLoader:Loader = new Loader();
-				buttonsLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonsImageLost, false, 0, true);
-				buttonsLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, buttonsImageLoaded, false, 0, true);
-				buttonsLoader.load(new URLRequest(_barView.buttonsBarData.barData.buttons.path));
-			}
+			var buttonsLoader:Loader = new Loader();
+			buttonsLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonsImageLost, false, 0, true);
+			buttonsLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, buttonsImageLoaded, false, 0, true);
+			buttonsLoader.load(new URLRequest(_barView.buttonsBarData.barData.buttons.path));
 		}
 		
 		public function handleResize(e:Event = null):void {
@@ -102,7 +100,9 @@ package com.panozona.modules.buttonsbar.controller{
 			_barView.buttonsContainer.x += _barView.buttonsBarData.barData.buttons.move.horizontal;
 			_barView.buttonsContainer.y += _barView.buttonsBarData.barData.buttons.move.vertical;
 			
-			buildBackgroundBar();
+			if (_barView.buttonsBarData.bar.visible){
+				buildBackgroundBar();
+			}
 			setButtonActive("fullscreen", _module.saladoPlayer.stage.displayState == StageDisplayState.FULL_SCREEN);
 		}
 		

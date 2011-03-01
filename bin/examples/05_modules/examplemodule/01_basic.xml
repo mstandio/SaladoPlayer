@@ -13,7 +13,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<module name="ExampleModule" path="modules/ExampleModule-1.0.swf"/>
+		<ExampleModule path="modules/ExampleModule-1.0.swf"/>
 	</modules>
 	<actions>
 		<action id="toggleOpenExampleModule" content="ExampleModule.toggleOpen()"/>

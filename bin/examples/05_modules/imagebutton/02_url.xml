@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+	- if you add CDATA child to button, clicking it will couse opening url from text contained in CDATA node
+-->
+<SaladoPlayer>
+	<global debug="true" autorotation="enabled:false"/>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<ImageButton path="modules/ImageButton-1.0.swf">
+			<buttons>
+				<button id="button1" path="modules/images/panozona_logo.png" align="vertical:top" move="horizontal:30,vertical:30">
+					<![CDATA[http://panozona.com/]]>
+				</button>
+			</buttons>
+		</ImageButton>
+	</modules>
+</SaladoPlayer>

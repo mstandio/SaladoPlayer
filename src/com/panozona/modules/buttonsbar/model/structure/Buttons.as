@@ -25,7 +25,6 @@ package com.panozona.modules.buttonsbar.model.structure{
 	
 	public class Buttons extends DataParent {
 		
-		public var visible:Boolean = true;
 		public var path:String; // intentionally not initialized 
 		public var buttonSize:Size = new Size(30, 30);
 		public var align:Align = new Align(Align.RIGHT, Align.BOTTOM); // horizontal, vertical

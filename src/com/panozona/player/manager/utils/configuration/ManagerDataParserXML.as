@@ -343,7 +343,7 @@ package com.panozona.player.manager.utils.configuration {
 			for each(var childNode:XML in xmlNode.children()){
 				if (childNode.nodeKind() == "text"){
 					if (moduleNode.attributes["text"] == undefined) {
-						moduleNode.attributes["text"] = childNode;
+						moduleNode.attributes["text"] = childNode.toString();
 					}else {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 							"Text value allready exists in: " + moduleNode.name));

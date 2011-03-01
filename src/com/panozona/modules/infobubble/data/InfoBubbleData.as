@@ -44,7 +44,7 @@ package com.panozona.modules.infobubble.data{
 				}
 			}
 			
-			if (saladoPlayer.moduleData.debugMode) {
+			if (saladoPlayer.managerData.debugMode) {
 				var bubbleIds:Object = new Object();
 				for each (var bubble:Bubble in bubbles.getChildrenOfGivenClass(Bubble)) {
 					if (bubble.id == null) throw new Error("Bubble id not specified.");

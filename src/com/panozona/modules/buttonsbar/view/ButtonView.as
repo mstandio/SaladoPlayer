@@ -37,7 +37,7 @@ package com.panozona.modules.buttonsbar.view{
 			_buttonData = buttonData;
 			_buttonsBarData = buttonsBarData;
 			
-			graphics.beginFill(0x000000, 0); // TODO: why?
+			graphics.beginFill(0x000000, 0);
 			graphics.drawRect(0, 0, _buttonsBarData.barData.buttons.buttonSize.width, _buttonsBarData.barData.buttons.buttonSize.height);
 			graphics.endFill();
 			

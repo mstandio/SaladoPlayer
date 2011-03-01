@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	- All you need to do is point to map image and place some waypoints
+	- Notice that this is simplified example and there is n way to open map once it is closed
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
+		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml"/>
+		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<ImageMap path="modules/ImageMap-1.0.swf">
+			<maps>
+				<map id="map1" path="modules/images/imagemap/map_1.jpg">
+					<waypoint target="greenChecker" position="x:150,y:100"/>
+					<waypoint target="blueChecker" position="x:800,y:200"/>
+					<waypoint target="redChecker" position="x:500,y:300"/>
+				</map>
+			</maps>
+		</ImageMap>
+	</modules>
+</SaladoPlayer>
