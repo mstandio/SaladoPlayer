@@ -51,6 +51,7 @@ package com.panozona.modules.dropdown.view {
 			_textField.selectable = false;
 			_textField.blendMode = BlendMode.LAYER;
 			_textField.background = true;
+			_textField.backgroundColor = dropDownData.settings.style.plainColor;
 			_textField.border = true;
 			_textField.borderColor = dropDownData.settings.style.borderColor;
 			_textField.height = dropDownData.settings.style.fontSize * 1.4;

@@ -24,7 +24,7 @@ package com.panozona.player.module.data {
 	
 	public class ModuleDataFactory extends ModuleData{
 		
-		public var definition:Object = new Object();
+		public const definition:Object = new Object();
 		
 		public function ModuleDataFactory(name:String, path:String) {
 			super(name, path);

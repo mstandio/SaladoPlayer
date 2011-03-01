@@ -3,7 +3,10 @@ src/com/panozona/player/SaladoPlayer.as -> SaladoPlayer-1.0.swf
 src/com/panozona/hotspots/primitivehotspot/PrimitveHotspot.as -> hotspots/PrimitveHotspot-1.0.swf
 src/com/panozona/hotspots/advancedhotspot/AdvancedHotspot.as -> hotspots/AdvancedHotspot-1.0.swf
 
-src/com/panozona/modules/viewfinder/ViewFinder.as -> modules/ViewFinder-1.0.swf
-src/com/panozona/modules/imagemap/Imagemap.as -> modules/ImageMap-1.0.swf
-src/com/panozona/modules/imagemap/ImageBubble.as -> modules/ImageBubble-1.0.swf
+src/com/panozona/modules/buttonsbar/ButtonBar.as -> modules/ButtonBar-1.0.swf
+src/com/panozona/modules/dropdown/DropDown.as -> modules/DropDown-1.0.swf
 src/com/panozona/modules/examplemodule/ExampleModule.as -> modules/ExampleModule-1.0.swf
+src/com/panozona/modules/imagebutton/ImageButton.as -> modules/ImageButton-1.0.swf
+src/com/panozona/modules/imagemap/ImageMap.as -> modules/ImageMap-1.0.swf
+src/com/panozona/modules/imagemap/IinfoBubble.as -> modules/infoBubble-1.0.swf
+src/com/panozona/modules/viewfinder/ViewFinder.as -> modules/ViewFinder-1.0.swf

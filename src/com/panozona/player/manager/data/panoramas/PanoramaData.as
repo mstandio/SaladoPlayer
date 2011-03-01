@@ -88,10 +88,10 @@ package com.panozona.player.manager.data.panoramas {
 		 * Describes geographical direction where panorama image is pointing. Takes values 0 to 360
 		 * For instance: North is 0, East is 90 South is 180, West is 270
 		 */
-		public function get direction():Number { return direction; }
+		public function get direction():Number { return _direction; }
 		public function set direction(value:Number):void {
 			if (isNaN(value) || _direction == value) return;
-			if ( value <= 0 || value > 360 ) {
+			if ( value <= 0 || value >= 360 ) {
 				_direction = ((value + 360) % 360);
 			}else {
 				_direction = value;

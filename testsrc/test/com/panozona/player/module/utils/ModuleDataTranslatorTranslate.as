@@ -11,350 +11,152 @@ package test.com.panozona.player.module.utils{
 	
 	public class ModuleDataTranslatorTranslate extends com.panozona.player.module.utils.ModuleDataTranslator {
 		
+		protected var message:String;
+		
 		public function ModuleDataTranslatorTranslate(){
 			super(true);
 		}
 		
+		[Before]
+		public function beforeTest():void {
+			message = "";
+		}
+		
 		[Test]
-		public function smokeTest():void {/*
+		public function smokeTest():void {
 			var moduleNode:ModuleNode = new ModuleNode("whatever");
 			moduleNode.childNodes.push(new ModuleNode("DummyObjectChild"));
 			moduleNode.childNodes.push(new ModuleNode("DummyObjectChild"));
 			
-			moduleNode.attributes["boolean"] = true;
-			moduleNode.attributes["numberNonInit"] = -21.21;
-			moduleNode.attributes["numberInit"] = NaN;
-			moduleNode.attributes["stringNonInit"] = "foo";
-			moduleNode.attributes["stringInit"] = "bar";
-			moduleNode.attributes["functionNonInit"] = Linear.easeIn;
-			moduleNode.attributes["functionInit"] = Linear.easeOut;
+			moduleNode.attributes["boolean"] = false;
+			moduleNode.attributes["numberNonInit"] = 123;
+			moduleNode.attributes["numberInit"] = 345;
+			moduleNode.attributes["stringNonInit"] = "aa";
+			moduleNode.attributes["stringInit"] = "bb";
+			moduleNode.attributes["functionInit"] = Linear.easeInOut;
 			moduleNode.attributes["dummyObject"] = new Object();
 			
 			moduleNode.attributes["dummyObject"]["boolean"] = true;
-			moduleNode.attributes["dummyObject"]["numberNonInit"] = -21.21;
-			moduleNode.attributes["dummyObject"]["numberInit"] = NaN;
-			moduleNode.attributes["dummyObject"]["stringNonInit"] = "foo";
-			moduleNode.attributes["dummyObject"]["stringInit"] = "bar";
-			moduleNode.attributes["dummyObject"]["functionNonInit"] = Linear.easeIn;
-			moduleNode.attributes["dummyObject"]["functionInit"] = Linear.easeOut;
+			moduleNode.attributes["dummyObject"]["numberNonInit"] = -123;
+			moduleNode.attributes["dummyObject"]["numberInit"] = -321;
+			moduleNode.attributes["dummyObject"]["stringNonInit"] = "cc";
+			moduleNode.attributes["dummyObject"]["stringInit"] = "dd";
+			moduleNode.attributes["dummyObject"]["functionInit"] = Linear.easeIn;
 			
-			moduleNode.childNodes[0].attributes["boolean"] = ;
-			moduleNode.childNodes[0].attributes["numberNonInit"] = ;
-			moduleNode.childNodes[0].attributes["numberInit"] = ;
-			moduleNode.childNodes[0].attributes["stringNonInit"] = ;
-			moduleNode.childNodes[0].attributes["stringInit"] = ;
-			moduleNode.childNodes[0].attributes["functionNonInit"] = ;
-			moduleNode.childNodes[0].attributes["functionInit"] = ;
+			moduleNode.childNodes[0].attributes["boolean"] = false;
+			moduleNode.childNodes[0].attributes["numberNonInit"] = -234.4;
+			moduleNode.childNodes[0].attributes["numberInit"] = 123.12;
+			moduleNode.childNodes[0].attributes["stringNonInit"] = "ee";
+			moduleNode.childNodes[0].attributes["stringInit"] = "ff";
+			moduleNode.childNodes[0].attributes["functionInit"] = Linear.easeOut;
 			moduleNode.childNodes[0].attributes["dummyObject"] = new Object();
 			
-			moduleNode.childNodes[0].attributes["dummyObject"]["boolean"] = ;
-			moduleNode.childNodes[0].attributes["dummyObject"]["numberNonInit"] = ;
-			moduleNode.childNodes[0].attributes["dummyObject"]["numberInit"] = ;
-			moduleNode.childNodes[0].attributes["dummyObject"]["stringNonInit"] = ;
-			moduleNode.childNodes[0].attributes["dummyObject"]["stringInit"] = ;
-			moduleNode.childNodes[0].attributes["dummyObject"]["functionNonInit"] = ;
-			moduleNode.childNodes[0].attributes["dummyObject"]["functionInit"] = ;
+			moduleNode.childNodes[0].attributes["dummyObject"]["boolean"] = true;
+			moduleNode.childNodes[0].attributes["dummyObject"]["numberNonInit"] = -2321.21;
+			moduleNode.childNodes[0].attributes["dummyObject"]["numberInit"] = 12342;
+			moduleNode.childNodes[0].attributes["dummyObject"]["stringNonInit"] = "gg";
+			moduleNode.childNodes[0].attributes["dummyObject"]["stringInit"] = "hh";
+			moduleNode.childNodes[0].attributes["dummyObject"]["functionInit"] = Expo.easeIn;
 			
-			moduleNode.childNodes[1].attributes["boolean"] = ;
-			moduleNode.childNodes[1].attributes["numberNonInit"] = ;
-			moduleNode.childNodes[1].attributes["numberInit"] = ;
-			moduleNode.childNodes[1].attributes["stringNonInit"] = ;
-			moduleNode.childNodes[1].attributes["stringInit"] = ;
-			moduleNode.childNodes[1].attributes["functionNonInit"] = ;
-			moduleNode.childNodes[1].attributes["functionInit"] = ;
+			moduleNode.childNodes[1].attributes["boolean"] = true;
+			moduleNode.childNodes[1].attributes["numberNonInit"] = -21211.21;
+			moduleNode.childNodes[1].attributes["numberInit"] = 15452;
+			moduleNode.childNodes[1].attributes["stringNonInit"] = "ii";
+			moduleNode.childNodes[1].attributes["stringInit"] = "jj";
+			moduleNode.childNodes[1].attributes["functionInit"] = Cubic.easeOut;
 			moduleNode.childNodes[1].attributes["dummyObject"] = new Object();
 			
-			moduleNode.childNodes[1].attributes["dummyObject"]["boolean"] = ;
-			moduleNode.childNodes[1].attributes["dummyObject"]["numberNonInit"] = ;
-			moduleNode.childNodes[1].attributes["dummyObject"]["numberInit"] = ;
-			moduleNode.childNodes[1].attributes["dummyObject"]["stringNonInit"] = ;
-			moduleNode.childNodes[1].attributes["dummyObject"]["stringInit"] = ;
-			moduleNode.childNodes[1].attributes["dummyObject"]["functionNonInit"] = ;
-			moduleNode.childNodes[1].attributes["dummyObject"]["functionInit"] = ;
+			moduleNode.childNodes[1].attributes["dummyObject"]["boolean"] = false;
+			moduleNode.childNodes[1].attributes["dummyObject"]["numberNonInit"] = -21.22341;
+			moduleNode.childNodes[1].attributes["dummyObject"]["numberInit"] = 10032;
+			moduleNode.childNodes[1].attributes["dummyObject"]["stringNonInit"] = "kk";
+			moduleNode.childNodes[1].attributes["dummyObject"]["stringInit"] = "kk";
+			moduleNode.childNodes[1].attributes["dummyObject"]["functionInit"] = Cubic.easeInOut;
 			
 			var dummyObjectParent:DummyObjectParent = new DummyObjectParent();
-			translateModuleNodeToObject(moduleNode, dummyObjectParent);*/
+			moduleNodeToObject(moduleNode, dummyObjectParent);
+			
+			Assert.assertStrictlyEquals(moduleNode.attributes["boolean"], dummyObjectParent.boolean);
+			Assert.assertStrictlyEquals(moduleNode.attributes["numberNonInit"], dummyObjectParent.numberNonInit);
+			Assert.assertStrictlyEquals(moduleNode.attributes["numberInit"], dummyObjectParent.numberInit);
+			Assert.assertStrictlyEquals(moduleNode.attributes["stringNonInit"], dummyObjectParent.stringNonInit);
+			Assert.assertStrictlyEquals(moduleNode.attributes["stringInit"], dummyObjectParent.stringInit);
+			Assert.assertStrictlyEquals(moduleNode.attributes["functionInit"], dummyObjectParent.functionInit);
+			
+			Assert.assertStrictlyEquals(moduleNode.attributes["dummyObject"]["boolean"], dummyObjectParent.dummyObject.boolean);
+			Assert.assertStrictlyEquals(moduleNode.attributes["dummyObject"]["numberNonInit"], dummyObjectParent.dummyObject.numberNonInit);
+			Assert.assertStrictlyEquals(moduleNode.attributes["dummyObject"]["numberInit"], dummyObjectParent.dummyObject.numberInit);
+			Assert.assertStrictlyEquals(moduleNode.attributes["dummyObject"]["stringNonInit"], dummyObjectParent.dummyObject.stringNonInit);
+			Assert.assertStrictlyEquals(moduleNode.attributes["dummyObject"]["stringInit"], dummyObjectParent.dummyObject.stringInit);
+			Assert.assertStrictlyEquals(moduleNode.attributes["dummyObject"]["functionInit"], dummyObjectParent.dummyObject.functionInit as Function);
+			
+			Assert.assertStrictlyEquals(moduleNode.childNodes[0].attributes["boolean"], (dummyObjectParent.getAllChildren()[0] as DummyObjectChild).boolean);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[0].attributes["numberNonInit"], (dummyObjectParent.getAllChildren()[0] as DummyObjectChild).numberNonInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[0].attributes["numberInit"], (dummyObjectParent.getAllChildren()[0] as DummyObjectChild).numberInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[0].attributes["stringNonInit"], (dummyObjectParent.getAllChildren()[0] as DummyObjectChild).stringNonInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[0].attributes["stringInit"], (dummyObjectParent.getAllChildren()[0] as DummyObjectChild).stringInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[0].attributes["functionInit"], (dummyObjectParent.getAllChildren()[0] as DummyObjectChild).functionInit as Function);
+			
+			Assert.assertStrictlyEquals(moduleNode.childNodes[0].attributes["dummyObject"]["boolean"], (dummyObjectParent.getAllChildren()[0] as DummyObjectChild).dummyObject.boolean);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[0].attributes["dummyObject"]["numberNonInit"], (dummyObjectParent.getAllChildren()[0] as DummyObjectChild).dummyObject.numberNonInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[0].attributes["dummyObject"]["numberInit"], (dummyObjectParent.getAllChildren()[0] as DummyObjectChild).dummyObject.numberInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[0].attributes["dummyObject"]["stringNonInit"], (dummyObjectParent.getAllChildren()[0] as DummyObjectChild).dummyObject.stringNonInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[0].attributes["dummyObject"]["stringInit"], (dummyObjectParent.getAllChildren()[0] as DummyObjectChild).dummyObject.stringInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[0].attributes["dummyObject"]["functionInit"], (dummyObjectParent.getAllChildren()[0] as DummyObjectChild).dummyObject.functionInit as Function);
+			
+			Assert.assertStrictlyEquals(moduleNode.childNodes[1].attributes["boolean"], (dummyObjectParent.getAllChildren()[1] as DummyObjectChild).boolean);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[1].attributes["numberNonInit"], (dummyObjectParent.getAllChildren()[1] as DummyObjectChild).numberNonInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[1].attributes["numberInit"], (dummyObjectParent.getAllChildren()[1] as DummyObjectChild).numberInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[1].attributes["stringNonInit"], (dummyObjectParent.getAllChildren()[1] as DummyObjectChild).stringNonInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[1].attributes["stringInit"], (dummyObjectParent.getAllChildren()[1] as DummyObjectChild).stringInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[1].attributes["functionInit"], (dummyObjectParent.getAllChildren()[1] as DummyObjectChild).functionInit as Function);
+			
+			Assert.assertStrictlyEquals(moduleNode.childNodes[1].attributes["dummyObject"]["boolean"], (dummyObjectParent.getAllChildren()[1] as DummyObjectChild).dummyObject.boolean);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[1].attributes["dummyObject"]["numberNonInit"], (dummyObjectParent.getAllChildren()[1] as DummyObjectChild).dummyObject.numberNonInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[1].attributes["dummyObject"]["numberInit"], (dummyObjectParent.getAllChildren()[1] as DummyObjectChild).dummyObject.numberInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[1].attributes["dummyObject"]["stringNonInit"], (dummyObjectParent.getAllChildren()[1] as DummyObjectChild).dummyObject.stringNonInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[1].attributes["dummyObject"]["stringInit"], (dummyObjectParent.getAllChildren()[1] as DummyObjectChild).dummyObject.stringInit);
+			Assert.assertStrictlyEquals(moduleNode.childNodes[1].attributes["dummyObject"]["functionInit"], (dummyObjectParent.getAllChildren()[1] as DummyObjectChild).dummyObject.functionInit as Function);
 		}
 		
-		[Test(expects = "Error")] 
+		[Test] 
 		public function unrecognizedChild():void {
 			var moduleNode:ModuleNode = new ModuleNode("whatever");
 			moduleNode.childNodes.push(new ModuleNode("nonexistant"));
 			var dummyObjectParent:DummyObjectParent = new DummyObjectParent();
-			translateModuleNodeToObject(moduleNode, dummyObjectParent);
+			try{
+				moduleNodeToObject(moduleNode, dummyObjectParent);
+			}catch(e:Error){
+				message = e.message;
+			}
+			Assert.assertEquals("Unrecognized child: nonexistant", message);
 		}
 		
-		[Test(expects = "Error")] 
+		[Test]
 		public function redundantChild():void {
 			var moduleNode:ModuleNode = new ModuleNode("whatever");
 			moduleNode.childNodes.push(new ModuleNode("DummyObjectChild"));
 			moduleNode.childNodes[0].childNodes.push(new ModuleNode("Invalid"));
 			var dummyObjectParent:DummyObjectParent = new DummyObjectParent();
-			translateModuleNodeToObject(moduleNode, dummyObjectParent);
+			try{
+				moduleNodeToObject(moduleNode, dummyObjectParent);
+			}catch(e:Error){
+				message = e.message;
+			}
+			Assert.assertEquals("Redundant children for: DummyObjectChild", message);
 		}
 		
-		[Test(expects="Error")]
+		[Test]
 		public function unrecognizedAttribute():void {
 			var moduleNode:ModuleNode = new ModuleNode("any");
 			moduleNode.attributes["nonexistant"] = "foo";
 			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchBooleanNumber():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["boolean"] = -21.21;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchBooleanString():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["boolean"] = "foo";
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchBooleanFunction():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["boolean"] = Linear.easeOut;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchBooleanObject():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["boolean"] = new Object();
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchNumberInitBoolean():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["numberInit"] = false
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchNumberNonInitBoolean():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["numberNonInit"] = false
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchNumberInitString():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["numberInit"] = "foo";
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchNumberNonInitString():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["numberNonInit"] = "foo";
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchNumberInitFunction():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["numberInit"] = Linear.easeOut;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchNumberNonInitFunction():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["numberNonInit"] = new Object();
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchNumberInitObject():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["numberInit"] = Linear.easeOut;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchNumberNonInitObject():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["numberNonInit"] = new Object();
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchStringInitBoolean():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["numberInit"] = true;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchStringNonInitString():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["numberNonInit"] = true;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchStringInitNumber():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["stringInit"] = -21.21;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchStringNonInitNumber():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["stringNonInit"] = -21.21;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchStringInitFunction():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["stringInit"] = Linear.easeOut;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchStringNonInitFunction():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["stringNonInit"] = Linear.easeOut;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchStringInitObject():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["stringInit"] = new Object();
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchStringNonInitObject():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["stringNonInit"] = new Object();
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchFunctionInitBoolean():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["functionInit"] = true;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchFunctionNonInitBoolean():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["functionNonInit"] = true;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchFunctionInitNumber():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["functionInit"] = -21.21
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchFunctionNonInitNumber():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["functionNonInit"] = -21.21;
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchFunctionInitString():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["functionInit"] = "foo"
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchFunctionNonInitSring():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["functionNonInit"] = "foo";
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchFunctionInitObject():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["functionInit"] = new Object();
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchFunctionNonInitObject():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["functionNonInit"] = new Object();
-			var dummyObject:DummyObject = new DummyObject();
-			translateModuleNodeToObject(moduleNode, dummyObject);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchObjectBoolean():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["dummyObject"] = true;
-			var dummyObjectParent:DummyObjectParent = new DummyObjectParent();
-			translateModuleNodeToObject(moduleNode, dummyObjectParent);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchObjectNumber():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["dummyObject"] = -21.21;
-			var dummyObjectParent:DummyObjectParent = new DummyObjectParent();
-			translateModuleNodeToObject(moduleNode, dummyObjectParent);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchObjectString():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["dummyObject"] = "foo";
-			var dummyObjectParent:DummyObjectParent = new DummyObjectParent();
-			translateModuleNodeToObject(moduleNode, dummyObjectParent);
-		}
-		
-		[Test(expects="Error")]
-		public function mismatchObjectFunction():void {
-			var moduleNode:ModuleNode = new ModuleNode("any");
-			moduleNode.attributes["dummyObject"] = Linear.easeOut;
-			var dummyObjectParent:DummyObjectParent = new DummyObjectParent();
-			translateModuleNodeToObject(moduleNode, dummyObjectParent);
+			try{
+				moduleNodeToObject(moduleNode, dummyObject);
+			}catch(e:Error){
+				message = e.message;
+			}
+			Assert.assertEquals("Unrecognized attribute: nonexistant", message);
 		}
 	}
 }
@@ -363,19 +165,17 @@ import com.robertpenner.easing.*;
 import com.panozona.player.module.data.structure.DataParent;
 
 class DummyObjectParent extends DataParent {
-	
 	override public function getChildrenTypes():Vector.<Class> {
-		return new Vector.<DummyObjectChild>;
+		var result:Vector.<Class> = new Vector.<Class>();
+		result.push(DummyObjectChild);
+		return result;
 	}
-
-	public var dummyObject:DummyObject = new DummyObject();
-	
+	public var dummyObject:DummyObject = new DummyObject();	
 	public var boolean:Boolean;
 	public var numberNonInit:Number;
 	public var numberInit:Number = -12.12;
 	public var stringNonInit:String;
 	public var stringInit:String = "default";
-	public var functionNonInit:Function;
 	public var functionInit:Function = Linear.easeNone;
 }
 
@@ -385,19 +185,15 @@ class DummyObject{
 	public var numberInit:Number = -12.12;
 	public var stringNonInit:String;
 	public var stringInit:String = "default";
-	public var functionNonInit:Function;
 	public var functionInit:Function = Linear.easeNone;
 }
 
 class DummyObjectChild {
-
 	public var dummyObject:DummyObject = new DummyObject();
-	
 	public var boolean:Boolean;
 	public var numberNonInit:Number;
 	public var numberInit:Number = -12.12;
 	public var stringNonInit:String;
 	public var stringInit:String = "default";
-	public var functionNonInit:Function;
 	public var functionInit:Function = Linear.easeNone;
 }

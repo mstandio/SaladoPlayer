@@ -322,6 +322,8 @@ package com.panozona.player.manager.utils.configuration {
 						applySubAttributes((moduleData as ModuleDataFactory).definition, moduleDataNode.@definition);
 					}
 					modulesData.push(moduleData as ModuleData);
+				}else {
+					continue;
 				}
 				for each(var moduleChildNode:XML in moduleDataNode.elements()) {
 					moduleNode = new ModuleNode(moduleChildNode.localName());

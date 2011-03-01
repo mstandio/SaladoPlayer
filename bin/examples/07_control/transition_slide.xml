@@ -1,17 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-	 Apha transition
-	- you can set time and tween functions
-	- you can use other properties, but it does not look good yet
-	- see: http://panozona.com/wiki/SaladoPlayer:Configuration#global
+	 Slide transition
+	- slides new panorama over old one
+	- you can configure sliding from left, right, up and down
+	- you can set transition time time and tween function
+	- see: http://panozona.com/wiki/SaladoPlayer:Configuration#control
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<control transition="tween:Linear.easeNone,property:alpha,startValue:0,endValue:1"/>
+		<control transition="tween:Linear.easeNone,property:x,startValue:1000,endValue:0,time:1.5"/>
 	</global>
 	<panoramas>
 		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
-		<panorama id="blueChecker" path="panoramas/dz_blue_check/green_blue_f.xml"/>
+		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml"/>
 		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml"/>
 	</panoramas>
 	<modules>

@@ -38,9 +38,9 @@ package test.com.panozona.player.manager.utils.configuration{
 		[Test]
 		public function checkModulesPass():void {
 			managerData.modulesData.push(new ModuleData("name_a", "patha_a"));
-			managerData.modulesData[0].descriptionReference = new ModuleDescription("name_a", "1.0");
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("name_a", "1.0", "http://panozona.com/");
 			managerData.modulesData.push(new ModuleData("name_b", "patha_b"));
-			managerData.modulesData[1].descriptionReference = new ModuleDescription("name_b", "1.0");
+			managerData.modulesData[1].descriptionReference = new ModuleDescription("name_b", "1.0", "http://panozona.com/");
 			
 			checkModules(managerData);
 			
@@ -52,7 +52,7 @@ package test.com.panozona.player.manager.utils.configuration{
 		[Test]
 		public function checkModulesNoName():void {
 			managerData.modulesData.push(new ModuleData(null, "path_a"));
-			managerData.modulesData[0].descriptionReference = new ModuleDescription("name_a", "1.0");
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("name_a", "1.0", "http://panozona.com/");
 			
 			checkModules(managerData);
 			
@@ -64,7 +64,7 @@ package test.com.panozona.player.manager.utils.configuration{
 		[Test]
 		public function checkModulesNoPath():void {
 			managerData.modulesData.push(new ModuleData("name_a", null));
-			managerData.modulesData[0].descriptionReference = new ModuleDescription("name_a", "1.0");
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("name_a", "1.0", "http://panozona.com/");
 			
 			checkModules(managerData);
 			
@@ -87,9 +87,9 @@ package test.com.panozona.player.manager.utils.configuration{
 		[Test]
 		public function checkModulesRepeatName():void {
 			managerData.modulesData.push(new ModuleData("comp_a", "path_a"));
-			managerData.modulesData[0].descriptionReference = new ModuleDescription("comp_a", "1.0");
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("comp_a", "1.0", "http://panozona.com/");
 			managerData.modulesData.push(new ModuleData("comp_a", "path_b"));
-			managerData.modulesData[1].descriptionReference = new ModuleDescription("comp_b", "1.0");
+			managerData.modulesData[1].descriptionReference = new ModuleDescription("comp_b", "1.0", "http://panozona.com/");
 			
 			checkModules(managerData);
 			

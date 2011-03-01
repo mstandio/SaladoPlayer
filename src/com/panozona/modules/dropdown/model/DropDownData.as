@@ -19,6 +19,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.dropdown.model{
 	
 	import com.panozona.modules.dropdown.model.structure.Elements;
+	import com.panozona.modules.dropdown.model.structure.Element;
 	import com.panozona.modules.dropdown.model.structure.Settings;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.data.ModuleNode;
@@ -44,7 +45,11 @@ package com.panozona.modules.dropdown.model{
 			}
 			
 			if (saladoPlayer.managerData.debugMode) {
-				// TODO: check panoramas ect.
+				for each(var element:Element in boxData.elements.getChildrenOfGivenClass(Element)) {
+					if (saladoPlayer.managerData.getPanoramaDataById(element.panorama) == null) {
+						throw new Error("Nonexistant panorama id: " + element.panorama);
+					}
+				}
 			}
 		}
 	}

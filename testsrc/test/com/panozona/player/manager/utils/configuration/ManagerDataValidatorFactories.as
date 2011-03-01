@@ -23,7 +23,7 @@ package test.com.panozona.player.manager.utils.configuration{
 		public function ManagerDataValidatorFactories():void {
 			addEventListener(ConfigurationEvent.INFO, function(event:Event):void {infoCount++;});
 			addEventListener(ConfigurationEvent.WARNING, function(event:Event):void{warningCount++;});
-			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void { errorCount++; } );
+			addEventListener(ConfigurationEvent.ERROR, function(event:Event):void { errorCount++; });
 		}
 		
 		[Before]
@@ -38,9 +38,9 @@ package test.com.panozona.player.manager.utils.configuration{
 		[Test]
 		public function smokeTest():void {
 			managerData.modulesData.push(new ModuleDataFactory("name_a", "patha_a"));
-			managerData.modulesData[0].descriptionReference = new ModuleDescription("name_a", "1.0");
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("name_a", "1.0", "http://panozona.com/");
 			managerData.modulesData.push(new ModuleDataFactory("name_b", "patha_b"));
-			managerData.modulesData[1].descriptionReference = new ModuleDescription("name_b", "1.0");
+			managerData.modulesData[1].descriptionReference = new ModuleDescription("name_b", "1.0", "http://panozona.com/");
 			
 			checkModules(managerData);
 			
@@ -52,7 +52,7 @@ package test.com.panozona.player.manager.utils.configuration{
 		[Test]
 		public function checkModulesNoName():void {
 			managerData.modulesData.push(new ModuleDataFactory(null, "path_a"));
-			managerData.modulesData[0].descriptionReference = new ModuleDescription("name_a", "1.0");
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("name_a", "1.0", "http://panozona.com/");
 			
 			checkModules(managerData);
 			
@@ -64,7 +64,7 @@ package test.com.panozona.player.manager.utils.configuration{
 		[Test]
 		public function checkModulesNoPath():void {
 			managerData.modulesData.push(new ModuleDataFactory("name_a", null));
-			managerData.modulesData[0].descriptionReference = new ModuleDescription("name_a", "1.0");
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("name_a", "1.0", "http://panozona.com/");
 			
 			checkModules(managerData);
 			
@@ -87,9 +87,9 @@ package test.com.panozona.player.manager.utils.configuration{
 		[Test]
 		public function checkModulesRepeatName():void {
 			managerData.modulesData.push(new ModuleDataFactory("comp_a", "path_a"));
-			managerData.modulesData[0].descriptionReference = new ModuleDescription("comp_a", "1.0");
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("comp_a", "1.0", "http://panozona.com/");
 			managerData.modulesData.push(new ModuleData("comp_a", "path_b"));
-			managerData.modulesData[1].descriptionReference = new ModuleDescription("comp_b", "1.0");
+			managerData.modulesData[1].descriptionReference = new ModuleDescription("comp_b", "1.0", "http://panozona.com/");
 			
 			checkModules(managerData);
 			
@@ -106,7 +106,7 @@ package test.com.panozona.player.manager.utils.configuration{
 			managerData.panoramasData[0].hotspotsData.push(new HotspotDataFactory("hs_2", "fact_a"));
 			
 			managerData.modulesData.push(new ModuleDataFactory("fact_a", "path_a"));
-			managerData.modulesData[0].descriptionReference = new ModuleDescription("fact_a", "1.0");
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("fact_a", "1.0", "http://panozona.com/");
 			(managerData.modulesData[0] as ModuleDataFactory).definition["hs_1"] = "product_1";
 			(managerData.modulesData[0] as ModuleDataFactory).definition["hs_2"] = "product_2";
 			
@@ -125,7 +125,7 @@ package test.com.panozona.player.manager.utils.configuration{
 			managerData.panoramasData[0].hotspotsData.push(new HotspotDataFactory("hs_2", "fact_a"));
 			
 			managerData.modulesData.push(new ModuleDataFactory("fact_a", "path_a"));
-			managerData.modulesData[0].descriptionReference = new ModuleDescription("fact_a", "1.0");
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("fact_a", "1.0", "http://panozona.com/");
 			(managerData.modulesData[0] as ModuleDataFactory).definition["hs_1"] = "product_1";
 			(managerData.modulesData[0] as ModuleDataFactory).definition["hs_99"] = "product_2";
 			
@@ -144,7 +144,7 @@ package test.com.panozona.player.manager.utils.configuration{
 			managerData.panoramasData[0].hotspotsData.push(new HotspotDataFactory("hs_2", "fact_99"));
 			
 			managerData.modulesData.push(new ModuleDataFactory("fact_a", "path_a"));
-			managerData.modulesData[0].descriptionReference = new ModuleDescription("fact_a", "1.0");
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("fact_a", "1.0", "http://panozona.com/");
 			(managerData.modulesData[0] as ModuleDataFactory).definition["hs_1"] = "product_1";
 			(managerData.modulesData[0] as ModuleDataFactory).definition["hs_2"] = "product_2";
 			

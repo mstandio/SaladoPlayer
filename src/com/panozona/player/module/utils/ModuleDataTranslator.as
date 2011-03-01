@@ -55,30 +55,30 @@ package com.panozona.player.module.utils{
 						if (moduleNode.attributes[name] is Boolean) {
 							object[name] = moduleNode.attributes[name];
 						}else {
-							throw new Error("Invalid attribute value (Boolean expected): " + moduleNode.attributes[name]);
+							throw new Error("Invalid " + name + " value (Boolean expected): " + moduleNode.attributes[name]);
 						}
 					}else if (object[name] is Number) {
-						if (moduleNode.attributes[name] is Number ){
+						if (moduleNode.attributes[name] is Number){
 							object[name] = moduleNode.attributes[name];
 						}else {
-							throw new Error("Invalid attribute value (Number expected): " + moduleNode.attributes[name]);
+							throw new Error("Invalid " + name + " value (Number expected): " + moduleNode.attributes[name]);
 						}
 					}else if (object[name] is Function) { // assuming Function var has allways default value
 						if (moduleNode.attributes[name] is Function){
 							object[name] = moduleNode.attributes[name];
 						}else {
-							throw new Error("Invalid attribute value (Function expected): " + moduleNode.attributes[name]);
+							throw new Error("Invalid " + name + " value (Function expected): " + moduleNode.attributes[name]);
 						}
 					}else if (object[name] == null || (object[name] is String)) { // String var may not be initialised
 						if (moduleNode.attributes[name] is String) {
 							object[name] = moduleNode.attributes[name];
 						}else {
-							throw new Error("Invalid attribute value (String expected): " + moduleNode.attributes[name]);
+							throw new Error("Invalid " + name + " value (String expected): " + moduleNode.attributes[name]);
 						}
-					}else if (getClass(moduleNode.attributes[name]) === Object) {
+					}else if (!(moduleNode.attributes[name] is Function) && getClass(moduleNode.attributes[name]) === Object) {
 						applySubAttributes(object[name], moduleNode.attributes[name]);
 					}else {
-						throw new Error("Invalid attribute value (Object expected): " + moduleNode.attributes[name]);
+						throw new Error("Invalid " + name + " value (Object expected): " + moduleNode.attributes[name]);
 					}
 				}
 			}
@@ -104,37 +104,37 @@ package com.panozona.player.module.utils{
 						}
 					}
 				}else {
-					throw new Error("Redundant children for: "+moduleNode.name);
+					throw new Error("Redundant children for: " + moduleNode.name);
 				}
 			}
 		}
 		
-		protected function applySubAttributes(target:Object, source:Object):void {
+		public function applySubAttributes(target:Object, source:Object):void {
 			for (var name:String in source) {
 				if (target.hasOwnProperty(name)) {
 					if (target[name] is Boolean){
 						if (source[name] is Boolean) {
 							target[name] = source[name];
 						}else {
-							throw new Error("Invalid subattribute value (Boolean expected): " + source[name]);
+							throw new Error("Invalid " + name + " value (Boolean expected): " + source[name]);
 						}
 					}else if(target[name] is Number) {
 						if(source[name] is Number){
 							target[name] = source[name];
 						}else {
-							throw new Error("Invalid subattribute value (Number expected): " + source[name]);
+							throw new Error("Invalid " + name + " value (Number expected): " + source[name]);
 						}
 					}else if(target[name] is Function) { // assuming Function has allways default value
 						if(source[name] is Function){
 							target[name] = source[name];
 						}else {
-							throw new Error("Invalid subattribute value (Function expected): " + source[name]);
+							throw new Error("Invalid " + name + " value (Function expected): " + source[name]);
 						}
 					}else if (target[name] == null || target[name] is String) { // String var may not be initialised
 						if (source[name] is String) {
 							target[name] = source[name]; 
 						}else {
-							throw new Error("Invalid subattribute value (String expected): " + source[name]);
+							throw new Error("Invalid " + name + " value (String expected): " + source[name]);
 						}
 					}
 				}else {
@@ -142,7 +142,7 @@ package com.panozona.player.module.utils{
 					try{
 						target[name] = source[name];
 					}catch (e:Error){
-						throw new Error("Invalid subattribute name: "+name);
+						throw new Error("Unrecognized subattribute name: " + name);
 					}
 				}
 			}

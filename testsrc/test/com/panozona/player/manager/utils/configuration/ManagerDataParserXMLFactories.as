@@ -32,33 +32,33 @@ package test.com.panozona.player.manager.utils.configuration {
 		public function parseModulesSmokeTest():void {
 			var moduleDatas:Vector.<ModuleData> = new Vector.<ModuleData>();
 			var nodeXML:XML = new XML(
-				"<root>" +
-					"<factory name=\"name_a\" path=\"path_a\">" +
+				"<factories>" +
+					"<Factorya path=\"path_a\">" +
 						"<a/>" +
 						"<b/>" +
-					"</factory>" +
-					"<factory name=\"name_b\" path=\"path_b\" definition=\"hs1:product1,hs2:product2\">" +
+					"</Factorya>" +
+					"<Factoryb path=\"path_b\" definition=\"hs1:product1,hs2:product2\">" +
 						"<c/>" +
 						"<d/>" +
-					"</factory>" +
-				"</root>");
-			
-			parseModules(moduleDatas, nodeXML);
+					"</Factoryb>" +
+				"</factories>");
 			
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
+			
+			parseModules(moduleDatas, nodeXML);	
 			
 			Assert.assertEquals(2, moduleDatas.length);
 			
 			Assert.assertTrue(moduleDatas[0] is ModuleDataFactory);
 			Assert.assertTrue(moduleDatas[1] is ModuleDataFactory);
 			
-			Assert.assertEquals("name_a", moduleDatas[0].name);
+			Assert.assertEquals("Factorya", moduleDatas[0].name);
 			Assert.assertEquals("path_a", moduleDatas[0].path);
 			Assert.assertEquals(2, moduleDatas[0].nodes.length);
 			
-			Assert.assertEquals("name_b", moduleDatas[1].name);
+			Assert.assertEquals("Factoryb", moduleDatas[1].name);
 			Assert.assertEquals("path_b", moduleDatas[1].path);
 			Assert.assertEquals(2, moduleDatas[1].nodes.length);
 			

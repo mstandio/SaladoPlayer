@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
+	- path in <buttons/> node is mandatory, it points to the grid of buttons bitmaps
+	- to remove button from bar, remove <button/> node form the bar
+	- order of <button/> nodes determines order of buttons on the bar
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<module name="ButtonsBar" path="modules/ButtonsBar-1.0.swf">
-			<bar path="modules/images/buttonsbar/bar/bar_40_green.png"/>
+		<ButtonsBar path="modules/ButtonsBar-1.0.swf">
 			<buttons path="modules/images/buttonsbar/buttons/buttons_30x30_blue.png">
 				<button name="up"/>
 				<button name="down"/>
@@ -21,11 +21,7 @@
 				<button name="drag"/>
 				<button name="autorotation"/>
 				<button name="fullscreen"/>
-				<extraButton name="a" action="printHello"/>
 			</buttons>
-		</module>
+		</ButtonsBar>
 	</modules>
-	<actions>
-		<action id="printHello" content="SaladoPlayer.print(hello)"/>
-	</actions>
 </SaladoPlayer>

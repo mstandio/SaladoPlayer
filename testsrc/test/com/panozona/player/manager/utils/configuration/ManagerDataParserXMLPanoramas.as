@@ -176,5 +176,25 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertEquals(1, warningCount);
 			Assert.assertEquals(0, errorCount);
 		}
+		
+		[Test]
+		public function checkDirection():void {
+			var panoramaData:PanoramaData = new PanoramaData("p1", "path1");
+			
+			panoramaData.direction = 90;
+			Assert.assertEquals(90, panoramaData.direction);
+			
+			panoramaData.direction = 0;
+			Assert.assertEquals(0, panoramaData.direction);
+			
+			panoramaData.direction = 360;
+			Assert.assertEquals(0, panoramaData.direction);
+			
+			panoramaData.direction = -10;
+			Assert.assertEquals(350, panoramaData.direction);
+			
+			panoramaData.direction = 370;
+			Assert.assertEquals(10, panoramaData.direction);
+		}
 	}
 }

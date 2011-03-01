@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	- path in <buttons/> node is mandatory, it points to the grid of buttons bitmaps
+	- to remove button from bar, remove <button/> node form the bar
+	- order of <button/> nodes determines order of buttons on the bar
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml">
+			<image id="greenArrow" location="pan:-20" path="hotspots/images/blue_arrow.png" mouse="onClick:setActive"/>
+			<image id="blueArrow" location="pan:-20" path="hotspots/images/green_arrow.png" mouse="onClick:setInactive"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ButtonsBar path="modules/ButtonsBar-1.0.swf">
+			<buttons path="modules/images/buttonsbar/buttons/buttons_30x30_blue.png">
+				<button name="in"/>
+				<button name="out"/>
+				<button name="drag"/>
+				<button name="fullscreen"/>
+				<extraButton name="a" action="setInactive"/>
+			</buttons>
+		</ButtonsBar>
+	</modules>
+	<actions>
+		<action id="setActive" content="ButtonsBar.setExtraButtonActive(a,true)"/>
+		<action id="setInactive" content="ButtonsBar.setExtraButtonActive(a,false)"/>
+	</actions>
+</SaladoPlayer>

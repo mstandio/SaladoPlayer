@@ -285,16 +285,16 @@ package test.com.panozona.player.manager.utils.configuration {
 		public function parseModulesSmokeTest():void {
 			var moduleDatas:Vector.<ModuleData> = new Vector.<ModuleData>();
 			var nodeXML:XML = new XML(
-				"<root>" +
-					"<module name=\"name_a\" path=\"path_a\">" +
+				"<modules>" +
+					"<name_a path=\"path_a\">" +
 						"<a/>" +
 						"<b/>" +
-					"</module>" +
-					"<module name=\"name_b\" path=\"path_b\">" +
+					"</name_a>" +
+					"<name_b path=\"path_b\">" +
 						"<c/>" +
 						"<d/>" +
-					"</module>" +
-				"</root>");
+					"</name_b>" +
+				"</modules>");
 			
 			parseModules(moduleDatas, nodeXML);
 			
@@ -314,43 +314,20 @@ package test.com.panozona.player.manager.utils.configuration {
 		}
 		
 		[Test]
-		public function parseModulesNoName():void {
-			var moduleDatas:Vector.<ModuleData> = new Vector.<ModuleData>();
-			
-			var nodeXML_a:XML = new XML(
-				"<root>" +
-					"<module path=\"path_a\">" +
-						"<a/>" +
-						"<b/>" +
-					"</module>" +
-					"<module name=\"name_a\" path=\"path_b\">" +
-						"<c/>" +
-						"<d/>" +
-					"</module>" +
-				"</root>");
-			
-			parseModules(moduleDatas, nodeXML_a);
-			
-			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
-		}
-		
-		[Test]
 		public function parseModulesNoPath():void {
 			var moduleDatas:Vector.<ModuleData> = new Vector.<ModuleData>();
 			
 			var nodeXML_a:XML = new XML(
-				"<root>" +
-					"<module name=\"name_a\">" +
+				"<modules>" +
+					"<name_a>" +
 						"<a/>" +
 						"<b/>" +
-					"</module>" +
-					"<module name=\"name_a\" path=\"path_b\">" +
+					"</name_a>" +
+					"<name_b path=\"path_b\">" +
 						"<c/>" +
 						"<d/>" +
-					"</module>" +
-				"</root>");
+					"</name_b>" +
+				"</modules>");
 			
 			parseModules(moduleDatas, nodeXML_a);
 			

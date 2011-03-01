@@ -20,7 +20,7 @@ package com.panozona.player.module.data.structure{
 	
 	public class DataParent{
 		
-		protected var _children:Array = new Array();
+		protected const _children:Array = new Array();
 		
 		public final function getChildrenOfGivenClass(childClass:Class):Array {
 			var result:Array = new Array;

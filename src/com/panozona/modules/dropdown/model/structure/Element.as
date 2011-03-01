@@ -24,6 +24,5 @@ package com.panozona.modules.dropdown.model.structure{
 		
 		public var label:String;
 		public var panorama:String;
-		public var action:String;
 	}
 }

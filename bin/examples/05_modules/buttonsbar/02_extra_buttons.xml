@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	- bitmap for <extraButton/> is taken from bitmap grid of third and fourth row, first column for "a", second for "b" ect.
+	- extraButton can execute action on mouse press, here it prints text in trace window
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<ButtonsBar path="modules/ButtonsBar-1.0.swf">
+			<buttons path="modules/images/buttonsbar/buttons/buttons_30x30_blue.png">
+				<button name="in"/>
+				<button name="out"/>
+				<button name="drag"/>
+				<button name="autorotation"/>
+				<button name="fullscreen"/>
+				<extraButton name="a" action="printHello"/>
+			</buttons>
+		</ButtonsBar>
+	</modules>
+	<actions>
+		<action id="printHello" content="SaladoPlayer.print(Hello I am extraButton a)"/>
+	</actions>
+</SaladoPlayer>

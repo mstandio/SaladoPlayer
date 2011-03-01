@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
--->
 <SaladoPlayer>
 	<global debug="true">
 		<control autorotation="enabled:false"/>
@@ -13,7 +11,6 @@
 	</panoramas>
 	<modules>
 		<DropDown path="modules/DropDown-1.0.swf">
-			<settings/>
 			<elements>
 				<element label="Blue checker" panorama="blueChecker"/>
 				<element label="Green checker" panorama="greenChecker"/>

@@ -1,7 +1,7 @@
 package test.com.panozona.player.manager.utils.configuration {
 	
 	import adobe.utils.CustomActions;
-	import com.panosalado.view.ImageHotspot;
+	import com.panosalado.view.Hotspot;
 	import com.panozona.player.module.*;
 	import com.panozona.player.module.data.*;
 	import com.panozona.player.module.utils.*;

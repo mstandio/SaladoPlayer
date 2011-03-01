@@ -130,7 +130,7 @@ package com.panozona.modules.dropdown.controller{
 			}
 			
 			if (_boxView.dropDownData.settings.style.opensUp) {
-				_boxView.elementsContainer.y = -_boxView.textField.height + 1;
+				_boxView.elementsContainer.y = -_boxView.textField.height;
 			}else {
 				_boxView.elementsContainer.y = _boxView.textField.height;
 			}

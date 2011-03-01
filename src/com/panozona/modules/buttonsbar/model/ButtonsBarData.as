@@ -20,7 +20,7 @@ package com.panozona.modules.buttonsbar.model{
 	
 	import com.panozona.modules.buttonsbar.model.structure.Bar;
 	import com.panozona.modules.buttonsbar.model.structure.Buttons;
-	import com.panozona.modules.navigationbar.data.ExtraButton;
+	import com.panozona.modules.buttonsbar.model.structure.ExtraButton;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.data.ModuleNode;
 	import com.panozona.player.module.utils.ModuleDataTranslator;
@@ -46,8 +46,8 @@ package com.panozona.modules.buttonsbar.model{
 			
 			if (saladoPlayer.managerData.debugMode) {
 				for each(var extraButton:ExtraButton in barData.buttons.getChildrenOfGivenClass(ExtraButton)) {
-					if (saladoPlayer.managerData.getActionById(extraButton.action) == null) {
-						throw new Error("Invalid action in: " + extraButton.name);
+					if (saladoPlayer.managerData.getActionDataById(extraButton.action) == null) {
+						throw new Error("Invalid action id in: " + extraButton.name);
 					}
 				}
 			}

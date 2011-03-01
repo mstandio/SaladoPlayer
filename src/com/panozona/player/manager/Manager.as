@@ -86,6 +86,11 @@ package com.panozona.player.manager {
 		
 		public override function initialize(dependencies:Array):void {
 			super.initialize(dependencies);
+			for (var i:int = 0; i < dependencies.length; i++ ) {
+				if (dependencies[i] is SimpleTransition){
+					dependencies[i].addEventListener( Event.COMPLETE, transitionComplete, false, 0, true);
+				}
+			}
 			addEventListener(Event.COMPLETE, panoramaLoaded, false, 0, true);
 		}
 		
@@ -152,6 +157,15 @@ package com.panozona.player.manager {
 				if (isNaN(panoramaData.params.boundsWidth))    panoramaData.params.boundsWidth    = _managerData.allPanoramasData.params.boundsWidth;
 				if (isNaN(panoramaData.params.boundsHeight))   panoramaData.params.boundsHeight   = _managerData.allPanoramasData.params.boundsHeight;
 				if (isNaN(panoramaData.params.tierThreshold))  panoramaData.params.tierThreshold  = _managerData.allPanoramasData.params.tierThreshold;
+				
+				if(_previousPanoramaData != null){
+					if (secondaryCanvas != null && canvas != null) {
+						var bd:BitmapData = new BitmapData(canvas.width, canvas.height);
+						bd.draw(canvas);
+						var bmp:Bitmap = new Bitmap(bd);
+						secondaryCanvas.addChildAt(bmp, numChildren);
+					}
+				}
 				
 				super.loadPanorama(panoramaData.params.clone());
 				loadHotspots(currentPanoramaData);
@@ -260,6 +274,7 @@ package com.panozona.player.manager {
 		}
 		
 		protected function transitionComplete(e:Event):void {
+			while (secondaryCanvas.numChildren) secondaryCanvas.removeChildAt(0);
 			runAction(currentPanoramaData.onTransitionEnd);
 			if(_previousPanoramaData != null){
 				runAction(currentPanoramaData.onTransitionEndFrom[_previousPanoramaData.id]);

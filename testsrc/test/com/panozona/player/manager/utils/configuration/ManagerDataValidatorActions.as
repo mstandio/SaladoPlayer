@@ -35,7 +35,7 @@ package test.com.panozona.player.manager.utils.configuration{
 			
 			managerData = new ManagerData();
 			managerData.modulesData.push(new ModuleData("module_a", "path_a"));
-			managerData.modulesData[0].descriptionReference = new ModuleDescription("module_a", "1.0");
+			managerData.modulesData[0].descriptionReference = new ModuleDescription("module_a", "1.0", "http://panozona.com/");
 			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_emp");
 			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_boo", Boolean);
 			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_num", Number);
@@ -44,7 +44,7 @@ package test.com.panozona.player.manager.utils.configuration{
 			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_all", Boolean, Number, String, Function);
 			
 			managerData.modulesData.push(new ModuleDataFactory("module_b", "path_b"));
-			managerData.modulesData[1].descriptionReference = new ModuleDescription("module_b", "1.0");
+			managerData.modulesData[1].descriptionReference = new ModuleDescription("module_b", "1.0", "http://panozona.com/");
 			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_emp");
 			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_boo", Boolean);
 			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_num", Number);
