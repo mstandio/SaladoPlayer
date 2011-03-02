@@ -42,6 +42,8 @@ public class Params
  	public var maxTilt:Number;
 	public var minVerticalFov:Number;
 	public var maxVerticalFov:Number;
+	public var minHorizontalFov:Number;
+	public var maxHorizontalFov:Number;
 
 	public function Params(
 		path:String, 
@@ -53,13 +55,10 @@ public class Params
 		this.pan = pan;
 		this.tilt = tilt;
 		this.fov = fov;
-		
-		this.minVerticalFov = NaN;
-		this.maxVerticalFov = NaN;
 	}
 	
 	public function clone():Params {
-		var result:Params = new Params(path, pan, tilt, fov); 
+		var result:Params = new Params(path, pan, tilt, fov);
 		result.tierThreshold = tierThreshold;
 		result.boundsWidth = boundsWidth;
 		result.boundsHeight = boundsHeight;
@@ -69,6 +68,8 @@ public class Params
 		result.maxPan = maxPan;
 		result.minTilt = minTilt;
 		result.maxTilt = maxTilt;
+		result.minHorizontalFov = minHorizontalFov;
+		result.maxHorizontalFov = maxHorizontalFov;
 		result.minVerticalFov = minVerticalFov;
 		result.maxVerticalFov = maxVerticalFov;
 		return result;
@@ -101,8 +102,11 @@ public class Params
 		if (!isNaN(minTilt)) viewData.minimumTilt = minTilt;
 		if (!isNaN(maxTilt)) viewData.maximumTilt = maxTilt;
 		
+		if (!isNaN(minHorizontalFov)) viewData.minimumHorizontalFieldOfView = minHorizontalFov;
+		if (!isNaN(maxHorizontalFov)) viewData.maximumHorizontalFieldOfView = maxHorizontalFov;
 		if (!isNaN(minVerticalFov)) viewData.minimumVerticalFieldOfView = minVerticalFov;
 		if (!isNaN(maxVerticalFov)) viewData.maximumVerticalFieldOfView = maxVerticalFov;
+		
 		return viewData;
 	}
 }

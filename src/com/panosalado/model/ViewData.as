@@ -153,31 +153,43 @@ public class ViewData extends Sprite
 	* Maximum field of view.  Can be used in place of getter for faster access.  Do NOT use in place of setter.
 	* @see maximumFieldOfView
 	*/
- 	public var _maximumFieldOfView:Number;
- 	
- 	/**
+	public var _maximumFieldOfView:Number;
+	
+	/**
 	* Minimum pan.  Can be used in place of getter for faster access.  Do NOT use in place of setter.
 	* @see minimumPan
 	*/
- 	public var _minimumPan:Number;
- 	
- 	/**
+	public var _minimumPan:Number;
+	
+	/**
 	* Maximum pan.  Can be used in place of getter for faster access.  Do NOT use in place of setter.
 	* @see maximumPan
 	*/
- 	public var _maximumPan:Number;
- 	
- 	/**
+	public var _maximumPan:Number;
+	
+	/**
 	* Minimum tilt.  Can be used in place of getter for faster access.  Do NOT use in place of setter.
 	* @see minimumTilt
 	*/
- 	public var _minimumTilt:Number;
- 	
- 	/**
+	public var _minimumTilt:Number;
+	
+	/**
 	* Maximum tilt.  Can be used in place of getter for faster access.  Do NOT use in place of setter.
 	* @see maximumTilt
 	*/
- 	public var _maximumTilt:Number;
+	public var _maximumTilt:Number;
+	
+	/**
+	 * Minimum horizontal field of view.  Can be used in place of getter for faster access.  Do NOT use in place of setter.
+	 * @see minimumHorizontalFieldOfView
+	 */
+	public var _minimumHorizontalFieldOfView:Number;
+	
+	/**
+	 * Maximum horizontal field of view.  Can be used in place of getter for faster access.  Do NOT use in place of setter.
+	 * @see maximumHorizontalFieldOfView
+	 */
+	public var _maximumHorizontalFieldOfView:Number;
 	
 	/**
 	 * Minimum vertical field of view.  Can be used in place of getter for faster access.  Do NOT use in place of setter.
@@ -190,31 +202,30 @@ public class ViewData extends Sprite
 	 * @see maximumVerticalFieldOfView
 	 */
 	public var _maximumVerticalFieldOfView:Number;
-
 	
 	/**
 	* Invalidation flag for all properties.  i.e. if one of them is invalid, this must be invalid as well.
 	*/
-	public var invalid					:Boolean;
+	public var invalid:Boolean;
 	
 	/**
 	* Invalidation flag for pan and tilt, which determine the transformMatrix3D
 	*/
-	public var invalidTransform			:Boolean;
+	public var invalidTransform:Boolean;
 	
 	/**
 	* Invalidation flag for field of view, boundsWidth and boundsHeight, which determine perspectiveProjection and perspectiveMatrix3D
 	*/
-	public var invalidPerspective		:Boolean;
- 	
- 	/**
+	public var invalidPerspective:Boolean;
+	
+	/**
 	* Secondary ViewData, which is used for the secondary (outgoing) panorama.
 	* @see DependentViewData
 	*/
- 	public var secondaryViewData:DependentViewData;
- 	 	
- 	protected var constructed:Boolean;
-
+	public var secondaryViewData:DependentViewData;
+	 
+	protected var constructed:Boolean;
+	
 	/**
 	* Constructor.  
 	* @param constructSecondaryViewData Boolean true.  When a DependentViewData object is constructed it will pass 
@@ -240,7 +251,7 @@ public class ViewData extends Sprite
 			false;
 		
 		if (constructSecondaryViewData) secondaryViewData = new DependentViewData(this);
-
+		
 		pan = 0;
 		tilt = 0;
 		fieldOfView = 90;
@@ -254,7 +265,7 @@ public class ViewData extends Sprite
  		minimumTilt = Number.NEGATIVE_INFINITY;
  		maximumTilt = Number.POSITIVE_INFINITY;
  		tierThreshold = 1.0;
-	}	
+	}
 	
 	/**
 	* Pan angle.  
@@ -312,7 +323,7 @@ public class ViewData extends Sprite
 		
 		if ( _fieldOfView == value ) return; //TODO: otherwise it gets here when autorotating, strange
 		
-		_fieldOfView = value;				
+		_fieldOfView = value;
 		adjustLimits();
 		
 		invalidPerspective = invalid = true;
@@ -550,6 +561,34 @@ public class ViewData extends Sprite
 	}
 	
 	/**
+	* minimumHorizontalFieldOfView
+	* @default NaN
+	*/
+	public function get minimumHorizontalFieldOfView():Number { return _minimumHorizontalFieldOfView; }
+	/**
+	* @private
+	*/
+	public function set minimumHorizontalFieldOfView(value:Number):void {
+		if ( _minimumHorizontalFieldOfView == value || isNaN(value) ) return;
+		_minimumHorizontalFieldOfView = value;
+		adjustLimits();
+	}
+	
+	/**
+	* maximumHorizontalFieldOfView
+	* @default NaN
+	*/
+	public function get maximumHorizontalFieldOfView():Number { return _maximumHorizontalFieldOfView; }
+	/**
+	* @private
+	*/
+	public function set maximumHorizontalFieldOfView(value:Number):void {
+		if ( _maximumHorizontalFieldOfView == value || isNaN(value) ) return;
+		_maximumHorizontalFieldOfView = value;
+		adjustLimits();
+	}
+	
+	/**
 	* minimumVerticalFieldOfView
 	* @default NaN
 	*/
@@ -604,7 +643,8 @@ public class ViewData extends Sprite
 		ret._maximumTilt = _maximumTilt;
 		ret._minimumVerticalFieldOfView = _minimumVerticalFieldOfView;
 		ret._maximumVerticalFieldOfView = _maximumVerticalFieldOfView;
-		
+		ret._minimumHorizontalFieldOfView = _minimumHorizontalFieldOfView;
+		ret._maximumHorizontalFieldOfView= _maximumHorizontalFieldOfView;
 		
 		ret.invalidTransform = invalidTransform;
 		ret.invalidPerspective = invalidPerspective;
@@ -622,7 +662,7 @@ public class ViewData extends Sprite
 		if (isNaN(_boundsWidth) || isNaN(_boundsHeight) || isNaN(_fieldOfView)) return;
 		
 		if (!isNaN(_minimumVerticalFieldOfView) && !isNaN(_maximumVerticalFieldOfView) &&
-		   (_maximumVerticalFieldOfView - _minimumVerticalFieldOfView) < 180){
+			(_maximumVerticalFieldOfView - _minimumVerticalFieldOfView) < 180){
 			maximumFieldOfView = (180.0/Math.PI) * 2 *
 				Math.atan((_boundsWidth/_boundsHeight) *
 				Math.tan((Math.PI/180) * 0.5 * 
@@ -634,8 +674,8 @@ public class ViewData extends Sprite
 			Math.tan((Math.PI/180.0) * 0.5 * 
 			_fieldOfView));
 		
-		if(!isNaN(_minimumVerticalFieldOfView)) minimumTilt = _minimumVerticalFieldOfView + cameraVFOV/2;
-		if(!isNaN(_maximumVerticalFieldOfView)) maximumTilt = _maximumVerticalFieldOfView - cameraVFOV/2;
+		if (!isNaN(_minimumVerticalFieldOfView)) minimumTilt = _minimumVerticalFieldOfView + cameraVFOV / 2;
+		if (!isNaN(_maximumVerticalFieldOfView)) maximumTilt = _maximumVerticalFieldOfView - cameraVFOV / 2;
 	}
 }
 }

@@ -143,20 +143,33 @@ package com.panozona.player.manager {
 				
 				dispatchEvent(new PanoramaEvent(PanoramaEvent.PANORAMA_STARTED_LOADING));
 				
-				if (isNaN(panoramaData.params.pan))            panoramaData.params.pan            = _managerData.allPanoramasData.params.pan;
-				if (isNaN(panoramaData.params.tilt))           panoramaData.params.tilt           = _managerData.allPanoramasData.params.tilt;
-				if (isNaN(panoramaData.params.fov))            panoramaData.params.fov            = _managerData.allPanoramasData.params.fov;
-				if (isNaN(panoramaData.params.maxPan))         panoramaData.params.maxPan         = _managerData.allPanoramasData.params.maxPan;
-				if (isNaN(panoramaData.params.minPan))         panoramaData.params.minPan         = _managerData.allPanoramasData.params.minPan;
-				if (isNaN(panoramaData.params.maxTilt))        panoramaData.params.maxTilt        = _managerData.allPanoramasData.params.maxTilt;
-				if (isNaN(panoramaData.params.minTilt))        panoramaData.params.minTilt        = _managerData.allPanoramasData.params.minTilt;
-				if (isNaN(panoramaData.params.maxFov))         panoramaData.params.maxFov         = _managerData.allPanoramasData.params.maxFov;
-				if (isNaN(panoramaData.params.minFov))         panoramaData.params.minFov         = _managerData.allPanoramasData.params.minFov;
-				if (isNaN(panoramaData.params.minVerticalFov)) panoramaData.params.minVerticalFov = _managerData.allPanoramasData.params.minVerticalFov;
-				if (isNaN(panoramaData.params.maxVerticalFov)) panoramaData.params.maxVerticalFov = _managerData.allPanoramasData.params.maxVerticalFov;
-				if (isNaN(panoramaData.params.boundsWidth))    panoramaData.params.boundsWidth    = _managerData.allPanoramasData.params.boundsWidth;
-				if (isNaN(panoramaData.params.boundsHeight))   panoramaData.params.boundsHeight   = _managerData.allPanoramasData.params.boundsHeight;
-				if (isNaN(panoramaData.params.tierThreshold))  panoramaData.params.tierThreshold  = _managerData.allPanoramasData.params.tierThreshold;
+				if (isNaN(panoramaData.params.pan))              panoramaData.params.pan              = _managerData.allPanoramasData.params.pan;
+				if (isNaN(panoramaData.params.tilt))             panoramaData.params.tilt             = _managerData.allPanoramasData.params.tilt;
+				if (isNaN(panoramaData.params.fov))              panoramaData.params.fov              = _managerData.allPanoramasData.params.fov;
+				if (isNaN(panoramaData.params.maxPan))           panoramaData.params.maxPan           = _managerData.allPanoramasData.params.maxPan;
+				if (isNaN(panoramaData.params.minPan))           panoramaData.params.minPan           = _managerData.allPanoramasData.params.minPan;
+				if (isNaN(panoramaData.params.maxTilt))          panoramaData.params.maxTilt          = _managerData.allPanoramasData.params.maxTilt;
+				if (isNaN(panoramaData.params.minTilt))          panoramaData.params.minTilt          = _managerData.allPanoramasData.params.minTilt;
+				if (isNaN(panoramaData.params.maxFov))           panoramaData.params.maxFov           = _managerData.allPanoramasData.params.maxFov;
+				if (isNaN(panoramaData.params.minFov))           panoramaData.params.minFov           = _managerData.allPanoramasData.params.minFov;
+				if (isNaN(panoramaData.params.minHorizontalFov)) panoramaData.params.minHorizontalFov = _managerData.allPanoramasData.params.minHorizontalFov;
+				if (isNaN(panoramaData.params.maxHorizontalFov)) panoramaData.params.maxHorizontalFov = _managerData.allPanoramasData.params.maxHorizontalFov;
+				if (isNaN(panoramaData.params.minVerticalFov))   panoramaData.params.minVerticalFov   = _managerData.allPanoramasData.params.minVerticalFov;
+				if (isNaN(panoramaData.params.maxVerticalFov))   panoramaData.params.maxVerticalFov   = _managerData.allPanoramasData.params.maxVerticalFov;
+				if (isNaN(panoramaData.params.boundsWidth))      panoramaData.params.boundsWidth      = _managerData.allPanoramasData.params.boundsWidth;
+				if (isNaN(panoramaData.params.boundsHeight))     panoramaData.params.boundsHeight     = _managerData.allPanoramasData.params.boundsHeight;
+				if (isNaN(panoramaData.params.tierThreshold))   panoramaData.params.tierThreshold     = _managerData.allPanoramasData.params.tierThreshold;
+				
+				_maximumPan = NaN;
+				_minimumPan = NaN;
+				_maximumTilt = NaN;
+				_minimumTilt = NaN;
+				_maximumFieldOfView = NaN;
+				_minimumFieldOfView = NaN;
+				_maximumHorizontalFieldOfView = NaN;
+				_minimumHorizontalFieldOfView = NaN;
+				_maximumVerticalFieldOfView = NaN;
+				_minimumVerticalFieldOfView = NaN;
 				
 				if(_previousPanoramaData != null){
 					if (secondaryCanvas != null && canvas != null) {
