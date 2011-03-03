@@ -676,6 +676,9 @@ public class ViewData extends Sprite
 		
 		if (!isNaN(_minimumVerticalFieldOfView)) minimumTilt = _minimumVerticalFieldOfView + cameraVFOV / 2;
 		if (!isNaN(_maximumVerticalFieldOfView)) maximumTilt = _maximumVerticalFieldOfView - cameraVFOV / 2;
+		
+		if (!isNaN(_minimumHorizontalFieldOfView)) minimumPan = _minimumHorizontalFieldOfView + _fieldOfView / 2;
+		if (!isNaN(_maximumHorizontalFieldOfView)) maximumPan = _maximumHorizontalFieldOfView - _fieldOfView / 2;
 	}
 }
 }

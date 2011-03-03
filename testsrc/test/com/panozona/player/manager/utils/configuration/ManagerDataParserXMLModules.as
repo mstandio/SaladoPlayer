@@ -176,7 +176,7 @@ package test.com.panozona.player.manager.utils.configuration {
 			Assert.assertEquals(0, errorCount);
 			
 			Assert.assertStrictlyEquals("b", moduleNode.childNodes[0].name);
-			Assert.assertEquals(":;.", moduleNode.childNodes[0].attributes.text); // TODO: why fails on strictlyEquals?
+			Assert.assertStrictlyEquals(":;.", moduleNode.childNodes[0].attributes.text);
 			
 			Assert.assertStrictlyEquals("c", moduleNode.childNodes[0].childNodes[0].name);
 			Assert.assertStrictlyEquals("foo", moduleNode.childNodes[0].childNodes[0].attributes.text);
