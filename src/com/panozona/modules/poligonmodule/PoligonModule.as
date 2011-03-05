@@ -13,7 +13,7 @@ package com.panozona.modules.poligonmodule{
 		private var btn:Sprite;
 		
 		public function PoligonModule(){
-			super("PoligonModule", "0.0");
+			super("PoligonModule", "0.0", "http://panozona.com/");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {

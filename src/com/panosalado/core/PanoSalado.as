@@ -231,7 +231,7 @@ public class PanoSalado extends ViewData implements ICamera
 	* @param viewData ViewData non-null value will result in using this ViewData's properties
 	*/
 	final public function render(event:Event = null, viewData:ViewData = null):void {
-		if (viewData == null) viewData 	= this; //if other viewData was passed in, use it instead.  useful for predicting future needed bitmaps.
+		if (viewData == null) viewData = this; //if other viewData was passed in, use it instead.  useful for predicting future needed bitmaps.
 		if (!viewData._tile && !viewData.secondaryViewData._tile) return;
 		if (viewData._tile && viewData.invalid) {
 			//_render(viewData, event ? _canvasInternal.graphics : null);
@@ -246,7 +246,7 @@ public class PanoSalado extends ViewData implements ICamera
 		}
 		updateChildren(_managedChildren, viewData);
 		// set viewData to secondary view data and try to render secondary canvas
-		viewData = viewData.secondaryViewData;		
+		viewData = viewData.secondaryViewData;
 		
 		if (viewData._tile && viewData.invalid) {
 			//_render(viewData, event ? _secondaryCanvasInternal.graphics : null);

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+	onLeaveToAttempt is simillar to onLeaveTo, but it cancells first attempt of leaving panorama
+	this way one can dectect that user is leaving panorama and can execute action before loading new panorama
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" onLeaveToAttempt="blueChecker:attemptGreenToBlue,redChecker:attemptGreenToRed">
+			<image id="gcBlueArrow" path="hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueCheck"/>
+			<image id="gcRedArrow" path="hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadBlueCheck"/>
+		</panorama>
+		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="bcGreenArrow" path="hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenCheck"/>
+			<image id="bcRedArrow" path="hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadRedCheck"/>
+		</panorama>
+		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml">
+			<image id="rcGreenArrow" path="hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenCheck"/>
+			<image id="rcBlueArrow" path="hotspots/images/blue_arrow.png" location="pan:-10" mouse="onClick:loadBlueCheck"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueChecker)"/>
+		<action id="loadRedCheck" content="SaladoPlayer.loadPano(redChecker)"/>
+		
+		<action id="attemptGreenToBlue" content="SaladoPlayer.print(Green checker says goodbeye have fun in blue one);SaladoPlayer.loadPano(blueCheckera)"/>
+		<action id="attemptGreenToRed" content="SaladoPlayer.print(Green checker says goodbeye have fun in red one)"/> <!--no loading function click again!-->
+	</actions>
+</SaladoPlayer>

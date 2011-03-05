@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Positioning hotspots inside panorama.
+	location can take any of values: pan(horizontal), tilt(vertical) and distance(depth).
+	Default value for distance is 400, default pan is 0, default tilt is 0.
 -->
 <SaladoPlayer>
 	<global debug="true">

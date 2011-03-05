@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	- Exampple of data that can be interpreted by Examplemodule
+	Example of data that can be interpreted by ExampleModule.
 -->
 <SaladoPlayer>
 	<global debug="true">

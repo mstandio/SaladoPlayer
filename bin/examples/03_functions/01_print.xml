@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+	Trace window is opened by default, clicking on arrows prints text in trace window.
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml">
+			<image id="blueArrow" path="hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:printPano"/>
+			<image id="greenArrow" path="hotspots/images/green_arrow.png" location="pan:-10" mouse="onClick:printZona"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="printPano" content="SaladoPlayer.print(Pano)"/>
+		<action id="printZona" content="SaladoPlayer.print(Zona);SaladoPlayer.print(!)"/>
+	</actions>
+</SaladoPlayer>

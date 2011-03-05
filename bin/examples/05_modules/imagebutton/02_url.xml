@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
-	- if you add CDATA child to button, clicking it will couse opening url from text contained in CDATA node
+	If you add CDATA child to button, clicking it will couse opening in new window url from text contained in CDATA node.
 -->
 <SaladoPlayer>
 	<global debug="true" autorotation="enabled:false"/>

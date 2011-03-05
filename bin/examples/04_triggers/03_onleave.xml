@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	onLeave takes value of action id that is executed before loading new panorama
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" onLeave="printGoodbeyeGreen">
+			<image id="blueArrow" path="hotspots/images/blue_arrow.png" mouse="onClick:loadBlueCheck"/>
+		</panorama>
+		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml" onLeave="printGoodbeyeBlue">
+			<image id="greenArrow" path="hotspots/images/green_arrow.png" mouse="onClick:loadGreenCheck"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueChecker)"/>
+		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="printGoodbeyeGreen" content="SaladoPlayer.print(Green checker says goodbeye)"/>
+		<action id="printGoodbeyeBlue" content="SaladoPlayer.print(Blue checker says goodbeye)"/>
+	</actions>
+</SaladoPlayer>

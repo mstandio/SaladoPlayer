@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	- path in <buttons/> node is mandatory, it points to the grid of buttons bitmaps
-	- to remove button from bar, remove <button/> node form the bar
-	- order of <button/> nodes determines order of buttons on the bar
+	Each one of extrabuttons can be lited up or dimmed on demand. This feature can be usefull when extraButton reflects
+	state of some option, like if module window is visible or not.
 -->
 <SaladoPlayer>
 	<global debug="true">

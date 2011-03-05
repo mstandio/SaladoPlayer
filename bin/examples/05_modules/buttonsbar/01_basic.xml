@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	- path in <buttons/> node is mandatory, it points to the grid of buttons bitmaps
-	- to remove button from bar, remove <button/> node form the bar
-	- order of <button/> nodes determines order of buttons on the bar
+	Path in <buttons/> node is mandatory, it points to the grid of buttons bitmaps. 
+	In order to remove button from bar, remove <button/> node form the bar.
+	Order of <button/> nodes determines order of buttons on the bar
 -->
 <SaladoPlayer>
 	<global debug="true"/>

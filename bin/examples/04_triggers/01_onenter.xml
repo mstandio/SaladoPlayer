@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	onEnter takes value of action id that is executed when given panorama is entered
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" onEnter="printWelcomeGreen">
+			<image id="blueArrow" path="hotspots/images/blue_arrow.png" mouse="onClick:loadBlueCheck"/>
+		</panorama>
+		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml" onEnter="printWelcomeBlue">
+			<image id="greenArrow" path="hotspots/images/green_arrow.png" mouse="onClick:loadGreenCheck"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueChecker)"/>
+		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="printWelcomeGreen" content="SaladoPlayer.print(Welcome in green checker)"/>
+		<action id="printWelcomeBlue" content="SaladoPlayer.print(Welcome in blue checker)"/>
+	</actions>
+</SaladoPlayer>

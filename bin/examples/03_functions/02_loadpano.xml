@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Clicking on hotspots couses loading of new panoramas.
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml">
+			<image id="blueArrow" path="hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueCheck"/>
+		</panorama>
+		<panorama id="blueCheck" path="panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="greenArrow" path="hotspots/images/green_arrow.png" location="pan:-10" mouse="onClick:loadGreenCheck"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueCheck)"/>
+		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenCheck)"/>
+	</actions>
+</SaladoPlayer>

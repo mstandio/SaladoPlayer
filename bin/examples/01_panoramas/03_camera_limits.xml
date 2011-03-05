@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-
+	Camera pan tilt and field of view values can be limited.
+	- maxPan, minPan, maxTilt, minTilt, maxFov and minFov are raw limits.
+	- violetChecker is example of cylindrical panorama.
+	- maxVerticalFov and minVerticalFov override maxTilt minTilt and maxFov (if there is any) to prevent showing space outside panorama image.
+	- turquoiseChecker is example of partial cylindrical panorama.
+	- maxHorizontalFov and minHorizontalFov override maxPan and minPan (if there is any) to prevent showing space outside panorama image.
 -->
 <SaladoPlayer>
 	<global debug="true">
@@ -11,10 +16,11 @@
 		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml"/>
 		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" camera="maxTilt:95"/>
 		<panorama id="violetChecker" path="panoramas/dz_violet_check/violet_check_f.xml" camera="maxVerticalFov:30,minVerticalFov:-30" />
-		<panorama id="turquoiseChecker" path="panoramas/dz_turquoise_check/turquoise_check_f.xml" camera="maxVerticalFov:30,minVerticalFov:-30,maxHorizontalFov:112,minHorizontalFov:-112"/>		
+		<panorama id="turquoiseChecker" path="panoramas/dz_turquoise_check/turquoise_check_f.xml" camera="maxVerticalFov:30,minVerticalFov:-30,maxHorizontalFov:112,minHorizontalFov:-112"/>
 		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml" camera="maxFov:160,minFov:10"/>
 	</panoramas>
 	<modules>
+		<ViewFinder path="modules/ViewFinder-1.0.swf"/>
 		<DropDown path="modules/DropDown-1.0.swf">
 			<elements>
 				<element label="Red checker" panorama="redChecker"/>

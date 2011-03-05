@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- 
-	Initial camera values
-	- pan can take values -180 to 180 where turning camera 90 degrees left is 90 and turnign right is -90 degrees
+	Camera attribute in global panoramas is same as in regular panorama, values set here
+	will be applied to any panorama that has not such value set. By default global panoramas
+	have maxFov set to 120 and minFov set to 30. 
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<panoramas camera="tilt:45"/>
+		<control autorotation="enabled:false"/>
+		<panoramas camera="tilt:45,maxTilt:45"/>
 	</global>
 	<panoramas>
-		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml"/>
+		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml" camera="maxTilt:100">
+			<image id="blueArrow" path="hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueCheck"/>
+		</panorama>
+		<panorama id="blueCheck" path="panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="greenArrow" path="hotspots/images/green_arrow.png" location="pan:-10" mouse="onClick:loadGreenCheck"/>
+		</panorama>
 	</panoramas>
+	<actions>
+		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueCheck)"/>
+		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenCheck)"/>
+	</actions>
 </SaladoPlayer>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
-	- you can assign custom mouse events to buttons
-	- you can open/close buttons of given id
+	You can assign custom mouse events to buttons.
+	You can open/close buttons of given id
 -->
 <SaladoPlayer>
 	<global debug="true">

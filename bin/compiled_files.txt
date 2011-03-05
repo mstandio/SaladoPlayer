@@ -8,5 +8,6 @@ src/com/panozona/modules/dropdown/DropDown.as -> modules/DropDown-1.0.swf
 src/com/panozona/modules/examplemodule/ExampleModule.as -> modules/ExampleModule-1.0.swf
 src/com/panozona/modules/imagebutton/ImageButton.as -> modules/ImageButton-1.0.swf
 src/com/panozona/modules/imagemap/ImageMap.as -> modules/ImageMap-1.0.swf
-src/com/panozona/modules/imagemap/IinfoBubble.as -> modules/infoBubble-1.0.swf
+src/com/panozona/modules/infobubble/IinfoBubble.as -> modules/InfoBubble-1.0.swf
+src/com/panozona/modules/jsgateway/JSGateway.as -> modules/JSGateway-1.0.swf
 src/com/panozona/modules/viewfinder/ViewFinder.as -> modules/ViewFinder-1.0.swf

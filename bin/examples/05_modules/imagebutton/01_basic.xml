@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
-	- use module to place images inside panorama window
-	- setting "handcursor" to false couses that image is transparent for mouse when rotating panorama
+	Use module to place images inside panorama window. Setting "handcursor" to false 
+	couses that image is transparent for mouse when rotating panorama.
 -->
 <SaladoPlayer>
 	<global debug="true">

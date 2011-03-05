@@ -4,11 +4,26 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
 		<link href="embed/style.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript">
+			
+			function getFlashMovie(movieName) {
+				var isIE = navigator.appName.indexOf("Microsoft") != -1;
+				return (isIE) ? window[movieName] : document[movieName];
+			}
+			
+			function printer(value){ // see xml configuration
+				alert(value);
+			}
+			
+			function handleClick(actionId){
+				document.getElementById( "SaladoPlayer" ).runAction(actionId);
+			}
+			
+		</script>
 		<script type="text/javascript" src="embed/swfobject.js"></script>
 		<script type="text/javascript">
 			var flashvars = {};
-			flashvars.xml = "examples/04_triggers/07_onleavetoattempt.xml"
-			//flashvars.xml = "examples/07_control/transition_slide.xml"
+			flashvars.xml = "examples/05_modules/jsgateway/01_basic.xml"
 			var params = {};
 			params.play = "true";
 			params.loop = "false";
@@ -33,6 +48,9 @@
 			</div>
 			<div style="text-align:center; margin-top:10px;">
 				<a href="http://panozona.com/wiki/">panozona.com/wiki</a> | <a href="http://github.com/mstandio/SaladoPlayer">SaladoPlayer</a> | <a href="http://github.com/mstandio/SaladoConverter">SaladoConverter</a> 
+			</div>
+			<div style="text-align:center; margin-top:10px;">
+				<u><a href="#" onClick="handleClick('javaScriptToSaladoPlayer');">Execute action "javaScriptToSaladoPlayer"</a></u>
 			</div>
 		</div>
 	</body>

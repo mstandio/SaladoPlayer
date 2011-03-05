@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	- bitmap for <extraButton/> is taken from bitmap grid of third and fourth row, first column for "a", second for "b" ect.
-	- extraButton can execute action on mouse press, here it prints text in trace window
+	Bitmap for <extraButton/> is taken from bitmap grid of third and fourth row, first column for "a", second for "b" ect.
+	extraButton can execute action on mouse press, here it prints text in trace window.
 -->
 <SaladoPlayer>
 	<global debug="true">

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	- buttons bitmap inside grid can have different sizes 
-	- bar can have bitmap background -x and -y repeated to fill its defined size
+	You can change position of background bar and all buttons inside panorama window.
 -->
 <SaladoPlayer>
 	<global debug="true">

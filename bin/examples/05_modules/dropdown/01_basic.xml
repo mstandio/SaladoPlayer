@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+	DropDown allows simple switching between panoramas. You can decide sequence of elements in drop-down list,
+	panoramas that will be loaded when user clicks on elements and labels describing those panoramas.
+-->
 <SaladoPlayer>
 	<global debug="true">
 		<control autorotation="enabled:false"/>

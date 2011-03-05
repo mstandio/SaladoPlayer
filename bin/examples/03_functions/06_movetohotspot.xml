@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	This function is very simillar to one described in 05_movetoview
+	- moveToHotspot moves camera to pan and tilt of given hotspot, with current camera field of view
+	  with speed of 20 degrees per second, using tween function Linear.easeNone
+	- moveToHotspotThen executes action when it has finished
+	- advancedMoveToHotspot is same as moveToHotspot, but allows setting target field of view, speed and tween function
+	- advancedMoveToHotspotThen executes action when it has finished
+	For avaible tween functions see: http://panozona.com/wiki/SaladoPlayer:Data_types
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml">
+			<image id="blueArrow" path="hotspots/images/blue_arrow.png" location="pan:0" mouse="onClick:moveToYellowArrow"/>
+			<image id="greenArrow" path="hotspots/images/green_arrow.png" location="pan:180" mouse="onClick:moveToRedArrowThen"/>
+			<image id="redArrow" path="hotspots/images/red_arrow.png" location="tilt:-85" mouse="onClick:advancedMoveToBlueArrow"/>
+			<image id="yellowArrow" path="hotspots/images/yellow_arrow.png" location="tilt:85" mouse="onClick:advancedMoveToGreenArrowThen"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ViewFinder path="modules/ViewFinder-1.0.swf"/>
+	</modules>
+	<actions>
+		<action id="moveToYellowArrow" content="SaladoPlayer.moveToHotspot(yellowArrow)"/>
+		<action id="moveToRedArrowThen" content="SaladoPlayer.moveToHotspotThen(redArrow,printZona)"/>
+		<action id="advancedMoveToBlueArrow" content="SaladoPlayer.advancedMoveToHotspot(blueArrow,120,30,Expo.easeIn)"/>
+		<action id="advancedMoveToGreenArrowThen" content="SaladoPlayer.advancedMoveToHotspotThen(greenArrow,NaN,30,Expo.easeIn,printPano)"/>
+		
+		<action id="printPano" content="SaladoPlayer.print(Pano)"/>
+		<action id="printZona" content="SaladoPlayer.print(Zona)"/>
+	</actions>
+</SaladoPlayer>

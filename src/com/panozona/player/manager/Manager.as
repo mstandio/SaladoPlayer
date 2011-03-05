@@ -54,13 +54,13 @@ package com.panozona.player.manager {
 		
 		protected var _currentPanoramaData:PanoramaData; // hmmm czy tutja to powinno byc publczne 
 		protected var _previousPanoramaData:PanoramaData; // to tak samo chyba nie powinno to tak wygladac 
-		protected var arrListeners:Array;  // hold hotspots mouse event listeners so that they can be removed
+		protected var arrListeners:Array; // hold hotspots mouse event listeners so that they can be removed
 		
 		public function Manager() {
 			description.addFunctionDescription("runAction", String);
-			description.addFunctionDescription("waitThen", Number, String);
 			description.addFunctionDescription("print", String);
 			description.addFunctionDescription("loadPano", String);
+			description.addFunctionDescription("waitThen", Number, String);
 			description.addFunctionDescription("moveToHotspot", String);
 			description.addFunctionDescription("moveToHotspotThen", String, String);
 			description.addFunctionDescription("moveToView", Number, Number, Number);
@@ -171,22 +171,32 @@ package com.panozona.player.manager {
 				_maximumVerticalFieldOfView = NaN;
 				_minimumVerticalFieldOfView = NaN;
 				
-				if(_previousPanoramaData != null){
+				/*if(_previousPanoramaData != null){
 					if (secondaryCanvas != null && canvas != null) {
 						var bd:BitmapData = new BitmapData(canvas.width, canvas.height);
 						bd.draw(canvas);
 						var bmp:Bitmap = new Bitmap(bd);
 						secondaryCanvas.addChildAt(bmp, numChildren);
 					}
-				}
+				}*/
 				
 				super.loadPanorama(panoramaData.params.clone());
-				loadHotspots(currentPanoramaData);
+				
 			}
 		}
 		
+		protected function panoramaLoaded(e:Event):void {
+			loadHotspots(currentPanoramaData);
+			panoramaIsMoving = false;
+			runAction(currentPanoramaData.onEnter);
+			if (_previousPanoramaData != null ){
+				runAction(currentPanoramaData.onEnterFrom[_previousPanoramaData.id]);
+			}
+			dispatchEvent(new PanoramaEvent(PanoramaEvent.PANORAMA_LOADED));
+		}
+		
 		protected function loadHotspots(panoramaData:PanoramaData):void {
-			hotspots = new Dictionary();
+			hotspots = new Dictionary(true);
 			var hotspotsLoader:LoadablesLoader = new LoadablesLoader();
 			hotspotsLoader.addEventListener(LoadLoadableEvent.LOST, hotspotLost);
 			hotspotsLoader.addEventListener(LoadLoadableEvent.LOADED, hotspotLoaded);
@@ -251,9 +261,9 @@ package com.panozona.player.manager {
 			managedChild.x = xc;
 			managedChild.y = yc;
 			managedChild.z = zc;
-			managedChild.rotationY = (- hotspotData.location.pan  + hotspotData.transform.rotationY) * piOver180;
+			managedChild.rotationY = (-hotspotData.location.pan + hotspotData.transform.rotationY) * piOver180;
 			managedChild.rotationX = (hotspotData.location.tilt + hotspotData.transform.rotationX) * piOver180;
-			managedChild.rotationZ = hotspotData.transform.rotationZ * piOver180
+			managedChild.rotationZ = hotspotData.transform.rotationZ * piOver180;
 			
 			managedChild.scaleX = hotspotData.transform.scaleX;
 			managedChild.scaleY = hotspotData.transform.scaleY;
@@ -261,6 +271,7 @@ package com.panozona.player.manager {
 			
 			hotspots[hotspotData as HotspotData] = managedChild;
 			addChild(managedChild);
+			updateChildren(_managedChildren, this);
 		}
 		
 		private function getMouseEventHandler(id:String):Function{
@@ -276,18 +287,8 @@ package com.panozona.player.manager {
 			dispatchEvent(new PanoramaEvent(PanoramaEvent.HOTSPOTS_LOADED));
 		}
 		
-		protected function panoramaLoaded(e:Event):void {
-			
-			panoramaIsMoving = false;
-			runAction(currentPanoramaData.onEnter);
-			if (_previousPanoramaData != null ){
-				runAction(currentPanoramaData.onEnterFrom[_previousPanoramaData.id]);
-			}
-			dispatchEvent(new PanoramaEvent(PanoramaEvent.PANORAMA_LOADED));
-		}
-		
 		protected function transitionComplete(e:Event):void {
-			while (secondaryCanvas.numChildren) secondaryCanvas.removeChildAt(0);
+			//while (secondaryCanvas.numChildren) secondaryCanvas.removeChildAt(0);
 			runAction(currentPanoramaData.onTransitionEnd);
 			if(_previousPanoramaData != null){
 				runAction(currentPanoramaData.onTransitionEndFrom[_previousPanoramaData.id]);
@@ -332,7 +333,9 @@ package com.panozona.player.manager {
 		}
 		
 		public function waitThen(time:Number, actionId:String):void {
-			// TODO: timer
+			var timer:Timer = new Timer(time*1000,1);
+			timer.addEventListener(TimerEvent.TIMER, function():void { runAction(actionId) }, false, 0, true);
+			timer.start();
 		}
 		
 		public function print(value:String):void {
