@@ -29,11 +29,26 @@ public class AutorotationCameraData extends EventDispatcher
 {	
 	public static var SPEED:String = "speed";
 	public static var FRAME_INCREMENT:String = "frameIncrement";
-		
+	
+	/**
+	 * delay in miliseconds before autorotation starts
+	 */
 	public var delay:int;
+	
+	/**
+	 * takes "speed" or "frameIncrement"
+	 */
 	public var mode:String;
-	public var speed:Number;  // in degrees / second
-	public var frameIncrement:Number // in degress / frame	
+	
+	/**
+	 * in degrees per second
+	 */
+	public var speed:Number;
+	
+	/**
+	 * in degress per frame
+	 */
+	public var frameIncrement:Number 
 	
 	protected var _isAutorotating:Boolean;
 	
@@ -41,11 +56,11 @@ public class AutorotationCameraData extends EventDispatcher
 	
 	public function AutorotationCameraData()
 	{
-		delay			 = 5000;
-		mode			 = "speed" // speed
-		speed 			 = 5;
-		frameIncrement	 = 0.0333;
-		_enabled		 = true; 
+		delay = 5000;
+		mode = "speed" // speed
+		speed = 5;
+		frameIncrement = 0.0333;
+		_enabled = true; 
 		_isAutorotating = false;
 	}
 	
@@ -58,13 +73,20 @@ public class AutorotationCameraData extends EventDispatcher
 		dispatchEvent( new Event(AutorotationEvent.AUTOROTATION_CHANGE));
 	}
 	
+	/**
+	 * Changing this value dispatches CameraEvent.ENABLED_CHANGE
+	 * Setting it to false disables autorotation completely.
+	 */
 	public function get enabled():Boolean {
 		return _enabled;
 	}
+	/**
+	 * @private
+	 */
 	public function set enabled(value:Boolean):void {
 		if (value == _enabled) return;
 		_enabled = value;
-		dispatchEvent( new Event(CameraEvent.ENABLED_CHANGE) );
-	}	
+		dispatchEvent( new Event(CameraEvent.ENABLED_CHANGE));
+	}
 }
 }

@@ -46,7 +46,7 @@ package test.com.panozona.player.manager.utils.configuration {
 			managerData.modulesData.push(new ModuleDataFactory("factory_b", "path_b"));
 			
 			managerData.panoramasData[0].hotspotsData.push(new HotspotDataImage("hs_1", "path_1"));
-			managerData.panoramasData[0].hotspotsData.push(new HotspotDataSwf("hs_2", "path_2", new XML()));
+			managerData.panoramasData[0].hotspotsData.push(new HotspotDataSwf("hs_2", "path_2"));
 			managerData.panoramasData[0].hotspotsData.push(new HotspotDataFactory("hs_3", "factory_b"));
 			
 			checkHotspots(managerData);
@@ -83,7 +83,7 @@ package test.com.panozona.player.manager.utils.configuration {
 		public function repeatingIdDifferentPanorama():void {
 			managerData.panoramasData[0].hotspotsData.push(new HotspotDataImage("hs_1", "path_1"));
 			managerData.panoramasData.push(new PanoramaData("pano_b", "path_b"));
-			managerData.panoramasData[1].hotspotsData.push(new HotspotDataSwf("hs_1", "path_2", new XML()));
+			managerData.panoramasData[1].hotspotsData.push(new HotspotDataSwf("hs_1", "path_2"));
 			
 			checkHotspots(managerData);
 			
@@ -94,7 +94,7 @@ package test.com.panozona.player.manager.utils.configuration {
 		
 		[Test]
 		public function missingPathSwf():void {
-			managerData.panoramasData[0].hotspotsData.push(new HotspotDataSwf("hs_1", null, new XML()));
+			managerData.panoramasData[0].hotspotsData.push(new HotspotDataSwf("hs_1", null));
 			
 			checkHotspots(managerData);
 			

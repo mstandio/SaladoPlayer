@@ -41,11 +41,11 @@ package com.panozona.hotspots.videohotspot.conroller{
 		
 		private function handleNavigationActiveChange(e:Event):void {
 			if (_barView.videoHotspotData.playerData.navigationActive) {
-				_barView.progressBar.y = _barView.videoHotspotData.settings.height -
+				_barView.progressBar.y = _barView.videoHotspotData.settings.size.height -
 					_barView.videoHotspotData.playerData.barHeightExpanded;
 				_barView.progressPointer.visible = true;
 			}else {
-				_barView.progressBar.y = _barView.videoHotspotData.settings.height -
+				_barView.progressBar.y = _barView.videoHotspotData.settings.size.height -
 					_barView.videoHotspotData.playerData.barHeightHidden;
 				_barView.progressPointer.visible = false;
 			}
@@ -62,14 +62,14 @@ package com.panozona.hotspots.videohotspot.conroller{
 		}
 		
 		private function onEnterFrame(e:Event):void {
-			if (_barView.progressBar.mouseX >= _barView.videoHotspotData.settings.width - _barView.progressPointer.width * 0.5){
-				_barView.progressPointer.x = _barView.videoHotspotData.settings.width - _barView.progressPointer.width;
+			if (_barView.progressBar.mouseX >= _barView.videoHotspotData.settings.size.width - _barView.progressPointer.width * 0.5){
+				_barView.progressPointer.x = _barView.videoHotspotData.settings.size.width - _barView.progressPointer.width;
 			}else if (_barView.progressBar.mouseX <= _barView.progressPointer.width * 0.5) {
 				_barView.progressPointer.x = 0;
-			}else if (_barView.progressBar.mouseX >= (_barView.videoHotspotData.settings.width - _barView.progressPointer.width) *
+			}else if (_barView.progressBar.mouseX >= (_barView.videoHotspotData.settings.size.width - _barView.progressPointer.width) *
 				_barView.videoHotspotData.streamData.loadedBytes / _barView.videoHotspotData.streamData.totalBytes +
 				_barView.progressPointer.width * 0.5) {
-				_barView.progressPointer.x = (_barView.videoHotspotData.settings.width - _barView.progressPointer.width) *
+				_barView.progressPointer.x = (_barView.videoHotspotData.settings.size.width - _barView.progressPointer.width) *
 					_barView.videoHotspotData.streamData.loadedBytes / _barView.videoHotspotData.streamData.totalBytes +
 					_barView.progressPointer.width * 0.5;
 			}else {
@@ -82,7 +82,7 @@ package com.panozona.hotspots.videohotspot.conroller{
 			// background
 			_barView.progressBar.graphics.beginFill(0x000000, 0);
 			_barView.progressBar.graphics.drawRect(0, 0,
-				_barView.videoHotspotData.settings.width,
+				_barView.videoHotspotData.settings.size.width,
 				(_barView.videoHotspotData.playerData.navigationActive?
 				_barView.videoHotspotData.playerData.barHeightExpanded:
 				_barView.videoHotspotData.playerData.barHeightHidden)
@@ -91,10 +91,10 @@ package com.panozona.hotspots.videohotspot.conroller{
 			_barView.progressBar.graphics.beginFill(0xff7f7f, 0.65);
 			_barView.progressBar.graphics.drawRect(0, 0,
 				(_barView.videoHotspotData.streamData.loadedBytes / _barView.videoHotspotData.streamData.totalBytes < 1)?
-				((_barView.videoHotspotData.settings.width - _barView.progressPointer.width) *
+				((_barView.videoHotspotData.settings.size.width - _barView.progressPointer.width) *
 					_barView.videoHotspotData.streamData.loadedBytes / _barView.videoHotspotData.streamData.totalBytes +
 					_barView.progressPointer.width * 0.5):
-				_barView.videoHotspotData.settings.width,
+				_barView.videoHotspotData.settings.size.width,
 				(_barView.videoHotspotData.playerData.navigationActive?
 				_barView.videoHotspotData.playerData.barHeightExpanded:
 				_barView.videoHotspotData.playerData.barHeightHidden)
@@ -103,10 +103,10 @@ package com.panozona.hotspots.videohotspot.conroller{
 			_barView.progressBar.graphics.beginFill(0xff0000, 0.85);
 			_barView.progressBar.graphics.drawRect(0, 0,
 				(_barView.videoHotspotData.streamData.viewTime / _barView.videoHotspotData.streamData.totalTime < 1)?
-				((_barView.videoHotspotData.settings.width - _barView.progressPointer.width) *
+				((_barView.videoHotspotData.settings.size.width - _barView.progressPointer.width) *
 					_barView.videoHotspotData.streamData.viewTime / _barView.videoHotspotData.streamData.totalTime+
 					_barView.progressPointer.width * 0.5):
-				_barView.videoHotspotData.settings.width,
+				_barView.videoHotspotData.settings.size.width,
 				(_barView.videoHotspotData.playerData.navigationActive?
 				_barView.videoHotspotData.playerData.barHeightExpanded:
 				_barView.videoHotspotData.playerData.barHeightHidden)
@@ -119,18 +119,18 @@ package com.panozona.hotspots.videohotspot.conroller{
 		private function translatePositionToValue():void {
 			if (_barView.progressBar.mouseX <= _barView.progressPointer.width * 0.5) {
 					_barView.videoHotspotData.streamData.seekTime = 0;
-			}else if (_barView.progressBar.mouseX >= _barView.videoHotspotData.settings.width - _barView.progressPointer.width * 0.5) {
+			}else if (_barView.progressBar.mouseX >= _barView.videoHotspotData.settings.size.width - _barView.progressPointer.width * 0.5) {
 				_barView.videoHotspotData.streamData.seekTime = _barView.videoHotspotData.streamData.totalTime - 1;
 			}else {
 				_barView.videoHotspotData.streamData.seekTime = ((_barView.progressBar.mouseX - _barView.progressPointer.width * 0.5) *
 					_barView.videoHotspotData.streamData.totalTime) 
-					/ (_barView.videoHotspotData.settings.width - _barView.progressPointer.width);
+					/ (_barView.videoHotspotData.settings.size.width - _barView.progressPointer.width);
 			}
 		}
 		
 		private function translateValueToPosition():void {
 			if (!_barView.videoHotspotData.barData.progressPointerDragged) {
-				_barView.progressPointer.x = (_barView.videoHotspotData.settings.width - _barView.progressPointer.width) *
+				_barView.progressPointer.x = (_barView.videoHotspotData.settings.size.width - _barView.progressPointer.width) *
 					_barView.videoHotspotData.streamData.viewTime / _barView.videoHotspotData.streamData.totalTime;
 			}
 		}

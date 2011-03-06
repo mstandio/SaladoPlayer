@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml">
+			<swf id="vlad" path="hotspots/VideoHotspot-1.0.swf" location="distance:600">
+				<settings splashPath="../../video/splash.jpg" videoPath="../../video/vlad.mp4" size="width:400,height:300"/>
+			</swf>
+		</panorama>
+		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml"/>
+		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml"/>
+		<panorama id="yellowChecker" path="panoramas/dz_yellow_check/yellow_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<DropDown path="modules/DropDown-1.0.swf">
+			<elements>
+				<element label="Blue checker" panorama="blueChecker"/>
+				<element label="Green checker" panorama="greenChecker"/>
+				<element label="Red checker" panorama="redChecker"/>
+				<element label="Yellow checker" panorama="yellowChecker"/>
+			</elements>
+		</DropDown>
+	</modules>
+</SaladoPlayer>

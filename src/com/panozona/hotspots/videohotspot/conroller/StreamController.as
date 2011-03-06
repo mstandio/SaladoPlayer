@@ -65,7 +65,7 @@ package com.panozona.hotspots.videohotspot.conroller {
 		}
 		
 		public function makeVideo():Video {
-			var result:Video = new Video(_videoHotspotData.settings.width, _videoHotspotData.settings.height);
+			var result:Video = new Video(_videoHotspotData.settings.size.width, _videoHotspotData.settings.size.height);
 			result.smoothing = true;
 			result.attachNetStream(netStream);
 			return result;

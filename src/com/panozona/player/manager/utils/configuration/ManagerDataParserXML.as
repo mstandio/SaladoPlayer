@@ -267,11 +267,17 @@ package com.panozona.player.manager.utils.configuration {
 						continue;
 					}
 					if (hotspotNode.localName() == "image") {
-						 hotspotData = new HotspotDataImage(hotspotId, hotspotNode.@path);
-						 panoramaData.hotspotsData.push(hotspotData as HotspotDataImage);
+						hotspotData = new HotspotDataImage(hotspotId, hotspotNode.@path);
+						panoramaData.hotspotsData.push(hotspotData as HotspotDataImage);
 					}else {
-						 hotspotData = new HotspotDataSwf(hotspotId, hotspotNode.@path, hotspotNode);
-						 panoramaData.hotspotsData.push(hotspotData as HotspotDataSwf);
+						hotspotData = new HotspotDataSwf(hotspotId, hotspotNode.@path);
+						var dataNode:DataNode;
+						for each(var hotspotChildNode:XML in hotspotNode.elements()) {
+							dataNode = new DataNode(hotspotChildNode.localName());
+							parseDataNodeRecursive(dataNode, hotspotChildNode);
+							(hotspotData as HotspotDataSwf).nodes.push(dataNode);
+						}
+						panoramaData.hotspotsData.push(hotspotData as HotspotDataSwf);
 					}
 				}else if (hotspotNode.localName() == "product") {
 					if (hotspotNode.@factory == undefined) {
@@ -304,54 +310,54 @@ package com.panozona.player.manager.utils.configuration {
 			}
 		}
 		
-		protected function parseModules(modulesData:Vector.<ModuleData>, modulesDataNode:XML):void {
+		protected function parseModules(modulesData:Vector.<ModuleData>, modulesNode:XML):void {
 			var moduleData:ModuleData;
-			var moduleNode:ModuleNode;
-			for each(var moduleDataNode:XML in modulesDataNode.elements()) {
-				if(moduleDataNode.@path == undefined ) {
+			var dataNode:DataNode;
+			for each(var moduleNode:XML in modulesNode.elements()) {
+				if(moduleNode.@path == undefined ) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Missing path for: " + moduleDataNode.localName()));
+						"Missing path for: " + moduleNode.localName()));
 					continue;
 				}
-				if (modulesDataNode.localName() == "modules") {
-					moduleData = new ModuleData(moduleDataNode.localName(), moduleDataNode.@path);
+				if (modulesNode.localName() == "modules") {
+					moduleData = new ModuleData(moduleNode.localName(), moduleNode.@path);
 					modulesData.push(moduleData);
-				}else if (modulesDataNode.localName() == "factories") {
-					moduleData = new ModuleDataFactory(moduleDataNode.localName(), moduleDataNode.@path);
-					if (moduleDataNode.@definition != undefined ) {
-						applySubAttributes((moduleData as ModuleDataFactory).definition, moduleDataNode.@definition);
+				}else if (modulesNode.localName() == "factories") {
+					moduleData = new ModuleDataFactory(moduleNode.localName(), moduleNode.@path);
+					if (moduleNode.@definition != undefined ) {
+						applySubAttributes((moduleData as ModuleDataFactory).definition, moduleNode.@definition);
 					}
 					modulesData.push(moduleData as ModuleData);
 				}else {
 					continue;
 				}
-				for each(var moduleChildNode:XML in moduleDataNode.elements()) {
-					moduleNode = new ModuleNode(moduleChildNode.localName());
-					parseModuleNodeRecursive(moduleNode, moduleChildNode);
-					moduleData.nodes.push(moduleNode);
+				for each(var moduleChildNode:XML in moduleNode.elements()) {
+					dataNode = new DataNode(moduleChildNode.localName());
+					parseDataNodeRecursive(dataNode, moduleChildNode);
+					moduleData.nodes.push(dataNode);
 				}
 			}
 		}
 		
-		protected function parseModuleNodeRecursive(moduleNode:ModuleNode, xmlNode:XML):void {
+		protected function parseDataNodeRecursive(dataNode:DataNode, moduleNode:XML):void {
 			var recognizedValue:*;
-			for each(var attribute:XML in xmlNode.attributes()) {
+			for each(var attribute:XML in moduleNode.attributes()) {
 				recognizedValue = recognizeContent(attribute);
-				moduleNode.attributes[attribute.name().toString()] = recognizedValue;
+				dataNode.attributes[attribute.name().toString()] = recognizedValue;
 			}
-			var moduleChildNode:ModuleNode;
-			for each(var childNode:XML in xmlNode.children()){
-				if (childNode.nodeKind() == "text"){
-					if (moduleNode.attributes["text"] == undefined) {
-						moduleNode.attributes["text"] = childNode.toString();
+			var childDataNode:DataNode;
+			for each(var moduleChildNode:XML in moduleNode.children()){
+				if (moduleChildNode.nodeKind() == "text"){
+					if (dataNode.attributes["text"] == undefined) {
+						dataNode.attributes["text"] = moduleChildNode.toString();
 					}else {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Text value allready exists in: " + moduleNode.name));
+							"Text value allready exists in: " + dataNode.name));
 					}
 				}else {
-					moduleChildNode = new ModuleNode(childNode.localName());
-					moduleNode.childNodes.push(moduleChildNode);
-					parseModuleNodeRecursive(moduleChildNode, childNode);
+					childDataNode = new DataNode(moduleChildNode.localName());
+					parseDataNodeRecursive(childDataNode, moduleChildNode);
+					dataNode.childNodes.push(childDataNode);
 				}
 			}
 		}

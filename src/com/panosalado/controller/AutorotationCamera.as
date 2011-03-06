@@ -43,7 +43,6 @@ import flash.utils.Timer;
 
 public class AutorotationCamera extends EventDispatcher implements ICamera
 {
-	
 	protected var _stage:Stage;
 	protected var _viewData:ViewData;
 	protected var _futureViewData:ViewData;
@@ -59,16 +58,18 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 	
 	protected var _loadingStatistics:LoadingStatistics;
 	protected var _render:Function;
-		
+	
 	protected var _renderCount:int;
-		
+	
+	private var rotationDirection:Number = 1;
+	
 	public function AutorotationCamera() {
 		_running = false;
 		_renderCount = 0;
 	}
 	
 	public function processDependency(reference:Object,characteristics:*):void {
-		if 		(characteristics == Characteristics.VIEW_DATA) viewData = reference as ViewData;
+		if      (characteristics == Characteristics.VIEW_DATA) viewData = reference as ViewData;
 		else if (characteristics == Characteristics.AUTOROTATION_CAMERA_DATA) {
 			cameraData = reference as AutorotationCameraData;
 		}
@@ -95,8 +96,8 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 	}
 	
 	protected function stopAutorotatorNow():void
-	{	
-		if (_stage) _stage.removeEventListener( Event.ENTER_FRAME, enterFrameHandler );		
+	{
+		if (_stage) _stage.removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
 		__delayTimer.stop();
 		__delayTimer.reset();
 		dispatchEvent( new CameraEvent(CameraEvent.INACTIVE) );
@@ -130,7 +131,12 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		else if (_cameraData.mode == AutorotationCameraData.FRAME_INCREMENT)
 			delta = _cameraData.frameIncrement;
 		
-		// set pan
+		if ( _viewData._pan <= _viewData._minimumPan) {
+			rotationDirection = -1;
+		}else if ( _viewData._pan >= _viewData._maximumPan) {
+			rotationDirection = 1;
+		}
+		delta = delta * rotationDirection;
 		_viewData.pan -= delta;
 		
 		// set tilt;
@@ -196,7 +202,7 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 			futureViewData.fieldOfView +=  futureDelta;
 			if ( futureViewData._fieldOfView > __neutralFieldOfView ) futureViewData.fieldOfView = __neutralFieldOfView;
 		}
-
+		
 		_render(null, futureViewData); //null is the Event that would signify that the render function is being called by Stage.invalidate(), hence it is null.
 	}
 	
@@ -265,14 +271,19 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		_render = (_viewData as PanoSalado).render;
 		__neutralTilt = _viewData._tilt;
 		__neutralFieldOfView = _viewData._fieldOfView;
+		_viewData.addEventListener(Event.COMPLETE, panoramaChangeHandler, false, 0, true);
 		inactiveHandler(); 
+	}
+	
+	final protected function panoramaChangeHandler(e:Event):void {
+		rotationDirection = 1;
 	}
 	
 	final protected function activeHandler(e:Event):void {
 		if (_running){
 			stopAutorotatorNow();
 		}
-	}	
+	}
 	
 	final protected function inactiveHandler(e:Event = null):void {
 		if (_viewData && _cameraData && (_cameraData.enabled)) {

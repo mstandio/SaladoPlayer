@@ -47,7 +47,7 @@ package test.com.panozona.player.manager.utils.configuration {
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
 			
-			parseModules(moduleDatas, nodeXML);	
+			parseModules(moduleDatas, nodeXML);
 			
 			Assert.assertEquals(2, moduleDatas.length);
 			

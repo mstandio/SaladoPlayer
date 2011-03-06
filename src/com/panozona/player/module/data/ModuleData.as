@@ -24,7 +24,7 @@ package com.panozona.player.module.data {
 	
 	public class ModuleData implements ILoadable{
 		
-		public const nodes:Vector.<ModuleNode> = new Vector.<ModuleNode>();
+		public const nodes:Vector.<DataNode> = new Vector.<DataNode>();
 		
 		private var _name:String;
 		private var _path:String;

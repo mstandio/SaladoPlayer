@@ -19,8 +19,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.examplemodule.data {
 	
 	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.utils.ModuleDataTranslator;
+	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class ExampleModuleData{
 		
@@ -34,7 +34,7 @@ package com.panozona.modules.examplemodule.data {
 		 * 
 		 * This class defines how nodes that are direct childen nodes of <module/>
 		 * node are interpreted. It decides what node names are allowed and uses 
-		 * ModuleDataTranslator instance to recurrently read ModuleData object
+		 * DataNodeTranslator instance to recurrently read ModuleData object
 		 * into proper configuration objects. For example:
 		 * 
 		 * <module name="ExampleModule">
@@ -51,15 +51,15 @@ package com.panozona.modules.examplemodule.data {
 		 */
 		public function ExampleModuleData(moduleData:ModuleData, saladoPlayer:Object) {
 			
-			var translator:ModuleDataTranslator = new ModuleDataTranslator(saladoPlayer.managerData.debugMode);
+			var translator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
 			
-			for each(var moduleNode:ModuleNode in moduleData.nodes) {
-				if (moduleNode.name == "settings") {
-					translator.moduleNodeToObject(moduleNode, settings);
-				}else if (moduleNode.name == "someParent") {
-					translator.moduleNodeToObject(moduleNode, someParent);
+			for each(var dataNode:DataNode in moduleData.nodes) {
+				if (dataNode.name == "settings") {
+					translator.dataNodeToObject(dataNode, settings);
+				}else if (dataNode.name == "someParent") {
+					translator.dataNodeToObject(dataNode, someParent);
 				}else {
-					throw new Error("Invalid node name: " + moduleNode.name);
+					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
 			

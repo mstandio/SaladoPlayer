@@ -18,38 +18,76 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.hotspots.videohotspot {
 	
-	//import com.panosalado.view.SwfHotspot;
 	import com.panozona.hotspots.videohotspot.conroller.PlayerController;
 	import com.panozona.hotspots.videohotspot.model.VideoHotspotData;
+	import com.panozona.hotspots.videohotspot.model.StreamData;
 	import com.panozona.hotspots.videohotspot.view.PlayerView;
 	import flash.events.Event;
 	import flash.display.Sprite;
+	import flash.system.ApplicationDomain;
 	
-	//public class VideoHotspot extends SwfHotspot {
 	public class VideoHotspot extends Sprite {
-		
-		private var videoHotspotData:VideoHotspotData;
 		
 		private var playerView:PlayerView;
 		private var playerController:PlayerController;
 		
-		public function VideoHotspot():void {
+		protected var saladoPlayer:Object;
+		protected var hotspotDataSwf:Object;
+		
+		protected var panoramaEvent:Object;
+		
+		private var videoHotspotData:VideoHotspotData;
+		
+		public function VideoHotspot():void { // 1.
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
-			//super();
 		}
 		
-		private function init(e:Event = null):void {
+		public function references(saladoPlayer:Object, hotspotDataSwf:Object):void { // 2.
+			var saladoPlayerClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.SaladoPlayer") as Class;
+			if (saladoPlayer is saladoPlayerClass) { this.saladoPlayer = saladoPlayer;}
+			var hotspotDataSwfClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.data.panoramas.HotspotDataSwf") as Class;
+			if (hotspotDataSwf is hotspotDataSwfClass) { this.hotspotDataSwf = hotspotDataSwf; }
+		}
+		
+		private function init(e:Event = null):void { // 3.
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-		//override protected function hotspotReady():void {
-			videoHotspotData = new VideoHotspotData(); // TODO: hook it up with SaladoPlayer
+			
+			if (saladoPlayer == null || hotspotDataSwf == null) {
+				printError("No SaladoPlayer reference.");
+				return;
+			}
+			
+			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0 , true);
+			
+			
+			try {
+				videoHotspotData = new VideoHotspotData(hotspotDataSwf, saladoPlayer);
+			}catch (e:Error) {
+				printError(e.message);
+				return;
+			}
 			
 			playerView = new PlayerView(videoHotspotData);
-			//playerView.x = - playerView.width * 0.5;
-			//playerView.y = - playerView.height * 0.5;
+			playerView.x = - playerView.width * 0.5;
+			playerView.y = - playerView.height * 0.5;
 			addChild(playerView);
 			
 			playerController = new PlayerController(playerView);
+		}
+		
+		private function onPanoramaStartedLoading(e:Event):void {
+			videoHotspotData.streamData.streamState = StreamData.STATE_STOP;
+			while (numChildren) removeChildAt(0);
+		}
+		
+		protected function printError(message:String):void {
+			if (saladoPlayer != null && ("traceWindow" in saladoPlayer)) {
+				saladoPlayer.traceWindow.printError("AdvancedHotspot: " + message);
+			}else{
+				trace(message);
+			}
 		}
 	}
 }

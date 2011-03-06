@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Buttons bitmap inside grid can have different sizes, bar can have
+	bitmap background -x and -y repeated to fill its defined size
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<ButtonBar path="modules/ButtonBar-1.0.swf">
+			<bar path="modules/images/buttonbar/bar/bar_220x30_green.png" size="height:35,width:220"/>
+			<buttons path="modules/images/buttonbar/buttons/buttons_25x25_green.png" buttonSize="width:25,height:25">
+				<button name="up"/>
+				<button name="down"/>
+				<button name="left"/>
+				<button name="right"/>
+				<button name="in"/>
+				<button name="out"/>
+				<button name="drag"/>
+				<button name="fullscreen"/>
+			</buttons>
+		</ButtonBar>
+	</modules>
+</SaladoPlayer>

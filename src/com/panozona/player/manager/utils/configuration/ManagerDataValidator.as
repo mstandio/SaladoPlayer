@@ -104,13 +104,6 @@ package com.panozona.player.manager.utils.configuration{
 								"Missig hotspot path: " + hotspotData.id));
 							continue;
 						}
-						if ((hotspotData is HotspotDataSwf)) {
-							if ((hotspotData as HotspotDataSwf).xml == null) {
-								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-									"Missig hotspot xml: " + hotspotData.id));
-								continue;
-							}
-						}
 					}else if (hotspotData is HotspotDataFactory) {
 						moduleData = managerData.getModuleDataByName((hotspotData as HotspotDataFactory).factory);
 						if (!(moduleData is ModuleDataFactory)){

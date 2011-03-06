@@ -20,8 +20,8 @@ package com.panozona.modules.imagemap.model {
 	
 	import com.panozona.modules.imagemap.utils.ImageMapDataValidator;
 	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.utils.ModuleDataTranslator;
+	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class ImageMapData {
 		
@@ -30,16 +30,16 @@ package com.panozona.modules.imagemap.model {
 		public var mapData:MapData = new MapData();
 		
 		public function ImageMapData(moduleData:ModuleData, debugMode:Boolean) {
-			var tarnslator:ModuleDataTranslator = new ModuleDataTranslator(debugMode);
-			for each(var moduleNode:ModuleNode in moduleData.nodes) {
-				if (moduleNode.name == "window") {
-					tarnslator.moduleNodeToObject(moduleNode, windowData);
-				}else if (moduleNode.name == "viewer") {
-					tarnslator.moduleNodeToObject(moduleNode, contentViewerData.viewer);
-				}else if (moduleNode.name == "maps") {
-					tarnslator.moduleNodeToObject(moduleNode, mapData.maps);
+			var tarnslator:DataNodeTranslator = new DataNodeTranslator(debugMode);
+			for each(var dataNode:DataNode in moduleData.nodes) {
+				if (dataNode.name == "window") {
+					tarnslator.dataNodeToObject(dataNode, windowData);
+				}else if (dataNode.name == "viewer") {
+					tarnslator.dataNodeToObject(dataNode, contentViewerData.viewer);
+				}else if (dataNode.name == "maps") {
+					tarnslator.dataNodeToObject(dataNode, mapData.maps);
 				}else {
-					throw new Error("Invalid node name: " + moduleNode.name);
+					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
 			

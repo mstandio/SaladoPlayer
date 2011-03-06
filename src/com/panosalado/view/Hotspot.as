@@ -18,11 +18,16 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panosalado.view {
 	
+	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	
 	public class Hotspot extends ManagedChild{
 		
 		public function Hotspot(displayObject:DisplayObject):void {
+			if(displayObject is Bitmap){
+				displayObject.x = -displayObject.width * 0.5;
+				displayObject.y = -displayObject.height * 0.5;
+			}
 			addChild(displayObject);
 		}
 	}

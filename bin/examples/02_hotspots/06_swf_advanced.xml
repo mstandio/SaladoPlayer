@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Advanced swf hotspots can communicate with SaladoPlayer and can be configured.
+	Configuration is validated after hotspot is loaded in given pano.
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="GreenChecker" path="panoramas/dz_green_check/green_check_f.xml">
+			<swf id="swf_A" location="pan:20" path="hotspots/AdvancedHotspot-1.0.swf" mouse="onClick:helloA">
+				<settings path="hotspots/images/red_arrow.png" mouseOver="scale:2,time:1,transition:Linear.easeNone" mouseOut="time:1,transition:Expo.easeInOut"/>
+			</swf>
+			<swf id="swf_B" location="pan:0" path="hotspots/AdvancedHotspot-1.0.swf" mouse="onClick:helloB">
+				<settings path="hotspots/images/green_arrow.png" beat="false"/>
+			</swf>
+			<swf id="swf_C" location="pan:-20" path="hotspots/AdvancedHotspot-1.0.swf" mouse="onClick:helloC">
+				<settings path="hotspots/images/yellow_arrow.png" beatUp="time:0.25,scale:1.3,transition:Bounce.easeOut" beatDown="time:0.35,transition:Linear.easeNone"/>
+			</swf>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="helloA" content="SaladoPlayer.print(Hello I am swf hotspot swf_A)"/>
+		<action id="helloB" content="SaladoPlayer.print(Hello I am swf hotspot swf_B)"/>
+		<action id="helloC" content="SaladoPlayer.print(Hello I am swf hotspot swf_C)"/>
+	</actions>
+</SaladoPlayer>

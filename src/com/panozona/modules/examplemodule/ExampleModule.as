@@ -19,11 +19,11 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.examplemodule {
 	
 	import caurina.transitions.Tweener;
-	import com.robertpenner.easing.*;
 	import com.panozona.modules.examplemodule.data.*;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.Module;
+	import com.robertpenner.easing.*;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -52,7 +52,7 @@ package com.panozona.modules.examplemodule {
 	 * </module>
 	 * 
 	 * Each node can contain attributes of some specific types. Data from xml is obtained 
-	 * by SaladoPlayer, and converted to ModuleNode tree. This tree can be easily converted 
+	 * by SaladoPlayer, and converted to DataNode tree. This tree can be easily converted 
 	 * into internal module data structure. Module can also provide data validation.
 	 * For details see comments in com.panozona.modules.examplemodule.data.* classes
 	 * For Example:
@@ -107,7 +107,7 @@ package com.panozona.modules.examplemodule {
 		/**
 		 * Entry point - module is added to stage saladoPlayer reference is set. 
 		 * moduleReady is surrounded with try/cacth in case of any error here, 
-		 * module will be removed. ModuleData object contains ModuleNode tree 
+		 * module will be removed. ModuleData object contains DataNode tree 
 		 * with module configuration obtained by SaladoPlayer. 
 		 * 
 		 * @param	moduleData
@@ -126,8 +126,9 @@ package com.panozona.modules.examplemodule {
 			
 			buildModule();
 			
-			stage.addEventListener(Event.RESIZE, handleStageResize, false, 0, true); 
-			handleStageResize();
+			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
+			saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
+			handleResize();
 		}
 		
 		private function buildModule():void {
@@ -204,7 +205,7 @@ package com.panozona.modules.examplemodule {
 		 * when Saladolayer is embeded into other application, module will remain 
 		 * inside panorama window. 
 		 */
-		private function handleStageResize(e:Event = null):void {
+		private function handleResize(e:Event = null):void {
 			if (exampleModuleData.settings.align.horizontal == Align.LEFT) {
 				window.x = 0;
 			}else if (exampleModuleData.settings.align.horizontal == Align.RIGHT) {

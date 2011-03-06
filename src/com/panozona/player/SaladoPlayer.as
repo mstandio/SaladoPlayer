@@ -204,6 +204,10 @@ package com.panozona.player {
 				runValidator();
 			}
 			addChild(traceWindow); // to make it most on top
+			addChild(new Branding());
+			if (managerData.statsData.visible) {
+				addChild(new Stats());
+			}
 			manager.loadFirstPanorama();
 		}
 		

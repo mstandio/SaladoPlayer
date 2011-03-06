@@ -33,6 +33,7 @@ package com.panozona.modules.imagebutton{
 	import flash.events.MouseEvent;
 	import flash.net.navigateToURL;
 	import flash.net.URLRequest;
+	import flash.system.ApplicationDomain;
 	
 	public class ImageButton extends Module {
 		
@@ -62,10 +63,12 @@ package com.panozona.modules.imagebutton{
 				loaders[i].contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonLost);
 				loaders[i].load(new URLRequest(button.path));
 			}
-			stage.addEventListener(Event.RESIZE, handleStageResize, false, 0, true);
+			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
+			saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
+			handleResize();
 		}
 		
-		private function handleStageResize(e:Event = null):void {
+		private function handleResize(e:Event = null):void {
 			for each (var wrapper:Wrapper in wrappers) {
 				placeSprite(wrapper.sprite, wrapper.button.align, wrapper.button.move);
 			}

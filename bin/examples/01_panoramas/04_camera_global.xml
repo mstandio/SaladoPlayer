@@ -2,7 +2,9 @@
 <!-- 
 	Camera attribute in global panoramas is same as in regular panorama, values set here
 	will be applied to any panorama that has not such value set. By default global panoramas
-	have maxFov set to 120 and minFov set to 30. 
+	have maxFov set to 120 and minFov set to 30.
+	For instance: in global camera have set maxTilt to 45, this won't be applied to panorama "greenCheck"
+	couse it has its own maxTilt, however it will be applied to panorama "blueCheck"
 -->
 <SaladoPlayer>
 	<global debug="true">

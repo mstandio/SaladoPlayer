@@ -20,18 +20,18 @@
 				<bubble id="b2" path="modules/images/infobubble/red.jpg"/>
 			</bubbles>
 		</InfoBubble>
-		<ButtonsBar path="modules/ButtonsBar-1.0.swf">
+		<ButtonBar path="modules/ButtonBar-1.0.swf">
 			<buttons path="modules/images/buttonsbar/buttons/buttons_30x30_blue.png">
 				<extraButton name="a" action="bubToggle"/>
 			</buttons>
-		</ButtonsBar>
+		</ButtonBar>
 	</modules>
 	<actions>
 		<action id="showb1" content="InfoBubble.showBubble(b1)"/>
 		<action id="showb2" content="InfoBubble.showBubble(b2)"/>
 		<action id="hide" content="InfoBubble.hideBubble()"/>
 		<action id="bubToggle" content="InfoBubble.toggleActive()"/>
-		<action id="onBubAct" content="ButtonsBar.setExtraButtonActive(a,true)"/>
-		<action id="onBubDisact" content="ButtonsBar.setExtraButtonActive(a,false)"/>
+		<action id="onBubAct" content="ButtonBar.setExtraButtonActive(a,true)"/>
+		<action id="onBubDisact" content="ButtonBar.setExtraButtonActive(a,false)"/>
 	</actions>
 </SaladoPlayer>

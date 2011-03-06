@@ -1,23 +1,24 @@
 ﻿/*
-Copyright 2010 Marek Standio.
+Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
 
 SaladoPlayer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published 
-by the Free Software Foundation, either version 3 of the License, 
+it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
 
 SaladoPlayer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+but WITHOUT ANY WARRANTY; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
+along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils {
 	
+	import com.panosalado.events.*;
 	import com.panozona.player.*;
 	import com.panozona.player.manager.data.global.*;
 	import com.panozona.player.module.data.property.*;
@@ -41,6 +42,8 @@ package com.panozona.player.manager.utils {
 		private var traceData:TraceData;
 		private var debugMode:Boolean = true;
 		
+		private var saladoPlayer:SaladoPlayer;
+		
 		private static var __instance:Trace;
 		
 		public static function get instance():Trace {
@@ -63,11 +66,12 @@ package com.panozona.player.manager.utils {
 		}
 		
 		private function stageReady(e:Event = null):void {
-			
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
 			
-			traceData = (this.parent as SaladoPlayer).managerData.traceData;
-			debugMode = (this.parent as SaladoPlayer).managerData.debugMode;
+			saladoPlayer = (this.parent as SaladoPlayer);
+			
+			traceData = saladoPlayer.managerData.traceData;
+			debugMode = saladoPlayer.managerData.debugMode;
 			
 			if (!debugMode){
 				buffer = "";
@@ -203,8 +207,8 @@ package com.panozona.player.manager.utils {
 			btnScrollDown.x = traceData.size.width - btnSize - 1;
 			btnScrollDown.y = traceData.size.height - btnSize - 1;
 			
-			stage.addEventListener(Event.RESIZE, handleStageResize);
-			handleStageResize();
+			saladoPlayer.manager.addEventListener(ViewEvent.BOUNDS_CHANGED, handleResize ,false, 0, true);
+			handleResize();
 		}
 		
 		public function printError(message:String):void {
@@ -324,28 +328,26 @@ package com.panozona.player.manager.utils {
 			removeEventListener(Event.ENTER_FRAME, scrollUpOnEnter);
 		}
 		
-		private function handleStageResize(e:Event = null):void {
-			var boundsWidth:Number = (this.parent as SaladoPlayer).manager.boundsWidth;
-			var boundsHeight:Number = (this.parent as SaladoPlayer).manager.boundsHeight;
+		private function handleResize(e:Event = null):void {
 			if (traceData.align.horizontal == Align.RIGHT) {
-				btnOpen.x = boundsWidth - btnOpen.width;
-				window.x = boundsWidth - traceData.size.width;
+				btnOpen.x = saladoPlayer.manager.boundsWidth - btnOpen.width;
+				window.x = saladoPlayer.manager.boundsWidth - traceData.size.width;
 			}else if (traceData.align.horizontal == Align.LEFT) {
 				btnOpen.x = 0;
-				window.x  = 0;
+				window.x = 0;
 			}else{ // center
-				btnOpen.x = (boundsWidth - btnOpen.width)*0.5;
-				window.x = (boundsWidth - traceData.size.width) * 0.5;
+				btnOpen.x = (saladoPlayer.manager.boundsWidth - btnOpen.width)*0.5;
+				window.x = (saladoPlayer.manager.boundsWidth - traceData.size.width) * 0.5;
 			}
 			if (traceData.align.vertical == Align.TOP) {
 				btnOpen.y = 0;
 				window.y = 0;
 			}else if (traceData.align.vertical == Align.BOTTOM) {
-				btnOpen.y = boundsHeight- btnOpen.height;
-				window.y = boundsHeight - traceData.size.height;
+				btnOpen.y = saladoPlayer.manager.boundsHeight- btnOpen.height;
+				window.y = saladoPlayer.manager.boundsHeight - traceData.size.height;
 			}else { // middle
-				btnOpen.y = (boundsHeight - btnOpen.height)*0.5;
-				window.y = (boundsHeight - traceData.size.height)*0.5;
+				btnOpen.y = (saladoPlayer.manager.boundsHeight - btnOpen.height)*0.5;
+				window.y = (saladoPlayer.manager.boundsHeight - traceData.size.height)*0.5;
 			}
 			btnOpen.x += traceData.move.horizontal;
 			window.x += traceData.move.horizontal;

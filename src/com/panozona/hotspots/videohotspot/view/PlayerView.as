@@ -59,22 +59,22 @@ package com.panozona.hotspots.videohotspot.view {
 			this.videoHotspotData = videoHotspotData;
 			
 			graphics.beginFill(0x000000);
-			graphics.drawRect(0, 0, videoHotspotData.settings.width, videoHotspotData.settings.height);
+			graphics.drawRect(0, 0, videoHotspotData.settings.size.width, videoHotspotData.settings.size.height);
 			graphics.endFill();
 			
 			playBigButton = new Sprite();
 			playBigButton.buttonMode = true;
 			playBigButton.addChild(new Bitmap(new Bitmap_bigPlay().bitmapData));
-			playBigButton.x = (videoHotspotData.settings.width - playBigButton.width) * 0.5;
-			playBigButton.y = (videoHotspotData.settings.height - playBigButton.height) * 0.5;
+			playBigButton.x = (videoHotspotData.settings.size.width - playBigButton.width) * 0.5;
+			playBigButton.y = (videoHotspotData.settings.size,height - playBigButton.height) * 0.5;
 			playBigButton.visible = true;
 			playBigButton.addEventListener(MouseEvent.CLICK, performPlay, false, 0, true);
 			
 			replayBigButton = new Sprite();
 			replayBigButton.buttonMode = true;
 			replayBigButton.addChild(new Bitmap(new Bitmap_bigReplay().bitmapData));
-			replayBigButton.x = (videoHotspotData.settings.width - replayBigButton.width) * 0.5;
-			replayBigButton.y = (videoHotspotData.settings.height - replayBigButton.height) * 0.5;
+			replayBigButton.x = (videoHotspotData.settings.size.width - replayBigButton.width) * 0.5;
+			replayBigButton.y = (videoHotspotData.settings.size.height - replayBigButton.height) * 0.5;
 			replayBigButton.visible = false;
 			replayBigButton.addEventListener(MouseEvent.CLICK, performReplay, false, 0, true);
 			
@@ -91,7 +91,7 @@ package com.panozona.hotspots.videohotspot.view {
 			pauseSmallButton.addEventListener(MouseEvent.CLICK, performPause, false, 0, true);
 			
 			soundView = new SoundView(videoHotspotData);
-			soundView.x = videoHotspotData.settings.width - soundView.width - 10;
+			soundView.x = videoHotspotData.settings.size.width - soundView.width - 10;
 			soundView.y = 0;
 			
 			panelSmallButtons = new Sprite();
@@ -99,7 +99,7 @@ package com.panozona.hotspots.videohotspot.view {
 			panelSmallButtons.addChild(stopSmallButton);
 			panelSmallButtons.addChild(soundView);
 			panelSmallButtons.x = 0;
-			panelSmallButtons.y = videoHotspotData.settings.height - 10 - videoHotspotData.playerData.barHeightExpanded - pauseSmallButton.height;
+			panelSmallButtons.y = videoHotspotData.settings.size.height - 10 - videoHotspotData.playerData.barHeightExpanded - pauseSmallButton.height;
 			panelSmallButtons.visible = false;
 			
 			barView = new BarView(videoHotspotData);

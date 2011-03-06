@@ -18,8 +18,10 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils {
 	
+	import com.panosalado.events.*;
 	import com.panozona.player.*;
 	import com.panozona.player.manager.data.*;
+	import com.panozona.player.module.data.property.*;
 	import flash.display.*;
 	import flash.events.*;
 	import net.hires.debug.*;
@@ -27,7 +29,7 @@ package com.panozona.player.manager.utils {
 	public class Stats extends Sprite{
 		
 		private var stats:net.hires.debug.Stats;
-		private var startsData:StatsData
+		private var saladoPlayer:SaladoPlayer;
 		
 		public function Stats() {
 			if (stage) stageReady();
@@ -36,33 +38,31 @@ package com.panozona.player.manager.utils {
 		
 		private function stageReady(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
-			startsData = (this.parent as SaladoPlayer).managerData.statsData;
+			saladoPlayer = (this.parent as SaladoPlayer);
 			stats = new net.hires.debug.Stats();
 			addChild(stats);
-			stage.addEventListener(Event.RESIZE, handleStageResize);
-			handleStageResize();
+			
+			saladoPlayer.manager.addEventListener(ViewEvent.BOUNDS_CHANGED, handleResize ,false, 0, true);
+			handleResize();
 		}
 		
-		private function handleStageResize(e:Event = null):void {
-			var boundsWidth:Number = (this.parent as SaladoPlayer).manager.boundsWidth;
-			var boundsHeight:Number = (this.parent as SaladoPlayer).manager.boundsHeight;
-			if (statsData.align.horizontal == Align.RIGHT) {
-				stats.x = boundsWidth - stats.width;
-			}else if (statsData.align.horizontal == Align.LEFT) {
+		private function handleResize(e:Event = null):void {
+			if (saladoPlayer.managerData.statsData.align.horizontal == Align.RIGHT) {
+				stats.x = saladoPlayer.manager.boundsWidth - stats.width;
+			}else if (saladoPlayer.managerData.statsData.align.horizontal == Align.LEFT) {
 				stats.x = 0;
 			}else{ // center
-				stats.x = (boundsWidth - stats.width)*0.5;
+				stats.x = (saladoPlayer.manager.boundsWidth - stats.width)*0.5;
 			}
-			if (statsData.align.vertical == Align.TOP) {
+			if (saladoPlayer.managerData.statsData.align.vertical == Align.TOP) {
 				stats.y = 0;
-			}else if (statsData.align.vertical == Align.BOTTOM) {
-				btnOpen.y = boundsHeight- stats.height;
+			}else if (saladoPlayer.managerData.statsData.align.vertical == Align.BOTTOM) {
+				stats.y = saladoPlayer.manager.boundsHeight- stats.height;
 			}else { // middle
-				stats.y = (boundsHeight - stats.height) * 0.5;
-				
+				stats.y = (saladoPlayer.manager.boundsHeight - stats.height) * 0.5;
 			}
-			stats.x += statsData.move.horizontal;
-			stats.y += statsData.move.vertical;
+			stats.x += saladoPlayer.managerData.statsData.move.horizontal;
+			stats.y += saladoPlayer.managerData.statsData.move.vertical;
 		}
 	}
 }

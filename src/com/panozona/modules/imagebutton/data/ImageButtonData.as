@@ -21,18 +21,18 @@ package com.panozona.modules.imagebutton.data{
 	import com.panozona.modules.imagebutton.data.structure.Button;
 	import com.panozona.modules.imagebutton.data.structure.Butttons;
 	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.utils.ModuleDataTranslator;
+	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class ImageButtonData{
 		
 		public var buttons:Butttons = new Butttons();
 		
 		public function ImageButtonData(moduleData:ModuleData, saladoPlayer:Object) {
-			var tarnslator:ModuleDataTranslator = new ModuleDataTranslator(saladoPlayer.managerData.debugMode);
-			for each(var moduleNode:ModuleNode in moduleData.nodes) {
-				if (moduleNode.name == "buttons") {
-					tarnslator.moduleNodeToObject(moduleNode, buttons);
+			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
+			for each(var dataNode:DataNode in moduleData.nodes) {
+				if (dataNode.name == "buttons") {
+					tarnslator.dataNodeToObject(dataNode, buttons);
 				}else {
 					throw new Error("Unrecognized node: " + moduleData.name);
 				}

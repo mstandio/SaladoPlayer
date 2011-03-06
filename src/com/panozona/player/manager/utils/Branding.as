@@ -18,72 +18,76 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils{
 	
-	import com.panozona.player.module.data.property.*;
+	import com.panosalado.events.*;
+	import com.panozona.player.*;
 	import com.panozona.player.manager.data.global.*;
 	import com.panozona.player.manager.utils.*;
+	import com.panozona.player.module.data.property.*;
 	import flash.display.*;
 	import flash.events.*;
 	import flash.net.*;
+	import flash.ui.*;
 	
 	public class Branding extends Sprite{
 		
 		[Embed(source="../assets/powered_by_saladoplayer.png")]
 		private static var Bitmap_pbsp:Class;
 		
+		private var saladoPlayer:SaladoPlayer;
+		
 		private var brandingButton:Sprite;
 		
-		private var brandingData:BrandingData;
-		
-		public function Branding(brandingData:BrandingData) {
-			this.brandingData = brandingData;
-			
+		public function Branding() {
 			if (stage) stageReady();
 			else addEventListener(Event.ADDED_TO_STAGE, stageReady, false, 0, true);
 		}
 		
 		private function stageReady(e:Event = null):void {
+			saladoPlayer = (this.parent as SaladoPlayer);
+			
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
 			brandingButton = new Sprite();
-			brandingButton.alpha = brandingData.alpha;
+			brandingButton.alpha = saladoPlayer.managerData.brandingData.alpha;
 			brandingButton.buttonMode = true;
 			brandingButton.addChild(new Bitmap(new Bitmap_pbsp().bitmapData, "auto", true));
 			brandingButton.addEventListener(MouseEvent.CLICK, gotoPanoZona, false, 0, true);
 			addChild(brandingButton);
 			
-			stage.addEventListener(Event.RESIZE, handleStageResize);
-			handleStageResize();
+			var menu:ContextMenu = new ContextMenu();
+			var item:ContextMenuItem = new ContextMenuItem("Powered by SaladoPlayer");
+			item.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, gotoPanoZona, false, 0, true);
+			menu.customItems.push(item);
+			saladoPlayer.contextMenu = menu;
+			
+			saladoPlayer.manager.addEventListener(ViewEvent.BOUNDS_CHANGED, handleResize ,false, 0, true);
+			handleResize();
 		}
 		
-		private function handleStageResize(e:Event = null):void {
-			
-			var boundsWidth:Number = (this.parent as SaladoPlayer).manager.boundsWidth;
-			var boundsHeight:Number = (this.parent as SaladoPlayer).manager.boundsHeight;
-			
-			if (brandingData.align.horizontal == Align.RIGHT) {
-				brandingButton.x = boundsWidth - brandingButton.width;
-			}else if (brandingData.align.horizontal == Align.LEFT) {
+		private function handleResize(e:Event = null):void {
+			if (saladoPlayer.managerData.brandingData.align.horizontal == Align.RIGHT) {
+				brandingButton.x = saladoPlayer.manager.boundsWidth - brandingButton.width;
+			}else if (saladoPlayer.managerData.brandingData.align.horizontal == Align.LEFT) {
 				brandingButton.x = 0;
 			}else{ // center
-				brandingButton.x = (boundsWidth - brandingButton.width)*0.5;
+				brandingButton.x = (saladoPlayer.manager.boundsWidth - brandingButton.width)*0.5;
 			}
 			
-			if (brandingData.align.vertical == Align.TOP) {
+			if (saladoPlayer.managerData.brandingData.align.vertical == Align.TOP) {
 				brandingButton.y = 0;
-			}else if (brandingData.align.vertical == Align.BOTTOM) {
-				brandingButton.y = boundsHeight- brandingButton.height;
+			}else if (saladoPlayer.managerData.brandingData.align.vertical == Align.BOTTOM) {
+				brandingButton.y = saladoPlayer.manager.boundsHeight- brandingButton.height;
 			}else { // middle
-				brandingButton.y = (boundsHeight - brandingButton.height)*0.5;
+				brandingButton.y = (saladoPlayer.manager.boundsHeight - brandingButton.height)*0.5;
 			}
-			brandingButton.x += brandingData.move.horizontal;
-			brandingButton.y += brandingData.move.vertical;
+			brandingButton.x += saladoPlayer.managerData.brandingData.move.horizontal;
+			brandingButton.y += saladoPlayer.managerData.brandingData.move.vertical;
 		}
 		
 		private function gotoPanoZona(e:Event):void {
-			var request:URLRequest = new URLRequest("http://panozona.com/");
 			try {
-				navigateToURL(request, '_BLANK');
+				navigateToURL(new URLRequest("http://panozona.com/"), '_BLANK');
 			} catch (error:Error) {
-				Trace.printWarning("Could not open: http://panozona.com/");
+				saladoPlayer.traceWindow.printWarning("Could not open: http://panozona.com/");
 			}
 		}
 	}

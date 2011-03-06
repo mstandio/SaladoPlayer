@@ -20,15 +20,15 @@
 				</map>
 			</maps>
 		</ImageMap>
-		<ButtonsBar path="modules/ButtonsBar-1.0.swf">
+		<ButtonBar path="modules/ButtonBar-1.0.swf">
 			<buttons path="modules/images/buttonsbar/buttons/buttons_30x30_blue.png">
 				<extraButton name="b" action="mapToggle"/>
 			</buttons>
-		</ButtonsBar>
+		</ButtonBar>
 	</modules>
 	<actions>
 		<action id="mapToggle" content="ImageMap.toggleOpen()"/>
-		<action id="mapOpened" content="ButtonsBar.setExtraButtonActive(b,true)"/>
-		<action id="mapClosed" content="ButtonsBar.setExtraButtonActive(b,false)"/>
+		<action id="mapOpened" content="ButtonBar.setExtraButtonActive(b,true)"/>
+		<action id="mapClosed" content="ButtonBar.setExtraButtonActive(b,false)"/>
 	</actions>
 </SaladoPlayer>

@@ -19,24 +19,20 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.player.manager.data.panoramas {
 	
 	import com.panozona.player.manager.utils.loading.ILoadable;
+	import com.panozona.player.module.data.DataNode;
 	
 	public class HotspotDataSwf extends HotspotData implements ILoadable{
 		
 		protected var _path:String;
-		protected var _xml:XML;
+		public const nodes:Vector.<DataNode> = new Vector.<DataNode>();
 		
-		public function HotspotDataSwf(id:String, path:String, xml:XML){
+		public function HotspotDataSwf(id:String, path:String){
 			super(id);
 			_path = path;
-			_xml = xml;
 		}
 		
 		public function get path():String {
 			return _path;
-		}
-		
-		public function get xml():XML {
-			return _xml;
 		}
 	}
 }

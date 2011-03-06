@@ -70,8 +70,8 @@ package com.panozona.hotspots.videohotspot.conroller {
 			e.target.removeEventListener(IOErrorEvent.IO_ERROR, spashLost);
 			e.target.removeEventListener(Event.COMPLETE, spashLoaded);
 			_playerView.splash = new Bitmap(e.target.content.bitmapData);
-			_playerView.splash.scaleX = _playerView.videoHotspotData.settings.width / _playerView.splash.width;
-			_playerView.splash.scaleY = _playerView.videoHotspotData.settings.height / _playerView.splash.height;
+			_playerView.splash.scaleX = _playerView.videoHotspotData.settings.size.width / _playerView.splash.width;
+			_playerView.splash.scaleY = _playerView.videoHotspotData.settings.size.height / _playerView.splash.height;
 			_playerView.arrangeChildren();
 		}
 		

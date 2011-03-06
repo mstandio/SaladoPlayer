@@ -18,14 +18,34 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.hotspots.videohotspot.model {
 	
+	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.utils.DataNodeTranslator;
+	
 	public class VideoHotspotData {
 		
 		public var settings:Settings = new Settings();
 		public var streamData:StreamData = new StreamData();
 		public var playerData:PlayerData = new PlayerData();
 		public var soundData:SoundData = new SoundData();
-		public var barData:BarData = new BarData(); // should use getters 
-		// todo: parse and verify settings 
-		// throw errors to manager or something, dunno
+		public var barData:BarData = new BarData();
+		
+		public function VideoHotspotData (hotspotDataSwf:Object, saladoPlayer:Object) {
+			
+			var translator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
+			
+			for each(var dataNode:DataNode in (hotspotDataSwf.nodes as Vector.<DataNode>)) {
+				if ( dataNode.name == "settings") {
+					translator.dataNodeToObject(dataNode, settings);
+				}else {
+					throw new Error("Unrecognized node name: " + dataNode.name);
+				}
+			}
+			
+			if (saladoPlayer.managerData.debugMode) {
+				if (settings.splashPath != null && !settings.splashPath.match(/^.+(.jpg|.jpeg|.png|.gif)$/i)) {
+					throw new Error("Invalid path to splash.");
+				}
+			}
+		}
 	}
 }

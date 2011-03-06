@@ -22,8 +22,8 @@ package com.panozona.modules.infobubble.data{
 	import com.panozona.modules.infobubble.data.structure.Bubbles;
 	import com.panozona.modules.infobubble.data.structure.Settings;
 	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.utils.ModuleDataTranslator;
+	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class InfoBubbleData{
 		
@@ -32,15 +32,15 @@ package com.panozona.modules.infobubble.data{
 		
 		public function InfoBubbleData(moduleData:ModuleData, saladoPlayer:Object):void {
 			
-			var tarnslator:ModuleDataTranslator = new ModuleDataTranslator(saladoPlayer.managerData.debugMode);
+			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
 			
-			for each(var moduleNode:ModuleNode in moduleData.nodes){
-				if(moduleNode.name == "settings") {
-					tarnslator.moduleNodeToObject(moduleNode, settings);
-				}else if(moduleNode.name == "bubbles") {
-					tarnslator.moduleNodeToObject(moduleNode, bubbles);
+			for each(var dataNode:DataNode in moduleData.nodes){
+				if(dataNode.name == "settings") {
+					tarnslator.dataNodeToObject(dataNode, settings);
+				}else if(dataNode.name == "bubbles") {
+					tarnslator.dataNodeToObject(dataNode, bubbles);
 				}else {
-					throw new Error("Invalid node name: "+moduleNode.name);
+					throw new Error("Invalid node name: "+dataNode.name);
 				}
 			}
 			

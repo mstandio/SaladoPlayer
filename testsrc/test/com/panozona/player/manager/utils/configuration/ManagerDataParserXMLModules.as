@@ -29,8 +29,8 @@ package test.com.panozona.player.manager.utils.configuration {
 		}
 		
 		[Test]
-		public function parseModuleNodeRecursiveStructure():void {
-			var moduleNode:ModuleNode = new ModuleNode("a");
+		public function parseDataNodeRecursiveStructure():void {
+			var dataNode:DataNode = new DataNode("a");
 			var nodeXML:XML = new XML(
 				"<root>" +
 					"<b>" +
@@ -42,22 +42,22 @@ package test.com.panozona.player.manager.utils.configuration {
 					"</b>" +
 				"</root>");
 			
-			parseModuleNodeRecursive(moduleNode, nodeXML);
+			parseDataNodeRecursive(dataNode, nodeXML);
 			
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
 			
-			Assert.assertStrictlyEquals("b", moduleNode.childNodes[0].name);
-			Assert.assertStrictlyEquals("f", moduleNode.childNodes[0].childNodes[0].name);
-			Assert.assertStrictlyEquals("c", moduleNode.childNodes[0].childNodes[1].name);
-			Assert.assertStrictlyEquals("d", moduleNode.childNodes[0].childNodes[1].childNodes[0].name);
-			Assert.assertStrictlyEquals("e", moduleNode.childNodes[0].childNodes[1].childNodes[1].name);
+			Assert.assertStrictlyEquals("b", dataNode.childNodes[0].name);
+			Assert.assertStrictlyEquals("f", dataNode.childNodes[0].childNodes[0].name);
+			Assert.assertStrictlyEquals("c", dataNode.childNodes[0].childNodes[1].name);
+			Assert.assertStrictlyEquals("d", dataNode.childNodes[0].childNodes[1].childNodes[0].name);
+			Assert.assertStrictlyEquals("e", dataNode.childNodes[0].childNodes[1].childNodes[1].name);
 		}
 		
 		[Test]
-		public function parseModuleNodeRecursiveStructureFails():void {
-			var moduleNode:ModuleNode = new ModuleNode("a");
+		public function parseDataNodeRecursiveStructureFails():void {
+			var dataNode:DataNode = new DataNode("a");
 			var nodeXML:XML = new XML(
 				"<root>" +
 					"<b>" +
@@ -69,18 +69,18 @@ package test.com.panozona.player.manager.utils.configuration {
 					"</b>" +
 				"</root>");
 			
-			parseModuleNodeRecursive(moduleNode, nodeXML);
+			parseDataNodeRecursive(dataNode, nodeXML);
 			
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
 			
-			Assert.assertFalse("f" == moduleNode.childNodes[0].childNodes[1].childNodes[0].name);
+			Assert.assertFalse("f" == dataNode.childNodes[0].childNodes[1].childNodes[0].name);
 		}
 		
 		[Test]
-		public function parseModuleNodeRecursiveStructureBoolean():void {
-			var moduleNode:ModuleNode = new ModuleNode("a");
+		public function parseDataNodeRecursiveStructureBoolean():void {
+			var dataNode:DataNode = new DataNode("a");
 			var nodeXML:XML = new XML(
 				"<root>" +
 					"<b bool_t=\"true\" bool_f=\"false\">" +
@@ -88,24 +88,24 @@ package test.com.panozona.player.manager.utils.configuration {
 					"</b>" +
 				"</root>");
 			
-			parseModuleNodeRecursive(moduleNode, nodeXML);
+			parseDataNodeRecursive(dataNode, nodeXML);
 			
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
 			
-			Assert.assertStrictlyEquals("b", moduleNode.childNodes[0].name);
-			Assert.assertStrictlyEquals(true, moduleNode.childNodes[0].attributes.bool_t);
-			Assert.assertStrictlyEquals(false, moduleNode.childNodes[0].attributes.bool_f);
+			Assert.assertStrictlyEquals("b", dataNode.childNodes[0].name);
+			Assert.assertStrictlyEquals(true, dataNode.childNodes[0].attributes.bool_t);
+			Assert.assertStrictlyEquals(false, dataNode.childNodes[0].attributes.bool_f);
 			
-			Assert.assertStrictlyEquals("c", moduleNode.childNodes[0].childNodes[0].name);
-			Assert.assertStrictlyEquals(true, moduleNode.childNodes[0].childNodes[0].attributes.bool_t);
-			Assert.assertStrictlyEquals(false, moduleNode.childNodes[0].childNodes[0].attributes.bool_f);
+			Assert.assertStrictlyEquals("c", dataNode.childNodes[0].childNodes[0].name);
+			Assert.assertStrictlyEquals(true, dataNode.childNodes[0].childNodes[0].attributes.bool_t);
+			Assert.assertStrictlyEquals(false, dataNode.childNodes[0].childNodes[0].attributes.bool_f);
 		}
 		
 		[Test]
-		public function parseModuleNodeRecursiveStructureNumber():void {
-			var moduleNode:ModuleNode = new ModuleNode("a");
+		public function parseDataNodeRecursiveStructureNumber():void {
+			var dataNode:DataNode = new DataNode("a");
 			var nodeXML:XML = new XML(
 			"<root>" +
 				"<b num_n=\"-12.12\" num_c=\"#FF00FF\" num_nan=\"NaN\">" +
@@ -113,27 +113,27 @@ package test.com.panozona.player.manager.utils.configuration {
 				"</b>" +
 			"</root>");
 			
-			parseModuleNodeRecursive(moduleNode, nodeXML);
+			parseDataNodeRecursive(dataNode, nodeXML);
 			
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
 			
-			Assert.assertStrictlyEquals("b", moduleNode.childNodes[0].name);
-			Assert.assertStrictlyEquals(-12.12, moduleNode.childNodes[0].attributes.num_n);
-			Assert.assertStrictlyEquals(0xff00ff, moduleNode.childNodes[0].attributes.num_c);
-			Assert.assertTrue(isNaN(moduleNode.childNodes[0].attributes.num_nan));
+			Assert.assertStrictlyEquals("b", dataNode.childNodes[0].name);
+			Assert.assertStrictlyEquals(-12.12, dataNode.childNodes[0].attributes.num_n);
+			Assert.assertStrictlyEquals(0xff00ff, dataNode.childNodes[0].attributes.num_c);
+			Assert.assertTrue(isNaN(dataNode.childNodes[0].attributes.num_nan));
 			
-			Assert.assertStrictlyEquals("c", moduleNode.childNodes[0].childNodes[0].name);
-			Assert.assertStrictlyEquals(-12.12, moduleNode.childNodes[0].childNodes[0].attributes.num_n);
-			Assert.assertStrictlyEquals(0xff00ff, moduleNode.childNodes[0].childNodes[0].attributes.num_c);
-			Assert.assertTrue(isNaN(moduleNode.childNodes[0].childNodes[0].attributes.num_nan));
+			Assert.assertStrictlyEquals("c", dataNode.childNodes[0].childNodes[0].name);
+			Assert.assertStrictlyEquals(-12.12, dataNode.childNodes[0].childNodes[0].attributes.num_n);
+			Assert.assertStrictlyEquals(0xff00ff, dataNode.childNodes[0].childNodes[0].attributes.num_c);
+			Assert.assertTrue(isNaN(dataNode.childNodes[0].childNodes[0].attributes.num_nan));
 		}
 		
 		[Test]
-		public function parseModuleNodeRecursiveStructureString():void {
+		public function parseDataNodeRecursiveStructureString():void {
 			
-			var moduleNode:ModuleNode = new ModuleNode("a");
+			var dataNode:DataNode = new DataNode("a");
 			var nodeXML:XML = new XML(
 				"<root>" +
 					"<b str_1=\"\" str_2=\"foo\" str_3=\"[-12.12]\">" +
@@ -141,26 +141,26 @@ package test.com.panozona.player.manager.utils.configuration {
 					"</b>" +
 				"</root>");
 			
-			parseModuleNodeRecursive(moduleNode, nodeXML);
+			parseDataNodeRecursive(dataNode, nodeXML);
 			
 			//Assert.assertEquals(0, infoCount);
 			//Assert.assertEquals(0, warningCount);
 			//Assert.assertEquals(0, errorCount);
 			
-			Assert.assertStrictlyEquals("b", moduleNode.childNodes[0].name);
-			Assert.assertNull(moduleNode.childNodes[0].attributes.str_1);
-			Assert.assertStrictlyEquals("foo", moduleNode.childNodes[0].attributes.str_2);
-			Assert.assertStrictlyEquals("-12.12", moduleNode.childNodes[0].attributes.str_3);
+			Assert.assertStrictlyEquals("b", dataNode.childNodes[0].name);
+			Assert.assertNull(dataNode.childNodes[0].attributes.str_1);
+			Assert.assertStrictlyEquals("foo", dataNode.childNodes[0].attributes.str_2);
+			Assert.assertStrictlyEquals("-12.12", dataNode.childNodes[0].attributes.str_3);
 			
-			Assert.assertStrictlyEquals("c", moduleNode.childNodes[0].childNodes[0].name);
-			Assert.assertNull(moduleNode.childNodes[0].childNodes[0].attributes.str_1);
-			Assert.assertStrictlyEquals("foo", moduleNode.childNodes[0].childNodes[0].attributes.str_2);
-			Assert.assertStrictlyEquals("-12.12", moduleNode.childNodes[0].childNodes[0].attributes.str_3);
+			Assert.assertStrictlyEquals("c", dataNode.childNodes[0].childNodes[0].name);
+			Assert.assertNull(dataNode.childNodes[0].childNodes[0].attributes.str_1);
+			Assert.assertStrictlyEquals("foo", dataNode.childNodes[0].childNodes[0].attributes.str_2);
+			Assert.assertStrictlyEquals("-12.12", dataNode.childNodes[0].childNodes[0].attributes.str_3);
 		}
 		
 		[Test]
-		public function parseModuleNodeRecursiveStructureCdata():void {
-			var moduleNode:ModuleNode = new ModuleNode("a");
+		public function parseDataNodeRecursiveStructureCdata():void {
+			var dataNode:DataNode = new DataNode("a");
 			var nodeXML:XML = new XML(
 				"<root>" +
 					"<b>" +
@@ -169,22 +169,22 @@ package test.com.panozona.player.manager.utils.configuration {
 					"</b>" +
 				"</root>");
 			
-			parseModuleNodeRecursive(moduleNode, nodeXML);
+			parseDataNodeRecursive(dataNode, nodeXML);
 			
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
 			
-			Assert.assertStrictlyEquals("b", moduleNode.childNodes[0].name);
-			Assert.assertStrictlyEquals(":;.", moduleNode.childNodes[0].attributes.text);
+			Assert.assertStrictlyEquals("b", dataNode.childNodes[0].name);
+			Assert.assertStrictlyEquals(":;.", dataNode.childNodes[0].attributes.text);
 			
-			Assert.assertStrictlyEquals("c", moduleNode.childNodes[0].childNodes[0].name);
-			Assert.assertStrictlyEquals("foo", moduleNode.childNodes[0].childNodes[0].attributes.text);
+			Assert.assertStrictlyEquals("c", dataNode.childNodes[0].childNodes[0].name);
+			Assert.assertStrictlyEquals("foo", dataNode.childNodes[0].childNodes[0].attributes.text);
 		}
 		
 		[Test]
-		public function parseModuleNodeRecursiveStructureFunction():void {
-			var moduleNode:ModuleNode = new ModuleNode("a");
+		public function parseDataNodeRecursiveStructureFunction():void {
+			var dataNode:DataNode = new DataNode("a");
 			var nodeXML:XML = new XML(
 				"<root>" +
 					"<b fun_1=\"Back.easeIn\">" +
@@ -196,18 +196,18 @@ package test.com.panozona.player.manager.utils.configuration {
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
 			
-			parseModuleNodeRecursive(moduleNode, nodeXML);
+			parseDataNodeRecursive(dataNode, nodeXML);
 			
-			Assert.assertStrictlyEquals("b", moduleNode.childNodes[0].name);
-			Assert.assertStrictlyEquals(Back.easeIn, moduleNode.childNodes[0].attributes.fun_1);
+			Assert.assertStrictlyEquals("b", dataNode.childNodes[0].name);
+			Assert.assertStrictlyEquals(Back.easeIn, dataNode.childNodes[0].attributes.fun_1);
 			
-			Assert.assertStrictlyEquals("c", moduleNode.childNodes[0].childNodes[0].name);
-			Assert.assertStrictlyEquals(Bounce.easeIn, moduleNode.childNodes[0].childNodes[0].attributes.fun_1);
+			Assert.assertStrictlyEquals("c", dataNode.childNodes[0].childNodes[0].name);
+			Assert.assertStrictlyEquals(Bounce.easeIn, dataNode.childNodes[0].childNodes[0].attributes.fun_1);
 		}
 		
 		[Test]
-		public function parseModuleNodeRecursiveStructureObject():void {
-			var moduleNode:ModuleNode = new ModuleNode("a");
+		public function parseDataNodeRecursiveStructureObject():void {
+			var dataNode:DataNode = new DataNode("a");
 			var nodeXML:XML = new XML(
 				"<root>" +
 					"<b obj1=\"str:foo,bool:true,num:-12.12,fun:Back.easeIn\">" +
@@ -215,27 +215,27 @@ package test.com.panozona.player.manager.utils.configuration {
 					"</b>" +
 				"</root>");
 			
-			parseModuleNodeRecursive(moduleNode, nodeXML);
+			parseDataNodeRecursive(dataNode, nodeXML);
 			
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
 			
-			Assert.assertStrictlyEquals("b", moduleNode.childNodes[0].name);
-			Assert.assertStrictlyEquals("foo", moduleNode.childNodes[0].attributes.obj1.str);
-			Assert.assertStrictlyEquals(true, moduleNode.childNodes[0].attributes.obj1.bool);
-			Assert.assertStrictlyEquals(-12.12, moduleNode.childNodes[0].attributes.obj1.num);
-			Assert.assertStrictlyEquals(Back.easeIn, moduleNode.childNodes[0].attributes.obj1.fun);
+			Assert.assertStrictlyEquals("b", dataNode.childNodes[0].name);
+			Assert.assertStrictlyEquals("foo", dataNode.childNodes[0].attributes.obj1.str);
+			Assert.assertStrictlyEquals(true, dataNode.childNodes[0].attributes.obj1.bool);
+			Assert.assertStrictlyEquals(-12.12, dataNode.childNodes[0].attributes.obj1.num);
+			Assert.assertStrictlyEquals(Back.easeIn, dataNode.childNodes[0].attributes.obj1.fun);
 			
-			Assert.assertStrictlyEquals("c", moduleNode.childNodes[0].childNodes[0].name);
-			Assert.assertStrictlyEquals("foo", moduleNode.childNodes[0].childNodes[0].attributes.obj1.str);
-			Assert.assertStrictlyEquals(true, moduleNode.childNodes[0].childNodes[0].attributes.obj1.bool);
-			Assert.assertStrictlyEquals(-12.12, moduleNode.childNodes[0].childNodes[0].attributes.obj1.num);
-			Assert.assertStrictlyEquals(Back.easeIn, moduleNode.childNodes[0].childNodes[0].attributes.obj1.fun);
+			Assert.assertStrictlyEquals("c", dataNode.childNodes[0].childNodes[0].name);
+			Assert.assertStrictlyEquals("foo", dataNode.childNodes[0].childNodes[0].attributes.obj1.str);
+			Assert.assertStrictlyEquals(true, dataNode.childNodes[0].childNodes[0].attributes.obj1.bool);
+			Assert.assertStrictlyEquals(-12.12, dataNode.childNodes[0].childNodes[0].attributes.obj1.num);
+			Assert.assertStrictlyEquals(Back.easeIn, dataNode.childNodes[0].childNodes[0].attributes.obj1.fun);
 		}
 		
 		[Test]
-		public function parseModuleNodeRecursiveWarning():void {
+		public function parseDataNodeRecursiveWarning():void {
 			
 			var nodeXML_a:XML = new XML(
 				"<root>" +
@@ -271,10 +271,10 @@ package test.com.panozona.player.manager.utils.configuration {
 					"</a>" +
 				"</root>");
 			
-			parseModuleNodeRecursive(new ModuleNode("a"), nodeXML_a);
-			parseModuleNodeRecursive(new ModuleNode("b"), nodeXML_b);
-			parseModuleNodeRecursive(new ModuleNode("c"), nodeXML_c);
-			parseModuleNodeRecursive(new ModuleNode("d"), nodeXML_c);
+			parseDataNodeRecursive(new DataNode("a"), nodeXML_a);
+			parseDataNodeRecursive(new DataNode("b"), nodeXML_b);
+			parseDataNodeRecursive(new DataNode("c"), nodeXML_c);
+			parseDataNodeRecursive(new DataNode("d"), nodeXML_c);
 			
 			Assert.assertEquals(0, infoCount);
 			Assert.assertEquals(4, warningCount);

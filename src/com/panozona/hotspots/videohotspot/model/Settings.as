@@ -18,15 +18,15 @@ along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.hotspots.videohotspot.model {
 	
+	import com.panozona.player.module.data.property.Size;
+	
 	public class Settings {
 		
-		public var width:Number = 400; 
-		public var height:Number = 300;
+		public var size:Size = new Size(400, 300);
 		
 		public var splashPath:String = "hotspots/video/splash.jpg"; // TODO: remove
 		public var videoPath:String = "hotspots/video/vlad.mp4"; // TODO: remove
 		
 		public var autoPlay:Boolean = false;
-		
 	}
 }

@@ -24,6 +24,7 @@ package com.panozona.modules.viewfinder{
 	import com.panozona.player.module.data.property.*;
 	import flash.display.*;
 	import flash.events.*;
+	import flash.system.*;
 	import flash.text.*;
 	
 	/**
@@ -78,9 +79,11 @@ package com.panozona.modules.viewfinder{
 			txtOutput.autoSize = TextFieldAutoSize.LEFT
 			addChild(txtOutput);
 			
-			stage.addEventListener(Event.RESIZE, handleStageResize, false, 0, true);
 			stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
-			handleStageResize();
+			
+			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
+			saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
+			handleResize();
 		}
 		
 		private function enterFrameHandler(event:Event):void {
@@ -89,7 +92,7 @@ package com.panozona.modules.viewfinder{
 			"\nfov  " + saladoPlayer.manager._fieldOfView.toFixed(2);
 		}
 		
-		private function handleStageResize(e:Event = null):void {
+		private function handleResize(e:Event = null):void {
 			if (viewFinderData.settings.align.horizontal == Align.LEFT) {
 				txtOutput.x = 0;
 			}else if (viewFinderData.settings.align.horizontal == Align.RIGHT) {

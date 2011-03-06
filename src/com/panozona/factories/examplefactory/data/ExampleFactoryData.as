@@ -19,8 +19,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.factories.examplefactory.data{
 	
 	import com.panozona.player.module.data.ModuleDataFactory;
-	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.utils.ModuleDataTranslator;
+	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.utils.DataNodeTranslator;
 	import com.panozona.factories.examplefactory.data.structure.Products;
 	
 	public class ExampleFactoryData{
@@ -29,11 +29,11 @@ package com.panozona.factories.examplefactory.data{
 		
 		public function ExampleFactoryData(moduleData:ModuleDataFactory, saladoPlayer:Object){
 			
-			var translator:ModuleDataTranslator = new ModuleDataTranslator(saladoPlayer.managerData.debugMode);
+			var translator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
 			
-			for each(var moduleNode:ModuleNode in moduleData.nodes) {
+			for each(var moduleNode:DataNode in moduleData.nodes) {
 				if (moduleNode.name == "products") {
-					translator.moduleNodeToObject(moduleNode, products);
+					translator.dataNodeToObject(moduleNode, products);
 				}else {
 					throw new Error("Invalid node name: " + moduleNode.name);
 				}

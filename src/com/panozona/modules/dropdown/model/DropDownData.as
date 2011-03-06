@@ -22,8 +22,8 @@ package com.panozona.modules.dropdown.model{
 	import com.panozona.modules.dropdown.model.structure.Element;
 	import com.panozona.modules.dropdown.model.structure.Settings;
 	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.utils.ModuleDataTranslator;
+	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class DropDownData{
 		
@@ -32,15 +32,15 @@ package com.panozona.modules.dropdown.model{
 		
 		public function DropDownData(moduleData:ModuleData, saladoPlayer:Object){
 			
-			var translator:ModuleDataTranslator = new ModuleDataTranslator(saladoPlayer.managerData.debugMode);
+			var translator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
 			
-			for each(var moduleNode:ModuleNode in moduleData.nodes) {
-				if (moduleNode.name == "settings") {
-					translator.moduleNodeToObject(moduleNode, settings);
-				}else if (moduleNode.name == "elements") {
-					translator.moduleNodeToObject(moduleNode,boxData.elements);
+			for each(var dataNode:DataNode in moduleData.nodes) {
+				if (dataNode.name == "settings") {
+					translator.dataNodeToObject(dataNode, settings);
+				}else if (dataNode.name == "elements") {
+					translator.dataNodeToObject(dataNode,boxData.elements);
 				}else {
-					throw new Error("Invalid node name: " + moduleNode.name);
+					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
 			
