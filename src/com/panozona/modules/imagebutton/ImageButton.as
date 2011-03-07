@@ -77,41 +77,36 @@ package com.panozona.modules.imagebutton{
 		private function buttonLoaded(e:Event):void {
 			for(var i:int = 0; i < loaders.length; i++){
 				if (loaders[i] != null && loaders[i].contentLoaderInfo === e.target) {
-					if (loaders[i].contentLoaderInfo.url.match(/^(.*)\.(png|gif|jpg|jpeg)$/i)) {
-						
-						wrappers[i].sprite.addChild(loaders[i].content);
-						
-						if (!wrappers[i].button.handCursor){
-							wrappers[i].sprite.buttonMode = false;
-							wrappers[i].sprite.mouseEnabled = false;
-						}else {
-							wrappers[i].sprite.buttonMode = true
-						}
-						
-						addChild(wrappers[i].sprite);
-						placeSprite(wrappers[i].sprite, wrappers[i].button.align, wrappers[i].button.move);
-						
-						if (wrappers[i].button.text != null) {
-							wrappers[i].sprite.addEventListener(MouseEvent.CLICK, getMouseUrlHandler(wrappers[i].button.text));
-						}
-						if (wrappers[i].button.mouse.onClick != null) {
-							wrappers[i].sprite.addEventListener(MouseEvent.CLICK, getMouseEventHandler(wrappers[i].button.mouse.onClick));
-						}
-						if (wrappers[i].button.mouse.onPress != null) {
-							wrappers[i].sprite.addEventListener(MouseEvent.MOUSE_DOWN, getMouseEventHandler(wrappers[i].button.mouse.onPress));
-						}
-						if (wrappers[i].button.mouse.onRelease != null) {
-							wrappers[i].sprite.addEventListener(MouseEvent.MOUSE_UP, getMouseEventHandler(wrappers[i].button.mouse.onRelease));
-						}
-						if (wrappers[i].button.mouse.onOver != null) {
-							wrappers[i].sprite.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(wrappers[i].button.mouse.onOver));
-						}
-						if (wrappers[i].button.mouse.onOut != null) {
-							wrappers[i].sprite.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(wrappers[i].button.mouse.onOut));
-						}
-						
+					
+					wrappers[i].sprite.addChild(loaders[i].content);
+					
+					if (!wrappers[i].button.handCursor){
+						wrappers[i].sprite.buttonMode = false;
+						wrappers[i].sprite.mouseEnabled = false;
 					}else {
-						printError("Not supported file: " + loaders[i].contentLoaderInfo.url);
+						wrappers[i].sprite.buttonMode = true
+					}
+					
+					addChild(wrappers[i].sprite);
+					placeSprite(wrappers[i].sprite, wrappers[i].button.align, wrappers[i].button.move);
+					
+					if (wrappers[i].button.text != null) {
+						wrappers[i].sprite.addEventListener(MouseEvent.CLICK, getMouseUrlHandler(wrappers[i].button.text));
+					}
+					if (wrappers[i].button.mouse.onClick != null) {
+						wrappers[i].sprite.addEventListener(MouseEvent.CLICK, getMouseEventHandler(wrappers[i].button.mouse.onClick));
+					}
+					if (wrappers[i].button.mouse.onPress != null) {
+						wrappers[i].sprite.addEventListener(MouseEvent.MOUSE_DOWN, getMouseEventHandler(wrappers[i].button.mouse.onPress));
+					}
+					if (wrappers[i].button.mouse.onRelease != null) {
+						wrappers[i].sprite.addEventListener(MouseEvent.MOUSE_UP, getMouseEventHandler(wrappers[i].button.mouse.onRelease));
+					}
+					if (wrappers[i].button.mouse.onOver != null) {
+						wrappers[i].sprite.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(wrappers[i].button.mouse.onOver));
+					}
+					if (wrappers[i].button.mouse.onOut != null) {
+						wrappers[i].sprite.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(wrappers[i].button.mouse.onOut));
 					}
 					
 					loaders[i].contentLoaderInfo.removeEventListener(Event.COMPLETE, buttonLoaded);

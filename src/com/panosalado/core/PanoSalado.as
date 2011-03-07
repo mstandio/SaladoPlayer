@@ -90,30 +90,30 @@ import com.robertpenner.easing.*;
 public class PanoSalado extends ViewData implements ICamera
 {
 	
-	protected var _dependencyRelay		: DependencyRelay;
-	protected var _stageReference		: StageReference;
-	protected var _params				: Object;
-	protected var _canvas				:Sprite;
-	protected var _secondaryCanvas		:Sprite;
-	protected var _canvasInternal		:Sprite;
-	protected var _secondaryCanvasInternal:Sprite;
-	protected var _children				:Sprite;
-	protected var _managedChildren		:Sprite;
+	protected var _dependencyRelay         :DependencyRelay;
+	protected var _stageReference          :StageReference;
+	protected var _params                  :Object;
+	protected var _canvas                  :Sprite;
+	protected var _secondaryCanvas         :Sprite;
+	protected var _canvasInternal          :Sprite;
+	protected var _secondaryCanvasInternal :Sprite;
+	protected var _children                :Sprite;
+	protected var _managedChildren         :Sprite;
 	protected var _secondaryManagedChildren:Sprite;
-	//protected var _render				:Function;
-	protected var _renderFunction		:Function;
+	//protected var _render                :Function;
+	protected var _renderFunction          :Function;
 	
 	/**
 	* Constructor.
 	*/
 	public function PanoSalado()
-	{ 
+	{
 		trace( "PanoSalado2" );
 		
 		super();
-				
+		
 		_dependencyRelay = new DependencyRelay(false);
-		_stageReference	= new StageReference();
+		_stageReference = new StageReference();
 		_params = {};
 		
 		_canvas = new Sprite();
@@ -195,7 +195,7 @@ public class PanoSalado extends ViewData implements ICamera
 	/**
 	* The Sprite whose graphics object is used to draw the primary panorama.  It's x,y is always at half the panorama's width, height.
 	*/
-	public function get canvasInternal():Sprite { return canvasInternal; }
+	public function get canvasInternal():Sprite { return _canvasInternal; }
 	
 	/**
 	* The Sprite whose graphics object is used to draw the secondary panorama.  It's x,y is always at half the panorama's width, height.

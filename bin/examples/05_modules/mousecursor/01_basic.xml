@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	MouseCursor requires path to grid containing cursor bitmaps. Grid consists 
+	of 4 bitmaps of any width or height, while all bitmaps must be of the same size. 
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml">
+			<image id="blueArrow" path="hotspots/images/blue_arrow.png" mouse="onClick:loadBlueCheck" />
+		</panorama>
+		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="greenArrow" path="hotspots/images/green_arrow.png" mouse="onClick:loadGreenCheck"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ButtonBar path="modules/ButtonBar-1.0.swf">
+			<bar visible="true"/>
+			<buttons path="modules/images/buttonbar/buttons/buttons_30x30_blue.png">
+				<button name="drag"/>
+			</buttons>
+		</ButtonBar>
+		<MouseCursor path="modules/MouseCursor-1.0.swf">
+			<settings path="modules/images/mousecursor/cursors_31x31.png"/>
+		</MouseCursor>
+	</modules>
+	<actions>
+		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueChecker)"/>
+		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenChecker)"/>
+	</actions>
+</SaladoPlayer>

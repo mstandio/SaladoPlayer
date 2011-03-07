@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,39 +16,31 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagebutton.data{
+package com.panozona.modules.mousecursor.data{
 	
-	import com.panozona.modules.imagebutton.data.structure.Button;
-	import com.panozona.modules.imagebutton.data.structure.Butttons;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.utils.DataNodeTranslator;
 	
-	public class ImageButtonData{
+	public class MouseCursorData{
 		
-		public var buttons:Butttons = new Butttons();
+		public var settings:Settings = new Settings();
 		
-		public function ImageButtonData(moduleData:ModuleData, saladoPlayer:Object) {
+		public function MouseCursorData(moduleData:ModuleData, saladoPlayer:Object){
+			
 			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
+			
 			for each(var dataNode:DataNode in moduleData.nodes) {
-				if (dataNode.name == "buttons") {
-					tarnslator.dataNodeToObject(dataNode, buttons);
+				if (dataNode.name == "settings") {
+					tarnslator.dataNodeToObject(dataNode, settings);
 				}else {
-					throw new Error("Unrecognized node: " + moduleData.name);
+					throw new Error("Could not recognize: " + dataNode.name);
 				}
 			}
 			
 			if (saladoPlayer.managerData.debugMode) {
-				var buttonIds:Object = new Object();
-				for each (var button:Button in buttons.getChildrenOfGivenClass(Button)) {
-					if (button.id == null) throw new Error("Button id not specified.");
-					if (button.path == null || !button.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)) throw new Error("Invalid button path: " + button.path);
-					if (buttonIds[button.id] != undefined) {
-						throw new Error("Repeating button id: " + button.id);
-					}else {
-						buttonIds[button.id] = ""; // something
-					}
-				}
+				if (settings.path == null || !settings.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i))
+				throw new Error("Invalid bitmaps path: " + settings.path);
 			}
 		}
 	}
