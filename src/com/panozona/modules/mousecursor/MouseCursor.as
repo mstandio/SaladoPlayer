@@ -40,10 +40,13 @@ package com.panozona.modules.mousecursor {
 		
 		protected var mouseCursorData:MouseCursorData;
 		
-		protected var handOpened:BitmapData;
-		protected var handClosed:BitmapData;
-		protected var arrowPlain:BitmapData;
+		protected var handHover:BitmapData;
+		protected var handPress:BitmapData;
+		protected var handDrag:BitmapData;
+		
+		protected var arrowHover:BitmapData;
 		protected var arrowPress:BitmapData;
+		protected var arrowDrag:BitmapData;
 		
 		protected var cursorWrapper:Sprite;
 		protected var cursor:Bitmap;
@@ -51,7 +54,9 @@ package com.panozona.modules.mousecursor {
 		protected var cursorHeight:Number = 1;
 		
 		protected var dragMode:Boolean;
+		
 		protected var mousePress:Boolean;
+		protected var mousePressMove:Boolean;
 		
 		protected var startX:Number = 0;
 		protected var startY:Number = 0;
@@ -97,22 +102,28 @@ package com.panozona.modules.mousecursor {
 			var bitmapData:BitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
 			bitmapData.draw((e.target as LoaderInfo).content);
 			
-			cursorWidth = Math.ceil((bitmapData.width - 1) * 0.5);
-			cursorHeight = Math.ceil((bitmapData.height - 1) * 0.5);
+			cursorWidth = Math.ceil((bitmapData.width - 2) / 3);
+			cursorHeight = Math.ceil((bitmapData.height - 1) / 2);
 			
-			handOpened = new BitmapData(cursorWidth, cursorHeight, true, 0);
-			handOpened.copyPixels(bitmapData, new Rectangle(0, 0, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			handHover = new BitmapData(cursorWidth, cursorHeight, true, 0);
+			handHover.copyPixels(bitmapData, new Rectangle(0, 0, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
 			
-			handClosed = new BitmapData(cursorWidth, cursorHeight, true, 0);
-			handClosed.copyPixels(bitmapData, new Rectangle(cursorWidth + 1, 0, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			handPress = new BitmapData(cursorWidth, cursorHeight, true, 0);
+			handPress.copyPixels(bitmapData, new Rectangle(cursorWidth + 1, 0, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
 			
-			arrowPlain = new BitmapData(cursorWidth, cursorHeight, true, 0);
-			arrowPlain.copyPixels(bitmapData, new Rectangle(0, cursorHeight + 1, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			handDrag = new BitmapData(cursorWidth, cursorHeight, true, 0);
+			handDrag.copyPixels(bitmapData, new Rectangle(cursorWidth * 2 + 2, 0, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			
+			arrowHover = new BitmapData(cursorWidth, cursorHeight, true, 0);
+			arrowHover.copyPixels(bitmapData, new Rectangle(0, cursorHeight + 1, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
 			
 			arrowPress = new BitmapData(cursorWidth, cursorHeight, true, 0);
 			arrowPress.copyPixels(bitmapData, new Rectangle(cursorWidth + 1, cursorHeight + 1, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
 			
-			drawArrowPlain();
+			arrowDrag = new BitmapData(cursorWidth, cursorHeight, true, 0);
+			arrowDrag.copyPixels(bitmapData, new Rectangle(cursorWidth *2 + 2, cursorHeight + 1, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			
+			drawArrowHover();
 			cursor.x = -cursorWidth * 0.5;
 			cursor.y = -cursorHeight * 0.5;
 		}
@@ -125,9 +136,9 @@ package com.panozona.modules.mousecursor {
 		protected function onMouseOut(e:Event):void {
 			mousePress = false;
 			if (dragMode) {
-				drawHandOpened();
+				drawHandHover();
 			}else {
-				drawArrowPlain();
+				drawArrowHover();
 			}
 			cursor.visible = false;
 			Mouse.show();
@@ -145,10 +156,11 @@ package com.panozona.modules.mousecursor {
 		
 		protected function onMousePress(e:Event):void {
 			mousePress = true;
+			mousePressMove = false;
 			startX = mouseX;
 			startY = mouseY;
 			if (dragMode) {
-				drawHandClosed();
+				drawHandPress();
 			}else {
 				drawArrowPress();
 			}
@@ -157,25 +169,33 @@ package com.panozona.modules.mousecursor {
 		protected function onMouseRelease(e:Event):void {
 			mousePress = false;
 			if (dragMode) {
-				drawHandOpened();
+				drawHandHover();
 			}else {
-				drawArrowPlain();
+				drawArrowHover();
 			}
 		}
 		
 		protected function onDragEnabledChange(e:Object):void {
 			dragMode = saladoPlayer.managerData.controlData.arcBallCameraData.enabled;
 			if (mousePress) {
-				if (dragMode) {
-					drawHandClosed();
+				if (mousePressMove) {
+					if (dragMode) {
+						drawHandDrag();
+					}else {
+						drawArrowDrag();
+					}
 				}else {
-					drawArrowPress();
+					if (dragMode) {
+						drawHandPress();
+					}else {
+						drawArrowPress()
+					}
 				}
 			}else {
 				if (dragMode) {
-					drawHandOpened();
+					drawHandHover();
 				}else {
-					drawArrowPlain();
+					drawArrowHover();
 				}
 			}
 		}
@@ -183,15 +203,25 @@ package com.panozona.modules.mousecursor {
 		protected function handleEnterFrame(e:Event):void {
 			cursorWrapper.x = mouseX;
 			cursorWrapper.y = mouseY;
-			if (!dragMode && mousePress && (startY != mouseY || startX != mouseX)) {
-				cursorWrapper.rotationZ = ( -90 + Math.atan2(startY - mouseY, startX - mouseX) * 180 / Math.PI);
-			}else {
-				cursorWrapper.rotationZ = 0;
+			if (startY != mouseY || startX != mouseX) {
+				if (mousePress && !mousePressMove) {
+					mousePressMove = true;
+					if (dragMode) {
+						drawHandDrag();
+					}else {
+						drawArrowDrag();
+					}
+				}
+				if (!dragMode && mousePress) {
+					cursorWrapper.rotationZ = ( -90 + Math.atan2(startY - mouseY, startX - mouseX) * 180 / Math.PI);
+				}else {
+					cursorWrapper.rotationZ = 0;
+				}
 			}
 		}
 		
-		protected function drawArrowPlain():void {
-			cursor.bitmapData = arrowPlain;
+		protected function drawArrowHover():void {
+			cursor.bitmapData = arrowHover;
 			cursorWrapper.addChild(cursor);
 		}
 		
@@ -200,13 +230,23 @@ package com.panozona.modules.mousecursor {
 			cursorWrapper.addChild(cursor);
 		}
 		
-		protected function drawHandOpened():void {
-			cursor.bitmapData = handOpened;
+		protected function drawArrowDrag():void {
+			cursor.bitmapData = arrowDrag;
 			cursorWrapper.addChild(cursor);
 		}
 		
-		protected function drawHandClosed():void {
-			cursor.bitmapData = handClosed;
+		protected function drawHandHover():void {
+			cursor.bitmapData = handHover;
+			cursorWrapper.addChild(cursor);
+		}
+		
+		protected function drawHandPress():void {
+			cursor.bitmapData = handPress;
+			cursorWrapper.addChild(cursor);
+		}
+		
+		protected function drawHandDrag():void {
+			cursor.bitmapData = handDrag;
 			cursorWrapper.addChild(cursor);
 		}
 	}

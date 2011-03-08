@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Autorotation is enabled by default, with 5 seconds delay time.
+	Timer starts from the moment when panorama becomes idle. You can Disable autorotation entirely
+	(autorotation="enabled:false") but this way you also loose option to start autorotation on demand.
+	If you want to disable autorotation, but make it avaible on demand, set delay to high value i.e. 600 seconds.
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="delay:600"/>
+	</global>
+	<panoramas>
+		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml"/>
+	</panoramas>
+		<modules>
+		<ButtonBar path="modules/ButtonBar-1.0.swf">
+			<bar visible="false" />
+			<buttons path="modules/images/buttonbar/buttons/buttons_30x30_blue.png">
+				<button name="autorotation"/>
+			</buttons>
+		</ButtonBar>
+	</modules>
+</SaladoPlayer>
