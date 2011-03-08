@@ -64,6 +64,7 @@ package com.panozona.modules.mousecursor {
 			mouseCursorData = new MouseCursorData(moduleData, saladoPlayer);
 			
 			cursor = new Bitmap();
+			cursor.visible = false;
 			cursorWrapper = new Sprite();
 			cursorWrapper.mouseEnabled = false;
 			addChild(cursorWrapper);

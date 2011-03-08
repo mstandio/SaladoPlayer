@@ -20,7 +20,10 @@ package com.panozona.player.manager.data.global{
 	
 	import com.panosalado.model.*;
 	
-	public class ControlData{
+	public class ControlData {
+		
+		public var mouseWheelTrap:Boolean;
+		
 		public var keyboardCameraData:KeyboardCameraData = new KeyboardCameraData();
 		public var inertialMouseCameraData:InertialMouseCameraData = new InertialMouseCameraData();
 		public var arcBallCameraData:ArcBallCameraData = new ArcBallCameraData();

@@ -36,7 +36,7 @@ package com.panozona.modules.imagemap.utils{
 			for each(var map:Map in maps.getChildrenOfGivenClass(Map)) {
 				if (map.id == null) throw new Error("Map id not specified.");
 				if (mapIds[map.id] != undefined) {
-					throw new Error("Repeating map id: "+map.id);
+					throw new Error("Repeating map id: " + map.id);
 				}else {
 					mapIds[map.id] = ""; // something
 				}
@@ -53,7 +53,7 @@ package com.panozona.modules.imagemap.utils{
 			for each(var waypoint:Waypoint in map.getChildrenOfGivenClass(Waypoint)) {
 				if (waypoint.target == null) throw new Error("Waypoint target not specified.");
 				if (waypointTargets[waypoint.target] != undefined) {
-					throw new Error("Repeating waypoint target: "+waypoint.target);
+					throw new Error("Repeating waypoint target: " + waypoint.target);
 				}else {
 					waypointTargets[waypoint.target] = ""; // something
 				}
@@ -61,7 +61,7 @@ package com.panozona.modules.imagemap.utils{
 			for (var key:String in waypointTargets) {
 				return;
 			}
-			throw new Error("No waypoints found in map: "+map.id);
+			throw new Error("No waypoints found in map: " + map.id);
 		}
 	}
 }

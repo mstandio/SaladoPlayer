@@ -48,10 +48,17 @@ package com.panozona.modules.imagemap.controller {
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 			
+			var autorotationEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.AutorotationEvent") as Class;
+			_module.saladoPlayer.managerData.controlData.autorotationCameraData.addEventListener(autorotationEventClass.AUTOROTATION_CHANGE, onIsAutorotatingChange, false, 0, true);
+			
 			_waypointView.waypointData.addEventListener(WaypointEvent.CHANGED_SHOW_RADAR, handleShowRadarChange, false, 0, true);
 			_waypointView.waypointData.addEventListener(WaypointEvent.CHANGED_MOUSE_OVER, handleMouseOverChange, false, 0, true);
 			
 			_waypointView.addEventListener(MouseEvent.CLICK, handleMouseClik, false, 0, true);
+			
+			pan1 = _module.saladoPlayer.manager.pan;
+			pan2 = _module.saladoPlayer.manager.pan;
+			pan3 = _module.saladoPlayer.manager.pan;
 			
 			drawButton();
 		}
@@ -78,6 +85,13 @@ package com.panozona.modules.imagemap.controller {
 					// TODO: fade out effect
 					_waypointView.waypointData.showRadar = false;
 				}
+			}
+		}
+		
+		private function onIsAutorotatingChange(autorotationEvent:Object):void {
+			if (_waypointView.waypointData.showRadar && !_isFocused) {
+				_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
+				_isFocused = true;
 			}
 		}
 		
@@ -123,7 +137,8 @@ package com.panozona.modules.imagemap.controller {
 				}
 				
 				if (_waypointView.waypointData.showRadar && !_isFocused) {
-					if(pan1 - pan2 < pan2 - pan3){
+					
+					if(Math.floor(Math.abs(pan1 - pan2)) > Math.floor(Math.abs(pan2 - pan3))){ // detect acceleration 
 						_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
 						_isFocused = true;
 					}

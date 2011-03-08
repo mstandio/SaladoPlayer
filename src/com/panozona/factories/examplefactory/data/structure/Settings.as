@@ -18,14 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.factories.examplefactory.data.structure{
 	
-	import com.panozona.player.module.data.structure.DataParent;
-	
-	public class Products extends DataParent{
-		
-		override public function getChildrenTypes():Vector.<Class>{
-			var result:Vector.<Class> = new Vector.<Class>();
-			result.push(Product);
-			return result;
-		}
+	public class Settings {
+		public var color1:Number = 0x000000;
+		public var color2:Number = 0xffffff;
 	}
 }

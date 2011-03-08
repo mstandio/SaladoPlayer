@@ -19,31 +19,44 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.factories.examplefactory {
 	
 	import com.panozona.factories.examplefactory.data.ExampleFactoryData;
-	import com.panozona.factories.examplefactory.product.ProductMaker;
-	import com.panozona.player.module.data.ModuleDataFactory;
+	import com.panozona.factories.examplefactory.data.structure.Product;
+	import com.panozona.factories.examplefactory.product.ExampleFactoryProduct;
 	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.data.ModuleDataFactory;
 	import com.panozona.player.module.ModuleFactory;
 	import flash.display.DisplayObject;
 	
 	public class ExampleFactory extends ModuleFactory{
 		
 		protected var exampleFactoryData:ExampleFactoryData;
-		protected var productMaker:ProductMaker;
 		protected var productReferences:Object;
+		protected var definition:Object;
 		
 		public function ExampleFactory(){
 			super("ExampleFactory", "1.0", "http://panozona.com/wiki/Factory:ExampleFactory");
+			moduleDescription.addFunctionDescription("toggleColor");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			exampleFactoryData = new ExampleFactoryData(moduleData as ModuleDataFactory, saladoPlayer);
-			productMaker = new ProductMaker(exampleFactoryData, this);
+			definition = (moduleData as ModuleDataFactory).definition;
+			
 			productReferences = new Object();
 		}
 		
 		override public function returnProduct(productId:String):DisplayObject {
 			if (productReferences[productId] == undefined || productReferences[productId] == null) {
-				productReferences[productId] = productMaker.make(productId);
+				if (definition != null && definition[productId] != undefined){
+					for each (var product:Product in exampleFactoryData.products){
+						if (product.id == definition[productId]) {
+							productReferences[productId] = new ExampleFactoryProduct(product, this);
+							break;
+						}
+						productReferences[productId] = new ExampleFactoryProduct(exampleFactoryData.products[0], this);
+					}
+				}else {
+					productReferences[productId] = new ExampleFactoryProduct(exampleFactoryData.products[0], this);
+				}
 			}
 			return productReferences[productId] as DisplayObject;
 		}

@@ -83,7 +83,7 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 	
 	protected function startDelayTimer():void {
 		if (!_cameraData.isAutorotating) {
-			__delayTimer.delay = _cameraData.delay;
+			__delayTimer.delay = _cameraData.delay * 1000;
 			__delayTimer.start();
 		}else {
 			timesUp();

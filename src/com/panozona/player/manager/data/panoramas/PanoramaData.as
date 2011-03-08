@@ -63,7 +63,6 @@ package com.panozona.player.manager.data.panoramas {
 		 */
 		public var onLeaveToAttempt:Object = new Object();
 		
-		
 		protected var _direction:Number = 0;
 		
 		public var hotspotsData:Vector.<HotspotData> = new Vector.<HotspotData>();

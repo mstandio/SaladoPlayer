@@ -32,10 +32,17 @@ package com.panozona.player.manager.utils.configuration{
 	public class ManagerDataValidator extends EventDispatcher{
 		
 		public function validate(managerData:ManagerData):void {
+			checkGlobal(managerData);
 			checkPanoramas(managerData);
 			checkHotspots(managerData);
 			checkModules(managerData);
 			checkActions(managerData);
+		}
+		
+		protected function checkGlobal(managerData:ManagerData):void {
+			actionExists(managerData.allPanoramasData.firstOnEnter, managerData);
+			actionExists(managerData.allPanoramasData.firstOnTransitionEnd, managerData);
+			panoramaExists(managerData.allPanoramasData.firstPanorama, managerData);
 		}
 		
 		protected function checkPanoramas(managerData:ManagerData):void {

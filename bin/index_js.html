@@ -6,17 +6,17 @@
 		<link href="embed/style.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript">
 			
-			function getFlashMovie(movieName) {
-				var isIE = navigator.appName.indexOf("Microsoft") != -1;
-				return (isIE) ? window[movieName] : document[movieName];
-			}
-			
-			function printer(value){ // see xml configuration
-				alert(value);
+			function someJavaScriptFunction(passedValue){
+				alert(passedValue);
 			}
 			
 			function handleClick(actionId){
-				document.getElementById( "SaladoPlayer" ).runAction(actionId);
+				getElement("SaladoPlayer").runAction(actionId);
+			}
+			
+			function getElement(movieName) {
+				var isIE = navigator.appName.indexOf("Microsoft") != -1;
+				return (isIE) ? window[movieName] : document[movieName];
 			}
 			
 		</script>
@@ -45,9 +45,6 @@
 				<a href="http://www.adobe.com/go/getflashplayer">
 					<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
 				</a>
-			</div>
-			<div style="text-align:center; margin-top:10px;">
-				<a href="http://panozona.com/wiki/">panozona.com/wiki</a> | <a href="http://github.com/mstandio/SaladoPlayer">SaladoPlayer</a> | <a href="http://github.com/mstandio/SaladoConverter">SaladoConverter</a> 
 			</div>
 			<div style="text-align:center; margin-top:10px;">
 				<u><a href="#" onClick="handleClick('javaScriptToSaladoPlayer');">Execute action "javaScriptToSaladoPlayer"</a></u>

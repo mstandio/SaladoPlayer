@@ -21,26 +21,42 @@ package com.panozona.factories.examplefactory.data{
 	import com.panozona.player.module.data.ModuleDataFactory;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.utils.DataNodeTranslator;
-	import com.panozona.factories.examplefactory.data.structure.Products;
+	import com.panozona.factories.examplefactory.data.structure.Product;
+	import com.panozona.factories.examplefactory.data.structure.Settings;
 	
 	public class ExampleFactoryData{
 		
-		public var products:Products = new Products();
+		public var products:Vector.<Product> = new Vector.<Product>();
 		
-		public function ExampleFactoryData(moduleData:ModuleDataFactory, saladoPlayer:Object){
+		public function ExampleFactoryData(moduleDataFactory:ModuleDataFactory, saladoPlayer:Object){
 			
 			var translator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
-			
-			for each(var moduleNode:DataNode in moduleData.nodes) {
-				if (moduleNode.name == "products") {
-					translator.dataNodeToObject(moduleNode, products);
+			var product:Product;
+			for each(var dataNode:DataNode in moduleDataFactory.nodes) {
+				if (dataNode.name == "product") {
+					product = new Product();
+					translator.dataNodeToObject(dataNode, product);
+					products.push(product);
 				}else {
-					throw new Error("Invalid node name: " + moduleNode.name);
+					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
 			
-			if (saladoPlayer.managerData.debugMode){
-				
+			if (saladoPlayer.managerData.debugMode) {
+				var settingsArray:Array;
+				if (products.length < 1) throw new Error("No defined products");
+				var productsId:Object = new Object();
+				for each(var _product:Product in products) {
+					if (productsId[_product.id] != undefined) {
+						throw new Error("Repeating product id: " + _product.id);
+					}else {
+						productsId[_product.id] = ""; // not undefined
+						settingsArray = _product.getChildrenOfGivenClass(Settings);
+						if (settingsArray.length != 1) {
+							throw new Error("Invalid settings for product: " + _product.id);
+						}
+					}
+				}
 			}
 		}
 	}

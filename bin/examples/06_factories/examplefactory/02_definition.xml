@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Factories create hotspots using product descriptions contained in factory configurarion.
+	Definition in Factory node allows to specify which product description will be used
+	to make hotspot of given id. If definition does not contain hotspot id, factory
+	uses first in line product description.
 -->
 <SaladoPlayer>
 	<global debug="true">
@@ -14,9 +16,12 @@
 		</panorama>
 	</panoramas>
 	<factories>
-		<ExampleFactory path="factories/ExampleFactory-1.0.swf">
+		<ExampleFactory path="factories/ExampleFactory-1.0.swf" defintion="hs1:blue,hs2:green">
 			<product id="blue">
 				<settings color1="#0000FF" color2="#00FFFF"/>
+			</product>
+			<product id="green">
+				<settings color1="#00FF00" color2="#00FFAA"/>
 			</product>
 		</ExampleFactory>
 	</factories>

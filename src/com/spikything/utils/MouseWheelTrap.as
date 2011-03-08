@@ -18,8 +18,8 @@
 		private static var _mouseWheelTrapped :Boolean;
 		
 		public static function setup(stage:Stage):void {
-			stage.addEventListener(MouseEvent.ROLL_OVER, function():void {allowBrowserScroll(false);});
-			stage.addEventListener(MouseEvent.ROLL_OUT, function():void {allowBrowserScroll(true);});
+			stage.addEventListener(MouseEvent.MOUSE_OVER, function():void {allowBrowserScroll(false);});
+			stage.addEventListener(Event.MOUSE_LEAVE, function():void {allowBrowserScroll(true);});
 		}
 		
 		private static function allowBrowserScroll(allow:Boolean):void {

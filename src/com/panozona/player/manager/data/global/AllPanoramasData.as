@@ -23,10 +23,21 @@ package com.panozona.player.manager.data.global{
 	public class AllPanoramasData{
 		
 		/**
-		 * id of panorama that will be loaded,
+		 * id of first panorama that will be loaded,
 		 * if not set, SaladoPlayer will load first panorama in line. 
 		 */
 		public var firstPanorama:String;
+		
+		/**
+		 * id of action that will be executed on loading first panorama
+		 */
+		public var firstOnEnter:String;
+		
+		/**
+		 * id of action that will be executed on when transition effect
+		 * in first panorama has finished
+		 */
+		public var firstOnTransitionEnd:String;
 		
 		/**
 		 * Stores size of panorama window, camera limits and initial values.

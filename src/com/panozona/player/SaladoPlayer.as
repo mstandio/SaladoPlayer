@@ -30,6 +30,7 @@ package com.panozona.player {
 	import com.panozona.player.manager.events.*;
 	import com.panozona.player.manager.utils.loading.*;
 	import com.panozona.player.manager.utils.*;
+	import com.spikything.utils.MouseWheelTrap;
 	import flash.display.*;
 	import flash.events.*;
 	import flash.net.*;
@@ -183,7 +184,6 @@ package com.panozona.player {
 				traceWindow.printWarning(event.message);
 			}else if (event.type == ConfigurationEvent.ERROR) {
 				traceWindow.printError(event.message);
-				// TODO indicate crash!
 			}
 		}
 		
@@ -207,6 +207,9 @@ package com.panozona.player {
 			addChild(new Branding());
 			if (managerData.statsData.visible) {
 				addChild(new Stats());
+			}
+			if (managerData.controlData.mouseWheelTrap) {
+				MouseWheelTrap.setup(stage);
 			}
 			manager.loadFirstPanorama();
 		}

@@ -94,6 +94,10 @@ package com.panozona.player.manager.utils.configuration {
 				globalPanoAttributeName = globalPanoAttribute.localName();
 				if (globalPanoAttributeName == "firstPanorama") {
 					allPanoramasData.firstPanorama = getAttributeValue(globalPanoAttribute, String);
+				}else if (globalPanoAttributeName == "firstOnEnter") {
+					allPanoramasData.firstOnEnter = getAttributeValue(globalPanoAttribute, String);
+				}else if (globalPanoAttributeName == "firstOnTransitionEnd") {
+					allPanoramasData.firstOnTransitionEnd = getAttributeValue(globalPanoAttribute, String);
 				} else if (globalPanoAttributeName == "camera") {
 					applySubAttributes(allPanoramasData.params, globalPanoAttribute);
 				} else {
@@ -107,7 +111,9 @@ package com.panozona.player.manager.utils.configuration {
 			var controlAttributeName:String;
 			for each(var controlAttribute:XML in controlNode.attributes()) {
 				controlAttributeName = controlAttribute.localName();
-				if (controlAttributeName == "autorotation") {
+				if (controlAttributeName == "mouseWheelTrap") {
+					controlData.mouseWheelTrap = getAttributeValue(controlAttribute, Boolean);
+				}else if (controlAttributeName == "autorotation") {
 					applySubAttributes(controlData.autorotationCameraData, controlAttribute);
 				} else if (controlAttributeName == "transition") {
 					applySubAttributes(controlData.simpleTransitionData, controlAttribute);
@@ -324,7 +330,7 @@ package com.panozona.player.manager.utils.configuration {
 					modulesData.push(moduleData);
 				}else if (modulesNode.localName() == "factories") {
 					moduleData = new ModuleDataFactory(moduleNode.localName(), moduleNode.@path);
-					if (moduleNode.@definition != undefined ) {
+					if (moduleNode.@definition != undefined) {
 						applySubAttributes((moduleData as ModuleDataFactory).definition, moduleNode.@definition);
 					}
 					modulesData.push(moduleData as ModuleData);

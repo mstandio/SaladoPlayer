@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	These are triggers fired just once on loading first panorama.
+	At the point when those triggers are fired all modules  are allready
+	loaded and added to stage, so you can call safely functions on them.
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+		<control autorotation="enabled:false"/>
+		<panoramas firstPanorama="blueChecker" firstOnEnter="printFirstEnter" firstOnTransitionEnd="printFirstTransitionEnd"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml">
+			<image id="blueArrow" path="hotspots/images/blue_arrow.png" mouse="onClick:loadBlueCheck" />
+		</panorama>
+		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="greenArrow" path="hotspots/images/green_arrow.png" mouse="onClick:loadGreenCheck"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueChecker)"/>
+		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="printFirstEnter" content="SaladoPlayer.print(First enter in virtual tour)"/>
+		<action id="printFirstTransitionEnd" content="SaladoPlayer.print(First transition end in virtual tour)"/>
+	</actions>
+</SaladoPlayer>

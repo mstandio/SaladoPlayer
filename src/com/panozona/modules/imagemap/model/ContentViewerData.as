@@ -131,7 +131,7 @@ package com.panozona.modules.imagemap.model {
 		}
 		
 		public function set focusPoint(value:Point):void {
-			_focusPoint.x = value.x; 
+			_focusPoint.x = value.x;
 			_focusPoint.y = value.y;
 			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_FOCUS_POINT));
 		}

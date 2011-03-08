@@ -121,13 +121,13 @@ package com.panozona.player.manager {
 				_previousPanoramaData = _currentPanoramaData;
 				_currentPanoramaData = panoramaData;
 				panoramaIsMoving = true;
-			
+				
 				if(_previousPanoramaData != null){
 					runAction(_previousPanoramaData.onLeave);
 					runAction(_previousPanoramaData.onLeaveTo[currentPanoramaData.id]);
 				}
 				
-				Trace.instance.printInfo("loading: " + panoramaData.id + " (" + panoramaData.params.path + ")");
+				Trace.instance.printInfo("Loading panorama: " + panoramaData.id);
 				
 				if (arrListeners != null){
 					for (var i:int = 0; i < _managedChildren.numChildren; i++ ) {
@@ -158,7 +158,7 @@ package com.panozona.player.manager {
 				if (isNaN(panoramaData.params.maxVerticalFov))   panoramaData.params.maxVerticalFov   = _managerData.allPanoramasData.params.maxVerticalFov;
 				if (isNaN(panoramaData.params.boundsWidth))      panoramaData.params.boundsWidth      = _managerData.allPanoramasData.params.boundsWidth;
 				if (isNaN(panoramaData.params.boundsHeight))     panoramaData.params.boundsHeight     = _managerData.allPanoramasData.params.boundsHeight;
-				if (isNaN(panoramaData.params.tierThreshold))   panoramaData.params.tierThreshold     = _managerData.allPanoramasData.params.tierThreshold;
+				if (isNaN(panoramaData.params.tierThreshold))    panoramaData.params.tierThreshold    = _managerData.allPanoramasData.params.tierThreshold;
 				
 				_maximumPan = NaN;
 				_minimumPan = NaN;
@@ -181,16 +181,20 @@ package com.panozona.player.manager {
 				}*/
 				
 				super.loadPanorama(panoramaData.params.clone());
-				
 			}
 		}
 		
 		protected function panoramaLoaded(e:Event):void {
+			if (_previousPanoramaData != null ) {
+				pan -= (_previousPanoramaData.direction - currentPanoramaData.direction);
+			}
 			loadHotspots(currentPanoramaData);
 			panoramaIsMoving = false;
 			runAction(currentPanoramaData.onEnter);
 			if (_previousPanoramaData != null ){
 				runAction(currentPanoramaData.onEnterFrom[_previousPanoramaData.id]);
+			}else {
+				runAction(_managerData.allPanoramasData.firstOnEnter);
 			}
 			dispatchEvent(new PanoramaEvent(PanoramaEvent.PANORAMA_LOADED));
 		}
@@ -219,7 +223,6 @@ package com.panozona.player.manager {
 					try {(event.content as Object).references(_saladoPlayer, (hotspotData as HotspotDataSwf))} catch (e:Error){}
 				}
 				managedChild = new Hotspot(event.content as Sprite);
-				
 			}else {
 				managedChild = new Hotspot(event.content as Bitmap);
 			}
@@ -288,10 +291,11 @@ package com.panozona.player.manager {
 		}
 		
 		protected function transitionComplete(e:Event):void {
-			//while (secondaryCanvas.numChildren) secondaryCanvas.removeChildAt(0);
 			runAction(currentPanoramaData.onTransitionEnd);
 			if(_previousPanoramaData != null){
 				runAction(currentPanoramaData.onTransitionEndFrom[_previousPanoramaData.id]);
+			}else {
+				runAction(_managerData.allPanoramasData.firstOnTransitionEnd);
 			}
 			dispatchEvent(new PanoramaEvent(PanoramaEvent.TRANSITION_ENDED));
 		}

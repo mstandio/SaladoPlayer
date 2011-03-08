@@ -17,15 +17,17 @@ You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.factories.examplefactory.data.structure{
+	
+	import com.panozona.player.module.data.structure.DataParent;
+	
+	public class Product extends DataParent{
 		
-	public class Product{
+		public var id:String;
 		
-		public function Product() {
-			// moze sie odwolywac od konretnych elementow 
-			// product maker 
-			// no wiec jezeli bede chcial pokazac i zchowac
-			
-			// echhhh
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Settings);
+			return result;
 		}
 	}
 }
