@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 	onLeave takes value of action id that is executed before loading new panorama
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true">

@@ -2,6 +2,8 @@
 <!--
 	Bitmap for <extraButton/> is taken from bitmap grid of third and fourth row, first column for "a", second for "b" ect.
 	extraButton can execute action on mouse press, here it prints text in trace window.
+	
+	http://panozona.com/wiki/Module:ButtonBar
 -->
 <SaladoPlayer>
 	<global debug="true">

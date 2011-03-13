@@ -2,7 +2,8 @@
 <!--
 	- ImageMap should use other module to be opened
 	- Here is how it can cooperate with ImageButton
-	- see: http://panozona.com/wiki/Module:ImageMap
+	
+	http://panozona.com/wiki/Module:ImageMap
 -->
 <SaladoPlayer>
 	<global debug="true">

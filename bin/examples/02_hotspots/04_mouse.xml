@@ -2,6 +2,8 @@
 <!--
 	Executing actions on mouse on hotspot interaction.
 	Trace window is open by default, interaction with hotspots printins text in trace window.
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true">

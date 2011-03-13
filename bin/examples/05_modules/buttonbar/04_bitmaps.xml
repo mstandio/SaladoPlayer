@@ -2,6 +2,8 @@
 <!--
 	Buttons bitmap inside grid can have different sizes, bar can havebitmap 
 	background -x and -y repeated to fill its defined size
+	
+	http://panozona.com/wiki/Module:ButtonBar
 -->
 <SaladoPlayer>
 	<global debug="true">

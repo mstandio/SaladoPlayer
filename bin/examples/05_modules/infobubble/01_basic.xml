@@ -2,6 +2,8 @@
 <!-- 
 	Display images at mouse cursor.
 	bubbles adjust themselves atumatically to fit to panorama window.
+	
+	http://panozona.com/wiki/Module:InfoBubble
 -->
 <SaladoPlayer>
 	<global debug="true">

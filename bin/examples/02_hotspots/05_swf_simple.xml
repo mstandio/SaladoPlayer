@@ -2,6 +2,8 @@
 <!--
 	Simple swf hotspots are standalone swf files that are inserted into panorama just like image hotspots.
 	They do not communicate with SaladoPlayer, and cannot be configured, but they are very easy to create.
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true">

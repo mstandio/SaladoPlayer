@@ -6,6 +6,8 @@
 	- fov (field of view) can take values 1 to 179 where 90 means that camera shows 90 degrees of 360 degrees view
 	- fov is by default limited from 30 to 120, see maxFox and minFov in camera_global example
 	- Use ViewFinder module to preview your camera pan, tilt and field of view
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true">

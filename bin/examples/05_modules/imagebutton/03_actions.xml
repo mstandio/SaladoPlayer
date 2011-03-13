@@ -2,6 +2,8 @@
 <!-- 
 	You can assign custom mouse events to buttons.
 	You can open/close buttons of given id
+	
+	http://panozona.com/wiki/Module:ImageButton
 -->
 <SaladoPlayer>
 	<global debug="true">

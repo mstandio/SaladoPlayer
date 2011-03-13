@@ -2,6 +2,8 @@
 <!--
 	Each one of extrabuttons can be lited up or dimmed on demand. This feature can be usefull when extraButton reflects
 	state of some option, like if module window is visible or not.
+	
+	http://panozona.com/wiki/Module:ButtonBar
 -->
 <SaladoPlayer>
 	<global debug="true">

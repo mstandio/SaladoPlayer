@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Example of data that can be interpreted by ExampleModule.
+	
+	http://panozona.com/wiki/Module:ExampleModule
 -->
 <SaladoPlayer>
 	<global debug="true">

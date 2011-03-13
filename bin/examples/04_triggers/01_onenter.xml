@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 	onEnter takes value of action id that is executed when given panorama is entered
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true">

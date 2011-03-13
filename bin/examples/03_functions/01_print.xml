@@ -2,7 +2,7 @@
 <!-- 
 	Trace window is opened by default, clicking on arrows prints text in trace window.
 	
-	see: http://panozona.com/wiki/SaladoPlayer:Exposed_functions
+	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
 -->
 <SaladoPlayer>
 	<global debug="true">

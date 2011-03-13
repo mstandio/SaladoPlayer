@@ -3,6 +3,8 @@
 	Use location attribute for positioning hotspots inside panorama.
 	It can take any set of values: pan(horizontal), tilt(vertical) and distance(depth).
 	Default value for distance is 400, default pan is 0, default tilt is 0.
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true">

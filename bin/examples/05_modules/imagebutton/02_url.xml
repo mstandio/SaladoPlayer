@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
 	If you add CDATA child to button, clicking it will couse opening in new window url from text contained in CDATA node.
+	
+	http://panozona.com/wiki/Module:ImageButton
 -->
 <SaladoPlayer>
 	<global debug="true" autorotation="enabled:false"/>

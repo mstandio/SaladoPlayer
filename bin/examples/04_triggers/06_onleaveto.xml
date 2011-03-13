@@ -4,6 +4,8 @@
 	for instance: in panorama greenChecker onLeave to="blueChecker:printGreenToBlue,redChecker:printGreenToRed 
 	means that loading panotrama blueChecker while being in greenChecker couses action printGreenToBlue to be executed,
 	similar for redChecker
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true">

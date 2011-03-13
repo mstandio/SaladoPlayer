@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 	You can change position of background bar and all buttons inside panorama window.
+	
+	http://panozona.com/wiki/Module:ButtonBar
 -->
 <SaladoPlayer>
 	<global debug="true">

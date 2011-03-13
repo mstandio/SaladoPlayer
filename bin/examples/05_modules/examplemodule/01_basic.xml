@@ -2,6 +2,8 @@
 <!--
 	Basic example of inserting ExampleModule into SaladoPlayer.
 	Cliking on hotspot will open/close module window
+	
+	http://panozona.com/wiki/Module:ExampleModule
 -->
 <SaladoPlayer>
 	<global debug="true">

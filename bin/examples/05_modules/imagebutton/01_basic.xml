@@ -2,6 +2,8 @@
 <!-- 
 	Use module to place images inside panorama window. Setting "handcursor" to false 
 	couses that image is transparent for mouse when rotating panorama.
+	
+	http://panozona.com/wiki/Module:ImageButton
 -->
 <SaladoPlayer>
 	<global debug="true">

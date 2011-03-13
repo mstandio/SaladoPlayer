@@ -3,6 +3,8 @@
 	These are triggers fired just once on loading first panorama.
 	At the point when those triggers are fired all modules  are allready
 	loaded and added to stage, so you can call safely functions on them.
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true">

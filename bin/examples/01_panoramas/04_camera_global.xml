@@ -7,6 +7,8 @@
 	greenChecker and blueChecker, couse neither of them has its own tilt settings. Global panoramas camera
 	 has maxTilt to set 45, this won't be applied to panorama "greenChecker" couse it has its own maxTilt,
 	 however it will be applied to panorama "blueChecker"
+	 
+	 http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true">

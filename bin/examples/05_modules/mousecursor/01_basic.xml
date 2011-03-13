@@ -2,6 +2,8 @@
 <!--
 	MouseCursor requires path to grid containing cursor bitmaps. Grid consists 
 	of 4 bitmaps of any width or height, while all bitmaps must be of the same size. 
+	
+	http://panozona.com/wiki/Module:MouseCursor
 -->
 <SaladoPlayer>
 	<global debug="true">

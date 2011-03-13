@@ -4,6 +4,8 @@
 	for instance: in panorama greenChecker onEnterFrom="blueChecker:printGreenFromBlue,redChecker:printGreenFromRed
 	means that when entering from panotrama blueChecker to panorama greenChecker, action printGreenFromBlue is executed,
 	similar for redChecker
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true">

@@ -2,7 +2,7 @@
 <!--
 	Clicking on hotspots results in loading new panoramas.
 	
-	see: http://panozona.com/wiki/SaladoPlayer:Exposed_functions
+	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
 -->
 <SaladoPlayer>
 	<global debug="true">

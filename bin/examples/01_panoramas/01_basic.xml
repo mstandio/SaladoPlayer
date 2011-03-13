@@ -6,6 +6,8 @@
 	- panorama id is mandatory and should be unique among other panorama nodes.
 	- panorama path is pointing to *.xml file describing tiled front wall of cube, name_f.xml - as in [f]ront
 	- panorama images must be in Deep Zoom format - you can convert panoramas to Deep Zoom cubes with SaladoConverter
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true"/>

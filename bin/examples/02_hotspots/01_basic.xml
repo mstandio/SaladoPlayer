@@ -3,6 +3,8 @@
 	Most basic example of inserting image into panorama. Allowed formats are *.jpg *.gif and *.png
 	Setting "handCursor" to "false" couses that cursor is not changed when hovers over hotspot.
 	Hotspot id has to be unique among all hotspots in all panoramas.
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true">

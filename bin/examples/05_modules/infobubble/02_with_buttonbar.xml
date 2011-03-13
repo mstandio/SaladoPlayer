@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 	You can enable/disable showing bubbles.
+	
+	http://panozona.com/wiki/Module:InfoBubble
 -->
 <SaladoPlayer>
 	<global debug="true">

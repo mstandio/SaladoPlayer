@@ -2,6 +2,8 @@
 <!--
 	- All you need to do is point to map image and place some waypoints
 	- Notice that this is simplified example and there is n way to open map once it is closed
+	
+	http://panozona.com/wiki/Module:ImageMap
 -->
 <SaladoPlayer>
 	<global debug="true">

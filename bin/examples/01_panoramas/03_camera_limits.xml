@@ -8,6 +8,8 @@
 	- violetChecker is example of limited view for cylindrical panorama. Notice that maxVerticalFov
 	  overwrites both maxTilt and maxFov, minVerticalFov overwrites both minTilt and minFov.
 	- turquoiseChecker is example of of limited view for partial cylindrical panorama.
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
 	<global debug="true">

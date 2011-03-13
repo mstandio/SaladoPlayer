@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 	You can set position of drop-dwon list inside panorama window.
+	
+	http://panozona.com/wiki/Module:DropDown
 -->
 <SaladoPlayer>
 	<global debug="true">
