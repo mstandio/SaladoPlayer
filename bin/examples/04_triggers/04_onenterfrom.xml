@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 	onEnterFrom allows assignment of actions executed when entering from given panorama
-	for instance: in panorama "greenChecker" onEnterFrom="blueChecker:printGreenFromBlue,redChecker:printGreenFromRed 
-	means that when entering from panotrama "blueChecker" to panorama "greenChecker", action "printGreenFromBlue" is executed,
-	similar for "redChecker"
+	for instance: in panorama greenChecker onEnterFrom="blueChecker:printGreenFromBlue,redChecker:printGreenFromRed
+	means that when entering from panotrama blueChecker to panorama greenChecker, action printGreenFromBlue is executed,
+	similar for redChecker
 -->
 <SaladoPlayer>
 	<global debug="true">
@@ -12,16 +12,16 @@
 	</global>
 	<panoramas>
 		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" onEnterFrom="blueChecker:printGreenFromBlue,redChecker:printGreenFromRed">
-			<image id="gcBlueArrow" path="hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueCheck"/>
 			<image id="gcRedArrow" path="hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadBlueCheck"/>
+			<image id="gcBlueArrow" path="hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueCheck"/>
 		</panorama>
 		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml" onEnterFrom="greenChecker:printBlueFromGreen,redChecker:printBlueFromRed">
-			<image id="bcGreenArrow" path="hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenCheck"/>
 			<image id="bcRedArrow" path="hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadRedCheck"/>
+			<image id="bcGreenArrow" path="hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenCheck"/>
 		</panorama>
 		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml" onEnterFrom="greenChecker:printRedFromGreen,blueChecker:printRedFromBlue">
-			<image id="rcGreenArrow" path="hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenCheck"/>
 			<image id="rcBlueArrow" path="hotspots/images/blue_arrow.png" location="pan:-10" mouse="onClick:loadBlueCheck"/>
+			<image id="rcGreenArrow" path="hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenCheck"/>
 		</panorama>
 	</panoramas>
 	<actions>

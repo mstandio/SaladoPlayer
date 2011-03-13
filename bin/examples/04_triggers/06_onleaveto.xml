@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 	onLeaveTo allows assignment of actions executed when leaving to given panorama
-	for instance: in panorama "greenChecker" onLeave to="blueChecker:printGreenToBlue,redChecker:printGreenToRed 
-	means that loading panotrama "blueChecker" while being in "greenChecker" couses action "printGreenToBlue" to be executed,
-	similar for "redChecker"
+	for instance: in panorama greenChecker onLeave to="blueChecker:printGreenToBlue,redChecker:printGreenToRed 
+	means that loading panotrama blueChecker while being in greenChecker couses action printGreenToBlue to be executed,
+	similar for redChecker
 -->
 <SaladoPlayer>
 	<global debug="true">

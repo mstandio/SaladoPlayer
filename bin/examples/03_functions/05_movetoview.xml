@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	This function is very simillar to one described in 04_jumptoview.
-	- moveToView moves with speed of 20 degrees per second, using tween function Linear.easeNone
+	This function is very simillar to one described in jumptoview example.
+	- moveToView moves with speed of 20 degrees per second, using transition function Linear.easeNone
 	- moveToViewThen executes action when it has finished
-	- advancedMoveToView is same as moveToView, but allows setting speed and tween function
+	- advancedMoveToView is same as moveToView, but allows setting speed and transition function
 	- advancedMoveToViewThen executes action when it has finished
-	For avaible tween functions see: http://panozona.com/wiki/SaladoPlayer:Data_types
+	For avaible transition functions see: http://panozona.com/wiki/SaladoPlayer:Data_types
+	
+	see: http://panozona.com/wiki/SaladoPlayer:Exposed_functions
 -->
 <SaladoPlayer>
 	<global debug="true">

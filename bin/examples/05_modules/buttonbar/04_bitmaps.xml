@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Buttons bitmap inside grid can have different sizes, bar can have
-	bitmap background -x and -y repeated to fill its defined size
+	Buttons bitmap inside grid can have different sizes, bar can havebitmap 
+	background -x and -y repeated to fill its defined size
 -->
 <SaladoPlayer>
 	<global debug="true">

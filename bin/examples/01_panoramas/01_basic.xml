@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- 
 	Minimal working configuration
-	- Trace window will show erros in configuration, in case of any problems check it first.
+	- Trace window notifies about erros in configuration, in case of any problems check it first.
 	- When you are sure your configuration works, set debug to false to hide trace window.
-	- anorama id is mandatory and should be unique among other panorama nodes
+	- panorama id is mandatory and should be unique among other panorama nodes.
 	- panorama path is pointing to *.xml file describing tiled front wall of cube, name_f.xml - as in [f]ront
 	- panorama images must be in Deep Zoom format - you can convert panoramas to Deep Zoom cubes with SaladoConverter
 -->

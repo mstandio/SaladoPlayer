@@ -6,17 +6,15 @@
 		<link href="embed/style.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript">
 			
+			var counter = 0;
 			function someJavaScriptFunction(passedValue){
-				alert(passedValue);
+				var box = document.getElementById('box');
+				box.value = passedValue + " " + counter;
+				counter++;
 			}
 			
 			function handleClick(actionId){
-				getElement("SaladoPlayer").runAction(actionId);
-			}
-			
-			function getElement(movieName) {
-				var isIE = navigator.appName.indexOf("Microsoft") != -1;
-				return (isIE) ? window[movieName] : document[movieName];
+				document.getElementById('SaladoPlayer').runAction(actionId);
 			}
 			
 		</script>
@@ -48,6 +46,7 @@
 			</div>
 			<div style="text-align:center; margin-top:10px;">
 				<u><a href="#" onClick="handleClick('javaScriptToSaladoPlayer');">Execute action "javaScriptToSaladoPlayer"</a></u>
+				<form><input type="text" id="box" name="box" value=""/></form>
 			</div>
 		</div>
 	</body>

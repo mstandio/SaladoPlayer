@@ -2,11 +2,13 @@
 <!--
 	This function is very simillar to one described in 05_movetoview
 	- moveToHotspot moves camera to pan and tilt of given hotspot, with current camera field of view
-	  with speed of 20 degrees per second, using tween function Linear.easeNone
+	  with speed of 20 degrees per second, using transition function Linear.easeNone
 	- moveToHotspotThen executes action when it has finished
-	- advancedMoveToHotspot is same as moveToHotspot, but allows setting target field of view, speed and tween function
+	- advancedMoveToHotspot is same as moveToHotspot, but allows setting target field of view, speed and transition function
 	- advancedMoveToHotspotThen executes action when it has finished
-	For avaible tween functions see: http://panozona.com/wiki/SaladoPlayer:Data_types
+	For avaible transition functions see: http://panozona.com/wiki/SaladoPlayer:Data_types
+	
+	see: http://panozona.com/wiki/SaladoPlayer:Exposed_functions
 -->
 <SaladoPlayer>
 	<global debug="true">

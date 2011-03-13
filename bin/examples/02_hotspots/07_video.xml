@@ -13,16 +13,12 @@
 			</swf>
 		</panorama>
 		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml"/>
-		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml"/>
-		<panorama id="yellowChecker" path="panoramas/dz_yellow_check/yellow_check_f.xml"/>
 	</panoramas>
 	<modules>
 		<DropDown path="modules/DropDown-1.0.swf">
 			<elements>
-				<element label="Blue checker" panorama="blueChecker"/>
 				<element label="Green checker" panorama="greenChecker"/>
-				<element label="Red checker" panorama="redChecker"/>
-				<element label="Yellow checker" panorama="yellowChecker"/>
+				<element label="Blue checker" panorama="blueChecker"/>
 			</elements>
 		</DropDown>
 	</modules>

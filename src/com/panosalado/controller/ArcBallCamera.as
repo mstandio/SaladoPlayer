@@ -33,12 +33,12 @@ import flash.events.MouseEvent;
 import flash.utils.getTimer;
 
 public class ArcBallCamera extends Sprite implements ICamera
-{	
+{
 	protected var _viewData:ViewData;
 	protected var _mouseObject:Sprite;
 	
 	protected var _cameraData:ArcBallCameraData;
-
+	
 	private var __lastAngleX:Number;
 	private var __lastAngleY:Number;
 	private var __xh:Number;
@@ -50,7 +50,7 @@ public class ArcBallCamera extends Sprite implements ICamera
 	private var mouseWheeled:Boolean;
 	
 	public function ArcBallCamera()
-	{	
+	{
 		__lastAngleX = 0;
 		__lastAngleY = 0;
 		__xh = 0;
@@ -73,7 +73,7 @@ public class ArcBallCamera extends Sprite implements ICamera
 	}
 	
 	private function downHandler(event:MouseEvent):void
-	{	
+	{
 		mouseIsDown = true;
 		
 		var vFov:Number;
@@ -83,7 +83,7 @@ public class ArcBallCamera extends Sprite implements ICamera
 		vFov = viewData.boundsHeight / viewData.boundsWidth * viewData.fieldOfView;
 		__xv = Math.tan(vFov * 0.5 * __toRadians) / (viewData.boundsHeight * 0.5);
 		
-		__lastAngleX= Math.atan(( _mouseObject.mouseX - viewData.boundsWidth * 0.5) * __xh)		// HARDCORE
+		__lastAngleX = Math.atan(( _mouseObject.mouseX - viewData.boundsWidth * 0.5) * __xh);    // HARDCORE
 		__lastAngleY = Math.atan(( _mouseObject.mouseY - viewData.boundsHeight * 0.5 )* __xv);  // TRIGONOMETRY :F
 		
 		
@@ -134,21 +134,21 @@ public class ArcBallCamera extends Sprite implements ICamera
 			
 			angleX = Math.atan(( _mouseObject.mouseX - viewData.boundsWidth * 0.5) * __xh)
 			angleY = Math.atan(( _mouseObject.mouseY - viewData.boundsHeight * 0.5 )* __xv);
-			viewData.pan += (angleX - __lastAngleX) * __toDegrees;
+			viewData.pan -= (angleX - __lastAngleX) * __toDegrees;
 			viewData.tilt += (angleY - __lastAngleY) * __toDegrees;
-
+			
 			if (viewData._tilt > 90) {
 				viewData.tilt = 90;
 			}
 			if (viewData._tilt < -90) {
 				viewData.tilt = -90;
 			}
-		
+			
 			__lastAngleX = angleX;
 			__lastAngleY = angleY;
 		}
-	}	
-		
+	}
+	
 	protected function enabledChangeHandler(e:Event):void {
 		
 		switch(_cameraData.enabled) {
@@ -188,9 +188,9 @@ public class ArcBallCamera extends Sprite implements ICamera
 	
 	public function get mouseObject():Sprite { return _mouseObject; }
 	public function set mouseObject(value:Sprite):void
-	{		
+	{
 		if ( _mouseObject === value ) return;
-				
+		
 		if ( value != null && cameraData.enabled){
 			value.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
 			value.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );

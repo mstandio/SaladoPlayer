@@ -131,24 +131,24 @@ final public class Panorama
 //if (targetGraphics) Profiler.instance.beginProfiling();
 //if (targetGraphics) Profiler.instance.begin("render");
 		//viewData vars. fetch them once since they are getter functions
-		var pan:Number 				= viewData._pan;
-		var tilt:Number 			= viewData._tilt;
-		var fieldOfView:Number 		= viewData._fieldOfView;
-		var boundsWidth:Number		= viewData._boundsWidth;
-		var boundsHeight:Number		= viewData._boundsHeight;
-		var tierThreshold:Number 	= viewData._tierThreshold;		
-
-		var perspective:Matrix3D 		= viewData.perspectiveMatrix3D;
-		var transform:Matrix3D 			= viewData.transformMatrix3D;
-		var perspectiveProjection:PerspectiveProjection	= viewData.perspectiveProjection;
-		var frustumLeft:Vector3D		= viewData.frustumLeft;
-		var frustumRight:Vector3D		= viewData.frustumRight;
-		var frustumTop:Vector3D			= viewData.frustumTop;
-		var frustumBottom:Vector3D		= viewData.frustumBottom;
-		var pixelsPerDegree:Number		= viewData.pixelsPerDegree;
-		var tile:Tile					= viewData._tile as Tile;
-		var rootTile:QuadTreeCube		= viewData._tile as QuadTreeCube;
-		var displayingTile:Tile 		= rootTile.displayingTile;
+		var pan:Number = -viewData._pan;
+		var tilt:Number = viewData._tilt;
+		var fieldOfView:Number = viewData._fieldOfView;
+		var boundsWidth:Number = viewData._boundsWidth;
+		var boundsHeight:Number = viewData._boundsHeight;
+		var tierThreshold:Number = viewData._tierThreshold;
+		
+		var perspective:Matrix3D = viewData.perspectiveMatrix3D;
+		var transform:Matrix3D = viewData.transformMatrix3D;
+		var perspectiveProjection:PerspectiveProjection = viewData.perspectiveProjection;
+		var frustumLeft:Vector3D = viewData.frustumLeft;
+		var frustumRight:Vector3D = viewData.frustumRight;
+		var frustumTop:Vector3D = viewData.frustumTop;
+		var frustumBottom:Vector3D = viewData.frustumBottom;
+		var pixelsPerDegree:Number = viewData.pixelsPerDegree;
+		var tile:Tile = viewData._tile as Tile;
+		var rootTile:QuadTreeCube = viewData._tile as QuadTreeCube;
+		var displayingTile:Tile = rootTile.displayingTile;
 		
 		//variables used across blocks. no need to have multiple vars for the same functions in different blocks.
 		var referenceUvtData:Vector.<Number>;
@@ -590,7 +590,7 @@ final public class Panorama
 								_tempClippedUvtData[uvtIndex++] = uv1V;
 								_tempClippedUvtData[uvtIndex++] = 1;
 								break;
-									
+								
 							default:
 								break;
 						}

@@ -131,13 +131,13 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		else if (_cameraData.mode == AutorotationCameraData.FRAME_INCREMENT)
 			delta = _cameraData.frameIncrement;
 		
-		if ( _viewData._pan <= _viewData._minimumPan) {
+		if ( _viewData._pan >= _viewData._maximumPan) {
 			rotationDirection = -1;
-		}else if ( _viewData._pan >= _viewData._maximumPan) {
+		}else if ( _viewData._pan <= _viewData._minimumPan) {
 			rotationDirection = 1;
 		}
 		delta = delta * rotationDirection;
-		_viewData.pan -= delta;
+		_viewData.pan += delta;
 		
 		// set tilt;
 		if ( _viewData._tilt < __neutralTilt ) {

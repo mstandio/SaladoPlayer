@@ -45,7 +45,7 @@ public class DeepZoomTilePyramid extends TilePyramid
 		var r:URLRequest = new URLRequest(path);
 		//NB: use strong reference, otherwise URLLoader may be gc'ed before complete fires.
 		l.addEventListener(Event.COMPLETE, descriptorLoaded);
-		l.addEventListener(IOErrorEvent.IO_ERROR, 	IOErrorEventHandler);
+		l.addEventListener(IOErrorEvent.IO_ERROR, IOErrorEventHandler);
 		l.load(r);
 	}
 	
@@ -53,7 +53,7 @@ public class DeepZoomTilePyramid extends TilePyramid
 	{
 		var urlLoader:URLLoader = URLLoader(event.target);
 		urlLoader.removeEventListener( Event.COMPLETE, descriptorLoaded )
-		urlLoader.removeEventListener(IOErrorEvent.IO_ERROR, 	IOErrorEventHandler);
+		urlLoader.removeEventListener(IOErrorEvent.IO_ERROR, IOErrorEventHandler);
 		
 		var descriptor:XML = XML( urlLoader.data );
 		/*
@@ -76,22 +76,22 @@ public class DeepZoomTilePyramid extends TilePyramid
 	override public function clone(into:TilePyramid=null) : TilePyramid {
 		var clone:DeepZoomTilePyramid = 
 			(into != null && into is DeepZoomTilePyramid) ? into as DeepZoomTilePyramid : new DeepZoomTilePyramid();
-		clone.width 			= width;
-		clone.height 			= height;
-		clone.numTiles		 	= numTiles;
-		clone.tileSize 			= tileSize;
-		clone.overlap 			= overlap;
-		clone.numTiers 			= numTiers;
-		clone.widths 			= widths;
-		clone.heights 			= heights;
-		clone.accurateWidths 	= accurateWidths;
-		clone.accurateHeights 	= accurateHeights;
-		clone.columns 			= columns;
-		clone.rows 				= rows;
-		clone.path 				= path;
-		clone.format 			= format;
+		clone.width             = width;
+		clone.height            = height;
+		clone.numTiles          = numTiles;
+		clone.tileSize          = tileSize;
+		clone.overlap           = overlap;
+		clone.numTiers          = numTiers;
+		clone.widths            = widths;
+		clone.heights           = heights;
+		clone.accurateWidths    = accurateWidths;
+		clone.accurateHeights   = accurateHeights;
+		clone.columns           = columns;
+		clone.rows              = rows;
+		clone.path              = path;
+		clone.format            = format;
 		
-		clone.tierOffset 		= tierOffset;
+		clone.tierOffset = tierOffset;
 		
 		return clone;
 	}
@@ -126,7 +126,7 @@ public class DeepZoomTilePyramid extends TilePyramid
 	  return Math.ceil( Math.log( Math.max( width, height ))/Math.LN2 )
 	}
 	
-	protected function deriveProperties( width  : uint, height : uint, tileSize : uint ) : void
+	protected function deriveProperties( width : uint, height : uint, tileSize : uint ) : void
 	{
 		var originalWidth:int = width // never used 
 		var originalHeight:int = height
@@ -135,12 +135,12 @@ public class DeepZoomTilePyramid extends TilePyramid
 		
 		var columns : uint
 		var rows : uint
-		var widthsArray:Array 		= new Array()
-		var heightsArray:Array 		= new Array()
-		var columnsArray:Array 		= new Array()
-		var rowsArray:Array		 	= new Array()
-		var accurateWidthsArray:Array	=  new Array()
-		var accurateHeightsArray:Array	=  new Array()
+		var widthsArray:Array = new Array()
+		var heightsArray:Array = new Array()
+		var columnsArray:Array = new Array()
+		var rowsArray:Array = new Array()
+		var accurateWidthsArray:Array = new Array()
+		var accurateHeightsArray:Array = new Array()
 		var accurateWidth:Number = width
 		var accurateHeight:Number = height
 		
@@ -152,10 +152,10 @@ public class DeepZoomTilePyramid extends TilePyramid
 			columns = Math.ceil( width / tileSize )
 			rows = Math.ceil( height / tileSize )
 			
-			widthsArray[t] 		= width
-			heightsArray[t] 	= height
-			columnsArray[t]		= columns
-			rowsArray[t]		= rows
+			widthsArray[t]      = width
+			heightsArray[t]     = height
+			columnsArray[t]     = columns
+			rowsArray[t]        = rows
 			accurateWidthsArray[t] = accurateWidth;
 			accurateHeightsArray[t] = accurateHeight;
 			
@@ -182,12 +182,12 @@ public class DeepZoomTilePyramid extends TilePyramid
 		
 		numTiers -= tierOffset;
 		
-		widths 	=  Vector.<int>(widthsArray);
+		widths =  Vector.<int>(widthsArray);
 		heights =  Vector.<int>(heightsArray);
 		accurateWidths = Vector.<Number>(accurateWidthsArray);
 		accurateHeights = Vector.<Number>(accurateHeightsArray);
 		columns =  Vector.<int>(columnsArray);
-		rows 	=  Vector.<int>(rowsArray);
+		rows =  Vector.<int>(rowsArray);
 	}
 }
 }

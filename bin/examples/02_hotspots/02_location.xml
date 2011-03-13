@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Positioning hotspots inside panorama.
-	location can take any of values: pan(horizontal), tilt(vertical) and distance(depth).
+	Use location attribute for positioning hotspots inside panorama.
+	It can take any set of values: pan(horizontal), tilt(vertical) and distance(depth).
 	Default value for distance is 400, default pan is 0, default tilt is 0.
 -->
 <SaladoPlayer>
@@ -10,8 +10,11 @@
 	</global>
 	<panoramas>
 		<panorama id="GreenChecker" path="panoramas/dz_green_check/green_check_f.xml">
-			<image id="greenArrow" path="hotspots/images/green_arrow.png" location="pan:30" />
-			<image id="blueArrow" path="hotspots/images/blue_arrow.png" location="tilt:10,distance:600" />
+			<image id="blueArrow" path="hotspots/images/blue_arrow.png" location="tilt:10,distance:600"/>
+			<image id="greenArrow" path="hotspots/images/green_arrow.png" location="pan:30"/>
 		</panorama>
 	</panoramas>
+	<modules>
+		<ViewFinder path="modules/ViewFinder-1.0.swf"/>
+	</modules>
 </SaladoPlayer>

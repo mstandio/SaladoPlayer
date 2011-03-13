@@ -47,7 +47,7 @@ package com.panozona.player.manager {
 		
 		protected var panoramaIsMoving:Boolean;
 		protected var pendingActionId:String;
-		protected var panoramaLoadingCanceled:Boolean; // czy to zostawic 
+		protected var panoramaLoadingCanceled:Boolean;
 		
 		protected var _managerData:ManagerData;
 		protected var _saladoPlayer:SaladoPlayer; // parent needed to access loaded modules
@@ -255,7 +255,7 @@ package com.panozona.player.manager {
 			}
 			
 			var piOver180:Number = Math.PI / 180;
-			var pr:Number = (-1 * (-hotspotData.location.pan - 90)) * piOver180;
+			var pr:Number = -1 * (hotspotData.location.pan - 90) * piOver180;
 			var tr:Number = -1 * hotspotData.location.tilt * piOver180;
 			var xc:Number = hotspotData.location.distance * Math.cos(pr) * Math.cos(tr);
 			var yc:Number = hotspotData.location.distance * Math.sin(tr);
@@ -264,7 +264,7 @@ package com.panozona.player.manager {
 			managedChild.x = xc;
 			managedChild.y = yc;
 			managedChild.z = zc;
-			managedChild.rotationY = (-hotspotData.location.pan + hotspotData.transform.rotationY) * piOver180;
+			managedChild.rotationY = (hotspotData.location.pan + hotspotData.transform.rotationY) * piOver180;
 			managedChild.rotationX = (hotspotData.location.tilt + hotspotData.transform.rotationX) * piOver180;
 			managedChild.rotationZ = hotspotData.transform.rotationZ * piOver180;
 			

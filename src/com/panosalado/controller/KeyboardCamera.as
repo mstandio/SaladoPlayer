@@ -36,7 +36,7 @@ import flash.events.MouseEvent;
 import flash.utils.getTimer;
 
 public class KeyboardCamera extends EventDispatcher implements ICamera
-{	
+{
 	protected var _canvas:Sprite;
 	protected var _stage:Stage;
 	protected var _viewData:ViewData;
@@ -62,7 +62,7 @@ public class KeyboardCamera extends EventDispatcher implements ICamera
 	private var inertialFieldOfView:Inertion;
 	
 	public function KeyboardCamera()
-	{	
+	{
 		deltaPan = 0;
 		deltaTilt = 0;
 		deltaFieldOfView = 0;
@@ -73,16 +73,16 @@ public class KeyboardCamera extends EventDispatcher implements ICamera
 		go_left = false;
 		go_right = false;
 		go_in = false;
-		go_out = false;		
+		go_out = false;
 	}
 	
 	public function processDependency(reference:Object,characteristics:*):void {
-		if 		(characteristics == Characteristics.VIEW_DATA) viewData = reference as ViewData;
+		if      (characteristics == Characteristics.VIEW_DATA) viewData = reference as ViewData;
 		else if (characteristics == Characteristics.KEYBOARD_CAMERA_DATA) cameraData = reference as KeyboardCameraData;
-	}    
+	}
 	
 	protected function keyDownEvent( event:KeyboardEvent ):void
-	{ 		
+	{
 		switch( event.keyCode )
 		{
 		case CameraKeyBindings.UP:
@@ -115,7 +115,7 @@ public class KeyboardCamera extends EventDispatcher implements ICamera
 	}
 	
 	protected function keyUpEvent(event:KeyboardEvent):void
-	{ 
+	{
 		switch( event.keyCode )
 			{
 			case CameraKeyBindings.UP:
@@ -144,14 +144,14 @@ public class KeyboardCamera extends EventDispatcher implements ICamera
 	
 	private function stageOutOfFocus(event:Event):void{  
 		keyIsDown = false;
-	}  	
+	}
 	
 	private function enterFrameHandler(event:Event):void 
-	{ 
-		_viewData.pan += deltaPan;
+	{
+		_viewData.pan -= deltaPan;
 		
 		if (_viewData.tilt + deltaTilt < -90 ) {_viewData.tilt = -90} else
-		if (_viewData.tilt + deltaTilt > 90 )  {_viewData.tilt = 90} else
+		if (_viewData.tilt + deltaTilt >  90 ) {_viewData.tilt =  90} else
 		_viewData.tilt += deltaTilt;
 		
 		viewData.fieldOfView += deltaFieldOfView;
@@ -160,16 +160,16 @@ public class KeyboardCamera extends EventDispatcher implements ICamera
 		{
 			if (go_right) { deltaPan  = inertialPan.decrement();  } else 
 			if (go_left)  { deltaPan  = inertialPan.increment();  } else
-							deltaPan  = inertialPan.aimZero();
+			                deltaPan  = inertialPan.aimZero();
 			
 			if (go_up)    { deltaTilt = inertialTilt.increment(); } else
 			if (go_down)  { deltaTilt = inertialTilt.decrement(); } else
-							deltaTilt = inertialTilt.aimZero();
-							
+			                deltaTilt = inertialTilt.aimZero();
+			
 			if (go_in)    { deltaFieldOfView = inertialFieldOfView.decrement(); } else
 			if (go_out)   { deltaFieldOfView = inertialFieldOfView.increment(); } else
-							deltaFieldOfView = inertialFieldOfView.aimZero();
-
+			                deltaFieldOfView = inertialFieldOfView.aimZero();
+		
 		} else {
 			
 			if (deltaPan != 0 || deltaTilt != 0 || deltaFieldOfView !=0) {

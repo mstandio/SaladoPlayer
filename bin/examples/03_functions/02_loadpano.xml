@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Clicking on hotspots couses loading of new panoramas.
+	Clicking on hotspots results in loading new panoramas.
+	
+	see: http://panozona.com/wiki/SaladoPlayer:Exposed_functions
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml">
-			<image id="blueArrow" path="hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueCheck"/>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml">
+			<image id="gc_blueArrow" path="hotspots/images/blue_arrow.png" location="pan:-10" mouse="onClick:loadBlueChecker"/>
+			<image id="gc_redArrow" path="hotspots/images/red_arrow.png" location="pan:10" mouse="onClick:loadRedChecker"/>
 		</panorama>
-		<panorama id="blueCheck" path="panoramas/dz_blue_check/blue_check_f.xml">
-			<image id="greenArrow" path="hotspots/images/green_arrow.png" location="pan:-10" mouse="onClick:loadGreenCheck"/>
+		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="bc_greenArrow" path="hotspots/images/green_arrow.png" location="pan:-10" mouse="onClick:loadGreenChecker"/>
+			<image id="bc_redArrow" path="hotspots/images/red_arrow.png" location="pan:10" mouse="onClick:loadRedChecker"/>
+		</panorama>
+		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml">
+			<image id="rc_greenArrow" path="hotspots/images/green_arrow.png" location="pan:-10" mouse="onClick:loadGreenChecker"/>
+			<image id="rc_blueArrow" path="hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueChecker"/>
 		</panorama>
 	</panoramas>
 	<actions>
-		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueCheck)"/>
-		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenCheck)"/>
+		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(blueChecker)"/>
+		<action id="loadGreenChecker" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="loadRedChecker" content="SaladoPlayer.loadPano(redChecker)"/>
 	</actions>
 </SaladoPlayer>

@@ -10,13 +10,13 @@
 	</global>
 	<panoramas>
 		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml">
-			<product id="hs1" factory="ExampleFactory" location="pan:20,tilt:10"/>
-			<product id="hs2" factory="ExampleFactory" location="pan:0,tilt:10"/>
-			<product id="hs3" factory="ExampleFactory" location="pan:-20,tilt:10"/>
+			<product id="hs1" factory="ExampleFactory" location="pan:-20"/>
+			<product id="hs2" factory="ExampleFactory" location="pan:0"/>
+			<product id="hs3" factory="ExampleFactory" location="pan:20"/>
 		</panorama>
 	</panoramas>
 	<factories>
-		<ExampleFactory path="factories/ExampleFactory-1.0.swf" defintion="hs1:blue,hs2:green">
+		<ExampleFactory path="factories/ExampleFactory-1.0.swf" definition="hs1:blue,hs2:green">
 			<product id="blue">
 				<settings color1="#0000FF" color2="#00FFFF"/>
 			</product>
