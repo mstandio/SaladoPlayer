@@ -1,11 +1,11 @@
 ﻿######################################################################################################
 ######################################################################################################
 ###   
-###   Sample panoramas3.zip can be downloaded from http://github.com/mstandio/SaladoPlayer/downloads
-###   Place folders "dz_park", "dz_park_fast", "dz_shoppingcenter" and "dz_volleyball" into this directory.
+###   Sample panoramas4.zip can be downloaded from http://github.com/mstandio/SaladoPlayer/downloads
+###   Place folders "dz_park" and "dz_kortrijk" into this directory.
 ###   
-###   Panorama cube walls need to be in "Deep Zoom" format, 
-###   each wall described with separate *.xml file. 
+###   Panorama cube walls need to be in "Deep Zoom" format,
+###   each wall described with separate *.xml file.
 ###
 ###   To create your own panoramas use SaladoConverter
 ###   

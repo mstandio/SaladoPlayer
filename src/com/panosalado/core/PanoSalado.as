@@ -113,7 +113,7 @@ public class PanoSalado extends ViewData implements ICamera
 		super();
 		
 		_dependencyRelay = new DependencyRelay(false);
-		_stageReference = new StageReference();
+		_stageReference = new StageReference(true);
 		_params = {};
 		
 		_canvas = new Sprite();

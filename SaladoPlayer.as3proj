@@ -4,7 +4,7 @@
   <output>
     <movie disabled="False" />
     <movie input="" />
-    <movie path="bin\modules\DropDown-1.0.swf" />
+    <movie path="bin\SaladoPlayer-1.0.swf" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
@@ -71,7 +71,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\com\panozona\modules\dropdown\DropDown.as" />
+    <compile path="src\com\panozona\player\SaladoPlayer.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
