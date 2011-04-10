@@ -84,23 +84,6 @@ package com.panozona.player {
 			
 			traceWindow.printLink(manager.description.homeUrl, manager.description.name+" "+manager.description.version);
 			
-			manager.initialize([
-				panorama,
-				DeepZoomTilePyramid,
-				resizer,
-				managerData.controlData.keyboardCameraData,
-				keyboardCamera,
-				managerData.controlData.inertialMouseCameraData,
-				inertialMouseCamera,
-				managerData.controlData.arcBallCameraData,
-				arcBallCamera,
-				managerData.controlData.autorotationCameraData,
-				autorotationCamera,
-				managerData.controlData.simpleTransitionData,
-				simpleTransition,
-				nanny
-			]);
-			
 			var xmlLoader:URLLoader = new URLLoader();
 			xmlLoader.dataFormat = URLLoaderDataFormat.BINARY;
 			try{
@@ -211,6 +194,24 @@ package com.panozona.player {
 			if (managerData.controlData.mouseWheelTrap) {
 				MouseWheelTrap.setup(stage);
 			}
+			
+			manager.initialize([
+				panorama,
+				DeepZoomTilePyramid,
+				resizer,
+				managerData.controlData.keyboardCameraData,
+				keyboardCamera,
+				managerData.controlData.inertialMouseCameraData,
+				inertialMouseCamera,
+				managerData.controlData.arcBallCameraData,
+				arcBallCamera,
+				managerData.controlData.autorotationCameraData,
+				autorotationCamera,
+				managerData.controlData.simpleTransitionData,
+				simpleTransition,
+				nanny
+			]);
+			
 			manager.loadFirstPanorama();
 		}
 		
