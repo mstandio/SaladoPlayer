@@ -23,6 +23,7 @@ package com.panozona.modules.buttonbar.controller{
 	import com.panozona.modules.buttonbar.model.structure.ExtraButton;
 	import com.panozona.modules.buttonbar.view.BarView;
 	import com.panozona.modules.buttonbar.view.ButtonView;
+	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.Module;
 	import com.panozona.player.module.data.property.Align;
 	import flash.display.Bitmap;
@@ -30,6 +31,7 @@ package com.panozona.modules.buttonbar.controller{
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
 	import flash.display.StageDisplayState;
+	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.KeyboardEvent;
@@ -49,6 +51,7 @@ package com.panozona.modules.buttonbar.controller{
 		
 		private var barBitmapData:BitmapData;
 		private var buttonsBitmapData:BitmapData;
+		private var buttonSize:Size;
 		
 		private var buttonsController:Vector.<ButtonController>;
 		
@@ -134,7 +137,12 @@ package com.panozona.modules.buttonbar.controller{
 		private function buttonsImageLoaded(e:Event):void {
 			buttonsBitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
 			buttonsBitmapData.draw((e.target as LoaderInfo).content);
+			buttonSize = new Size(30,30);
+			buttonSize.width = Math.ceil((buttonsBitmapData.width - 9) / 10);
+			buttonSize.height = Math.ceil((buttonsBitmapData.height - 3) / 4);
 			updateButtonsBar();
+			handleResize();
+			displayQuality();
 		}
 		
 		private function buildButtonsBar():void {
@@ -145,7 +153,6 @@ package com.panozona.modules.buttonbar.controller{
 				buttonsController.pop();
 			}
 			var buttonView:ButtonView;
-			var lastX:Number = 0;
 			for each(var button:Button in _barView.buttonBarData.barData.buttons.getAllChildren()) {
 				buttonView = new ButtonView(new ButtonData(button), _barView.buttonBarData);
 				if (button.name == "left") {
@@ -168,8 +175,8 @@ package com.panozona.modules.buttonbar.controller{
 					buttonView.buttonData.onRelease = outRelease;
 				}else if (button.name == "drag") {
 					buttonView.buttonData.onPress = dragToggle;
-				//}else if (button.name == "something") {
-				//	buttonView.buttonData.onPress = something;
+				}else if (button.name == "quality") {
+					buttonView.buttonData.onPress = qualityToggle;
 				}else if (button.name == "autorotation") {
 					buttonView.buttonData.onPress = autorotateToggle;
 				}else if (button.name == "fullscreen") {
@@ -197,10 +204,7 @@ package com.panozona.modules.buttonbar.controller{
 				}
 				
 				buttonsController.push(new ButtonController(buttonView, _module));
-				
-				buttonView.x = lastX;
 				_barView.buttonsContainer.addChild(buttonView);
-				lastX += _barView.buttonBarData.barData.buttons.buttonSize.width;
 			}
 		}
 		
@@ -212,6 +216,7 @@ package com.panozona.modules.buttonbar.controller{
 		
 		private function updateButtonsBar():void {
 			var buttonView:ButtonView;
+			var lastX:Number = 0;
 			for ( var i:int = 0; i < _barView.buttonsContainer.numChildren; i++) {
 				buttonView = _barView.buttonsContainer.getChildAt(i) as ButtonView;
 				if (buttonView.buttonData.button.name == "left") {
@@ -235,9 +240,9 @@ package com.panozona.modules.buttonbar.controller{
 				}else if (buttonView.buttonData.button.name == "drag") {
 					buttonView.buttonData.bitmapPlain = getButtonBitmap(6);
 					buttonView.buttonData.bitmapActive = getButtonBitmap(16);
-				//}else if (buttonView.buttonData.button.name == "something") {
-				//	buttonView.buttonData.bitmapPlain = getButtonBitmap(7);
-				//	buttonView.buttonData.bitmapActive = getButtonBitmap(17);
+				}else if (buttonView.buttonData.button.name == "quality") {
+					buttonView.buttonData.bitmapPlain = getButtonBitmap(7);
+					buttonView.buttonData.bitmapActive = getButtonBitmap(17);
 				}else if (buttonView.buttonData.button.name == "autorotation") {
 					buttonView.buttonData.bitmapPlain = getButtonBitmap(8);
 					buttonView.buttonData.bitmapActive = getButtonBitmap(18);
@@ -266,7 +271,7 @@ package com.panozona.modules.buttonbar.controller{
 					buttonView.buttonData.bitmapPlain = getButtonBitmap(26);
 					buttonView.buttonData.bitmapActive = getButtonBitmap(36);
 				}else if (buttonView.buttonData.button.name == "h") {
-						buttonView.buttonData.bitmapPlain = getButtonBitmap(27);
+					buttonView.buttonData.bitmapPlain = getButtonBitmap(27);
 					buttonView.buttonData.bitmapActive = getButtonBitmap(37);
 				}else if (buttonView.buttonData.button.name == "i") {
 					buttonView.buttonData.bitmapPlain = getButtonBitmap(28);
@@ -275,6 +280,8 @@ package com.panozona.modules.buttonbar.controller{
 					buttonView.buttonData.bitmapPlain = getButtonBitmap(29);
 					buttonView.buttonData.bitmapActive = getButtonBitmap(39);
 				}
+				buttonView.x = lastX;
+				lastX += buttonView.width + _barView.buttonBarData.barData.buttons.spacing;
 			}
 		}
 		
@@ -319,15 +326,14 @@ package com.panozona.modules.buttonbar.controller{
 		// [20][21][22][23][24][25][26][27][28][29]
 		// [30][31][32][33][34][35][36][37][38][39]
 		private function getButtonBitmap(buttonId:int):BitmapData {
-			var bmd:BitmapData = new BitmapData(_barView.buttonBarData.barData.buttons.buttonSize.width,
-				_barView.buttonBarData.barData.buttons.buttonSize.height, true, 0);
+			var bmd:BitmapData = new BitmapData(buttonSize.width, buttonSize.height, true, 0);
 			bmd.copyPixels(
 				buttonsBitmapData,
 				new Rectangle(
-					(buttonId % 10) * _barView.buttonBarData.barData.buttons.buttonSize.width + 1 * (buttonId % 10),
-					Math.floor(buttonId / 10) * _barView.buttonBarData.barData.buttons.buttonSize.height + 1 * Math.floor(buttonId / 10),
-					_barView.buttonBarData.barData.buttons.buttonSize.width,
-					_barView.buttonBarData.barData.buttons.buttonSize.height),
+					(buttonId % 10) * buttonSize.width + 1 * (buttonId % 10),
+					Math.floor(buttonId / 10) * buttonSize.height + 1 * Math.floor(buttonId / 10),
+					buttonSize.width,
+					buttonSize.height),
 				new Point(0, 0),
 				null,
 				null,
@@ -380,7 +386,7 @@ package com.panozona.modules.buttonbar.controller{
 			_module.stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, cameraKeyBindingsClass.OUT));
 		}
 		
-		private function dragToggle(e:Event):void {
+		private function dragToggle(e:Event = null):void {
 			if (_module.saladoPlayer.managerData.controlData.inertialMouseCameraData.enabled ||
 				!_module.saladoPlayer.managerData.controlData.arcBallCameraData.enabled) {
 				_module.saladoPlayer.managerData.controlData.inertialMouseCameraData.enabled = false;
@@ -391,12 +397,26 @@ package com.panozona.modules.buttonbar.controller{
 			}
 		}
 		
-		private function autorotateToggle(e:Event):void {
+		private function qualityToggle(e:Event = null):void {
+			if (_barView.root.stage.quality.toLowerCase() == StageQuality.HIGH || _barView.root.stage.quality.toLowerCase() == StageQuality.BEST) {
+				_barView.root.stage.quality = StageQuality.MEDIUM;
+			}else {
+				_barView.root.stage.quality = StageQuality.BEST
+			}
+			displayQuality();
+		}
+		
+		private function displayQuality():void {
+			setButtonActive("quality",
+			_barView.root.stage.quality.toLowerCase() == StageQuality.HIGH || _barView.root.stage.quality.toLowerCase() == StageQuality.BEST);
+		}
+		
+		private function autorotateToggle(e:Event = null):void {
 			_module.saladoPlayer.managerData.controlData.autorotationCameraData.isAutorotating = 
 			!_module.saladoPlayer.managerData.controlData.autorotationCameraData.isAutorotating;
 		}
 		
-		private function fullscreenToggle(e:Event):void {
+		private function fullscreenToggle(e:Event = null):void {
 			_module.saladoPlayer.stage.displayState = (_module.saladoPlayer.stage.displayState == StageDisplayState.NORMAL) ?
 				StageDisplayState.FULL_SCREEN :
 				StageDisplayState.NORMAL;
