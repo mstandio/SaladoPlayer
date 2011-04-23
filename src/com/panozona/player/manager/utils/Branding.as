@@ -45,22 +45,24 @@ package com.panozona.player.manager.utils{
 		private function stageReady(e:Event = null):void {
 			saladoPlayer = (this.parent as SaladoPlayer);
 			
-			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
-			brandingButton = new Sprite();
-			brandingButton.alpha = saladoPlayer.managerData.brandingData.alpha;
-			brandingButton.buttonMode = true;
-			brandingButton.addChild(new Bitmap(new Bitmap_pbsp().bitmapData, "auto", true));
-			brandingButton.addEventListener(MouseEvent.CLICK, gotoPanoZona, false, 0, true);
-			addChild(brandingButton);
-			
 			var menu:ContextMenu = new ContextMenu();
 			var item:ContextMenuItem = new ContextMenuItem("Powered by SaladoPlayer");
 			item.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, gotoPanoZona, false, 0, true);
 			menu.customItems.push(item);
 			saladoPlayer.contextMenu = menu;
 			
-			saladoPlayer.manager.addEventListener(ViewEvent.BOUNDS_CHANGED, handleResize ,false, 0, true);
-			handleResize();
+			if(saladoPlayer.managerData.brandingData.visible){
+				removeEventListener(Event.ADDED_TO_STAGE, stageReady);
+				brandingButton = new Sprite();
+				brandingButton.alpha = saladoPlayer.managerData.brandingData.alpha;
+				brandingButton.buttonMode = true;
+				brandingButton.addChild(new Bitmap(new Bitmap_pbsp().bitmapData, "auto", true));
+				brandingButton.addEventListener(MouseEvent.CLICK, gotoPanoZona, false, 0, true);
+				addChild(brandingButton);
+				
+				saladoPlayer.manager.addEventListener(ViewEvent.BOUNDS_CHANGED, handleResize ,false, 0, true);
+				handleResize();
+			}
 		}
 		
 		private function handleResize(e:Event = null):void {

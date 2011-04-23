@@ -159,7 +159,7 @@ package com.panozona.player.manager.utils.configuration {
 			for each(var brandingAttribute:XML in brandingNode.attributes()) {
 				brandingAttributeName = brandingAttribute.localName();
 				if (brandingAttributeName == "visible") {
-					brandingData.visible = getAttributeValue(brandingAttribute, String);
+					brandingData.visible = getAttributeValue(brandingAttribute, Boolean);
 				}else if (brandingAttributeName == "align") {
 					try{
 						applySubAttributes(brandingData.align, brandingAttribute);
