@@ -203,23 +203,8 @@ package com.panozona.player.manager.utils.configuration {
 			var panoramaData:PanoramaData;
 			var panoramaAttributeName:String;
 			for each(var panoramaNode:XML in panoramasNode.elements()) {
-				if (panoramaNode.@id == undefined) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Missing panorama id."));
-					continue;
-				}
-				if (panoramaNode.@path == undefined) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Missing panorama path."));
-					continue;
-				}
-				panoramaId = recognizeContent(panoramaNode.@id);
-				if (!(panoramaId is String)) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Invalid panorama id format."));
-					continue;
-				}
-				panoramaData = new PanoramaData(panoramaId, panoramaNode.@path);
+				panoramaId = getAttributeValue(panoramaNode.@id, String);
+				panoramaData = new PanoramaData(panoramaId , panoramaNode.@path);
 				panoramasData.push(panoramaData);
 				for each(var panoramaAttribute:XML in panoramaNode.attributes()) {
 					panoramaAttributeName = panoramaAttribute.localName();
@@ -255,23 +240,8 @@ package com.panozona.player.manager.utils.configuration {
 			var hotspotData:HotspotData;
 			var hotspotAttributeName:String;
 			for each(var hotspotNode:XML in panoramaNode.elements()) {
-				if(hotspotNode.@id == undefined) {
-				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-					"Missing hotspot id."));
-					continue;
-				}
-				hotspotId = recognizeContent(hotspotNode.@id);
-				if (!(hotspotId is String)) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Invalid hotspot id format: " + hotspotId));
-					continue;
-				}
+				hotspotId = getAttributeValue(hotspotNode.@id, String);
 				if (hotspotNode.localName() == "image" || hotspotNode.localName() == "swf") {
-					if (hotspotNode.@path == undefined) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-							"Missing hotspot path: " + hotspotId));
-						continue;
-					}
 					if (hotspotNode.localName() == "image") {
 						hotspotData = new HotspotDataImage(hotspotId, hotspotNode.@path);
 						panoramaData.hotspotsData.push(hotspotData as HotspotDataImage);
@@ -286,16 +256,11 @@ package com.panozona.player.manager.utils.configuration {
 						panoramaData.hotspotsData.push(hotspotData as HotspotDataSwf);
 					}
 				}else if (hotspotNode.localName() == "product") {
-					if (hotspotNode.@factory == undefined) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-							"Missing hotspot factory: " + hotspotId));
-						continue;
-					}
 					hotspotData = new HotspotDataFactory(hotspotId, hotspotNode.@factory);
 					panoramaData.hotspotsData.push(hotspotData as HotspotDataFactory);
 				}else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Unrecognized hotspot type: " + hotspotNode.localName()));
+						"Unrecognized hotspot: " + hotspotNode.localName()));
 					continue;
 				}
 				for each (var hotspotAttribute:XML in hotspotNode.attributes()) {
@@ -372,25 +337,10 @@ package com.panozona.player.manager.utils.configuration {
 			var actionData:ActionData;
 			var actionId:*;
 			for each(var actionNode:XML in actionsNode.elements()) {
-				if (actionNode.@id == undefined) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Missing action id."));
-					continue;
-				}
-				actionId = recognizeContent(actionNode.@id);
-				if (!(actionId is String)) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Invalid action id format" + actionId));
-					continue;
-				}
-				
-				if (actionNode.@content == undefined) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Missing action content."));
-					continue;
-				}
+				actionId = getAttributeValue(actionNode.@id, String);
 				actionData = new ActionData(actionId);
 				actionsData.push(actionData);
+				if (actionId == null) continue; // otherwise will be constantly executed
 				for each(var actionAttribute:XML in actionNode.attributes()) {
 					if (actionAttribute.localName() == "content") {
 						parseActionContent(actionData, actionAttribute);
@@ -458,15 +408,15 @@ package com.panozona.player.manager.utils.configuration {
 			}
 		}
 		
-		protected function getAttributeValue(attribute:XML, ReturnClass:Class):*{
-			var recognizedValue:* = recognizeContent(attribute.toString());
+		protected function getAttributeValue(attribute:String, ReturnClass:Class):*{
+			var recognizedValue:* = recognizeContent(attribute);
 			if (recognizedValue is ReturnClass) {
 				return recognizedValue;
-			}else {
+			}else if (recognizedValue != null){
 				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-					"Ivalid attribute value (" + getQualifiedClassName(ReturnClass) + " expected): " + recognizedValue)); // TODO: should get proper class name
-				return null;
+					"Ivalid attribute type (" + getQualifiedClassName(ReturnClass) + " expected): " + attribute));
 			}
+			return null;
 		}
 		
 		protected function applySubAttributes(object:Object, subAttributes:String):void {
@@ -476,64 +426,66 @@ package com.panozona.player.manager.utils.configuration {
 			for each (var singleSubAttribute:String in allSubAttributes) {
 				if (!singleSubAttribute.match(/^[\w]+:[^:]+$/)){
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Invalid sub-attribute format: " + singleSubAttribute));
+						"Invalid subattribute format: " + singleSubAttribute));
 					continue;
 				}
 				singleSubAttrArray = singleSubAttribute.match(/[^:]+/g);
 				recognizedValue = recognizeContent(singleSubAttrArray[1]);
+				
 				if (!debugMode) {
 					object[singleSubAttrArray[0]] = recognizedValue;
-				}else {
-					if (object.hasOwnProperty(singleSubAttrArray[0])) {
-						if (object[singleSubAttrArray[0]] is Boolean) {
-							if (recognizedValue is Boolean) {
-								object[singleSubAttrArray[0]] = recognizedValue;
-							}else {
-								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-									"Invalid subattribute value (Boolean expected): " + singleSubAttribute));
-							}
-						}else if (object[singleSubAttrArray[0]] is Number) {
-							if(recognizedValue is Number){
-								object[singleSubAttrArray[0]] = recognizedValue;
-							}else {
-								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-									"Invalid subattribute value (Number expected): " + singleSubAttribute));
-							}
-						}else if (object[singleSubAttrArray[0]] is Function) {
-							if(recognizedValue is Function){
-								object[singleSubAttrArray[0]] = recognizedValue;
-							}else {
-								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-									"Invalid subattribute value (Function expected): " + singleSubAttribute));
-							}
-						}else if (object[singleSubAttrArray[0]] == null || object[singleSubAttrArray[0]] is String) {
-							if(recognizedValue is String){
-								object[singleSubAttrArray[0]] = recognizedValue; 
-							}else {
-								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-									"Invalid subattribute value (String expected): " + singleSubAttribute));
-							}
-						}
-					}else {
-						// check if creation of new atribute in object is possible
-						// used in onEnterSource, onLeaveTarget, ect.
-						try{
+					continue;
+				}
+				
+				if (object.hasOwnProperty(singleSubAttrArray[0])) {
+					if (object[singleSubAttrArray[0]] is Boolean) {
+						if (recognizedValue is Boolean) {
 							object[singleSubAttrArray[0]] = recognizedValue;
-						}catch (e:Error) {
+						}else {
 							dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-								"Invalid attribute name (cannot apply): "+singleSubAttrArray[0]));
+								"Invalid subattribute type (Boolean expected): " + singleSubAttribute));
 						}
+					}else if (object[singleSubAttrArray[0]] is Number) {
+						if(recognizedValue is Number){
+							object[singleSubAttrArray[0]] = recognizedValue;
+						}else {
+							dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+								"Invalid subattribute type (Number expected): " + singleSubAttribute));
+						}
+					}else if (object[singleSubAttrArray[0]] is Function) {
+						if(recognizedValue is Function){
+							object[singleSubAttrArray[0]] = recognizedValue;
+						}else {
+							dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+								"Invalid subattribute type (Function expected): " + singleSubAttribute));
+						}
+					}else if (object[singleSubAttrArray[0]] == null || object[singleSubAttrArray[0]] is String) {
+						if(recognizedValue is String){
+							object[singleSubAttrArray[0]] = recognizedValue; 
+						}else {
+							dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+								"Invalid subattribute type (String expected): " + singleSubAttribute));
+						}
+					}
+				}else {
+					// check if creation of new atribute in object is possible
+					// used in onEnterSource, onLeaveTarget, ect.
+					try{
+						object[singleSubAttrArray[0]] = recognizedValue;
+					}catch (e:Error) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+							"Invalid attribute name (cannot apply): " + singleSubAttrArray[0]));
 					}
 				}
 			}
 		}
 		
-		Linear; Expo; Back; Bounce; Cubic; Elastic; 
+		Linear; Expo; Back; Bounce; Cubic; Elastic;
 		protected function recognizeContent(content:String):*{
-			if (content == null){ // TODO: this brings chaos
+			if (content == null){
 				return null;
 			}else if (content.match(/^\[.*\]$/)) { // [String]
-				return content.substring(1, content.length - 1); 
+				return content.substring(1, content.length - 1);
 			}else if (content == "true" || content == "false") { // Boolean
 				return ((content == "true")? true : false);
 			}else if (content.match(/^(-)?[\d]+(.[\d]+)?$/)) { // Number
@@ -543,7 +495,7 @@ package com.panozona.player.manager.utils.configuration {
 				return (Number("0x" + content));
 			}else if (content == "NaN"){ // Number - NaN
 				return NaN;
-			}else if (content.match(/^.+:.+$/)) { // Object // TODO: support for string:[con,tent]
+			}else if (content.match(/^.+:.+$/)) { // Object
 				var object:Object = new Object();
 				applySubAttributes(object, content); 
 				return object;
@@ -552,35 +504,21 @@ package com.panozona.player.manager.utils.configuration {
 			}else if (content.replace(/\s/g, "").length > 0) { // TODO: trim
 				return content; // String
 			}else {
-				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Empty content."));
+				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Missing content."));
 				return null;
 			}
 		}
 		
 		protected function recognizeFunction(content:String):Function {
+			var result:Function;
 			var functionElements:Array = content.split(".");
-			if (functionElements.length != 2) {
+			var functionClass:Object = getDefinitionByName("com.robertpenner.easing." + functionElements[0]);
+			result = functionClass[functionElements[1]] as Function
+			if (result == null){
 				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-					"Invalid function format: " + content));
-				return null;
+					"Invalid function name in: " + functionElements[0]+"."+functionElements[1]));
 			}
-			try{
-				var functionClass:Object = getDefinitionByName("com.robertpenner.easing." + functionElements[0]);
-				try {
-					return functionClass[functionElements[1]] as Function;
-				}catch (nameError:Error) {
-					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Invalid function name: " + functionElements[1]));
-				return null;
-				}
-			}catch (ownerError:Error) {
-				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-					"Invalid function owner: " + functionElements[0]));
-				return null;
-			}
-			dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-				"Unknown function parsing error: " + content));
-			return null;
+			return result;
 		}
 		
 		override public function dispatchEvent(event:Event):Boolean {

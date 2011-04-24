@@ -60,42 +60,26 @@ package test.com.panozona.player.manager.utils.configuration{
 		
 		[Test]
 		public function wrongHotspotType():void {
-			parseHotspots(new PanoramaData("pano1", "path1"), new XML("<root><something/></root>"));
+			parseHotspots(new PanoramaData("pano1", "path1"), new XML("<root><immage id=\"img2\"/></root>"));
 			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function noHotspotId():void {
 			parseHotspots(new PanoramaData("pano1", "path1"), new XML("<root><image/></root>"));
 			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function wrongHotspotId():void {
 			parseHotspots(new PanoramaData("pano1", "path1"), new XML("<root><image id=\"1\"/></root>"));
 			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
-		}
-		
-		[Test]
-		public function noHotspotImagePath():void {
-			parseHotspots(new PanoramaData("pano1", "path1"), new XML("<root><image id=\"hs1\"/></root>"));
-			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
-		}
-		
-		[Test]
-		public function noHotspotSwfPath():void {
-			parseHotspots(new PanoramaData("pano1", "path1"), new XML("<root><swf id=\"hs1\"/></root>"));
-			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -140,8 +124,8 @@ package test.com.panozona.player.manager.utils.configuration{
 		public function noPanoramaId():void {
 			parsePanoramas(new Vector.<PanoramaData>(), new XML("<root><panorama/></root>"));
 			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
@@ -151,19 +135,8 @@ package test.com.panozona.player.manager.utils.configuration{
 					"<panorama id=\"1\"/>" +
 				"</root>"));
 			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
-		}
-		
-		[Test]
-		public function noPanoramaPath():void {
-			parsePanoramas(new Vector.<PanoramaData>(), new XML(
-				"<root>" +
-					"<panorama id=\"pano1\"/>" +
-				"</root>"));
-			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]

@@ -398,44 +398,32 @@ package test.com.panozona.player.manager.utils.configuration {
 					"<action content=\"foo.bar()\"/>" +
 				"</root>"));
 			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
 		public function wrongAction2():void {
-			// action content missing
-			parseActions(new Vector.<ActionData>(), new XML(
-				"<root>" +
-					"<action id=\"act1\"/>" +
-				"</root>"));
-			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
-		}
-		
-		[Test]
-		public function wrongAction3():void {
 			// action id wrong format
 			parseActions(new Vector.<ActionData>(), new XML(
 				"<root>" +
 					"<action id=\"12\" content=\"foo.bar()\"/>" +
 				"</root>"));
 			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 		
 		[Test]
-		public function wrongAction4():void {
+		public function wrongAction3():void {
 			// action unknown attrubute
 			parseActions(new Vector.<ActionData>(), new XML(
 				"<root>" +
 					"<action id=\"act1\" functions=\"foo.bar()\"/>" +
 				"</root>"));
 			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
+			Assert.assertEquals(1, warningCount);
+			Assert.assertEquals(0, errorCount);
 		}
 	}
 }

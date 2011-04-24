@@ -54,14 +54,14 @@ package com.panozona.player.manager.utils.configuration{
 			var panoramasId:Object = new Object();
 			
 			for each(var panoramaData:PanoramaData in managerData.panoramasData) {
-				if (panoramaData.id == null) {
+				if (panoramaData.id == null || panoramaData.id.length == 0) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 						"Missig panorama id."));
 					continue;
 				}
-				if (panoramaData.params.path == null) {
+				if (panoramaData.params.path == null || panoramaData.params.path.length == 0) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Missig panorama path."));
+						"Missig panorama path in: " + panoramaData.id));
 					continue;
 				}
 				if (panoramasId[panoramaData.id] != undefined) {
@@ -87,13 +87,13 @@ package com.panozona.player.manager.utils.configuration{
 			var hotspotsId:Object = new Object();
 			for each(var panoramaData:PanoramaData in managerData.panoramasData) {
 				for each(var hotspotData:HotspotData in panoramaData.hotspotsData) {
-					if (hotspotData.id == null) {
+					if (hotspotData.id == null || hotspotData.id.length == 0) {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 							"Missig hotspot id."));
 						continue;
 					}
 					if (hotspotsId[hotspotData.id] != undefined) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, 
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 							"Repeating hotspot id: " + hotspotData.id));
 						continue;
 					}
@@ -106,9 +106,9 @@ package com.panozona.player.manager.utils.configuration{
 					actionExists(hotspotData.mouse.onRelease, managerData);
 					
 					if ((hotspotData is HotspotDataImage) || (hotspotData is HotspotDataSwf)) {
-						if ((hotspotData as ILoadable).path == null) {
+						if ((hotspotData as ILoadable).path == null || (hotspotData as ILoadable).path.length == 0) {
 							dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-								"Missig hotspot path: " + hotspotData.id));
+								"Missig hotspot path in: " + hotspotData.id));
 							continue;
 						}
 					}else if (hotspotData is HotspotDataFactory) {
@@ -135,7 +135,7 @@ package com.panozona.player.manager.utils.configuration{
 				actionExists(actionTrigger[checkedPanoramaId], managerData);
 				if (panoramaId == checkedPanoramaId) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Same panorama id not allowed: " + panoramaId));
+						"Panorama referring to itself: " + panoramaId));
 				}
 			}
 		}
@@ -157,17 +157,17 @@ package com.panozona.player.manager.utils.configuration{
 				}
 				if (moduleData.path == null) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Missig path in: " + moduleData.name));
+						"Missig module path in: " + moduleData.name));
 					continue;
 				}
 				if (moduleData.descriptionReference == null) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-						"Missig description for: " + moduleData.name));
+						"Missig module description in: " + moduleData.name));
 					continue
 				}
 				if (modulesName[moduleData.name] != undefined) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-						"Repeating name: " + moduleData.name));
+						"Repeating module name: " + moduleData.name));
 					continue;
 				}
 				modulesName[moduleData.name] = ""; // not undefined
@@ -198,7 +198,7 @@ package com.panozona.player.manager.utils.configuration{
 		protected function checkActions(managerData:ManagerData):void {
 			var actionsId:Object = new Object();
 			for each(var actionData:ActionData in managerData.actionsData) {
-				if (actionData.id == null) {
+				if (actionData.id == null || actionData.id.length == 0) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 						"Missig action id."));
 					continue;
@@ -218,7 +218,7 @@ package com.panozona.player.manager.utils.configuration{
 		protected function checkFunction(functionData:FunctionData, managerData:ManagerData):void {
 			if (managerData.getModuleDataByName(functionData.owner) == null) {
 				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-					"Owner not found: " + functionData.owner + "." + functionData.name));
+					"Owner not found for: " + functionData.owner + "." + functionData.name));
 				return;
 			}
 			if (managerData.getModuleDataByName(functionData.owner).descriptionReference != null) {
@@ -231,15 +231,15 @@ package com.panozona.player.manager.utils.configuration{
 			var hotspotDataFactoryFound:Boolean;
 			if (moduleDescription.functionsDescription[functionData.name] == undefined) {
 				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-					"Function not found: " + functionData.owner + "." + functionData.name));
+					"Function not defined in owner: " + functionData.owner + "." + functionData.name));
 				return;
 			}
 			if ((moduleDescription.functionsDescription[functionData.name] as Vector.<Class>).length != functionData.args.length) {
 				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 					"Wrong number of arguments in: " +
 					functionData.owner + "." + functionData.name +
-					" got: " + functionData.args.length +
-					" expected: " + (moduleDescription.functionsDescription[functionData.name] as Vector.<Class>).length));
+					" (expected " + (moduleDescription.functionsDescription[functionData.name] as Vector.<Class>).length +
+					"): " + functionData.args.length));
 				return;
 			}
 			if (functionData is FunctionDataFactory ) {
@@ -266,8 +266,8 @@ package com.panozona.player.manager.utils.configuration{
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 							"Wrong argument type in: " +
 							moduleDescription.name + "." + functionData.name +
-							" got: " + functionData.args[i] +
-							" expected: " + getQualifiedClassName((moduleDescription.functionsDescription[functionData.name] as Vector.<Class>)[i]).match(/[^:]+$/)[0]));
+							" (" + getQualifiedClassName((moduleDescription.functionsDescription[functionData.name] as Vector.<Class>)[i]).match(/[^:]+$/)[0] +
+							" expected): " + functionData.args[i] ));
 						return;
 					}
 				}
