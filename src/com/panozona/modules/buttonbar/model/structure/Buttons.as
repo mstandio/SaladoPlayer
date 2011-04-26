@@ -30,6 +30,7 @@ package com.panozona.modules.buttonbar.model.structure{
 		public var align:Align = new Align(Align.RIGHT, Align.BOTTOM); // horizontal, vertical
 		public var move:Move = new Move( -5, -4); // horizontal, vertical
 		public var spacing:Number = 0;
+		public var listenKeys:Boolean = true;
 		
 		override public function getChildrenTypes():Vector.<Class>{
 			var result:Vector.<Class> = new Vector.<Class>();

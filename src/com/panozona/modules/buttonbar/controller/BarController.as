@@ -23,10 +23,9 @@ package com.panozona.modules.buttonbar.controller{
 	import com.panozona.modules.buttonbar.model.structure.ExtraButton;
 	import com.panozona.modules.buttonbar.view.BarView;
 	import com.panozona.modules.buttonbar.view.ButtonView;
+	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.Module;
-	import com.panozona.player.module.data.property.Align;
-	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
@@ -60,6 +59,7 @@ package com.panozona.modules.buttonbar.controller{
 			_module = module;
 			
 			buttonsController = new Vector.<ButtonController>();
+			buttonSize = new Size(30,30);
 			buildButtonsBar();
 			
 			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
@@ -69,8 +69,13 @@ package com.panozona.modules.buttonbar.controller{
 			cameraKeyBindingsClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.model.CameraKeyBindings") as Class;
 			cameraEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.CameraEvent") as Class;
 			
-			_module.saladoPlayer.managerData.controlData.arcBallCameraData.addEventListener(cameraEventClass.ENABLED_CHANGE, onDragEnabledChange, false, 0, true);
-			_module.saladoPlayer.managerData.controlData.autorotationCameraData.addEventListener(autorotationEventClass.AUTOROTATION_CHANGE, onIsAutorotatingChange, false, 0, true);
+			if(_barView.buttonBarData.barData.buttons.listenKeys){
+				_module.saladoPlayer.managerData.controlData.arcBallCameraData.addEventListener(cameraEventClass.ENABLED_CHANGE, onDragEnabledChange, false, 0, true);
+				_module.saladoPlayer.managerData.controlData.autorotationCameraData.addEventListener(autorotationEventClass.AUTOROTATION_CHANGE, onIsAutorotatingChange, false, 0, true);
+			}
+			
+			_module.saladoPlayer.stage.addEventListener( KeyboardEvent.KEY_DOWN, keyDownEvent, false, 0, true);
+			_module.saladoPlayer.stage..addEventListener( KeyboardEvent.KEY_UP, keyUpEvent, false, 0, true);
 			
 			if (_barView.buttonBarData.bar.visible && _barView.buttonBarData.bar.path != null){
 				var barLoader:Loader = new Loader();
@@ -86,19 +91,24 @@ package com.panozona.modules.buttonbar.controller{
 		}
 		
 		public function handleResize(e:Event = null):void {
+			
 			if (_barView.buttonBarData.barData.buttons.align.horizontal == Align.LEFT) {
 				_barView.buttonsContainer.x = 0;
 			}else if (_barView.buttonBarData.barData.buttons.align.horizontal == Align.RIGHT) {
-				_barView.buttonsContainer.x = _module.saladoPlayer.manager.boundsWidth - _barView.buttonsContainer.width;
+				_barView.buttonsContainer.x = _module.saladoPlayer.manager.boundsWidth
+					- (buttonSize.width + _barView.buttonBarData.barData.buttons.spacing)
+					* (_barView.buttonBarData.barData.buttons.getAllChildren().length);
 			}else { // CENTER
-				_barView.buttonsContainer.x = (_module.saladoPlayer.manager.boundsWidth - _barView.buttonsContainer.width) * 0.5;
+				_barView.buttonsContainer.x = (_module.saladoPlayer.manager.boundsWidth
+					- (buttonSize.width + _barView.buttonBarData.barData.buttons.spacing)
+					* _barView.buttonBarData.barData.buttons.getAllChildren().length) * 0.5;
 			}
 			if (_barView.buttonBarData.barData.buttons.align.vertical == Align.TOP){
 				_barView.buttonsContainer.y = 0;
 			}else if (_barView.buttonBarData.barData.buttons.align.vertical == Align.BOTTOM) {
-				_barView.buttonsContainer.y = _module.saladoPlayer.manager.boundsHeight - _barView.buttonsContainer.height;
+				_barView.buttonsContainer.y = _module.saladoPlayer.manager.boundsHeight - buttonSize.height;
 			}else { // MIDDLE
-				_barView.buttonsContainer.y = (_module.saladoPlayer.manager.boundsHeight - _barView.buttonsContainer.height) * 0.5;
+				_barView.buttonsContainer.y = (_module.saladoPlayer.manager.boundsHeight - buttonSize.height) * 0.5;
 			}
 			_barView.buttonsContainer.x += _barView.buttonBarData.barData.buttons.move.horizontal;
 			_barView.buttonsContainer.y += _barView.buttonBarData.barData.buttons.move.vertical;
@@ -137,7 +147,6 @@ package com.panozona.modules.buttonbar.controller{
 		private function buttonsImageLoaded(e:Event):void {
 			buttonsBitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
 			buttonsBitmapData.draw((e.target as LoaderInfo).content);
-			buttonSize = new Size(30,30);
 			buttonSize.width = Math.ceil((buttonsBitmapData.width - 9) / 10);
 			buttonSize.height = Math.ceil((buttonsBitmapData.height - 3) / 4);
 			updateButtonsBar();
@@ -281,6 +290,8 @@ package com.panozona.modules.buttonbar.controller{
 					buttonView.buttonData.bitmapActive = getButtonBitmap(39);
 				}
 				buttonView.x = lastX;
+				buttonView.x += buttonView.buttonData.button.move.horizontal;
+				buttonView.y += buttonView.buttonData.button.move.vertical;
 				lastX += buttonView.width + _barView.buttonBarData.barData.buttons.spacing;
 			}
 		}
@@ -420,6 +431,53 @@ package com.panozona.modules.buttonbar.controller{
 			_module.saladoPlayer.stage.displayState = (_module.saladoPlayer.stage.displayState == StageDisplayState.NORMAL) ?
 				StageDisplayState.FULL_SCREEN :
 				StageDisplayState.NORMAL;
+		}
+		
+		
+		private function keyDownEvent(e:KeyboardEvent):void {
+			switch( e.keyCode ){
+				case cameraKeyBindingsClass.UP:
+					setButtonActive("up", true);
+				break;
+				case cameraKeyBindingsClass.DOWN:
+					setButtonActive("down", true);
+				break;
+				case cameraKeyBindingsClass.LEFT:
+					setButtonActive("left", true);
+				break;
+				case cameraKeyBindingsClass.RIGHT:
+					setButtonActive("right", true);
+				break;
+				case cameraKeyBindingsClass.IN:
+					setButtonActive("in", true);
+				break;
+				case cameraKeyBindingsClass.OUT:
+					setButtonActive("out", true);
+				break;
+			}
+		}
+		
+		private function keyUpEvent(e:KeyboardEvent):void {
+			switch( e.keyCode ){
+				case cameraKeyBindingsClass.UP:
+					setButtonActive("up", false);
+				break;
+				case cameraKeyBindingsClass.DOWN:
+					setButtonActive("down", false);
+				break;
+				case cameraKeyBindingsClass.LEFT:
+					setButtonActive("left", false);
+				break;
+				case cameraKeyBindingsClass.RIGHT:
+					setButtonActive("right", false);
+				break;
+				case cameraKeyBindingsClass.IN:
+					setButtonActive("in", false);
+				break;
+				case cameraKeyBindingsClass.OUT:
+					setButtonActive("out", false);
+				break;
+			}
 		}
 	}
 }

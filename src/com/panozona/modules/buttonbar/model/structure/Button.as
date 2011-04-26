@@ -18,8 +18,11 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.buttonbar.model.structure{
 	
+	import com.panozona.player.module.data.property.Move;
+	
 	public class Button{
 		
 		public var name:String;
+		public var move:Move = new Move(0, 0);
 	}
 }
