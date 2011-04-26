@@ -41,6 +41,8 @@ package com.panozona.modules.imagemap.controller {
 		private var pan2:Number;
 		private var pan3:Number;
 		
+		//private var direction:Number;
+		
 		public function WaypointController(waypointView:WaypointView, module:Module) {
 			_waypointView = waypointView;
 			_module = module;
@@ -76,8 +78,9 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function onPanoramaLoaded(panoramaEvent:Object):void {
-			if (_waypointView.waypointData.waypoint.target != null) { 
+			if (_waypointView.waypointData.waypoint.target != null) {
 				if (_module.saladoPlayer.manager.currentPanoramaData.id == _waypointView.waypointData.waypoint.target) {
+					//direction = _module.saladoPlayer.managerData.getPanoramaDataById(_waypointView.waypointData.waypoint.target).direction;
 					// TODO: fade in effect
 					_waypointView.waypointData.showRadar = true;
 					_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
@@ -125,7 +128,7 @@ package com.panozona.modules.imagemap.controller {
 				pan2 = pan1;
 				pan1 = _module.saladoPlayer.manager.pan;
 				
-				_waypointView.radar.rotationZ = _module.saladoPlayer.manager.pan;
+				_waypointView.radar.rotationZ = _module.saladoPlayer.manager.pan - _waypointView.waypointData.waypoint.panShift;
 				_waypointView.radar.scaleX = 1 - Math.abs(_module.saladoPlayer.manager.tilt) / 100;
 				_pan = _module.saladoPlayer.manager.pan;
 				_tilt = _module.saladoPlayer.manager.tilt;

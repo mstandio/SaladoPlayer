@@ -25,5 +25,6 @@ package com.panozona.modules.imagemap.model.structure {
 		public var position:Position = new Position(0,0);
 		public var target:String; // intentionally not initialized
 		public var mouse:Mouse = new Mouse();
+		public var panShift:Number = 0;
 	}
 }

@@ -10,12 +10,12 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" direction="90"/>
 		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml"/>
 		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="modules/ImageMap-1.0.swf">
+		<ImageMap path="modules/ImageMap-1.1.swf">
 			<window open="false" transitionType="slideRight" openTween="transition:Back.easeOut" onOpen="mapOpened" onClose="mapClosed" alpha="0.8"/>
 			<viewer moveEnabled="true" dragEnabled="true" zoomEnabled="true"/>
 			<maps>
