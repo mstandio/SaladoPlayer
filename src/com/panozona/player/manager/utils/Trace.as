@@ -84,18 +84,19 @@ package com.panozona.player.manager.utils {
 			var btnSize:Number = 20;
 			
 			var txtFormat:TextFormat = new TextFormat();
-			txtFormat.font = "Courier"
+			txtFormat.font = "Courier";
+			txtFormat.size = 15;
 			txtFormat.color = 0xffffff;
 			
 			// btnOpen
 			var label:TextField = new TextField();
-			label.mouseEnabled = false;
 			label.defaultTextFormat = txtFormat;
+			label.mouseEnabled = false;
 			label.text = "[trace]";
 			label.autoSize = TextFieldAutoSize.LEFT;
 			btnOpen.addChild(label);
 			btnOpen.graphics.beginFill(0x000000);
-			btnOpen.graphics.drawRect(0,0,label.width,label.height+2);
+			btnOpen.graphics.drawRect(0, 0, 63, 20);
 			btnOpen.graphics.endFill();
 			btnOpen.addEventListener(MouseEvent.CLICK, showWindow, false, 0, true);
 			btnOpen.buttonMode = true;
@@ -161,9 +162,9 @@ package com.panozona.player.manager.utils {
 			btnClose.graphics.drawRect(0,0,btnSize,btnSize);
 			btnClose.graphics.endFill();
 			btnClose.graphics.lineStyle(2, 0xffffff);
-			btnClose.graphics.moveTo(btnSize/3, btnSize/3);
-			btnClose.graphics.lineTo(btnSize*0.66, btnSize*0.66);
-			btnClose.graphics.moveTo(btnSize/3, btnSize*0.66);
+			btnClose.graphics.moveTo(btnSize / 3, btnSize / 3);
+			btnClose.graphics.lineTo(btnSize * 0.66, btnSize*0.66);
+			btnClose.graphics.moveTo(btnSize / 3, btnSize*0.66);
 			btnClose.graphics.lineTo(btnSize * 0.66, btnSize / 3);
 			btnClose.addEventListener(MouseEvent.CLICK, hideWindow, false, 0, true);
 			btnClose.buttonMode = true;
