@@ -69,13 +69,13 @@ package com.panozona.modules.buttonbar.controller{
 			cameraKeyBindingsClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.model.CameraKeyBindings") as Class;
 			cameraEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.CameraEvent") as Class;
 			
-			if(_barView.buttonBarData.barData.buttons.listenKeys){
-				_module.saladoPlayer.managerData.controlData.arcBallCameraData.addEventListener(cameraEventClass.ENABLED_CHANGE, onDragEnabledChange, false, 0, true);
-				_module.saladoPlayer.managerData.controlData.autorotationCameraData.addEventListener(autorotationEventClass.AUTOROTATION_CHANGE, onIsAutorotatingChange, false, 0, true);
-			}
+			_module.saladoPlayer.managerData.controlData.arcBallCameraData.addEventListener(cameraEventClass.ENABLED_CHANGE, onDragEnabledChange, false, 0, true);
+			_module.saladoPlayer.managerData.controlData.autorotationCameraData.addEventListener(autorotationEventClass.AUTOROTATION_CHANGE, onIsAutorotatingChange, false, 0, true);
 			
-			_module.saladoPlayer.stage.addEventListener( KeyboardEvent.KEY_DOWN, keyDownEvent, false, 0, true);
-			_module.saladoPlayer.stage..addEventListener( KeyboardEvent.KEY_UP, keyUpEvent, false, 0, true);
+			if (_barView.buttonBarData.barData.buttons.listenKeys) {
+				_module.saladoPlayer.stage.addEventListener( KeyboardEvent.KEY_DOWN, keyDownEvent, false, 0, true);
+				_module.saladoPlayer.stage..addEventListener( KeyboardEvent.KEY_UP, keyUpEvent, false, 0, true);
+			}
 			
 			if (_barView.buttonBarData.bar.visible && _barView.buttonBarData.bar.path != null){
 				var barLoader:Loader = new Loader();

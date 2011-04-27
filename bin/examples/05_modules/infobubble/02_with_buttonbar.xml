@@ -22,7 +22,7 @@
 				<bubble id="b2" path="modules/images/infobubble/red.jpg"/>
 			</bubbles>
 		</InfoBubble>
-		<ButtonBar path="modules/ButtonBar-1.0.swf">
+		<ButtonBar path="modules/ButtonBar-1.1.swf">
 			<buttons path="modules/images/buttonbar/buttons/buttons_30x30_blue.png">
 				<extraButton name="a" action="bubToggle"/>
 			</buttons>

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>
-	<global debug="false">
-		<control autorotation="enabled:false"/>
+	<global debug="true">
+		<control autorotation="enabled:true,delay:0"/>
 		<panoramas firstPanorama="park"/>
+		<branding visible="true"/>
+		<stats visible="true"/>
 	</global>
 	<panoramas>
-		<panorama id="kortrijk" path="panoramas/dz_kortrijk/kortrijk_f.xml">
+		<panorama id="kortrijk" path="../../panoramas4/dz_kortrijk/kortrijk_f.xml">
 			<swf id="k_hs1" location="pan:-55" path="hotspots/AdvancedHotspot-1.0.swf" mouse="onClick:loadPark,onOver:showParkBubble,onOut:hideBubble">
 				<settings path="hotspots/images/red_arrow.png"/>
 			</swf>
 		</panorama>
-		<panorama id="park" path="panoramas/dz_park/park_f.xml">
+		<panorama id="park" path="../../panoramas4/dz_park/park_f.xml">
 			<swf id="p_hs1" location="pan:170" path="hotspots/SimpleHotspot-1.0.swf" mouse="onClick:loadKortrijk,onOver:showKortrijkBubble,onOut:hideBubble"/>
 			<swf id="vlad" path="hotspots/VideoHotspot-1.0.swf" location="pan:50,distance:800">
 				<settings splashPath="hotspots/video/hello_splash.png" videoPath="hotspots/video/hello.mp4" size="width:400,height:300"/>
@@ -47,11 +49,13 @@
 				<button id="button1" path="modules/images/imagemap_icon.png" align="vertical:top,horizontal:right" move="horizontal:-30,vertical:30" mouse="onClick:mapToggle"/>
 			</buttons>
 		</ImageButton>
-		<ButtonBar path="modules/ButtonBar-1.0.swf">
+		<ButtonBar path="modules/ButtonBar-1.1.swf">
 			<bar path="modules/images/buttonbar/bar/bar_220x30_green.png" size="height:35,width:270"/>
 			<buttons path="modules/images/buttonbar/buttons/buttons_25x25_green.png" buttonSize="width:25,height:25">
+				<button name="quality"/>
 				<button name="up"/>
 				<button name="down"/>
+				<button name="autorotation"/>
 				<button name="left"/>
 				<button name="right"/>
 				<button name="in"/>

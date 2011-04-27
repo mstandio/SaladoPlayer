@@ -13,7 +13,7 @@
 		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ButtonBar path="modules/ButtonBar-1.0.swf">
+		<ButtonBar path="modules/ButtonBar-1.1.swf">
 			<bar path="modules/images/buttonbar/bar/bar_220x30_green.png" size="height:35,width:220"/>
 			<buttons path="modules/images/buttonbar/buttons/buttons_25x25_green.png" buttonSize="width:25,height:25">
 				<button name="up"/>
