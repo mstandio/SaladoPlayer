@@ -16,12 +16,13 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagebutton.data.structure {
+package com.panozona.modules.imagebutton.model.structure {
 	
 	import caurina.transitions.Equations;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Mouse;
 	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.Transition;
 	import com.panozona.player.module.data.property.Tween;
 	
 	public class Button {
@@ -29,11 +30,15 @@ package com.panozona.modules.imagebutton.data.structure {
 		public var id:String;
 		public var path:String;
 		public var text:String; // indended to be passed as CDATA
+		public var alpha:Number = 1;
 		public var align:Align = new Align(Align.LEFT, Align.TOP);
 		public var move:Move = new Move(20, 20);
+		public var transition:Transition = new Transition(Transition.FADE);
 		public var mouse:Mouse = new Mouse();
-		public var handCursor:Boolean = true;
+		public var handCursor:Boolean = true; // NOT USED SINCE 1.1
 		public var open:Boolean = true;
+		public var onOpen:String; // id of action
+		public var onClose:String; // id of action
 		public var openTween:Tween = new Tween(Equations.easeNone, 0.5);
 		public var closeTween:Tween = new Tween(Equations.easeNone, 0.5);
 	}

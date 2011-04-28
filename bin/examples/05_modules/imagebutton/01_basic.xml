@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-	Use module to place images inside panorama window. Setting "handcursor" to false 
-	couses that image is transparent for mouse when rotating panorama.
+<!--
+	Use module to place images inside panorama window.
+	You can use *.png *.gif *.jpg *.jpeg  and *.swf files.
+	When there are no mouse events assigned, button is transparent to mouse.
 	
 	http://panozona.com/wiki/Module:ImageButton
 -->
@@ -13,11 +14,11 @@
 		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageButton path="modules/ImageButton-1.0.swf">
+		<ImageButton path="modules/ImageButton-1.1.swf">
 			<buttons>
-				<button id="button1" path="modules/images/panozona_logo.png" align="vertical:top" move="horizontal:30,vertical:30"/>
-				<button id="button2" path="modules/images/panozona_logo.png" align="vertical:middle" move="horizontal:30,vertical:0"/>
-				<button id="button3" handCursor="false" path="modules/images/panozona_logo.png" align="vertical:bottom" move="horizontal:30,vertical:-60"/>
+				<button id="logo1" path="modules/images/panozona_logo.png" move="horizontal:30,vertical:30" alpha="0.5"/>
+				<button id="logo2" path="modules/images/panozona_logo.png" align="vertical:middle" move="horizontal:30,vertical:0"/>
+				<button id="logo3" path="modules/images/panozona_logo.png" align="vertical:bottom" move="horizontal:30,vertical:-60"/>
 			</buttons>
 		</ImageButton>
 	</modules>

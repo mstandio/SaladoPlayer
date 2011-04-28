@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,16 +16,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagebutton.data.structure {
+package com.panozona.modules.imagebutton.events{
 	
-	import com.panozona.player.module.data.structure.DataParent;
+	import flash.events.Event;
 	
-	public class Butttons extends DataParent{
+	public class ButtonEvent extends Event {
 		
-		override public function getChildrenTypes():Vector.<Class>{
-			var result:Vector.<Class> = new Vector.<Class>();
-			result.push(Button);
-			return result;
+		public static const CHANGED_OPEN:String = "changedOpen";
+		
+		public function ButtonEvent(type:String){
+			super(type);
 		}
 	}
 }

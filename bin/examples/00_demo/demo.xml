@@ -44,7 +44,7 @@
 				</map>
 			</maps>
 		</ImageMap>
-		<ImageButton path="modules/ImageButton-1.0.swf">
+		<ImageButton path="modules/ImageButton-1.1.swf">
 			<buttons>
 				<button id="button1" path="modules/images/imagemap_icon.png" align="vertical:top,horizontal:right" move="horizontal:-30,vertical:30" mouse="onClick:mapToggle"/>
 			</buttons>

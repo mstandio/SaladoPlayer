@@ -16,19 +16,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagebutton.data{
+package com.panozona.modules.imagebutton.model.structure {
 	
-	import com.panozona.modules.imagebutton.data.structure.Button;
-	import flash.display.Sprite;
+	import com.panozona.player.module.data.structure.DataParent;
 	
-	public class Wrapper {
+	public class Butttons extends DataParent{
 		
-		public var button:Button;
-		public var sprite:Sprite;
-		
-		public function Wrapper(button:Button, sprite:Sprite) {
-			this.button = button;
-			this.sprite = sprite;
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Button);
+			return result;
 		}
 	}
 }

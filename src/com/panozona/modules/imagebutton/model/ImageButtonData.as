@@ -16,10 +16,10 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagebutton.data{
+package com.panozona.modules.imagebutton.model{
 	
-	import com.panozona.modules.imagebutton.data.structure.Button;
-	import com.panozona.modules.imagebutton.data.structure.Butttons;
+	import com.panozona.modules.imagebutton.model.structure.Button;
+	import com.panozona.modules.imagebutton.model.structure.Butttons;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.utils.DataNodeTranslator;
@@ -28,25 +28,36 @@ package com.panozona.modules.imagebutton.data{
 		
 		public var buttons:Butttons = new Butttons();
 		
-		public function ImageButtonData(moduleData:ModuleData, saladoPlayer:Object) {
+		public function ImageButtonData(moduleData:ModuleData, saladoPlayer:Object){
 			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
-			for each(var dataNode:DataNode in moduleData.nodes) {
-				if (dataNode.name == "buttons") {
+			for each(var dataNode:DataNode in moduleData.nodes){
+				if (dataNode.name == "buttons"){
 					tarnslator.dataNodeToObject(dataNode, buttons);
 				}else {
 					throw new Error("Unrecognized node: " + moduleData.name);
 				}
 			}
 			
-			if (saladoPlayer.managerData.debugMode) {
+			if (saladoPlayer.managerData.debugMode){
 				var buttonIds:Object = new Object();
-				for each (var button:Button in buttons.getChildrenOfGivenClass(Button)) {
+				for each (var button:Button in buttons.getChildrenOfGivenClass(Button)){
 					if (button.id == null) throw new Error("Button id not specified.");
-					if (button.path == null || !button.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)) throw new Error("Invalid button path: " + button.path);
+					if (button.path == null || !button.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i))
+						throw new Error("Invalid button path: " + button.path);
 					if (buttonIds[button.id] != undefined) {
 						throw new Error("Repeating button id: " + button.id);
 					}else {
 						buttonIds[button.id] = ""; // something
+					}
+					
+					if (button.onOpen && !saladoPlayer.managerData.getActionDataById(button.onOpen)
+						|| button.onClose && !saladoPlayer.managerData.getActionDataById(button.onClose)
+						|| button.mouse.onClick && !saladoPlayer.managerData.getActionDataById(button.mouse.onClick)
+						|| button.mouse.onOut && !saladoPlayer.managerData.getActionDataById(button.mouse.onOut)
+						|| button.mouse.onOver && !saladoPlayer.managerData.getActionDataById(button.mouse.onOver)
+						|| button.mouse.onPress && !saladoPlayer.managerData.getActionDataById(button.mouse.onPress)
+						|| button.mouse.onRelease && !saladoPlayer.managerData.getActionDataById(button.mouse.onRelease)){
+						throw new Error("Nonexistant action id in: " + button.id);
 					}
 				}
 			}

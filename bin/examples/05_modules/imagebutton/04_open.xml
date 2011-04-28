@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+	Buttons of given id can be opened/closed by default or on demand.
+	You can also execute actions when closing/opening buttons.
+	
+	http://panozona.com/wiki/Module:ImageButton
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml">
+			<image id="greenArrow" path="hotspots/images/green_arrow.png" location="pan:-10,tilt:5" mouse="onClick:openLogo"/>
+			<image id="redArrow" path="hotspots/images/red_arrow.png" location="pan:-10,tilt:-5" mouse="onClick:closeLogo"/>
+			<image id="yellowArrow" path="hotspots/images/yellow_arrow.png" location="pan:10" mouse="onClick:toggleOpenLogo"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ImageButton path="modules/ImageButton-1.1.swf">
+			<buttons>
+				<button id="logo" path="modules/images/panozona_logo.png" move="horizontal:30,vertical:30" open="false" onOpen="printOpen" onClose="printClose"/>
+			</buttons>
+		</ImageButton>
+	</modules>
+	<actions>
+		<action id="openLogo" content="ImageButton.open(logo)"/>
+		<action id="closeLogo" content="ImageButton.close(logo)"/>
+		<action id="toggleOpenLogo" content="ImageButton.toggleOpen(logo)"/>
+		<action id="printOpen" content="SaladoPlayer.print(logo opened)"/>
+		<action id="printClose" content="SaladoPlayer.print(logo closed)"/>
+	</actions>
+</SaladoPlayer>
