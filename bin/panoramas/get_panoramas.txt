@@ -3,11 +3,8 @@
 ###   
 ###   Sample panoramas4.zip can be downloaded from http://github.com/mstandio/SaladoPlayer/downloads
 ###   Place folders "dz_park" and "dz_kortrijk" into this directory.
-###   
-###   Panorama cube walls need to be in "Deep Zoom" format,
-###   each wall described with separate *.xml file.
 ###
-###   To create your own panoramas use SaladoConverter
+###   Convert your own equirectangular or cubic panoramas using SaladoConverter
 ###   
 ###   Get instructions at http://panozona.com/wiki/
 ###
