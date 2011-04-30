@@ -1,0 +1,24 @@
+a {
+	font-family:Verdana;
+	text-decoration:none;
+	font-size:12px;
+	font-weight:bold;
+	line-height:160%;
+	white-space: nowrap;
+}
+
+a:link {
+	color:#00ff00;
+}
+
+a:visited {
+	color:#00ff00;
+}
+
+a:active {
+	color:#00ff00;
+}
+
+a:hover {
+	color:red;
+}
