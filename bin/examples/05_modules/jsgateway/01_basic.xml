@@ -8,12 +8,12 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml">
-			<image id="greenArrow" path="hotspots/images/green_arrow.png" location="pan:30" mouse="onClick:saladoPlayerToJavascript"/>
+		<panorama id="greenCheck" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="greenArrow" path="~hotspots/images/green_arrow.png" location="pan:30" mouse="onClick:saladoPlayerToJavascript"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<JSGateway path="modules/JSGateway-1.0.swf">
+		<JSGateway path="~modules/JSGateway-1.0.swf">
 			<jsfunctions>
 				<jsfunction id="js1" name="someJavaScriptFunction" text="hello"/>
 			</jsfunctions>

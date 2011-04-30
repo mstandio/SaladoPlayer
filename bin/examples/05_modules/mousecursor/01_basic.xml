@@ -10,22 +10,22 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml">
-			<image id="blueArrow" path="hotspots/images/blue_arrow.png" mouse="onClick:loadBlueCheck" />
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="blueArrow" path="~hotspots/images/blue_arrow.png" mouse="onClick:loadBlueCheck" />
 		</panorama>
-		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml">
-			<image id="greenArrow" path="hotspots/images/green_arrow.png" mouse="onClick:loadGreenCheck"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="greenArrow" path="~hotspots/images/green_arrow.png" mouse="onClick:loadGreenCheck"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<ButtonBar path="modules/ButtonBar-1.1.swf">
+		<ButtonBar path="~modules/ButtonBar-1.1.swf">
 			<bar visible="true"/>
-			<buttons path="modules/images/buttonbar/buttons/buttons_30x30_blue.png">
+			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png">
 				<button name="drag"/>
 			</buttons>
 		</ButtonBar>
-		<MouseCursor path="modules/MouseCursor-1.0.swf">
-			<settings path="modules/images/mousecursor/cursors_31x31.png"/>
+		<MouseCursor path="~modules/MouseCursor-1.0.swf">
+			<settings path="~modules/images/mousecursor/cursors_31x31.png"/>
 		</MouseCursor>
 	</modules>
 	<actions>

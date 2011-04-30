@@ -16,15 +16,15 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml"/>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" camera="maxTilt:60"/>
-		<panorama id="violetChecker" path="panoramas/dz_violet_check/violet_check_f.xml" camera="maxVerticalFov:30,minVerticalFov:-30" />
-		<panorama id="turquoiseChecker" path="panoramas/dz_turquoise_check/turquoise_check_f.xml" camera="maxVerticalFov:30,minVerticalFov:-30,maxHorizontalFov:112,minHorizontalFov:-112"/>
-		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml" camera="maxFov:160,minFov:10"/>
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" camera="maxTilt:60"/>
+		<panorama id="violetChecker" path="~panoramas/dz_violet_check/violet_check_f.xml" camera="maxVerticalFov:30,minVerticalFov:-30" />
+		<panorama id="turquoiseChecker" path="~panoramas/dz_turquoise_check/turquoise_check_f.xml" camera="maxVerticalFov:30,minVerticalFov:-30,maxHorizontalFov:112,minHorizontalFov:-112"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" camera="maxFov:160,minFov:10"/>
 	</panoramas>
 	<modules>
-		<ViewFinder path="modules/ViewFinder-1.0.swf"/>
-		<DropDown path="modules/DropDown-1.0.swf">
+		<ViewFinder path="~modules/ViewFinder-1.0.swf"/>
+		<DropDown path="~modules/DropDown-1.0.swf">
 			<elements>
 				<element label="Red checker" panorama="redChecker"/>
 				<element label="Green checker" panorama="greenChecker"/>

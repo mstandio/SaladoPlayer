@@ -16,12 +16,12 @@
 		<panoramas camera="tilt:45,maxTilt:45"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" camera="maxTilt:100"/>
-		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" camera="maxTilt:100"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ViewFinder path="modules/ViewFinder-1.0.swf"/>
-		<DropDown path="modules/DropDown-1.0.swf">
+		<ViewFinder path="~modules/ViewFinder-1.0.swf"/>
+		<DropDown path="~modules/DropDown-1.0.swf">
 			<elements>
 				<element label="Green checker" panorama="greenChecker"/>
 				<element label="Blue checker" panorama="blueChecker"/>

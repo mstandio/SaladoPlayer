@@ -10,20 +10,20 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml">
-			<image id="arrow1" path="hotspots/images/yellow_arrow.png" location="pan:-30,tilt:20" mouse="onClick:toggleOpenLogo1"/>
-			<image id="arrow2" path="hotspots/images/yellow_arrow.png" location="pan:30,tilt:20" mouse="onClick:toggleOpenLogo2"/>
-			<image id="arrow3" path="hotspots/images/yellow_arrow.png" location="pan:-30,tilt:-20" mouse="onClick:toggleOpenLogo3"/>
-			<image id="arrow4" path="hotspots/images/yellow_arrow.png" location="pan:30,tilt:-20" mouse="onClick:toggleOpenLogo4"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="arrow1" path="~hotspots/images/yellow_arrow.png" location="pan:-30,tilt:20" mouse="onClick:toggleOpenLogo1"/>
+			<image id="arrow2" path="~hotspots/images/yellow_arrow.png" location="pan:30,tilt:20" mouse="onClick:toggleOpenLogo2"/>
+			<image id="arrow3" path="~hotspots/images/yellow_arrow.png" location="pan:-30,tilt:-20" mouse="onClick:toggleOpenLogo3"/>
+			<image id="arrow4" path="~hotspots/images/yellow_arrow.png" location="pan:30,tilt:-20" mouse="onClick:toggleOpenLogo4"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<ImageButton path="modules/ImageButton-1.1.swf">
+		<ImageButton path="~modules/ImageButton-1.1.swf">
 			<buttons>
-				<button id="logo1" path="modules/images/panozona_logo.png" move="horizontal:30,vertical:30" transition="type:slideLeft"/>
-				<button id="logo2" path="modules/images/panozona_logo.png" align="horizontal:right" move="horizontal:-30,vertical:30" transition="type:slideUp"/>
-				<button id="logo3" path="modules/images/panozona_logo.png" align="vertical:bottom" move="horizontal:30,vertical:-30" transition="type:slideDown"/>
-				<button id="logo4" path="modules/images/panozona_logo.png" align="vertical:bottom,horizontal:right" move="horizontal:-30,vertical:-30" transition="type:slideRight"/>
+				<button id="logo1" path="~modules/images/panozona_logo.png" move="horizontal:30,vertical:30" transition="type:slideLeft"/>
+				<button id="logo2" path="~modules/images/panozona_logo.png" align="horizontal:right" move="horizontal:-30,vertical:30" transition="type:slideUp"/>
+				<button id="logo3" path="~modules/images/panozona_logo.png" align="vertical:bottom" move="horizontal:30,vertical:-30" transition="type:slideDown"/>
+				<button id="logo4" path="~modules/images/panozona_logo.png" align="vertical:bottom,horizontal:right" move="horizontal:-30,vertical:-30" transition="type:slideRight"/>
 			</buttons>
 		</ImageButton>
 	</modules>

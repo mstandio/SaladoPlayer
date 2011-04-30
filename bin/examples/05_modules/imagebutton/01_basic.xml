@@ -11,14 +11,14 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageButton path="modules/ImageButton-1.1.swf">
+		<ImageButton path="~modules/ImageButton-1.1.swf">
 			<buttons>
-				<button id="logo1" path="modules/images/panozona_logo.png" move="horizontal:30,vertical:30" alpha="0.5"/>
-				<button id="logo2" path="modules/images/panozona_logo.png" align="vertical:middle" move="horizontal:30,vertical:0"/>
-				<button id="logo3" path="modules/images/panozona_logo.png" align="vertical:bottom" move="horizontal:30,vertical:-60"/>
+				<button id="logo1" path="~modules/images/panozona_logo.png" move="horizontal:30,vertical:30" alpha="0.5"/>
+				<button id="logo2" path="~modules/images/panozona_logo.png" align="vertical:middle" move="horizontal:30,vertical:0"/>
+				<button id="logo3" path="~modules/images/panozona_logo.png" align="vertical:bottom" move="horizontal:30,vertical:-60"/>
 			</buttons>
 		</ImageButton>
 	</modules>

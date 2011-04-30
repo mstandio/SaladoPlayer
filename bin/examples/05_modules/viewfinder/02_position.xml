@@ -9,10 +9,10 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="pano1" path="panoramas/dz_green_check/green_check_f.xml"/>
+		<panorama id="pano1" path="~panoramas/dz_green_check/green_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ViewFinder path="modules/ViewFinder-1.0.swf">
+		<ViewFinder path="~modules/ViewFinder-1.0.swf">
 			<settings align="vertical:bottom" move="vertical:-50,horizontal:10"/>
 		</ViewFinder>
 	</modules>

@@ -13,17 +13,17 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" onEnterFrom="blueChecker:printGreenFromBlue,redChecker:printGreenFromRed">
-			<image id="gcRedArrow" path="hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadBlueCheck"/>
-			<image id="gcBlueArrow" path="hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueCheck"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" onEnterFrom="blueChecker:printGreenFromBlue,redChecker:printGreenFromRed">
+			<image id="gcRedArrow" path="~hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadBlueCheck"/>
+			<image id="gcBlueArrow" path="~hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueCheck"/>
 		</panorama>
-		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml" onEnterFrom="greenChecker:printBlueFromGreen,redChecker:printBlueFromRed">
-			<image id="bcRedArrow" path="hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadRedCheck"/>
-			<image id="bcGreenArrow" path="hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenCheck"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" onEnterFrom="greenChecker:printBlueFromGreen,redChecker:printBlueFromRed">
+			<image id="bcRedArrow" path="~hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadRedCheck"/>
+			<image id="bcGreenArrow" path="~hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenCheck"/>
 		</panorama>
-		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml" onEnterFrom="greenChecker:printRedFromGreen,blueChecker:printRedFromBlue">
-			<image id="rcBlueArrow" path="hotspots/images/blue_arrow.png" location="pan:-10" mouse="onClick:loadBlueCheck"/>
-			<image id="rcGreenArrow" path="hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenCheck"/>
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml" onEnterFrom="greenChecker:printRedFromGreen,blueChecker:printRedFromBlue">
+			<image id="rcBlueArrow" path="~hotspots/images/blue_arrow.png" location="pan:-10" mouse="onClick:loadBlueCheck"/>
+			<image id="rcGreenArrow" path="~hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenCheck"/>
 		</panorama>
 	</panoramas>
 	<actions>

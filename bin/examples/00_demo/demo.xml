@@ -8,50 +8,50 @@
 	</global>
 	<panoramas>
 		<panorama id="kortrijk" path="../../panoramas4/dz_kortrijk/kortrijk_f.xml">
-			<swf id="k_hs1" location="pan:-55" path="hotspots/AdvancedHotspot-1.0.swf" mouse="onClick:loadPark,onOver:showParkBubble,onOut:hideBubble">
-				<settings path="hotspots/images/red_arrow.png"/>
+			<swf id="k_hs1" location="pan:-55" path="~hotspots/AdvancedHotspot-1.0.swf" mouse="onClick:loadPark,onOver:showParkBubble,onOut:hideBubble">
+				<settings path="~hotspots/images/red_arrow.png"/>
 			</swf>
 		</panorama>
 		<panorama id="park" path="../../panoramas4/dz_park/park_f.xml">
-			<swf id="p_hs1" location="pan:170" path="hotspots/SimpleHotspot-1.0.swf" mouse="onClick:loadKortrijk,onOver:showKortrijkBubble,onOut:hideBubble"/>
-			<swf id="vlad" path="hotspots/VideoHotspot-1.0.swf" location="pan:50,distance:800">
-				<settings splashPath="hotspots/video/hello_splash.png" videoPath="hotspots/video/hello.mp4" size="width:400,height:300"/>
+			<swf id="p_hs1" location="pan:170" path="~hotspots/SimpleHotspot-1.0.swf" mouse="onClick:loadKortrijk,onOver:showKortrijkBubble,onOut:hideBubble"/>
+			<swf id="vlad" path="~hotspots/VideoHotspot-1.0.swf" location="pan:50,distance:800">
+				<settings splashPath="~hotspots/video/hello_splash.png" videoPath="~hotspots/video/hello.mp4" size="width:400,height:300"/>
 			</swf>
 		</panorama>
 	</panoramas>
 	<modules>
-		<InfoBubble path="modules/InfoBubble-1.0.swf">
+		<InfoBubble path="~modules/InfoBubble-1.0.swf">
 			<settings onActivate="onBubbleAct" onDisactivate="onBubbleDisact"/>
 			<bubbles>
-				<bubble id="parkBubble" path="modules/images/infobubble/park.jpg"/>
-				<bubble id="kortrijkBubble" path="modules/images/infobubble/kortrijk.jpg"/>
+				<bubble id="parkBubble" path="~modules/images/infobubble/park.jpg"/>
+				<bubble id="kortrijkBubble" path="~modules/images/infobubble/kortrijk.jpg"/>
 			</bubbles>
 		</InfoBubble>
-		<DropDown path="modules/DropDown-1.0.swf">
+		<DropDown path="~modules/DropDown-1.0.swf">
 			<settings align="horizontal:left,vertical:top" move="horizontal:40,vertical:40" style="opensUp:false,fontColor:#212021,fontSize:22,plainColor:#94ba4a,borderColor:#212021,hoverColor:#b9d243,activeColor:#b9d243"/>
 			<elements>
 				<element label="Park 3200x1600" panorama="park"/>
 				<element label="Kortrijk 12800x6400" panorama="kortrijk"/>
 			</elements>
 		</DropDown>
-		<ImageMap path="modules/ImageMap-1.0.swf">
+		<ImageMap path="~modules/ImageMap-1.0.swf">
 			<window open="false" transitionType="slideRight" openTween="transition:Back.easeOut" onOpen="mapOpened" onClose="mapClosed" alpha="0.8"/>
 			<viewer moveEnabled="true" dragEnabled="true" zoomEnabled="true"/>
 			<maps>
-				<map id="map1" path="modules/images/imagemap/map_1.jpg">
+				<map id="map1" path="~modules/images/imagemap/map_1.jpg">
 					<waypoint target="park" position="x:250,y:100" mouse="onOver:showParkBubble,onOut:hideBubble"/>
 					<waypoint target="kortrijk" position="x:700,y:300" mouse="onOver:showKortrijkBubble,onOut:hideBubble"/>
 				</map>
 			</maps>
 		</ImageMap>
-		<ImageButton path="modules/ImageButton-1.1.swf">
+		<ImageButton path="~modules/ImageButton-1.1.swf">
 			<buttons>
-				<button id="button1" path="modules/images/imagemap_icon.png" align="vertical:top,horizontal:right" move="horizontal:-30,vertical:30" mouse="onClick:mapToggle"/>
+				<button id="button1" path="~modules/images/imagemap_icon.png" align="vertical:top,horizontal:right" move="horizontal:-30,vertical:30" mouse="onClick:mapToggle"/>
 			</buttons>
 		</ImageButton>
-		<ButtonBar path="modules/ButtonBar-1.1.swf">
-			<bar path="modules/images/buttonbar/bar/bar_220x30_green.png" size="height:35,width:270"/>
-			<buttons path="modules/images/buttonbar/buttons/buttons_25x25_green.png" buttonSize="width:25,height:25">
+		<ButtonBar path="~modules/ButtonBar-1.1.swf">
+			<bar path="~modules/images/buttonbar/bar/bar_220x30_green.png" size="height:35,width:270"/>
+			<buttons path="~modules/images/buttonbar/buttons/buttons_25x25_green.png" buttonSize="width:25,height:25">
 				<button name="quality"/>
 				<button name="up"/>
 				<button name="down"/>
@@ -66,8 +66,8 @@
 				<button name="fullscreen"/>
 			</buttons>
 		</ButtonBar>
-		<MouseCursor path="modules/MouseCursor-1.0.swf">
-			<settings path="modules/images/mousecursor/cursors_31x31.png"/>
+		<MouseCursor path="~modules/MouseCursor-1.0.swf">
+			<settings path="~modules/images/mousecursor/cursors_31x31.png"/>
 		</MouseCursor>
 	</modules>
 	<actions>

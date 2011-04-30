@@ -12,13 +12,13 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" direction="0"/>
-		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml" direction="45"/>
-		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml" direction="45"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" direction="0"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" direction="45"/>
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml" direction="45"/>
 	</panoramas>
 	<modules>
-		<ViewFinder path="modules/ViewFinder-1.0.swf"/>
-		<DropDown path="modules/DropDown-1.0.swf">
+		<ViewFinder path="~modules/ViewFinder-1.0.swf"/>
+		<DropDown path="~modules/DropDown-1.0.swf">
 			<elements>
 				<element label="Green checker" panorama="greenChecker"/>
 				<element label="Blue checker" panorama="blueChecker"/>

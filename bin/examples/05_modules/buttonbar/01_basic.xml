@@ -9,12 +9,12 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
+		<panorama id="greenChecker" path="~~panoramas/dz_green_check/green_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ButtonBar path="modules/ButtonBar-1.1.swf">
+		<ButtonBar path="~~modules/ButtonBar-1.1.swf">
 			<bar color="#ff0000" visible="false" />
-			<buttons path="modules/images/buttonbar/buttons/buttons_30x30_blue.png">
+			<buttons path="~~modules/images/buttonbar/buttons/buttons_30x30_blue.png">
 				<button name="up"/>
 				<button name="down"/>
 				<button name="left"/>

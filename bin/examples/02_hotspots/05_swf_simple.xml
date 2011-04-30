@@ -11,10 +11,10 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="GreenChecker" path="panoramas/dz_green_check/green_check_f.xml">
-			<swf id="swf_A" location="pan:-20" path="hotspots/SimpleHotspot-1.0.swf" mouse="onClick:helloA"/>
-			<swf id="swf_B" location="pan:0" path="hotspots/SimpleHotspot-1.0.swf" mouse="onClick:helloB"/>
-			<swf id="swf_C" location="pan:20" path="hotspots/SimpleHotspot-1.0.swf" mouse="onClick:helloC"/>
+		<panorama id="GreenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+			<swf id="swf_A" location="pan:-20" path="~hotspots/SimpleHotspot-1.0.swf" mouse="onClick:helloA"/>
+			<swf id="swf_B" location="pan:0" path="~hotspots/SimpleHotspot-1.0.swf" mouse="onClick:helloB"/>
+			<swf id="swf_C" location="pan:20" path="~hotspots/SimpleHotspot-1.0.swf" mouse="onClick:helloC"/>
 		</panorama>
 	</panoramas>
 	<actions>

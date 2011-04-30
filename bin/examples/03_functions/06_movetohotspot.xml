@@ -16,15 +16,15 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="greenCheck" path="panoramas/dz_green_check/green_check_f.xml">
-			<image id="blueArrow" path="hotspots/images/blue_arrow.png" location="pan:0" mouse="onClick:moveToYellowArrow"/>
-			<image id="greenArrow" path="hotspots/images/green_arrow.png" location="pan:180" mouse="onClick:moveToRedArrowThen"/>
-			<image id="redArrow" path="hotspots/images/red_arrow.png" location="tilt:-85" mouse="onClick:advancedMoveToBlueArrow"/>
-			<image id="yellowArrow" path="hotspots/images/yellow_arrow.png" location="tilt:85" mouse="onClick:advancedMoveToGreenArrowThen"/>
+		<panorama id="greenCheck" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="blueArrow" path="~hotspots/images/blue_arrow.png" location="pan:0" mouse="onClick:moveToYellowArrow"/>
+			<image id="greenArrow" path="~hotspots/images/green_arrow.png" location="pan:180" mouse="onClick:moveToRedArrowThen"/>
+			<image id="redArrow" path="~hotspots/images/red_arrow.png" location="tilt:-85" mouse="onClick:advancedMoveToBlueArrow"/>
+			<image id="yellowArrow" path="~hotspots/images/yellow_arrow.png" location="tilt:85" mouse="onClick:advancedMoveToGreenArrowThen"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<ViewFinder path="modules/ViewFinder-1.0.swf"/>
+		<ViewFinder path="~modules/ViewFinder-1.0.swf"/>
 	</modules>
 	<actions>
 		<action id="moveToYellowArrow" content="SaladoPlayer.moveToHotspot(yellowArrow)"/>

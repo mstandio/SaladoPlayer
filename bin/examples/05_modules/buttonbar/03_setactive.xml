@@ -10,14 +10,14 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml">
-			<image id="greenArrow" location="pan:-20" path="hotspots/images/green_arrow.png" mouse="onClick:setActive"/>
-			<image id="blueArrow" location="pan:20" path="hotspots/images/red_arrow.png" mouse="onClick:setInactive"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="greenArrow" location="pan:-20" path="~hotspots/images/green_arrow.png" mouse="onClick:setActive"/>
+			<image id="blueArrow" location="pan:20" path="~hotspots/images/red_arrow.png" mouse="onClick:setInactive"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<ButtonBar path="modules/ButtonBar-1.1.swf">
-			<buttons path="modules/images/buttonbar/buttons/buttons_30x30_blue.png">
+		<ButtonBar path="~modules/ButtonBar-1.1.swf">
+			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png">
 				<extraButton name="a" action="printHello"/>
 				<button name="in"/>
 				<button name="out"/>

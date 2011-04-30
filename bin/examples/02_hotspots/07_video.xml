@@ -6,15 +6,15 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml">
-			<swf id="vlad" path="hotspots/VideoHotspot-1.0.swf" location="distance:600">
-				<settings splashPath="hotspots/video/hello_splash.png" videoPath="hotspots/video/hello.mp4" size="width:400,height:300"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+			<swf id="vlad" path="~hotspots/VideoHotspot-1.0.swf" location="distance:600">
+				<settings splashPath="~hotspots/video/hello_splash.png" videoPath="~hotspots/video/hello.mp4" size="width:400,height:300"/>
 			</swf>
 		</panorama>
-		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<DropDown path="modules/DropDown-1.0.swf">
+		<DropDown path="~modules/DropDown-1.0.swf">
 			<elements>
 				<element label="Green checker" panorama="greenChecker"/>
 				<element label="Blue checker" panorama="blueChecker"/>

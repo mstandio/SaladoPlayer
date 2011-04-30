@@ -10,11 +10,11 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" onLeave="printGoodbeyeGreen">
-			<image id="blueArrow" path="hotspots/images/blue_arrow.png" mouse="onClick:loadBlueCheck"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" onLeave="printGoodbeyeGreen">
+			<image id="blueArrow" path="~hotspots/images/blue_arrow.png" mouse="onClick:loadBlueCheck"/>
 		</panorama>
-		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml" onLeave="printGoodbeyeBlue">
-			<image id="greenArrow" path="hotspots/images/green_arrow.png" mouse="onClick:loadGreenCheck"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" onLeave="printGoodbeyeBlue">
+			<image id="greenArrow" path="~hotspots/images/green_arrow.png" mouse="onClick:loadGreenCheck"/>
 		</panorama>
 	</panoramas>
 	<actions>

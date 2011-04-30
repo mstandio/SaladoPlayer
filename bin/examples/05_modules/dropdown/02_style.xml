@@ -9,13 +9,13 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml"/>
-		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml"/>
-		<panorama id="redChecker" path="panoramas/dz_red_check/red_check_f.xml"/>
-		<panorama id="yellowChecker" path="panoramas/dz_yellow_check/yellow_check_f.xml"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<DropDown path="modules/DropDown-1.0.swf">
+		<DropDown path="~modules/DropDown-1.0.swf">
 			<settings style="fontFamily:Arial,fontSize:25,fontColor:#0000FF,plainColor:#FFFF00,hoverColor:#FF0000,activeColor:#FF00FF,borderColor:#00FFFF"/>
 			<elements>
 				<element label="Blue checker" panorama="blueChecker"/>
