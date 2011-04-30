@@ -1,11 +1,3 @@
-a {
-	font-family:Verdana;
-	text-decoration:none;
-	font-size:12px;
-	font-weight:bold;
-	line-height:160%;
-	white-space: nowrap;
-}
 
 a:link {
 	color:#00ff00;
@@ -21,4 +13,26 @@ a:active {
 
 a:hover {
 	color:red;
+}
+
+.L {
+	color:#00ff00;
+	font-family:Verdana;
+	text-decoration:none;
+	font-size:14px;
+	font-weight:bold;
+	line-height:180%;
+	white-space: nowrap;
+}
+
+.L0{
+	
+}
+
+.L1{
+	margin-left:30px;
+}
+
+.L2{
+	margin-left:60px;
 }
