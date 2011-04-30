@@ -22,6 +22,8 @@ package com.panosalado.core
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
+import flash.display.Bitmap;
+import flash.display.BitmapData;
 import flash.events.Event;
 import flash.geom.Matrix3D;
 import flash.geom.Vector3D;
@@ -93,6 +95,7 @@ public class PanoSalado extends ViewData implements ICamera
 	protected var _dependencyRelay         :DependencyRelay;
 	protected var _stageReference          :StageReference;
 	protected var _params                  :Object;
+	protected var _background              :Sprite;
 	protected var _canvas                  :Sprite;
 	protected var _secondaryCanvas         :Sprite;
 	protected var _canvasInternal          :Sprite;
@@ -116,6 +119,7 @@ public class PanoSalado extends ViewData implements ICamera
 		_stageReference = new StageReference(true);
 		_params = {};
 		
+		_background = new Sprite();
 		_canvas = new Sprite();
 		_secondaryCanvas = new Sprite();
 		_canvasInternal = new Sprite();
@@ -129,6 +133,7 @@ public class PanoSalado extends ViewData implements ICamera
 		_secondaryCanvas.blendMode = BlendMode.LAYER;
 		_managedChildren.visible = false;
 		
+		$addChild(_background); //this one first so it is underneath
 		$addChild(_secondaryCanvas); //this one first so it is underneath
 		_secondaryCanvas.addChild(_secondaryCanvasInternal);
 		_secondaryCanvasInternal.addChild(_secondaryManagedChildren);
@@ -181,6 +186,11 @@ public class PanoSalado extends ViewData implements ICamera
 		else 
 			removeEventListener( Event.RENDER, render, false );
 	}
+	/**
+	* Lowest Sprite
+	*/
+	public function get background():Sprite { return _background; }
+	
 	
 	/**
 	* The Sprite whose x,y values can be used to move the primary panorama.  Also the Sprite on which the BlendMode is set to LAYER.
@@ -316,6 +326,14 @@ public class PanoSalado extends ViewData implements ICamera
 		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
 		var path:String = e.tilePyramid.path;
 		var params:Params = _params[path];
+		
+		if (canvas.width > 0){ // COREMOD, entire section
+			var bd:BitmapData = new BitmapData(canvas.width, canvas.height);
+			bd.draw(canvas);
+			var bmp:Bitmap = new Bitmap(bd);
+			_background.addChild(bmp);
+		}
+		
 		if (params == null) { //path was set directly, so go to super's behavior directly
 			super.commitPath(e,true);
 			return;
