@@ -39,5 +39,12 @@ package com.panozona.modules.viewfinder.data {
 		 * @default "new Move(0, 0)"
 		 */
 		public const move:Move = new Move(0, 0);
+		
+		/**
+		 * If dot marking middle of panorama window is visible
+		 * 
+		 * @default "true"
+		 */
+		public var showDot:Boolean = true;
 	}
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Positioning ViewFinder module in SaladoPlayer.
+	You can position text box inside panorama window, so it won't get in the way
+	of other elements. You can also hide white dot in the middle.
 	
 	http://panozona.com/wiki/Module:ViewFinder
 -->
@@ -12,8 +13,8 @@
 		<panorama id="pano1" path="~panoramas/dz_green_check/green_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ViewFinder path="~modules/ViewFinder-1.0.swf">
-			<settings align="vertical:bottom" move="vertical:-50,horizontal:10"/>
+		<ViewFinder path="~modules/ViewFinder-1.1.swf">
+			<settings align="vertical:bottom" move="vertical:-30,horizontal:10" showDot="false"/>
 		</ViewFinder>
 	</modules>
 </SaladoPlayer>

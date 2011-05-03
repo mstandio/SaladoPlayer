@@ -44,7 +44,7 @@ package com.panozona.modules.viewfinder{
 		 * to obtain configuration data for given module.
 		 */
 		public function ViewFinder():void{
-			super("ViewFinder", "1.0", "http://panozona.com/wiki/Module:ViewFinder");
+			super("ViewFinder", "1.1", "http://panozona.com/wiki/Module:ViewFinder");
 		}
 		
 		/**
@@ -57,18 +57,21 @@ package com.panozona.modules.viewfinder{
 			
 			viewFinderData = new ViewFinderData(moduleData, saladoPlayer); // always first
 			
-			pointer = new Sprite();
-			pointer.graphics.beginFill(0x000000);
-			pointer.graphics.drawCircle(0, 0, 3);
-			pointer.graphics.endFill();
-			pointer.graphics.beginFill(0xffffff);
-			pointer.graphics.drawCircle(0, 0, 2);
-			pointer.graphics.endFill();
-			pointer.mouseEnabled = false;
-			addChild(pointer);
+			if(viewFinderData.settings.showDot){
+				pointer = new Sprite();
+				pointer.graphics.beginFill(0x000000);
+				pointer.graphics.drawCircle(0, 0, 3);
+				pointer.graphics.endFill();
+				pointer.graphics.beginFill(0xffffff);
+				pointer.graphics.drawCircle(0, 0, 2);
+				pointer.graphics.endFill();
+				pointer.mouseEnabled = false;
+				addChild(pointer);
+			}
 			
 			txtFormat = new TextFormat();
 			txtFormat.font = "Courier";
+			txtFormat.size = 12;
 			
 			txtOutput = new TextField();
 			txtOutput.mouseEnabled = false;
@@ -76,7 +79,7 @@ package com.panozona.modules.viewfinder{
 			txtOutput.background = true;
 			txtOutput.backgroundColor = 0x000000;
 			txtOutput.defaultTextFormat = txtFormat;
-			txtOutput.autoSize = TextFieldAutoSize.LEFT
+			txtOutput.height = 12 * 3 + 8;
 			addChild(txtOutput);
 			
 			stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
@@ -110,8 +113,10 @@ package com.panozona.modules.viewfinder{
 			txtOutput.x += viewFinderData.settings.move.horizontal;
 			txtOutput.y += viewFinderData.settings.move.vertical;
 			
-			pointer.x = (saladoPlayer.manager.boundsWidth - pointer.width) * 0.5;
-			pointer.y = (saladoPlayer.manager.boundsHeight - pointer.height) * 0.5;
+			if(viewFinderData.settings.showDot){
+				pointer.x = (saladoPlayer.manager.boundsWidth) * 0.5;
+				pointer.y = (saladoPlayer.manager.boundsHeight) * 0.5;
+			}
 		}
 	}
 }

@@ -17,6 +17,6 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ViewFinder path="~modules/ViewFinder-1.0.swf"/>
+		<ViewFinder path="~modules/ViewFinder-1.1.swf"/>
 	</modules>
 </SaladoPlayer>
