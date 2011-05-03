@@ -80,11 +80,11 @@ public class ArcBallCamera extends Sprite implements ICamera
 		
 		__xh = Math.tan(viewData.fieldOfView * 0.5 * __toRadians) / (viewData.boundsWidth * 0.5);
 		
-		vFov = viewData.boundsHeight / viewData.boundsWidth * viewData.fieldOfView;
+		vFov = __toDegrees * 2 * Math.atan((viewData.boundsHeight/viewData.boundsWidth) * Math.tan(__toRadians * 0.5 * viewData.fieldOfView));
 		__xv = Math.tan(vFov * 0.5 * __toRadians) / (viewData.boundsHeight * 0.5);
 		
-		__lastAngleX = Math.atan(( _mouseObject.mouseX - viewData.boundsWidth * 0.5) * __xh);    // HARDCORE
-		__lastAngleY = Math.atan(( _mouseObject.mouseY - viewData.boundsHeight * 0.5 )* __xv);  // TRIGONOMETRY :F
+		__lastAngleX = Math.atan(( _mouseObject.mouseX - viewData.boundsWidth * 0.5) * __xh);
+		__lastAngleY = Math.atan(( _mouseObject.mouseY - viewData.boundsHeight * 0.5 )* __xv);
 		
 		
 		addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
@@ -128,7 +128,7 @@ public class ArcBallCamera extends Sprite implements ICamera
 				__xh = Math.tan(viewData.fieldOfView * 0.5 * __toRadians) / (viewData.boundsWidth * 0.5);
 			}
 			if ( viewData.invalid ) {
-				vFov = viewData.boundsHeight / viewData.boundsWidth * viewData.fieldOfView;
+				vFov = __toDegrees * 2 * Math.atan((viewData.boundsHeight/viewData.boundsWidth) * Math.tan(__toRadians * 0.5 * viewData.fieldOfView));
 				__xv = Math.tan(vFov * 0.5 * __toRadians) / (viewData.boundsHeight * 0.5);
 			}
 			
