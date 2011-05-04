@@ -123,6 +123,8 @@ package com.panozona.player.manager.utils.configuration {
 					applySubAttributes(controlData.inertialMouseCameraData, controlAttribute);
 				} else if (controlAttributeName == "mouseDrag") {
 					applySubAttributes(controlData.arcBallCameraData, controlAttribute);
+				} else if (controlAttributeName == "mouseScroll") {
+					applySubAttributes(controlData.scrollCameraData, controlAttribute);
 				} else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Unrecognized control attribute: " + controlAttributeName));
@@ -504,7 +506,7 @@ package com.panozona.player.manager.utils.configuration {
 			}else if (content.replace(/\s/g, "").length > 0) { // TODO: trim
 				return content; // String
 			}else {
-				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Missing content."));
+				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING, "Missing value."));
 				return null;
 			}
 		}

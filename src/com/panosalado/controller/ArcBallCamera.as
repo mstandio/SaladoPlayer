@@ -46,9 +46,6 @@ public class ArcBallCamera extends Sprite implements ICamera
 	
 	private var mouseIsDown:Boolean;
 	
-	private var wheelDelta:Number;
-	private var mouseWheeled:Boolean;
-	
 	public function ArcBallCamera()
 	{
 		__lastAngleX = 0;
@@ -57,9 +54,6 @@ public class ArcBallCamera extends Sprite implements ICamera
 		__xv = 0;
 		
 		mouseIsDown = false;
-		
-		wheelDelta  = 0;
-		mouseWheeled = false;
 	}
 	
 	public function processDependency(reference:Object,characteristics:*):void {
@@ -98,27 +92,8 @@ public class ArcBallCamera extends Sprite implements ICamera
 		dispatchEvent( new CameraEvent(CameraEvent.INACTIVE) );
 	}
 	
-	private function inoutHandler(event:MouseEvent):void {
-		
-		wheelDelta = event.delta;
-		
-		mouseWheeled = true;
-		
-		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
-		addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
-	}
-	
 	private function enterFrameHandler(event:Event):void 
-	{ 
-		if (mouseWheeled) 
-		{
-			_viewData.fieldOfView -= cameraData.zoomIncrement * wheelDelta;
-			mouseWheeled = false;
-			if (!mouseIsDown) {
-				removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
-			}
-		}
-		
+	{
 		if (mouseIsDown)
 		{
 			var angleX:Number;
@@ -157,7 +132,6 @@ public class ArcBallCamera extends Sprite implements ICamera
 				_mouseObject.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
 				_mouseObject.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
 				_mouseObject.addEventListener( MouseEvent.ROLL_OUT, upHandler, false, 0, true );
-				_mouseObject.addEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler, false, 0, true );
 			}
 			break;
 			case false: 
@@ -165,7 +139,6 @@ public class ArcBallCamera extends Sprite implements ICamera
 				_mouseObject.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
 				_mouseObject.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
 				_mouseObject.removeEventListener( MouseEvent.ROLL_OUT, upHandler );
-				_mouseObject.removeEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler );
 				_mouseObject.removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
 			}
 			break;
@@ -195,13 +168,11 @@ public class ArcBallCamera extends Sprite implements ICamera
 			value.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
 			value.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
 			value.addEventListener( MouseEvent.ROLL_OUT, upHandler, false, 0, true );
-			value.addEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler, false, 0, true );
 		}
 		else if(value == null && _mouseObject != null ){
 			_mouseObject.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
 			_mouseObject.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
 			_mouseObject.removeEventListener( MouseEvent.ROLL_OUT, upHandler );
-			_mouseObject.removeEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler );
 		}
 		_mouseObject = value;
 	}

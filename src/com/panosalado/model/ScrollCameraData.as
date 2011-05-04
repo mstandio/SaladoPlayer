@@ -1,5 +1,5 @@
 /*
-Copyright 2010 Zephyr Renner.
+Copyright 2011 Marek Standio.
 
 This file is part of PanoSalado.
 
@@ -16,45 +16,39 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with PanoSalado.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panosalado.model
-{
+package com.panosalado.model{
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
 import com.panosalado.events.CameraEvent;
 
-public class InertialMouseCameraData extends EventDispatcher
+public class ScrollCameraData extends EventDispatcher
 {
-	public var sensitivity:Number;
+	
+	protected var _enabled:Boolean;
 	
 	/**
-	* friction of camera after mouse is up
-	*/
-	public var friction:Number;
+	 * delta zoom value that will be used for scroll zooming
+	 */
+	public var zoomIncrement:Number;
 	
-	/**
-	* camera pan / tilt threshold at which motion jumps to 0
-	*/
-	public var threshold:Number;
-	
-	public var _enabled:Boolean;
-	
-	public function InertialMouseCameraData()
+	public function ScrollCameraData()
 	{
-		sensitivity      = 0.00003;
-		friction         = 0.12;
-		threshold        = 0.0001;
-		_enabled         = true;
+		_enabled = true;
+		zoomIncrement = 3;
 	}
 	
-	public function get enabled():Boolean {
+	public function get enabled():Boolean
+	{
 		return _enabled;
 	}
-	public function set enabled(value:Boolean):void {
+	
+	public function set enabled(value:Boolean):void
+	{
 		if (value == _enabled) return;
 		_enabled = value;
-		dispatchEvent( new Event(CameraEvent.ENABLED_CHANGE) );
+		dispatchEvent( new Event(CameraEvent.ENABLED_CHANGE));
 	}
 }
 }

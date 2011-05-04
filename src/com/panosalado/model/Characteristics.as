@@ -31,8 +31,9 @@ public class Characteristics
 	*/
 	public static const PANORAMA:String 							= "com.panosalado.view::Panorama"
 	public static const VIEW_DATA:String 							= "com.panosalado.model::ViewData";
-	public static const INERTIAL_MOUSE_CAMERA_DATA:String 		= "com.panosalado.model::InertialMouseCameraData";
+	public static const INERTIAL_MOUSE_CAMERA_DATA:String 			= "com.panosalado.model::InertialMouseCameraData";
 	public static const ARC_BALL_CAMERA_DATA:String 				= "com.panosalado.model::ArcBallCameraData";
+	public static const SCROLL_CAMERA_DATA:String 					= "com.panosalado.model::ScrollCameraData";
 	public static const KEYBOARD_CAMERA_DATA:String 				= "com.panosalado.model::KeyboardCameraData";
 	public static const AUTOROTATION_CAMERA_DATA:String 			= "com.panosalado.model::AutorotationCameraData";
 	public static const SIMPLE_TRANSITION_DATA:String				= "com.panosalado.model::SimpleTransitionData";

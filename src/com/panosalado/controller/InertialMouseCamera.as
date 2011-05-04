@@ -50,18 +50,13 @@ public class InertialMouseCamera extends Sprite implements ICamera
 	private var deltaFieldOfView:Number;
 	private var mouseIsDown:Boolean;
 	
-	private var mouseWheeled:Boolean;
-	private var wheelDelta:Number;
-	
 	public function InertialMouseCamera()
 	{
 		startPointX = 0;
 		startPointY = 0;
 		deltaPan = 0;
 		deltaTilt = 0;
-		wheelDelta = 0;
 		mouseIsDown = false;
-		mouseWheeled = false;
 	}
 	
 	public function processDependency(reference:Object,characteristics:*):void {
@@ -93,22 +88,8 @@ public class InertialMouseCamera extends Sprite implements ICamera
 		// don't remove enterframe listener yet. remove when friction has slowed motion to under threshold
 	}
 	
-	private function inoutHandler(event:MouseEvent):void {
-		
-		wheelDelta = event.delta;
-		mouseWheeled = true;
-		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
-		addEventListener( Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
-	}
-	
 	private function enterFrameHandler(event:Event):void 
 	{
-		if (mouseWheeled) 
-		{
-			_viewData.fieldOfView -= cameraData.zoomIncrement * wheelDelta;
-			mouseWheeled = false;
-		}
-		
 		if (mouseIsDown)
 		{
 			// calculate new position changes
@@ -135,7 +116,7 @@ public class InertialMouseCamera extends Sprite implements ICamera
 		} 
 		else 
 		{ // motion is under threshold stop camera motion
-			if ( !mouseIsDown && !mouseWheeled) 
+			if ( !mouseIsDown)
 			{
 				deltaPan = deltaTilt = 0;
 				removeEventListener( Event.ENTER_FRAME, enterFrameHandler, false );
@@ -152,7 +133,6 @@ public class InertialMouseCamera extends Sprite implements ICamera
 				_mouseObject.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
 				_mouseObject.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
 				_mouseObject.addEventListener( MouseEvent.ROLL_OUT, upHandler, false, 0, true );
-				_mouseObject.addEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler, false, 0, true );
 			}
 			break;
 			case false: 
@@ -160,7 +140,6 @@ public class InertialMouseCamera extends Sprite implements ICamera
 				_mouseObject.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
 				_mouseObject.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
 				_mouseObject.removeEventListener( MouseEvent.ROLL_OUT, upHandler );
-				_mouseObject.removeEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler );
 				_mouseObject.removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
 			}
 			break;
@@ -190,13 +169,11 @@ public class InertialMouseCamera extends Sprite implements ICamera
 			value.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true );
 			value.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true );
 			value.addEventListener( MouseEvent.ROLL_OUT, upHandler, false, 0, true );
-			value.addEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler, false, 0, true );
 		}
 		else if(value == null && _mouseObject != null ){
 			_mouseObject.removeEventListener( MouseEvent.MOUSE_DOWN, downHandler );
 			_mouseObject.removeEventListener( MouseEvent.MOUSE_UP, upHandler );
 			_mouseObject.removeEventListener( MouseEvent.ROLL_OUT, upHandler );
-			_mouseObject.removeEventListener( MouseEvent.MOUSE_WHEEL, inoutHandler );
 		}
 		_mouseObject = value;
 	}

@@ -36,7 +36,7 @@ package com.panozona.player {
 	import flash.net.*;
 	import flash.utils.*;
 	
-	[SWF(width="500", height="375", frameRate="60", backgroundColor="#FFFFFF")] // default size is MANDATORY
+	[SWF(width="500", height="375", frameRate="30")] // default size is MANDATORY
 	
 	public class SaladoPlayer extends Sprite {
 		
@@ -66,6 +66,7 @@ package com.panozona.player {
 		protected var resizer:IResizer;
 		protected var inertialMouseCamera:ICamera;
 		protected var arcBallCamera:ICamera;
+		protected var scrollCamera:ICamera;
 		protected var keyboardCamera:ICamera;
 		protected var autorotationCamera:ICamera;
 		protected var simpleTransition:SimpleTransition;
@@ -77,6 +78,7 @@ package com.panozona.player {
 			resizer = new Resizer();
 			inertialMouseCamera = new InertialMouseCamera();
 			arcBallCamera = new ArcBallCamera();
+			scrollCamera = new ScrollCamera();
 			keyboardCamera = new KeyboardCamera();
 			autorotationCamera = new AutorotationCamera();
 			simpleTransition = new SimpleTransition();
@@ -86,10 +88,10 @@ package com.panozona.player {
 			
 			var xmlLoader:URLLoader = new URLLoader();
 			xmlLoader.dataFormat = URLLoaderDataFormat.BINARY;
-			try{
-				xmlLoader.load(new URLRequest(loaderInfo.parameters.xml ? loaderInfo.parameters.xml : "settings.xml"));
+			try {
 				xmlLoader.addEventListener(IOErrorEvent.IO_ERROR, configurationLost);
 				xmlLoader.addEventListener(Event.COMPLETE, configurationLoaded);
+				xmlLoader.load(new URLRequest(loaderInfo.parameters.xml ? loaderInfo.parameters.xml : "settings.xml"));
 			}catch (error:Error) {
 				addChild(traceWindow);
 				traceWindow.printError("Could not load configuration, security error: " + error.message);
@@ -110,7 +112,7 @@ package com.panozona.player {
 			try {input.uncompress();} catch (error:Error) {}
 			var settings:XML;
 			try {
-				settings = XML(input);
+				settings = XML(input.toString().replace(/~/gm, loaderInfo.parameters.tilde ? loaderInfo.parameters.tilde : ""));
 			}catch (error:Error) {
 				addChild(traceWindow);
 				traceWindow.printError("Error in configuration file structure: " + error.message);
@@ -205,6 +207,8 @@ package com.panozona.player {
 				inertialMouseCamera,
 				managerData.controlData.arcBallCameraData,
 				arcBallCamera,
+				managerData.controlData.scrollCameraData,
+				scrollCamera,
 				managerData.controlData.autorotationCameraData,
 				autorotationCamera,
 				managerData.controlData.simpleTransitionData,

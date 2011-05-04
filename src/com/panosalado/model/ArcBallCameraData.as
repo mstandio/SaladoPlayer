@@ -29,15 +29,9 @@ public class ArcBallCameraData extends EventDispatcher
 	
 	protected var _enabled:Boolean;
 	
-	/**
-	* delta zoom value that will be used for scroll zooming
-	*/
-	public var zoomIncrement:Number;
-	
 	public function ArcBallCameraData()
-	{		
+	{
 		_enabled = false;
-		zoomIncrement = 3;
 	}
 	
 	

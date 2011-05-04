@@ -27,6 +27,7 @@ package com.panozona.player.manager.data.global{
 		public var keyboardCameraData:KeyboardCameraData = new KeyboardCameraData();
 		public var inertialMouseCameraData:InertialMouseCameraData = new InertialMouseCameraData();
 		public var arcBallCameraData:ArcBallCameraData = new ArcBallCameraData();
+		public var scrollCameraData:ScrollCameraData = new ScrollCameraData();
 		public var autorotationCameraData:AutorotationCameraData = new AutorotationCameraData();
 		public var simpleTransitionData:SimpleTransitionData = new SimpleTransitionData();
 	}
