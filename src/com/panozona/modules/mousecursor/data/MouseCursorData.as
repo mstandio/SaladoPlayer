@@ -40,7 +40,7 @@ package com.panozona.modules.mousecursor.data{
 			
 			if (saladoPlayer.managerData.debugMode) {
 				if (settings.path == null || !settings.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i))
-				throw new Error("Invalid bitmaps path: " + settings.path);
+				throw new Error("Invalid bitmaps grid path: " + settings.path);
 			}
 		}
 	}

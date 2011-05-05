@@ -95,7 +95,7 @@ package com.panozona.modules.mousecursor {
 		}
 		
 		protected function cursorsImageLost(error:IOErrorEvent):void {
-			printError(error.toString());
+			printError(error.text);
 		}
 		
 		protected function cursorsImageLoaded(e:Event):void {
