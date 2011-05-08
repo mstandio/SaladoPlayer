@@ -1,20 +1,20 @@
 ﻿/*
-Copyright 2010 Marek Standio.
+Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
 
 SaladoPlayer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published 
-by the Free Software Foundation, either version 3 of the License, 
+it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
 
 SaladoPlayer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+but WITHOUT ANY WARRANTY; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
+along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.controller{
 	
@@ -25,7 +25,6 @@ package com.panozona.modules.imagemap.controller{
 	import com.panozona.player.module.Module;
 	import flash.events.Event;
 	import flash.ui.Mouse;
-	//import com.panozona.modules.imagemap.model.ContentViewerData;
 	
 	public class ContentViewerController{
 		
@@ -63,7 +62,7 @@ package com.panozona.modules.imagemap.controller{
 			mapControler = new MapController(contentViewerView.mapView, module);
 			mapControler.loadFirstMap();
 			
-			_contentViewerView.container.addEventListener(MapEvent.MAP_IMAGE_LOADED, handleMapImageLoaded, false, 0,true)
+			_contentViewerView.container.addEventListener(MapEvent.MAP_IMAGE_LOADED, handleMapImageLoaded, false, 0, true)
 			
 			if (_contentViewerView.contentViewerData.viewer.moveEnabled){
 				contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_MOVE, handleMoveChange, false, 0, true);
@@ -103,8 +102,7 @@ package com.panozona.modules.imagemap.controller{
 		}
 		
 		private function handleZoomChange(e:Event):void {
-			if (_contentViewerView.contentViewerData.zoomIn || 
-				_contentViewerView.contentViewerData.zoomOut) {
+			if (_contentViewerView.contentViewerData.zoomIn || _contentViewerView.contentViewerData.zoomOut) {
 				containerOrgWidth = _contentViewerView.container.width / _contentViewerView.container.scaleX;
 				containerOrgHeight = _contentViewerView.container.height / _contentViewerView.container.scaleY;
 				focusActive = false;
@@ -276,7 +274,7 @@ package com.panozona.modules.imagemap.controller{
 				focusY = NaN;
 			}
 			
-			if (onFocus && deltaX!=0 || deltaY!=0){
+			if (onFocus && deltaX != 0 || deltaY != 0){
 				onFocus = false;
 				for (var i:int=0; i < _contentViewerView.container.numChildren; i++) {
 					_contentViewerView.container.getChildAt(i).dispatchEvent(new ContentViewerEvent(ContentViewerEvent.FOCUS_LOST));

@@ -1,20 +1,20 @@
 ﻿/*
-Copyright 2010 Marek Standio.
+Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
 
 SaladoPlayer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published 
-by the Free Software Foundation, either version 3 of the License, 
+it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
 
 SaladoPlayer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+but WITHOUT ANY WARRANTY; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
+along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.view{
 	
@@ -49,7 +49,9 @@ package com.panozona.modules.imagemap.view{
 			
 			_containerMask = new Sprite;
 			_containerMask.graphics.beginFill(0x000000);
-			_containerMask.graphics.drawRect(0, 0, _imageMapData.windowData.size.width, _imageMapData.windowData.size.height);
+			_containerMask.graphics.drawRect(0, 0,
+				_imageMapData.windowData.window.size.width,
+				_imageMapData.windowData.window.size.height);
 			_containerMask.graphics.endFill();
 			addChild(_containerMask);
 			
@@ -67,7 +69,7 @@ package com.panozona.modules.imagemap.view{
 				navigationMove.addChild(bitmapMove);
 				navigationMove.mouseEnabled = false;
 				navigationMove.x = navigationMove.y = 5; 
-				navigationMove.alpha = 1 / _imageMapData.windowData.alpha;
+				navigationMove.alpha = 1 / _imageMapData.windowData.window.alpha;
 				addChild(navigationMove);
 			
 				var moveLeft:Sprite = new Sprite();
@@ -84,7 +86,7 @@ package com.panozona.modules.imagemap.view{
 				moveRight.graphics.drawRect(0, 0, 18, 18);
 				moveRight.graphics.endFill();
 				moveRight.buttonMode = true;
-				moveRight.x = navigationMove.width - moveRight.width-4;
+				moveRight.x = navigationMove.width - moveRight.width - 4;
 				moveRight.y = (navigationMove.height - moveLeft.height) * 0.5;
 				navigationMove.addChild(moveRight);
 			
@@ -128,7 +130,7 @@ package com.panozona.modules.imagemap.view{
 				navigationZoom = new Sprite();
 				bitmapZoom = new Bitmap(new EmbededGraphics.BitmapZoomPlain().bitmapData);
 				navigationZoom.addChild(bitmapZoom);
-				navigationZoom.alpha = 1 / _imageMapData.windowData.alpha;
+				navigationZoom.alpha = 1 / _imageMapData.windowData.window.alpha;
 				addChild(navigationZoom);
 				
 				if (_imageMapData.contentViewerData.viewer.moveEnabled) {
@@ -160,7 +162,7 @@ package com.panozona.modules.imagemap.view{
 				zoomIn.addEventListener(MouseEvent.MOUSE_DOWN, navZoomIn, false, 0, true);
 				zoomIn.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
 				zoomIn.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
-			
+				
 				zoomOut.addEventListener(MouseEvent.MOUSE_DOWN, navZoomOut, false, 0, true);
 				zoomOut.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
 				zoomOut.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
@@ -170,7 +172,7 @@ package com.panozona.modules.imagemap.view{
 				
 				_cursor = new Bitmap();
 				_cursor.bitmapData = new EmbededGraphics.BitmapCursorHandOpened().bitmapData;
-				_cursor.alpha = 1 / _imageMapData.windowData.alpha;
+				_cursor.alpha = 1 / _imageMapData.windowData.window.alpha;
 				_cursor.visible = false;
 				addChild(_cursor);
 			

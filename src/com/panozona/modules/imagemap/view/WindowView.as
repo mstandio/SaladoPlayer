@@ -1,20 +1,20 @@
 ﻿/*
-Copyright 2010 Marek Standio.
+Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
 
 SaladoPlayer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published 
-by the Free Software Foundation, either version 3 of the License, 
+it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
 
 SaladoPlayer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+but WITHOUT ANY WARRANTY; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with SaladoPlayer.  If not, see <http://www.gnu.org/licenses/>.
+along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.view{
 	
@@ -40,12 +40,12 @@ package com.panozona.modules.imagemap.view{
 			
 			_imageMapData = imageMapData;
 			
-			this.alpha = _imageMapData.windowData.alpha;
+			this.alpha = _imageMapData.windowData.window.alpha;
 			
 			// draw map window
 			window = new Sprite();
 			window.graphics.beginFill(0xFFFFFF,0);
-			window.graphics.drawRect(0, 0, _imageMapData.windowData.size.width, _imageMapData.windowData.size.height);
+			window.graphics.drawRect(0, 0, _imageMapData.windowData.window.size.width, _imageMapData.windowData.window.size.height);
 			window.graphics.endFill();
 			addChild(window);
 			
@@ -64,7 +64,7 @@ package com.panozona.modules.imagemap.view{
 			windowCloseButton.hitTestState = closePressIcon;
 			windowCloseButton.x = window.width - windowCloseButton.width - 3;
 			windowCloseButton.y = 3;
-			windowCloseButton.alpha = 1 / _imageMapData.windowData.alpha;
+			windowCloseButton.alpha = 1 / _imageMapData.windowData.window.alpha;
 			window.addChild(windowCloseButton);
 			
 			visible = _imageMapData.windowData.open;

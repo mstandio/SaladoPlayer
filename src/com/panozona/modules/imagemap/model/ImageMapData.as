@@ -33,7 +33,7 @@ package com.panozona.modules.imagemap.model {
 			var tarnslator:DataNodeTranslator = new DataNodeTranslator(debugMode);
 			for each(var dataNode:DataNode in moduleData.nodes) {
 				if (dataNode.name == "window") {
-					tarnslator.dataNodeToObject(dataNode, windowData);
+					tarnslator.dataNodeToObject(dataNode, windowData.window);
 				}else if (dataNode.name == "viewer") {
 					tarnslator.dataNodeToObject(dataNode, contentViewerData.viewer);
 				}else if (dataNode.name == "maps") {
@@ -42,6 +42,8 @@ package com.panozona.modules.imagemap.model {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
+			
+			windowData.open = windowData.window.open;
 			
 			if (debugMode) {
 				var imageMapDataValidator:ImageMapDataValidator = new ImageMapDataValidator();
