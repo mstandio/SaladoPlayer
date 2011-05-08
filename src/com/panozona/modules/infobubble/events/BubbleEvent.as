@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,14 +16,18 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.infobubble.data.structure {
+package com.panozona.modules.infobubble.events{
 	
-	public class Settings {
+	import flash.events.Event;
+	
+	public class BubbleEvent extends Event {
 		
-		public var onActivate:String;  // action ids executed
-		public var onDisactivate:String; // on enabled change state
+		public static const CHANGED_CURRENT_BUBBLE_ID:String = "changedCurrBubId";
+		public static const CHANGED_IS_SHOWING_BUBBLE:String = "changedIsShowBubble";
+		public static const CHANGED_ENABLED:String = "changedEnabled";
 		
-		public var active:Boolean = true;
-		public var cursorDistance:Number = 20;
+		public function BubbleEvent( type:String) {
+			super(type);
+		}
 	}
 }

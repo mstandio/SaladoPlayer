@@ -16,7 +16,7 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.infobubble.data.structure{
+package com.panozona.modules.infobubble.model.structure{
 	
 	public class Bubble{
 		

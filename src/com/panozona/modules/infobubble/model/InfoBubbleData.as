@@ -16,19 +16,20 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.infobubble.data{
+package com.panozona.modules.infobubble.model{
 	
-	import com.panozona.modules.infobubble.data.structure.Bubble;
-	import com.panozona.modules.infobubble.data.structure.Bubbles;
-	import com.panozona.modules.infobubble.data.structure.Settings;
-	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.modules.infobubble.model.structure.Bubble;
+	import com.panozona.modules.infobubble.model.structure.Bubbles;
+	import com.panozona.modules.infobubble.model.structure.Settings;
 	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class InfoBubbleData{
 		
 		public var settings:Settings = new Settings();
 		public var bubbles:Bubbles = new Bubbles();
+		public var bubbleData:BubbleData = new BubbleData();
 		
 		public function InfoBubbleData(moduleData:ModuleData, saladoPlayer:Object):void {
 			
@@ -40,15 +41,18 @@ package com.panozona.modules.infobubble.data{
 				}else if(dataNode.name == "bubbles") {
 					tarnslator.dataNodeToObject(dataNode, bubbles);
 				}else {
-					throw new Error("Invalid node name: "+dataNode.name);
+					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
+			
+			bubbleData.enabled = settings.enabled;
 			
 			if (saladoPlayer.managerData.debugMode) {
 				var bubbleIds:Object = new Object();
 				for each (var bubble:Bubble in bubbles.getChildrenOfGivenClass(Bubble)) {
 					if (bubble.id == null) throw new Error("Bubble id not specified.");
-					if (bubble.path == null) throw new Error("Bubble path not specified.");
+					if (bubble.path == null || !bubble.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i))
+						throw new Error("Invalid bubble path: " + bubble.path);
 					if (bubbleIds[bubble.id] != undefined) {
 						throw new Error("Repeating bubble id: " + bubble.id);
 					}else {
