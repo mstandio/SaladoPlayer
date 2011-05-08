@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	You can set tweens for open and close transitions.
+	Parameters will apply both to slide and fade transitions.
+	
+	http://panozona.com/wiki/Module:ImageMap
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="yellowArrow" path="~hotspots/images/yellow_arrow.png" location="pan:-10" mouse="onClick:toggleOpenMap"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ImageMap path="~modules/ImageMap-1.1.swf">
+			<window openTween="transition:Bounce.easeOut,time:0.75" closeTween="transition:Expo.easeIn,time:0.75"/>
+			<maps>
+				<map id="map1" path="~modules/images/imagemap/map_1.jpg">
+					<waypoint target="greenChecker" position="x:150,y:100"/>
+				</map>
+			</maps>
+		</ImageMap>
+	</modules>
+	<actions>
+		<action id="toggleOpenMap" content="ImageMap.toggleOpen()"/>
+	</actions>
+</SaladoPlayer>

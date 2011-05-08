@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	You can set map as closed by default, you can open/close it by calling proper functions 
+	on ImageMap. You can assign actions that will be executed whenever ImageMap 
+	changes "open" state, so this change could be reflected in your interface.
+	
+	http://panozona.com/wiki/Module:ImageMap
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="greenArrow" path="~hotspots/images/green_arrow.png" location="pan:-10,tilt:5" mouse="onClick:openMap"/>
+			<image id="redArrow" path="~hotspots/images/red_arrow.png" location="pan:-10,tilt:-5" mouse="onClick:closeMap"/>
+			<image id="yellowArrow" path="~hotspots/images/yellow_arrow.png" location="pan:10" mouse="onClick:toggleOpenMap"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ImageMap path="~modules/ImageMap-1.1.swf">
+			<window open="false" onOpen="printOpen" onClose="printClose"/>
+			<maps>
+				<map id="map1" path="~modules/images/imagemap/map_1.jpg">
+					<waypoint target="greenChecker" position="x:150,y:100"/>
+				</map>
+			</maps>
+		</ImageMap>
+	</modules>
+	<actions>
+		<action id="openMap" content="ImageMap.setOpen(true)"/>
+		<action id="closeMap" content="ImageMap.setOpen(false)"/>
+		<action id="toggleOpenMap" content="ImageMap.toggleOpen()"/>
+		<action id="printOpen" content="SaladoPlayer.print(map opened)"/>
+		<action id="printClose" content="SaladoPlayer.print(map closed)"/>
+	</actions>
+</SaladoPlayer>

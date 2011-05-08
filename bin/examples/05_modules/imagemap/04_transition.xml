@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	You can change transition to slide up down left right, or fade.
+	
+	http://panozona.com/wiki/Module:ImageMap
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="yellowArrow" path="~hotspots/images/yellow_arrow.png" location="pan:-10" mouse="onClick:toggleOpenMap"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ImageMap path="~modules/ImageMap-1.1.swf">
+			<window transition="type:slideUp"/>
+			<maps>
+				<map id="map1" path="~modules/images/imagemap/map_1.jpg">
+					<waypoint target="greenChecker" position="x:150,y:100"/>
+				</map>
+			</maps>
+		</ImageMap>
+	</modules>
+	<actions>
+		<action id="toggleOpenMap" content="ImageMap.toggleOpen()"/>
+	</actions>
+</SaladoPlayer>

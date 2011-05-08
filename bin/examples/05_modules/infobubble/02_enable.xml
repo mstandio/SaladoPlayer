@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	You can enable/disable showing all bubbles entirely by calling proper functions on InfoBubble module.
+	You can assign actions that will be executed whenever InfoBubble changes "enabled" state,
+	so this change could be reflected in your interface.
+	
+	http://panozona.com/wiki/Module:InfoBubble
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="yellowCheck" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
+			<image id="greenArrow" path="~hotspots/images/green_arrow.png" location="pan:-10,tilt:5" mouse="onClick:enableBubbles,onOver:showBubbleGreen,onOut:hideBubble"/>
+			<image id="redArrow" path="~hotspots/images/red_arrow.png" location="pan:-10,tilt:-5" mouse="onClick:disableBubbles,onOver:showBubbleRed,onOut:hideBubble"/>
+			<image id="yellowArrow" path="~hotspots/images/yellow_arrow.png" location="pan:10" mouse="onClick:toggleEnableBubbles,onOver:showBubbleYellow,onOut:hideBubble"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<InfoBubble path="~modules/InfoBubble-1.1.swf">
+			<settings enabled="false" onEnable="printEnableBubbles" onDisable="printDisableBubbles"/>
+			<bubbles>
+				<bubble id="bubbleGreen" path="~modules/images/infobubble/green.jpg"/>
+				<bubble id="bubbleRed" path="~modules/images/infobubble/red.jpg"/>
+				<bubble id="bubbleYellow" path="~modules/images/infobubble/yellow.jpg"/>
+			</bubbles>
+		</InfoBubble>
+	</modules>
+	<actions>
+		<action id="showBubbleGreen" content="InfoBubble.showBubble(bubbleGreen)"/>
+		<action id="showBubbleRed" content="InfoBubble.showBubble(bubbleRed)"/>
+		<action id="showBubbleYellow" content="InfoBubble.showBubble(bubbleYellow)"/>
+		<action id="hideBubble" content="InfoBubble.hideBubble()"/>
+		<action id="enableBubbles" content="InfoBubble.setEnabled(true)"/>
+		<action id="disableBubbles" content="InfoBubble.setEnabled(false)"/>
+		<action id="toggleEnableBubbles" content="InfoBubble.toggleEnabled()"/>
+		<action id="printEnableBubbles" content="SaladoPlayer.print(InfoBubble enabled)"/>
+		<action id="printDisableBubbles" content="SaladoPlayer.print(InfoBubble disabled)"/>
+	</actions>
+</SaladoPlayer>

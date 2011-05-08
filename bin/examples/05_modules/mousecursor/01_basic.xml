@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	MouseCursor requires path to grid containing cursor bitmaps. Grid consists 
-	of 4 bitmaps of any width or height, while all bitmaps must be of the same size. 
+	MouseCursor requires path to grid containing cursor bitmaps. Grid consists of 6 bitmaps
+	separated with one pixel line. Each bitmap can be of any width and height, yet all bitmaps
+	must be of the same size. Size of individual bitmaps is calculated from overall size of grid.
+	
+	MouseCursor does not directly cooperate with ButtonBar, it reacts to changes of internal state
+	in SaladoPlayer (change of mouseDrag "enabled" attribute), coused by clicking button on ButtonBar.
 	
 	http://panozona.com/wiki/Module:MouseCursor
 -->
@@ -10,16 +14,13 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="blueArrow" path="~hotspots/images/blue_arrow.png" mouse="onClick:loadBlueCheck" />
-		</panorama>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
-			<image id="greenArrow" path="~hotspots/images/green_arrow.png" mouse="onClick:loadGreenCheck"/>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
+			<image id="blueArrow" path="~hotspots/images/blue_arrow.png" location="pan:-10" />
+			<image id="yellowArrow" path="~hotspots/images/yellow_arrow.png" location="pan:10" handCursor="false"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.1.swf">
-			<bar visible="true"/>
 			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png">
 				<button name="drag"/>
 			</buttons>
@@ -28,8 +29,4 @@
 			<settings path="~modules/images/mousecursor/cursors_31x31.png"/>
 		</MouseCursor>
 	</modules>
-	<actions>
-		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueChecker)"/>
-		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenChecker)"/>
-	</actions>
 </SaladoPlayer>

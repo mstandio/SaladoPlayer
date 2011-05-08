@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Display/hide images at mouse cursor. Bubbles default angle against mouse cursor is 90 (center right)
-	and it can be modified. Angle is changed as bubbles adjust their position to fit into panorama window.
+	You can configure tweens on bubbles show/hide. By using proper tweens, you can achieve
+	effect of delay between calling "showBubble" and appearing of bubble itself.
 	
 	http://panozona.com/wiki/Module:InfoBubble
 -->
@@ -12,20 +12,17 @@
 	<panoramas>
 		<panorama id="yellowCheck" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
 			<image id="blueArrow" location="pan:0" path="~hotspots/images/blue_arrow.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
-			<image id="redArrow" location="pan:40" path="~hotspots/images/red_arrow.png" mouse="onOver:showBubbleRed,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<InfoBubble path="~modules/InfoBubble-1.1.swf">
-			<bubbles defaultAngle="120">
+			<bubbles showTween="transition:Expo.easeIn,time:0.75" hideTween="transition:Cubic.easeIn,time:0.25">
 				<bubble id="bubbleBlue" path="~modules/images/infobubble/blue.jpg"/>
-				<bubble id="bubbleRed" path="~modules/images/infobubble/red.jpg"/>
 			</bubbles>
 		</InfoBubble>
 	</modules>
 	<actions>
 		<action id="showBubbleBlue" content="InfoBubble.showBubble(bubbleBlue)"/>
-		<action id="showBubbleRed" content="InfoBubble.showBubble(bubbleRed)"/>
 		<action id="hideBubble" content="InfoBubble.hideBubble()"/>
 	</actions>
 </SaladoPlayer>
