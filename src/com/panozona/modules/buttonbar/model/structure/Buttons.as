@@ -25,8 +25,7 @@ package com.panozona.modules.buttonbar.model.structure{
 	
 	public class Buttons extends DataParent {
 		
-		public var path:String; // intentionally not initialized 
-		public var buttonSize:Size = new Size(30, 30); // NO LONGER USED SIZE IS OBTAINED FROM IMAGE DIMENSIONS
+		public var path:String; // intentionally not initialized
 		public var align:Align = new Align(Align.RIGHT, Align.BOTTOM); // horizontal, vertical
 		public var move:Move = new Move( -5, -4); // horizontal, vertical
 		public var spacing:Number = 0;
