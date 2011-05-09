@@ -58,6 +58,16 @@ package com.panozona.modules.imagebutton.controller{
 			buttonLoader.load(new URLRequest(_buttonView.buttonData.button.path));
 		}
 		
+		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
+			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+			_module.saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
+			if (_buttonView.buttonData.open) {
+				_module.saladoPlayer.manager.runAction(_buttonView.buttonData.button.onOpen);
+			}else {
+				_module.saladoPlayer.manager.runAction(_buttonView.buttonData.button.onClose);
+			}
+		}
+		
 		public function buttonImageLost(e:IOErrorEvent):void {
 			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, buttonImageLost);
 			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, buttonImageLoaded);
@@ -108,16 +118,6 @@ package com.panozona.modules.imagebutton.controller{
 			placeButton();
 		}
 		
-		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
-			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-			_module.saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
-			if (_buttonView.buttonData.open) {
-				_module.saladoPlayer.manager.runAction(_buttonView.buttonData.button.onOpen);
-			}else {
-				_module.saladoPlayer.manager.runAction(_buttonView.buttonData.button.onClose);
-			}
-		}
-		
 		private function onOpenChange(e:Event):void {
 			if (_buttonView.buttonData.open) {
 				_module.saladoPlayer.manager.runAction(_buttonView.buttonData.button.onOpen);
@@ -139,13 +139,11 @@ package com.panozona.modules.imagebutton.controller{
 			var tweenObj:Object = new Object();
 			tweenObj["time"] = _buttonView.buttonData.button.openTween.time;
 			tweenObj["transition"] = _buttonView.buttonData.button.openTween.transition;
-			switch(_buttonView.buttonData.button.transition.type){
-				case Transition.FADE:
-					tweenObj["alpha"] = _buttonView.buttonData.button.alpha;
-				break;
-				default:
-					tweenObj["x"] = getButtonOpenX();
-					tweenObj["y"] = getButtonOpenY();
+			if (_buttonView.buttonData.button.transition.type == Transition.FADE) {
+				tweenObj["alpha"] = _buttonView.buttonData.button.alpha;
+			}else{
+				tweenObj["x"] = getButtonOpenX();
+				tweenObj["y"] = getButtonOpenY();
 			}
 			Tweener.addTween(_buttonView, tweenObj);
 		}
@@ -155,13 +153,11 @@ package com.panozona.modules.imagebutton.controller{
 			tweenObj["time"] = _buttonView.buttonData.button.closeTween.time;
 			tweenObj["transition"] = _buttonView.buttonData.button.closeTween.transition;
 			tweenObj["onComplete"] = closeButtonOnComplete;
-			switch(_buttonView.buttonData.button.transition.type) {
-				case Transition.FADE:
-					tweenObj["alpha"] = 0;
-				break;
-				default:
-					tweenObj["x"] = getButtonCloseX();
-					tweenObj["y"] = getButtonCloseY();
+			if (_buttonView.buttonData.button.transition.type == Transition.FADE) {
+				tweenObj["alpha"] = 0;
+			}else {
+				tweenObj["x"] = getButtonCloseX();
+				tweenObj["y"] = getButtonCloseY();
 			}
 			_buttonView.mouseEnabled = false;
 			_buttonView.mouseChildren = false;
@@ -231,7 +227,7 @@ package com.panozona.modules.imagebutton.controller{
 					result = _module.saladoPlayer.manager.boundsWidth;
 				break;
 				case Transition.SLIDE_LEFT:
-					result = - _buttonView.width;
+					result = -_buttonView.width;
 				break;
 				default: //SLIDE_UP, SLIDE_DOWN
 					result = getButtonOpenX();
@@ -243,7 +239,7 @@ package com.panozona.modules.imagebutton.controller{
 			var result:Number = 0;
 			switch(_buttonView.buttonData.button.transition.type){
 				case Transition.SLIDE_UP:
-					result = - _buttonView.height;
+					result = -_buttonView.height;
 				break;
 				case Transition.SLIDE_DOWN:
 					result = _module.saladoPlayer.manager.boundsHeight;

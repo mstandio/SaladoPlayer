@@ -35,7 +35,6 @@ package com.panozona.modules.imagebutton.model.structure {
 		public var move:Move = new Move(20, 20);
 		public var transition:Transition = new Transition(Transition.FADE);
 		public var mouse:Mouse = new Mouse();
-		public var handCursor:Boolean = true; // NOT USED SINCE 1.1
 		public var open:Boolean = true;
 		public var onOpen:String; // id of action
 		public var onClose:String; // id of action
