@@ -175,7 +175,7 @@ package com.panozona.modules.imagemap.view{
 				_cursor.alpha = 1 / _imageMapData.windowData.window.alpha;
 				_cursor.visible = false;
 				addChild(_cursor);
-			
+				
 				_container.addEventListener(MouseEvent.ROLL_OVER, containerMouseOver, false, 0, true);
 				_container.addEventListener(MouseEvent.MOUSE_DOWN, containerMouseDown, false, 0, true);
 				_container.addEventListener(MouseEvent.ROLL_OUT, containerMouseOut, false, 0, true);

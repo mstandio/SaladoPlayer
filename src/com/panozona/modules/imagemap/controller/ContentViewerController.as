@@ -24,6 +24,7 @@ package com.panozona.modules.imagemap.controller{
 	import com.panozona.modules.imagemap.view.ContentViewerView;
 	import com.panozona.player.module.Module;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
 	
 	public class ContentViewerController{
@@ -68,8 +69,12 @@ package com.panozona.modules.imagemap.controller{
 				contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_MOVE, handleMoveChange, false, 0, true);
 			}
 			
-			if (_contentViewerView.contentViewerData.viewer.zoomEnabled){
+			if (_contentViewerView.contentViewerData.viewer.zoomEnabled || _contentViewerView.contentViewerData.viewer.scrollEnabled){
 				contentViewerView.contentViewerData.addEventListener(ContentViewerEvent.CHANGED_ZOOM, handleZoomChange, false, 0, true);
+			}
+			
+			if (_contentViewerView.contentViewerData.viewer.scrollEnabled) {
+				contentViewerView.addEventListener(MouseEvent.MOUSE_WHEEL, handleMouseWheel, false, 0 , true);
 			}
 			
 			if (_contentViewerView.contentViewerData.viewer.dragEnabled){
@@ -114,6 +119,17 @@ package com.panozona.modules.imagemap.controller{
 			}
 		}
 		
+		private function handleMouseWheel(e:MouseEvent):void {
+			containerOrgWidth = _contentViewerView.container.width / _contentViewerView.container.scaleX;
+			containerOrgHeight = _contentViewerView.container.height / _contentViewerView.container.scaleY;
+			focusActive = false;
+			zoomActive = true;
+			deltaZoom = _contentViewerView.contentViewerData.viewer.zoomSpeed * e.delta;
+			onEnterFrame();
+			deltaZoom = 0;
+			zoomActive = false;
+		}
+		
 		private function handleMouseOverChange(e:Event):void {
 			if (_contentViewerView.contentViewerData.mouseOver) {
 				Mouse.hide();
@@ -151,7 +167,7 @@ package com.panozona.modules.imagemap.controller{
 			}
 		}
 		
-		private function onEnterFrame(e:Event):void {
+		private function onEnterFrame(e:Event = null):void {
 			deltaX = 0;
 			deltaY = 0;
 			
@@ -229,15 +245,13 @@ package com.panozona.modules.imagemap.controller{
 					deltaZoom = - _contentViewerView.contentViewerData.viewer.zoomSpeed;
 				}
 				if (_contentViewerView.container.scaleX + deltaZoom < 2 && _contentViewerView.container.scaleY + deltaZoom < 2) {
-					if (containerOrgWidth * (_contentViewerView.container.scaleX + deltaZoom) < _contentViewerView.containerMask.width || 
-						containerOrgHeight * (_contentViewerView.container.scaleY + deltaZoom) < _contentViewerView.containerMask.height) {
-						if (containerOrgWidth * (_contentViewerView.container.scaleX + deltaZoom) < _contentViewerView.containerMask.width) {
-							deltaZoom = (_contentViewerView.containerMask.width -
+					if (containerOrgWidth * (_contentViewerView.container.scaleX + deltaZoom) < _contentViewerView.containerMask.width) {
+						deltaZoom = (_contentViewerView.containerMask.width -
 							_contentViewerView.container.scaleX * containerOrgWidth) / containerOrgWidth;
-						}else {
-							deltaZoom = (_contentViewerView.containerMask.height -
+					}
+					if (containerOrgHeight * (_contentViewerView.container.scaleY + deltaZoom) < _contentViewerView.containerMask.height) {
+						deltaZoom = (_contentViewerView.containerMask.height -
 							_contentViewerView.container.scaleY * containerOrgHeight) / containerOrgHeight;
-						}
 					}
 					_contentViewerView.container.scaleX += deltaZoom;
 					_contentViewerView.container.scaleY += deltaZoom;

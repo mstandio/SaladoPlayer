@@ -25,6 +25,7 @@ package com.panozona.modules.imagemap.model.structure{
 		
 		public var zoomEnabled:Boolean = true;
 		public var zoomSpeed:Number = 0.03;
+		public var scrollEnabled:Boolean = true;
 		
 		public var dragEnabled:Boolean = true;
 		
