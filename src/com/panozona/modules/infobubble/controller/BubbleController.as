@@ -37,12 +37,14 @@ package com.panozona.modules.infobubble.controller {
 		
 		private var ellipseAxisX:Number;
 		private var ellipseAxisY:Number;
-		private var dir:Number = 1; // clockwise, -1 counterclockwise
+		private var dir:Number;
 		private var angle:Number; 
 		
 		public function BubbleController(bubbleView:BubbleView, module:Module){
 			_bubbleView = bubbleView;
 			_module = module;
+			
+			dir = (_bubbleView.infoBubbleData.bubbles.defaultAngle > 0) ? 0.5 : -0.5; // 0.5 clockwise, -0.5 counterclockwise
 			
 			bubbleLoader = new Loader();
 			bubbleLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, bubbleLost, false, 0, true);
@@ -57,10 +59,9 @@ package com.panozona.modules.infobubble.controller {
 			if (_bubbleView.infoBubbleData.bubbleData.enabled) {
 				if (_bubbleView.infoBubbleData.bubbleData.isShowingBubble) { // should have been showing but was disabled
 					handleIsShowingChange();
-					trace("handle is show chng"+_bubbleView.infoBubbleData.bubbleData.isShowingBubble);
 				}
 				_module.saladoPlayer.manager.runAction(_bubbleView.infoBubbleData.settings.onEnable);
-			}else {
+			}else if(_bubbleView.numChildren > 0){
 				Tweener.addTween(_bubbleView.getChildAt(0),{
 					alpha:0,
 					time:_bubbleView.infoBubbleData.bubbles.hideTween.time,
@@ -125,9 +126,9 @@ package com.panozona.modules.infobubble.controller {
 		private function handleEnterFrame(e:Event = null):void {
 			if (angle == -_bubbleView.infoBubbleData.bubbles.defaultAngle) {
 				if (_module.mouseY > _module.saladoPlayer.manager.boundsHeight * 0.5) {
-					dir = 1;
+					dir = (_bubbleView.infoBubbleData.bubbles.defaultAngle > 0) ? 0.5 : -0.5;
 				}else {
-					dir = -1;
+					dir = (_bubbleView.infoBubbleData.bubbles.defaultAngle > 0) ? -0.5 : 0.5;
 				}
 			}
 			

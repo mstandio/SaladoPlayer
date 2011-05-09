@@ -29,8 +29,6 @@ package com.panozona.modules.infobubble{
 		
 		private var infoBubbleData:InfoBubbleData;
 		
-		private var panoramaEventClass:Class;
-		
 		private var bubbleView:BubbleView;
 		private var bubbleController:BubbleController;
 		
@@ -51,11 +49,12 @@ package com.panozona.modules.infobubble{
 			addChild(bubbleView);
 			bubbleController = new BubbleController(bubbleView, this);
 			
-			panoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
 		}
 		
 		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
+			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
 			if (infoBubbleData.settings.enabled) {
 				saladoPlayer.manager.runAction(infoBubbleData.settings.onEnable);
