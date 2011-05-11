@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	By default one panorama is fading into another. You can change transition properties, 
+	use position scale or rotation.
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration#control
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false" transition="property:x,startValue:1000,endValue:0,tween:Bounce.easeOut"/>
+	</global>
+	<panoramas>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" direction="45"/>
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml" direction="45"/>
+	</panoramas>
+	<modules>
+		<DropDown path="~modules/DropDown-1.0.swf">
+			<elements>
+				<element label="Blue checker" panorama="blueChecker"/>
+				<element label="Red checker" panorama="redChecker"/>
+			</elements>
+		</DropDown>
+	</modules>
+</SaladoPlayer>

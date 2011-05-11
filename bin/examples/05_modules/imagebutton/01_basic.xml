@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Use module to place images inside panorama window.
-	You can use *.png *.gif *.jpg *.jpeg  and *.swf files.
-	When there are no mouse events assigned, button is transparent to mouse.
+	Use module to place images inside panorama window. You can use *.png *.gif *.jpg *.jpeg
+	and *.swf files. When there are no mouse events assigned, button is transparent to mouse.
 	
 	http://panozona.com/wiki/Module:ImageButton
 -->

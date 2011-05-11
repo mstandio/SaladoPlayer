@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Most basic example of inserting image into panorama. Path points to image file, allowed formats
-	are *.jpg, *.jpeg, *.gif and *.png. Hotspot id is mandatory and it has to be unique among all hotspots
-	in all panoramas. Setting "handCursor" to "false" results in cursor not being changed when hovers over hotspot.
+	are *.jpg, *.jpeg, *.gif and *.png. Hotspot id is mandatory and it has to be unique among all 
+	hotspots in all panoramas. Setting "handCursor" to "false" results in cursor not being changed 
+	when hovers over hotspot.
 	
 	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->

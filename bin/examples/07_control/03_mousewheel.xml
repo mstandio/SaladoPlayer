@@ -2,8 +2,8 @@
 <!--
 	SaladoPlayer contains option that fixes problem that occures when panorama is embeded into div of fixed size
 	in a html site that is higher than browser window. In such case when moving mouse scroll, it both zooms in/out
-	panorama and scrolls browser window. MouseWheelTrap overcomes this flash player bug and scrolling zooms in/out ONLY.
-	MouseWheelTrap was created by Liam O'Donnell http://www.spikything.com
+	panorama and scrolls browser window. MouseWheelTrap overcomes this Flash Player bug and scrolling zooms in/out ONLY.
+	MouseWheelTrap was created by Liam O'Donnell http://www.spikything.com/
 -->
 <SaladoPlayer>
 	<global debug="true">

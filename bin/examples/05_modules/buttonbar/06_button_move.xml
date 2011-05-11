@@ -19,7 +19,7 @@
 				<button name="left" move="vertical:-20"/>
 				<button name="right" move="vertical:-20,horizontal:5"/>
 				<button name="in" move="vertical:-31,horizontal:12"/>
-				<button name="out" move="vertical:-6,horizontal:-15" />
+				<button name="out" move="vertical:-6,horizontal:-15"/>
 				<button name="drag"/>
 				<button name="autorotation"/>
 				<button name="fullscreen"/>

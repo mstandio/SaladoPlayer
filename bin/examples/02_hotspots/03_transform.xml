@@ -9,7 +9,7 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="GreenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
 			<image id="hs1" location="pan:-20,tilt:10" transform="scaleX:0.5" path="~hotspots/images/green_arrow.png"/>
 			<image id="hs2" location="pan:0,tilt:10" transform="scaleY:0.5" path="~hotspots/images/green_arrow.png"/>
 			<image id="hs3" location="pan:20,tilt:10" transform="scaleZ:0.5" path="~hotspots/images/green_arrow.png"/>

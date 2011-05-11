@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Camera pan tilt and field of view (fov) values can be limited.
-	- maxPan, minPan, maxTilt, and minTilt are just raw limits - for more sophisticated limis see
-	  maxHorizontalFov, minHorizontalFov, maxVerticalFov and minVerticalFov
-	- Camera values have order of precedence, for instance: pan is overwritten by maxPan, and
-	  maxPan is overwritten by maxHorizontalFov.
-	- violetChecker is example of limited view for cylindrical panorama. Notice that maxVerticalFov
-	  overwrites both maxTilt and maxFov, minVerticalFov overwrites both minTilt and minFov.
-	- turquoiseChecker is example of of limited view for partial cylindrical panorama.
+	Camera pan tilt and field of view values can be limited. MaxPan, minPan,
+	maxTilt, and minTilt are just raw limits, for more sophisticated limis see:
+	maxHorizontalFov, minHorizontalFov, maxVerticalFov and minVerticalFov.
+	Camera limit values have order of precedence, for instance: pan is overwritten by maxPan
+	and maxPan is overwritten by maxHorizontalFov.
+	VioletChecker is example of limited view for cylindrical panorama.
+	TurquoiseChecker is example of of limited view for partial cylindrical panorama.
+	Setting given values prevents showing space outside panorama when user changes
+	field of view or changes panorama window size (e.g. entering fullscreen mode).
 	
-	http://panozona.com/wiki/SaladoPlayer:Configuration
+	http://panozona.com/wiki/SaladoPlayer:Configuration#panorama
 -->
 <SaladoPlayer>
 	<global debug="true">

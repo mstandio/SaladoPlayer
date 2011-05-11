@@ -30,7 +30,6 @@
 		<action id="moveToRedArrowThen" content="SaladoPlayer.moveToViewThen(NaN,-85,90,printZona)"/>
 		<action id="advancedMoveToBlueArrow" content="SaladoPlayer.advancedMoveToView(0,0,120,30,Expo.easeIn)"/>
 		<action id="advancedMoveToGreenArrowThen" content="SaladoPlayer.advancedMoveToViewThen(180,0,NaN,30,Expo.easeIn,printPano)"/>
-		
 		<action id="printPano" content="SaladoPlayer.print(Pano)"/>
 		<action id="printZona" content="SaladoPlayer.print(Zona)"/>
 	</actions>

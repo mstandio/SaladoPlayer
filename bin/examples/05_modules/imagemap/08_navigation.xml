@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	There are three ways to move around map: zoom buttons, move muttons, and mouse drag.
-	Each of them can be disabled, you can also configure buttons speed. If you are using 
+	There are four ways to move around map: zoom buttons, move muttons, mouse drag and mouse scroll.
+	Each of them can be disabled, you can also configure move and zoom speed. If you are using
 	small image for map, you can disable all navigation methods and create simple static map.
 	
 	http://panozona.com/wiki/Module:ImageMap

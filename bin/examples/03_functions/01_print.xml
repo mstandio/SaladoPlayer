@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- 
-	Trace window is opened by default, clicking on arrows prints text in trace window.
+<!--
+	Clicking on hotspots prints text in trace window. Trace window is opened by default,
+	cause print function prints neutral "info" messages that do not trigger opening trace window.
 	
 	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
 -->

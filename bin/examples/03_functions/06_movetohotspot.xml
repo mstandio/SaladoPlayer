@@ -31,7 +31,6 @@
 		<action id="moveToRedArrowThen" content="SaladoPlayer.moveToHotspotThen(redArrow,printZona)"/>
 		<action id="advancedMoveToBlueArrow" content="SaladoPlayer.advancedMoveToHotspot(blueArrow,120,30,Expo.easeIn)"/>
 		<action id="advancedMoveToGreenArrowThen" content="SaladoPlayer.advancedMoveToHotspotThen(greenArrow,NaN,30,Expo.easeIn,printPano)"/>
-		
 		<action id="printPano" content="SaladoPlayer.print(Pano)"/>
 		<action id="printZona" content="SaladoPlayer.print(Zona)"/>
 	</actions>

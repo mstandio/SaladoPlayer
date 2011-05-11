@@ -11,7 +11,7 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="GreenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml">
 			<image id="hs1" location="pan:-20,tilt:10" path="~hotspots/images/green_arrow.png" mouse="onClick:act1"/>
 			<image id="hs2" location="pan:0,tilt:10" path="~hotspots/images/green_arrow.png" mouse="onPress:act2"/>
 			<image id="hs3" location="pan:20,tilt:10" path="~hotspots/images/green_arrow.png" mouse="onRelease:act3"/>

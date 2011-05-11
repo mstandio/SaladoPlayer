@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- 
-	Camera attribute in global panoramas is same as in regular panorama, values set here will be
-	applied to any panorama that has not such value set. Additionally global panoramas camera have maxFov
-	set to 120 and minFov set to 30 by default. 
-	For instance: in global panoramas camera has tilt set to 45 and this value will be applied for both
-	greenChecker and blueChecker, couse neither of them has its own tilt settings. Global panoramas camera
-	 has maxTilt to set 45, this won't be applied to panorama "greenChecker" couse it has its own maxTilt,
-	 however it will be applied to panorama "blueChecker"
+	Camera attribute in global panoramas is same as in regular panorama, values set here
+	will be applied to any panorama that has not such value set. Additionally global
+	panoramas camera have maxFov set to 120 and minFov set to 30 by default.
+	For instance: in global panoramas camera has tilt set to 45 and this value will be applied
+	to both greenChecker and blueChecker, couse neither of them has its own tilt settings.
+	Global panoramas camera has maxTilt to set 45, this won't be applied to greenChecker cause
+	it has its own maxTilt, however it will be applied to blueChecker.
 	 
-	 http://panozona.com/wiki/SaladoPlayer:Configuration
+	http://panozona.com/wiki/SaladoPlayer:Configuration#panoramas
 -->
 <SaladoPlayer>
 	<global debug="true">

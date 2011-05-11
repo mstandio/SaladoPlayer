@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Path in <buttons/> node is mandatory, it points to the grid of buttons bitmaps. 
+	Path in buttons node is mandatory, it points to the grid of buttons bitmaps.
 	In order to remove button from bar, remove <button/> node form the bar.
-	Order of <button/> nodes determines order of buttons on the bar
+	Order of button nodes determines order of buttons on the bar
 	
 	http://panozona.com/wiki/Module:ButtonBar
 -->
@@ -14,7 +14,7 @@
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.1.swf">
 			<bar color="#ff0000" visible="false" />
-			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png">
+			<buttons path="~modules/images/buttonbar/buttons/hans_hermans_40x40.png">
 				<button name="up"/>
 				<button name="down"/>
 				<button name="left"/>
