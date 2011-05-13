@@ -4,12 +4,12 @@
   <output>
     <movie disabled="False" />
     <movie input="" />
-    <movie path="bin\SaladoPlayer-1.0.swf" />
+    <movie path="bin\SaladoPlayer-1.1.swf" />
     <movie fps="30" />
-    <movie width="800" />
-    <movie height="600" />
-    <movie version="10" />
-    <movie background="#FFFFFF" />
+    <movie width="500" />
+    <movie height="375" />
+    <movie version="11" />
+    <movie background="#000000" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
