@@ -55,30 +55,30 @@ package com.panozona.player.module.utils{
 						if (dataNode.attributes[name] is Boolean) {
 							object[name] = dataNode.attributes[name];
 						}else {
-							throw new Error("Invalid " + name + " value (Boolean expected): " + dataNode.attributes[name]);
+							throw new Error("Invalid " + name + " type (Boolean expected): " + dataNode.attributes[name]);
 						}
 					}else if (object[name] is Number) {
 						if (dataNode.attributes[name] is Number){
 							object[name] = dataNode.attributes[name];
 						}else {
-							throw new Error("Invalid " + name + " value (Number expected): " + dataNode.attributes[name]);
+							throw new Error("Invalid " + name + " type (Number expected): " + dataNode.attributes[name]);
 						}
 					}else if (object[name] is Function) { // assuming Function var has allways default value
 						if (dataNode.attributes[name] is Function){
 							object[name] = dataNode.attributes[name];
 						}else {
-							throw new Error("Invalid " + name + " value (Function expected): " + dataNode.attributes[name]);
+							throw new Error("Invalid " + name + " type (Function expected): " + dataNode.attributes[name]);
 						}
 					}else if (object[name] == null || (object[name] is String)) { // String var may not be initialised
 						if (dataNode.attributes[name] is String) {
 							object[name] = dataNode.attributes[name];
 						}else {
-							throw new Error("Invalid " + name + " value (String expected): " + dataNode.attributes[name]);
+							throw new Error("Invalid " + name + " type (String expected): " + dataNode.attributes[name]);
 						}
 					}else if (!(dataNode.attributes[name] is Function) && getClass(dataNode.attributes[name]) === Object) {
 						applySubAttributes(object[name], dataNode.attributes[name]);
 					}else {
-						throw new Error("Invalid " + name + " value (Object expected): " + dataNode.attributes[name]);
+						throw new Error("Invalid " + name + " type (Object expected): " + dataNode.attributes[name]);
 					}
 				}
 			}
@@ -116,25 +116,25 @@ package com.panozona.player.module.utils{
 						if (source[name] is Boolean) {
 							target[name] = source[name];
 						}else {
-							throw new Error("Invalid " + name + " value (Boolean expected): " + source[name]);
+							throw new Error("Invalid " + name + " type (Boolean expected): " + source[name]);
 						}
 					}else if(target[name] is Number) {
 						if(source[name] is Number){
 							target[name] = source[name];
 						}else {
-							throw new Error("Invalid " + name + " value (Number expected): " + source[name]);
+							throw new Error("Invalid " + name + " type (Number expected): " + source[name]);
 						}
 					}else if(target[name] is Function) { // assuming Function has allways default value
 						if(source[name] is Function){
 							target[name] = source[name];
 						}else {
-							throw new Error("Invalid " + name + " value (Function expected): " + source[name]);
+							throw new Error("Invalid " + name + " type (Function expected): " + source[name]);
 						}
 					}else if (target[name] == null || target[name] is String) { // String var may not be initialised
 						if (source[name] is String) {
 							target[name] = source[name]; 
 						}else {
-							throw new Error("Invalid " + name + " value (String expected): " + source[name]);
+							throw new Error("Invalid " + name + " type (String expected): " + source[name]);
 						}
 					}
 				}else {
