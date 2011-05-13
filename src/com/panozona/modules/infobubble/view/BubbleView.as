@@ -27,6 +27,8 @@ package com.panozona.modules.infobubble.view{
 		
 		public function BubbleView(infoBubbleData:InfoBubbleData){
 			this.infoBubbleData = infoBubbleData;
+			mouseEnabled = false;
+			mouseChildren = false;
 		}
 	}
 }
