@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="greenCheck" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="blueArrow" location="pan:0" path="~hotspots/images/blue_arrow.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<InfoBubble path="~modules/InfoBubble-1.1.swf">
+			<settings onEnable="onBubAct" onDisable="onBubDisact"/>
+			<bubbles>
+				<bubble id="bubbleBlue" path="~modules/images/infobubble/blue.jpg"/>
+			</bubbles>
+		</InfoBubble>
+		<ButtonBar path="~modules/ButtonBar-1.1.swf">
+			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png">
+				<extraButton name="c" action="bubToggle"/>
+			</buttons>
+		</ButtonBar>
+	</modules>
+	<actions>
+		<action id="showBubbleBlue" content="InfoBubble.showBubble(bubbleBlue)"/>
+		<action id="hideBubble" content="InfoBubble.hideBubble()"/>
+		<action id="bubToggle" content="InfoBubble.toggleEnabled()"/>
+		<action id="onBubAct" content="ButtonBar.setExtraButtonActive(c,true)"/>
+		<action id="onBubDisact" content="ButtonBar.setExtraButtonActive(c,false)"/>
+	</actions>
+</SaladoPlayer>
