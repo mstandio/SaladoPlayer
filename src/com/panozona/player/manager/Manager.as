@@ -37,7 +37,7 @@ package com.panozona.player.manager {
 	
 	public class Manager extends PanoSalado{
 		
-		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.0", "http://panozona.com/");
+		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.1", "http://panozona.com/wiki/SaladoPlayer");
 		
 		/**
 		 * Dictionary, where key is hotspotData object
@@ -171,15 +171,6 @@ package com.panozona.player.manager {
 				_maximumVerticalFieldOfView = NaN;
 				_minimumVerticalFieldOfView = NaN;
 				
-				/*if(_previousPanoramaData != null){
-					if (secondaryCanvas != null && canvas != null) {
-						var bd:BitmapData = new BitmapData(canvas.width, canvas.height);
-						bd.draw(canvas);
-						var bmp:Bitmap = new Bitmap(bd);
-						secondaryCanvas.addChildAt(bmp, numChildren);
-					}
-				}*/
-				
 				super.loadPanorama(panoramaData.params.clone());
 			}
 		}
@@ -297,6 +288,7 @@ package com.panozona.player.manager {
 			}else {
 				runAction(_managerData.allPanoramasData.firstOnTransitionEnd);
 			}
+			if (_background.numChildren)_background.removeChildAt(0);
 			dispatchEvent(new PanoramaEvent(PanoramaEvent.TRANSITION_ENDED));
 		}
 		

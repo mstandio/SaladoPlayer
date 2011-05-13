@@ -327,16 +327,19 @@ public class PanoSalado extends ViewData implements ICamera
 		var path:String = e.tilePyramid.path;
 		var params:Params = _params[path];
 		
+		if (params == null) { //path was set directly, so go to super's behavior directly
+			super.commitPath(e,true);
+			return;
+		}
+		
 		if (canvas.width > 0){ // COREMOD, entire section
 			var bd:BitmapData = new BitmapData(canvas.width, canvas.height);
 			bd.draw(canvas);
 			var bmp:Bitmap = new Bitmap(bd);
+			bmp.alpha = canvas.alpha;
 			_background.addChild(bmp);
-		}
-		
-		if (params == null) { //path was set directly, so go to super's behavior directly
-			super.commitPath(e,true);
-			return;
+		}else {
+			_background.addChild(new Bitmap());
 		}
 		updateFOV = (params.minFov) ? true : false 
 		_params[path] = null;
