@@ -412,7 +412,7 @@ package com.panozona.modules.buttonbar.controller{
 			if (_barView.root.stage.quality.toLowerCase() == StageQuality.HIGH || _barView.root.stage.quality.toLowerCase() == StageQuality.BEST) {
 				_barView.root.stage.quality = StageQuality.MEDIUM;
 			}else {
-				_barView.root.stage.quality = StageQuality.BEST
+				_barView.root.stage.quality = StageQuality.HIGH;
 			}
 			displayQuality();
 		}
