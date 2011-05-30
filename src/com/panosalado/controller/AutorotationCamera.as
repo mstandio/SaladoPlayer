@@ -116,6 +116,12 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		if (!_cameraData.isAutorotating) _cameraData.isAutorotating = true;
 	}
 	
+	
+	private var currentTimeStamp:int;
+	private var elapsedTime:int;
+	private var delta:Number;
+	private var futureDelta:Number;
+	private var futureViewData:ViewData;
 	private function enterFrameHandler(event:Event):void 
 	{ 
 // 		if(_viewData.invalid) {
@@ -123,9 +129,9 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 // 			inactiveHandler();
 // 			return;
 // 		}
-		var currentTimeStamp:int = getTimer();
-		var elapsedTime:int = currentTimeStamp - __lastTimeStamp;
-		var delta:Number 
+		currentTimeStamp = getTimer();
+		elapsedTime = currentTimeStamp - __lastTimeStamp;
+		 
 		if (_cameraData.mode == AutorotationCameraData.SPEED)
 			delta = (elapsedTime / 1000) * _cameraData.speed;
 		else if (_cameraData.mode == AutorotationCameraData.FRAME_INCREMENT)
@@ -164,8 +170,7 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		__lastTimeStamp = currentTimeStamp;
 		
 		if (_render == null) return;
-
-		var futureDelta:Number 
+		
 		if (_cameraData.mode == AutorotationCameraData.SPEED)
 			futureDelta = (_loadingStatistics.averageLatency/1000) * _cameraData.speed;
 		else if (_cameraData.mode == AutorotationCameraData.FRAME_INCREMENT)
@@ -173,7 +178,7 @@ public class AutorotationCamera extends EventDispatcher implements ICamera
 		
 		if ( futureDelta <= delta ) return;
 		
-		var futureViewData:ViewData = _futureViewData;
+		futureViewData = _futureViewData;
 		_viewData.clone(futureViewData);
 		
 		futureViewData.invalidPerspective = futureViewData.invalidTransform = futureViewData.invalid = true;

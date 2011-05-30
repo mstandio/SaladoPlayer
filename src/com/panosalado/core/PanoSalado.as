@@ -129,8 +129,8 @@ public class PanoSalado extends ViewData implements ICamera
 		_secondaryManagedChildren = new Sprite();
 		_secondaryManagedChildren.visible = false;
 		
-		_canvas.blendMode = BlendMode.LAYER;
-		_secondaryCanvas.blendMode = BlendMode.LAYER;
+		//_canvas.blendMode = BlendMode.LAYER;
+		//_secondaryCanvas.blendMode = BlendMode.LAYER; COREMOD: shows overlapping tiles when loading panorama but makes viewing much more fluent
 		_managedChildren.visible = false;
 		
 		$addChild(_background); //this one first so it is underneath

@@ -92,13 +92,14 @@ public class ArcBallCamera extends Sprite implements ICamera
 		dispatchEvent( new CameraEvent(CameraEvent.INACTIVE) );
 	}
 	
+	private var angleX:Number;
+	private var angleY:Number;
+	private var vFov:Number;
 	private function enterFrameHandler(event:Event):void 
 	{
 		if (mouseIsDown)
 		{
-			var angleX:Number;
-			var angleY:Number;
-			var vFov:Number;
+			
 			if ( viewData.invalid) {
 				__xh = Math.tan(viewData.fieldOfView * 0.5 * __toRadians) / (viewData.boundsWidth * 0.5);
 			}

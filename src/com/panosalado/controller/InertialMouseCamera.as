@@ -88,13 +88,16 @@ public class InertialMouseCamera extends Sprite implements ICamera
 		// don't remove enterframe listener yet. remove when friction has slowed motion to under threshold
 	}
 	
+	private var elapsedTime:Number;
+	private var currentTimeStamp:Number;
+	private var inverseFriction:Number;
 	private function enterFrameHandler(event:Event):void 
 	{
 		if (mouseIsDown)
 		{
 			// calculate new position changes
-			var currentTimeStamp:Number = getTimer();
-			var elapsedTime:Number = currentTimeStamp - __lastTimeStamp;
+			currentTimeStamp = getTimer();
+			elapsedTime = currentTimeStamp - __lastTimeStamp;
 			deltaPan  += (startPointX - _mouseObject.mouseX) * elapsedTime * _cameraData.sensitivity;
 			deltaTilt -= (startPointY - _mouseObject.mouseY) * elapsedTime * _cameraData.sensitivity;
 			__lastTimeStamp = currentTimeStamp;
@@ -104,7 +107,7 @@ public class InertialMouseCamera extends Sprite implements ICamera
 		if ( ( deltaPan * deltaPan + deltaTilt * deltaTilt ) > _cameraData.threshold ) 
 		{
 			// always apply friction so that motion slows AFTER mouse is up
-			var inverseFriction:Number = 1 - _cameraData.friction;
+			inverseFriction = 1 - _cameraData.friction;
 			deltaPan  *=  inverseFriction;
 			deltaTilt *= inverseFriction;
 			
