@@ -20,12 +20,12 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ButtonBar path="~modules/ButtonBar-1.1.swf">
+		<ButtonBar path="~modules/ButtonBar-1.2.swf">
 			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png">
 				<button name="drag"/>
 			</buttons>
 		</ButtonBar>
-		<MouseCursor path="~modules/MouseCursor-1.0.swf">
+		<MouseCursor path="~modules/MouseCursor-1.1.swf">
 			<settings path="~modules/images/mousecursor/cursors_31x31.png"/>
 		</MouseCursor>
 	</modules>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	You can set mouse navigation in drag mode by default by enabling mouseDrag and disabling mouseInertial.
+	Pressing "drag" button on ButtonBar toggles those two values in the same way.
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false" mouseDrag="enabled:true" mouseInertial="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="greenCheck" path="~panoramas/dz_green_check/green_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<ButtonBar path="~modules/ButtonBar-1.2.swf">
+			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png">
+				<button name="drag"/>
+			</buttons>
+		</ButtonBar>
+		<MouseCursor path="~modules/MouseCursor-1.1.swf">
+			<settings path="~modules/images/mousecursor/cursors_31x31.png"/>
+		</MouseCursor>
+	</modules>
+</SaladoPlayer>
