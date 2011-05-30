@@ -30,11 +30,11 @@ package com.panozona.modules.buttonbar {
 		
 		private var buttonBarData:ButtonBarData;
 		
-		private var barView:BarView
+		private var barView:BarView;
 		private var barController:BarController;
 		
 		public function ButtonBar(){
-			super("ButtonBar", "1.1", "http://panozona.com/wiki/Module:ButtonBar");
+			super("ButtonBar", "1.2", "http://panozona.com/wiki/Module:ButtonBar");
 			moduleDescription.addFunctionDescription("setExtraButtonActive", String, Boolean);
 		}
 		

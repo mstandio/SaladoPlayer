@@ -151,6 +151,8 @@ package com.panozona.modules.buttonbar.controller{
 			buttonSize.height = Math.ceil((buttonsBitmapData.height - 3) / 4);
 			updateButtonsBar();
 			handleResize();
+			onIsAutorotatingChange();
+			onDragEnabledChange();
 			displayQuality();
 		}
 		
@@ -352,11 +354,11 @@ package com.panozona.modules.buttonbar.controller{
 			return bmd;
 		}
 		
-		private function onIsAutorotatingChange(autorotationEvent:Object):void {
+		private function onIsAutorotatingChange(autorotationEvent:Object = null):void {
 			setButtonActive("autorotation", _module.saladoPlayer.managerData.controlData.autorotationCameraData.isAutorotating);
 		}
 		
-		private function onDragEnabledChange(event:Object):void {
+		private function onDragEnabledChange(event:Object = null):void {
 			setButtonActive("drag", _module.saladoPlayer.managerData.controlData.arcBallCameraData.enabled);
 		}
 		
