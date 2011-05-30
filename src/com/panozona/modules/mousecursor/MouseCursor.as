@@ -62,7 +62,7 @@ package com.panozona.modules.mousecursor {
 		protected var startY:Number = 0;
 		
 		public function MouseCursor(){
-			super("MouseCursor", "1.0", "http://panozona.com/wiki/Module:MouseCursor");
+			super("MouseCursor", "1.1", "http://panozona.com/wiki/Module:MouseCursor");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
@@ -121,9 +121,10 @@ package com.panozona.modules.mousecursor {
 			arrowPress.copyPixels(bitmapData, new Rectangle(cursorWidth + 1, cursorHeight + 1, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
 			
 			arrowDrag = new BitmapData(cursorWidth, cursorHeight, true, 0);
-			arrowDrag.copyPixels(bitmapData, new Rectangle(cursorWidth *2 + 2, cursorHeight + 1, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			arrowDrag.copyPixels(bitmapData, new Rectangle(cursorWidth * 2 + 2, cursorHeight + 1, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
 			
-			drawArrowHover();
+			onDragEnabledChange();
+			
 			cursor.x = -cursorWidth * 0.5;
 			cursor.y = -cursorHeight * 0.5;
 		}
@@ -175,7 +176,7 @@ package com.panozona.modules.mousecursor {
 			}
 		}
 		
-		protected function onDragEnabledChange(e:Object):void {
+		protected function onDragEnabledChange(e:Object = null):void {
 			dragMode = saladoPlayer.managerData.controlData.arcBallCameraData.enabled;
 			if (mousePress) {
 				if (mousePressMove) {
