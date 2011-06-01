@@ -5,6 +5,7 @@ src/com/panozona/hotspots/advancedhotspot/AdvancedHotspot.as -> hotspots/Advance
 src/com/panozona/hotspots/videohotspot/VideoHotspot.as -> hotspots/VideoHotspot-1.0.swf
 
 src/com/panozona/modules/buttonbar/ButtonBar.as -> modules/ButtonBar-1.1.swf
+src/com/panozona/modules/compass/Compass.as -> modules/Compass-1.0.swf
 src/com/panozona/modules/dropdown/DropDown.as -> modules/DropDown-1.0.swf
 src/com/panozona/modules/imagebutton/ImageButton.as -> modules/ImageButton-1.1.swf
 src/com/panozona/modules/imagemap/ImageMap.as -> modules/ImageMap-1.1.swf
