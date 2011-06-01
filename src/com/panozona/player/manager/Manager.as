@@ -37,7 +37,7 @@ package com.panozona.player.manager {
 	
 	public class Manager extends PanoSalado{
 		
-		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.1", "http://panozona.com/wiki/SaladoPlayer");
+		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.1b", "http://panozona.com/wiki/SaladoPlayer");
 		
 		/**
 		 * Dictionary, where key is hotspotData object
@@ -176,7 +176,7 @@ package com.panozona.player.manager {
 		}
 		
 		protected function panoramaLoaded(e:Event):void {
-			if (_previousPanoramaData != null ) {
+			if (_previousPanoramaData != null && isNaN(currentPanoramaData.params.pan)) {
 				pan += (_previousPanoramaData.direction - currentPanoramaData.direction);
 			}
 			loadHotspots(currentPanoramaData);
