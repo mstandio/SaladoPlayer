@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama camera="tilt:0" id="pano_0" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="blueArrow" path="~hotspots/images/red_arrow.png" location="tilt:10,distance:600" mouse="onClick:load_pano_1"/>
+		</panorama>
+		<panorama camera="tilt:0" id="pano_1" path="~panoramas/dz_red_check/red_check_f.xml">
+			<image id="greenArrow" path="~hotspots/images/green_arrow.png" location="pan:30" mouse="onClick:load_pano_0"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<JSGoogleMap path="~modules/jsgooglemap/JSGoogleMap-1.0.swf">
+			<settings onShow="jgooglemap_open" onHide="jgooglemap_hide" jsRadarCallback="js_radar_tracker" />
+			<waypoints>
+				<waypoint target="pano_0"/>
+			</waypoints>
+			<tracks>
+				<track path="[http://ass.ass.xml]"/>
+				<track path="[http://ass.ass.xml]"/>
+			</tracks>
+		</JSGoogleMap>
+	</modules>
+	<actions>
+		<action id="jgooglemap_toggle" content="JSGoogleMap.toggle()" />
+		<action id="jgooglemap_open" content="ButtonBar.setExtraButtonActive(b,true)" />
+		<action id="jgooglemap_hide" content="ButtonBar.setExtraButtonActive(b,false)" />
+		<!--<action id="load_pano_0" content="SaladoPlayer.loadPano(pano_0);JSGW.add(js_hl,pano_0);JSGW.run(js_hl)"/>
+		<action id="load_pano_1" content="SaladoPlayer.loadPano(pano_1);JSGW.add(js_hl,pano_1);JSGW.run(js_hl)"/>-->
+	</actions>
+</SaladoPlayer>
