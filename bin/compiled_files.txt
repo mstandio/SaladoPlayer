@@ -4,7 +4,7 @@ src/com/panozona/hotspots/simplehotspot/SimpleHotspot.as -> hotspots/SimpleHotsp
 src/com/panozona/hotspots/advancedhotspot/AdvancedHotspot.as -> hotspots/AdvancedHotspot-1.0.swf
 src/com/panozona/hotspots/videohotspot/VideoHotspot.as -> hotspots/VideoHotspot-1.0.swf
 
-src/com/panozona/modules/buttonbar/ButtonBar.as -> modules/ButtonBar-1.1.swf
+src/com/panozona/modules/buttonbar/ButtonBar.as -> modules/ButtonBar-1.2.swf
 src/com/panozona/modules/compass/Compass.as -> modules/Compass-1.0.swf
 src/com/panozona/modules/dropdown/DropDown.as -> modules/DropDown-1.0.swf
 src/com/panozona/modules/imagebutton/ImageButton.as -> modules/ImageButton-1.1.swf
@@ -12,6 +12,7 @@ src/com/panozona/modules/imagemap/ImageMap.as -> modules/ImageMap-1.1.swf
 src/com/panozona/modules/infobubble/InfoBubble.as -> modules/InfoBubble-1.1.swf
 src/com/panozona/modules/jsgateway/JSGateway.as -> modules/JSGateway-1.0.swf
 src/com/panozona/modules/mousecursor/MouseCursor.as -> modules/MouseCursor-1.1.swf
+src/com/panozona/modules/mousecursor/PanoLink.as -> modules/PanoLink-1.0.swf
 src/com/panozona/modules/viewfinder/ViewFinder.as -> modules/ViewFinder-1.1.swf
 
 // configuration viewer
