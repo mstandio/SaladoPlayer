@@ -26,7 +26,7 @@ package com.panozona.modules.panolink.model{
 		
 		private var _open:Boolean;
 		
-		public WindowData(settings:Settings){
+		public function WindowData(settings:Settings):void{
 			_open = settings.open;
 		}
 		

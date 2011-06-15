@@ -18,9 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.panolink.model{
 	
-	public class TextBoxData{
+	public class LinkData{
 		
-		public function TextBoxData() {
+		public function LinkData() {
 			
 		}
 	}

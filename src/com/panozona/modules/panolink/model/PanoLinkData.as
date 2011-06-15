@@ -21,6 +21,7 @@ package com.panozona.modules.panolink.model {
 	import com.panozona.modules.panolink.model.structure.Settings;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class PanoLinkData {
 		
@@ -28,7 +29,7 @@ package com.panozona.modules.panolink.model {
 		public var windowData:WindowData;
 		
 		public function PanoLinkData(moduleData:ModuleData, saladoPlayer:Object) {
-			
+			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
 			for each(var dataNode:DataNode in moduleData.nodes) {
 				if (dataNode.name == "settings") {
 					tarnslator.dataNodeToObject(dataNode, settings);

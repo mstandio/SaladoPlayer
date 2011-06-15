@@ -18,7 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.panolink.view{
 	
-	import com.panozona.modules.panolink.model.TextBoxData;
+	import com.panozona.modules.panolink.model.EmbededGraphics;
+	import com.panozona.modules.panolink.model.PanoLinkData;
 	import flash.display.Bitmap;
 	import flash.display.SimpleButton;
 	import flash.display.Sprite;
@@ -35,25 +36,25 @@ package com.panozona.modules.panolink.view{
 		
 		private var textCopyButton:SimpleButton;
 		
-		private var _permalinkData:PermalinkData;
+		private var _panoLinkData:PanoLinkData;
 		
-		public function TextBoxView(permalinkData:PermalinkData) {
+		public function LinkView(panoLinkData:PanoLinkData) {
 			
-			_permalinkData = permalinkData;
+			_panoLinkData = panoLinkData;
 			
 			// draw copy button
 			textCopyButton = new SimpleButton();
 			var copyPlainIcon:Sprite = new Sprite();
-			copyPlainIcon.addChild(new Bitmap(new EmbededGraphics.BitmapIconCopyPlain().bitmapData));
+			copyPlainIcon.addChild(new Bitmap(new EmbededGraphics.BitmapCopyPlain().bitmapData));
 			var copyPressIcon:Sprite = new Sprite();
-			copyPressIcon.addChild(new Bitmap(new EmbededGraphics.BitmapIconCopyPress().bitmapData));
+			copyPressIcon.addChild(new Bitmap(new EmbededGraphics.BitmapCopyPress().bitmapData));
 			textCopyButton.upState = copyPlainIcon;
 			textCopyButton.overState = copyPlainIcon;
 			textCopyButton.downState = copyPressIcon;
 			textCopyButton.hitTestState = copyPressIcon;
-			textCopyButton.x = permalinkData.windowData.size.width - textCopyButton.width - 30;
+			textCopyButton.x = _panoLinkData.settings.size.width - textCopyButton.width - 30;
 			textCopyButton.y = 3;
-			textCopyButton.alpha = 1 / _permalinkData.windowData.alpha;
+			
 			addChild(textCopyButton);
 			
 			// draw textfield
@@ -62,8 +63,8 @@ package com.panozona.modules.panolink.view{
 			textFormat.font = "Verdana";
 			textField = new TextField();
 			textField.defaultTextFormat = textFormat;
-			textField.width = permalinkData.windowData.size.width - 82;
-			textField.height = permalinkData.windowData.size.height;
+			textField.width = _panoLinkData.settings.size.width - 82;
+			textField.height = _panoLinkData.settings.size.height;
 			textField.alwaysShowSelection = true;
 			addChild(textField);
 			
@@ -75,8 +76,8 @@ package com.panozona.modules.panolink.view{
 			System.setClipboard(textField.text);
 		}
 		
-		public function get textBoxData():TextBoxData {
-			return _permalinkData.textBoxData;
+		public function get panoLinkData():PanoLinkData {
+			return _panoLinkData;
 		}
 		
 		public function setText(value:String):void {

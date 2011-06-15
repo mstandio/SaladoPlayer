@@ -21,13 +21,15 @@ package com.panozona.modules.panolink.model.structure{
 	import caurina.transitions.Equations;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.data.property.Transition;
 	import com.panozona.player.module.data.property.Tween;
 	
 	public class Settings{
 		
 		public var align:Align = new Align(Align.RIGHT, Align.TOP);
-		public var move:Move = new Move( -20, 20);
+		public var move:Move = new Move(-20, 20);
+		public var size:Size = new Size(350, 30);
 		
 		public var open:Boolean = true;
 		public var onOpen:String = null;
