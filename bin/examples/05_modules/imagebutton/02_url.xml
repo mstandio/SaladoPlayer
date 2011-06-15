@@ -13,7 +13,7 @@
 	<modules>
 		<ImageButton path="~modules/ImageButton-1.1.swf">
 			<buttons>
-				<button id="panozonaLink" path="~modules/images/panozona_logo.png" move="horizontal:30,vertical:30">
+				<button id="panozonaLink" path="~modules/images/imagebutton/panozona_logo.png" move="horizontal:30,vertical:30">
 					<![CDATA[http://panozona.com/]]>
 				</button>
 			</buttons>

@@ -18,7 +18,7 @@
 	<modules>
 		<ImageButton path="~modules/ImageButton-1.1.swf">
 			<buttons>
-				<button id="logo" path="~modules/images/panozona_logo.png" move="horizontal:30,vertical:30" open="false" transition="type:slideLeft" openTween="transition:Expo.easeIn,time:0.75" closeTween="transition:Expo.easeOut,time:0.75"/>
+				<button id="logo" path="~modules/images/imagebutton/panozona_logo.png" move="horizontal:30,vertical:30" open="false" transition="type:slideLeft" openTween="transition:Expo.easeIn,time:0.75" closeTween="transition:Expo.easeOut,time:0.75"/>
 			</buttons>
 		</ImageButton>
 	</modules>

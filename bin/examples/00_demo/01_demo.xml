@@ -44,8 +44,8 @@
 		</ImageMap>
 		<ImageButton path="~modules/ImageButton-1.1.swf">
 			<buttons>
-				<button id="button1" path="~modules/images/imagemap_icon.png" align="vertical:top,horizontal:right" move="horizontal:-30,vertical:30" mouse="onClick:mapToggle"/>
-				<button id="help" path="~modules/images/help.png" align="vertical:middle,horizontal:center" mouse="onClick:helpToggle" open="false" onOpen="helpOpened" onClose="helpClosed" />
+				<button id="button1" path="~modules/images/imagebutton/imagemap_icon.png" align="vertical:top,horizontal:right" move="horizontal:-30,vertical:30" mouse="onClick:mapToggle"/>
+				<button id="help" path="~modules/images/imagebutton/help.png" align="vertical:middle,horizontal:center" mouse="onClick:helpToggle" open="false" onOpen="helpOpened" onClose="helpClosed" />
 			</buttons>
 		</ImageButton>
 		<ButtonBar path="~modules/ButtonBar-1.1.swf">

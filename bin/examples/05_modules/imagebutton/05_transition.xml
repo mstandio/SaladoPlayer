@@ -20,10 +20,10 @@
 	<modules>
 		<ImageButton path="~modules/ImageButton-1.1.swf">
 			<buttons>
-				<button id="logo1" path="~modules/images/panozona_logo.png" move="horizontal:30,vertical:30" transition="type:slideLeft"/>
-				<button id="logo2" path="~modules/images/panozona_logo.png" align="horizontal:right" move="horizontal:-30,vertical:30" transition="type:slideUp"/>
-				<button id="logo3" path="~modules/images/panozona_logo.png" align="vertical:bottom" move="horizontal:30,vertical:-30" transition="type:slideDown"/>
-				<button id="logo4" path="~modules/images/panozona_logo.png" align="vertical:bottom,horizontal:right" move="horizontal:-30,vertical:-30" transition="type:slideRight"/>
+				<button id="logo1" path="~modules/images/imagebutton/panozona_logo.png" move="horizontal:30,vertical:30" transition="type:slideLeft"/>
+				<button id="logo2" path="~modules/images/imagebutton/panozona_logo.png" align="horizontal:right" move="horizontal:-30,vertical:30" transition="type:slideUp"/>
+				<button id="logo3" path="~modules/images/imagebutton/panozona_logo.png" align="vertical:bottom" move="horizontal:30,vertical:-30" transition="type:slideDown"/>
+				<button id="logo4" path="~modules/images/imagebutton/panozona_logo.png" align="vertical:bottom,horizontal:right" move="horizontal:-30,vertical:-30" transition="type:slideRight"/>
 			</buttons>
 		</ImageButton>
 	</modules>

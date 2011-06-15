@@ -24,8 +24,8 @@
 		</ImageMap>
 		<ImageButton path="~modules/ImageButton-1.1.swf">
 			<buttons>
-				<button id="buttonOn" path="~modules/images/on.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:mapClose"/>
-				<button id="buttonOff" path="~modules/images/off.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:mapOpen"/>
+				<button id="buttonOn" path="~modules/images/imagebutton/on.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:mapClose"/>
+				<button id="buttonOff" path="~modules/images/imagebutton/off.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:mapOpen"/>
 			</buttons>
 		</ImageButton>
 	</modules>
