@@ -25,6 +25,7 @@ package com.panozona.modules.panolink.controller{
 	import com.panozona.player.module.data.property.Transition;
 	import com.panozona.player.module.Module;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.system.ApplicationDomain;
 	
 	public class WindowController{
@@ -42,6 +43,8 @@ package com.panozona.modules.panolink.controller{
 			_linkController = new LinkController(windowView.linkView, module);
 			
 			_windowView.windowData.addEventListener(WindowEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
+			
+			_module.saladoPlayer.manager.addEventListener(MouseEvent.MOUSE_DOWN, handlePlayerClick, false, 0, true);
 			
 			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
@@ -63,6 +66,10 @@ package com.panozona.modules.panolink.controller{
 		
 		private function handleResize(event:Event = null):void {
 			placeWindow();
+		}
+		
+		private function handlePlayerClick(event:Event = null):void {
+			_windowView.panoLinkData.windowData.open = false;
 		}
 		
 		private function onOpenChange(e:Event):void {

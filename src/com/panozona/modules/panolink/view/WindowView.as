@@ -67,6 +67,8 @@ package com.panozona.modules.panolink.view{
 			
 			_linkView = new LinkView(panoLinkData);
 			window.addChild(_linkView);
+			
+			
 		}
 		
 		public function get panoLinkData():PanoLinkData {

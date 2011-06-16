@@ -31,7 +31,7 @@ package com.panozona.modules.panolink.model.structure{
 		public var move:Move = new Move(-20, 20);
 		public var size:Size = new Size(350, 30);
 		
-		public var open:Boolean = true;
+		public var open:Boolean = false;
 		public var onOpen:String = null;
 		public var onClose:String = null;
 		

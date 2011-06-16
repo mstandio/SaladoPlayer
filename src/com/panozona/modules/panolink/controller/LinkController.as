@@ -60,23 +60,21 @@ package com.panozona.modules.panolink.controller{
 						paramsReference.fov = recognizedValues.fov;
 						module.saladoPlayer.managerData.allPanoramasData.params.fov = NaN;
 					}
-					
-					var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-					module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 				}
 			}
+			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+			module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 		}
 		
 		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			module.saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded);
-			setOriginalParams();
 			onOpenChange();
+			setOriginalParams();
 		}
 		
 		private function onOpenChange(WindowEvent:Object = null):void {
 			if (linkView.panoLinkData.windowData.open){
-				trace(getUrlLink(ExternalInterface.call("window.location.href.toString")));
 				linkView.setText(getUrlLink(ExternalInterface.call("window.location.href.toString")));
 			}
 		}
