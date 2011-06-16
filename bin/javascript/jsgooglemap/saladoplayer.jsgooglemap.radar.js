@@ -27,6 +27,7 @@
 			if (options && options.style) {
 				$.extend(style, options.style);
 			}
+			
 			methods.build(options.marker);
 		},
 		

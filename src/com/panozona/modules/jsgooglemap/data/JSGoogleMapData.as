@@ -46,14 +46,15 @@ package com.panozona.modules.jsgooglemap.data {
 			}
 			
 			if (saladoPlayer.managerData.debugMode) {
-				if (settings.onShow != null) {
-					if (saladoPlayer.managerData.getActionDataById(settings.onShow) == null) {
-						throw new Error("Action: does not exist: " +settings.onShow );
-					}
+				if (settings.onOpen != null && saladoPlayer.managerData.getActionDataById(settings.onOpen) == null) {
+					throw new Error("Action does not exist: " + settings.onOpen);
 				}
-				if (settings.onHide != null) {
-					if (saladoPlayer.managerData.getActionDataById(settings.onHide) == null) {
-						throw new Error("Action: does not exist: " + settings.onHide);
+				if (settings.onClose != null && saladoPlayer.managerData.getActionDataById(settings.onClose) == null) {
+					throw new Error("Action does not exist: " + settings.onClose);
+				}
+				for each (var waypoint:Waypoint in waypoints.getChildrenOfGivenClass(Waypoint)) {
+					if (saladoPlayer.managerData.getPanoramaDataById(waypoint.target) == null) {
+						throw new Error("{Panorama does not exist: " + waypoint.target);
 					}
 				}
 			}

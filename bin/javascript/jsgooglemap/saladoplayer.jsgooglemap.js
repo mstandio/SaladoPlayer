@@ -120,8 +120,8 @@
 				
 				if ((query != null && query.scene != null && query.scene == SaladoPlayerJSGoogleMapState.points[key].id)) {
 					if (SaladoPlayerJSGoogleMapSettings.radar_id != null) {
-					   $('#' + SaladoPlayerJSGoogleMapSettings.radar_id).SaladoPlayerJSGoogleMapRadar({ marker: marker, style: SaladoPlayerJSGoogleMapSettings.radar_style });
-					   $('#' + SaladoPlayerJSGoogleMapSettings.radar_id).SaladoPlayerJSGoogleMapRadar('bind', marker);
+						$('#' + SaladoPlayerJSGoogleMapSettings.radar_id).SaladoPlayerJSGoogleMapRadar({ marker: marker, style: SaladoPlayerJSGoogleMapSettings.radar_style });
+						$('#' + SaladoPlayerJSGoogleMapSettings.radar_id).SaladoPlayerJSGoogleMapRadar('bind', marker);
 					}
 				}
 				if (bounds == null) {

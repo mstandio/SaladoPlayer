@@ -39,28 +39,28 @@ package com.panozona.modules.jsgooglemap {
 		public function JSGoogleMap() {
 			super("JSGoogleMap", "1.0", "http://panozona.com/wiki/Module:JSGoogleMap");
 			
-			moduleDescription.addFunctionDescription("toggle");
-			moduleDescription.addFunctionDescription("hide");
-			moduleDescription.addFunctionDescription("show");
+			moduleDescription.addFunctionDescription("setOpen", Boolean);
+			moduleDescription.addFunctionDescription("toggleOpen");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			
 			jsGooglemapData = new JSGoogleMapData(moduleData, saladoPlayer); // allways read data first 
 			
+			visible = false;
+			
 			// add listeners 
 			panoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onFirstPanoramaStartedLoading, false, 0 , true);
-			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0 , true);
-			
+			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onFirstPanoramaStartedLoading, false, 0, true);
+			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 			stage.addEventListener(Event.ENTER_FRAME, onCameraMove, false, 0, true);
 			
-			visible = false;
+			ExternalInterface.addCallback("jsgm_in_loadPano", saladoPlayer.manager.loadPano);
 		}
 		
 		private function onFirstPanoramaStartedLoading(e:Event):void {
 			saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onFirstPanoramaStartedLoading);
-			ExternalInterface.call("initJSGoogleMap", new ToJSON().translate(jsGooglemapData));
+			ExternalInterface.call("jsgm_out_init", new ToJSON().translate(jsGooglemapData));
 			callActions();
 		}
 		
@@ -68,45 +68,40 @@ package com.panozona.modules.jsgooglemap {
 			__fov = saladoPlayer.manager._fieldOfView;
 			__pan = saladoPlayer.manager._pan;
 			currentDirection = saladoPlayer.manager.currentPanoramaData.direction;
-			
-			ExternalInterface.call(jsGooglemapData.settings.jsRadarCallback, __fov, __pan + currentDirection);
+			ExternalInterface.call("jsgm_out_setPanorama", saladoPlayer.manager.currentPanoramaData.id);
+			ExternalInterface.call("jsgm_out_radarCallback", __fov, __pan + currentDirection);
 		}
 		
 		private function onCameraMove(e:Event):void {
 			if (__fov == saladoPlayer.manager._fieldOfView && __pan == saladoPlayer.manager._pan) return;
-			
 			__fov = saladoPlayer.manager._fieldOfView;
 			__pan = saladoPlayer.manager._pan;
-			
-			ExternalInterface.call(jsGooglemapData.settings.jsRadarCallback, __fov, __pan + currentDirection);
+			ExternalInterface.call("jsgm_out_radarCallback", __fov, __pan + currentDirection);
+		}
+		
+		private function callActions():void {
+			if (jsGooglemapData.settings.open && jsGooglemapData.settings.onOpen) {
+				saladoPlayer.manager.runAction(jsGooglemapData.settings.onOpen);
+			} 
+			if(!jsGooglemapData.settings.open && jsGooglemapData.settings.onClose) {
+				saladoPlayer.manager.runAction(jsGooglemapData.settings.onClose);
+			}
+			ExternalInterface.call("jsgm_out_setOpen", jsGooglemapData.settings.open);
 		}
 		
 ///////////////////////////////////////////////////////////////////////////////
 //  Exposed functions 
 ///////////////////////////////////////////////////////////////////////////////
 		
-		public function hide():void {
-			jsGooglemapData.settings.open = false;
+		public function setOpen(value:Boolean):void {
+			if (jsGooglemapData.settings.open == value) return;
+			jsGooglemapData.settings.open = value;
 			callActions();
 		}
 		
-		public function show():void {
-			jsGooglemapData.settings.open = true;
-			callActions();
-		}
-		
-		public function toggle():void {
+		public function toggleOpen():void {
 			jsGooglemapData.settings.open = !jsGooglemapData.settings.open;
 			callActions();
-		}
-		
-		private function callActions():void {
-			if (jsGooglemapData.settings.open && jsGooglemapData.settings.onShow) {
-				saladoPlayer.manager.runAction(jsGooglemapData.settings.onShow);
-			} 
-			if(!jsGooglemapData.settings.open && jsGooglemapData.settings.onHide) {
-				saladoPlayer.manager.runAction(jsGooglemapData.settings.onHide);
-			}
 		}
 	}
 }

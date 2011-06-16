@@ -1,3 +1,5 @@
+var right_div_width = 300;
+
 $(document).ready(function() {
 	$('#right').width(right_div_width);
 	js_layout_resize();
@@ -8,14 +10,11 @@ $(document).ready(function() {
 	});
 });
 
-var right_div_width = 300;
-
 $(window).resize(function() {
 	js_layout_resize();
-	$('#jgooglemap').SaladoPlayerJSGoogleMap('resize');
 });
 
-// passes ial configuration
+// passes initial configuration
 function jsgm_out_init (JSONstring) {
 	$('#jgooglemap').SaladoPlayerJSGoogleMap('configure', JSONstring);
 }

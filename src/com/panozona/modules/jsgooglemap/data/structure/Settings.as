@@ -23,12 +23,8 @@ package com.panozona.modules.jsgooglemap.data.structure {
 	
 	public class Settings {
 		
-		public var open:Boolean = true; 
-		
-		public var onShow:String = null;
-		
-		public var onHide:String = null;
-		
-		public var jsRadarCallback:String = null;
+		public var open:Boolean = true;
+		public var onOpen:String = null;
+		public var onClose:String = null;
 	}
 }
