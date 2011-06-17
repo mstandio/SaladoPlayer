@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="blueCheck" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<MenuScroller path="~modules/MenuScroller-1.0.swf" />
+	</modules>
+</SaladoPlayer>
