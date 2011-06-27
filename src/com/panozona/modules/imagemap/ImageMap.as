@@ -32,17 +32,18 @@ package com.panozona.modules.imagemap{
 		private var windowController:WindowController;
 		
 		public function ImageMap() {
-			super("ImageMap", "1.1", "http://panozona.com/wiki/Module:ImageMap");
+			super("ImageMap", "1.2", "http://panozona.com/wiki/Module:ImageMap");
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
+			moduleDescription.addFunctionDescription("setMap", String);
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			
-			imageMapData = new ImageMapData(moduleData, saladoPlayer.managerData.debugMode); // always first
+			imageMapData = new ImageMapData(moduleData, saladoPlayer); // always first
 			
 			windowView = new WindowView(imageMapData);
-			addChild(windowView); // add child first
+			addChild(windowView);
 			windowController = new WindowController(windowView, this);
 		}
 		
@@ -51,12 +52,15 @@ package com.panozona.modules.imagemap{
 ///////////////////////////////////////////////////////////////////////////////
 		
 		public function setOpen(value:Boolean):void {
-			if (imageMapData.windowData.open == value) return;
 			imageMapData.windowData.open = value;
 		}
 		
 		public function toggleOpen():void {
 			imageMapData.windowData.open = !imageMapData.windowData.open;
+		}
+		
+		public function setMap(value:String):void {
+			imageMapData.mapData.currentMapId = value;
 		}
 	}
 }

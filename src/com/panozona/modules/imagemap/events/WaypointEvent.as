@@ -27,6 +27,6 @@ package com.panozona.modules.imagemap.events{
 		
 		public function WaypointEvent(type:String){
 			super(type);
-		}	
+		}
 	}
 }

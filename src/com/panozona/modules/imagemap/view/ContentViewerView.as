@@ -29,41 +29,37 @@ package com.panozona.modules.imagemap.view{
 	
 	public class ContentViewerView extends Sprite{
 		
-		private var _imageMapData:ImageMapData;
+		public const containerMask:Sprite = new Sprite();
+		public const container:Sprite = new Sprite();
+		public const cursor:Bitmap = new Bitmap();
 		
-		private var _mapView:MapView;
-		
-		private var _container:Sprite;
-		private var _containerMask:Sprite;
-		
-		private var _cursor:Bitmap;
 		private var navigationMove:Sprite;
 		private var navigationZoom:Sprite;
-		
 		private var bitmapMove:Bitmap;
 		private var bitmapZoom:Bitmap;
+		
+		private var _imageMapData:ImageMapData;
+		private var _mapView:MapView;
 		
 		public function ContentViewerView(imageMapData:ImageMapData) {
 			
 			_imageMapData = imageMapData;
 			
-			_containerMask = new Sprite;
-			_containerMask.graphics.beginFill(0x000000);
-			_containerMask.graphics.drawRect(0, 0,
+			containerMask.graphics.beginFill(0x000000);
+			containerMask.graphics.drawRect(0, 0,
 				_imageMapData.windowData.window.size.width,
 				_imageMapData.windowData.window.size.height);
-			_containerMask.graphics.endFill();
-			addChild(_containerMask);
+			containerMask.graphics.endFill();
+			addChild(containerMask);
 			
-			_container = new Sprite();
-			_container.mask = _containerMask;
-			addChild(_container);
+			container.mask = containerMask;
+			addChild(container);
 			
 			_mapView = new MapView(_imageMapData);
 			container.addChild(_mapView);
 			
 			if (_imageMapData.contentViewerData.viewer.moveEnabled){
-			
+				
 				var navigationMove:Sprite = new Sprite(); // bitmap is square so it wont interact with mouse
 				bitmapMove = new Bitmap(new EmbededGraphics.BitmapMovePlain().bitmapData);
 				navigationMove.addChild(bitmapMove);
@@ -71,7 +67,7 @@ package com.panozona.modules.imagemap.view{
 				navigationMove.x = navigationMove.y = 5; 
 				navigationMove.alpha = 1 / _imageMapData.windowData.window.alpha;
 				addChild(navigationMove);
-			
+				
 				var moveLeft:Sprite = new Sprite();
 				moveLeft.graphics.beginFill(0x000000,0);
 				moveLeft.graphics.drawRect(0, 0, 18, 18);
@@ -80,7 +76,11 @@ package com.panozona.modules.imagemap.view{
 				moveLeft.x = 4;
 				moveLeft.y = (navigationMove.height - moveLeft.height) * 0.5;
 				navigationMove.addChild(moveLeft);
-			
+				
+				moveLeft.addEventListener(MouseEvent.MOUSE_DOWN, navLeft, false, 0, true);
+				moveLeft.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
+				moveLeft.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
+				
 				var moveRight:Sprite = new Sprite();
 				moveRight.graphics.beginFill(0x000000,0);
 				moveRight.graphics.drawRect(0, 0, 18, 18);
@@ -89,7 +89,11 @@ package com.panozona.modules.imagemap.view{
 				moveRight.x = navigationMove.width - moveRight.width - 4;
 				moveRight.y = (navigationMove.height - moveLeft.height) * 0.5;
 				navigationMove.addChild(moveRight);
-			
+				
+				moveRight.addEventListener(MouseEvent.MOUSE_DOWN, navRight, false, 0, true);
+				moveRight.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
+				moveRight.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
+				
 				var moveDown:Sprite = new Sprite();
 				moveDown.graphics.beginFill(0x000000,0);
 				moveDown.graphics.drawRect(0, 0, 18, 18);
@@ -98,7 +102,11 @@ package com.panozona.modules.imagemap.view{
 				moveDown.x = (navigationMove.width - moveDown.width) * 0.5;
 				moveDown.y = navigationMove.height - moveDown.height -3;
 				navigationMove.addChild(moveDown);
-			
+				
+				moveDown.addEventListener(MouseEvent.MOUSE_DOWN, navDown, false, 0, true);
+				moveDown.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
+				moveDown.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
+				
 				var moveUp:Sprite = new Sprite();
 				moveUp.graphics.beginFill(0x000000,0);
 				moveUp.graphics.drawRect(0, 0, 18, 18);
@@ -108,25 +116,13 @@ package com.panozona.modules.imagemap.view{
 				moveUp.y = 3;
 				navigationMove.addChild(moveUp);
 				
-				moveLeft.addEventListener(MouseEvent.MOUSE_DOWN, navLeft, false, 0, true);
-				moveLeft.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
-				moveLeft.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
-			
-				moveRight.addEventListener(MouseEvent.MOUSE_DOWN, navRight, false, 0, true);
-				moveRight.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
-				moveRight.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
-			
 				moveUp.addEventListener(MouseEvent.MOUSE_DOWN, navUp, false, 0, true);
 				moveUp.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
 				moveUp.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
-			
-				moveDown.addEventListener(MouseEvent.MOUSE_DOWN, navDown, false, 0, true);
-				moveDown.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
-				moveDown.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
 			}
 			
 			if (_imageMapData.contentViewerData.viewer.zoomEnabled){
-			
+				
 				navigationZoom = new Sprite();
 				bitmapZoom = new Bitmap(new EmbededGraphics.BitmapZoomPlain().bitmapData);
 				navigationZoom.addChild(bitmapZoom);
@@ -140,7 +136,7 @@ package com.panozona.modules.imagemap.view{
 					navigationZoom.x = 5;
 					navigationZoom.y = 5;
 				}
-			
+				
 				var zoomIn:Sprite = new Sprite();
 				zoomIn.graphics.beginFill(0x000000,0);
 				zoomIn.graphics.drawRect(0, 0, 21, 20);
@@ -149,7 +145,11 @@ package com.panozona.modules.imagemap.view{
 				zoomIn.x = (navigationZoom.width - zoomIn.width) * 0.5;
 				zoomIn.y = 0;
 				navigationZoom.addChild(zoomIn);
-			
+				
+				zoomIn.addEventListener(MouseEvent.MOUSE_DOWN, navZoomIn, false, 0, true);
+				zoomIn.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
+				zoomIn.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
+				
 				var zoomOut:Sprite = new Sprite();
 				zoomOut.graphics.beginFill(0x000000,0);
 				zoomOut.graphics.drawRect(0, 0, 21, 20);
@@ -159,28 +159,26 @@ package com.panozona.modules.imagemap.view{
 				zoomOut.y = navigationZoom.height - zoomOut.height ;
 				navigationZoom.addChild(zoomOut);
 				
-				zoomIn.addEventListener(MouseEvent.MOUSE_DOWN, navZoomIn, false, 0, true);
-				zoomIn.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
-				zoomIn.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
-				
 				zoomOut.addEventListener(MouseEvent.MOUSE_DOWN, navZoomOut, false, 0, true);
 				zoomOut.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
 				zoomOut.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
 			}
 			
 			if (_imageMapData.contentViewerData.viewer.dragEnabled) {
+				cursor.bitmapData = new EmbededGraphics.BitmapCursorHandOpened().bitmapData;
+				cursor.alpha = 1 / _imageMapData.windowData.window.alpha;
+				cursor.visible = false;
+				addChild(cursor);
 				
-				_cursor = new Bitmap();
-				_cursor.bitmapData = new EmbededGraphics.BitmapCursorHandOpened().bitmapData;
-				_cursor.alpha = 1 / _imageMapData.windowData.window.alpha;
-				_cursor.visible = false;
-				addChild(_cursor);
-				
-				_container.addEventListener(MouseEvent.ROLL_OVER, containerMouseOver, false, 0, true);
-				_container.addEventListener(MouseEvent.MOUSE_DOWN, containerMouseDown, false, 0, true);
-				_container.addEventListener(MouseEvent.ROLL_OUT, containerMouseOut, false, 0, true);
-				_container.addEventListener(MouseEvent.MOUSE_UP, containerMouseUp, false, 0, true);
+				container.addEventListener(MouseEvent.ROLL_OVER, containerMouseOver, false, 0, true);
+				container.addEventListener(MouseEvent.MOUSE_DOWN, containerMouseDown, false, 0, true);
+				container.addEventListener(MouseEvent.ROLL_OUT, containerMouseOut, false, 0, true);
+				container.addEventListener(MouseEvent.MOUSE_UP, containerMouseUp, false, 0, true);
 			}
+		}
+		
+		public function get imageMapData():ImageMapData{
+			return _imageMapData;
 		}
 		
 		public function get contentViewerData():ContentViewerData {
@@ -189,18 +187,6 @@ package com.panozona.modules.imagemap.view{
 		
 		public function get mapView():MapView {
 			return _mapView;
-		}
-		
-		public function get container():Sprite {
-			return _container;
-		}
-		
-		public function get containerMask():Sprite {
-			return _containerMask;
-		}
-		
-		public function get cursor():Bitmap {
-			return _cursor;
 		}
 		
 		private function navLeft(e:Event):void {

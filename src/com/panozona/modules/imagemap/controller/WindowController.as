@@ -20,7 +20,6 @@ package com.panozona.modules.imagemap.controller{
 	
 	import caurina.transitions.Tweener;
 	import com.panozona.modules.imagemap.events.WindowEvent;
-	import com.panozona.modules.imagemap.model.WindowData;
 	import com.panozona.modules.imagemap.view.WindowView;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Transition;

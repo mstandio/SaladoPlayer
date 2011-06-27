@@ -34,8 +34,8 @@ package com.panozona.modules.imagemap.model.structure{
 		public var alpha:Number = 1.0;
 		
 		public var open:Boolean = true;
-		public var onOpen:String; // actions executed on window visibility change
-		public var onClose:String;
+		public var onOpen:String = null; // actions executed on window visibility change
+		public var onClose:String = null;
 		
 		public var openTween:Tween = new Tween(Equations.easeNone, 0.5);
 		public var closeTween:Tween = new Tween(Equations.easeNone, 0.5);

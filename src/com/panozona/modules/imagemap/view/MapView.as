@@ -18,46 +18,27 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.view {
 	
-	import com.panozona.modules.imagemap.events.ContentViewerEvent;
 	import com.panozona.modules.imagemap.model.ImageMapData;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
-	//import com.panozona.modules.imagemap.model.MapData;
 	
 	public class MapView extends Sprite {
 		
-		private var _imageMapData:ImageMapData;
+		public const mapImage:Bitmap = new Bitmap();
+		public const waypointsContainer:Sprite = new Sprite();
 		
-		private var _mapImage:Bitmap;
-		private var _waypointsContainer:Sprite;
+		private var _imageMapData:ImageMapData;
 		
 		public function MapView(imageMapData:ImageMapData) {
 			
 			_imageMapData = imageMapData;
 			
-			_mapImage = new Bitmap();
-			addChild(_mapImage);
-			
-			_waypointsContainer = new Sprite();
-			addChild(_waypointsContainer);
-			
-			addEventListener(ContentViewerEvent.FOCUS_LOST, focusLost, false, 0, true);
-		}
-		
-		private function focusLost(contentViewerEvent:ContentViewerEvent):void {
-			_imageMapData.mapData.dispatchEvent(contentViewerEvent);
+			addChild(mapImage);
+			addChild(waypointsContainer);
 		}
 		
 		public function get imageMapData():ImageMapData {
 			return _imageMapData;
-		}
-		
-		public function get mapImage():Bitmap {
-			return _mapImage;
-		}
-		
-		public function get waypointsContainer():Sprite {
-			return _waypointsContainer;
 		}
 	}
 }

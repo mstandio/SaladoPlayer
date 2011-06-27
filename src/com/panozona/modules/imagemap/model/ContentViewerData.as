@@ -25,7 +25,7 @@ package com.panozona.modules.imagemap.model {
 	
 	public class ContentViewerData extends EventDispatcher{
 		
-		public var viewer:Viewer;
+		public const viewer:Viewer = new Viewer();
 		
 		private var _moveLeft:Boolean;
 		private var _moveRight:Boolean;
@@ -42,83 +42,58 @@ package com.panozona.modules.imagemap.model {
 		
 		public function ContentViewerData() {
 			_focusPoint = new Point(NaN, NaN);
-			viewer = new Viewer();
 		}
 		
-		public function get moveLeft():Boolean {
-			return _moveLeft;
-		}
-		
+		public function get moveLeft():Boolean {return _moveLeft;}
 		public function set moveLeft(value:Boolean):void {
 			if (_moveLeft == value) return;
 			_moveLeft = value;
 			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_MOVE));
 		}
 		
-		public function get moveRight():Boolean {
-			return _moveRight;
-		}
-		
+		public function get moveRight():Boolean {return _moveRight;}
 		public function set moveRight(value:Boolean):void {
 			if (_moveRight == value) return;
 			_moveRight = value;
 			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_MOVE));
 		}
 		
-		public function get moveUp():Boolean {
-			return _moveUp;
-		}
-		
+		public function get moveUp():Boolean {return _moveUp;}
 		public function set moveUp(value:Boolean):void {
 			if (_moveUp == value) return;
 			_moveUp = value;
 			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_MOVE));
 		}
 		
-		public function get moveDown():Boolean {
-			return _moveDown;
-		}
-		
+		public function get moveDown():Boolean {return _moveDown;}
 		public function set moveDown(value:Boolean):void {
 			if (_moveDown == value) return;
 			_moveDown = value;
 			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_MOVE));
 		}
 		
-		public function get zoomIn():Boolean {
-			return _zoomIn;
-		}
-		
+		public function get zoomIn():Boolean {return _zoomIn;}
 		public function set zoomIn(value:Boolean):void {
 			if (_zoomIn == value) return;
 			_zoomIn = value;
 			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_ZOOM));
 		}
 		
-		public function get zoomOut():Boolean {
-			return _zoomOut;
-		}
-		
+		public function get zoomOut():Boolean {return _zoomOut;}
 		public function set zoomOut(value:Boolean):void {
 			if (_zoomOut == value) return;
 			_zoomOut = value;
 			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_ZOOM));
 		}
 		
-		public function get mouseOver():Boolean { 
-			return _mouseOver; 
-		}
-		
+		public function get mouseOver():Boolean {return _mouseOver;}
 		public function set mouseOver(value:Boolean):void {
 			if (value == _mouseOver) return;
 			_mouseOver = value;
 			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_MOUSE_OVER));
 		}
 		
-		public function get mouseDrag():Boolean {
-			return _mouseDrag; 
-		}
-		
+		public function get mouseDrag():Boolean {return _mouseDrag;}
 		public function set mouseDrag(value:Boolean):void {
 			if (value == _mouseDrag) return;
 			if (value && !_mouseOver) return;
@@ -126,10 +101,7 @@ package com.panozona.modules.imagemap.model {
 			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_MOUSE_DRAG));
 		}
 		
-		public function get focusPoint():Point {
-			return _focusPoint;
-		}
-		
+		public function get focusPoint():Point {return _focusPoint;}
 		public function set focusPoint(value:Point):void {
 			_focusPoint.x = value.x;
 			_focusPoint.y = value.y;

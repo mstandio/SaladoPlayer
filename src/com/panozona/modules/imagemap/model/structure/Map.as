@@ -28,11 +28,12 @@ package com.panozona.modules.imagemap.model.structure{
 			return result;
 		}
 		
-		public var id:String;
-		public var label:String;
-		public var path:String;
+		public var id:String = null;
+		public var path:String = null;
 		
-		public var radars:Radar = new Radar(); 
+		public var onSet:String = null; // action id
+		
+		public var radars:Radar = new Radar();
 		public var buttons:Button = new Button();
 	}
 }

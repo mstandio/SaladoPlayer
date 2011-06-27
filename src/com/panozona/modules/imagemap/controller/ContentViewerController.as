@@ -61,7 +61,6 @@ package com.panozona.modules.imagemap.controller{
 			_module = module;
 			
 			mapControler = new MapController(contentViewerView.mapView, module);
-			mapControler.loadFirstMap();
 			
 			_contentViewerView.container.addEventListener(MapEvent.MAP_IMAGE_LOADED, handleMapImageLoaded, false, 0, true)
 			
@@ -291,7 +290,7 @@ package com.panozona.modules.imagemap.controller{
 			if (onFocus && deltaX != 0 || deltaY != 0){
 				onFocus = false;
 				for (var i:int=0; i < _contentViewerView.container.numChildren; i++) {
-					_contentViewerView.container.getChildAt(i).dispatchEvent(new ContentViewerEvent(ContentViewerEvent.FOCUS_LOST));
+					_contentViewerView.imageMapData.mapData.dispatchEvent(new ContentViewerEvent(ContentViewerEvent.FOCUS_LOST));
 				}
 			}
 			

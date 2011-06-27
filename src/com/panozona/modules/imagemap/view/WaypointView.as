@@ -27,35 +27,32 @@ package com.panozona.modules.imagemap.view {
 	
 	public class WaypointView extends Sprite{
 		
+		public const radar:Sprite = new Sprite();
+		public const button:Sprite = new Sprite();
+		
 		private var _imageMapData:ImageMapData;
 		private var _waypointData:WaypointData;
-		
-		private var _radar:Sprite;
-		
-		private var _button:Sprite;
 		
 		public function WaypointView (imageMapData:ImageMapData, waypointData:WaypointData) {
 			
 			_imageMapData = imageMapData;
 			_waypointData = waypointData;
 			
-			_radar = new Sprite();
-			_radar.mouseEnabled = false;
-			_radar.alpha = (1 / imageMapData.windowData.window.alpha) * _waypointData.radar.alpha;
-			_radar.x = waypointData.waypoint.position.x;
-			_radar.y = waypointData.waypoint.position.y;
-			addChild(_radar);
+			radar.mouseEnabled = false;
+			radar.alpha = (1 / imageMapData.windowData.window.alpha) * _waypointData.radar.alpha;
+			radar.x = waypointData.waypoint.position.x;
+			radar.y = waypointData.waypoint.position.y;
+			addChild(radar);
 			
-			_button = new Sprite();
-			_button.buttonMode = true;
-			_button.alpha = 1 / imageMapData.windowData.window.alpha;
-			_button.x = _waypointData.waypoint.position.x;
-			_button.y = _waypointData.waypoint.position.y;
-			addChild(_button);
+			button.buttonMode = true;
+			button.alpha = 1 / imageMapData.windowData.window.alpha;
+			button.x = _waypointData.waypoint.position.x;
+			button.y = _waypointData.waypoint.position.y;
+			addChild(button);
 			
-			_button.addEventListener(MouseEvent.ROLL_OVER, mouseOver);
-			_button.addEventListener(MouseEvent.ROLL_OUT, mouseOut);
-		}	
+			button.addEventListener(MouseEvent.ROLL_OVER, mouseOver, false, 0, true);
+			button.addEventListener(MouseEvent.ROLL_OUT, mouseOut, false, 0, true);
+		}
 		
 		public function get contentViewerData():ContentViewerData {
 			return _imageMapData.contentViewerData;
@@ -65,22 +62,14 @@ package com.panozona.modules.imagemap.view {
 			return _waypointData;
 		}
 		
-		public function get radar():Sprite {
-			return _radar;
-		}
-		
-		public function get button():Sprite {
-			return _button;
-		}
-		
 		public function radarFirst():void {
-			addChild(_button);
-			addChild(_radar);
+			addChild(button);
+			addChild(radar);
 		}
 		
 		public function buttonFirst():void {
-			addChild(_radar);
-			addChild(_button);
+			addChild(radar);
+			addChild(button);
 		}
 		
 		private function mouseOver(e:Event):void {

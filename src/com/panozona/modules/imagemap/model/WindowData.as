@@ -24,9 +24,8 @@ package com.panozona.modules.imagemap.model {
 	
 	public class WindowData extends EventDispatcher{
 		
+		public const window:Window = new Window();
 		private var _open:Boolean;
-		
-		public var window:Window = new Window();
 		
 		public function get open():Boolean{return _open}
 		public function set open(value:Boolean):void {

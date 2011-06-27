@@ -29,12 +29,12 @@ package com.panozona.modules.imagemap.view{
 	
 	public class WindowView extends Sprite{
 		
-		private var _imageMapData:ImageMapData;
-		
 		private var _contentViewerView:ContentViewerView;
 		
 		private var window:Sprite;
 		private var windowCloseButton:SimpleButton;
+		
+		private var _imageMapData:ImageMapData;
 		
 		public function WindowView(imageMapData:ImageMapData) {
 			

@@ -39,20 +39,14 @@ package com.panozona.modules.imagemap.model{
 			this.radar = radar;
 		}
 		
-		public function get showRadar():Boolean {
-			return _showRadar;
-		}
-		
+		public function get showRadar():Boolean {return _showRadar;}
 		public function set showRadar(value:Boolean):void {
 			if (value == _showRadar) return;
 			_showRadar = value;
 			dispatchEvent(new WaypointEvent(WaypointEvent.CHANGED_SHOW_RADAR));
 		}
 		
-		public function get mouseOver():Boolean {
-			return _mouseOver;
-		}
-		
+		public function get mouseOver():Boolean {return _mouseOver;}
 		public function set mouseOver(value:Boolean):void {
 			if (value == _mouseOver) return;
 			_mouseOver = value;
