@@ -18,7 +18,7 @@
 				<bubble id="redBubble" path="~modules/images/infobubble/red.jpg"/>
 			</bubbles>
 		</InfoBubble>
-		<ImageMap path="~modules/ImageMap-1.1.swf">
+		<ImageMap path="~modules/ImageMap-1.2.swf">
 			<window open="false" transition="type:fade" openTween="transition:Back.easeOut" onOpen="mapOpened" onClose="mapClosed" alpha="0.8"/>
 			<viewer moveEnabled="true" dragEnabled="true" zoomEnabled="true"/>
 			<maps>

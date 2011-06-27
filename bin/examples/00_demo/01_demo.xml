@@ -32,7 +32,7 @@
 				<element label="Kortrijk 12800x6400" panorama="kortrijk"/>
 			</elements>
 		</DropDown>
-		<ImageMap path="~modules/ImageMap-1.1.swf">
+		<ImageMap path="~modules/ImageMap-1.2.swf">
 			<window open="false" transition="type:slideRight" openTween="transition:Back.easeOut" onOpen="mapOpened" onClose="mapClosed" alpha="0.8"/>
 			<viewer moveEnabled="true" dragEnabled="true" zoomEnabled="true"/>
 			<maps>

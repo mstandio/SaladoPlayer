@@ -16,7 +16,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/ImageMap-1.1.swf">
+		<ImageMap path="~modules/ImageMap-1.2.swf">
 			<viewer moveEnabled="false" zoomSpeed="0.05"/>
 			<maps>
 				<map id="map1" path="~modules/images/imagemap/map_1.jpg">

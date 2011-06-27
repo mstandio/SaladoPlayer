@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	You can change transition to slide up down left right, or fade.
+	You can change transition to slide up down left right, or fade. in order to make
+	slide transitions look batter, you can align map window inside panorama window,
+	so that oit slides in and out close to its default position.
 	
 	http://panozona.com/wiki/Module:ImageMap
 -->
@@ -14,7 +16,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/ImageMap-1.1.swf">
+		<ImageMap path="~modules/ImageMap-1.2.swf">
 			<window transition="type:slideUp"/>
 			<maps>
 				<map id="map1" path="~modules/images/imagemap/map_1.jpg">

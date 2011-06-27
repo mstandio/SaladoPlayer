@@ -11,7 +11,7 @@
 		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/ImageMap-1.1.swf">
+		<ImageMap path="~modules/ImageMap-1.2.swf">
 			<window open="false" transition="type:slideRight" openTween="transition:Back.easeOut" onOpen="mapOpened" onClose="mapClosed" alpha="0.8"/>
 			<viewer moveEnabled="true" dragEnabled="true" zoomEnabled="true"/>
 			<maps>
