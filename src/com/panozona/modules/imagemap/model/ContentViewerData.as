@@ -20,12 +20,16 @@ package com.panozona.modules.imagemap.model {
 	
 	import com.panozona.modules.imagemap.events.ContentViewerEvent;
 	import com.panozona.modules.imagemap.model.structure.Viewer;
+	import com.panozona.player.module.data.property.Size;
 	import flash.events.EventDispatcher;
 	import flash.geom.Point;
 	
 	public class ContentViewerData extends EventDispatcher{
 		
 		public const viewer:Viewer = new Viewer();
+		
+		private var _size:Size;
+		private var _focusPoint:Point;
 		
 		private var _moveLeft:Boolean;
 		private var _moveRight:Boolean;
@@ -38,10 +42,23 @@ package com.panozona.modules.imagemap.model {
 		private var _mouseOver:Boolean;
 		private var _mouseDrag:Boolean;
 		
-		private var _focusPoint:Point;
-		
 		public function ContentViewerData() {
+			_size = new Size(NaN, NaN);
 			_focusPoint = new Point(NaN, NaN);
+		}
+		
+		public function get size():Size {return _size;}
+		public function set size(value:Size):void {
+			_size.width = value.width;
+			_size.height = value.height;
+			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_SIZE));
+		}
+		
+		public function get focusPoint():Point {return _focusPoint;}
+		public function set focusPoint(value:Point):void {
+			_focusPoint.x = value.x;
+			_focusPoint.y = value.y;
+			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_FOCUS_POINT));
 		}
 		
 		public function get moveLeft():Boolean {return _moveLeft;}
@@ -99,13 +116,6 @@ package com.panozona.modules.imagemap.model {
 			if (value && !_mouseOver) return;
 			_mouseDrag = value;
 			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_MOUSE_DRAG));
-		}
-		
-		public function get focusPoint():Point {return _focusPoint;}
-		public function set focusPoint(value:Point):void {
-			_focusPoint.x = value.x;
-			_focusPoint.y = value.y;
-			dispatchEvent(new ContentViewerEvent(ContentViewerEvent.CHANGED_FOCUS_POINT));
 		}
 	}
 }

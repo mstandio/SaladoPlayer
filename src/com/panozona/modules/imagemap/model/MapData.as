@@ -26,7 +26,7 @@ package com.panozona.modules.imagemap.model{
 	public class MapData extends EventDispatcher{
 		
 		public const maps:Maps = new Maps();
-		private var _currentMapId:String;
+		private var _currentMapId:String = null;
 		
 		public function getMapById(mapId:String):Map {
 			for each(var map:Map in maps.getChildrenOfGivenClass(Map)) {

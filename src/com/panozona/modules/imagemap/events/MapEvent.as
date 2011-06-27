@@ -23,7 +23,6 @@ package com.panozona.modules.imagemap.events{
 	public class MapEvent extends Event {
 		
 		public static const CHANGED_CURRENT_MAP_ID:String  = "changedCurrMapId";
-		public static const MAP_IMAGE_LOADED:String  = "mapImageLoaded";
 		
 		public function MapEvent( type:String) {
 			super(type);

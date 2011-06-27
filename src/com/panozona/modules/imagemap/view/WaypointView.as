@@ -20,6 +20,7 @@ package com.panozona.modules.imagemap.view {
 	
 	import com.panozona.modules.imagemap.model.ContentViewerData;
 	import com.panozona.modules.imagemap.model.ImageMapData;
+	import com.panozona.modules.imagemap.model.MapData;
 	import com.panozona.modules.imagemap.model.WaypointData;
 	import flash.display.Sprite;
 	import flash.events.Event;

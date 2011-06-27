@@ -67,7 +67,8 @@ package com.panozona.modules.imagemap.model {
 					}else {
 						mapIds[map.id] = ""; // something
 						for each(var waypoint:Waypoint in map.getChildrenOfGivenClass(Waypoint)) {
-						 	if (waypoint.target == null) throw new Error("Waypoint target not specified in map: " + map.id);
+							if (waypoint.target == null) throw new Error("Waypoint target not specified in map: " + map.id);
+							if (saladoPlayer.managerData.getPanoramaDataById(waypoint.target) == null) throw new Error("Invalid waypoint target: " + waypoint.target);
 							if (waypointTargets[waypoint.target] != undefined) {
 								throw new Error("Repeating waypoint target: " + waypoint.target);
 							}else {

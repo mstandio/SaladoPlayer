@@ -25,12 +25,14 @@ package com.panozona.modules.imagemap.controller {
 	import com.panozona.modules.imagemap.model.WaypointData;
 	import com.panozona.modules.imagemap.view.MapView;
 	import com.panozona.modules.imagemap.view.WaypointView;
+	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.Module;
 	import flash.display.Bitmap;
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	
@@ -55,10 +57,10 @@ package com.panozona.modules.imagemap.controller {
 			_mapView.imageMapData.mapData.addEventListener(ContentViewerEvent.FOCUS_LOST, handleFocusLost, false, 0, true);
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
+			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 		}
 		
-		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
+		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {
 			for each(var map:Map in _mapView.imageMapData.mapData.maps.getChildrenOfGivenClass(Map)) {
 				for each(var waypoint:Waypoint in map.getChildrenOfGivenClass(Waypoint)) {
 					if (waypoint.target == _module.saladoPlayer.manager.currentPanoramaData.id) {
@@ -67,11 +69,12 @@ package com.panozona.modules.imagemap.controller {
 					}
 				}
 			}
-			_mapView.imageMapData.mapData.currentMapId = (_mapView.imageMapData.mapData.maps.getChildrenOfGivenClass(Map)[0]).id;
+			if(_mapView.imageMapData.mapData.currentMapId == null){
+				_mapView.imageMapData.mapData.currentMapId = (_mapView.imageMapData.mapData.maps.getChildrenOfGivenClass(Map)[0]).id;
+			}
 		}
 		
 		private function handleCurrentMapIdChange(e:Event):void {
-			destroyWaypoints();
 			if (mapImageLoader == null) {
 				mapImageLoader = new Loader();
 				mapImageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, mapImageLost, false, 0, true);
@@ -80,8 +83,10 @@ package com.panozona.modules.imagemap.controller {
 				mapImageLoader.unload();
 			}
 			_mapView.waypointsContainer.visible = false;
+			_mapView.imageMapData.contentViewerData.focusPoint = new Point(NaN, NaN);
 			buildWaypoints();
 			mapImageLoader.load(new URLRequest(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).path));
+			_module.saladoPlayer.manager.runAction(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).onSet);
 		}
 		
 		private function handleFocusLost(e:Event):void {
@@ -96,17 +101,13 @@ package com.panozona.modules.imagemap.controller {
 		
 		private function mapImageLoaded(e:Event):void {
 			_mapView.mapImage.bitmapData = (mapImageLoader.content as Bitmap).bitmapData;
-			_mapView.parent.dispatchEvent(new MapEvent(MapEvent.MAP_IMAGE_LOADED));
+			_mapView.imageMapData.contentViewerData.size = new Size(_mapView.mapImage.width, _mapView.mapImage.height);
 			_mapView.waypointsContainer.visible = true;
 		}
 		
-		private function buildWaypoints():void{
-			while (_mapView.waypointsContainer.numChildren) {
-				_mapView.waypointsContainer.removeChildAt(0);
-			}
-			while (waypointControlers.length) {
-				waypointControlers.pop();
-			}
+		private function buildWaypoints():void {
+			destroyWaypoints();
+			
 			var waypointView:WaypointView;
 			var waypointController:WaypointController;
 			var map:Map = _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId);
@@ -155,6 +156,9 @@ package com.panozona.modules.imagemap.controller {
 			}
 			while (_mapView.waypointsContainer.numChildren) {
 				_mapView.waypointsContainer.removeChildAt(0);
+			}
+			while (waypointControlers.length) {
+				waypointControlers.pop();
 			}
 		}
 	}
