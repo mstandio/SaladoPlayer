@@ -125,8 +125,6 @@ package com.panozona.modules.imagemap.controller {
 					_waypointView.radar.rotationZ = _module.saladoPlayer.manager._pan + _waypointView.waypointData.waypoint.panShift;
 				}
 				
-				trace(_waypointView.waypointData.waypoint.target + " " + _module.saladoPlayer.manager._pan)
-				
 				_waypointView.radar.scaleY = 1 - Math.abs(_module.saladoPlayer.manager._tilt) / 100;
 				
 				_pan = _module.saladoPlayer.manager._pan;

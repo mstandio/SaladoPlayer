@@ -81,7 +81,7 @@ package com.panozona.modules.imagemap.controller{
 		
 		private function handleSizeChange(e:Event):void {
 			var initZoom:Number = _contentViewerView.imageMapData.mapData.getMapById(_contentViewerView.imageMapData.mapData.currentMapId).initZoom;
-			
+			focusActive = false;
 			zoomActive = true;
 			deltaZoom = initZoom * 0.01 - _contentViewerView.container.scaleX;
 			onEnterFrame();
@@ -89,7 +89,7 @@ package com.panozona.modules.imagemap.controller{
 			zoomActive = false;
 			
 			_contentViewerView.container.x = (_contentViewerView.containerMask.width -_contentViewerView.container.width) * 0.5;
-			_contentViewerView.container.y = (_contentViewerView.containerMask.height-_contentViewerView.container.height) * 0.5;
+			_contentViewerView.container.y = (_contentViewerView.containerMask.height - _contentViewerView.container.height) * 0.5;
 			
 			if (_contentViewerView.contentViewerData.viewer.autofocusEnabled) {
 				handleFocusPointChange();
@@ -122,6 +122,7 @@ package com.panozona.modules.imagemap.controller{
 		}
 		
 		private function handleMouseWheel(e:MouseEvent):void {
+			focusActive = false;
 			zoomActive = true;
 			deltaZoom = _contentViewerView.contentViewerData.viewer.zoomSpeed * e.delta;
 			onEnterFrame();
@@ -223,8 +224,7 @@ package com.panozona.modules.imagemap.controller{
 						deltaX *= distanceX / distanceY;
 					}
 				}
-			}
-			if (moveActive) {
+			}else if (moveActive) {
 				if (_contentViewerView.contentViewerData.moveLeft) {
 					deltaX = _contentViewerView.contentViewerData.viewer.moveSpeed;
 					deltaY = 0;
@@ -238,8 +238,7 @@ package com.panozona.modules.imagemap.controller{
 					deltaX = 0
 					deltaY = - _contentViewerView.contentViewerData.viewer.moveSpeed;
 				}
-			}
-			if (zoomActive) {
+			} else if (zoomActive) {
 				if (_contentViewerView.contentViewerData.zoomIn) {
 					deltaZoom = _contentViewerView.contentViewerData.viewer.zoomSpeed;
 				}else if (_contentViewerView.contentViewerData.zoomOut) {
