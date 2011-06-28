@@ -18,7 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.controller {
 	
-	import com.panozona.modules.imagemap.events.ContentViewerEvent;
+	import com.panozona.modules.imagemap.events.ViewerEvent;
 	import com.panozona.modules.imagemap.events.MapEvent;
 	import com.panozona.modules.imagemap.model.structure.Map;
 	import com.panozona.modules.imagemap.model.structure.Waypoint;
@@ -54,7 +54,7 @@ package com.panozona.modules.imagemap.controller {
 			arrListeners = new Array();
 			
 			_mapView.imageMapData.mapData.addEventListener(MapEvent.CHANGED_CURRENT_MAP_ID, handleCurrentMapIdChange, false, 0, true);
-			_mapView.imageMapData.mapData.addEventListener(ContentViewerEvent.FOCUS_LOST, handleFocusLost, false, 0, true);
+			_mapView.imageMapData.mapData.addEventListener(ViewerEvent.FOCUS_LOST, handleFocusLost, false, 0, true);
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
@@ -83,7 +83,7 @@ package com.panozona.modules.imagemap.controller {
 				mapImageLoader.unload();
 			}
 			_mapView.waypointsContainer.visible = false;
-			_mapView.imageMapData.contentViewerData.focusPoint = new Point(NaN, NaN);
+			_mapView.imageMapData.viewerData.focusPoint = new Point(NaN, NaN);
 			buildWaypoints();
 			mapImageLoader.load(new URLRequest(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).path));
 			_module.saladoPlayer.manager.runAction(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).onSet);
@@ -101,7 +101,7 @@ package com.panozona.modules.imagemap.controller {
 		
 		private function mapImageLoaded(e:Event):void {
 			_mapView.mapImage.bitmapData = (mapImageLoader.content as Bitmap).bitmapData;
-			_mapView.imageMapData.contentViewerData.size = new Size(_mapView.mapImage.width, _mapView.mapImage.height);
+			_mapView.imageMapData.viewerData.size = new Size(_mapView.mapImage.width, _mapView.mapImage.height);
 			_mapView.waypointsContainer.visible = true;
 		}
 		

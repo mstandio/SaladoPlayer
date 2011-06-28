@@ -32,7 +32,7 @@ package com.panozona.modules.imagemap.controller{
 		private var _windowView:WindowView;
 		private var _module:Module;
 		
-		private var contentViewerController:ContentViewerController;
+		private var viewerController:ViewerController;
 		
 		public function WindowController(windowView:WindowView, module:Module) {
 			
@@ -41,7 +41,7 @@ package com.panozona.modules.imagemap.controller{
 			
 			_windowView.windowData.addEventListener(WindowEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
 			
-			contentViewerController = new ContentViewerController(windowView.contentViewerView, module);
+			viewerController = new ViewerController(windowView.viewerView, module);
 			
 			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);

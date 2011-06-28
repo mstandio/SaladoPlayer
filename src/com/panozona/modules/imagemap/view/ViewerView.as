@@ -18,7 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.view{
 	
-	import com.panozona.modules.imagemap.model.ContentViewerData;
+	import com.panozona.modules.imagemap.model.ViewerData;
 	import com.panozona.modules.imagemap.model.EmbededGraphics;
 	import com.panozona.modules.imagemap.model.ImageMapData;
 	import com.panozona.modules.imagemap.view.MapView;
@@ -27,7 +27,7 @@ package com.panozona.modules.imagemap.view{
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	public class ContentViewerView extends Sprite{
+	public class ViewerView extends Sprite{
 		
 		public const containerMask:Sprite = new Sprite();
 		public const container:Sprite = new Sprite();
@@ -41,7 +41,7 @@ package com.panozona.modules.imagemap.view{
 		private var _imageMapData:ImageMapData;
 		private var _mapView:MapView;
 		
-		public function ContentViewerView(imageMapData:ImageMapData) {
+		public function ViewerView(imageMapData:ImageMapData) {
 			
 			_imageMapData = imageMapData;
 			
@@ -58,7 +58,7 @@ package com.panozona.modules.imagemap.view{
 			_mapView = new MapView(_imageMapData);
 			container.addChild(_mapView);
 			
-			if (_imageMapData.contentViewerData.viewer.moveEnabled){
+			if (_imageMapData.viewerData.viewer.moveEnabled){
 				
 				var navigationMove:Sprite = new Sprite(); // bitmap is square so it wont interact with mouse
 				bitmapMove = new Bitmap(new EmbededGraphics.BitmapMovePlain().bitmapData);
@@ -121,7 +121,7 @@ package com.panozona.modules.imagemap.view{
 				moveUp.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
 			}
 			
-			if (_imageMapData.contentViewerData.viewer.zoomEnabled){
+			if (_imageMapData.viewerData.viewer.zoomEnabled){
 				
 				navigationZoom = new Sprite();
 				bitmapZoom = new Bitmap(new EmbededGraphics.BitmapZoomPlain().bitmapData);
@@ -129,7 +129,7 @@ package com.panozona.modules.imagemap.view{
 				navigationZoom.alpha = 1 / _imageMapData.windowData.window.alpha;
 				addChild(navigationZoom);
 				
-				if (_imageMapData.contentViewerData.viewer.moveEnabled) {
+				if (_imageMapData.viewerData.viewer.moveEnabled) {
 					navigationZoom.x = (navigationMove.width - navigationZoom.width) * 0.5 + navigationMove.x;
 					navigationZoom.y = navigationMove.y + navigationMove.height + 12; 
 				}else {
@@ -164,7 +164,7 @@ package com.panozona.modules.imagemap.view{
 				zoomOut.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
 			}
 			
-			if (_imageMapData.contentViewerData.viewer.dragEnabled) {
+			if (_imageMapData.viewerData.viewer.dragEnabled) {
 				cursor.bitmapData = new EmbededGraphics.BitmapCursorHandOpened().bitmapData;
 				cursor.alpha = 1 / _imageMapData.windowData.window.alpha;
 				cursor.visible = false;
@@ -181,8 +181,8 @@ package com.panozona.modules.imagemap.view{
 			return _imageMapData;
 		}
 		
-		public function get contentViewerData():ContentViewerData {
-			return _imageMapData.contentViewerData;
+		public function get viewerData():ViewerData {
+			return _imageMapData.viewerData;
 		}
 		
 		public function get mapView():MapView {
@@ -190,65 +190,65 @@ package com.panozona.modules.imagemap.view{
 		}
 		
 		private function navLeft(e:Event):void {
-			contentViewerData.moveLeft = true; 
+			viewerData.moveLeft = true; 
 			bitmapMove.bitmapData = new EmbededGraphics.BitmapMoveLeft().bitmapData;
 		}
 		
 		private function navRight(e:Event):void {
-			contentViewerData.moveRight = true; 
+			viewerData.moveRight = true; 
 			bitmapMove.bitmapData = new EmbededGraphics.BitmapMoveRight().bitmapData;
 		}
 		
 		private function navUp(e:Event):void {
-			contentViewerData.moveUp = true; 
+			viewerData.moveUp = true; 
 			bitmapMove.bitmapData = new EmbededGraphics.BitmapMoveUp().bitmapData;
 		}
 		
 		private function navDown(e:Event):void {
-			contentViewerData.moveDown = true; 
+			viewerData.moveDown = true; 
 			bitmapMove.bitmapData = new EmbededGraphics.BitmapMoveDown().bitmapData;
 		}
 		
 		private function navStop(e:Event):void {
-			contentViewerData.moveLeft = false;
-			contentViewerData.moveRight = false;
-			contentViewerData.moveUp = false;
-			contentViewerData.moveDown = false;
+			viewerData.moveLeft = false;
+			viewerData.moveRight = false;
+			viewerData.moveUp = false;
+			viewerData.moveDown = false;
 			bitmapMove.bitmapData = new EmbededGraphics.BitmapMovePlain().bitmapData;
 		}
 		
 		private function navZoomIn(e:Event):void {
-			contentViewerData.zoomIn = true; 
+			viewerData.zoomIn = true; 
 			bitmapZoom.bitmapData = new EmbededGraphics.BitmapZoomIn().bitmapData;
 		}
 		
 		private function navZoomOut(e:Event):void {
-			contentViewerData.zoomOut = true;
+			viewerData.zoomOut = true;
 			bitmapZoom.bitmapData = new EmbededGraphics.BitmapZoomOut().bitmapData;
 		}
 		
 		private function navZoomStop(e:Event):void {
-			contentViewerData.zoomIn = false;
-			contentViewerData.zoomOut = false;
+			viewerData.zoomIn = false;
+			viewerData.zoomOut = false;
 			bitmapZoom.bitmapData = new EmbededGraphics.BitmapZoomPlain().bitmapData;
 		}
 		
 		private function containerMouseOver(e:Event):void {
-			contentViewerData.mouseOver = true;
-			contentViewerData.mouseDrag = false;
+			viewerData.mouseOver = true;
+			viewerData.mouseDrag = false;
 		}
 		
 		private function containerMouseDown(e:Event):void {
-			contentViewerData.mouseDrag = true;
+			viewerData.mouseDrag = true;
 		}
 		
 		private function containerMouseOut(e:Event):void {
-			contentViewerData.mouseOver = false;
-			contentViewerData.mouseDrag = false;
+			viewerData.mouseOver = false;
+			viewerData.mouseDrag = false;
 		}
 		
 		private function containerMouseUp(e:Event):void {
-			contentViewerData.mouseDrag = false;
+			viewerData.mouseDrag = false;
 		}
 	}
 }

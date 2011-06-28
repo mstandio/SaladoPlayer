@@ -71,7 +71,7 @@ package com.panozona.modules.imagemap.controller {
 			if (_module.saladoPlayer.manager.currentPanoramaData.id != _waypointView.waypointData.waypoint.target){
 				_module.saladoPlayer.manager.loadPano(_waypointView.waypointData.waypoint.target);
 			}else {
-				_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
+				_waypointView.viewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
 			}
 		}
 		
@@ -79,7 +79,7 @@ package com.panozona.modules.imagemap.controller {
 			if (_waypointView.waypointData.waypoint.target != null) {
 				if (_module.saladoPlayer.manager.currentPanoramaData.id == _waypointView.waypointData.waypoint.target) {
 					currentDirection = _module.saladoPlayer.managerData.getPanoramaDataById(_waypointView.waypointData.waypoint.target).direction;
-					_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
+					_waypointView.viewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
 					_waypointView.waypointData.showRadar = true;
 				}else {
 					_waypointView.waypointData.showRadar = false;
@@ -89,7 +89,7 @@ package com.panozona.modules.imagemap.controller {
 		
 		private function onIsAutorotatingChange(autorotationEvent:Object):void {
 			if (_waypointView.waypointData.showRadar && !_isFocused) {
-				_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
+				_waypointView.viewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
 				_isFocused = true;
 			}
 		}
@@ -140,7 +140,7 @@ package com.panozona.modules.imagemap.controller {
 				pan1 = _module.saladoPlayer.manager._pan;
 				if (_waypointView.waypointData.showRadar && !_isFocused) {
 					if(Math.floor(Math.abs(pan1 - pan2)) > Math.floor(Math.abs(pan2 - pan3))){ // detect acceleration 
-						_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
+						_waypointView.viewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
 						_isFocused = true;
 					}
 				}

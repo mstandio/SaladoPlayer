@@ -20,7 +20,7 @@ package com.panozona.modules.imagemap.events {
 	
 	import flash.events.Event;
 	
-	public class ContentViewerEvent extends Event{
+	public class ViewerEvent extends Event{
 		
 		public static const CHANGED_MOVE:String = "changedMove";
 		public static const CHANGED_ZOOM:String = "changedZoom";
@@ -34,7 +34,7 @@ package com.panozona.modules.imagemap.events {
 		
 		public static const FOCUS_LOST:String = "focusLost";
 		
-		public function ContentViewerEvent(type:String){
+		public function ViewerEvent(type:String){
 			super(type);
 		}
 	}

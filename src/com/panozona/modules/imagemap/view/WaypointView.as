@@ -18,7 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.view {
 	
-	import com.panozona.modules.imagemap.model.ContentViewerData;
+	import com.panozona.modules.imagemap.model.ViewerData;
 	import com.panozona.modules.imagemap.model.ImageMapData;
 	import com.panozona.modules.imagemap.model.MapData;
 	import com.panozona.modules.imagemap.model.WaypointData;
@@ -55,8 +55,8 @@ package com.panozona.modules.imagemap.view {
 			button.addEventListener(MouseEvent.ROLL_OUT, mouseOut, false, 0, true);
 		}
 		
-		public function get contentViewerData():ContentViewerData {
-			return _imageMapData.contentViewerData;
+		public function get viewerData():ViewerData {
+			return _imageMapData.viewerData;
 		}
 		
 		public function get waypointData():WaypointData {
@@ -75,13 +75,13 @@ package com.panozona.modules.imagemap.view {
 		
 		private function mouseOver(e:Event):void {
 			waypointData.mouseOver = true; // button color change
-			_imageMapData.contentViewerData.mouseOver = false; // removing hand bitmap
+			_imageMapData.viewerData.mouseOver = false; // removing hand bitmap
 			
 		}
 		
 		private function mouseOut(e:Event):void {
 			waypointData.mouseOver = false; // button color change
-			_imageMapData.contentViewerData.mouseOver = true; // adding hand bitmap
+			_imageMapData.viewerData.mouseOver = true; // adding hand bitmap
 		}
 	}
 }

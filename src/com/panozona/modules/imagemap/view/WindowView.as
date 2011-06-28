@@ -29,7 +29,7 @@ package com.panozona.modules.imagemap.view{
 	
 	public class WindowView extends Sprite{
 		
-		private var _contentViewerView:ContentViewerView;
+		private var _viewerView:ViewerView;
 		
 		private var window:Sprite;
 		private var windowCloseButton:SimpleButton;
@@ -49,8 +49,8 @@ package com.panozona.modules.imagemap.view{
 			window.graphics.endFill();
 			addChild(window);
 			
-			_contentViewerView = new ContentViewerView(_imageMapData);
-			window.addChild(_contentViewerView);
+			_viewerView = new ViewerView(_imageMapData);
+			window.addChild(_viewerView);
 			
 			// draw close button
 			windowCloseButton = new SimpleButton();
@@ -76,8 +76,8 @@ package com.panozona.modules.imagemap.view{
 			return _imageMapData.windowData;
 		}
 		
-		public function get contentViewerView():ContentViewerView {
-			return _contentViewerView;
+		public function get viewerView():ViewerView {
+			return _viewerView;
 		}
 		
 		private function closeWindow(e:Event):void {

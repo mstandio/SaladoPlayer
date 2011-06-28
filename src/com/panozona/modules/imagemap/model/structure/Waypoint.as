@@ -23,8 +23,8 @@ package com.panozona.modules.imagemap.model.structure {
 	
 	public class Waypoint {
 		
-		public var position:Position = new Position(0,0);
 		public var target:String = null;
+		public var position:Position = new Position(0,0);
 		public var mouse:Mouse = new Mouse();
 		public var panShift:Number = NaN;
 	}

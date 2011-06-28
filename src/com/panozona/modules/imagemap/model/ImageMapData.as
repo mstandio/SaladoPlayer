@@ -27,7 +27,7 @@ package com.panozona.modules.imagemap.model {
 	public class ImageMapData {
 		
 		public const windowData:WindowData = new WindowData();
-		public const contentViewerData:ContentViewerData = new ContentViewerData();
+		public const viewerData:ViewerData = new ViewerData();
 		public const mapData:MapData = new MapData();
 		
 		public function ImageMapData(moduleData:ModuleData, saladoPlayer:Object) {
@@ -36,7 +36,7 @@ package com.panozona.modules.imagemap.model {
 				if (dataNode.name == "window") {
 					tarnslator.dataNodeToObject(dataNode, windowData.window);
 				}else if (dataNode.name == "viewer") {
-					tarnslator.dataNodeToObject(dataNode, contentViewerData.viewer);
+					tarnslator.dataNodeToObject(dataNode, viewerData.viewer);
 				}else if (dataNode.name == "maps") {
 					tarnslator.dataNodeToObject(dataNode, mapData.maps);
 				}else {
