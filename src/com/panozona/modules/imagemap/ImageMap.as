@@ -43,8 +43,8 @@ package com.panozona.modules.imagemap{
 			imageMapData = new ImageMapData(moduleData, saladoPlayer); // always first
 			
 			windowView = new WindowView(imageMapData);
-			addChild(windowView);
 			windowController = new WindowController(windowView, this);
+			addChild(windowView);
 		}
 		
 ///////////////////////////////////////////////////////////////////////////////

@@ -117,29 +117,27 @@ package com.panozona.modules.imagemap.controller {
 				drawRadar();
 				_fov = _module.saladoPlayer.manager._fieldOfView;
 			}
-			if (_pan != _module.saladoPlayer.manager._pan || _tilt != _module.saladoPlayer.manager._tilt) {
-				
-				if (isNaN(_waypointView.waypointData.waypoint.panShift)) {
-					_waypointView.radar.rotationZ = _module.saladoPlayer.manager._pan + currentDirection;
-				}else {
-					_waypointView.radar.rotationZ = _module.saladoPlayer.manager._pan + _waypointView.waypointData.waypoint.panShift;
-				}
-				
+			if(_tilt != _module.saladoPlayer.manager._tilt && _waypointView.waypointData.radar.displayTilt){
 				_waypointView.radar.scaleY = 1 - Math.abs(_module.saladoPlayer.manager._tilt) / 100;
-				
-				_pan = _module.saladoPlayer.manager._pan;
-				_tilt = _module.saladoPlayer.manager._tilt;
-				
+				if (_waypointView.radar.scaleY < 0.1) _waypointView.radar.scaleY = 0.1;
 				if (_module.saladoPlayer.manager._tilt > 0) {
 					_waypointView.radarFirst();
 				}else {
 					_waypointView.buttonFirst();
 				}
+				_tilt = _module.saladoPlayer.manager._tilt;
+			}
+			if (_pan != _module.saladoPlayer.manager._pan) {
+				if (isNaN(_waypointView.waypointData.waypoint.panShift)) {
+					_waypointView.radar.rotationZ = _module.saladoPlayer.manager._pan + currentDirection;
+				}else {
+					_waypointView.radar.rotationZ = _module.saladoPlayer.manager._pan + _waypointView.waypointData.waypoint.panShift;
+				}
+				_pan = _module.saladoPlayer.manager._pan;
 				
 				pan3 = pan2;
 				pan2 = pan1;
 				pan1 = _module.saladoPlayer.manager._pan;
-				
 				if (_waypointView.waypointData.showRadar && !_isFocused) {
 					if(Math.floor(Math.abs(pan1 - pan2)) > Math.floor(Math.abs(pan2 - pan3))){ // detect acceleration 
 						_waypointView.contentViewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
