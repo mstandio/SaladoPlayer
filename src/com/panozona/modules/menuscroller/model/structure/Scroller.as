@@ -16,11 +16,23 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.menuscroller.model.structure{
+package com.panozona.modules.menuscroller.model.structure {
 	
-	public class Element{
+	import caurina.transitions.Equations;
+	import com.panozona.player.module.data.property.Tween;
+	
+	public class Scroller {
 		
-		public var target:String = null;
-		public var path:String = null;
+		public var scrollsVertical:Boolean = true;
+		public var sizeLimit:Number = 150;
+		public var spacing:Number = 10;
+		
+		public var mouseOver:Expand = new Expand(Equations.easeNone, 0.5, 1.5);
+		public var mouseOut:Tween = new Tween(Equations.easeNone, 0.5);
+		
+		// scrollspeeed
+		// scroll tween 
+		// fitVisible
+		// style
 	}
 }

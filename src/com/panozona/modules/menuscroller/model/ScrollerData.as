@@ -16,11 +16,17 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.menuscroller.model.structure{
+package com.panozona.modules.menuscroller.model{
 	
-	public class Element{
+	import com.panozona.modules.menuscroller.model.structure.Scroller;
+	import flash.events.EventDispatcher;
+	
+	public class ScrollerData extends EventDispatcher{
 		
-		public var target:String = null;
-		public var path:String = null;
+		public const scroller:Scroller = new Scroller();
+		
+		public function ScrollerData(){
+			
+		}
 	}
 }

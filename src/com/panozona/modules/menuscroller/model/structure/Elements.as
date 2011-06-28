@@ -18,10 +18,14 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.menuscroller.model.structure{
 	
-	public class Elements{
+	import com.panozona.player.module.data.structure.DataParent;
+	
+	public class Elements extends DataParent {
 		
-		public function Elements(){
-			
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Element);
+			return result;
 		}
 	}
 }

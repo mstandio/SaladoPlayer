@@ -18,19 +18,27 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.menuscroller.model {
 	
-	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.modules.menuscroller.model.structure.Element;
+	import com.panozona.modules.menuscroller.model.structure.Elements;
 	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class MenuScrollerData {
 		
 		public var windowData:WindowData = new WindowData();
+		public var scrollerData:ScrollerData = new ScrollerData();
+		public var elements:Elements = new Elements();
 		
-		public function MenuScrollerData(moduleData:ModuleData, debugMode:Boolean) {
-			var tarnslator:DataNodeTranslator = new DataNodeTranslator(debugMode);
+		public function MenuScrollerData(moduleData:ModuleData, saladoPlayer:Object) {
+			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
 			for each(var dataNode:DataNode in moduleData.nodes) {
 				if (dataNode.name == "window") {
 					tarnslator.dataNodeToObject(dataNode, windowData.window);
+				}else if (dataNode.name == "scroller") {
+					tarnslator.dataNodeToObject(dataNode, scrollerData.scroller);
+				}else if (dataNode.name == "elements") {
+					tarnslator.dataNodeToObject(dataNode, elements);
 				}else {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
@@ -40,8 +48,23 @@ package com.panozona.modules.menuscroller.model {
 			windowData.elasticWidth = windowData.window.size.width;
 			windowData.elasticHeight = windowData.window.size.height;
 			
-			if (debugMode) {
-				// something something 
+			if (saladoPlayer.managerData.debugMode) {
+				if (windowData.window.onOpen != null && saladoPlayer.managerData.getActionDataById(windowData.window.onOpen) == null) {
+					throw new Error("Action does not exist: " + windowData.window.onOpen);
+				}
+				if (windowData.window.onClose != null && saladoPlayer.managerData.getActionDataById(windowData.window.onClose) == null) {
+					throw new Error("Action does not exist: " + windowData.window.onClose);
+				}
+				var elementTargets:Object = new Object();
+				for each (var element:Element in elements.getChildrenOfGivenClass(Element)) {
+					if (element.target == null) throw new Error("Element target not specified.");
+					if (saladoPlayer.managerData.getPanoramaDataById(element.target) == null) throw new Error("Invalid waypoint target: " + element.target);
+					if (elementTargets[element.target] != undefined) {
+						throw new Error("Repeating element target: " + element.target);
+					}else {
+						elementTargets[element.target] = ""; // something
+					}
+				}
 			}
 		}
 	}

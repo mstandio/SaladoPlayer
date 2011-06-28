@@ -20,6 +20,8 @@ package com.panozona.modules.menuscroller.model {
 	
 	import com.panozona.modules.menuscroller.events.ElementEvent;
 	import com.panozona.modules.menuscroller.model.structure.Element;
+	import com.panozona.modules.menuscroller.model.structure.Scroller;
+	import com.panozona.player.module.data.property.Size;
 	import flash.events.EventDispatcher;
 	
 	public class ElementData extends EventDispatcher{
@@ -28,22 +30,47 @@ package com.panozona.modules.menuscroller.model {
 		public static const STATE_HOVER:String = "stateHover";
 		public static const STATE_ACTIVE:String = "stateActive";
 		
-		private var _state:String;
+		private var _state:String = ElementData.STATE_PLAIN;
 		
-		private var _showing:Boolean;
+		private var _isShowing:Boolean;
 		private var _loaded:Boolean;
 		private var _mouseOver:Boolean;
 		
-		public function get showing():Boolean { return _showing; }
-		public function set showing(value:Boolean):void {
-			if (_showing == value) return;
-			_showing = value;
-			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_STATE));
+		private var _size:Size;
+		
+		private var _element:Element;
+		private var _scroller:Scroller;
+		
+		public function ElementData(element:Element, scroller:Scroller):void {
+			_element = element;
+			_scroller = scroller;
+			_size = new Size(scroller.sizeLimit, scroller.sizeLimit);
+		}
+		
+		public function get element():Element {
+			return _element;
+		}
+		
+		public function get scroller():Scroller {
+			return _scroller;
+		}
+		
+		public function get isShowing():Boolean { return _isShowing; }
+		public function set isShowing(value:Boolean):void {
+			if (_isShowing == value) return;
+			_isShowing = value;
+			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_IS_SHOWING));
 		}
 		
 		public function get loaded():Boolean { return _loaded; }
 		public function set loaded(value:Boolean):void {
 			if (value) _loaded = true;
+		}
+		
+		public function get size():Size { return _size; }
+		public function set size(value:Size):void {
+			_size = value;
+			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_SIZE));
 		}
 		
 		public function get state():String { return _state; }

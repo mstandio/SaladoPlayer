@@ -29,23 +29,23 @@ package com.panozona.modules.menuscroller.model {
 		private var _elasticWidth:Number;
 		private var _elasticHeight:Number;
 		
-		public var window:Window = new Window();
+		public const window:Window = new Window();
 		
-		public function get open():Boolean { return _open; }
+		public function get open():Boolean { return _open;}
 		public function set open(value:Boolean):void {
 			if (value == _open) return;
 			_open = value;
 			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_OPEN));
 		}
 		
-		public function get elasticWidth():Number { return _elasticWidth; }
+		public function get elasticWidth():Number { return _elasticWidth;}
 		public function set elasticWidth(value:Number):void {
 			if (value == _elasticWidth) return;
 			_elasticWidth = value;
 			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_ELASTIC_WIDTH));
 		}
 		
-		public function get elasticHeight():Number { return _elasticHeight; }
+		public function get elasticHeight():Number { return _elasticHeight;}
 		public function set elasticHeight(value:Number):void {
 			if (value == _elasticHeight) return;
 			_elasticHeight = value;

@@ -18,10 +18,33 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.menuscroller.view{
 	
-	public class ScrollerView{
+	import com.panozona.modules.menuscroller.model.MenuScrollerData;
+	import flash.display.Sprite;
+	
+	public class ScrollerView extends Sprite{
 		
-		public function ScrollerView(){
+		private var _menuScrollerData:MenuScrollerData;
+		private var _elementsContainer:Sprite;
+		private var _elementsContainerMask:Sprite;
+		
+		public function ScrollerView(menuScrollerData:MenuScrollerData){
+			_menuScrollerData = menuScrollerData;
 			
+			_elementsContainer = new Sprite();
+			addChild(_elementsContainer);
+			//_elementsContainer.mask = _elementsContainerMask;
+		}
+		
+		public function get menuScrollerData():MenuScrollerData {
+			return _menuScrollerData;
+		}
+		
+		public function get elementsContainer():Sprite {
+			return _elementsContainer;
+		}
+		
+		public function get elementsContainerMask():Sprite {
+			return _elementsContainerMask;
 		}
 	}
 }

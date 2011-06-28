@@ -27,8 +27,6 @@ package com.panozona.modules.menuscroller.model.structure {
 	
 	public class Window{
 		
-		public var scrollsVertical:Boolean = true;
-		
 		public var align:Align = new Align(Align.LEFT, Align.MIDDLE);
 		public var move:Move = new Move(0, 0);
 		public var size:Size = new Size(200, NaN);

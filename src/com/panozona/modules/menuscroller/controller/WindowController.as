@@ -30,6 +30,8 @@ package com.panozona.modules.menuscroller.controller{
 	
 	public class WindowController{
 		
+		private var scrollerController:ScrollerController;
+		
 		private var _windowView:WindowView;
 		private var _module:Module;
 		
@@ -37,6 +39,8 @@ package com.panozona.modules.menuscroller.controller{
 			
 			_module = module;
 			_windowView = windowView;
+			
+			scrollerController = new ScrollerController(windowView.scrollerView, _module);
 			
 			_windowView.windowData.addEventListener(WindowEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
 			
@@ -111,10 +115,10 @@ package com.panozona.modules.menuscroller.controller{
 		}
 		
 		private function recalculateSize():void {
-			if (isNaN(_windowView.windowData.window.size.width) && !_windowView.windowData.window.scrollsVertical) {
+			if (isNaN(_windowView.windowData.window.size.width)) {
 				_windowView.windowData.elasticWidth = _module.saladoPlayer.manager.boundsWidth;
 			}
-			if (isNaN(_windowView.windowData.window.size.height) && _windowView.windowData.window.scrollsVertical) {
+			if (isNaN(_windowView.windowData.window.size.height)) {
 				_windowView.windowData.elasticHeight = _module.saladoPlayer.manager.boundsHeight;
 			}
 		}

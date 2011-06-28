@@ -16,12 +16,19 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.menuscroller.events{
+package com.panozona.modules.menuscroller.events {
 	
-	public class ElementEvent{
+	import flash.events.Event;
+	
+	public class ElementEvent extends Event{
 		
-		public function ElementEvent(){
-			
+		public static const CHANGED_IS_SHOWING:String = "changedIsShowing";
+		public static const CHANGED_STATE:String = "changedState";
+		public static const CHANGED_MOUSE_OVER:String = "changedMouseOver";
+		public static const CHANGED_SIZE:String = "changedSize";
+		
+		public function ElementEvent(type:String){
+			super(type);
 		}
 	}
 }

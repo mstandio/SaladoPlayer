@@ -33,13 +33,13 @@ package com.panozona.modules.menuscroller {
 		
 		public function MenuScroller(){
 			super("MenuScroller", "1.0", "http://panozona.com/wiki/Module:MenuScroller");
-			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
+			moduleDescription.addFunctionDescription("toggleOpen");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			
-			menuScrollerData = new MenuScrollerData(moduleData, saladoPlayer.managerData.debugMode); // always first
+			menuScrollerData = new MenuScrollerData(moduleData, saladoPlayer); // always first
 			
 			windowView = new WindowView(menuScrollerData);
 			windowController = new WindowController(windowView, this);

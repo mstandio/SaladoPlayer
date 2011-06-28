@@ -18,9 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.menuscroller.model.structure{
 	
-	public class Element{
+	public class Style{
 		
-		public var target:String = null;
-		public var path:String = null;
+		public var outlineColor:Number = 0xFFFFFF; // white
+		public var outlineSize:Number = 5;
 	}
 }

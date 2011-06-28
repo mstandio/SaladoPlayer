@@ -18,9 +18,15 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.menuscroller.model.structure{
 	
-	public class Element{
+	import com.panozona.player.module.data.property.Tween;
+	
+	public class Expand extends Tween{
 		
-		public var target:String = null;
-		public var path:String = null;
+		public var scale:Number;
+		
+		public function Expand(transition:Function, time:Number, scale:Number):void {
+			super(transition, time);
+			this.scale = scale;
+		}
 	}
 }
