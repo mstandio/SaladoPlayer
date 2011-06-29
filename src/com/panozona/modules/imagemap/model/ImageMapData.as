@@ -60,7 +60,7 @@ package com.panozona.modules.imagemap.model {
 				var waypointTargets:Object = new Object();
 				for each(var map:Map in mapData.maps.getChildrenOfGivenClass(Map)) {
 					if (map.id == null) throw new Error("Map id not specified.");
-					if (map.path == null && !map.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)) throw new Error("Invalid map path: " + map.path);
+					if (map.path == null || !map.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)) throw new Error("Invalid map path: " + map.path);
 					if (map.onSet != null && saladoPlayer.managerData.getActionDataById(map.onSet) == null) throw new Error("Action does not exist: " + map.onSet);
 					if (mapIds[map.id] != undefined) {
 						throw new Error("Repeating map id: " + map.id);

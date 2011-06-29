@@ -20,25 +20,32 @@ package com.panozona.modules.imagemap.view {
 	
 	import com.panozona.modules.imagemap.model.ImageMapData;
 	import flash.display.Bitmap;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	
 	public class MapView extends Sprite {
 		
-		public const mapImage:Bitmap = new Bitmap();
 		public const waypointsContainer:Sprite = new Sprite();
 		
+		private var _content:DisplayObject;
 		private var _imageMapData:ImageMapData;
 		
 		public function MapView(imageMapData:ImageMapData) {
-			
 			_imageMapData = imageMapData;
 			
-			addChild(mapImage);
 			addChild(waypointsContainer);
 		}
 		
 		public function get imageMapData():ImageMapData {
 			return _imageMapData;
+		}
+		
+		public function set content(value:DisplayObject):void {
+			if (value == null) return;
+			while(numChildren) removeChildAt(0);
+			_content = value;
+			addChild(_content);
+			addChild(waypointsContainer);
 		}
 	}
 }

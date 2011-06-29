@@ -44,7 +44,7 @@ package com.panozona.modules.imagemap.controller {
 		private var waypointControlers:Array;
 		private var arrListeners:Array;
 		
-		private var mapImageLoader:Loader;
+		private var mapContentLoader:Loader;
 		
 		public function MapController(mapView:MapView, module:Module){
 			_mapView = mapView;
@@ -75,17 +75,17 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function handleCurrentMapIdChange(e:Event):void {
-			if (mapImageLoader == null) {
-				mapImageLoader = new Loader();
-				mapImageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, mapImageLost, false, 0, true);
-				mapImageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, mapImageLoaded, false, 0, true);
+			if (mapContentLoader == null) {
+				mapContentLoader = new Loader();
+				mapContentLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, mapContentLost, false, 0, true);
+				mapContentLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, mapContentLoaded, false, 0, true);
 			}else {
-				mapImageLoader.unload();
+				mapContentLoader.unload();
 			}
 			_mapView.waypointsContainer.visible = false;
 			_mapView.imageMapData.viewerData.focusPoint = new Point(NaN, NaN);
 			buildWaypoints();
-			mapImageLoader.load(new URLRequest(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).path));
+			mapContentLoader.load(new URLRequest(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).path));
 			_module.saladoPlayer.manager.runAction(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).onSet);
 		}
 		
@@ -95,13 +95,13 @@ package com.panozona.modules.imagemap.controller {
 			}
 		}
 		
-		private function mapImageLost(e:IOErrorEvent):void {
+		private function mapContentLost(e:IOErrorEvent):void {
 			_module.printError(e.text);
 		}
 		
-		private function mapImageLoaded(e:Event):void {
-			_mapView.mapImage.bitmapData = (mapImageLoader.content as Bitmap).bitmapData;
-			_mapView.imageMapData.viewerData.size = new Size(_mapView.mapImage.width, _mapView.mapImage.height);
+		private function mapContentLoaded(e:Event):void {
+			_mapView.content = mapContentLoader.content;
+			_mapView.imageMapData.viewerData.size = new Size(mapContentLoader.content.width, mapContentLoader.content.height);
 			_mapView.waypointsContainer.visible = true;
 		}
 		
