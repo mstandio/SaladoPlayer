@@ -15,13 +15,13 @@
 		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<DropDown path="~modules/DropDown-1.0.swf">
+		<DropDown path="~modules/DropDown-1.1.swf">
 			<settings align="horizontal:right,vertical:top" move="horizontal:-40,vertical:40" style="opensUp:false" />
 			<elements>
-				<element label="Blue checker" panorama="blueChecker"/>
-				<element label="Green checker" panorama="greenChecker"/>
-				<element label="Red checker" panorama="redChecker"/>
-				<element label="Yellow checker" panorama="yellowChecker"/>
+				<element target="blueChecker" label="Blue checker"/>
+				<element target="greenChecker" label="Green checker"/>
+				<element target="redChecker" label="Red checker"/>
+				<element target="yellowChecker" label="Yellow checker"/>
 			</elements>
 		</DropDown>
 	</modules>

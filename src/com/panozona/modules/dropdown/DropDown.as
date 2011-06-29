@@ -21,9 +21,8 @@ package com.panozona.modules.dropdown{
 	import com.panozona.modules.dropdown.controller.BoxController;
 	import com.panozona.modules.dropdown.model.DropDownData;
 	import com.panozona.modules.dropdown.view.BoxView;
-	import com.panozona.player.module.Module;
 	import com.panozona.player.module.data.ModuleData;
-	import flash.system.ApplicationDomain;
+	import com.panozona.player.module.Module;
 	
 	public class DropDown extends Module{
 		
@@ -33,7 +32,7 @@ package com.panozona.modules.dropdown{
 		private var boxController:BoxController;
 		
 		public function DropDown(){
-			super("DropDown", "1.0", "http://panozona.com/wiki/Module:DropDown");
+			super("DropDown", "1.1", "http://panozona.com/wiki/Module:DropDown");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
@@ -42,15 +41,6 @@ package com.panozona.modules.dropdown{
 			boxView = new BoxView(dropDownData);
 			boxController = new BoxController(boxView, this);
 			addChild(boxView);
-			
-			boxController.handleResize();
-			
-			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
-		}
-		
-		private function onPanoramaStartedLoading(e:Object):void {
-			dropDownData.boxData.currentPanoramaId = saladoPlayer.manager.currentPanoramaData.id;
 		}
 	}
 }

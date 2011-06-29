@@ -24,31 +24,23 @@ package com.panozona.modules.dropdown.model{
 	
 	public class BoxData extends EventDispatcher{
 		
-		public var elements:Elements = new Elements();
+		public const elements:Elements = new Elements();
 		
 		private var _open:Boolean;
 		private var _mouseOver:Boolean;
-		private var _currentPanoramaId:String;
 		
 		public function get open():Boolean { return _open;}
 		public function set open(value:Boolean):void {
-			if (_open == value) return;
+			if (value == _open) return;
 			_open = value;
 			dispatchEvent(new BoxEvent(BoxEvent.CHANGED_OPEN));
 		}
 		
 		public function get mouseOver():Boolean { return _mouseOver;}
 		public function set mouseOver(value:Boolean):void {
-			if (_mouseOver == value) return;
+			if (value == _mouseOver) return;
 			_mouseOver = value;
 			dispatchEvent(new BoxEvent(BoxEvent.CHANGED_MOUSE_OVER));
-		}
-		
-		public function get currentPanoramaId():String { return _currentPanoramaId;}
-		public function set currentPanoramaId(value:String):void {
-			if (_currentPanoramaId == value) return;
-			_currentPanoramaId = value;
-			dispatchEvent(new BoxEvent(BoxEvent.CHANGED_CURRENT_PANORAMA_ID));
 		}
 	}
 }

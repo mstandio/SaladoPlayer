@@ -24,10 +24,11 @@ package com.panozona.modules.dropdown.controller{
 	import com.panozona.modules.dropdown.view.ElementView;
 	import com.panozona.player.module.Module;
 	import flash.events.MouseEvent;
+	import flash.system.ApplicationDomain;
 	
 	public class ElementController{
 		
-		private var _elementView:ElementView; 
+		private var _elementView:ElementView;
 		private var _module:Module;
 		
 		public function ElementController(elementView:ElementView, module:Module){
@@ -39,6 +40,9 @@ package com.panozona.modules.dropdown.controller{
 			_elementView.elementData.addEventListener(ElementEvent.CHANGED_WIDTH, handleElementWidthChange, false, 0, true);
 			
 			_elementView.addEventListener(MouseEvent.CLICK, handleMouseClick, false, 0, true);
+			
+			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
 		}
 		
 		private function handleElementMouseOverChange(e:ElementEvent):void {
@@ -63,15 +67,27 @@ package com.panozona.modules.dropdown.controller{
 		
 		private function handleElementWidthChange(e:ElementEvent):void {
 			if (_elementView.textField.width != _elementView.elementData.width) {
-				_elementView.textField.width == _elementView.elementData.width;
+				_elementView.textField.width = _elementView.elementData.width;
 			}
 		}
 		
 		private function handleMouseClick(e:MouseEvent):void {
 			if (_elementView.elementData.state != ElementData.STATE_ACTIVE) {
-				_module.saladoPlayer.manager.loadPanoramaById(_elementView.elementData.element.panorama);
+				_module.saladoPlayer.manager.loadPano(_elementView.elementData.element.target);
 			}
 			_elementView.dropDownData.boxData.open = false;
+		}
+		
+		private function onPanoramaStartedLoading(panoramaEvent:Object):void {
+			if (_elementView.elementData.element.target == _module.saladoPlayer.manager.currentPanoramaData.id) {
+					_elementView.elementData.state = ElementData.STATE_ACTIVE;
+			}else {
+				if (_elementView.elementData.mouseOver) {
+					_elementView.elementData.state = ElementData.STATE_HOVER;
+				}else{
+					_elementView.elementData.state = ElementData.STATE_PLAIN;
+				}
+			}
 		}
 	}
 }

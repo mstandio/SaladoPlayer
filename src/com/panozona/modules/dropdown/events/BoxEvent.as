@@ -22,9 +22,8 @@ package com.panozona.modules.dropdown.events{
 	
 	public class BoxEvent extends Event{
 		
-		public static const CHANGED_OPEN:String = "chngdOpen";
-		public static const CHANGED_MOUSE_OVER:String = "chngdMouseOver";
-		public static const CHANGED_CURRENT_PANORAMA_ID:String = "chngdCurrentPanoramaId";
+		public static const CHANGED_OPEN:String = "changedOpen";
+		public static const CHANGED_MOUSE_OVER:String = "changedMouseOver";
 		
 		public function BoxEvent( type:String){
 			super(type);

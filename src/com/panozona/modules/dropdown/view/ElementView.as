@@ -29,8 +29,7 @@ package com.panozona.modules.dropdown.view{
 	
 	public class ElementView extends Sprite{
 		
-		private var _textField:TextField;
-		private var textFormat:TextFormat;
+		public const textField:TextField = new TextField();
 		
 		private var _elementData:ElementData;
 		private var _dropDownData:DropDownData;
@@ -39,44 +38,39 @@ package com.panozona.modules.dropdown.view{
 			_elementData = elementData;
 			_dropDownData = dropDownData;
 			
-			textFormat = new TextFormat();
+			var textFormat:TextFormat = new TextFormat();
 			textFormat.blockIndent = 0;
 			textFormat.font = dropDownData.settings.style.fontFamily;
 			textFormat.size = dropDownData.settings.style.fontSize;
 			textFormat.color = dropDownData.settings.style.fontColor;
 			textFormat.leftMargin = dropDownData.settings.style.fontSize * 0.3;
-			textFormat.rightMargin = dropDownData.settings.style.fontSize * 0.5;
+			textFormat.rightMargin = dropDownData.settings.style.fontSize * 0.7;
 			
-			_textField = new TextField();
-			_textField.defaultTextFormat = textFormat;
-			_textField.text = elementData.element.label;
-			_textField.width = _textField.textWidth + textFormat.leftMargin + textFormat.rightMargin;
-			_textField.selectable = false;
-			_textField.blendMode = BlendMode.LAYER;
-			_textField.background = true;
-			_textField.backgroundColor = dropDownData.settings.style.plainColor;
-			_textField.border = true;
-			_textField.borderColor = dropDownData.settings.style.borderColor;
-			_textField.height = dropDownData.settings.style.fontSize * 1.4;
-			addChild(_textField);
+			textField.defaultTextFormat = textFormat;
+			textField.text = elementData.element.label;
+			textField.width = textField.textWidth + textFormat.leftMargin + textFormat.rightMargin;
+			textField.selectable = false;
+			textField.blendMode = BlendMode.LAYER;
+			textField.background = true;
+			textField.backgroundColor = dropDownData.settings.style.plainColor;
+			textField.border = true;
+			textField.borderColor = dropDownData.settings.style.borderColor;
+			textField.height = dropDownData.settings.style.fontSize * 1.4;
+			addChild(textField);
 			
-			elementData.width = _textField.width;
+			elementData.width = textField.width;
 			buttonMode = true;
 			
 			addEventListener(MouseEvent.ROLL_OVER, mouseOver, false, 0, true);
 			addEventListener(MouseEvent.ROLL_OUT, mouseOut, false, 0, true)
 		}
 		
-		public function get dropDownData():DropDownData {
-			return _dropDownData;
-		}
-		
-		public function get elementData():ElementData{
+		public function get elementData():ElementData {
 			return _elementData;
 		}
 		
-		public function get textField():TextField {
-			return _textField;
+		public function get dropDownData():DropDownData {
+			return _dropDownData;
 		}
 		
 		private function mouseOver(e:Event):void {

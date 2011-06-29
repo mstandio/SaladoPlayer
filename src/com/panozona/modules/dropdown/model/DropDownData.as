@@ -27,8 +27,8 @@ package com.panozona.modules.dropdown.model{
 	
 	public class DropDownData{
 		
-		public var settings:Settings = new Settings();
-		public var boxData:BoxData = new BoxData();
+		public const settings:Settings = new Settings();
+		public const boxData:BoxData = new BoxData();
 		
 		public function DropDownData(moduleData:ModuleData, saladoPlayer:Object){
 			
@@ -38,16 +38,21 @@ package com.panozona.modules.dropdown.model{
 				if (dataNode.name == "settings") {
 					translator.dataNodeToObject(dataNode, settings);
 				}else if (dataNode.name == "elements") {
-					translator.dataNodeToObject(dataNode,boxData.elements);
+					translator.dataNodeToObject(dataNode, boxData.elements);
 				}else {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
 			
 			if (saladoPlayer.managerData.debugMode) {
+				var elementTargets:Object = new Object();
 				for each(var element:Element in boxData.elements.getChildrenOfGivenClass(Element)) {
-					if (saladoPlayer.managerData.getPanoramaDataById(element.panorama) == null) {
-						throw new Error("Nonexistant panorama id: " + element.panorama);
+					if (element.target == null) throw new Error("Element target not specified.");
+					if (saladoPlayer.managerData.getPanoramaDataById(element.target) == null) throw new Error("Invalid element target: " + element.target);
+					if (elementTargets[element.target] != undefined) {
+						throw new Error("Repeating element target: " + element.target);
+					}else {
+						elementTargets[element.target] = ""; // something
 					}
 				}
 			}

@@ -30,10 +30,10 @@
 				</map>
 			</maps>
 		</ImageMap>
-		<DropDown path="~modules/DropDown-1.0.swf">
+		<DropDown path="~modules/DropDown-1.1.swf">
 			<elements>
-				<element label="Green checker" panorama="greenChecker"/>
-				<element label="Red checker" panorama="redChecker"/>
+				<element target="greenChecker" label="Green checker"/>
+				<element target="redChecker" label="Red checker"/>
 			</elements>
 		</DropDown>
 	</modules>

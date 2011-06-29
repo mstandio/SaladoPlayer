@@ -18,11 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.dropdown.model.structure{
 	
-	import com.panozona.player.module.data.property.Mouse;
-	
 	public class Element {
 		
-		public var label:String;
-		public var panorama:String;
+		public var target:String = null;
+		public var label:String = "";
 	}
 }

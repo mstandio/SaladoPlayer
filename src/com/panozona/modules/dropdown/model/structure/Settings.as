@@ -18,12 +18,17 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.dropdown.model.structure{
 	
+	import caurina.transitions.Equations;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.Tween;
 	
 	public class Settings {
-		public var move:Move = new Move(0, -8); // horizontal, vertical
-		public var align:Align = new Align(Align.CENTER, Align.BOTTOM); // horizontal , vertical
-		public var style:Style = new Style();
+		public const move:Move = new Move(0, -10); // horizontal, vertical
+		public const align:Align = new Align(Align.CENTER, Align.BOTTOM); // horizontal , vertical
+		public const style:Style = new Style();
+		
+		public const unfoldTween:Tween = new Tween(Equations.easeNone, 0.25);
+		public const foldTween:Tween = new Tween(Equations.easeNone, 0.25);
 	}
 }

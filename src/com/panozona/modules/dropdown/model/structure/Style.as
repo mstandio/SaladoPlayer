@@ -23,12 +23,12 @@ package com.panozona.modules.dropdown.model.structure {
 		public var opensUp:Boolean = true;
 		
 		public var fontFamily:String = "Tahoma";
-		public var fontSize:Number = 17;
-		public var fontColor:Number = 0x000000; // black
+		public var fontSize:Number = 20;
+		public var fontColor:Number = 0x313931; // dark grey
 		
-		public var plainColor:Number = 0xffffff; //white
-		public var hoverColor:Number = 0xc1c1c1; // light blue
-		public var activeColor:Number = 0xc1c1c1; // light blue
-		public var borderColor:Number = 0x000000; // black
+		public var plainColor:Number = 0xf7f7f7; // light grey
+		public var hoverColor:Number = 0x8c928c; // medium grey
+		public var activeColor:Number = 0x8c928c;
+		public var borderColor:Number = 0x8c928c;
 	}
 }

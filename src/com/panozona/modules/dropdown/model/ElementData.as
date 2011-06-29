@@ -28,36 +28,37 @@ package com.panozona.modules.dropdown.model {
 		public static const STATE_HOVER:String = "stateHover";
 		public static const STATE_ACTIVE:String = "stateActive";
 		
-		public var element:Element;
+		private var _element:Element;
 		
-		private var _state:String;
+		private var _state:String = ElementData.STATE_PLAIN;
 		private var _mouseOver:Boolean;
 		private var _width:Number;
 		
 		public function ElementData(element:Element) {
-			this.element = element;
-			_state = STATE_PLAIN;
+			_element = element;
 		}
 		
-		public function get state():String { return _state}
+		public function get element():Element { return _element;}
+		
+		public function get state():String { return _state;}
 		public function set state(value:String):void {
-			if (_state == value) return;
+			if (value == _state) return;
 			if (value == STATE_PLAIN || value == STATE_HOVER || value == STATE_ACTIVE) {
 				_state = value;
 				dispatchEvent(new ElementEvent(ElementEvent.CHANGED_STATE));
 			}
 		}
 		
-		public function get mouseOver():Boolean { return _mouseOver}
+		public function get mouseOver():Boolean { return _mouseOver;}
 		public function set mouseOver(value:Boolean):void {
-			if (_mouseOver == value) return;
+			if (value == _mouseOver) return;
 			_mouseOver = value;
 			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_MOUSE_OVER));
 		}
 		
-		public function get width():Number { return _width}
+		public function get width():Number { return _width;}
 		public function set width(value:Number):void {
-			if (_width == value) return;
+			if (value == _width) return;
 			_width = value;
 			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_WIDTH));
 		}

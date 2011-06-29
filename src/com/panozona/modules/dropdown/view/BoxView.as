@@ -27,10 +27,10 @@ package com.panozona.modules.dropdown.view {
 	
 	public class BoxView extends Sprite{
 		
-		private var _elementsContainer:Sprite;
-		private var _textField:TextField;
-		private var textFormat:TextFormat;
-		private var _button:Sprite;
+		public const elementsContainer:Sprite = new Sprite();
+		public const elementsContainerMask:Sprite = new Sprite();
+		public const textField:TextField = new TextField();
+		public const button:Sprite = new Sprite();
 		
 		private var _dropDownData:DropDownData;
 		
@@ -38,52 +38,51 @@ package com.panozona.modules.dropdown.view {
 			
 			_dropDownData = dropDownData;
 			
-			textFormat = new TextFormat();
+			elementsContainer.mask = elementsContainerMask;
+			addChild(elementsContainer);
+			addChild(elementsContainerMask);
+			
+			
+			var textFormat:TextFormat = new TextFormat();
 			textFormat.blockIndent = 0;
 			textFormat.font = dropDownData.settings.style.fontFamily;
 			textFormat.size = dropDownData.settings.style.fontSize;
 			textFormat.color = dropDownData.settings.style.fontColor;
 			textFormat.leftMargin = dropDownData.settings.style.fontSize * 0.3;
-			textFormat.rightMargin = dropDownData.settings.style.fontSize * 0.5;
+			textFormat.rightMargin = dropDownData.settings.style.fontSize * 0.7;
 			
-			_textField = new TextField();
-			_textField.defaultTextFormat = textFormat;
-			_textField.selectable = false;
-			_textField.blendMode = BlendMode.LAYER;
-			_textField.background = true;
-			_textField.backgroundColor = dropDownData.settings.style.plainColor;
-			_textField.border = true;
-			_textField.borderColor = dropDownData.settings.style.borderColor;
-			_textField.height = dropDownData.settings.style.fontSize * 1.4;
-			_textField.addEventListener(MouseEvent.CLICK, onMouseClick, false, 0, true);
-			addChild(_textField);
+			textField.defaultTextFormat = textFormat;
+			textField.selectable = false;
+			textField.blendMode = BlendMode.LAYER;
+			textField.background = true;
+			textField.backgroundColor = dropDownData.settings.style.plainColor;
+			textField.border = true;
+			textField.borderColor = dropDownData.settings.style.borderColor;
+			textField.height = dropDownData.settings.style.fontSize * 1.4;
+			textField.addEventListener(MouseEvent.CLICK, onMouseClick, false, 0, true);
+			addChild(textField);
 			
-			_button = new Sprite();
-			_button.graphics.beginFill(_dropDownData.settings.style.plainColor);
-			_button.graphics.drawRect(0, 0, _textField.height, _textField.height - 1 ) // inside border 
-			_button.graphics.endFill();
-			_button.graphics.moveTo(0, 0);
-			_button.graphics.lineStyle(1, _dropDownData.settings.style.borderColor);
-			_button.graphics.lineTo(0, _textField.height);
-			_button.graphics.beginFill(_dropDownData.settings.style.borderColor);
+			button.graphics.beginFill(_dropDownData.settings.style.plainColor);
+			button.graphics.drawRect(0, 0, textField.height, textField.height - 1 ) // inside border 
+			button.graphics.endFill();
+			button.graphics.moveTo(0, 0);
+			button.graphics.lineStyle(1, _dropDownData.settings.style.borderColor);
+			button.graphics.lineTo(0, textField.height);
+			button.graphics.beginFill(_dropDownData.settings.style.borderColor);
 			if (dropDownData.settings.style.opensUp) {
-				_button.graphics.moveTo(_textField.height / 2, _textField.height / 3);
-				_button.graphics.lineTo(_textField.height / 3 * 2, _textField.height / 3 * 2);
-				_button.graphics.lineTo(_textField.height / 3, _textField.height / 3 * 2);
+				button.graphics.moveTo(textField.height / 2, textField.height / 3);
+				button.graphics.lineTo(textField.height / 3 * 2, textField.height / 3 * 2);
+				button.graphics.lineTo(textField.height / 3, textField.height / 3 * 2);
 			} else {
-				_button.graphics.moveTo(_textField.height / 3, _textField.height / 3);
-				_button.graphics.lineTo(_textField.height / 3 * 2, _textField.height / 3);
-				_button.graphics.lineTo(_textField.height / 2, _textField.height / 3 * 2);
+				button.graphics.moveTo(textField.height / 3, textField.height / 3);
+				button.graphics.lineTo(textField.height / 3 * 2, textField.height / 3);
+				button.graphics.lineTo(textField.height / 2, textField.height / 3 * 2);
 			}
-			_button.graphics.endFill();
-			_button.buttonMode = true;
-			_button.useHandCursor = true;
-			_button.addEventListener(MouseEvent.CLICK, onMouseClick, false, 0, true);
-			addChild(_button);
-			
-			_elementsContainer = new Sprite();
-			_elementsContainer.visible = false;
-			addChild(_elementsContainer);
+			button.graphics.endFill();
+			button.buttonMode = true;
+			button.useHandCursor = true;
+			button.addEventListener(MouseEvent.CLICK, onMouseClick, false, 0, true);
+			addChild(button);
 			
 			addEventListener(MouseEvent.ROLL_OVER, onMouseOver, false, 0, true);
 			addEventListener(MouseEvent.ROLL_OUT, onMouseOut, false, 0, true);
@@ -91,18 +90,6 @@ package com.panozona.modules.dropdown.view {
 		
 		public function get dropDownData():DropDownData {
 			return _dropDownData;
-		}
-		
-		public function get elementsContainer():Sprite {
-			return _elementsContainer;
-		}
-		
-		public function get textField():TextField {
-			return _textField;
-		}
-		
-		public function get button():Sprite {
-			return _button;
 		}
 		
 		private function onMouseClick(e:MouseEvent):void {

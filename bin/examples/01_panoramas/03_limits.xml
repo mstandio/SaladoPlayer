@@ -25,13 +25,13 @@
 	</panoramas>
 	<modules>
 		<ViewFinder path="~modules/ViewFinder-1.1.swf"/>
-		<DropDown path="~modules/DropDown-1.0.swf">
+		<DropDown path="~modules/DropDown-1.1.swf">
 			<elements>
-				<element label="Red checker" panorama="redChecker"/>
-				<element label="Green checker" panorama="greenChecker"/>
-				<element label="Violet checker" panorama="violetChecker"/>
-				<element label="Turquoise checker" panorama="turquoiseChecker"/>
-				<element label="Blue checker" panorama="blueChecker"/>
+				<element target="redChecker" label="Red checker"/>
+				<element target="greenChecker" label="Green checker"/>
+				<element target="violetChecker" label="Violet checker"/>
+				<element target="turquoiseChecker" label="Turquoise checker"/>
+				<element target="blueChecker" label="Blue checker"/>
 			</elements>
 		</DropDown>
 	</modules>
