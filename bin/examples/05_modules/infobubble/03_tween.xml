@@ -15,14 +15,14 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<InfoBubble path="~modules/InfoBubble-1.1.swf">
+		<InfoBubble path="~modules/InfoBubble-1.2.swf">
 			<bubbles showTween="transition:Expo.easeIn,time:0.75" hideTween="transition:Cubic.easeIn,time:0.25">
-				<bubble id="bubbleBlue" path="~modules/images/infobubble/blue.jpg"/>
+				<image id="bubbleBlue" path="~modules/images/infobubble/blue.jpg"/>
 			</bubbles>
 		</InfoBubble>
 	</modules>
 	<actions>
-		<action id="showBubbleBlue" content="InfoBubble.showBubble(bubbleBlue)"/>
-		<action id="hideBubble" content="InfoBubble.hideBubble()"/>
+		<action id="showBubbleBlue" content="InfoBubble.show(bubbleBlue)"/>
+		<action id="hideBubble" content="InfoBubble.hide()"/>
 	</actions>
 </SaladoPlayer>

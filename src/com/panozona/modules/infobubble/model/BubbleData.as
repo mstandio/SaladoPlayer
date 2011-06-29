@@ -23,36 +23,27 @@ package com.panozona.modules.infobubble.model{
 	
 	public class BubbleData extends EventDispatcher {
 		
-		private var _currentBubbleId:String;
-		private var _isShowingBubble:Boolean;
+		private var _currentId:String;
+		private var _isShowing:Boolean;
 		private var _enabled:Boolean;
 		
-		public function get currentBubbleId():String {
-			return _currentBubbleId;
+		public function get currentId():String {return _currentId;}
+		public function set currentId(value:String):void {
+			if (value == null || value == _currentId) return;
+			_currentId = value;
+			dispatchEvent(new BubbleEvent(BubbleEvent.CHANGED_CURRENT_ID));
 		}
 		
-		public function set currentBubbleId(value:String):void {
-			if (value == null || _currentBubbleId == value) return;
-			_currentBubbleId = value;
-			dispatchEvent(new BubbleEvent(BubbleEvent.CHANGED_CURRENT_BUBBLE_ID));
+		public function get isShowing():Boolean {return _isShowing;}
+		public function set isShowing(value:Boolean):void {
+			if (value == _isShowing) return;
+			_isShowing = value;
+			dispatchEvent(new BubbleEvent(BubbleEvent.CHANGED_IS_SHOWING));
 		}
 		
-		public function get isShowingBubble():Boolean {
-			return _isShowingBubble;
-		}
-		
-		public function set isShowingBubble(value:Boolean):void {
-			if ( _isShowingBubble == value) return;
-			_isShowingBubble = value;
-			dispatchEvent(new BubbleEvent(BubbleEvent.CHANGED_IS_SHOWING_BUBBLE));
-		}
-		
-		public function get enabled():Boolean {
-			return _enabled;
-		}
-		
+		public function get enabled():Boolean {return _enabled;}
 		public function set enabled(value:Boolean):void {
-			if ( _enabled == value) return;
+			if (value == _enabled) return;
 			_enabled = value;
 			dispatchEvent(new BubbleEvent(BubbleEvent.CHANGED_ENABLED));
 		}

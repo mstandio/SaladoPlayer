@@ -11,10 +11,10 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<InfoBubble path="~modules/InfoBubble-1.1.swf">
+		<InfoBubble path="~modules/InfoBubble-1.2.swf">
 			<settings onEnable="onBubAct" onDisable="onBubDisact"/>
 			<bubbles>
-				<bubble id="bubbleBlue" path="~modules/images/infobubble/blue.jpg"/>
+				<image id="bubbleBlue" path="~modules/images/infobubble/blue.jpg"/>
 			</bubbles>
 		</InfoBubble>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
@@ -24,8 +24,8 @@
 		</ButtonBar>
 	</modules>
 	<actions>
-		<action id="showBubbleBlue" content="InfoBubble.showBubble(bubbleBlue)"/>
-		<action id="hideBubble" content="InfoBubble.hideBubble()"/>
+		<action id="showBubbleBlue" content="InfoBubble.show(bubbleBlue)"/>
+		<action id="hideBubble" content="InfoBubble.hide()"/>
 		<action id="bubToggle" content="InfoBubble.toggleEnabled()"/>
 		<action id="onBubAct" content="ButtonBar.setExtraButtonActive(c,true)"/>
 		<action id="onBubDisact" content="ButtonBar.setExtraButtonActive(c,false)"/>

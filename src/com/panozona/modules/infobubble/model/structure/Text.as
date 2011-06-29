@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,22 +16,10 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.infobubble.model.structure {
+package com.panozona.modules.infobubble.model.structure{
 	
-	import caurina.transitions.Equations;
-	import com.panozona.player.module.data.property.Tween;
-	import com.panozona.player.module.data.structure.DataParent;
-	
-	public class Bubbles extends DataParent {
+	public class Text extends Bubble {
 		
-		public var showTween:Tween = new Tween(Equations.easeNone, 0.35);
-		public var hideTween:Tween = new Tween(Equations.easeNone, 0.35);
-		
-		override public function getChildrenTypes():Vector.<Class>{
-			var result:Vector.<Class> = new Vector.<Class>();
-			result.push(Image);
-			result.push(Text);
-			return result;
-		}
+		public var text:String = "";
 	}
 }

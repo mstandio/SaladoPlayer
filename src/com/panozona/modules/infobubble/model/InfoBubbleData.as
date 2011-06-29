@@ -20,6 +20,7 @@ package com.panozona.modules.infobubble.model{
 	
 	import com.panozona.modules.infobubble.model.structure.Bubble;
 	import com.panozona.modules.infobubble.model.structure.Bubbles;
+	import com.panozona.modules.infobubble.model.structure.Image;
 	import com.panozona.modules.infobubble.model.structure.Settings;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.data.ModuleData;
@@ -51,8 +52,8 @@ package com.panozona.modules.infobubble.model{
 				var bubbleIds:Object = new Object();
 				for each (var bubble:Bubble in bubbles.getChildrenOfGivenClass(Bubble)) {
 					if (bubble.id == null) throw new Error("Bubble id not specified.");
-					if (bubble.path == null || !bubble.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i))
-						throw new Error("Invalid bubble path: " + bubble.path);
+					if ( bubble is Image && ((bubble as Image).path == null || !(bubble as Image).path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)))
+						throw new Error("Invalid image path: " + (bubble as Image).path);
 					if (bubbleIds[bubble.id] != undefined) {
 						throw new Error("Repeating bubble id: " + bubble.id);
 					}else {

@@ -11,11 +11,11 @@
 		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<InfoBubble path="~modules/InfoBubble-1.1.swf">
+		<InfoBubble path="~modules/InfoBubble-1.2.swf">
 			<bubbles>
-				<bubble id="greenBubble" path="~modules/images/infobubble/green.jpg"/>
-				<bubble id="blueBubble" path="~modules/images/infobubble/blue.jpg"/>
-				<bubble id="redBubble" path="~modules/images/infobubble/red.jpg"/>
+				<image id="greenBubble" path="~modules/images/infobubble/green.jpg"/>
+				<image id="blueBubble" path="~modules/images/infobubble/blue.jpg"/>
+				<image id="redBubble" path="~modules/images/infobubble/red.jpg"/>
 			</bubbles>
 		</InfoBubble>
 		<ImageMap path="~modules/ImageMap-1.2.swf">
@@ -39,9 +39,9 @@
 		<action id="mapToggle" content="ImageMap.toggleOpen()"/>
 		<action id="mapOpened" content="ButtonBar.setExtraButtonActive(b,true)"/>
 		<action id="mapClosed" content="ButtonBar.setExtraButtonActive(b,false)"/>
-		<action id="showGreenBubble" content="InfoBubble.showBubble(greenBubble)"/>
-		<action id="showBlueBubble" content="InfoBubble.showBubble(blueBubble)"/>
-		<action id="showRedBubble" content="InfoBubble.showBubble(redBubble)"/>
-		<action id="hideBubble" content="InfoBubble.hideBubble()"/>
+		<action id="showGreenBubble" content="InfoBubble.show(greenBubble)"/>
+		<action id="showBlueBubble" content="InfoBubble.show(blueBubble)"/>
+		<action id="showRedBubble" content="InfoBubble.show(redBubble)"/>
+		<action id="hideBubble" content="InfoBubble.hide()"/>
 	</actions>
 </SaladoPlayer>

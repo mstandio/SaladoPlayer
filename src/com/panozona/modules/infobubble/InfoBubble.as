@@ -33,10 +33,10 @@ package com.panozona.modules.infobubble{
 		private var bubbleController:BubbleController;
 		
 		public function InfoBubble(){
-			super("InfoBubble", "1.1", "http://panozona.com/wiki/Module:InfoBubble");
+			super("InfoBubble", "1.2", "http://panozona.com/wiki/Module:InfoBubble");
 			
-			moduleDescription.addFunctionDescription("showBubble", String);
-			moduleDescription.addFunctionDescription("hideBubble");
+			moduleDescription.addFunctionDescription("show", String);
+			moduleDescription.addFunctionDescription("hide");
 			moduleDescription.addFunctionDescription("setEnabled", Boolean);
 			moduleDescription.addFunctionDescription("toggleEnabled");
 		}
@@ -67,13 +67,13 @@ package com.panozona.modules.infobubble{
 //  Exposed functions 
 ///////////////////////////////////////////////////////////////////////////////
 		
-		public function showBubble(bubbleId:String):void {
-			infoBubbleData.bubbleData.currentBubbleId = bubbleId; // change id first!
-			infoBubbleData.bubbleData.isShowingBubble = true;
+		public function show(bubbleId:String):void {
+			infoBubbleData.bubbleData.currentId = bubbleId; // change id first!
+			infoBubbleData.bubbleData.isShowing = true;
 		}
 		
-		public function hideBubble():void {
-			infoBubbleData.bubbleData.isShowingBubble = false;
+		public function hide():void {
+			infoBubbleData.bubbleData.isShowing = false;
 		}
 		
 		public function setEnabled(value:Boolean):void {

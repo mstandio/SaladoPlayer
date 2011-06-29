@@ -21,8 +21,11 @@ package com.panozona.modules.infobubble.controller {
 	import caurina.transitions.Tweener;
 	import com.panozona.modules.infobubble.events.BubbleEvent;
 	import com.panozona.modules.infobubble.model.structure.Bubble;
+	import com.panozona.modules.infobubble.model.structure.Image;
+	import com.panozona.modules.infobubble.model.structure.Text;
 	import com.panozona.modules.infobubble.view.BubbleView;
 	import com.panozona.player.module.Module;
+	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -33,31 +36,30 @@ package com.panozona.modules.infobubble.controller {
 		private var _bubbleView:BubbleView;
 		private var _module:Module;
 		
-		private var bubbleLoader:Loader;
+		private var imageLoader:Loader;
 		
 		private var ellipseAxisX:Number;
 		private var ellipseAxisY:Number;
 		private var dir:Number;
-		private var angle:Number; 
+		private var angle:Number;
+		private var currentDefaultAngle:Number;
 		
 		public function BubbleController(bubbleView:BubbleView, module:Module){
 			_bubbleView = bubbleView;
 			_module = module;
 			
-			dir = (_bubbleView.infoBubbleData.bubbles.defaultAngle > 0) ? 0.5 : -0.5; // 0.5 clockwise, -0.5 counterclockwise
-			
-			bubbleLoader = new Loader();
-			bubbleLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, bubbleLost, false, 0, true);
-			bubbleLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, bubbleLoaded, false, 0, true);
+			imageLoader = new Loader();
+			imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
+			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
 			
 			_bubbleView.infoBubbleData.bubbleData.addEventListener(BubbleEvent.CHANGED_ENABLED, handleEnabledChange);
-			_bubbleView.infoBubbleData.bubbleData.addEventListener(BubbleEvent.CHANGED_CURRENT_BUBBLE_ID, handleCurrentIdChange);
-			_bubbleView.infoBubbleData.bubbleData.addEventListener(BubbleEvent.CHANGED_IS_SHOWING_BUBBLE, handleIsShowingChange);
+			_bubbleView.infoBubbleData.bubbleData.addEventListener(BubbleEvent.CHANGED_CURRENT_ID, handleCurrentIdChange);
+			_bubbleView.infoBubbleData.bubbleData.addEventListener(BubbleEvent.CHANGED_IS_SHOWING, handleIsShowingChange);
 		}
 		
 		private function handleEnabledChange(e:Event):void {
 			if (_bubbleView.infoBubbleData.bubbleData.enabled) {
-				if (_bubbleView.infoBubbleData.bubbleData.isShowingBubble) { // should have been showing but was disabled
+				if (_bubbleView.infoBubbleData.bubbleData.isShowing) { // should have been showing but was disabled
 					handleIsShowingChange();
 				}
 				_module.saladoPlayer.manager.runAction(_bubbleView.infoBubbleData.settings.onEnable);
@@ -73,35 +75,54 @@ package com.panozona.modules.infobubble.controller {
 		
 		private function handleCurrentIdChange(e:Event):void {
 			while (_bubbleView.numChildren) _bubbleView.removeChildAt(0);
-			bubbleLoader.unload();
+			try{
+				imageLoader.unload();
+				imageLoader.close();
+			}catch(e:Error){}
 			for each (var bubble:Bubble in _bubbleView.infoBubbleData.bubbles.getChildrenOfGivenClass(Bubble)){
-				if (bubble.id == _bubbleView.infoBubbleData.bubbleData.currentBubbleId) {
-					bubbleLoader.load(new URLRequest(bubble.path));
-					return;
+				if (bubble.id == _bubbleView.infoBubbleData.bubbleData.currentId) {
+					currentDefaultAngle = bubble.defaultAngle;
+					dir = (currentDefaultAngle > 0) ? 0.5 : -0.5; // 0.5 clockwise, -0.5 counterclockwise
+					if (bubble is Image) {
+						imageLoader.load(new URLRequest((bubble as Image).path));
+						return;
+					}else if (bubble is Text) {
+						buildText(bubble as Text);
+						return;
+					}
 				}
 			}
-			_module.printWarning("Could not find bubble: " + _bubbleView.infoBubbleData.bubbleData.currentBubbleId);
+			_module.printWarning("Could not find bubble: " + _bubbleView.infoBubbleData.bubbleData.currentId);
 		}
 		
-		private function bubbleLost(error:IOErrorEvent):void {
+		private function imageLost(error:IOErrorEvent):void {
 			_module.printError(error.text);
 		}
 		
-		private function bubbleLoaded(e:Event):void {
+		private function imageLoaded(e:Event):void {
+			addDisplayObject(imageLoader.content);
+		}
+		
+		private function buildText(text:Text):void {
+			_bubbleView.setText(text.text);
+			addDisplayObject(_bubbleView.textSprite);
+		}
+		
+		private function addDisplayObject(displayObject:DisplayObject):void {
 			while (_bubbleView.numChildren) _bubbleView.removeChildAt(0);
-			_bubbleView.addChild(bubbleLoader.content);
+			_bubbleView.addChild(displayObject);
 			_bubbleView.getChildAt(0).alpha = 0;
 			ellipseAxisX = Math.max(_bubbleView.width, _bubbleView.height) / 2 * Math.SQRT2;
 			ellipseAxisY = Math.min(_bubbleView.width, _bubbleView.height) / 2 * Math.SQRT2;
-			angle = -_bubbleView.infoBubbleData.bubbles.defaultAngle;
+			angle = -currentDefaultAngle;
 			handleIsShowingChange();
 		}
 		
 		private function handleIsShowingChange(e:Event = null):void {
 			if (_bubbleView.numChildren == 0) return; // nothing loaded yet
-			if (!_bubbleView.infoBubbleData.bubbleData.enabled && _bubbleView.infoBubbleData.bubbleData.isShowingBubble) return; // do not show when disabled
+			if (!_bubbleView.infoBubbleData.bubbleData.enabled && _bubbleView.infoBubbleData.bubbleData.isShowing) return; // do not show when disabled
 			_bubbleView.visible = true;
-			if (_bubbleView.infoBubbleData.bubbleData.isShowingBubble){
+			if (_bubbleView.infoBubbleData.bubbleData.isShowing){
 				_module.stage.addEventListener(Event.ENTER_FRAME, handleEnterFrame, false, 0, true);
 				Tweener.addTween(_bubbleView.getChildAt(0),{
 					alpha:1,
@@ -117,18 +138,18 @@ package com.panozona.modules.infobubble.controller {
 		}
 		
 		private function cleanUp():void {
-			if (!_bubbleView.infoBubbleData.bubbleData.isShowingBubble){
+			if (!_bubbleView.infoBubbleData.bubbleData.isShowing){
 				_bubbleView.visible = false;
 				_module.stage.removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
 			}
 		}
 		
 		private function handleEnterFrame(e:Event = null):void {
-			if (angle == -_bubbleView.infoBubbleData.bubbles.defaultAngle) {
+			if (angle == -currentDefaultAngle) {
 				if (_module.mouseY > _module.saladoPlayer.manager.boundsHeight * 0.5) {
-					dir = (_bubbleView.infoBubbleData.bubbles.defaultAngle > 0) ? 0.5 : -0.5;
+					dir = (currentDefaultAngle > 0) ? 0.5 : -0.5;
 				}else {
-					dir = (_bubbleView.infoBubbleData.bubbles.defaultAngle > 0) ? -0.5 : 0.5;
+					dir = (currentDefaultAngle > 0) ? -0.5 : 0.5;
 				}
 			}
 			
@@ -143,7 +164,7 @@ package com.panozona.modules.infobubble.controller {
 					_bubbleView.y = _module.mouseY - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
 				}
 			}else if (wontBeConflict(angle - dir)){
-				while (wontBeConflict(angle - dir) && angle != -_bubbleView.infoBubbleData.bubbles.defaultAngle) {
+				while (wontBeConflict(angle - dir) && angle != -currentDefaultAngle) {
 					angle -= dir;
 					angle = validate(angle);
 					_bubbleView.x = _module.mouseX - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
@@ -171,8 +192,8 @@ package com.panozona.modules.infobubble.controller {
 		}
 		
 		private function validate(value:Number):Number{
-			if ( value <= -180 ) value = ((value + 180)%360)+180;
-			if ( value >= 180 )  value = ((value + 180)%360)-180;
+			if ( value <= -180 ) value = ((value + 180) % 360) + 180;
+			if ( value >= 180 ) value = ((value + 180) % 360) - 180;
 			return value;
 		}
 		

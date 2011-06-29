@@ -20,9 +20,11 @@ package com.panozona.modules.infobubble.model.structure {
 	
 	public class Settings {
 		
-		public var onEnable:String;  // ids of actions executed
+		public var enabled:Boolean = true;
+		
+		public var onEnable:String; // ids of actions executed
 		public var onDisable:String; // on enabled state change
 		
-		public var enabled:Boolean = true;
+		public const textStyle:TextStyle = new TextStyle();
 	}
 }

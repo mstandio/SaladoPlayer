@@ -16,16 +16,16 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<InfoBubble path="~modules/InfoBubble-1.1.swf">
-			<bubbles defaultAngle="120">
-				<bubble id="bubbleBlue" path="~modules/images/infobubble/blue.jpg"/>
-				<bubble id="bubbleRed" path="~modules/images/infobubble/red.jpg"/>
+		<InfoBubble path="~modules/InfoBubble-1.2.swf">
+			<bubbles>
+				<image id="bubbleBlue" path="~modules/images/infobubble/blue.jpg"/>
+				<image id="bubbleRed" path="~modules/images/infobubble/red.jpg" defaultAngle="120"/>
 			</bubbles>
 		</InfoBubble>
 	</modules>
 	<actions>
-		<action id="showBubbleBlue" content="InfoBubble.showBubble(bubbleBlue)"/>
-		<action id="showBubbleRed" content="InfoBubble.showBubble(bubbleRed)"/>
-		<action id="hideBubble" content="InfoBubble.hideBubble()"/>
+		<action id="showBubbleBlue" content="InfoBubble.show(bubbleBlue)"/>
+		<action id="showBubbleRed" content="InfoBubble.show(bubbleRed)"/>
+		<action id="hideBubble" content="InfoBubble.hide()"/>
 	</actions>
 </SaladoPlayer>

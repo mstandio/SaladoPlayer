@@ -22,8 +22,8 @@ package com.panozona.modules.infobubble.events{
 	
 	public class BubbleEvent extends Event {
 		
-		public static const CHANGED_CURRENT_BUBBLE_ID:String = "changedCurrBubId";
-		public static const CHANGED_IS_SHOWING_BUBBLE:String = "changedIsShowBubble";
+		public static const CHANGED_CURRENT_ID:String = "changedCurrentId";
+		public static const CHANGED_IS_SHOWING:String = "changedIsShowing";
 		public static const CHANGED_ENABLED:String = "changedEnabled";
 		
 		public function BubbleEvent( type:String) {

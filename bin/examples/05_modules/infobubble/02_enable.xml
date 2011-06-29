@@ -19,20 +19,20 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<InfoBubble path="~modules/InfoBubble-1.1.swf">
+		<InfoBubble path="~modules/InfoBubble-1.2.swf">
 			<settings enabled="false" onEnable="printEnableBubbles" onDisable="printDisableBubbles"/>
 			<bubbles>
-				<bubble id="bubbleGreen" path="~modules/images/infobubble/green.jpg"/>
-				<bubble id="bubbleRed" path="~modules/images/infobubble/red.jpg"/>
-				<bubble id="bubbleYellow" path="~modules/images/infobubble/yellow.jpg"/>
+				<image id="bubbleGreen" path="~modules/images/infobubble/green.jpg"/>
+				<image id="bubbleRed" path="~modules/images/infobubble/red.jpg"/>
+				<image id="bubbleYellow" path="~modules/images/infobubble/yellow.jpg"/>
 			</bubbles>
 		</InfoBubble>
 	</modules>
 	<actions>
-		<action id="showBubbleGreen" content="InfoBubble.showBubble(bubbleGreen)"/>
-		<action id="showBubbleRed" content="InfoBubble.showBubble(bubbleRed)"/>
-		<action id="showBubbleYellow" content="InfoBubble.showBubble(bubbleYellow)"/>
-		<action id="hideBubble" content="InfoBubble.hideBubble()"/>
+		<action id="showBubbleGreen" content="InfoBubble.show(bubbleGreen)"/>
+		<action id="showBubbleRed" content="InfoBubble.show(bubbleRed)"/>
+		<action id="showBubbleYellow" content="InfoBubble.show(bubbleYellow)"/>
+		<action id="hideBubble" content="InfoBubble.hide()"/>
 		<action id="enableBubbles" content="InfoBubble.setEnabled(true)"/>
 		<action id="disableBubbles" content="InfoBubble.setEnabled(false)"/>
 		<action id="toggleEnableBubbles" content="InfoBubble.toggleEnabled()"/>
