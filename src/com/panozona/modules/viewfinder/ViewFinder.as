@@ -18,41 +18,27 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.viewfinder{
 	
-	import com.panozona.modules.viewfinder.data.*;
-	import com.panozona.player.module.*;
-	import com.panozona.player.module.data.*;
-	import com.panozona.player.module.data.property.*;
-	import flash.display.*;
-	import flash.events.*;
-	import flash.system.*;
-	import flash.text.*;
+	import com.panozona.modules.viewfinder.data.ViewFinderData;
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.Module;
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.system.ApplicationDomain;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
-	/**
-	 * ViewFinder, SaladoPlayer module for displaying camera pan tilt and field of view.
-	 * see <http://panozona.com/wiki/Module:ViewFinder>
-	 */
 	public class ViewFinder extends Module {
 		
 		private var txtOutput:TextField;
-		private var txtFormat:TextFormat;
 		private var pointer:Sprite;
-		
 		private var viewFinderData:ViewFinderData;
+		private var currentDirection:Number = 0;
 		
-		/**
-		 * Sets module name version and homeUrl. Name is used 
-		 * to obtain configuration data for given module.
-		 */
 		public function ViewFinder():void{
-			super("ViewFinder", "1.1", "http://panozona.com/wiki/Module:ViewFinder");
+			super("ViewFinder", "1.2", "http://panozona.com/wiki/Module:ViewFinder");
 		}
 		
-		/**
-		 * Module entry point. Function is called in constructor of parent class. 
-		 * Builds display objects, adds RESIZE and ENTER_FRAME listeners.
-		 * 
-		 * @param	moduleData Structure containing module configuration data.
-		 */
 		override protected function moduleReady(moduleData:ModuleData):void {
 			
 			viewFinderData = new ViewFinderData(moduleData, saladoPlayer); // always first
@@ -69,7 +55,7 @@ package com.panozona.modules.viewfinder{
 				addChild(pointer);
 			}
 			
-			txtFormat = new TextFormat();
+			var txtFormat:TextFormat = new TextFormat();
 			txtFormat.font = "Courier";
 			txtFormat.size = 12;
 			
@@ -79,20 +65,47 @@ package com.panozona.modules.viewfinder{
 			txtOutput.background = true;
 			txtOutput.backgroundColor = 0x000000;
 			txtOutput.defaultTextFormat = txtFormat;
-			txtOutput.height = 12 * 3 + 8;
+			if (!viewFinderData.settings.showDirection) {
+				txtOutput.height = 48;
+			}else {
+				txtOutput.height = 60;
+			}
+			txtOutput.width = 105;
 			addChild(txtOutput);
 			
-			stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
+			if (!viewFinderData.settings.showDirection) {
+				stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
+			}else {
+				var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+				saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0 , true);
+				stage.addEventListener(Event.ENTER_FRAME, enterFrameHandlerDir, false, 0, true );
+			}
 			
 			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
 			saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
 			handleResize();
 		}
 		
+		private function onPanoramaStartedLoading(panoramaEvent:Object):void {
+			currentDirection = saladoPlayer.manager.currentPanoramaData.direction;
+		}
+		
 		private function enterFrameHandler(event:Event):void {
-			txtOutput.text = "pan  " + saladoPlayer.manager._pan.toFixed(2) + 
-			"\ntilt " + saladoPlayer.manager._tilt.toFixed(2) + 
+			txtOutput.text = "pan  " + saladoPlayer.manager._pan.toFixed(2) +
+			"\ntilt " + saladoPlayer.manager._tilt.toFixed(2) +
 			"\nfov  " + saladoPlayer.manager._fieldOfView.toFixed(2);
+		}
+		
+		private function enterFrameHandlerDir(event:Event):void {
+			txtOutput.text = "pan  " + saladoPlayer.manager._pan.toFixed(2) +
+			"\ntilt " + saladoPlayer.manager._tilt.toFixed(2) +
+			"\nfov  " + saladoPlayer.manager._fieldOfView.toFixed(2) +
+			"\ndir  " + validateDir(saladoPlayer.manager.pan + currentDirection).toFixed(2);
+		}
+		
+		private function validateDir(value:Number):Number {
+			if ( value <= 0 || value > 360 ) return ((value + 360) % 360);
+			return value;
 		}
 		
 		private function handleResize(e:Event = null):void {

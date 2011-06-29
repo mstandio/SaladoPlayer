@@ -22,23 +22,19 @@ package com.panozona.modules.viewfinder.data{
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.utils.DataNodeTranslator;
 	
-	/**
-	 * Part od ViewFinder module, translates moduleData 
-	 * into module internal data structure.
-	 */
 	public class ViewFinderData {
 		
 		public const settings:Settings = new Settings();
 		
 		public function ViewFinderData(moduleData:ModuleData, saladoPlayer:Object){
 			
-			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
+			var translator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
 			
 			for each(var dataNode:DataNode in moduleData.nodes) {
 				if (dataNode.name == "settings") {
-					tarnslator.dataNodeToObject(dataNode, settings);
+					translator.dataNodeToObject(dataNode, settings);
 				}else {
-					throw new Error("Could not recognize: " + dataNode.name);
+					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
 			// no additional validation required

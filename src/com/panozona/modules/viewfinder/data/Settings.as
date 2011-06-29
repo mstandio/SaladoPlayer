@@ -21,30 +21,14 @@ package com.panozona.modules.viewfinder.data {
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Move;
 	
-	/**
-	 * Part of ViewFinder module, stores data used for module configuration.
-	 */
 	public class Settings{
 		
-		/**
-		 * Horizontal and vertical text fied alignment against panorama window.
-		 * 
-		 * @default "new Align(Align.LEFT, Align.TOP)"
-		 */
 		public const align:Align = new Align(Align.LEFT, Align.TOP);
 		
-		/**
-		 * Horizontal and vertical text field position shift.
-		 * 
-		 * @default "new Move(0, 0)"
-		 */
 		public const move:Move = new Move(0, 0);
 		
-		/**
-		 * If dot marking middle of panorama window is visible
-		 * 
-		 * @default "true"
-		 */
 		public var showDot:Boolean = true;
+		
+		public var showDirection:Boolean = false;
 	}
 }
