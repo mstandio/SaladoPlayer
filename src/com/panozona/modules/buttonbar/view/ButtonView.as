@@ -27,11 +27,10 @@ package com.panozona.modules.buttonbar.view{
 	
 	public class ButtonView extends Sprite{
 		
-		public var bitmap:Bitmap;
+		public const bitmap:Bitmap = new Bitmap();
 		
 		private var _buttonData:ButtonData;
 		private var _buttonBarData:ButtonBarData;
-		
 		
 		public function ButtonView(buttonData:ButtonData, buttonBarData:ButtonBarData){
 			_buttonData = buttonData;
@@ -39,7 +38,6 @@ package com.panozona.modules.buttonbar.view{
 			
 			buttonMode = true;
 			
-			bitmap = new Bitmap();
 			addChild(bitmap);
 			
 			addEventListener(MouseEvent.MOUSE_DOWN, onMousePress, false, 0, true);

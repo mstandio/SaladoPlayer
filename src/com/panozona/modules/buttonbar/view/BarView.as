@@ -23,35 +23,26 @@ package com.panozona.modules.buttonbar.view{
 	
 	public class BarView extends Sprite{
 		
-		private var _backgroundBar:Sprite;
-		private var _buttonsContainer:Sprite;
+		public const backgroundBar:Sprite = new Sprite();
+		public const buttonsContainer:Sprite = new Sprite();
+		
 		private var _buttonBarData:ButtonBarData;
 		
 		public function BarView(buttonBarData:ButtonBarData):void {
 			_buttonBarData = buttonBarData;
 			
-			_backgroundBar = new Sprite();
-			if (_buttonBarData.bar.visible) {
+			if (buttonBarData.bar.visible) {
 				mouseEnabled = false;
-				_backgroundBar.alpha = _buttonBarData.bar.alpha;
-				_backgroundBar.mouseEnabled = false;
-				addChild(_backgroundBar);
+				backgroundBar.alpha = _buttonBarData.bar.alpha;
+				backgroundBar.mouseEnabled = false;
+				addChild(backgroundBar);
 			}
 			
-			_buttonsContainer = new Sprite();
-			addChild(_buttonsContainer);
+			addChild(buttonsContainer);
 		}
 		
 		public function get buttonBarData():ButtonBarData {
 			return _buttonBarData;
-		}
-		
-		public function get buttonsContainer():Sprite {
-			return _buttonsContainer;
-		}
-		
-		public function get backgroundBar():Sprite {
-			return _backgroundBar;
 		}
 	}
 }

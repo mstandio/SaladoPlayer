@@ -22,7 +22,8 @@ package com.panozona.modules.buttonbar.model.structure{
 	
 	public class Button{
 		
-		public var name:String;
-		public var move:Move = new Move(0, 0);
+		public var name:String = null;
+		public const move:Move = new Move(NaN, NaN);
+		public const mouse:MouseOverOut = new MouseOverOut();
 	}
 }

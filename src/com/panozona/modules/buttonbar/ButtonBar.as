@@ -35,7 +35,7 @@ package com.panozona.modules.buttonbar {
 		
 		public function ButtonBar(){
 			super("ButtonBar", "1.2", "http://panozona.com/wiki/Module:ButtonBar");
-			moduleDescription.addFunctionDescription("setExtraButtonActive", String, Boolean);
+			moduleDescription.addFunctionDescription("setActive", String, Boolean);
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
@@ -44,27 +44,19 @@ package com.panozona.modules.buttonbar {
 			barView = new BarView(buttonBarData);
 			barController = new BarController(barView, this);
 			addChild(barView);
-			
-			barController.handleResize();
 		}
 		
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Exposed functions 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		public function setExtraButtonActive(name:String, active:Boolean):void {
-			if (
-				name == "a" ||
-				name == "b" ||
-				name == "c" ||
-				name == "d" ||
-				name == "e" ||
-				name == "f" ||
-				name == "g" ||
-				name == "h" ||
-				name == "i" ||
-				name == "j")
+		public function setActive(name:String, active:Boolean):void {
+			if (name == "a" || name == "b" || name == "c" || name == "d" || name == "e" ||
+				name == "f" || name == "g" || name == "h" || name == "i" || name == "j"){
 				barController.setButtonActive(name, active);
+			}else {
+				printWarning("Invalid extraButton name: " + name);
+			}
 		}
 	}
 }

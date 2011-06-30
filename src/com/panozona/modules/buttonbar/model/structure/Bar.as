@@ -24,20 +24,20 @@ package com.panozona.modules.buttonbar.model.structure{
 	
 	public class Bar {
 		
-		public var visible:Boolean = true;
-		public var alpha:Number = 0.75;
-		public var color:Number = 0xffffff; // white
+		public var visible:Boolean = false;
+		public var alpha:Number = 0.5;
+		public var color:Number = 0x000000; // black
 		
 		/**
-		 * background image, -x -y repeated, intentionally not initialized
+		 * background image, x y repeated
+		 * when not set color is used instead
 		 */
-		public var path:String; 
+		public var path:String = null;
 		
 		/**
 		 * when width is set to NaN, bar uses width of panorama window
 		 */
-		public var size:Size = new Size(NaN, 40); 
-		public var align:Align = new Align(Align.RIGHT, Align.BOTTOM); // horizontal, vertical
-		public var move:Move = new Move(0, 0); // horizontal, vertical
+		public const size:Size = new Size(NaN, 50);
+		public const move:Move = new Move(0, 0); // horizontal, vertical
 	}
 }

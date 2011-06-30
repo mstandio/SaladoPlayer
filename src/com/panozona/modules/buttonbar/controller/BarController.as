@@ -30,10 +30,10 @@ package com.panozona.modules.buttonbar.controller{
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
 	import flash.display.StageDisplayState;
-	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
@@ -72,7 +72,7 @@ package com.panozona.modules.buttonbar.controller{
 			_module.saladoPlayer.managerData.controlData.arcBallCameraData.addEventListener(cameraEventClass.ENABLED_CHANGE, onDragEnabledChange, false, 0, true);
 			_module.saladoPlayer.managerData.controlData.autorotationCameraData.addEventListener(autorotationEventClass.AUTOROTATION_CHANGE, onIsAutorotatingChange, false, 0, true);
 			
-			if (_barView.buttonBarData.barData.buttons.listenKeys) {
+			if (_barView.buttonBarData.buttons.listenKeys) {
 				_module.saladoPlayer.stage.addEventListener( KeyboardEvent.KEY_DOWN, keyDownEvent, false, 0, true);
 				_module.saladoPlayer.stage..addEventListener( KeyboardEvent.KEY_UP, keyUpEvent, false, 0, true);
 			}
@@ -87,31 +87,30 @@ package com.panozona.modules.buttonbar.controller{
 			var buttonsLoader:Loader = new Loader();
 			buttonsLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonsImageLost, false, 0, true);
 			buttonsLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, buttonsImageLoaded, false, 0, true);
-			buttonsLoader.load(new URLRequest(_barView.buttonBarData.barData.buttons.path));
+			buttonsLoader.load(new URLRequest(_barView.buttonBarData.buttons.path));
 		}
 		
 		public function handleResize(e:Event = null):void {
-			
-			if (_barView.buttonBarData.barData.buttons.align.horizontal == Align.LEFT) {
+			if (_barView.buttonBarData.buttons.align.horizontal == Align.LEFT) {
 				_barView.buttonsContainer.x = 0;
-			}else if (_barView.buttonBarData.barData.buttons.align.horizontal == Align.RIGHT) {
+			}else if (_barView.buttonBarData.buttons.align.horizontal == Align.RIGHT) {
 				_barView.buttonsContainer.x = _module.saladoPlayer.manager.boundsWidth
-					- (buttonSize.width + _barView.buttonBarData.barData.buttons.spacing)
-					* (_barView.buttonBarData.barData.buttons.getAllChildren().length);
+					- (buttonSize.width + _barView.buttonBarData.buttons.spacing)
+					* _barView.buttonsContainer.numChildren;
 			}else { // CENTER
 				_barView.buttonsContainer.x = (_module.saladoPlayer.manager.boundsWidth
-					- (buttonSize.width + _barView.buttonBarData.barData.buttons.spacing)
-					* _barView.buttonBarData.barData.buttons.getAllChildren().length) * 0.5;
+					- (buttonSize.width + _barView.buttonBarData.buttons.spacing)
+					* _barView.buttonsContainer.numChildren) * 0.5;
 			}
-			if (_barView.buttonBarData.barData.buttons.align.vertical == Align.TOP){
+			if (_barView.buttonBarData.buttons.align.vertical == Align.TOP){
 				_barView.buttonsContainer.y = 0;
-			}else if (_barView.buttonBarData.barData.buttons.align.vertical == Align.BOTTOM) {
+			}else if (_barView.buttonBarData.buttons.align.vertical == Align.BOTTOM) {
 				_barView.buttonsContainer.y = _module.saladoPlayer.manager.boundsHeight - buttonSize.height;
 			}else { // MIDDLE
 				_barView.buttonsContainer.y = (_module.saladoPlayer.manager.boundsHeight - buttonSize.height) * 0.5;
 			}
-			_barView.buttonsContainer.x += _barView.buttonBarData.barData.buttons.move.horizontal;
-			_barView.buttonsContainer.y += _barView.buttonBarData.barData.buttons.move.vertical;
+			_barView.buttonsContainer.x += _barView.buttonBarData.buttons.move.horizontal;
+			_barView.buttonsContainer.y += _barView.buttonBarData.buttons.move.vertical;
 			
 			if (_barView.buttonBarData.bar.visible){
 				buildBackgroundBar();
@@ -130,21 +129,29 @@ package com.panozona.modules.buttonbar.controller{
 			}
 		}
 		
-		private function barImageLost(error:IOErrorEvent):void {
-			_module.printError(error.toString());
+		private function barImageLost(e:IOErrorEvent):void {
+			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, barImageLost);
+			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, barImageLoaded);
+			_module.printError(e.text);
 		}
 		
 		private function barImageLoaded(e:Event):void {
+			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, barImageLost);
+			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, barImageLoaded);
 			barBitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
 			barBitmapData.draw((e.target as LoaderInfo).content);
 			buildBackgroundBar();
 		}
 		
-		private function buttonsImageLost(error:IOErrorEvent):void {
-			_module.printError(error.toString());
+		private function buttonsImageLost(e:IOErrorEvent):void {
+			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, buttonsImageLost);
+			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, buttonsImageLoaded);
+			_module.printError(e.text);
 		}
 		
 		private function buttonsImageLoaded(e:Event):void {
+			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, buttonsImageLost);
+			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, buttonsImageLoaded);
 			buttonsBitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
 			buttonsBitmapData.draw((e.target as LoaderInfo).content);
 			buttonSize.width = Math.ceil((buttonsBitmapData.width - 9) / 10);
@@ -153,18 +160,12 @@ package com.panozona.modules.buttonbar.controller{
 			handleResize();
 			onIsAutorotatingChange();
 			onDragEnabledChange();
-			displayQuality();
+			// update hotspots 
 		}
 		
 		private function buildButtonsBar():void {
-			while (_barView.buttonsContainer.numChildren) {
-				_barView.buttonsContainer.removeChildAt(0);
-			}
-			while (buttonsController.length){
-				buttonsController.pop();
-			}
 			var buttonView:ButtonView;
-			for each(var button:Button in _barView.buttonBarData.barData.buttons.getAllChildren()) {
+			for each(var button:Button in _barView.buttonBarData.buttons.getAllChildren()) {
 				buttonView = new ButtonView(new ButtonData(button), _barView.buttonBarData);
 				if (button.name == "left") {
 					buttonView.buttonData.onPress = leftPress;
@@ -186,31 +187,22 @@ package com.panozona.modules.buttonbar.controller{
 					buttonView.buttonData.onRelease = outRelease;
 				}else if (button.name == "drag") {
 					buttonView.buttonData.onPress = dragToggle;
-				}else if (button.name == "quality") {
-					buttonView.buttonData.onPress = qualityToggle;
+				}else if (button.name == "hotspots") {
+					buttonView.buttonData.onPress = hotspotsToggle;
 				}else if (button.name == "autorotation") {
 					buttonView.buttonData.onPress = autorotateToggle;
 				}else if (button.name == "fullscreen") {
 					buttonView.buttonData.onRelease = fullscreenToggle;
-				}else if (
-					button.name == "a" ||
-					button.name == "b" ||
-					button.name == "c" ||
-					button.name == "d" ||
-					button.name == "e" ||
-					button.name == "f" ||
-					button.name == "g" ||
-					button.name == "h" ||
-					button.name == "i" ||
-					button.name == "j") {
+				}else if(button.name == "a" || button.name == "b" || button.name == "c" || button.name == "d" || button.name == "e" ||
+						 button.name == "f" || button.name == "g" || button.name == "h" || button.name == "i" || button.name == "j") {
 					if (button is ExtraButton) {
 						buttonView.buttonData.onPress = extraButtonFunction(button as ExtraButton);
 					}else {
-						_module.printError("Not extraButton:" + button.name);
+						_module.printError("Invalid extraButton name: " + button.name);
 						continue;
 					}
 				}else {
-					_module.printError("Unrecognized button name:" + button.name);
+					_module.printError("Invalid button name: " + button.name);
 					continue;
 				}
 				
@@ -251,7 +243,7 @@ package com.panozona.modules.buttonbar.controller{
 				}else if (buttonView.buttonData.button.name == "drag") {
 					buttonView.buttonData.bitmapPlain = getButtonBitmap(6);
 					buttonView.buttonData.bitmapActive = getButtonBitmap(16);
-				}else if (buttonView.buttonData.button.name == "quality") {
+				}else if (buttonView.buttonData.button.name == "hotspots") {
 					buttonView.buttonData.bitmapPlain = getButtonBitmap(7);
 					buttonView.buttonData.bitmapActive = getButtonBitmap(17);
 				}else if (buttonView.buttonData.button.name == "autorotation") {
@@ -291,10 +283,27 @@ package com.panozona.modules.buttonbar.controller{
 					buttonView.buttonData.bitmapPlain = getButtonBitmap(29);
 					buttonView.buttonData.bitmapActive = getButtonBitmap(39);
 				}
-				buttonView.x = lastX;
-				buttonView.x += buttonView.buttonData.button.move.horizontal;
-				buttonView.y += buttonView.buttonData.button.move.vertical;
-				lastX += buttonView.width + _barView.buttonBarData.barData.buttons.spacing;
+				
+				if (isNaN(buttonView.buttonData.button.move.horizontal) && isNaN(buttonView.buttonData.button.move.vertical)) {
+					buttonView.x = lastX;
+					lastX += buttonView.width + _barView.buttonBarData.buttons.spacing;
+				}else {
+					buttonView.x = buttonView.buttonData.button.move.horizontal;
+					buttonView.y = buttonView.buttonData.button.move.vertical;
+				}
+				
+				if (buttonView.buttonData.button.mouse.onOver != null) {
+					buttonView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(buttonView.buttonData.button.mouse.onOver));
+				}
+				if (buttonView.buttonData.button.mouse.onOut != null) {
+					buttonView.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(buttonView.buttonData.button.mouse.onOut));
+				}
+			}
+		}
+		
+		private function getMouseEventHandler(actionId:String):Function{
+			return function(e:MouseEvent):void {
+				_module.saladoPlayer.manager.runAction(actionId);
 			}
 		}
 		
@@ -307,23 +316,21 @@ package com.panozona.modules.buttonbar.controller{
 			}else {
 				return;
 			}
-			_barView.backgroundBar.graphics.drawRect(
-				0,
-				0,
+			_barView.backgroundBar.graphics.drawRect(0,0,
 				(isNaN(_barView.buttonBarData.bar.size.width) ? _module.saladoPlayer.manager.boundsWidth : _barView.buttonBarData.bar.size.width),
 				_barView.buttonBarData.bar.size.height);
 			_barView.backgroundBar.graphics.endFill();
 			
-			if (_barView.buttonBarData.bar.align.horizontal == Align.LEFT) {
+			if (_barView.buttonBarData.buttons.align.horizontal == Align.LEFT) {
 				_barView.backgroundBar.x = 0;
-			}else if (_barView.buttonBarData.bar.align.horizontal == Align.RIGHT) {
+			}else if (_barView.buttonBarData.buttons.align.horizontal == Align.RIGHT) {
 				_barView.backgroundBar.x = _module.saladoPlayer.manager.boundsWidth - _barView.backgroundBar.width;
 			}else { // CENTER
 				_barView.backgroundBar.x = (_module.saladoPlayer.manager.boundsWidth - _barView.backgroundBar.width) * 0.5;
 			}
-			if (_barView.buttonBarData.bar.align.vertical == Align.TOP){
+			if (_barView.buttonBarData.buttons.align.vertical == Align.TOP){
 				_barView.backgroundBar.y = 0;
-			}else if (_barView.buttonBarData.bar.align.vertical == Align.BOTTOM) {
+			}else if (_barView.buttonBarData.buttons.align.vertical == Align.BOTTOM) {
 				_barView.backgroundBar.y = _module.saladoPlayer.manager.boundsHeight - _barView.backgroundBar.height;
 			}else { // MIDDLE
 				_barView.backgroundBar.y = (_module.saladoPlayer.manager.boundsHeight - _barView.backgroundBar.height) * 0.5;
@@ -355,7 +362,9 @@ package com.panozona.modules.buttonbar.controller{
 		}
 		
 		private function onIsAutorotatingChange(autorotationEvent:Object = null):void {
-			setButtonActive("autorotation", _module.saladoPlayer.managerData.controlData.autorotationCameraData.isAutorotating);
+			if (_module.saladoPlayer.managerData.controlData.autorotationCameraData.enabled){
+				setButtonActive("autorotation", _module.saladoPlayer.managerData.controlData.autorotationCameraData.isAutorotating);
+			}
 		}
 		
 		private function onDragEnabledChange(event:Object = null):void {
@@ -410,18 +419,10 @@ package com.panozona.modules.buttonbar.controller{
 			}
 		}
 		
-		private function qualityToggle(e:Event = null):void {
-			if (_barView.root.stage.quality.toLowerCase() == StageQuality.HIGH || _barView.root.stage.quality.toLowerCase() == StageQuality.BEST) {
-				_barView.root.stage.quality = StageQuality.MEDIUM;
-			}else {
-				_barView.root.stage.quality = StageQuality.HIGH;
-			}
-			displayQuality();
-		}
-		
-		private function displayQuality():void {
-			setButtonActive("quality",
-			_barView.root.stage.quality.toLowerCase() == StageQuality.HIGH || _barView.root.stage.quality.toLowerCase() == StageQuality.BEST);
+		private function hotspotsToggle(e:Event = null):void {
+			
+			
+			//setButtonActive("hotspots",
 		}
 		
 		private function autorotateToggle(e:Event = null):void {
@@ -434,7 +435,6 @@ package com.panozona.modules.buttonbar.controller{
 				StageDisplayState.FULL_SCREEN :
 				StageDisplayState.NORMAL;
 		}
-		
 		
 		private function keyDownEvent(e:KeyboardEvent):void {
 			switch( e.keyCode ){

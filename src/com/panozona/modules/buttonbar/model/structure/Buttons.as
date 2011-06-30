@@ -25,9 +25,9 @@ package com.panozona.modules.buttonbar.model.structure{
 	
 	public class Buttons extends DataParent {
 		
-		public var path:String; // intentionally not initialized
-		public var align:Align = new Align(Align.RIGHT, Align.BOTTOM); // horizontal, vertical
-		public var move:Move = new Move( -5, -4); // horizontal, vertical
+		public var path:String = null;
+		public const align:Align = new Align(Align.RIGHT, Align.BOTTOM); // horizontal, vertical
+		public const move:Move = new Move( -5, -5); // horizontal, vertical
 		public var spacing:Number = 0;
 		public var listenKeys:Boolean = false;
 		

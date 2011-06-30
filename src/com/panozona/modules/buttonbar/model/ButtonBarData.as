@@ -19,35 +19,50 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.buttonbar.model{
 	
 	import com.panozona.modules.buttonbar.model.structure.Bar;
+	import com.panozona.modules.buttonbar.model.structure.Button;
 	import com.panozona.modules.buttonbar.model.structure.Buttons;
 	import com.panozona.modules.buttonbar.model.structure.ExtraButton;
-	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class ButtonBarData {
 		
-		public var bar:Bar = new Bar();
-		public var barData:BarData = new BarData();
+		public const buttons:Buttons = new Buttons();
+		public const bar:Bar = new Bar();
 		
 		public function ButtonBarData(moduleData:ModuleData, saladoPlayer:Object){
 			
 			var translator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
 			
 			for each(var dataNode:DataNode in moduleData.nodes) {
-				if (dataNode.name == "bar") {
+				if (dataNode.name == "buttons") {
+					translator.dataNodeToObject(dataNode, buttons);
+				}else if (dataNode.name == "bar") {
 					translator.dataNodeToObject(dataNode, bar);
-				}else if (dataNode.name == "buttons") {
-					translator.dataNodeToObject(dataNode, barData.buttons);
 				}else {
-					throw new Error("Unrecognized node: " + dataNode.name);
+					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
 			
 			if (saladoPlayer.managerData.debugMode) {
-				for each(var extraButton:ExtraButton in barData.buttons.getChildrenOfGivenClass(ExtraButton)) {
-					if (saladoPlayer.managerData.getActionDataById(extraButton.action) == null) {
-						throw new Error("Invalid action id in: " + extraButton.name);
+				if (buttons.path == null || !buttons.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)) throw new Error("Invalid buttons path: " + buttons.path);
+				var buttonNames:Object = new Object();
+				for each(var button:Button in buttons.getChildrenOfGivenClass(Button)) {
+					if (button.name == null) throw new Error("Button name not specified.");
+					if (buttonNames[button.name] != undefined) {
+						throw new Error("Repeating button name: " + button.name);
+					}else {
+						buttonNames[button.name] = ""; // something
+						if (button.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(button.mouse.onOver) == null){
+							throw new Error("Action does not exist: " + button.mouse.onOver);
+						}
+						if (button.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(button.mouse.onOut) == null){
+							throw new Error("Action does not exist: " + button.mouse.onOut);
+						}
+						if (button is ExtraButton && saladoPlayer.managerData.getActionDataById((button as ExtraButton).action) == null){
+							throw new Error("Action does not exist: " + (button as ExtraButton).action);
+						}
 					}
 				}
 			}

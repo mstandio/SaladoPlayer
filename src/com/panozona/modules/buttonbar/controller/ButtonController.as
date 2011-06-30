@@ -27,8 +27,8 @@ package com.panozona.modules.buttonbar.controller{
 	
 	public class ButtonController {
 		
-		private var _buttonView:ButtonView;
 		private var _module:Module;
+		private var _buttonView:ButtonView;
 		
 		public function ButtonController(buttonView:ButtonView, module:Module){
 			_buttonView = buttonView;
@@ -40,7 +40,7 @@ package com.panozona.modules.buttonbar.controller{
 			
 			if (buttonView.buttonData.onRelease != null) {
 				_buttonView.addEventListener(MouseEvent.MOUSE_UP, buttonView.buttonData.onRelease, false, 0, true);
-				if(buttonView.buttonData.button.name != "fullscreen"){
+				if(buttonView.buttonData.button.name != "fullscreen"){ // bug when switching to fullscreen
 					_buttonView.addEventListener(MouseEvent.ROLL_OUT, buttonView.buttonData.onRelease, false, 0, true);
 				}
 			}
@@ -82,17 +82,13 @@ package com.panozona.modules.buttonbar.controller{
 		
 		private function drawPlain():void {
 			if (_buttonView.buttonData.bitmapPlain != null) {
-				_buttonView.bitmap.bitmapData = null;
-				_buttonView.bitmap = new Bitmap(_buttonView.buttonData.bitmapPlain);
-				_buttonView.addChild(_buttonView.bitmap);
+				_buttonView.bitmap.bitmapData = _buttonView.buttonData.bitmapPlain;
 			}
 		}
 		
 		private function drawActive():void{
 			if (_buttonView.buttonData.bitmapActive != null) {
-				_buttonView.bitmap.bitmapData = null;
-				_buttonView.bitmap = new Bitmap(_buttonView.buttonData.bitmapActive);
-				_buttonView.addChild(_buttonView.bitmap);
+				_buttonView.bitmap.bitmapData = _buttonView.buttonData.bitmapActive;
 			}
 		}
 	}
