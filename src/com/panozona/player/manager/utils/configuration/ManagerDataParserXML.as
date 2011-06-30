@@ -98,8 +98,6 @@ package com.panozona.player.manager.utils.configuration {
 					allPanoramasData.firstOnEnter = getAttributeValue(globalPanoAttribute, String);
 				}else if (globalPanoAttributeName == "firstOnTransitionEnd") {
 					allPanoramasData.firstOnTransitionEnd = getAttributeValue(globalPanoAttribute, String);
-				} else if (globalPanoAttributeName == "camera") {
-					applySubAttributes(allPanoramasData.params, globalPanoAttribute);
 				} else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Unrecognized global panoramas attribute: " + globalPanoAttributeName));

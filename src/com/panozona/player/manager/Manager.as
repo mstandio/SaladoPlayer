@@ -52,8 +52,8 @@ package com.panozona.player.manager {
 		protected var _managerData:ManagerData;
 		protected var _saladoPlayer:SaladoPlayer; // parent needed to access loaded modules
 		
-		protected var _currentPanoramaData:PanoramaData; // hmmm czy tutja to powinno byc publczne 
-		protected var _previousPanoramaData:PanoramaData; // to tak samo chyba nie powinno to tak wygladac 
+		protected var _currentPanoramaData:PanoramaData;
+		protected var _previousPanoramaData:PanoramaData;
 		protected var arrListeners:Array; // hold hotspots mouse event listeners so that they can be removed
 		
 		public function Manager() {
@@ -127,6 +127,7 @@ package com.panozona.player.manager {
 				runAction(_previousPanoramaData.onLeave);
 				runAction(_previousPanoramaData.onLeaveTo[currentPanoramaData.id]);
 			}
+			dispatchEvent(new PanoramaEvent(PanoramaEvent.PANORAMA_STARTED_LOADING));
 			
 			Trace.instance.printInfo("Loading panorama: " + panoramaData.id);
 			
@@ -141,25 +142,6 @@ package com.panozona.player.manager {
 			}
 			
 			arrListeners = new Array();
-			
-			dispatchEvent(new PanoramaEvent(PanoramaEvent.PANORAMA_STARTED_LOADING));
-			
-			if (isNaN(panoramaData.params.pan))              panoramaData.params.pan              = _managerData.allPanoramasData.params.pan;
-			if (isNaN(panoramaData.params.tilt))             panoramaData.params.tilt             = _managerData.allPanoramasData.params.tilt;
-			if (isNaN(panoramaData.params.fov))              panoramaData.params.fov              = _managerData.allPanoramasData.params.fov;
-			if (isNaN(panoramaData.params.maxPan))           panoramaData.params.maxPan           = _managerData.allPanoramasData.params.maxPan;
-			if (isNaN(panoramaData.params.minPan))           panoramaData.params.minPan           = _managerData.allPanoramasData.params.minPan;
-			if (isNaN(panoramaData.params.maxTilt))          panoramaData.params.maxTilt          = _managerData.allPanoramasData.params.maxTilt;
-			if (isNaN(panoramaData.params.minTilt))          panoramaData.params.minTilt          = _managerData.allPanoramasData.params.minTilt;
-			if (isNaN(panoramaData.params.maxFov))           panoramaData.params.maxFov           = _managerData.allPanoramasData.params.maxFov;
-			if (isNaN(panoramaData.params.minFov))           panoramaData.params.minFov           = _managerData.allPanoramasData.params.minFov;
-			if (isNaN(panoramaData.params.minHorizontalFov)) panoramaData.params.minHorizontalFov = _managerData.allPanoramasData.params.minHorizontalFov;
-			if (isNaN(panoramaData.params.maxHorizontalFov)) panoramaData.params.maxHorizontalFov = _managerData.allPanoramasData.params.maxHorizontalFov;
-			if (isNaN(panoramaData.params.minVerticalFov))   panoramaData.params.minVerticalFov   = _managerData.allPanoramasData.params.minVerticalFov;
-			if (isNaN(panoramaData.params.maxVerticalFov))   panoramaData.params.maxVerticalFov   = _managerData.allPanoramasData.params.maxVerticalFov;
-			if (isNaN(panoramaData.params.boundsWidth))      panoramaData.params.boundsWidth      = _managerData.allPanoramasData.params.boundsWidth;
-			if (isNaN(panoramaData.params.boundsHeight))     panoramaData.params.boundsHeight     = _managerData.allPanoramasData.params.boundsHeight;
-			if (isNaN(panoramaData.params.tierThreshold))    panoramaData.params.tierThreshold    = _managerData.allPanoramasData.params.tierThreshold;
 			
 			_maximumPan = NaN;
 			_minimumPan = NaN;
@@ -176,6 +158,7 @@ package com.panozona.player.manager {
 		}
 		
 		protected function panoramaLoaded(e:Event):void {
+			dispatchEvent(new PanoramaEvent(PanoramaEvent.PANORAMA_LOADED));
 			if (_previousPanoramaData != null && isNaN(currentPanoramaData.params.pan)) {
 				pan += (_previousPanoramaData.direction - currentPanoramaData.direction);
 			}
@@ -187,7 +170,6 @@ package com.panozona.player.manager {
 			}else {
 				runAction(_managerData.allPanoramasData.firstOnEnter);
 			}
-			dispatchEvent(new PanoramaEvent(PanoramaEvent.PANORAMA_LOADED));
 		}
 		
 		protected function loadHotspots(panoramaData:PanoramaData):void {

@@ -34,8 +34,8 @@ public class Params
 	public var boundsWidth:Number;
 	public var boundsHeight:Number;
 	
-	public var minFov:Number;
- 	public var maxFov:Number;
+	public var minFov:Number = 30;
+ 	public var maxFov:Number = 120;
  	public var minPan:Number;
  	public var maxPan:Number;
  	public var minTilt:Number;
