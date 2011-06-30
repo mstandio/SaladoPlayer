@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	You can add assign executing actions on mouse events to both types of buttons.
+	Only supported events in this module are onOver and onOut.
+	
+	http://panozona.com/wiki/Module:ButtonBar
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<ButtonBar path="~modules/ButtonBar-1.2.swf">
+			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png">
+				<button name="drag" mouse="onOver:dragOver,onOut:dragOut"/>
+				<extraButton name="a" action="printHello" mouse="onOver:aOver,onOut:aOut"/>
+			</buttons>
+		</ButtonBar>
+	</modules>
+	<actions>
+		<action id="printHello" content="SaladoPlayer.print(Hello I am extraButton a)"/>
+		<action id="dragOver" content="SaladoPlayer.print(Over drag)"/>
+		<action id="dragOut" content="SaladoPlayer.print(Out drag)"/>
+		<action id="aOver" content="SaladoPlayer.print(Over a)"/>
+		<action id="aOut" content="SaladoPlayer.print(Out a)"/>
+	</actions>
+</SaladoPlayer>

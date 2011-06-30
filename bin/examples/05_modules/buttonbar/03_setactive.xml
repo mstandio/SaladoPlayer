@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Each one of extrabuttons can be lited up or dimmed on demand. This feature can be usefull when extraButton reflects
-	state of some option, like if module window is visible or not.
+	Each one of extrabuttons can be lited up or dimmed on demand. This feature can be usefull
+	when extraButton reflects state of some option, like if module window is visible or not.
 	
 	http://panozona.com/wiki/Module:ButtonBar
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="blueArrow" location="pan:-20" path="~hotspots/images/red_arrow.png" mouse="onClick:setInactive"/>
-			<image id="greenArrow" location="pan:20" path="~hotspots/images/green_arrow.png" mouse="onClick:setActive"/>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
+			<image id="yc_redArrow" location="pan:-10" path="~hotspots/images/red_arrow.png" mouse="onClick:setInactive"/>
+			<image id="yc_greenArrow" location="pan:10" path="~hotspots/images/green_arrow.png" mouse="onClick:setActive"/>
+			
 		</panorama>
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
 			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png">
 				<extraButton name="a" action="printHello"/>
-				<button name="in"/>
-				<button name="out"/>
-				<button name="drag"/>
-				<button name="fullscreen"/>
 			</buttons>
 		</ButtonBar>
 	</modules>
 	<actions>
 		<action id="printHello" content="SaladoPlayer.print(Hello I am extraButton a)"/>
-		<action id="setActive" content="ButtonBar.setExtraButtonActive(a,true)"/>
-		<action id="setInactive" content="ButtonBar.setExtraButtonActive(a,false)"/>
+		<action id="setActive" content="ButtonBar.setActive(a,true)"/>
+		<action id="setInactive" content="ButtonBar.setActive(a,false)"/>
 	</actions>
 </SaladoPlayer>

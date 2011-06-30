@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Use listenKeys attribute to reflect pressing direction (arrows) and zoom (ctrl, shift) keyboard keys.
+	
+	http://panozona.com/wiki/Module:ButtonBar
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<ButtonBar path="~modules/ButtonBar-1.2.swf">
+			<buttons path="~modules/images/buttonbar/buttons/hans_hermans_30x30.png" listenKeys="true">
+				<button name="up"/>
+				<button name="down"/>
+				<button name="left"/>
+				<button name="right"/>
+				<button name="in"/>
+				<button name="out"/>
+			</buttons>
+		</ButtonBar>
+	</modules>
+</SaladoPlayer>

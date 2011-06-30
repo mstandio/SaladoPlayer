@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Path in buttons node is mandatory, it points to the grid of buttons bitmaps.
-	In order to remove button from bar, remove <button/> node form the bar.
-	Order of button nodes determines order of buttons on the bar
+	Point to image containig bitmaps grid with bitmaps for all buttons. You can choose from many such grids
+	or you can easily create your own. Choose which ones of preconfigured standard buttons to display.
+	Changing order of button nodes results in changing order in which buttons are displayed.
 	
 	http://panozona.com/wiki/Module:ButtonBar
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
+			<image id="yc_blueArrow" path="~hotspots/images/blue_arrow.png"/>
+		</panorama>
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
-			<bar color="#ff0000" visible="false" />
 			<buttons path="~modules/images/buttonbar/buttons/hans_hermans_40x40.png">
 				<button name="up"/>
 				<button name="down"/>
@@ -22,6 +23,7 @@
 				<button name="in"/>
 				<button name="out"/>
 				<button name="drag"/>
+				<button name="hotspots"/>
 				<button name="autorotation"/>
 				<button name="fullscreen"/>
 			</buttons>

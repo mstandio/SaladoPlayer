@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	You can change position of bar and all buttons at once, as well as each button individually.
+	You can align position of all buttons inside panorama window along with background bar.
+	Use spacing attribute to set space between buttons that have no custom move values set.
+	
+	http://panozona.com/wiki/Module:ButtonBar
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<ButtonBar path="~modules/ButtonBar-1.2.swf">
+			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png" move="horizontal:190" spacing="2">
+				<button name="up" move="horizontal:-100,vertical:-40"/>
+				<button name="down" move="horizontal:-100"/>
+				<button name="left" move="horizontal:-115,vertical:-20"/>
+				<button name="right" move="horizontal:-85,vertical:-20"/>
+				<button name="in" move="horizontal:-50,vertical:-30"/>
+				<button name="out" move="horizontal:-50"/>
+				<button name="drag"/>
+				<button name="autorotation"/>
+				<button name="fullscreen"/>
+			</buttons>
+			<bar visible="true" path="~modules/images/buttonbar/bar/blob_blue.png" size="width:240,height:85" move="horizontal:15"/>
+		</ButtonBar>
+	</modules>
+</SaladoPlayer>
