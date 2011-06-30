@@ -54,6 +54,8 @@ package com.panozona.modules.buttonbar.controller{
 		
 		private var buttonsController:Vector.<ButtonController>;
 		
+		private var hotspots:Boolean = true;
+		
 		public function BarController(barView:BarView, module:Module){
 			_barView = barView;
 			_module = module;
@@ -65,6 +67,9 @@ package com.panozona.modules.buttonbar.controller{
 			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
 			
+			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0 , true);
+			
 			autorotationEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.AutorotationEvent") as Class;
 			cameraKeyBindingsClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.model.CameraKeyBindings") as Class;
 			cameraEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.CameraEvent") as Class;
@@ -74,7 +79,7 @@ package com.panozona.modules.buttonbar.controller{
 			
 			if (_barView.buttonBarData.buttons.listenKeys) {
 				_module.saladoPlayer.stage.addEventListener( KeyboardEvent.KEY_DOWN, keyDownEvent, false, 0, true);
-				_module.saladoPlayer.stage..addEventListener( KeyboardEvent.KEY_UP, keyUpEvent, false, 0, true);
+				_module.saladoPlayer.stage.addEventListener( KeyboardEvent.KEY_UP, keyUpEvent, false, 0, true);
 			}
 			
 			if (_barView.buttonBarData.bar.visible && _barView.buttonBarData.bar.path != null){
@@ -115,7 +120,12 @@ package com.panozona.modules.buttonbar.controller{
 			if (_barView.buttonBarData.bar.visible){
 				buildBackgroundBar();
 			}
-			setButtonActive("fullscreen", _module.saladoPlayer.stage.displayState == StageDisplayState.FULL_SCREEN);
+			displayFullscreen();
+		}
+		
+		public function onPanoramaLoaded(panoramaEvent:Object):void {
+			_module.saladoPlayer.manager.managedChildren.visible = hotspots;
+			displayHotspots();
 		}
 		
 		public function setButtonActive(name:String, active:Boolean):void {
@@ -160,7 +170,7 @@ package com.panozona.modules.buttonbar.controller{
 			handleResize();
 			onIsAutorotatingChange();
 			onDragEnabledChange();
-			// update hotspots 
+			displayHotspots();
 		}
 		
 		private function buildButtonsBar():void {
@@ -420,9 +430,13 @@ package com.panozona.modules.buttonbar.controller{
 		}
 		
 		private function hotspotsToggle(e:Event = null):void {
-			
-			
-			//setButtonActive("hotspots",
+			_module.saladoPlayer.manager.managedChildren.visible = !_module.saladoPlayer.manager.managedChildren.visible;
+			hotspots = _module.saladoPlayer.manager.managedChildren.visible;
+			displayHotspots();
+		}
+		
+		private function displayHotspots():void {
+			setButtonActive("hotspots", hotspots);
 		}
 		
 		private function autorotateToggle(e:Event = null):void {
@@ -434,6 +448,10 @@ package com.panozona.modules.buttonbar.controller{
 			_module.saladoPlayer.stage.displayState = (_module.saladoPlayer.stage.displayState == StageDisplayState.NORMAL) ?
 				StageDisplayState.FULL_SCREEN :
 				StageDisplayState.NORMAL;
+		}
+		
+		private function displayFullscreen():void {
+			setButtonActive("fullscreen", _module.saladoPlayer.stage.displayState == StageDisplayState.FULL_SCREEN);
 		}
 		
 		private function keyDownEvent(e:KeyboardEvent):void {
