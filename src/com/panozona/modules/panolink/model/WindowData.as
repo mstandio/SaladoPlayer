@@ -19,16 +19,14 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.panolink.model{
 	
 	import com.panozona.modules.panolink.events.WindowEvent;
-	import com.panozona.modules.panolink.model.structure.Settings;
+	import com.panozona.modules.panolink.model.structure.Window;
 	import flash.events.EventDispatcher;
 	
 	public class WindowData extends EventDispatcher{
 		
-		private var _open:Boolean;
+		public const window:Window = new Window();
 		
-		public function WindowData(settings:Settings):void{
-			_open = settings.open;
-		}
+		private var _open:Boolean;
 		
 		public function get open():Boolean{return _open}
 		public function set open(value:Boolean):void {

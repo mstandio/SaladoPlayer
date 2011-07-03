@@ -18,38 +18,33 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.panolink.model {
 	
-	import com.panozona.modules.panolink.model.structure.Settings;
+	import com.panozona.modules.panolink.model.structure.Window;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class PanoLinkData {
 		
-		public var settings:Settings = new Settings();
-		public var windowData:WindowData;
+		public const windowData:WindowData = new WindowData();
 		
 		public function PanoLinkData(moduleData:ModuleData, saladoPlayer:Object) {
 			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
 			for each(var dataNode:DataNode in moduleData.nodes) {
-				if (dataNode.name == "settings") {
-					tarnslator.dataNodeToObject(dataNode, settings);
+				if (dataNode.name == "window") {
+					tarnslator.dataNodeToObject(dataNode, windowData.window);
 				}else{
-					throw new Error("Could not recognize: " + dataNode.name);
+					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
 			
-			windowData = new WindowData(settings);
+			windowData.open = windowData.window.open;
 			
 			if (saladoPlayer.managerData.debugMode) {
-				if (settings.onOpen != null) {
-					if (saladoPlayer.managerData.getActionDataById(settings.onOpen) == null) {
-						throw new Error("Action does not exist: " +settings.onOpen );
-					}
+				if (windowData.window.onOpen != null && saladoPlayer.managerData.getActionDataById(windowData.window.onOpen) == null) {
+					throw new Error("Action does not exist: " + windowData.window.onOpen);
 				}
-				if (settings.onClose != null) {
-					if (saladoPlayer.managerData.getActionDataById(settings.onClose) == null) {
-						throw new Error("Action does not exist: " + settings.onClose);
-					}
+				if (windowData.window.onClose != null && saladoPlayer.managerData.getActionDataById(windowData.window.onClose) == null) {
+					throw new Error("Action does not exist: " + windowData.window.onClose);
 				}
 			}
 		}

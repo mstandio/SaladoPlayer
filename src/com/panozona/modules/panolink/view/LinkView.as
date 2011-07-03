@@ -43,7 +43,7 @@ package com.panozona.modules.panolink.view{
 			_panoLinkData = panoLinkData;
 			
 			// draw copy button
-			textCopyButton = new SimpleButton();
+			textCopyButton = new SimpleButton(); // todo: do not use simplebutton!
 			var copyPlainIcon:Sprite = new Sprite();
 			copyPlainIcon.addChild(new Bitmap(new EmbededGraphics.BitmapCopyPlain().bitmapData));
 			var copyPressIcon:Sprite = new Sprite();
@@ -52,7 +52,7 @@ package com.panozona.modules.panolink.view{
 			textCopyButton.overState = copyPlainIcon;
 			textCopyButton.downState = copyPressIcon;
 			textCopyButton.hitTestState = copyPressIcon;
-			textCopyButton.x = _panoLinkData.settings.size.width - textCopyButton.width - 30;
+			textCopyButton.x = _panoLinkData.windowData.window.size.width - textCopyButton.width - 30;
 			textCopyButton.y = 3;
 			
 			addChild(textCopyButton);
@@ -63,8 +63,8 @@ package com.panozona.modules.panolink.view{
 			textFormat.font = "Verdana";
 			textField = new TextField();
 			textField.defaultTextFormat = textFormat;
-			textField.width = _panoLinkData.settings.size.width - 82;
-			textField.height = _panoLinkData.settings.size.height;
+			textField.width = _panoLinkData.windowData.window.size.width - 82;
+			textField.height = _panoLinkData.windowData.window.size.height;
 			textField.alwaysShowSelection = true;
 			addChild(textField);
 			

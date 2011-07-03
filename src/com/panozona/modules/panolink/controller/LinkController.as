@@ -26,56 +26,55 @@ package com.panozona.modules.panolink.controller{
 	
 	public class LinkController{
 		
-		private var linkView:LinkView;
-		private var module:Module;
-		
 		private var paramsFirstClone:Object;
-		private var paramsGlobalClone:Object;
+		
+		private var _linkView:LinkView;
+		private var _module:Module;
 		
 		public function LinkController(linkView:LinkView, module:Module){
 			
-			this.linkView = linkView;
-			this.module = module;
+			_linkView = linkView;
+			_module = module;
 			
-			linkView.panoLinkData.windowData.addEventListener(WindowEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
+			_linkView.panoLinkData.windowData.addEventListener(WindowEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
 			
 			var recognizedValues:Object = recognizeURL(ExternalInterface.call("window.location.href.toString"));
 			if (recognizedValues != null){
-				var panoDataReference:Object = module.saladoPlayer.managerData.getPanoramaDataById(recognizedValues.id);
+				var panoDataReference:Object = _module.saladoPlayer.managerData.getPanoramaDataById(recognizedValues.id);
 				if (panoDataReference == null) {
-					module.printWarning("Nonexistant panorama: " + recognizedValues.id);
+					_module.printWarning("Panorama does not exist: " + recognizedValues.id);
 				}else {
 					var paramsReference:Object = panoDataReference.params;
 					stashOriginalParams(recognizedValues.id);
-					module.saladoPlayer.managerData.allPanoramasData.firstPanorama = recognizedValues.id;
+					_module.saladoPlayer.managerData.allPanoramasData.firstPanorama = recognizedValues.id;
 					if (!isNaN(recognizedValues.pan)) {
 						paramsReference.pan = recognizedValues.pan;
-						module.saladoPlayer.managerData.allPanoramasData.params.pan = NaN;
+						_module.saladoPlayer.managerData.allPanoramasData.params.pan = NaN;
 					}
 					if (!isNaN(recognizedValues.tilt)) {
 						paramsReference.tilt = recognizedValues.tilt;
-						module.saladoPlayer.managerData.allPanoramasData.params.tilt = NaN;
+						_module.saladoPlayer.managerData.allPanoramasData.params.tilt = NaN;
 					}
 					if (!isNaN(recognizedValues.fov)) {
 						paramsReference.fov = recognizedValues.fov;
-						module.saladoPlayer.managerData.allPanoramasData.params.fov = NaN;
+						_module.saladoPlayer.managerData.allPanoramasData.params.fov = NaN;
 					}
 				}
 			}
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-			module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
+			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 		}
 		
 		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-			module.saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded);
+			_module.saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded);
 			onOpenChange();
 			setOriginalParams();
 		}
 		
 		private function onOpenChange(WindowEvent:Object = null):void {
-			if (linkView.panoLinkData.windowData.open){
-				linkView.setText(getUrlLink(ExternalInterface.call("window.location.href.toString")));
+			if (_linkView.panoLinkData.windowData.open){
+				_linkView.setText(getUrlLink(ExternalInterface.call("window.location.href.toString")));
 			}
 		}
 		
@@ -93,11 +92,11 @@ package com.panozona.modules.panolink.controller{
 				result = url;
 				result += "?";
 			}
-			result += "pano=" + module.saladoPlayer.manager.currentPanoramaData.id;
+			result += "pano=" + _module.saladoPlayer.manager.currentPanoramaData.id;
 			result += "&cam=";
-			result += (module.saladoPlayer.manager.pan as Number).toFixed(0) + ",";
-			result += (module.saladoPlayer.manager.tilt as Number).toFixed(0) + ",";
-			result += (module.saladoPlayer.manager.fieldOfView as Number).toFixed(0);
+			result += Math.floor(_module.saladoPlayer.manager.pan as Number) + ",";
+			result += Math.floor(_module.saladoPlayer.manager.tilt as Number) + ",";
+			result += Math.floor(_module.saladoPlayer.manager.fieldOfView as Number);
 			return result;
 		}
 		
@@ -122,7 +121,7 @@ package com.panozona.modules.panolink.controller{
 							tilt = Number(values[1]);
 							fov = Number(values[2]);
 						}catch (e:Error){
-							module.printWarning("Invalid cam values: " + temp[1]);
+							_module.printWarning("Invalid cam values: " + temp[1]);
 						}
 					}
 				}
@@ -139,24 +138,19 @@ package com.panozona.modules.panolink.controller{
 		}
 		
 		private function stashOriginalParams(panoramaId:String):void{
-			var paramsReference:Object = module.saladoPlayer.managerData.getPanoramaDataById(panoramaId).params;
+			var paramsReference:Object = _module.saladoPlayer.managerData.getPanoramaDataById(panoramaId).params;
 			if (paramsReference != null) {
 				paramsFirstClone = paramsReference.clone();
-				paramsGlobalClone = module.saladoPlayer.managerData.allPanoramasData.params.clone();
 			}
 		}
 		
 		private function setOriginalParams():void {
-			var paramsReference:Object = module.saladoPlayer.managerData.getPanoramaDataById(module.saladoPlayer.managerData.allPanoramasData.firstPanorama).params;
+			if (_module.saladoPlayer.managerData.allPanoramasData.firstPanorama == null) return;
+			var paramsReference:Object = _module.saladoPlayer.managerData.getPanoramaDataById(_module.saladoPlayer.managerData.allPanoramasData.firstPanorama.id).params;
 			if (paramsReference != null && paramsFirstClone != null) {
 				paramsReference.pan = paramsFirstClone.pan;
 				paramsReference.tilt = paramsFirstClone.tilt;
 				paramsReference.fov = paramsFirstClone.fov;
-			}
-			if(paramsGlobalClone != null){
-				module.saladoPlayer.managerData.allPanoramasData.params.pan = paramsGlobalClone.pan;
-				module.saladoPlayer.managerData.allPanoramasData.params.tilt = paramsGlobalClone.tilt;
-				module.saladoPlayer.managerData.allPanoramasData.params.fov = paramsGlobalClone.fov;
 			}
 		}
 	}

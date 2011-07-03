@@ -30,8 +30,8 @@ package com.panozona.modules.panolink.controller{
 	
 	public class WindowController{
 		
-		private var _windowView:WindowView;
 		private var _module:Module;
+		private var _windowView:WindowView;
 		
 		private var _linkController:LinkController;
 		
@@ -58,9 +58,9 @@ package com.panozona.modules.panolink.controller{
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
 			if (_windowView.windowData.open){
-				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.settings.onOpen);
+				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.windowData.window.onOpen);
 			}else {
-				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.settings.onClose);
+				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.windowData.window.onClose);
 			}
 		}
 		
@@ -69,15 +69,15 @@ package com.panozona.modules.panolink.controller{
 		}
 		
 		private function handlePlayerClick(event:Event = null):void {
-			_windowView.panoLinkData.windowData.open = false;
+			_windowView.panoLinkData.windowData.window.open = false;
 		}
 		
 		private function onOpenChange(e:Event):void {
 			if (_windowView.windowData.open) {
-				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.settings.onOpen);
+				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.windowData.window.onOpen);
 				openWindow();
 			}else {
-				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.settings.onClose);
+				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.windowData.window.onClose);
 				closeWindow();
 			}
 		}
@@ -87,9 +87,9 @@ package com.panozona.modules.panolink.controller{
 			_windowView.mouseEnabled = true;
 			_windowView.mouseChildren = true;
 			var tweenObj:Object = new Object();
-			tweenObj["time"] = _windowView.panoLinkData.settings.openTween.time;
-			tweenObj["transition"] = _windowView.panoLinkData.settings.openTween.transition;
-			if (_windowView.panoLinkData.settings.transition.type == Transition.FADE){
+			tweenObj["time"] = _windowView.panoLinkData.windowData.window.openTween.time;
+			tweenObj["transition"] = _windowView.panoLinkData.windowData.window.openTween.transition;
+			if (_windowView.panoLinkData.windowData.window.transition.type == Transition.FADE){
 				tweenObj["alpha"] = 1;
 			}else{
 				tweenObj["x"] = getWindowOpenX();
@@ -100,10 +100,10 @@ package com.panozona.modules.panolink.controller{
 		
 		private function closeWindow():void {
 			var tweenObj:Object = new Object();
-			tweenObj["time"] = _windowView.panoLinkData.settings.closeTween.time;
-			tweenObj["transition"] = _windowView.panoLinkData.settings.closeTween.transition;
+			tweenObj["time"] = _windowView.panoLinkData.windowData.window.closeTween.time;
+			tweenObj["transition"] = _windowView.panoLinkData.windowData.window.closeTween.transition;
 			tweenObj["onComplete"] = closeWindowOnComplete;
-			if (_windowView.panoLinkData.settings.transition.type == Transition.FADE) {
+			if (_windowView.panoLinkData.windowData.window.transition.type == Transition.FADE) {
 				tweenObj["alpha"] = 0;
 			}else{
 				tweenObj["x"] = getWindowCloseX();
@@ -125,7 +125,7 @@ package com.panozona.modules.panolink.controller{
 				_windowView.visible = true;
 			}else {
 				Tweener.addTween(_windowView, {x:getWindowCloseX(), y:getWindowCloseY()}); // no time parameter
-				if(_windowView.panoLinkData.settings.transition.type == Transition.FADE){
+				if(_windowView.panoLinkData.windowData.window.transition.type == Transition.FADE){
 					_windowView.alpha = 0;
 				}
 				_windowView.visible = false;
@@ -134,50 +134,50 @@ package com.panozona.modules.panolink.controller{
 		
 		private function getWindowOpenX():Number {
 			var result:Number = 0;
-			switch(_windowView.panoLinkData.settings.align.horizontal) {
+			switch(_windowView.panoLinkData.windowData.window.align.horizontal) {
 				case Align.RIGHT:
 					result += _module.saladoPlayer.manager.boundsWidth 
-						- _windowView.panoLinkData.settings.size.width 
-						+ _windowView.panoLinkData.settings.move.horizontal;
+						- _windowView.panoLinkData.windowData.window.size.width 
+						+ _windowView.panoLinkData.windowData.window.move.horizontal;
 				break;
 				case Align.LEFT:
-					result += _windowView.panoLinkData.settings.move.horizontal;
+					result += _windowView.panoLinkData.windowData.window.move.horizontal;
 				break;
 				default: // CENTER
 					result += (_module.saladoPlayer.manager.boundsWidth 
-						- _windowView.panoLinkData.settings.size.width) * 0.5 
-						+ _windowView.panoLinkData.settings.move.horizontal;
+						- _windowView.panoLinkData.windowData.window.size.width) * 0.5 
+						+ _windowView.panoLinkData.windowData.window.move.horizontal;
 			}
 			return result;
 		}
 		
 		private function getWindowOpenY():Number{
 			var result:Number = 0;
-			switch(_windowView.panoLinkData.settings.align.vertical) {
+			switch(_windowView.panoLinkData.windowData.window.align.vertical) {
 				case Align.TOP:
-					result += _windowView.panoLinkData.settings.move.vertical;
+					result += _windowView.panoLinkData.windowData.window.move.vertical;
 				break;
 				case Align.BOTTOM:
 					result += _module.saladoPlayer.manager.boundsHeight 
-						- _windowView.panoLinkData.settings.size.height
-						+ _windowView.panoLinkData.settings.move.vertical;
+						- _windowView.panoLinkData.windowData.window.size.height
+						+ _windowView.panoLinkData.windowData.window.move.vertical;
 				break;
 				default: // MIDDLE
 					result += (_module.saladoPlayer.manager.boundsHeight 
-						- _windowView.panoLinkData.settings.size.height) * 0.5
-						+ _windowView.panoLinkData.settings.move.vertical;
+						- _windowView.panoLinkData.windowData.window.size.height) * 0.5
+						+ _windowView.panoLinkData.windowData.window.move.vertical;
 			}
 			return result;
 		}
 		
 		private function getWindowCloseX():Number {
 			var result:Number = 0;
-			switch(_windowView.panoLinkData.settings.transition.type){
+			switch(_windowView.panoLinkData.windowData.window.transition.type){
 				case Transition.SLIDE_RIGHT:
 					result = _module.saladoPlayer.manager.boundsWidth;
 				break;
 				case Transition.SLIDE_LEFT:
-					result = -_windowView.panoLinkData.settings.size.width;
+					result = -_windowView.panoLinkData.windowData.window.size.width;
 				break;
 				default: //SLIDE_UP, SLIDE_DOWN
 					result = getWindowOpenX();
@@ -187,9 +187,9 @@ package com.panozona.modules.panolink.controller{
 		
 		private function getWindowCloseY():Number{
 			var result:Number = 0;
-			switch(_windowView.panoLinkData.settings.transition.type){
+			switch(_windowView.panoLinkData.windowData.window.transition.type){
 				case Transition.SLIDE_UP:
-					result = -_windowView.panoLinkData.settings.size.height;
+					result = -_windowView.panoLinkData.windowData.window.size.height;
 				break;
 				case Transition.SLIDE_DOWN:
 					result = _module.saladoPlayer.manager.boundsHeight;

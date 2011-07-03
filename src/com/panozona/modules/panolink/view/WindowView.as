@@ -29,7 +29,7 @@ package com.panozona.modules.panolink.view{
 	
 	public class WindowView extends Sprite{
 		
-		private var window:Sprite;
+		public const window:Sprite = new Sprite;
 		private var windowCloseButton:SimpleButton;
 		
 		private var _panoLinkData:PanoLinkData;
@@ -42,10 +42,8 @@ package com.panozona.modules.panolink.view{
 			
 			visible = _panoLinkData.windowData.open;
 			
-			// draw map window
-			window = new Sprite();
 			window.graphics.beginFill(0xFFFFFF);
-			window.graphics.drawRect(0, 0, panoLinkData.settings.size.width, panoLinkData.settings.size.height);
+			window.graphics.drawRect(0, 0, panoLinkData.windowData.window.size.width, panoLinkData.windowData.window.size.height);
 			window.graphics.endFill();
 			addChild(window);
 			
@@ -67,8 +65,6 @@ package com.panozona.modules.panolink.view{
 			
 			_linkView = new LinkView(panoLinkData);
 			window.addChild(_linkView);
-			
-			
 		}
 		
 		public function get panoLinkData():PanoLinkData {
