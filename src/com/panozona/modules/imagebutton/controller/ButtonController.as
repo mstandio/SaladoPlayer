@@ -38,7 +38,7 @@ package com.panozona.modules.imagebutton.controller{
 	public class ButtonController {
 		
 		private var _buttonView:ButtonView;
-		private var _module:Module; // to get bounds width and height
+		private var _module:Module;
 		
 		public function ButtonController(buttonView:ButtonView, module:Module) {
 			

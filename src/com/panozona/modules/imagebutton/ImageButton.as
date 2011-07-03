@@ -32,9 +32,8 @@ package com.panozona.modules.imagebutton{
 		private var buttonControllers:Vector.<ButtonController>;
 		
 		public function ImageButton(){
-			super("ImageButton", "1.1", "http://panozona.com/wiki/Module:ImageButton");
-			moduleDescription.addFunctionDescription("open", String);
-			moduleDescription.addFunctionDescription("close", String);
+			super("ImageButton", "1.2", "http://panozona.com/wiki/Module:ImageButton");
+			moduleDescription.addFunctionDescription("setOpen", String, Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen", String);
 		}
 		
@@ -57,20 +56,10 @@ package com.panozona.modules.imagebutton{
 //  Exposed functions 
 ///////////////////////////////////////////////////////////////////////////////
 		
-		public function open(buttonId:String):void{
+		public function setOpen(buttonId:String, value:Boolean):void{
 			for (var i:int = 0; i < numChildren; i++) {
 				if (getChildAt(i) is ButtonView && (getChildAt(i) as ButtonView).buttonData.button.id == buttonId){
-					(getChildAt(i) as ButtonView).buttonData.open = true;
-					return;
-				}
-			}
-			printWarning("Nonexistant button id: " + buttonId);
-		}
-		
-		public function close(buttonId:String):void{
-			for (var i:int = 0; i < numChildren; i++) {
-				if (getChildAt(i) is ButtonView && (getChildAt(i) as ButtonView).buttonData.button.id == buttonId){
-					(getChildAt(i) as ButtonView).buttonData.open = false;
+					(getChildAt(i) as ButtonView).buttonData.open = value;
 					return;
 				}
 			}

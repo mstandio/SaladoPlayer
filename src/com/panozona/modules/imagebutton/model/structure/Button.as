@@ -27,18 +27,24 @@ package com.panozona.modules.imagebutton.model.structure {
 	
 	public class Button {
 		
-		public var id:String;
-		public var path:String;
+		public var id:String = null;
+		public var path:String = null;
+		
+		public var open:Boolean = true;
+		
 		public var text:String; // indended to be passed as CDATA
 		public var alpha:Number = 1;
-		public var align:Align = new Align(Align.LEFT, Align.TOP);
-		public var move:Move = new Move(20, 20);
-		public var transition:Transition = new Transition(Transition.FADE);
-		public var mouse:Mouse = new Mouse();
-		public var open:Boolean = true;
-		public var onOpen:String; // id of action
-		public var onClose:String; // id of action
-		public var openTween:Tween = new Tween(Equations.easeNone, 0.5);
-		public var closeTween:Tween = new Tween(Equations.easeNone, 0.5);
+		
+		public const align:Align = new Align(Align.LEFT, Align.TOP);
+		public const move:Move = new Move(20, 20);
+		
+		public const mouse:Mouse = new Mouse();
+		
+		public const transition:Transition = new Transition(Transition.FADE);
+		public const openTween:Tween = new Tween(Equations.easeNone, 0.5);
+		public const closeTween:Tween = new Tween(Equations.easeNone, 0.5);
+		
+		public var onOpen:String; // action id
+		public var onClose:String; // action id
 	}
 }

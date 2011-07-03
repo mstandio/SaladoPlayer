@@ -21,7 +21,6 @@ package com.panozona.modules.imagebutton.view{
 	import com.panozona.modules.imagebutton.model.ButtonData;
 	import com.panozona.modules.imagebutton.model.ImageButtonData;
 	import flash.display.Sprite;
-	import flash.display.Bitmap;
 	
 	public class ButtonView extends Sprite{
 		

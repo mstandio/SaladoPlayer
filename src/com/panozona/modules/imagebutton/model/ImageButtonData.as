@@ -26,7 +26,7 @@ package com.panozona.modules.imagebutton.model{
 	
 	public class ImageButtonData{
 		
-		public var buttons:Butttons = new Butttons();
+		public const buttons:Butttons = new Butttons();
 		
 		public function ImageButtonData(moduleData:ModuleData, saladoPlayer:Object){
 			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
@@ -48,16 +48,27 @@ package com.panozona.modules.imagebutton.model{
 						throw new Error("Repeating button id: " + button.id);
 					}else {
 						buttonIds[button.id] = ""; // something
-					}
-					
-					if (button.onOpen && !saladoPlayer.managerData.getActionDataById(button.onOpen)
-						|| button.onClose && !saladoPlayer.managerData.getActionDataById(button.onClose)
-						|| button.mouse.onClick && !saladoPlayer.managerData.getActionDataById(button.mouse.onClick)
-						|| button.mouse.onOut && !saladoPlayer.managerData.getActionDataById(button.mouse.onOut)
-						|| button.mouse.onOver && !saladoPlayer.managerData.getActionDataById(button.mouse.onOver)
-						|| button.mouse.onPress && !saladoPlayer.managerData.getActionDataById(button.mouse.onPress)
-						|| button.mouse.onRelease && !saladoPlayer.managerData.getActionDataById(button.mouse.onRelease)){
-						throw new Error("Nonexistant action id in: " + button.id);
+						if (button.onOpen && !saladoPlayer.managerData.getActionDataById(button.onOpen)) {
+							throw new Error("Action does not exist: " + button.onOpen);
+						}
+						if (button.onClose && !saladoPlayer.managerData.getActionDataById(button.onClose)) {
+							throw new Error("Action does not exist: " + button.onClose);
+						}
+						if (button.mouse.onClick && !saladoPlayer.managerData.getActionDataById(button.mouse.onClick)) {
+							throw new Error("Action does not exist: " + button.mouse.onClick);
+						}
+						if (button.mouse.onOut && !saladoPlayer.managerData.getActionDataById(button.mouse.onOut)) {
+							throw new Error("Action does not exist: " + button.mouse.onOut);
+						}
+						if (button.mouse.onOver && !saladoPlayer.managerData.getActionDataById(button.mouse.onOver)) {
+							throw new Error("Action does not exist: " + button.mouse.onOver);
+						}
+						if (button.mouse.onPress && !saladoPlayer.managerData.getActionDataById(button.mouse.onPress)) {
+							throw new Error("Action does not exist: " + button.mouse.onPress);
+						}
+						if (button.mouse.onRelease && !saladoPlayer.managerData.getActionDataById(button.mouse.onRelease)) {
+							throw new Error("Action does not exist: " + button.mouse.onRelease);
+						}
 					}
 				}
 			}
