@@ -32,13 +32,12 @@ package com.panozona.modules.menuscroller.controller {
 	
 	public class ElementController {
 		
+		private var contentInitScale:Number;
+		
 		private var _elementView:ElementView;
 		private var _module:Module;
 		
-		private var contentInitScale:Number;
-		
 		public function ElementController(elementView:ElementView, module:Module) {
-			
 			_elementView = elementView;
 			_module = module;
 			
@@ -46,28 +45,37 @@ package com.panozona.modules.menuscroller.controller {
 		}
 		
 		private function handleIsShowingChange(e:Event):void {
-			if (!_elementView.elementData.loaded) {
-				var imageLoader:Loader = new Loader();
-				imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
-				imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
-				imageLoader.load(new URLRequest(_elementView.elementData.element.path));
-			}else{
-				_elementView.visible = true;
-				handleStateChange();
+			if (_elementView.elementData.isShowing) {
+				if (_elementView.elementData.loaded) {
+					_elementView.visible = true;
+				}else {
+					var imageLoader:Loader = new Loader();
+					imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
+					imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
+					imageLoader.load(new URLRequest(_elementView.elementData.element.path));
+					_elementView.elementData.loaded = true;
+				}
+			}else {
+				_elementView.visible = false;
 			}
+			handleStateChange();
 		}
 		
 		private function imageLost(error:IOErrorEvent):void {
+			error.target.removeEventListener(IOErrorEvent.IO_ERROR, imageLost);
+			error.target.removeEventListener(Event.COMPLETE, imageLoaded);
 			_module.printError(error.text);
 		}
 		
 		private function imageLoaded(e:Event):void {
+			e.target.removeEventListener(IOErrorEvent.IO_ERROR, imageLost);
+			e.target.removeEventListener(Event.COMPLETE, imageLoaded);
 			
 			var displayObject:DisplayObject = e.target.content;
 			
 			var size:Size = new Size(
-			_elementView.elementData.scroller.scrollsVertical ? _elementView.elementData.scroller.sizeLimit : NaN,
-			_elementView.elementData.scroller.scrollsVertical ? _elementView.elementData.scroller.sizeLimit : NaN);
+				_elementView.elementData.scroller.scrollsVertical ? _elementView.elementData.scroller.sizeLimit : NaN,
+				_elementView.elementData.scroller.scrollsVertical ? NaN : _elementView.elementData.scroller.sizeLimit);
 			
 			if (_elementView.elementData.scroller.scrollsVertical) { // constant width
 				size.height = (displayObject.height * _elementView.elementData.scroller.sizeLimit) / displayObject.width;
@@ -76,13 +84,9 @@ package com.panozona.modules.menuscroller.controller {
 				size.width = (displayObject.width * _elementView.elementData.scroller.sizeLimit) / displayObject.height;
 				displayObject.scaleX = displayObject.scaleY = size.width / displayObject.width;
 			}
-			
 			contentInitScale = displayObject.scaleX;
-			
-			_elementView.elementData.size = size;
-			
+			_elementView.elementData.size = size; // ScrollerController listenes to size change
 			_elementView.content = displayObject;
-			
 			_elementView.elementData.addEventListener(ElementEvent.CHANGED_STATE, handleStateChange, false, 0, true);
 			handleStateChange();
 		}
@@ -101,8 +105,8 @@ package com.panozona.modules.menuscroller.controller {
 			Tweener.addTween(_elementView._content, {
 				scaleX: contentInitScale,
 				scaleY: contentInitScale,
-				x: _elementView.elementData.size.width * 0.5,
-				y: _elementView.elementData.size.height * 0.5,
+				x: -_elementView.elementData.size.width * 0.5,
+				y: -_elementView.elementData.size.height * 0.5,
 				time:_elementView.elementData.scroller.mouseOut.time,
 				transition:_elementView.elementData.scroller.mouseOut.transition
 			});
@@ -112,8 +116,8 @@ package com.panozona.modules.menuscroller.controller {
 			Tweener.addTween(_elementView._content, {
 				scaleX: _elementView.elementData.scroller.mouseOver.scale * contentInitScale,
 				scaleY: _elementView.elementData.scroller.mouseOver.scale * contentInitScale,
-				x: -_elementView.elementData.size.width * _elementView.elementData.scroller.mouseOver.scale * contentInitScale * 0.5,
-				y: -_elementView.elementData.size.height * _elementView.elementData.scroller.mouseOver.scale * contentInitScale * 0.5,
+				x: -_elementView.elementData.size.width * _elementView.elementData.scroller.mouseOver.scale * 0.5,
+				y: -_elementView.elementData.size.height * _elementView.elementData.scroller.mouseOver.scale * 0.5,
 				time:_elementView.elementData.scroller.mouseOver.time,
 				transition:_elementView.elementData.scroller.mouseOver.transition
 			});

@@ -27,8 +27,8 @@ package com.panozona.modules.menuscroller.model.structure {
 		public var sizeLimit:Number = 150;
 		public var spacing:Number = 10;
 		
-		public var mouseOver:Expand = new Expand(Equations.easeNone, 0.5, 1.5);
-		public var mouseOut:Tween = new Tween(Equations.easeNone, 0.5);
+		public var mouseOver:Expand = new Expand(Equations.easeNone, 0.25, 1.5);
+		public var mouseOut:Tween = new Tween(Equations.easeNone, 0.25);
 		
 		// scrollspeeed
 		// scroll tween 

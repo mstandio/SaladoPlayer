@@ -55,9 +55,9 @@ package com.panozona.modules.menuscroller.model {
 			return _scroller;
 		}
 		
-		public function get isShowing():Boolean { return _isShowing; }
+		public function get isShowing():Boolean { return _isShowing;}
 		public function set isShowing(value:Boolean):void {
-			if (_isShowing == value) return;
+			if (value == _isShowing) return;
 			_isShowing = value;
 			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_IS_SHOWING));
 		}
@@ -67,24 +67,24 @@ package com.panozona.modules.menuscroller.model {
 			if (value) _loaded = true;
 		}
 		
-		public function get size():Size { return _size; }
+		public function get size():Size { return _size;}
 		public function set size(value:Size):void {
 			_size = value;
 			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_SIZE));
 		}
 		
-		public function get state():String { return _state; }
+		public function get state():String { return _state;}
 		public function set state(value:String):void {
-			if (_state == value) return;
+			if (value == _state ) return;
 			if (value == STATE_PLAIN || value == STATE_HOVER || value == STATE_ACTIVE) {
 				_state = value;
 				dispatchEvent(new ElementEvent(ElementEvent.CHANGED_STATE));
 			}
 		}
 		
-		public function get mouseOver():Boolean { return _mouseOver; }
+		public function get mouseOver():Boolean { return _mouseOver;}
 		public function set mouseOver(value:Boolean):void {
-			if (_mouseOver == value) return;
+			if (value == _mouseOver) return;
 			_mouseOver = value;
 			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_MOUSE_OVER));
 		}

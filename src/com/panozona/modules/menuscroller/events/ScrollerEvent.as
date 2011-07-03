@@ -18,10 +18,16 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.menuscroller.events{
 	
-	public class ScrollerEvent{
+	import flash.events.Event;
+	
+	public class ScrollerEvent extends Event{
 		
-		public function ScrollerEvent(){
-			
+		public static const CHANGED_SCROLL:String = "changedScroll";
+		public static const CHANGED_TOTAL_SIZE:String = "changedTotalSize";
+		public static const CHANGED_MOUSE_OVER:String = "changedMouseOver";
+		
+		public function ScrollerEvent(type:String){
+			super(type);
 		}
 	}
 }

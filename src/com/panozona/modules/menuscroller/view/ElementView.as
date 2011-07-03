@@ -23,20 +23,20 @@ package com.panozona.modules.menuscroller.view {
 	import flash.events.Event;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	import flash.display.MovieClip;
 	
 	public class ElementView extends Sprite{
 		
 		public var _content:DisplayObject;
+		private var _contentAnchor:Sprite;
+		
 		private var _elementData:ElementData;
-		private var _contentAnchor:MovieClip;
 		
 		public function ElementView(elementData:ElementData) {
 			_elementData = elementData;
 			
-			_contentAnchor = new MovieClip();
-			_contentAnchor.graphics.beginFill(0xFF0000, 1);
-			_contentAnchor.graphics.drawRect(0, 0, _elementData.size.width, _elementData.size.height);
+			_contentAnchor = new Sprite();
+			_contentAnchor.graphics.beginFill(0x000000, 0);
+			_contentAnchor.graphics.drawRect(0, 0, _elementData.size.width * 0.5, _elementData.size.height * 0.5);
 			_contentAnchor.graphics.endFill();
 			addChild(_contentAnchor);
 		}
@@ -47,18 +47,20 @@ package com.panozona.modules.menuscroller.view {
 		
 		public function set content(displayObject:DisplayObject):void {
 			if (_content != null) return;
-			
-			_content = displayObject;
 			_contentAnchor.graphics.clear();
+			_contentAnchor.x = displayObject.width * 0.5;
+			_contentAnchor.y = displayObject.height * 0.5;
+			_content = displayObject;
+			_content.x = -displayObject.width * 0.5;
+			_content.y = -displayObject.height * 0.5;
 			_contentAnchor.addChild(_content);
-			_content.x = _content.width * 0.5;
-			_content.y = _content.height * 0.5;
 			
-			_content.addEventListener(MouseEvent.ROLL_OVER, onMouseOver, false, 0, true);
-			_content.addEventListener(MouseEvent.ROLL_OUT, onMouseOut, false, 0, true);
+			addEventListener(MouseEvent.ROLL_OVER, onMouseOver, false, 0, true);
+			addEventListener(MouseEvent.ROLL_OUT, onMouseOut, false, 0, true);
 		}
 		
 		private function onMouseOver(e:Event):void {
+			parent.setChildIndex(this, parent.numChildren - 1);
 			_elementData.state = ElementData.STATE_HOVER;
 		}
 		

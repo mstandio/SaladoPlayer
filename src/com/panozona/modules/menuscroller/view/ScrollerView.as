@@ -20,31 +20,36 @@ package com.panozona.modules.menuscroller.view{
 	
 	import com.panozona.modules.menuscroller.model.MenuScrollerData;
 	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	public class ScrollerView extends Sprite{
 		
+		public const elementsContainer:Sprite = new Sprite();
+		public const elementsContainerMask:Sprite = new Sprite();
+		
 		private var _menuScrollerData:MenuScrollerData;
-		private var _elementsContainer:Sprite;
-		private var _elementsContainerMask:Sprite;
 		
 		public function ScrollerView(menuScrollerData:MenuScrollerData){
 			_menuScrollerData = menuScrollerData;
 			
-			_elementsContainer = new Sprite();
-			addChild(_elementsContainer);
-			//_elementsContainer.mask = _elementsContainerMask;
+			addChild(elementsContainer);
+			addChild(elementsContainerMask);
+			elementsContainer.mask = elementsContainerMask;
+			
+			elementsContainer.addEventListener(MouseEvent.ROLL_OVER, onOver, false, 0, true);
+			elementsContainer.addEventListener(MouseEvent.ROLL_OUT, onOut, false, 0, true);
 		}
 		
 		public function get menuScrollerData():MenuScrollerData {
 			return _menuScrollerData;
 		}
 		
-		public function get elementsContainer():Sprite {
-			return _elementsContainer;
+		private function onOver(e:Event):void {
+			_menuScrollerData.scrollerData.mouseOver = true;
 		}
-		
-		public function get elementsContainerMask():Sprite {
-			return _elementsContainerMask;
+		private function onOut(e:Event):void {
+			_menuScrollerData.scrollerData.mouseOver = false;
 		}
 	}
 }

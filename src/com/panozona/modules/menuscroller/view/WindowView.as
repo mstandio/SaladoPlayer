@@ -60,7 +60,7 @@ package com.panozona.modules.menuscroller.view{
 		
 		public function drawBackground():void {
 			window.graphics.clear()
-			window.graphics.beginFill(0xaabb00);
+			window.graphics.beginFill(0x000000, 0.5);
 			window.graphics.drawRect(0, 0, _menuScrollerData.windowData.elasticWidth, _menuScrollerData.windowData.elasticHeight);
 			window.graphics.endFill();
 		}

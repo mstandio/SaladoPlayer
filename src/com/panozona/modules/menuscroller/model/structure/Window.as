@@ -27,9 +27,9 @@ package com.panozona.modules.menuscroller.model.structure {
 	
 	public class Window{
 		
-		public var align:Align = new Align(Align.LEFT, Align.MIDDLE);
-		public var move:Move = new Move(0, 0);
-		public var size:Size = new Size(200, NaN);
+		public const align:Align = new Align(Align.LEFT, Align.MIDDLE);
+		public const move:Move = new Move(0, 0);
+		public const size:Size = new Size(200, NaN);
 		
 		public var alpha:Number = 1.0;
 		
@@ -37,8 +37,8 @@ package com.panozona.modules.menuscroller.model.structure {
 		public var onOpen:String = null;
 		public var onClose:String = null;
 		
-		public var openTween:Tween = new Tween(Equations.easeNone, 0.5);
-		public var closeTween:Tween = new Tween(Equations.easeNone, 0.5);
-		public var transition:Transition = new Transition(Transition.SLIDE_RIGHT);
+		public const openTween:Tween = new Tween(Equations.easeNone, 0.5);
+		public const closeTween:Tween = new Tween(Equations.easeNone, 0.5);
+		public const transition:Transition = new Transition(Transition.SLIDE_LEFT);
 	}
 }

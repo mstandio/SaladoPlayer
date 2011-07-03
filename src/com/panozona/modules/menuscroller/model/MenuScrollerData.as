@@ -26,9 +26,9 @@ package com.panozona.modules.menuscroller.model {
 	
 	public class MenuScrollerData {
 		
-		public var windowData:WindowData = new WindowData();
-		public var scrollerData:ScrollerData = new ScrollerData();
-		public var elements:Elements = new Elements();
+		public const windowData:WindowData = new WindowData();
+		public const scrollerData:ScrollerData = new ScrollerData();
+		public const elements:Elements = new Elements();
 		
 		public function MenuScrollerData(moduleData:ModuleData, saladoPlayer:Object) {
 			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
