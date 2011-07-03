@@ -19,6 +19,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.buttonbar.model.structure{
 	
 	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.MouseOverOut;
 	
 	public class Button{
 		

@@ -54,6 +54,7 @@ package com.panozona.modules.buttonbar.controller{
 		
 		private var buttonsController:Vector.<ButtonController>;
 		
+		private var numButtons:int = 0;
 		private var hotspots:Boolean = true;
 		
 		public function BarController(barView:BarView, module:Module){
@@ -95,17 +96,17 @@ package com.panozona.modules.buttonbar.controller{
 			buttonsLoader.load(new URLRequest(_barView.buttonBarData.buttons.path));
 		}
 		
-		public function handleResize(e:Event = null):void {
+		private function handleResize(e:Event = null):void {
 			if (_barView.buttonBarData.buttons.align.horizontal == Align.LEFT) {
 				_barView.buttonsContainer.x = 0;
 			}else if (_barView.buttonBarData.buttons.align.horizontal == Align.RIGHT) {
 				_barView.buttonsContainer.x = _module.saladoPlayer.manager.boundsWidth
 					- (buttonSize.width + _barView.buttonBarData.buttons.spacing)
-					* _barView.buttonsContainer.numChildren;
+					* numButtons;
 			}else { // CENTER
 				_barView.buttonsContainer.x = (_module.saladoPlayer.manager.boundsWidth
 					- (buttonSize.width + _barView.buttonBarData.buttons.spacing)
-					* _barView.buttonsContainer.numChildren) * 0.5;
+					* numButtons) * 0.5;
 			}
 			if (_barView.buttonBarData.buttons.align.vertical == Align.TOP){
 				_barView.buttonsContainer.y = 0;
@@ -297,6 +298,7 @@ package com.panozona.modules.buttonbar.controller{
 				if (isNaN(buttonView.buttonData.button.move.horizontal) && isNaN(buttonView.buttonData.button.move.vertical)) {
 					buttonView.x = lastX;
 					lastX += buttonView.width + _barView.buttonBarData.buttons.spacing;
+					numButtons++;
 				}else {
 					buttonView.x = buttonView.buttonData.button.move.horizontal;
 					buttonView.y = buttonView.buttonData.button.move.vertical;
