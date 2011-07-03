@@ -7,7 +7,7 @@
 		<control autorotation="enabled:false"/>
 	</global>
 	<panoramas>
-		<panorama id="greenCheck" path="~panoramas/dz_green_check/green_check_f.xml">
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
 			<product id="hs1" factory="ExampleFactory" location="pan:-20,tilt:10"/>
 			<product id="hs2" factory="ExampleFactory" location="pan:0,tilt:10"/>
 			<product id="hs3" factory="ExampleFactory" location="pan:20,tilt:10"/>

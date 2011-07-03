@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
-	If you add CDATA child to button, clicking it will couse opening in new window
-	url from text contained in CDATA node.
+	Add CDATA child to button, clicking on it will couse opening url defined with text contained in CDATA node in new window.
 	
 	http://panozona.com/wiki/Module:ImageButton
 -->
 <SaladoPlayer>
-	<global debug="true" autorotation="enabled:false"/>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageButton path="~modules/ImageButton-1.1.swf">
+		<ImageButton path="~modules/ImageButton-1.2.swf">
 			<buttons>
-				<button id="panozonaLink" path="~modules/images/imagebutton/panozona_logo.png" move="horizontal:30,vertical:30">
+				<button id="panozonaLink" path="~modules/images/imagebutton/panozona_logo.png">
 					<![CDATA[http://panozona.com/]]>
 				</button>
 			</buttons>

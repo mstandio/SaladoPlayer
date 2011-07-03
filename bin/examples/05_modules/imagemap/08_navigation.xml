@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	There are four ways to move around map: zoom buttons, move muttons, mouse drag and mouse scroll.
+	There are four ways to move around map: zoom panel, move panel, mouse drag and mouse scroll.
 	Each of them can be disabled, you can also configure move and zoom speed. If you are using
 	small image for map, you can disable all navigation methods and create simple static map.
 	
 	http://panozona.com/wiki/Module:ImageMap
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="yellowArrow" path="~hotspots/images/yellow_arrow.png" location="pan:-10" mouse="onClick:toggleOpenMap"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="bc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMap"/>
 		</panorama>
 	</panoramas>
 	<modules>
@@ -20,7 +18,7 @@
 			<viewer moveEnabled="false" zoomSpeed="0.05"/>
 			<maps>
 				<map id="map1" path="~modules/images/imagemap/map_1.jpg">
-					<waypoint target="greenChecker" position="x:150,y:100"/>
+					<waypoint target="blueChecker" position="x:150,y:100"/>
 				</map>
 			</maps>
 		</ImageMap>

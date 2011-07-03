@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Background bar hidden by default. Make it visible and customize its appearance
-	You can change its transparency and color, or you can set path to image used 
-	as bitmap fill. You can also position it and limit its size.
+	Background bar is hidden by default. Make it visible and customize its appearance
+	Change its transparency and color, or set path to image used as bitmap fill.
+	You can also position it and limit its size.
 	
 	http://panozona.com/wiki/Module:ButtonBar
 -->
@@ -13,13 +13,13 @@
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
-			<buttons path="~modules/images/buttonbar/buttons/buttons_25x25_green.png" spacing="-3">
+			<buttons path="~modules/images/buttonbar/buttons/buttons_25x25_green.png">
 				<button name="in"/>
 				<button name="out"/>
 				<button name="drag"/>
 				<button name="autorotation"/>
 			</buttons>
-			<bar visible="true"/>
+			<bar visible="true" color="#00FFAA" size="height:35" alpha="0.35"/>
 		</ButtonBar>
 	</modules>
 </SaladoPlayer>

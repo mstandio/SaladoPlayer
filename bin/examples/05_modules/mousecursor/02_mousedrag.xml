@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Point to image containig bitmaps grid with bitmaps for chosen states of mouse cursor. You can choose
-	from many such grids or you can easily create your own. When adding many modules, add it as last node
-	in "modules" so that it would be displayed under other modules.
+	Module does not have exposed functions, and it does not communicate with other modules.
+	It reacts to changes of mouseInertial and mouseDrag in SaladoPlayer and displayes images
+	reflecting that reflect their current state.
 	
 	http://panozona.com/wiki/Module:MouseCursor
 -->
 <SaladoPlayer>
-	<global debug="true"/>
+	<global debug="true">
+		<control mouseInertial="enabled:false" mouseDrag="enabled:true"/>
+	</global>
 	<panoramas>
 		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
 	</panoramas>

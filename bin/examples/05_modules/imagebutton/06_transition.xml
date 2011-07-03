@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	You can add fade or sliding effects when opening/closing button.
-	By default transition type is "fade".
+	You can add fade or sliding effects when opening/closing button. By default transition type is "fade".
 	
 	http://panozona.com/wiki/Module:ImageButton
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
 			<image id="arrow1" path="~hotspots/images/yellow_arrow.png" location="pan:-20,tilt:10" mouse="onClick:toggleOpenLogo1"/>
@@ -18,7 +15,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ImageButton path="~modules/ImageButton-1.1.swf">
+		<ImageButton path="~modules/ImageButton-1.2.swf">
 			<buttons>
 				<button id="logo1" path="~modules/images/imagebutton/panozona_logo.png" move="horizontal:30,vertical:30" transition="type:slideLeft"/>
 				<button id="logo2" path="~modules/images/imagebutton/panozona_logo.png" align="horizontal:right" move="horizontal:-30,vertical:30" transition="type:slideUp"/>

@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Display/hide images at mouse cursor. Bubbles default angle against mouse cursor is 90 (center right)
+	Display/hide images or text boxes at mouse cursor. Bubbles default angle against mouse cursor is 90 (center right)
 	and it can be modified. Angle is changed as bubbles adjust their position to fit into panorama window.
 	
 	http://panozona.com/wiki/Module:InfoBubble
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
-		<panorama id="yellowCheck" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
-			<image id="blueArrow" location="pan:0" path="~hotspots/images/blue_arrow.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
-			<image id="redArrow" location="pan:40" path="~hotspots/images/red_arrow.png" mouse="onOver:showBubbleRed,onOut:hideBubble"/>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
+			<image id="yc_yellowArrow" location="pan:-40" path="~hotspots/images/yellow_arrow.png" mouse="onOver:showBubbleText,onOut:hideBubble"/>
+			<image id="yc_blueArrow" location="pan:0" path="~hotspots/images/blue_arrow.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
+			<image id="yc_redArrow" location="pan:40" path="~hotspots/images/red_arrow.png" mouse="onOver:showBubbleRed,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<InfoBubble path="~modules/InfoBubble-1.2.swf">
 			<bubbles>
-				<image id="bubbleBlue" path="~modules/images/infobubble/blue.jpg"/>
-				<image id="bubbleRed" path="~modules/images/infobubble/red.jpg" defaultAngle="120"/>
+				<text id="bubbleText" text="this is[n]multiline text"/>
+				<image id="bubbleBlue" path="~modules/images/infobubble/blue.jpg" defaultAngle="120"/>
+				<image id="bubbleRed" path="~modules/images/infobubble/red.jpg"/>
 			</bubbles>
 		</InfoBubble>
 	</modules>
 	<actions>
+		<action id="showBubbleText" content="InfoBubble.show(bubbleText)"/>
 		<action id="showBubbleBlue" content="InfoBubble.show(bubbleBlue)"/>
 		<action id="showBubbleRed" content="InfoBubble.show(bubbleRed)"/>
 		<action id="hideBubble" content="InfoBubble.hide()"/>

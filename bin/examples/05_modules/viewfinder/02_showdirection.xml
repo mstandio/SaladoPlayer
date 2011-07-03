@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Module can display current viewing direction (pan + direction). Showing direction is disabled by default.
+	
+	http://panozona.com/wiki/Module:ViewFinder
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" direction="90"/>
+	</panoramas>
+	<modules>
+		<ViewFinder path="~modules/ViewFinder-1.2.swf">
+			<settings showDirection="true"/>
+		</ViewFinder>
+	</modules>
+</SaladoPlayer>

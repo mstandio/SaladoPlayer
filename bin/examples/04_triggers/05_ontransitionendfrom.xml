@@ -6,27 +6,26 @@
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<control autorotation="enabled:false"/>
 		<trace open="true"/>
 	</global>
 	<panoramas>
 		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" onTransitionEndFrom="blueChecker:printGreenFromBlue,redChecker:printGreenFromRed">
-			<image id="gcBlueArrow" path="~hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueCheck"/>
-			<image id="gcRedArrow" path="~hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadBlueCheck"/>
+			<image id="gc_BlueArrow" path="~hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueChecker"/>
+			<image id="gc_RedArrow" path="~hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadBlueChecker"/>
 		</panorama>
 		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" onTransitionEndFrom="greenChecker:printBlueFromGreen,redChecker:printBlueFromRed">
-			<image id="bcGreenArrow" path="~hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenCheck"/>
-			<image id="bcRedArrow" path="~hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadRedCheck"/>
+			<image id="bc_GreenArrow" path="~hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenChecker"/>
+			<image id="bc_RedArrow" path="~hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadRedChecker"/>
 		</panorama>
 		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml" onTransitionEndFrom="greenChecker:printRedFromGreen,blueChecker:printRedFromBlue">
-			<image id="rcGreenArrow" path="~hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenCheck"/>
-			<image id="rcBlueArrow" path="~hotspots/images/blue_arrow.png" location="pan:-10" mouse="onClick:loadBlueCheck"/>
+			<image id="rc_GreenArrow" path="~hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenChecker"/>
+			<image id="rc_BlueArrow" path="~hotspots/images/blue_arrow.png" location="pan:-10" mouse="onClick:loadBlueChecker"/>
 		</panorama>
 	</panoramas>
 	<actions>
-		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenChecker)"/>
-		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueChecker)"/>
-		<action id="loadRedCheck" content="SaladoPlayer.loadPano(redChecker)"/>
+		<action id="loadGreenChecker" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(blueChecker)"/>
+		<action id="loadRedChecker" content="SaladoPlayer.loadPano(redChecker)"/>
 		<action id="printGreenFromBlue" content="SaladoPlayer.print(Welcome in green checker from blue one)"/>
 		<action id="printGreenFromRed" content="SaladoPlayer.print(Welcome in green checker from red one)"/>
 		<action id="printBlueFromGreen" content="SaladoPlayer.print(Welcome in blue checker from green one)"/>

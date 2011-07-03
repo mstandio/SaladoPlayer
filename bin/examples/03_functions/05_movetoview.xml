@@ -15,7 +15,7 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="greenCheck" path="~panoramas/dz_green_check/green_check_f.xml">
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
 			<image id="blueArrow" path="~hotspots/images/blue_arrow.png" location="pan:0" mouse="onClick:moveToYellowArrow"/>
 			<image id="greenArrow" path="~hotspots/images/green_arrow.png" location="pan:180" mouse="onClick:moveToRedArrowThen"/>
 			<image id="redArrow" path="~hotspots/images/red_arrow.png" location="tilt:-85" mouse="onClick:advancedMoveToBlueArrow"/>
@@ -23,7 +23,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ViewFinder path="~modules/ViewFinder-1.1.swf"/>
+		<ViewFinder path="~modules/ViewFinder-1.2.swf"/>
 	</modules>
 	<actions>
 		<action id="moveToYellowArrow" content="SaladoPlayer.moveToView(NaN,85,30)"/>

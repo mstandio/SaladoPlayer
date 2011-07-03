@@ -8,19 +8,18 @@
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<control autorotation="enabled:false"/>
 		<trace open="true"/>
 	</global>
 	<panoramas>
 		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="yellowArrow" path="~hotspots/images/yellow_arrow.png" location="pan:-10" mouse="onClick:toggleOpenMap"/>
-			<image id="gc_map1Setter" path="~hotspots/images/blue_arrow.png" location="pan:-20,tilt:-10" mouse="onClick:setMap1"/>
-			<image id="gc_map2Setter" path="~hotspots/images/blue_arrow.png" location="tilt:-10" mouse="onClick:setMap2"/>
+			<image id="gc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMap"/>
+			<image id="gc_map1Setter" path="~hotspots/images/blue_arrow.png" location="pan:-10,tilt:-10" mouse="onClick:setMap1"/>
+			<image id="gc_map2Setter" path="~hotspots/images/blue_arrow.png" location="pan:10,tilt:-10" mouse="onClick:setMap2"/>
 		</panorama>
 		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml">
-			<image id="yellowArrow2" path="~hotspots/images/yellow_arrow.png" location="pan:-10" mouse="onClick:toggleOpenMap"/>
-			<image id="rc_map1Setter" path="~hotspots/images/blue_arrow.png" location="pan:-20,tilt:-10" mouse="onClick:setMap1"/>
-			<image id="rc_map2Setter" path="~hotspots/images/blue_arrow.png" location="tilt:-10" mouse="onClick:setMap2"/>/>
+			<image id="rc_yellowArrow2" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMap"/>
+			<image id="rc_map1Setter" path="~hotspots/images/blue_arrow.png" location="pan:-10,tilt:-10" mouse="onClick:setMap1"/>
+			<image id="rc_map2Setter" path="~hotspots/images/blue_arrow.png" location="pan:10,tilt:-10" mouse="onClick:setMap2"/>/>
 		</panorama>
 	</panoramas>
 	<modules>

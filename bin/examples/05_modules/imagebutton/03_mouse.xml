@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
-	You can assign actions to mouse events.
+	Assign actions to be executed on mouse events.
 	
 	http://panozona.com/wiki/Module:ImageButton
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<control autorotation="enabled:false"/>
 		<trace open="true"/>
 	</global>
 	<panoramas>
 		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageButton path="~modules/ImageButton-1.1.swf">
+		<ImageButton path="~modules/ImageButton-1.2.swf">
 			<buttons>
-				<button id="logo1" path="~modules/images/imagebutton/panozona_logo.png" move="horizontal:30,vertical:30" mouse="onOver:printOver,onOut:printOut,onClick:printClick"/>
+				<button id="logo1" path="~modules/images/imagebutton/panozona_logo.png" mouse="onOver:printOver,onOut:printOut,onClick:printClick"/>
 			</buttons>
 		</ImageButton>
 	</modules>

@@ -14,11 +14,11 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ViewFinder path="~modules/ViewFinder-1.1.swf"/>
+		<ViewFinder path="~modules/ViewFinder-1.2.swf"/>
 		<PanoLink path="~modules/PanoLink-1.0.swf">
 			<settings open="true" onOpen="onLinkOpen" onClose="onLinkClose"/>
 		</PanoLink>
-		<ImageButton path="~modules/ImageButton-1.1.swf">
+		<ImageButton path="~modules/ImageButton-1.2.swf">
 			<buttons>
 				<button id="buttonOn" path="~modules/images/imagebutton/on.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:linkClose"/>
 				<button id="buttonOff" path="~modules/images/imagebutton/off.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:linkOpen"/>

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Advanced swf hotspots can communicate with SaladoPlayer and can be configured.
-	Configuration is validated after hotspot is loaded in given pano.
+	Advanced swf hotspots can communicate with SaladoPlayer and can be configured. Configuration is validated 
+	after hotspot is loaded in given pano.
 	
 	http://panozona.com/wiki/SaladoPlayer:Hotspots
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<control autorotation="enabled:false"/>
 		<trace open="true"/>
 	</global>
 	<panoramas>

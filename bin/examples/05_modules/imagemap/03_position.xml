@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	You can change size and alignment of module window. Init zoom can determine zoom level each time 
-	given map is set, however image will never be zoomed higher then 200% and lower than size when shorter
-	of its sides will be same as analogical map window dimension. If init zoom exceeds those limits, 
-	values of those limits will be applied. This means that any side of image magnified to 200% should not be 
-	shorter then analogical map window dimension.
+	Change size and alignment of module window. InitZoom determines zoom level each time
+	given map is set, however image will never be zoomed higher then 200% and lower than size, when shorter
+	of its sides will be same as analogical map window dimension. If initZoom exceeds those limits,
+	values of those limits will be applied.
 	
 	http://panozona.com/wiki/Module:ImageMap
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="yellowArrow" path="~hotspots/images/yellow_arrow.png" location="pan:-10" mouse="onClick:toggleOpenMap"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="bc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMap"/>
 		</panorama>
 	</panoramas>
 	<modules>
@@ -22,7 +19,7 @@
 			<window size="width:200,height:300" align="vertical:bottom" move="vertical:-20"/>
 			<maps>
 				<map id="map1" path="~modules/images/imagemap/map_2.jpg" initZoom="30">
-					<waypoint target="greenChecker" position="x:150,y:100"/>
+					<waypoint target="blueChecker" position="x:150,y:100"/>
 				</map>
 			</maps>
 		</ImageMap>

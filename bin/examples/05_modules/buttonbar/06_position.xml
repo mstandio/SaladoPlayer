@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	You can change position of bar and all buttons at once, as well as each button individually.
-	You can align position of all buttons inside panorama window along with background bar.
+	Change position and lignment of bar and all buttons at once, as well as each button individually.
 	Use spacing attribute to set space between buttons that have no custom move values set.
 	
 	http://panozona.com/wiki/Module:ButtonBar
@@ -13,7 +12,7 @@
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
-			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png" move="horizontal:190" spacing="2">
+			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png" spacing="2" align="horizontal:center" move="horizontal:70">
 				<button name="up" move="horizontal:-100,vertical:-40"/>
 				<button name="down" move="horizontal:-100"/>
 				<button name="left" move="horizontal:-115,vertical:-20"/>

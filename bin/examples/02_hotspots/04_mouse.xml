@@ -7,7 +7,6 @@
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<control autorotation="enabled:false"/>
 		<trace open="true"/>
 	</global>
 	<panoramas>

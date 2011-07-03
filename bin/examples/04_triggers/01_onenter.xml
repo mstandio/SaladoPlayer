@@ -6,20 +6,19 @@
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<control autorotation="enabled:false"/>
 		<trace open="true"/>
 	</global>
 	<panoramas>
 		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" onEnter="printWelcomeGreen">
-			<image id="blueArrow" path="~hotspots/images/blue_arrow.png" mouse="onClick:loadBlueCheck"/>
+			<image id="gc_blueArrow" path="~hotspots/images/blue_arrow.png" mouse="onClick:loadBlueChecker"/>
 		</panorama>
 		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" onEnter="printWelcomeBlue">
-			<image id="greenArrow" path="~hotspots/images/green_arrow.png" mouse="onClick:loadGreenCheck"/>
+			<image id="bc_greenArrow" path="~hotspots/images/green_arrow.png" mouse="onClick:loadGreenChecker"/>
 		</panorama>
 	</panoramas>
 	<actions>
-		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueChecker)"/>
-		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(blueChecker)"/>
+		<action id="loadGreenChecker" content="SaladoPlayer.loadPano(greenChecker)"/>
 		<action id="printWelcomeGreen" content="SaladoPlayer.print(Welcome in green checker)"/>
 		<action id="printWelcomeBlue" content="SaladoPlayer.print(Welcome in blue checker)"/>
 	</actions>

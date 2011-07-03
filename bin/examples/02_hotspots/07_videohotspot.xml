@@ -1,30 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	VideHotspot is advanced swf hotspot that is fully functional media player.
-	For some reason relative path to multimedia file is not working locally, so it is
-	replaced with url. When leaving panorama with playing VideoHotspot, hotspots
-	automativally stops downloading and playing file and removes itself from panorama.
+	VideHotspot is advanced swf hotspot that is fully functional media player. Relative path to multimedia file
+	is not working locally, so it is replaced with url. When leaving panorama with playing VideoHotspot, 
+	hotspots automativally stops downloading and playing file and removes itself from panorama.
 	
 	http://panozona.com/wiki/SaladoPlayer:Hotspots
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<swf id="vlad" path="~hotspots/VideoHotspot-1.0.swf" location="distance:600">
+			<swf id="gc_hello" path="~hotspots/VideoHotspot-1.0.swf" location="distance:600">
 				<settings splashPath="~hotspots/video/hello_splash.png" videoPath="[http://linkowiec.pl/saladoplayer/hotspots/video/hello.mp4]" size="width:400,height:300"/>
 			</swf>
 		</panorama>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
 	</panoramas>
-	<modules>
-		<DropDown path="~modules/DropDown-1.1.swf">
-			<elements>
-				<element target="greenChecker" label="Green checker"/>
-				<element target="blueChecker" label="Blue checker"/>
-			</elements>
-		</DropDown>
-	</modules>
 </SaladoPlayer>

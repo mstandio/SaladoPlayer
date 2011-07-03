@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Clicking on hotspots prints text in trace window. Trace window is opened by default,
-	cause print function prints neutral "info" messages that do not trigger opening trace window.
+	cause print function prints neutral "info" messages that do not trigger trace window open.
 	
 	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<control autorotation="enabled:false"/>
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="greenCheck" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="blueArrow" path="~hotspots/images/blue_arrow.png" location="pan:-10" mouse="onClick:printPano"/>
-			<image id="greenArrow" path="~hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:printZona"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="gc_blueArrow" path="~hotspots/images/blue_arrow.png" location="pan:-10" mouse="onClick:printPano"/>
+			<image id="gc_greenArrow" path="~hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:printZona"/>
 		</panorama>
 	</panoramas>
 	<actions>

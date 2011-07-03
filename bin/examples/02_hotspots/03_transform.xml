@@ -5,9 +5,7 @@
 	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
 			<image id="hs1" location="pan:-20,tilt:10" transform="scaleX:0.5" path="~hotspots/images/green_arrow.png"/>

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+	
+	
+	http://panozona.com/wiki/Module:JSGoogleMap
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="redArrow" path="~hotspots/images/red_arrow.png" mouse="onClick:loadRedChecker"/>
+			<image id="gc_redArrow" path="~hotspots/images/red_arrow.png" mouse="onClick:loadRedChecker"/>
 		</panorama>
 		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml">
-			<image id="greenArrow" path="~hotspots/images/green_arrow.png" mouse="onClick:loadGreenChecker"/>
+			<image id="rc_greenArrow" path="~hotspots/images/green_arrow.png" mouse="onClick:loadGreenChecker"/>
 		</panorama>
 	</panoramas>
 	<modules>
@@ -23,8 +24,8 @@
 		<JSGoogleMap path="~modules/JSGoogleMap-1.0.swf">
 			<settings open="true" onOpen="jsgooglemapOnOpen" onClose="jsgooglemapOnClose"/>
 			<waypoints markerOn="~modules/images/jsgooglemap/marker_on.png" markerOff="~modules/images/jsgooglemap/marker_off.png">
-				<waypoint target="greenChecker" geolocation="latitude:46.44,longitude:11.08"/>
-				<waypoint target="redChecker" geolocation="latitude:47.04,longitude:11.14"/>
+				<waypoint target="greenChecker" geolocation="latitude:46.44,longitude:11.08" label="Green checker"/>
+				<waypoint target="redChecker" geolocation="latitude:47.04,longitude:11.14" label="Red checker"/>
 			</waypoints>
 		</JSGoogleMap>
 	</modules>

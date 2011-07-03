@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	You can assign mouse events on interaction with each waypoint. You can close map window 
-	whenever waypoint button gets clicked, or you can display content when mouse is hovering over
-	waypoint button with other modules, like InfoBubble.
+	Assign mouse events on interaction with each waypoint. You can display content
+	when mouse is hovering over waypoint button with other modules, like InfoBubble.
 	
 	http://panozona.com/wiki/Module:ImageMap
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<control autorotation="enabled:false"/>
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="yellowArrow" path="~hotspots/images/yellow_arrow.png" location="pan:-10" mouse="onClick:toggleOpenMap"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="bc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMap"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<ImageMap path="~modules/ImageMap-1.2.swf">
 			<maps>
-				<map id="map1" path="~modules/images/imagemap/map_1.jpg">
-					<waypoint target="greenChecker" position="x:350,y:300" mouse="onOver:printOver,onOut:printOut,onClick:printClick"/>
+				<map id="map2" path="~modules/images/imagemap/map_2.jpg">
+					<waypoint target="blueChecker" position="x:350,y:300" mouse="onOver:printOver,onOut:printOut"/>
 				</map>
 			</maps>
 		</ImageMap>
@@ -29,6 +27,5 @@
 		<action id="toggleOpenMap" content="ImageMap.toggleOpen()"/>
 		<action id="printOver" content="SaladoPlayer.print(over)"/>
 		<action id="printOut" content="SaladoPlayer.print(out)"/>
-		<action id="printClick" content="SaladoPlayer.print(click)"/>
 	</actions>
 </SaladoPlayer>

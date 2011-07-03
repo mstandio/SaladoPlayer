@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Direction attribute helps synchornizing camera pan between panoramas that were shot
-	in different directions. It affects current camera pan value when switching between panoramas.
-	Direction attribute takes values 0 to 360 that express geographical shooting direction of
-	panorama image. For Instance: 0 is North, 90 is East, 180 is South 270 is West.
+	Direction attribute helps synchornizing camera pan between panoramas that were shot in different directions.
+	If panorama does not have default pan set, it affects pan value when switching between panoramas. For instance
+	when pan in previous panorama was pointing west, in next panorama pan will also be pointing west.
 	
 	http://panozona.com/wiki/SaladoPlayer:Configuration#panorama
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" direction="0"/>
 		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" direction="45"/>
 		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml" direction="45"/>
 	</panoramas>
 	<modules>
-		<ViewFinder path="~modules/ViewFinder-1.1.swf"/>
+		<ViewFinder path="~modules/ViewFinder-1.2.swf"/>
 		<DropDown path="~modules/DropDown-1.1.swf">
 			<elements>
 				<element target="greenChecker" label="Green checker"/>

@@ -6,13 +6,11 @@
 	http://panozona.com/wiki/Module:ViewFinder
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ViewFinder path="~modules/ViewFinder-1.1.swf"/>
+		<ViewFinder path="~modules/ViewFinder-1.2.swf"/>
 	</modules>
 </SaladoPlayer>

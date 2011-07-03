@@ -6,16 +6,14 @@
 	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="GreenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="blueArrow" path="~hotspots/images/blue_arrow.png" location="tilt:10,distance:600"/>
-			<image id="greenArrow" path="~hotspots/images/green_arrow.png" location="pan:30"/>
+			<image id="gc_blueArrow" path="~hotspots/images/blue_arrow.png" location="tilt:10,distance:600"/>
+			<image id="gc_greenArrow" path="~hotspots/images/green_arrow.png" location="pan:30"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<ViewFinder path="~modules/ViewFinder-1.1.swf"/>
+		<ViewFinder path="~modules/ViewFinder-1.2.swf"/>
 	</modules>
 </SaladoPlayer>

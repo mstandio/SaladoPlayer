@@ -6,12 +6,10 @@
 	http://panozona.com/wiki/Module:InfoBubble
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
-		<panorama id="yellowCheck" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
-			<image id="blueArrow" location="pan:0" path="~hotspots/images/blue_arrow.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
+			<image id="yc_blueArrow" location="pan:0" path="~hotspots/images/blue_arrow.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>
 	<modules>

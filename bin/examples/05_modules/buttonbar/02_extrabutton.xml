@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	You can add your own custom buttons with bitmaps defined in bitmaps grid in third and fourth row,
-	first column for "a", second for "b" ect. ExtraButton executes action on mouse press.
+	Add your own custom buttons. Extrabuttons bitmaps are defined in bitmaps grid in third and fourth row,
+	first column for "a", second for "b" ect. Each extraButton executes action on mouse press.
 	
 	http://panozona.com/wiki/Module:ButtonBar
 -->

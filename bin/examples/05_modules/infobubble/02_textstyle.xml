@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	You can style text boxes font, border and bacground with textStyle attribute.
+	
+	http://panozona.com/wiki/Module:InfoBubble
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
+			<image id="yc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onOver:showBubbleText,onOut:hideBubble"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<InfoBubble path="~modules/InfoBubble-1.2.swf">
+			<settings textStyle="fontColor:#AAAAAA,borderColor:#AAAAAA,bubbleColor:#000000"/>
+			<bubbles>
+				<text id="bubbleText" text="this is[n]multiline text"/>
+			</bubbles>
+		</InfoBubble>
+	</modules>
+	<actions>
+		<action id="showBubbleText" content="InfoBubble.show(bubbleText)"/>
+		<action id="hideBubble" content="InfoBubble.hide()"/>
+	</actions>
+</SaladoPlayer>
