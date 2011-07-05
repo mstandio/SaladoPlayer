@@ -61,11 +61,11 @@ package com.panozona.modules.menuscroller.view {
 		
 		private function onMouseOver(e:Event):void {
 			parent.setChildIndex(this, parent.numChildren - 1);
-			_elementData.state = ElementData.STATE_HOVER;
+			_elementData.mouseOver = true;
 		}
 		
 		private function onMouseOut(e:Event):void {
-			_elementData.state = ElementData.STATE_PLAIN;
+			_elementData.mouseOver = false;
 		}
 	}
 }

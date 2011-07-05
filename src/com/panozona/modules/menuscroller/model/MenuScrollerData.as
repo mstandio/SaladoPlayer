@@ -18,6 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.menuscroller.model {
 	
+	import com.panozona.modules.menuscroller.model.structure.Close;
 	import com.panozona.modules.menuscroller.model.structure.Element;
 	import com.panozona.modules.menuscroller.model.structure.Elements;
 	import com.panozona.player.module.data.DataNode;
@@ -29,6 +30,7 @@ package com.panozona.modules.menuscroller.model {
 		public const windowData:WindowData = new WindowData();
 		public const scrollerData:ScrollerData = new ScrollerData();
 		public const elements:Elements = new Elements();
+		public const close:Close = new Close();
 		
 		public function MenuScrollerData(moduleData:ModuleData, saladoPlayer:Object) {
 			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
@@ -39,6 +41,8 @@ package com.panozona.modules.menuscroller.model {
 					tarnslator.dataNodeToObject(dataNode, scrollerData.scroller);
 				}else if (dataNode.name == "elements") {
 					tarnslator.dataNodeToObject(dataNode, elements);
+				}else if (dataNode.name == "close") {
+					tarnslator.dataNodeToObject(dataNode, close);
 				}else {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
@@ -63,6 +67,12 @@ package com.panozona.modules.menuscroller.model {
 						throw new Error("Repeating element target: " + element.target);
 					}else {
 						elementTargets[element.target] = ""; // something
+						if (element.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(element.mouse.onOver) == null){
+							throw new Error("Action does not exist: " + element.mouse.onOver);
+						}
+						if (element.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(element.mouse.onOut) == null){
+							throw new Error("Action does not exist: " + element.mouse.onOut);
+						}
 					}
 				}
 			}

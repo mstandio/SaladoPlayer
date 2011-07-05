@@ -28,6 +28,7 @@ package com.panozona.modules.menuscroller.view{
 	
 	public class WindowView extends Sprite{
 		
+		private var _closeView:CloseView;
 		private var _scrollerView:ScrollerView;
 		
 		private var window:Sprite;
@@ -46,6 +47,9 @@ package com.panozona.modules.menuscroller.view{
 			addChild(window);
 			visible = _menuScrollerData.windowData.open;
 			
+			_closeView = new CloseView(_menuScrollerData);
+			window.addChild(_closeView);
+			
 			_scrollerView = new ScrollerView(_menuScrollerData);
 			window.addChild(_scrollerView);
 		}
@@ -56,6 +60,10 @@ package com.panozona.modules.menuscroller.view{
 		
 		public function get scrollerView():ScrollerView {
 			return _scrollerView;
+		}
+		
+		public function get closeView():CloseView {
+			return _closeView;
 		}
 		
 		public function drawBackground():void {

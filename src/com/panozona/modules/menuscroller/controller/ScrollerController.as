@@ -27,7 +27,7 @@ package com.panozona.modules.menuscroller.controller{
 	import com.panozona.modules.menuscroller.view.ScrollerView;
 	import com.panozona.player.module.Module;
 	import flash.events.Event;
-	
+	import flash.events.MouseEvent;
 	
 	public class ScrollerController {
 		
@@ -63,15 +63,28 @@ package com.panozona.modules.menuscroller.controller{
 				elementsView.push(elementView);
 				
 				elementData.addEventListener(ElementEvent.CHANGED_SIZE, onElementSizeChanged, false, 0, true);
+				
+				if (element.mouse.onOver != null) {
+					elementView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(element.mouse.onOver));
+				}
+				if (element.mouse.onOut != null) {
+					elementView.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(element.mouse.onOut));
+				}
 			}
-			onElementSizeChanged();
 			
 			_scrollerView.menuScrollerData.windowData.addEventListener(WindowEvent.CHANGED_ELASTIC_WIDTH, handleResize, false, 0, true);
 			_scrollerView.menuScrollerData.windowData.addEventListener(WindowEvent.CHANGED_ELASTIC_HEIGHT, handleResize, false, 0, true);
+			onElementSizeChanged();
 			
 			_scrollerView.menuScrollerData.scrollerData.addEventListener(ScrollerEvent.CHANGED_TOTAL_SIZE, handleResize, false, 0, true);
 			
 			_scrollerView.menuScrollerData.scrollerData.addEventListener(ScrollerEvent.CHANGED_MOUSE_OVER, handleMouseOverChange, false, 0, true);
+		}
+		
+		private function getMouseEventHandler(actionId:String):Function{
+			return function(e:MouseEvent):void {
+				_module.saladoPlayer.manager.runAction(actionId);
+			}
 		}
 		
 		private function handleResize(e:Object = null):void {

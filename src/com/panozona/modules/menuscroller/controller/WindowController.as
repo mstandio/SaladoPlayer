@@ -30,6 +30,7 @@ package com.panozona.modules.menuscroller.controller{
 	
 	public class WindowController{
 		
+		private var closeController:CloseController;
 		private var scrollerController:ScrollerController;
 		
 		private var _windowView:WindowView;
@@ -39,6 +40,8 @@ package com.panozona.modules.menuscroller.controller{
 			
 			_module = module;
 			_windowView = windowView;
+			
+			closeController = new CloseController(windowView.closeView, _module);
 			
 			scrollerController = new ScrollerController(windowView.scrollerView, _module);
 			

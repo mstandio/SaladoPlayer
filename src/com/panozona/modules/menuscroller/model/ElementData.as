@@ -26,17 +26,12 @@ package com.panozona.modules.menuscroller.model {
 	
 	public class ElementData extends EventDispatcher{
 		
-		public static const STATE_PLAIN:String = "statePlain";
-		public static const STATE_HOVER:String = "stateHover";
-		public static const STATE_ACTIVE:String = "stateActive";
-		
-		private var _state:String = ElementData.STATE_PLAIN;
-		
 		private var _isShowing:Boolean;
 		private var _loaded:Boolean;
-		private var _mouseOver:Boolean;
-		
 		private var _size:Size;
+		
+		private var _isActive:Boolean;
+		private var _mouseOver:Boolean;
 		
 		private var _element:Element;
 		private var _scroller:Scroller;
@@ -73,13 +68,11 @@ package com.panozona.modules.menuscroller.model {
 			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_SIZE));
 		}
 		
-		public function get state():String { return _state;}
-		public function set state(value:String):void {
-			if (value == _state ) return;
-			if (value == STATE_PLAIN || value == STATE_HOVER || value == STATE_ACTIVE) {
-				_state = value;
-				dispatchEvent(new ElementEvent(ElementEvent.CHANGED_STATE));
-			}
+		public function get isActive():Boolean { return _isActive;}
+		public function set isActive(value:Boolean):void {
+			if (value == _isActive) return;
+			_isActive = value;
+			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_IS_ACTIVE));
 		}
 		
 		public function get mouseOver():Boolean { return _mouseOver;}
