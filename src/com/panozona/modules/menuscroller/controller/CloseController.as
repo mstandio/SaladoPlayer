@@ -18,7 +18,6 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.menuscroller.controller {
 	
-	
 	import com.panozona.modules.menuscroller.events.WindowEvent;
 	import com.panozona.modules.menuscroller.model.ElementData;
 	import com.panozona.modules.menuscroller.view.CloseView;
@@ -61,7 +60,8 @@ package com.panozona.modules.menuscroller.controller {
 			e.target.removeEventListener(Event.COMPLETE, imageLoaded);
 			_closeView.addChild(e.target.content)
 			
-			_closeView.addEventListener(MouseEvent.CLICK, handleMouseClick, false, 0 , true);
+			_closeView.addEventListener(MouseEvent.CLICK, handleMouseClick, false, 0, true);
+			handleResize();
 		}
 		
 		private function handleResize(e:Event = null):void {

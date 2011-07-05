@@ -31,7 +31,8 @@ package com.panozona.modules.menuscroller.model.structure {
 		public const move:Move = new Move(0, 0);
 		public const size:Size = new Size(200, NaN);
 		
-		public var alpha:Number = 1.0;
+		public const color:Number = 0x000000;
+		public var alpha:Number = 0.75;
 		
 		public var open:Boolean = true;
 		public var onOpen:String = null;

@@ -25,7 +25,7 @@ package com.panozona.modules.menuscroller.model.structure{
 		
 		public var path:String = null;
 		
-		public const align:Align = new Align(Align.RIGHT, Align.MIDDLE);
+		public const align:Align = new Align(Align.RIGHT, Align.TOP);
 		public const move:Move = new Move(0, 0);
 	}
 }

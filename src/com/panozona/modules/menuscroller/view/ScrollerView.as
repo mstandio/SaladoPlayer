@@ -33,6 +33,8 @@ package com.panozona.modules.menuscroller.view{
 		public function ScrollerView(menuScrollerData:MenuScrollerData){
 			_menuScrollerData = menuScrollerData;
 			
+			alpha = 1 / _menuScrollerData.windowData.window.alpha;
+			
 			addChild(elementsContainer);
 			addChild(elementsContainerMask);
 			elementsContainer.mask = elementsContainerMask;

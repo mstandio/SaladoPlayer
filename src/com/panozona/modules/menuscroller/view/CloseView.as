@@ -27,6 +27,8 @@ package com.panozona.modules.menuscroller.view{
 		
 		public function CloseView(menuScrollerData:MenuScrollerData):void{
 			_menuScrollerData = menuScrollerData;
+			alpha = 1 / _menuScrollerData.windowData.window.alpha;
+			buttonMode = true;
 		}
 		
 		public function get menuScrollerData():MenuScrollerData {
