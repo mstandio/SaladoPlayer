@@ -15,7 +15,7 @@
 	<modules>
 		<InfoBubble path="~modules/InfoBubble-1.2.swf">
 			<bubbles showTween="transition:Expo.easeIn,time:0.75" hideTween="transition:Cubic.easeIn,time:0.25">
-				<image id="bubbleBlue" path="~modules/images/infobubble/blue.jpg"/>
+				<image id="bubbleBlue" path="~media/images/thumbs/blue.jpg"/>
 			</bubbles>
 		</InfoBubble>
 	</modules>

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
+	
+	
+	http://panozona.com/wiki/Module:PanoLink
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
-			<image id="bc_redArrow" path="~hotspots/images/red_arrow.png" location="pan:10" mouse="onClick:loadRedChecker"/>
+			<image id="bc_redArrow" path="~hotspots/images/red_arrow.png" mouse="onClick:loadRedChecker"/>
 		</panorama>
 		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml">
-			<image id="rc_blueArrow" path="~hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueChecker"/>
+			<image id="rc_blueArrow" path="~hotspots/images/blue_arrow.png" mouse="onClick:loadBlueChecker"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<ViewFinder path="~modules/ViewFinder-1.2.swf"/>
 		<PanoLink path="~modules/PanoLink-1.0.swf">
-			<settings open="true" onOpen="onLinkOpen" onClose="onLinkClose"/>
+			<window open="true" onOpen="onLinkOpen" onClose="onLinkClose"/>
 		</PanoLink>
 		<ImageButton path="~modules/ImageButton-1.2.swf">
 			<buttons>
@@ -30,7 +31,7 @@
 		<action id="loadRedChecker" content="SaladoPlayer.loadPano(redChecker)"/>
 		<action id="linkOpen" content="PanoLink.setOpen(true)"/>
 		<action id="linkClose" content="PanoLink.setOpen(false)"/>
-		<action id="onLinkOpen" content="ImageButton.close(buttonOff);ImageButton.open(buttonOn)"/>
-		<action id="onLinkClose" content="ImageButton.open(buttonOff);ImageButton.close(buttonOn)"/>
+		<action id="onLinkOpen" content="ImageButton.setOpen(buttonOn,true)"/>
+		<action id="onLinkClose" content="ImageButton.setOpen(buttonOn,false)"/>
 	</actions>
 </SaladoPlayer>

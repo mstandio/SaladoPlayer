@@ -7,7 +7,7 @@
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<control autorotation="enabled:false" transition="property:x,startValue:1000,endValue:0,tween:Bounce.easeOut"/>
+		<control transition="property:x,startValue:1000,endValue:0,tween:Bounce.easeOut"/>
 	</global>
 	<panoramas>
 		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" direction="45"/>

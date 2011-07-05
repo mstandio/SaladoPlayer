@@ -21,7 +21,7 @@
 		<ImageMap path="~modules/ImageMap-1.2.swf">
 			<window open="false" onOpen="printOpen" onClose="printClose"/>
 			<maps>
-				<map id="map2" path="~modules/images/imagemap/map_2.jpg">
+				<map id="map2" path="~media/images/maps/map_2.jpg">
 					<waypoint target="blueChecker" position="x:310,y:280"/>
 				</map>
 			</maps>

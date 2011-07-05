@@ -25,10 +25,10 @@
 	<modules>
 		<ImageMap path="~modules/ImageMap-1.2.swf">
 			<maps>
-				<map id="map1" path="~modules/images/imagemap/map_1.jpg" onSet="onSetMap1">
+				<map id="map1" path="~media/images/maps/map_1.jpg" onSet="onSetMap1">
 					<waypoint target="greenChecker" position="x:150,y:100"/>
 				</map>
-				<map id="map2" path="~modules/images/imagemap/map_2.jpg" onSet="onSetMap2">
+				<map id="map2" path="~media/images/maps/map_2.jpg" onSet="onSetMap2">
 					<waypoint target="redChecker" position="x:250,y:200"/>
 				</map>
 			</maps>

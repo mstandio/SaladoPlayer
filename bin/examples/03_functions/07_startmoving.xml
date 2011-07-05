@@ -11,9 +11,7 @@
 	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
 			<image id="gc_greenArrow" path="~hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:startMoving"/>

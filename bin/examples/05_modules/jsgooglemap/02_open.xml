@@ -5,9 +5,7 @@
 	http://panozona.com/wiki/Module:JSGoogleMap
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama camera="tilt:0" id="pano_0" path="~panoramas/dz_green_check/green_check_f.xml">
 			<image id="blueArrow" path="~hotspots/images/red_arrow.png" location="tilt:10,distance:600" mouse="onClick:load_pano_1"/>

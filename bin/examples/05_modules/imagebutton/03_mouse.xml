@@ -14,7 +14,7 @@
 	<modules>
 		<ImageButton path="~modules/ImageButton-1.2.swf">
 			<buttons>
-				<button id="logo1" path="~modules/images/imagebutton/panozona_logo.png" mouse="onOver:printOver,onOut:printOut,onClick:printClick"/>
+				<button id="logo1" path="~media/images/misc/panozona_logo.png" mouse="onOver:printOver,onOut:printOut,onClick:printClick"/>
 			</buttons>
 		</ImageButton>
 	</modules>

@@ -5,9 +5,7 @@
 	uses first in line product description.
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
 			<product id="hs1" factory="ExampleFactory" location="pan:-20"/>

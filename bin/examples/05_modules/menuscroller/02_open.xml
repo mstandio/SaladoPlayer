@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	
+	
+	http://panozona.com/wiki/Module:MenuScroller
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<MenuScroller path="~modules/MenuScroller-1.0.swf">
+			<elements>
+				<element target="blueChecker" path="~media/images/thumbs/blue.jpg"/>
+				<element target="greenChecker" path="~media/images/thumbs/green.jpg"/>
+				<element target="redChecker" path="~media/images/thumbs/red.jpg"/>
+				<element target="yellowChecker" path="~media/images/thumbs/yellow.jpg"/>
+			</elements>
+			<close path="~media/images/misc/close.png"/>
+		</MenuScroller>
+	</modules>
+</SaladoPlayer>
