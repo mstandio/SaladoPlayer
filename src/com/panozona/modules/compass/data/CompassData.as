@@ -34,7 +34,7 @@ package com.panozona.modules.compass.data{
 				if (dataNode.name == "settings") {
 					tarnslator.dataNodeToObject(dataNode, settings);
 				}else {
-					throw new Error("Could not recognize: " + dataNode.name);
+					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
 			

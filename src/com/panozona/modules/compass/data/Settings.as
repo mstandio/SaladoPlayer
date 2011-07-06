@@ -24,9 +24,7 @@ package com.panozona.modules.compass.data {
 	public class Settings {
 		
 		public var path:String;
-		
 		public const align:Align = new Align(Align.LEFT, Align.BOTTOM);
-		
 		public const move:Move = new Move(10, -10);
 	}
 }

@@ -72,9 +72,7 @@ package com.panozona.modules.dropdown.controller{
 			finalWidth += _boxView.button.width;
 			var lastY:Number = 0;
 			for (var i:int = 0; i < _boxView.elementsContainer.numChildren; i++) {
-				elementView = _boxView.elementsContainer.getChildAt(_boxView.dropDownData.settings.style.opensUp ?
-					(_boxView.elementsContainer.numChildren - 1 - i) :
-					(i)) as ElementView;
+				elementView = _boxView.elementsContainer.getChildAt(i) as ElementView;
 				elementView.elementData.width = finalWidth;
 				elementView.y = lastY;
 				lastY += elementView.height;
@@ -126,15 +124,13 @@ package com.panozona.modules.dropdown.controller{
 				Tweener.addTween(_boxView.elementsContainer, {
 					y:containerUnfoldY(),
 					time:_boxView.dropDownData.settings.unfoldTween.time,
-					transition:_boxView.dropDownData.settings.unfoldTween.transition
-				});
+					transition:_boxView.dropDownData.settings.unfoldTween.transition});
 			}else {
 				Tweener.addTween(_boxView.elementsContainer, {
 					y:containerFoldY(),
 					time:_boxView.dropDownData.settings.foldTween.time,
 					transition:_boxView.dropDownData.settings.foldTween.transition,
-					onComplete:onComplete
-				});
+					onComplete:onComplete});
 			}
 		}
 		

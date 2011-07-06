@@ -28,9 +28,9 @@ package com.panozona.modules.infobubble.model{
 	
 	public class InfoBubbleData{
 		
-		public var settings:Settings = new Settings();
-		public var bubbles:Bubbles = new Bubbles();
-		public var bubbleData:BubbleData = new BubbleData();
+		public const settings:Settings = new Settings();
+		public const bubbles:Bubbles = new Bubbles();
+		public const bubbleData:BubbleData = new BubbleData();
 		
 		public function InfoBubbleData(moduleData:ModuleData, saladoPlayer:Object):void {
 			

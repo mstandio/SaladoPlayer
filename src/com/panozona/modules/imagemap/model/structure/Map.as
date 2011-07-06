@@ -34,7 +34,7 @@ package com.panozona.modules.imagemap.model.structure{
 		
 		public var onSet:String = null; // action id
 		
-		public var radars:Radar = new Radar();
-		public var buttons:Button = new Button();
+		public const radars:Radar = new Radar();
+		public const buttons:Button = new Button();
 	}
 }

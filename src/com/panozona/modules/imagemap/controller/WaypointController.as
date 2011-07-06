@@ -76,14 +76,12 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function onPanoramaLoaded(panoramaEvent:Object = null):void {
-			if (_waypointView.waypointData.waypoint.target != null) {
-				if (_module.saladoPlayer.manager.currentPanoramaData.id == _waypointView.waypointData.waypoint.target) {
-					currentDirection = _module.saladoPlayer.managerData.getPanoramaDataById(_waypointView.waypointData.waypoint.target).direction;
-					_waypointView.viewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
-					_waypointView.waypointData.showRadar = true;
-				}else {
-					_waypointView.waypointData.showRadar = false;
-				}
+			if (_module.saladoPlayer.manager.currentPanoramaData.id == _waypointView.waypointData.waypoint.target) {
+				currentDirection = _module.saladoPlayer.managerData.getPanoramaDataById(_waypointView.waypointData.waypoint.target).direction;
+				_waypointView.viewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
+				_waypointView.waypointData.showRadar = true;
+			}else {
+				_waypointView.waypointData.showRadar = false;
 			}
 		}
 		

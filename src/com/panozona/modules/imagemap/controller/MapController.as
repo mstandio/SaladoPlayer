@@ -116,19 +116,6 @@ package com.panozona.modules.imagemap.controller {
 				_mapView.waypointsContainer.addChild(waypointView);
 				waypointController = new WaypointController(waypointView, _module);
 				waypointControlers.push(waypointController);
-				
-				if (waypoint.mouse.onClick != null) {
-					waypointView.button.addEventListener(MouseEvent.CLICK, getMouseEventHandler(waypoint.mouse.onClick));
-					arrListeners.push({type:MouseEvent.CLICK, listener:getMouseEventHandler(waypoint.mouse.onClick)});
-				}
-				if (waypoint.mouse.onPress != null) {
-					waypointView.button.addEventListener(MouseEvent.MOUSE_DOWN, getMouseEventHandler(waypoint.mouse.onPress));
-					arrListeners.push({type:MouseEvent.MOUSE_DOWN, listener:getMouseEventHandler(waypoint.mouse.onPress)});
-				}
-				if (waypoint.mouse.onRelease != null) {
-					waypointView.button.addEventListener(MouseEvent.MOUSE_UP, getMouseEventHandler(waypoint.mouse.onRelease));
-					arrListeners.push({type:MouseEvent.MOUSE_UP, listener:getMouseEventHandler(waypoint.mouse.onRelease)});
-				}
 				if (waypoint.mouse.onOver != null) {
 					waypointView.button.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(waypoint.mouse.onOver));
 					arrListeners.push({type:MouseEvent.ROLL_OVER, listener:getMouseEventHandler(waypoint.mouse.onOver)});

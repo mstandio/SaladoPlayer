@@ -64,7 +64,7 @@ package com.panozona.modules.infobubble.view{
 		
 		public function setText(text:String):void {
 			textField.text = "";
-			var array:Array = text.split("\\n");
+			var array:Array = text.split("[n]");
 			for (var i:int = 0; i < array.length; i++) {
 				textField.appendText(array[i]);
 				if (i < array.length - 1) {

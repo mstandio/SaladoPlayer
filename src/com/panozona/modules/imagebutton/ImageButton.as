@@ -44,8 +44,9 @@ package com.panozona.modules.imagebutton{
 			
 			var buttonView:ButtonView;
 			var buttonController:ButtonController;
-			for each(var button:Button in imageButtonData.buttons.getChildrenOfGivenClass(Button)){
-				buttonView = new ButtonView(new ButtonData(button), imageButtonData);
+			var buttons:Array = imageButtonData.buttons.getChildrenOfGivenClass(Button);
+			for (var i:int = buttons.length-1; i >= 0; i--){
+				buttonView = new ButtonView(new ButtonData(buttons[i]), imageButtonData);
 				addChild(buttonView);
 				buttonController = new ButtonController(buttonView, this);
 				buttonControllers.push(buttonController);

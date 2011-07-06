@@ -73,6 +73,12 @@ package com.panozona.modules.imagemap.model {
 								throw new Error("Repeating waypoint target: " + waypoint.target);
 							}else {
 								waypointTargets[waypoint.target] = ""; // something
+								if (waypoint.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOver) == null){
+									throw new Error("Action does not exist: " + waypoint.mouse.onOver);
+								}
+								if (waypoint.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOut) == null){
+									throw new Error("Action does not exist: " + waypoint.mouse.onOut);
+								}
 							}
 						}
 					}

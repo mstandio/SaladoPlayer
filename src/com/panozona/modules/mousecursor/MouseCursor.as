@@ -38,28 +38,28 @@ package com.panozona.modules.mousecursor {
 	
 	public class MouseCursor extends Module{
 		
-		protected var mouseCursorData:MouseCursorData;
+		private var mouseCursorData:MouseCursorData;
 		
-		protected var handHover:BitmapData;
-		protected var handPress:BitmapData;
-		protected var handDrag:BitmapData;
+		private var handHover:BitmapData;
+		private var handPress:BitmapData;
+		private var handDrag:BitmapData;
 		
-		protected var arrowHover:BitmapData;
-		protected var arrowPress:BitmapData;
-		protected var arrowDrag:BitmapData;
+		private var arrowHover:BitmapData;
+		private var arrowPress:BitmapData;
+		private var arrowDrag:BitmapData;
 		
-		protected var cursorWrapper:Sprite;
-		protected var cursor:Bitmap;
-		protected var cursorWidth:Number = 1;
-		protected var cursorHeight:Number = 1;
+		private var cursorWrapper:Sprite;
+		private var cursor:Bitmap;
+		private var cursorWidth:Number = 1;
+		private var cursorHeight:Number = 1;
 		
-		protected var dragMode:Boolean;
+		private var dragMode:Boolean;
 		
-		protected var mousePress:Boolean;
-		protected var mousePressMove:Boolean;
+		private var mousePress:Boolean;
+		private var mousePressMove:Boolean;
 		
-		protected var startX:Number = 0;
-		protected var startY:Number = 0;
+		private var startX:Number = 0;
+		private var startY:Number = 0;
 		
 		public function MouseCursor(){
 			super("MouseCursor", "1.1", "http://panozona.com/wiki/Module:MouseCursor");
@@ -94,11 +94,11 @@ package com.panozona.modules.mousecursor {
 			cursorsLoader.load(new URLRequest(mouseCursorData.settings.path));
 		}
 		
-		protected function cursorsImageLost(error:IOErrorEvent):void {
+		private function cursorsImageLost(error:IOErrorEvent):void {
 			printError(error.text);
 		}
 		
-		protected function cursorsImageLoaded(e:Event):void {
+		private function cursorsImageLoaded(e:Event):void {
 			var bitmapData:BitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
 			bitmapData.draw((e.target as LoaderInfo).content);
 			
@@ -129,12 +129,12 @@ package com.panozona.modules.mousecursor {
 			cursor.y = -cursorHeight * 0.5;
 		}
 		
-		protected function onMouseOver(e:Event):void {
+		private function onMouseOver(e:Event):void {
 			cursor.visible = true;
 			Mouse.hide();
 		}
 		
-		protected function onMouseOut(e:Event):void {
+		private function onMouseOut(e:Event):void {
 			mousePress = false;
 			if (dragMode) {
 				drawHandHover();
@@ -145,17 +145,17 @@ package com.panozona.modules.mousecursor {
 			Mouse.show();
 		}
 		
-		protected function onMouseOverHotspots(e:Event):void {
+		private function onMouseOverHotspots(e:Event):void {
 			cursor.visible = false;
 			Mouse.show();
 		}
 		
-		protected function onMouseOutHotspots(e:Event):void {
+		private function onMouseOutHotspots(e:Event):void {
 			cursor.visible = true;
 			Mouse.hide();
 		}
 		
-		protected function onMousePress(e:Event):void {
+		private function onMousePress(e:Event):void {
 			mousePress = true;
 			mousePressMove = false;
 			startX = mouseX;
@@ -167,7 +167,7 @@ package com.panozona.modules.mousecursor {
 			}
 		}
 		
-		protected function onMouseRelease(e:Event):void {
+		private function onMouseRelease(e:Event):void {
 			mousePress = false;
 			if (dragMode) {
 				drawHandHover();
@@ -176,7 +176,7 @@ package com.panozona.modules.mousecursor {
 			}
 		}
 		
-		protected function onDragEnabledChange(e:Object = null):void {
+		private function onDragEnabledChange(e:Object = null):void {
 			dragMode = saladoPlayer.managerData.controlData.arcBallCameraData.enabled;
 			if (mousePress) {
 				if (mousePressMove) {
@@ -201,7 +201,7 @@ package com.panozona.modules.mousecursor {
 			}
 		}
 		
-		protected function handleEnterFrame(e:Event):void {
+		private function handleEnterFrame(e:Event):void {
 			cursorWrapper.x = mouseX;
 			cursorWrapper.y = mouseY;
 			if (startY != mouseY || startX != mouseX) {
@@ -221,32 +221,32 @@ package com.panozona.modules.mousecursor {
 			}
 		}
 		
-		protected function drawArrowHover():void {
+		private function drawArrowHover():void {
 			cursor.bitmapData = arrowHover;
 			cursorWrapper.addChild(cursor);
 		}
 		
-		protected function drawArrowPress():void {
+		private function drawArrowPress():void {
 			cursor.bitmapData = arrowPress;
 			cursorWrapper.addChild(cursor);
 		}
 		
-		protected function drawArrowDrag():void {
+		private function drawArrowDrag():void {
 			cursor.bitmapData = arrowDrag;
 			cursorWrapper.addChild(cursor);
 		}
 		
-		protected function drawHandHover():void {
+		private function drawHandHover():void {
 			cursor.bitmapData = handHover;
 			cursorWrapper.addChild(cursor);
 		}
 		
-		protected function drawHandPress():void {
+		private function drawHandPress():void {
 			cursor.bitmapData = handPress;
 			cursorWrapper.addChild(cursor);
 		}
 		
-		protected function drawHandDrag():void {
+		private function drawHandDrag():void {
 			cursor.bitmapData = handDrag;
 			cursorWrapper.addChild(cursor);
 		}

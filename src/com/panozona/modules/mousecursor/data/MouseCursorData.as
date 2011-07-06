@@ -24,7 +24,7 @@ package com.panozona.modules.mousecursor.data{
 	
 	public class MouseCursorData{
 		
-		public var settings:Settings = new Settings();
+		public const settings:Settings = new Settings();
 		
 		public function MouseCursorData(moduleData:ModuleData, saladoPlayer:Object){
 			
@@ -34,7 +34,7 @@ package com.panozona.modules.mousecursor.data{
 				if (dataNode.name == "settings") {
 					tarnslator.dataNodeToObject(dataNode, settings);
 				}else {
-					throw new Error("Could not recognize: " + dataNode.name);
+					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
 			

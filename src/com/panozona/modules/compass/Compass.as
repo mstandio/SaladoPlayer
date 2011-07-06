@@ -64,7 +64,6 @@ package com.panozona.modules.compass {
 			compassLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, compassImageLost, false, 0, true);
 			compassLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, compassImageLoaded, false, 0, true);
 			compassLoader.load(new URLRequest(compassData.settings.path));
-		
 		}
 		
 		private function onPanoramaLoaded(e:Event):void {
@@ -104,7 +103,6 @@ package com.panozona.modules.compass {
 		private function enterFrameHandler(event:Event):void{
 			axis.rotationZ = saladoPlayer.manager._pan + currentDirection;
 		}
-		
 		
 		private function handleResize(e:Event = null):void {
 			if (compassData.settings.align.horizontal == Align.LEFT) {
