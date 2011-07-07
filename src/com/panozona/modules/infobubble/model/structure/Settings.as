@@ -24,7 +24,5 @@ package com.panozona.modules.infobubble.model.structure {
 		
 		public var onEnable:String; // ids of actions executed
 		public var onDisable:String; // on enabled state change
-		
-		public const textStyle:TextStyle = new TextStyle();
 	}
 }

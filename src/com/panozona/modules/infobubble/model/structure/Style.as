@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -18,9 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.infobubble.model.structure{
 	
-	public class Bubble{
+	public class Style {
 		
 		public var id:String = null;
-		public var angle:Number = 90;
+		public const content:StyleContent = new StyleContent();
 	}
 }

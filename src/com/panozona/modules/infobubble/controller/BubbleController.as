@@ -22,6 +22,7 @@ package com.panozona.modules.infobubble.controller {
 	import com.panozona.modules.infobubble.events.BubbleEvent;
 	import com.panozona.modules.infobubble.model.structure.Bubble;
 	import com.panozona.modules.infobubble.model.structure.Image;
+	import com.panozona.modules.infobubble.model.structure.Style;
 	import com.panozona.modules.infobubble.model.structure.Text;
 	import com.panozona.modules.infobubble.view.BubbleView;
 	import com.panozona.player.module.Module;
@@ -81,7 +82,7 @@ package com.panozona.modules.infobubble.controller {
 			}catch(e:Error){}
 			for each (var bubble:Bubble in _bubbleView.infoBubbleData.bubbles.getChildrenOfGivenClass(Bubble)){
 				if (bubble.id == _bubbleView.infoBubbleData.bubbleData.currentId) {
-					currentDefaultAngle = bubble.defaultAngle;
+					currentDefaultAngle = bubble.angle;
 					dir = (currentDefaultAngle > 0) ? 0.5 : -0.5; // 0.5 clockwise, -0.5 counterclockwise
 					if (bubble is Image) {
 						imageLoader.load(new URLRequest((bubble as Image).path));
@@ -104,7 +105,16 @@ package com.panozona.modules.infobubble.controller {
 		}
 		
 		private function buildText(text:Text):void {
-			_bubbleView.setText(text.text);
+			if(text.style != null){
+				for each(var style:Style in _bubbleView.infoBubbleData.styles.getChildrenOfGivenClass(Style)){
+					if (style.id == text.style) {
+						_bubbleView.setText(text.text, style.content);
+						addDisplayObject(_bubbleView.textSprite);
+						return;
+					}
+				}
+			}
+			_bubbleView.setText(text.text, null);
 			addDisplayObject(_bubbleView.textSprite);
 		}
 		

@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -18,9 +18,18 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.infobubble.model.structure{
 	
-	public class Bubble{
+	public class StyleContent{
 		
-		public var id:String = null;
-		public var angle:Number = 90;
+		public var bubbleColor:Number = 0x000000;
+		public var bubblePadding:Number = 10;
+		
+		public var fontFamily:String = "Tahoma";
+		public var fontSize:Number = 15;
+		public var fontColor:Number = 0xffffff; // dark grey
+		public var fontBold:Boolean = true;
+		
+		public var borderSize:Number = 3;
+		public var borderColor:Number = 0xffffff;
+		public var borderRadius:Number = 15;
 	}
 }

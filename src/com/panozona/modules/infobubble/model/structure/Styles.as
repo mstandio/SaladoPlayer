@@ -18,18 +18,14 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.infobubble.model.structure{
 	
-	public class TextStyle{
+	import com.panozona.player.module.data.structure.DataParent;
+	
+	public class Styles extends DataParent{
 		
-		public var bubbleColor:Number = 0xf7f7f7;
-		public var bubblePadding:Number = 10;
-		
-		public var fontFamily:String = "Tahoma";
-		public var fontSize:Number = 15;
-		public var fontColor:Number = 0x313931; // dark grey
-		public var fontBold:Boolean = true;
-		
-		public var borderSize:Number = 3;
-		public var borderColor:Number = 0x8c928c;
-		public var borderRadius:Number = 10;
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Style);
+			return result;
+		}
 	}
 }

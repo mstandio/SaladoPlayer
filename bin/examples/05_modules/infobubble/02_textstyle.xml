@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	You can style text boxes font, border and bacground with textStyle attribute.
+	You can define different styles for text boxes and use them to customize their appearance.
 	
 	http://panozona.com/wiki/Module:InfoBubble
 -->
@@ -8,19 +8,39 @@
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
-			<image id="yc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onOver:showBubbleText,onOut:hideBubble"/>
+			<image id="yc_hs1" location="pan:-20,tilt:10" path="~hotspots/images/green_arrow.png" mouse="onOver:showBubble1,onOut:hideBubble"/>
+			<image id="yc_hs2" location="pan:0,tilt:10" path="~hotspots/images/green_arrow.png" mouse="onOver:showBubble2,onOut:hideBubble"/>
+			<image id="yc_hs3" location="pan:20,tilt:10" path="~hotspots/images/green_arrow.png" mouse="onOver:showBubble3,onOut:hideBubble"/>
+			<image id="yc_hs4" location="pan:-20,tilt:-10" path="~hotspots/images/green_arrow.png" mouse="onOver:showBubble4,onOut:hideBubble"/>
+			<image id="yc_hs5" location="pan:0,tilt:-10" path="~hotspots/images/green_arrow.png" mouse="onOver:showBubble5,onOut:hideBubble"/>
+			<image id="yc_hs6" location="pan:20,tilt:-10" path="~hotspots/images/green_arrow.png" mouse="onOver:showBubble6,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<InfoBubble path="~modules/InfoBubble-1.2.swf">
-			<settings textStyle="fontColor:#AAAAAA,borderColor:#AAAAAA,bubbleColor:#000000"/>
 			<bubbles>
-				<text id="bubbleText" text="this is[n]multiline text"/>
+				<text id="bubble1" text="single line of text"/>
+				<text id="bubble2" text="line of text[n]and another one[n]and so on"/>
+				<text id="bubble3">
+					<![CDATA[text can : <contain/> "any chars"]]>
+				</text>
+				<text id="bubble4" text="first small red text" style="smallRed"/>
+				<text id="bubble5" text="second small red text" style="smallRed"/>
+				<text id="bubble6" text="Donate please! ;)" style="bigFont" angle="0"/>
 			</bubbles>
+			<styles>
+				<style id="smallRed" content="bubbleColor:#FFFFFF,bubblePadding:3,fontFamily:Courier,fontSize:10,fontColor:#FF0000,fontBold:false,borderSize:1,borderRadius:0,borderColor:#FF0000"/>
+				<style id="bigFont" content="fontSize:40"/>
+			</styles>
 		</InfoBubble>
 	</modules>
 	<actions>
-		<action id="showBubbleText" content="InfoBubble.show(bubbleText)"/>
+		<action id="showBubble1" content="InfoBubble.show(bubble1)"/>
+		<action id="showBubble2" content="InfoBubble.show(bubble2)"/>
+		<action id="showBubble3" content="InfoBubble.show(bubble3)"/>
+		<action id="showBubble4" content="InfoBubble.show(bubble4)"/>
+		<action id="showBubble5" content="InfoBubble.show(bubble5)"/>
+		<action id="showBubble6" content="InfoBubble.show(bubble6)"/>
 		<action id="hideBubble" content="InfoBubble.hide()"/>
 	</actions>
 </SaladoPlayer>
