@@ -2,9 +2,7 @@
 <!--
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" direction="90"/>
 		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
@@ -22,7 +20,7 @@
 				</map>
 			</maps>
 		</ImageMap>
-		<ImageButton path="~modules/ImageButton-1.1.swf">
+		<ImageButton path="~modules/ImageButton-1.2.swf">
 			<buttons>
 				<button id="buttonOn" path="~modules/images/imagebutton/on.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:mapClose"/>
 				<button id="buttonOff" path="~modules/images/imagebutton/off.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:mapOpen"/>

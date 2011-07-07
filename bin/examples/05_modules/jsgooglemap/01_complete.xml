@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	
-	
 	http://panozona.com/wiki/Module:JSGoogleMap
 -->
 <SaladoPlayer>
@@ -27,12 +25,16 @@
 				<waypoint target="greenChecker" geolocation="latitude:46.44,longitude:11.08" label="Green checker"/>
 				<waypoint target="redChecker" geolocation="latitude:47.04,longitude:11.14" label="Red checker"/>
 			</waypoints>
+			<tracks>
+				<track path="[http://panozona.com/saladoplayer/kml/google.kmz]"/>
+				<track path="[http://panozona.com/saladoplayer/kml/map.kmz]"/>
+			</tracks>
 		</JSGoogleMap>
 	</modules>
 	<actions>
 		<action id="jsgooglemapToggle" content="JSGoogleMap.toggleOpen()" />
-		<action id="jsgooglemapOnOpen" content="ButtonBar.setExtraButtonActive(b,true)" />
-		<action id="jsgooglemapOnClose" content="ButtonBar.setExtraButtonActive(b,false)" />
+		<action id="jsgooglemapOnOpen" content="ButtonBar.setActive(b,true)" />
+		<action id="jsgooglemapOnClose" content="ButtonBar.setActive(b,false)" />
 		<action id="loadRedChecker" content="SaladoPlayer.loadPano(redChecker)"/>
 		<action id="loadGreenChecker" content="SaladoPlayer.loadPano(greenChecker)"/>
 	</actions>

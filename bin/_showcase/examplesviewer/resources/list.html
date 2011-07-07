@@ -7,6 +7,10 @@
 				parent.player.location='player.html?xml=../../../examples/'+XmlName;
 				parent.config.location='configuration.html?xml=../../../examples/'+XmlName;
 			}
+			function change2(htmlName,XmlName){
+				parent.player.location='../../'+htmlName;
+				parent.config.location='configuration.html?xml=../../../examples/'+XmlName;
+			}
 		</script>
 	</head>
 	<body bgcolor="#000000">
@@ -89,9 +93,20 @@
 			<a class="L L2" href="javascript:change('05_modules/infobubble/02_textstyle.xml')">02_textstyle.xml</a></br>
 			<a class="L L2" href="javascript:change('05_modules/infobubble/03_enable.xml')">03_enable.xml</a></br>
 			<a class="L L2" href="javascript:change('05_modules/infobubble/04_tween.xml')">04_tween.xml</a></br>
+			<span class="L L1">jsgateway</span></br>
+			<a class="L L2" href="javascript:change2('jsgateway/index.html','05_modules/jsgooglemap/01_complete.xml')">01_basic.xml</a></br>
+			<span class="L L1">jsgooglemap</span></br>
+			<a class="L L2" href="javascript:change2('jsgooglemap/index.html','05_modules/jsgooglemap/01_complete.xml')">01_complete.xml</a></br>
+			<span class="L L1">menuscroller</span></br>
+			<a class="L L2" href="javascript:change('05_modules/menuscroller/01_basic.xml')">01_basic.xml</a></br>
+			<a class="L L2" href="javascript:change('05_modules/menuscroller/02_open.xml')">02_open.xml</a></br>
+			<a class="L L2" href="javascript:change('05_modules/menuscroller/03_position.xml')">03_position.xml</a></br>
+			<a class="L L2" href="javascript:change('05_modules/menuscroller/04_mouse.xml')">04_mouse.xml</a></br>
 			<span class="L L1">mousecursor</span></br>
 			<a class="L L2" href="javascript:change('05_modules/mousecursor/01_basic.xml')">01_basic.xml</a></br>
 			<a class="L L2" href="javascript:change('05_modules/mousecursor/02_mousedrag.xml')">02_mousedrag.xml</a></br>
+			<span class="L L1">panolink</span></br>
+			<a class="L L2" href="javascript:change2('panolink/index.html','05_modules/panolink/01_complete.xml')">01_complete.xml</a></br>
 			<span class="L L1">viewfinder</span></br>
 			<a class="L L2" href="javascript:change('05_modules/viewfinder/01_basic.xml')">01_basic.xml</a></br>
 			<a class="L L2" href="javascript:change('05_modules/viewfinder/02_showdirection.xml')">02_showdirection.xml</a></br>
@@ -104,7 +119,7 @@
 			<span class="L L0">07_control</span></br>
 			<a class="L L1"href="javascript:change('07_control/01_transition.xml')">01_transition.xml</a></br>
 			<a class="L L1"href="javascript:change('07_control/02_autorotation.xml')">02_autorotation.xml</a></br>
-			<a class="L L1"href="javascript:change('07_control/03_mousewheel.xml')">03_mousewheel.xml</a></br>
+			<a class="L L1"href="javascript:change2('mousewheeltrap/index.html','07_control/03_mousewheel.xml')">03_mousewheel.xml</a></br>
 			<a class="L L1"href="javascript:change('07_control/04_mousedrag.xml')">04_mousedrag.xml</a></br>
 		</div>
 	</body>

@@ -2,11 +2,9 @@
 <!--
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenCheck" path="~panoramas/dz_green_check/green_check_f.xml">
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
 			<image id="blueArrow" location="pan:0" path="~hotspots/images/blue_arrow.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>

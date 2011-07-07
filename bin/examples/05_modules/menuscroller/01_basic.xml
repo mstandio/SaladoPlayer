@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	
+	MenuScroller allows easy switching between panoramas. It also indicates if currently viewed panorama 
+	is one that given element is targetting to by making image half of hover magnification. If number 
+	of elements exceeds avaible space, menu becomes scrollable.
 	
 	http://panozona.com/wiki/Module:MenuScroller
 -->

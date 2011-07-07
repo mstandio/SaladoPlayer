@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	
+	You can set module as closed by default, and open/close it by calling proper functions.
+	Assign actions that will be executed whenever MenuScroller changes "open" state,
+	so this change could be reflected in your interface, for example by changing state of buttons.
 	
 	http://panozona.com/wiki/Module:MenuScroller
 -->
 <SaladoPlayer>
-	<global debug="true"/>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
 	<panoramas>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="bc_greenArrow" path="~hotspots/images/green_arrow.png" location="pan:-5,tilt:5" mouse="onClick:openMenu"/>
+			<image id="bc_redArrow" path="~hotspots/images/red_arrow.png" location="pan:-5,tilt:-5" mouse="onClick:closeMenu"/>
+			<image id="bc_yellowArrow" path="~hotspots/images/yellow_arrow.png" location="pan:5" mouse="onClick:toggleOpenMenu"/>
+		</panorama>
 	</panoramas>
 	<modules>
 		<MenuScroller path="~modules/MenuScroller-1.0.swf">
+			<window open="false" onOpen="printOpen" onClose="printClose"/>
 			<elements>
 				<element target="blueChecker" path="~media/images/thumbs/blue.jpg"/>
-				<element target="greenChecker" path="~media/images/thumbs/green.jpg"/>
-				<element target="redChecker" path="~media/images/thumbs/red.jpg"/>
-				<element target="yellowChecker" path="~media/images/thumbs/yellow.jpg"/>
 			</elements>
-			<close path="~media/images/misc/close.png"/>
 		</MenuScroller>
 	</modules>
+	<actions>
+		<action id="openMenu" content="MenuScroller.setOpen(true)"/>
+		<action id="closeMenu" content="MenuScroller.setOpen(false)"/>
+		<action id="toggleOpenMenu" content="MenuScroller.toggleOpen()"/>
+		<action id="printOpen" content="SaladoPlayer.print(menu opened)"/>
+		<action id="printClose" content="SaladoPlayer.print(menu closed)"/>
+	</actions>
 </SaladoPlayer>

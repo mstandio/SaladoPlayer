@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	
-	
 	http://panozona.com/wiki/Module:PanoLink
 -->
 <SaladoPlayer>
@@ -17,12 +15,12 @@
 	<modules>
 		<ViewFinder path="~modules/ViewFinder-1.2.swf"/>
 		<PanoLink path="~modules/PanoLink-1.0.swf">
-			<window open="true" onOpen="onLinkOpen" onClose="onLinkClose"/>
+			<window open="false" onOpen="onLinkOpen" onClose="onLinkClose"/>
 		</PanoLink>
 		<ImageButton path="~modules/ImageButton-1.2.swf">
 			<buttons>
-				<button id="buttonOn" path="~modules/images/imagebutton/on.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:linkClose"/>
-				<button id="buttonOff" path="~modules/images/imagebutton/off.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:linkOpen"/>
+				<button id="buttonOn" path="~media/images/misc/on.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:linkClose"/>
+				<button id="buttonOff" path="~media/images/misc/off.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:linkOpen"/>
 			</buttons>
 		</ImageButton>
 	</modules>

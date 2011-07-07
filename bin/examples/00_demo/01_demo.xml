@@ -18,18 +18,18 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<InfoBubble path="~modules/InfoBubble-1.1.swf">
+		<InfoBubble path="~modules/InfoBubble-1.2.swf">
 			<settings onEnable="onBubbleAct" onDisable="onBubbleDisact"/>
 			<bubbles>
 				<bubble id="parkBubble" path="~modules/images/infobubble/park.jpg"/>
 				<bubble id="kortrijkBubble" path="~modules/images/infobubble/kortrijk.jpg"/>
 			</bubbles>
 		</InfoBubble>
-		<DropDown path="~modules/DropDown-1.0.swf">
+		<DropDown path="~modules/DropDown-1.1.swf">
 			<settings align="horizontal:left,vertical:top" move="horizontal:40,vertical:40" style="opensUp:false,fontColor:#212021,fontSize:22,plainColor:#94ba4a,borderColor:#212021,hoverColor:#b9d243,activeColor:#b9d243"/>
 			<elements>
-				<element label="Park 3200x1600" panorama="park"/>
-				<element label="Kortrijk 12800x6400" panorama="kortrijk"/>
+				<element target="park" label="Park 3200x1600"/>
+				<element target="kortrijk" label="Kortrijk 12800x6400"/>
 			</elements>
 		</DropDown>
 		<ImageMap path="~modules/ImageMap-1.2.swf">
@@ -42,7 +42,7 @@
 				</map>
 			</maps>
 		</ImageMap>
-		<ImageButton path="~modules/ImageButton-1.1.swf">
+		<ImageButton path="~modules/ImageButton-1.2.swf">
 			<buttons>
 				<button id="button1" path="~modules/images/imagebutton/imagemap_icon.png" align="vertical:top,horizontal:right" move="horizontal:-30,vertical:30" mouse="onClick:mapToggle"/>
 				<button id="help" path="~modules/images/imagebutton/help.png" align="vertical:middle,horizontal:center" mouse="onClick:helpToggle" open="false" onOpen="helpOpened" onClose="helpClosed" />

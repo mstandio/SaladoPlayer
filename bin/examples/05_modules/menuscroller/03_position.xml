@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	
+	Change size and alignment of module window. If you set window size dimension to NaN, module
+	will use entire panorama window width or height. Set scrollsVertical value to change scrolling
+	direction. Additionally you can define "close" button and place it around menu window.
 	
 	http://panozona.com/wiki/Module:MenuScroller
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="bc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMenu"/>
+		</panorama>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="gc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMenu"/>
+		</panorama>
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml">
+			<image id="rc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMenu"/>
+		</panorama>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
+			<image id="yc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMenu"/>
+		</panorama>
 	</panoramas>
 	<modules>
 		<MenuScroller path="~modules/MenuScroller-1.0.swf">
-			<window size="width:700,height:300" align="horizontal:center"/>
+			<window size="width:700,height:300" align="horizontal:center" transition="type:slideDown"/>
+			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
 			<scroller scrollsVertical="false"/>
 			<elements>
 				<element target="blueChecker" path="~media/images/thumbs/blue.jpg"/>
@@ -24,4 +35,7 @@
 			</elements>
 		</MenuScroller>
 	</modules>
+	<actions>
+		<action id="toggleOpenMenu" content="MenuScroller.toggleOpen()"/>
+	</actions>
 </SaladoPlayer>
