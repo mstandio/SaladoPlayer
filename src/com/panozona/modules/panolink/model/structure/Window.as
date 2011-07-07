@@ -37,6 +37,6 @@ package com.panozona.modules.panolink.model.structure{
 		
 		public var openTween:Tween = new Tween(Equations.easeNone, 0.5);
 		public var closeTween:Tween = new Tween(Equations.easeNone, 0.5);
-		public var transition:Transition = new Transition(Transition.SLIDE_RIGHT);
+		public var transition:Transition = new Transition(Transition.SLIDE_UP);
 	}
 }

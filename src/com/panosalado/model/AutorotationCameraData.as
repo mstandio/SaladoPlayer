@@ -56,7 +56,7 @@ public class AutorotationCameraData extends EventDispatcher
 	
 	public function AutorotationCameraData()
 	{
-		delay = 5;
+		delay = 30;
 		mode = "speed" // speed
 		speed = 5;
 		frameIncrement = 0.0333;
