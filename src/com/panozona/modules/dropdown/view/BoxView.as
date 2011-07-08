@@ -46,6 +46,7 @@ package com.panozona.modules.dropdown.view {
 			var textFormat:TextFormat = new TextFormat();
 			textFormat.blockIndent = 0;
 			textFormat.font = dropDownData.settings.style.fontFamily;
+			textFormat.bold = dropDownData.settings.style.fontBold;
 			textFormat.size = dropDownData.settings.style.fontSize;
 			textFormat.color = dropDownData.settings.style.fontColor;
 			textFormat.leftMargin = dropDownData.settings.style.fontSize * 0.3;
