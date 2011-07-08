@@ -13,13 +13,13 @@
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
-			<buttons path="~modules/images/buttonbar/buttons/buttons_25x25_green.png">
+			<buttons path="~modules/images/buttonbar/buttons_30x30_black.png">
 				<button name="in"/>
 				<button name="out"/>
 				<button name="drag"/>
 				<button name="autorotation"/>
 			</buttons>
-			<bar visible="true" color="#00FFAA" size="height:35" alpha="0.35"/>
+			<bar visible="true" path="~modules/images/buttonbar/bar_camuflage.jpg" size="height:40" alpha="0.5"/>
 		</ButtonBar>
 	</modules>
 </SaladoPlayer>

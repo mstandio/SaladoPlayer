@@ -11,7 +11,7 @@
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
-			<buttons path="~modules/images/buttonbar/buttons/hans_hermans_30x30.png" listenKeys="true">
+			<buttons path="~modules/images/buttonbar/buttons_40x40_black.png" listenKeys="true">
 				<button name="up"/>
 				<button name="down"/>
 				<button name="left"/>

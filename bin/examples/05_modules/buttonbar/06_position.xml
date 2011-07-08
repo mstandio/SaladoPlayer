@@ -12,18 +12,17 @@
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
-			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png" spacing="2" align="horizontal:center" move="horizontal:70">
-				<button name="up" move="horizontal:-100,vertical:-40"/>
+			<buttons path="~modules/images/buttonbar/buttons_30x30_black.png" spacing="2" align="horizontal:center" move="horizontal:70">
+				<button name="up" move="horizontal:-100,vertical:-30"/>
 				<button name="down" move="horizontal:-100"/>
-				<button name="left" move="horizontal:-115,vertical:-20"/>
-				<button name="right" move="horizontal:-85,vertical:-20"/>
-				<button name="in" move="horizontal:-50,vertical:-30"/>
-				<button name="out" move="horizontal:-50"/>
+				<button name="left" move="horizontal:-130,vertical:-15"/>
+				<button name="right" move="horizontal:-70,vertical:-15"/>
+				<button name="in" move="horizontal:-35,vertical:-30"/>
+				<button name="out" move="horizontal:-35"/>
 				<button name="drag"/>
 				<button name="autorotation"/>
 				<button name="fullscreen"/>
 			</buttons>
-			<bar visible="true" path="~modules/images/buttonbar/bar/blob_blue.png" size="width:240,height:85" move="horizontal:15"/>
 		</ButtonBar>
 	</modules>
 </SaladoPlayer>

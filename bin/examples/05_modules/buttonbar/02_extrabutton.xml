@@ -14,7 +14,7 @@
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
-			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_green.png">
+			<buttons path="~modules/images/buttonbar/buttons_30x30_black.png">
 				<button name="in"/>
 				<button name="out"/>
 				<button name="drag"/>

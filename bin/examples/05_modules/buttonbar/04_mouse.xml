@@ -14,7 +14,7 @@
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
-			<buttons path="~modules/images/buttonbar/buttons/buttons_30x30_blue.png">
+			<buttons path="~modules/images/buttonbar/buttons_40x40_black.png">
 				<button name="drag" mouse="onOver:dragOver,onOut:dragOut"/>
 				<extraButton name="a" action="printHello" mouse="onOver:aOver,onOut:aOut"/>
 			</buttons>
