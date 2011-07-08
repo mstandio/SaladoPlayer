@@ -12,7 +12,7 @@
 	</panoramas>
 	<modules>
 		<Compass path="~modules/Compass-1.0.swf">
-			<settings path="~modules/images/compass/compass_150.png"/>
+			<settings path="~modules/images/compass/compass_81.png"/>
 		</Compass>
 	</modules>
 </SaladoPlayer>

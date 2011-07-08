@@ -71,10 +71,15 @@ package com.panozona.modules.compass {
 		}
 		
 		protected function compassImageLost(error:IOErrorEvent):void {
+			error.target.removeEventListener(IOErrorEvent.IO_ERROR, compassImageLost);
+			error.target.removeEventListener(Event.COMPLETE, compassImageLoaded);
 			printError(error.text);
 		}
 		
 		protected function compassImageLoaded(e:Event):void {
+			e.target.removeEventListener(IOErrorEvent.IO_ERROR, compassImageLost);
+			e.target.removeEventListener(Event.COMPLETE, compassImageLoaded);
+			
 			var bitmapData:BitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
 			bitmapData.draw((e.target as LoaderInfo).content);
 			

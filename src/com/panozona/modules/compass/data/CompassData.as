@@ -24,7 +24,7 @@ package com.panozona.modules.compass.data{
 	
 	public class CompassData{
 		
-		public var settings:Settings = new Settings();
+		public const settings:Settings = new Settings();
 		
 		public function CompassData(moduleData:ModuleData, saladoPlayer:Object){
 			
