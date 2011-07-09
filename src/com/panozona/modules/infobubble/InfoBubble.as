@@ -51,6 +51,9 @@ package com.panozona.modules.infobubble{
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
+			
+			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
+			saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
 		}
 		
 		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
@@ -61,6 +64,10 @@ package com.panozona.modules.infobubble{
 			}else {
 				saladoPlayer.manager.runAction(infoBubbleData.settings.onDisable);
 			}
+		}
+		
+		private function handleResize(viewEvent:Object):void {
+			infoBubbleData.bubbleData.isShowing = false;
 		}
 		
 ///////////////////////////////////////////////////////////////////////////////

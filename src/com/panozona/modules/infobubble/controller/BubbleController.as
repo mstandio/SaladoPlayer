@@ -82,7 +82,7 @@ package com.panozona.modules.infobubble.controller {
 			}catch(e:Error){}
 			for each (var bubble:Bubble in _bubbleView.infoBubbleData.bubbles.getChildrenOfGivenClass(Bubble)){
 				if (bubble.id == _bubbleView.infoBubbleData.bubbleData.currentId) {
-					currentDefaultAngle = bubble.angle;
+					currentDefaultAngle = Math.floor(bubble.angle);
 					dir = (currentDefaultAngle > 0) ? 0.5 : -0.5; // 0.5 clockwise, -0.5 counterclockwise
 					if (bubble is Image) {
 						imageLoader.load(new URLRequest((bubble as Image).path));
@@ -163,31 +163,50 @@ package com.panozona.modules.infobubble.controller {
 				}
 			}
 			
-			_bubbleView.x = _module.mouseX - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
-			_bubbleView.y = _module.mouseY - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
+			_bubbleView.x = getMouseX() - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
+			_bubbleView.y = getMouseY() - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
 			
 			if (hasConflict()) {
 				while (hasConflict()) {
 					angle += dir;
 					angle = validate(angle);
-					_bubbleView.x = _module.mouseX - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
-					_bubbleView.y = _module.mouseY - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
+					_bubbleView.x = getMouseX() - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
+					_bubbleView.y = getMouseY() - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
 				}
 			}else if (wontBeConflict(angle - dir)){
 				while (wontBeConflict(angle - dir) && angle != -currentDefaultAngle) {
 					angle -= dir;
 					angle = validate(angle);
-					_bubbleView.x = _module.mouseX - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
-					_bubbleView.y = _module.mouseY - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
+					_bubbleView.x = getMouseX() - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
+					_bubbleView.y = getMouseY() - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
 				}
+			}
+		}
+		
+		private function getMouseX():Number {
+			if (_module.mouseX > _module.saladoPlayer.manager.boundsWidth) {
+				return _module.saladoPlayer.manager.boundsWidth;
+			}else if (_module.mouseX < 0) {
+				return 0;
+			}else {
+				return _module.mouseX;
+			}
+		}
+		private function getMouseY():Number {
+			if (_module.mouseY > _module.saladoPlayer.manager.boundsHeight) {
+				return _module.saladoPlayer.manager.boundsHeight;
+			}else if (_module.mouseY < 0) {
+				return 0;
+			}else {
+				return _module.mouseY;
 			}
 		}
 		
 		private var bub_x:Number;
 		private var bub_y:Number;
 		private function wontBeConflict(angle:Number):Boolean {
-			bub_x = _module.mouseX - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
-			bub_y = _module.mouseY - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
+			bub_x = getMouseX() - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
+			bub_y = getMouseY() - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
 			return(bub_x + _bubbleView.width <= _module.saladoPlayer.manager.boundsWidth 
 			&& bub_y + _bubbleView.height <= _module.saladoPlayer.manager.boundsHeight
 			&& bub_y >= 0
@@ -202,11 +221,11 @@ package com.panozona.modules.infobubble.controller {
 		}
 		
 		private function validate(value:Number):Number{
-			if ( value <= -180 ) value = ((value + 180) % 360) + 180;
-			if ( value >= 180 ) value = ((value + 180) % 360) - 180;
+			if ( value < -180 ) value = ((value + 180) % 360) + 180;
+			if ( value > 180 ) value = ((value + 180) % 360) - 180;
 			return value;
 		}
 		
-		private var __toRadians:Number = Math.PI / 180;
+		private const __toRadians:Number = Math.PI / 180;
 	}
 }
