@@ -42,9 +42,9 @@ public class InertialMouseCameraData extends EventDispatcher
 	
 	public function InertialMouseCameraData()
 	{
-		sensitivity      = 0.00006;
-		friction         = 0.12;
-		threshold        = 0.0001;
+		sensitivity      = 0.0001;
+		friction         = 0.25;
+		threshold        = 0.001;
 		_enabled         = true;
 	}
 	

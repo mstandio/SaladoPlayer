@@ -484,7 +484,7 @@ package com.panozona.player.manager.utils.configuration {
 		protected function recognizeContent(content:String):*{
 			if (content == null){
 				return null;
-			}else if (content.match(/^\[.*\]$/)) { // [String]
+			}else if (content.match(/^(\[.*\])$/)) { // [String]
 				return content.substring(1, content.length - 1);
 			}else if (content == "true" || content == "false") { // Boolean
 				return ((content == "true")? true : false);
@@ -495,7 +495,7 @@ package com.panozona.player.manager.utils.configuration {
 				return (Number("0x" + content));
 			}else if (content == "NaN"){ // Number - NaN
 				return NaN;
-			}else if (content.match(/^.+:.+$/)) { // Object
+			}else if (content.match(/^(?!http).+:.+$/)) { // Object
 				var object:Object = new Object();
 				applySubAttributes(object, content); 
 				return object;
