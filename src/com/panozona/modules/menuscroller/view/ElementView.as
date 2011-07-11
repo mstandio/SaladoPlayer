@@ -19,10 +19,11 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.menuscroller.view {
 	
 	import com.panozona.modules.menuscroller.model.ElementData;
-	import flash.events.MouseEvent;
-	import flash.events.Event;
+	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	public class ElementView extends Sprite{
 		
@@ -33,6 +34,8 @@ package com.panozona.modules.menuscroller.view {
 		
 		public function ElementView(elementData:ElementData) {
 			_elementData = elementData;
+			
+			buttonMode = true;
 			
 			_contentAnchor = new Sprite();
 			_contentAnchor.graphics.beginFill(0x000000, 0);
@@ -53,6 +56,9 @@ package com.panozona.modules.menuscroller.view {
 			_content = displayObject;
 			_content.x = -displayObject.width * 0.5;
 			_content.y = -displayObject.height * 0.5;
+			if (_content is Bitmap) {
+				(_content as Bitmap).smoothing = true;
+			}
 			_contentAnchor.addChild(_content);
 			
 			addEventListener(MouseEvent.ROLL_OVER, onMouseOver, false, 0, true);
