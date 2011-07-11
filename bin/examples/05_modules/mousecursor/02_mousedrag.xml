@@ -2,7 +2,7 @@
 <!--
 	Module does not have exposed functions, and it does not communicate with other modules.
 	It reacts to changes of mouseInertial and mouseDrag in SaladoPlayer and displayes images
-	reflecting that reflect their current state.
+	reflecting their current "enabled" state.
 	
 	http://panozona.com/wiki/Module:MouseCursor
 -->

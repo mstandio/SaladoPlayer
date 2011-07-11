@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
-	Assign actions to be executed on mouse events.
+	Assign mouse events on interaction with each button. You can display content
+	when mouse is hovering over button with other modules, like InfoBubble.
 	
 	http://panozona.com/wiki/Module:ImageButton
 -->

@@ -17,7 +17,7 @@
 	<modules>
 		<InfoBubble path="~modules/InfoBubble-1.2.swf">
 			<bubbles>
-				<text id="bubbleText" text="this is[n]multiline text"/>
+				<text id="bubbleText" text="this is yellow arrow"/>
 				<image id="bubbleBlue" path="~media/images/thumbs/blue.jpg" angle="120"/>
 				<image id="bubbleRed" path="~media/images/thumbs/red.jpg"/>
 			</bubbles>

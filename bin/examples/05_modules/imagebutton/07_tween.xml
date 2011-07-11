@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
-	You can assign different open/close tween times and functions.
+	Set tweens for open and close transitions. Parameters will apply both to slide
+	and fade transitions. If you set time to 0, no transition effect will be applied.
 	
 	http://panozona.com/wiki/Module:ImageButton
 -->

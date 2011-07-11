@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
+	PanoLink generates new url containing current panorama id, pan, tilt and fov each time link
+	window is opened. Module also interprets generated links, loading specified panorama and view.
+	
+	Module is not finished yet and does not allow much customization.
+	
 	http://panozona.com/wiki/Module:PanoLink
 -->
 <SaladoPlayer>

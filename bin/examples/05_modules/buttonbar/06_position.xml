@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Change position and lignment of bar and all buttons at once, as well as each button individually.
+	Change position and alignment of bar and all buttons at once, as well as each button individually.
 	Use spacing attribute to set space between buttons that have no custom move values set.
 	
 	http://panozona.com/wiki/Module:ButtonBar

@@ -10,9 +10,15 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="bc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMap"/>
+		</panorama>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="gc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMap"/>
+		</panorama>
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml">
+			<image id="rc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMap"/>
+		</panorama>
 	</panoramas>
 	<modules>
 		<ImageMap path="~modules/ImageMap-1.2.swf">
@@ -25,4 +31,7 @@
 			</maps>
 		</ImageMap>
 	</modules>
+	<actions>
+		<action id="toggleOpenMap" content="ImageMap.toggleOpen()"/>
+	</actions>
 </SaladoPlayer>

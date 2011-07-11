@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+	JSGoogleMap is module that uses external javascript files. See source of _showcase/jsgooglemap/index.html
+	
 	http://panozona.com/wiki/Module:JSGoogleMap
 -->
 <SaladoPlayer>
@@ -15,7 +17,7 @@
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
 			<bar visible="false"/>
-			<buttons path="~modules/images/buttonbar/buttons/buttons_25x25_green.png">
+			<buttons path="~modules/images/buttonbar/buttons_30x30_black.png">
 				<extraButton name="b" action="jsgooglemapToggle"/>
 			</buttons>
 		</ButtonBar>
@@ -26,8 +28,8 @@
 				<waypoint target="redChecker" geolocation="latitude:47.04,longitude:11.14" label="Red checker"/>
 			</waypoints>
 			<tracks>
-				<track path="[http://panozona.com/saladoplayer/kml/google.kmz]"/>
-				<track path="[http://panozona.com/saladoplayer/kml/map.kmz]"/>
+				<track path="http://panozona.com/saladoplayer/kml/google.kmz"/>
+				<track path="http://panozona.com/saladoplayer/kml/map.kmz"/>
 			</tracks>
 		</JSGoogleMap>
 	</modules>
