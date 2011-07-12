@@ -379,7 +379,7 @@ public class PanoSalado extends ViewData implements ICamera
 	* @param tween Function (optional) defaults to Linear.easeNone. Function must have signature: function name (t:Number, b:Number, c:Number, d:Number):Number
 	*/
 	public function swingTo(
-		pan:Number=NaN, tilt:Number=NaN, fieldOfView:Number=NaN, speed:Number=20, tween:Function=null
+		pan:Number=NaN, tilt:Number=NaN, fieldOfView:Number=NaN, speed:Number=30, tween:Function=null
 	):void {
 		if (isNaN(pan) && isNaN(tilt) && isNaN(fieldOfView) ) return;
 		//if value is null then use current value
@@ -432,12 +432,12 @@ public class PanoSalado extends ViewData implements ICamera
 	* @param tween Function (optional) defaults to Linear.easeNone. Function must have signature: function name (t:Number, b:Number, c:Number, d:Number):Number
 	*/
 	public function swingToChild(
-		child:ManagedChild, fieldOfView:Number = NaN, speed:Number=20, tween:Function=null
+		child:ManagedChild, fieldOfView:Number = NaN, speed:Number=30, tween:Function=null
 	):void {
 		if (child == null) return;
 		dispatchEvent( new CameraEvent(CameraEvent.ACTIVE) );
 		if (tween == null) tween = Linear.easeNone;
-		var childPan:Number = -Math.atan2(child.x, child.z) * 180 / Math.PI;
+		var childPan:Number = Math.atan2(child.x, child.z) * 180 / Math.PI;
 		var childTilt:Number = -Math.atan2(child.y, Math.sqrt( child.x * child.x + child.z * child.z)) * 180 / Math.PI;
 		if (_pan - childPan > 180) childPan += 360;
 		else if (_pan - childPan < -180) childPan -= 360;
