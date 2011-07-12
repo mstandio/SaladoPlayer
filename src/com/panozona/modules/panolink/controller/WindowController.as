@@ -44,6 +44,7 @@ package com.panozona.modules.panolink.controller{
 			
 			_windowView.windowData.addEventListener(WindowEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
 			
+			//should be pano change
 			_module.saladoPlayer.manager.addEventListener(MouseEvent.MOUSE_DOWN, handlePlayerClick, false, 0, true);
 			
 			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
@@ -69,16 +70,33 @@ package com.panozona.modules.panolink.controller{
 		}
 		
 		private function handlePlayerClick(event:Event = null):void {
-			_windowView.panoLinkData.windowData.window.open = false;
+			_windowView.panoLinkData.windowData.open = false;
 		}
 		
+		private var initPan:Number;
+		private var initTilt:Number;
+		private var initFov:Number;
 		private function onOpenChange(e:Event):void {
 			if (_windowView.windowData.open) {
 				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.windowData.window.onOpen);
 				openWindow();
+				
+				initPan = _module.saladoPlayer.manager.pan;
+				initTilt = _module.saladoPlayer.manager.tilt;
+				initFov = _module.saladoPlayer.manager.fieldOfView;
+				_module.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
 			}else {
 				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.windowData.window.onClose);
 				closeWindow();
+			}
+		}
+		
+		private function onEnterFrame(e:Event):void {
+			if (_module.saladoPlayer.manager.pan != initPan ||
+				_module.saladoPlayer.manager.tilt != initTilt ||
+				_module.saladoPlayer.manager.fieldOfView != initFov) {
+					_windowView.panoLinkData.windowData.open = false;
+					_module.stage.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			}
 		}
 		
