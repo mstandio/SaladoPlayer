@@ -83,7 +83,7 @@ package com.panozona.modules.infobubble.controller {
 			for each (var bubble:Bubble in _bubbleView.infoBubbleData.bubbles.getChildrenOfGivenClass(Bubble)){
 				if (bubble.id == _bubbleView.infoBubbleData.bubbleData.currentId) {
 					currentDefaultAngle = Math.floor(bubble.angle);
-					dir = (currentDefaultAngle > 0) ? 0.5 : -0.5; // 0.5 clockwise, -0.5 counterclockwise
+					dir = (currentDefaultAngle >= 0) ? 0.5 : -0.5; // 0.5 clockwise, -0.5 counterclockwise
 					if (bubble is Image) {
 						imageLoader.load(new URLRequest((bubble as Image).path));
 						return;
