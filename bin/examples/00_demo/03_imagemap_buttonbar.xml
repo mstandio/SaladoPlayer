@@ -15,7 +15,7 @@
 			<window open="false" transition="type:slideRight" openTween="transition:Back.easeOut" onOpen="mapOpened" onClose="mapClosed" alpha="0.8"/>
 			<viewer moveEnabled="true" dragEnabled="true" zoomEnabled="true"/>
 			<maps>
-				<map id="map1" path="~modules/images/imagemap/map_1.jpg">
+				<map id="map1" path="~media/images/maps/map_1.jpg">
 					<waypoint target="greenChecker" position="x:150,y:100"/>
 					<waypoint target="blueChecker" position="x:800,y:200"/>
 					<waypoint target="redChecker" position="x:500,y:300"/>
@@ -30,7 +30,7 @@
 	</modules>
 	<actions>
 		<action id="mapToggle" content="ImageMap.toggleOpen()"/>
-		<action id="mapOpened" content="ButtonBar.setExtraButtonActive(b,true)"/>
-		<action id="mapClosed" content="ButtonBar.setExtraButtonActive(b,false)"/>
+		<action id="mapOpened" content="ButtonBar.setActive(b,true)"/>
+		<action id="mapClosed" content="ButtonBar.setActive(b,false)"/>
 	</actions>
 </SaladoPlayer>

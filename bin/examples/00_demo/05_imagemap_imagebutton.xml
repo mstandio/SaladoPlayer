@@ -13,7 +13,7 @@
 			<window open="false" transition="type:slideRight" openTween="transition:Back.easeOut" onOpen="mapOpened" onClose="mapClosed" alpha="0.8"/>
 			<viewer moveEnabled="true" dragEnabled="true" zoomEnabled="true"/>
 			<maps>
-				<map id="map1" path="~modules/images/imagemap/map_1.jpg">
+				<map id="map1" path="~media/images/maps/map_1.jpg">
 					<waypoint target="greenChecker" position="x:150,y:100"/>
 					<waypoint target="blueChecker" position="x:800,y:200"/>
 					<waypoint target="redChecker" position="x:500,y:300"/>
@@ -22,15 +22,15 @@
 		</ImageMap>
 		<ImageButton path="~modules/ImageButton-1.2.swf">
 			<buttons>
-				<button id="buttonOn" path="~modules/images/imagebutton/on.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:mapClose"/>
-				<button id="buttonOff" path="~modules/images/imagebutton/off.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:mapOpen"/>
+				<button id="buttonOn" path="~media/images/misc/on.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:mapClose"/>
+				<button id="buttonOff" path="~media/images/misc/off.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:mapOpen"/>
 			</buttons>
 		</ImageButton>
 	</modules>
 	<actions>
 		<action id="mapOpen" content="ImageMap.setOpen(true)"/>
 		<action id="mapClose" content="ImageMap.setOpen(false)"/>
-		<action id="mapOpened" content="ImageButton.close(buttonOff);ImageButton.open(buttonOn)"/>
-		<action id="mapClosed" content="ImageButton.open(buttonOff);ImageButton.close(buttonOn)"/>
+		<action id="mapOpened" content="ImageButton.setOpen(buttonOn,true)"/>
+		<action id="mapClosed" content="ImageButton.setOpen(buttonOn,false)"/>
 	</actions>
 </SaladoPlayer>

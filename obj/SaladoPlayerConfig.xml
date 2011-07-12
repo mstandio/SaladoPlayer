@@ -14,7 +14,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'2011-05-12'</value>
+      <value>'2011-07-12'</value>
     </define>
     <source-path append="true">
       <path-element>F:\SaladoPlayer\SaladoPlayer\src</path-element>
@@ -29,7 +29,7 @@
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>F:\SaladoPlayer\SaladoPlayer\src\com\panozona\modules\infobubble\InfoBubble.as</path-element>
+    <path-element>F:\SaladoPlayer\SaladoPlayer\src\com\panozona\player\SaladoPlayer.as</path-element>
   </file-specs>
   <default-background-color>#000000</default-background-color>
   <default-frame-rate>30</default-frame-rate>

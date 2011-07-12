@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
+			<image id="yc_blueArrow" path="~hotspots/images/blue_arrow.png"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<InfoBubble path="~modules/InfoBubble-1.2.swf">
+			<bubbles>
+				<text id="b_drag" text="change navigation style" style="buttonBar" angle="1"/>
+				<text id="b_hotspots" text="show/hide hotspots" style="buttonBar" angle="1"/>
+				<text id="b_autorotation" text="autorotation" style="buttonBar" angle="1"/>
+				<text id="b_fullscreen" text="fullscreen" style="buttonBar" angle="1"/>
+			</bubbles>
+			<styles>
+				<style id="buttonBar" content="bubblePadding:3,fontSize:12,borderSize:2"/>
+			</styles>
+		</InfoBubble>
+		<ButtonBar path="~modules/ButtonBar-1.2.swf">
+			<buttons path="~modules/images/buttonbar/buttons_40x40_black.png">
+				<button name="up"/>
+				<button name="down"/>
+				<button name="left"/>
+				<button name="right"/>
+				<button name="in"/>
+				<button name="out"/>
+				<button name="drag" mouse="onOver:showBubbleDrag,onOut:hideBubble"/>
+				<button name="hotspots" mouse="onOver:showBubbleHotspots,onOut:hideBubble"/>
+				<button name="autorotation" mouse="onOver:showBubbleAutorotation,onOut:hideBubble"/>
+				<button name="fullscreen" mouse="onOver:showBubbleFullscreen,onOut:hideBubble"/>
+			</buttons>
+		</ButtonBar>
+	</modules>
+		<actions>
+		<action id="showBubbleDrag" content="InfoBubble.show(b_drag)"/>
+		<action id="showBubbleHotspots" content="InfoBubble.show(b_hotspots)"/>
+		<action id="showBubbleAutorotation" content="InfoBubble.show(b_autorotation)"/>
+		<action id="showBubbleFullscreen" content="InfoBubble.show(b_fullscreen)"/>
+		<action id="hideBubble" content="InfoBubble.hide()"/>
+	</actions>
+</SaladoPlayer>

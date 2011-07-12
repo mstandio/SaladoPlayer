@@ -12,7 +12,7 @@
 		<InfoBubble path="~modules/InfoBubble-1.2.swf">
 			<settings onEnable="onBubAct" onDisable="onBubDisact"/>
 			<bubbles>
-				<image id="bubbleBlue" path="~modules/images/infobubble/blue.jpg"/>
+				<image id="bubbleBlue" path="~media/images/thumbs/blue.jpg"/>
 			</bubbles>
 		</InfoBubble>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
@@ -25,7 +25,7 @@
 		<action id="showBubbleBlue" content="InfoBubble.show(bubbleBlue)"/>
 		<action id="hideBubble" content="InfoBubble.hide()"/>
 		<action id="bubToggle" content="InfoBubble.toggleEnabled()"/>
-		<action id="onBubAct" content="ButtonBar.setExtraButtonActive(c,true)"/>
-		<action id="onBubDisact" content="ButtonBar.setExtraButtonActive(c,false)"/>
+		<action id="onBubAct" content="ButtonBar.setActive(c,true)"/>
+		<action id="onBubDisact" content="ButtonBar.setActive(c,false)"/>
 	</actions>
 </SaladoPlayer>

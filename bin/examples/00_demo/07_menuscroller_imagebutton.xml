@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<ViewFinder path="~modules/ViewFinder-1.2.swf"/>
+		<MenuScroller path="~modules/MenuScroller-1.0.swf">
+			<window onOpen="onMenuOpen" onClose="onMenuClose" openTween="time:0.5" closeTween="time:0.5"/>
+			<close path="~media/images/misc/ms_close.png" align="vertical:middle" move="horizontal:60"/>
+			<elements>
+				<element target="blueChecker" path="~media/images/thumbs/blue.jpg"/>
+				<element target="greenChecker" path="~media/images/thumbs/green.jpg"/>
+				<element target="redChecker" path="~media/images/thumbs/red.jpg"/>
+				<element target="yellowChecker" path="~media/images/thumbs/yellow.jpg"/>
+			</elements>
+		</MenuScroller>
+		<ImageButton path="~modules/ImageButton-1.2.swf">
+			<buttons>
+				<button id="buttonMenu" path="~media/images/misc/ms_open.png" align="vertical:middle,horizontal:left" move="horizontal:0,vertical:0" mouse="onClick:openMenu" openTween="time:0" closeTween="time:0"/>
+			</buttons>
+		</ImageButton>
+	</modules>
+	<actions>
+		<action id="openMenu" content="MenuScroller.setOpen(true)"/>
+		<action id="closeMenu" content="MenuScroller.setOpen(false)"/>
+		<action id="toggleOpenMenu" content="MenuScroller.toggleOpen()"/>
+		<action id="onMenuOpen" content="ImageButton.setOpen(buttonMenu,false)"/>
+		<action id="onMenuClose" content="SaladoPlayer.waitThen(0.5,openButtonMenu)"/>
+		<action id="openButtonMenu" content="ImageButton.setOpen(buttonMenu,true)"/>
+	</actions>
+</SaladoPlayer>

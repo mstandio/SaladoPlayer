@@ -1,87 +1,173 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+-->
 <SaladoPlayer>
 	<global debug="false">
-		<control autorotation="enabled:false"/>
 		<panoramas firstPanorama="park"/>
 	</global>
 	<panoramas>
-		<panorama id="kortrijk" path="~../../panoramas4/dz_kortrijk/kortrijk_f.xml">
-			<swf id="k_hs1" location="pan:-55" path="~hotspots/AdvancedHotspot-1.0.swf" mouse="onClick:loadPark,onOver:showParkBubble,onOut:hideBubble">
+		<panorama id="kiev" path="~../../panoramas5/dz_kiev/kiev_f.xml" camera="minFov:10,tierThreshold:1.2"/>
+		<panorama id="park" path="~../../panoramas5/dz_park/park_f.xml" camera="minFov:50">
+			<swf id="hello" path="~hotspots/VideoHotspot-1.0.swf" location="pan:50,distance:800">
+				<settings splashPath="~media/video/hello/hello_splash.png" videoPath="http://linkowiec.pl/saladoplayer/hotspots/video/hello.mp4" size="width:400,height:300"/>
+			</swf>
+		</panorama>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" onLeaveToAttempt="yellowChecker:blueMoveToYellow,redChecker:blueMoveToRed">
+			<swf id="bc_yellowArrow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:90" mouse="onClick:loadYellow,onOver:showBubbleYellow,onOut:hideBubble">
+				<settings path="~hotspots/images/yellow_arrow.png"/>
+			</swf>
+			<swf id="bc_redArrow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:180" mouse="onClick:loadRed,onOver:showBubbleRed,onOut:hideBubble">
 				<settings path="~hotspots/images/red_arrow.png"/>
 			</swf>
 		</panorama>
-		<panorama id="park" path="~../../panoramas4/dz_park/park_f.xml">
-			<swf id="p_hs1" location="pan:170" path="~hotspots/SimpleHotspot-1.0.swf" mouse="onClick:loadKortrijk,onOver:showKortrijkBubble,onOut:hideBubble"/>
-			<swf id="vlad" path="~hotspots/VideoHotspot-1.0.swf" location="pan:50,distance:800">
-				<settings splashPath="~hotspots/video/hello_splash.png" videoPath="~hotspots/video/hello.mp4" size="width:400,height:300"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" onLeaveToAttempt="yellowChecker:greenMoveToYellow,redChecker:greenMoveToRed">
+			<swf id="gc_yellowArrow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:0" mouse="onClick:loadYellow,onOver:showBubbleYellow,onOut:hideBubble">
+				<settings path="~hotspots/images/yellow_arrow.png"/>
+			</swf>
+			<swf id="gc_redArrow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:-90" mouse="onClick:loadRed,onOver:showBubbleRed,onOut:hideBubble">
+				<settings path="~hotspots/images/red_arrow.png"/>
+			</swf>
+		</panorama>
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml" onLeaveToAttempt="greenChecker:redMoveToGreen,blueChecker:redMoveToBlue">
+			<swf id="rc_greenArrow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:90" mouse="onClick:loadGreen,onOver:showBubbleGreen,onOut:hideBubble">
+				<settings path="~hotspots/images/green_arrow.png"/>
+			</swf>
+			<swf id="rc_blueArrow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:0" mouse="onClick:loadBlue,onOver:showBubbleBlue,onOut:hideBubble">
+				<settings path="~hotspots/images/blue_arrow.png"/>
+			</swf>
+		</panorama>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml" onLeaveToAttempt="greenChecker:yellowMoveToGreen,blueChecker:yellowMoveToBlue">
+			<swf id="yc_greenArrow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:180" mouse="onClick:loadGreen,onOver:showBubbleGreen,onOut:hideBubble">
+				<settings path="~hotspots/images/green_arrow.png"/>
+			</swf>
+			<swf id="yc_blueArrow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:-90" mouse="onClick:loadBlue,onOver:showBubbleBlue,onOut:hideBubble">
+				<settings path="~hotspots/images/blue_arrow.png"/>
 			</swf>
 		</panorama>
 	</panoramas>
 	<modules>
 		<InfoBubble path="~modules/InfoBubble-1.2.swf">
-			<settings onEnable="onBubbleAct" onDisable="onBubbleDisact"/>
 			<bubbles>
-				<bubble id="parkBubble" path="~modules/images/infobubble/park.jpg"/>
-				<bubble id="kortrijkBubble" path="~modules/images/infobubble/kortrijk.jpg"/>
+				<text id="b_drag" text="change navigation style" style="buttonBar" angle="1"/>
+				<text id="b_autorotation" text="autorotation" style="buttonBar" angle="1"/>
+				<text id="b_fullscreen" text="fullscreen" style="buttonBar" angle="1"/>
+				<text id="b_map" text="show/hide map" style="buttonBar" angle="1"/>
+				<text id="b_help" text="help" style="buttonBar" angle="1"/>
+				<text id="kiev_resolution" text="22500 x 11250"/>
+				<text id="park_resolution" text="3200 x 1600"/>
+				<image id="bubbleKiev" path="~media/images/thumbs/kiev.jpg"/>
+				<image id="bubblePark" path="~media/images/thumbs/park.jpg"/>
+				<image id="bubbleBlue" path="~media/images/thumbs/blue.jpg"/>
+				<image id="bubbleGreen" path="~media/images/thumbs/green.jpg"/>
+				<image id="bubbleRed" path="~media/images/thumbs/red.jpg"/>
+				<image id="bubbleYellow" path="~media/images/thumbs/yellow.jpg"/>
 			</bubbles>
+			<styles>
+				<style id="buttonBar" content="bubblePadding:3,fontSize:12,borderSize:2"/>
+			</styles>
 		</InfoBubble>
-		<DropDown path="~modules/DropDown-1.1.swf">
-			<settings align="horizontal:left,vertical:top" move="horizontal:40,vertical:40" style="opensUp:false,fontColor:#212021,fontSize:22,plainColor:#94ba4a,borderColor:#212021,hoverColor:#b9d243,activeColor:#b9d243"/>
+		<MenuScroller path="~modules/MenuScroller-1.0.swf">
+			<window open="false" onOpen="menuOpened" onClose="menuClosed" openTween="time:0.5" closeTween="time:0.5"/>
+			<close path="~media/images/misc/ms_close.png" align="vertical:middle" move="horizontal:60"/>
 			<elements>
-				<element target="park" label="Park 3200x1600"/>
-				<element target="kortrijk" label="Kortrijk 12800x6400"/>
+				<element target="kiev" path="~media/images/thumbs/kiev.jpg" mouse="onOver:showBubbleKievResolution,onOut:hideBubble"/>
+				<element target="park" path="~media/images/thumbs/park.jpg" mouse="onOver:showBubbleParkResolution,onOut:hideBubble"/>
+				<element target="blueChecker" path="~media/images/thumbs/blue.jpg"/>
+				<element target="greenChecker" path="~media/images/thumbs/green.jpg"/>
+				<element target="redChecker" path="~media/images/thumbs/red.jpg"/>
+				<element target="yellowChecker" path="~media/images/thumbs/yellow.jpg"/>
 			</elements>
-		</DropDown>
+		</MenuScroller>
 		<ImageMap path="~modules/ImageMap-1.2.swf">
 			<window open="false" transition="type:slideRight" openTween="transition:Back.easeOut" onOpen="mapOpened" onClose="mapClosed" alpha="0.8"/>
-			<viewer moveEnabled="true" dragEnabled="true" zoomEnabled="true"/>
 			<maps>
-				<map id="map1" path="~modules/images/imagemap/map_1.jpg">
-					<waypoint target="park" position="x:250,y:100" mouse="onOver:showParkBubble,onOut:hideBubble"/>
-					<waypoint target="kortrijk" position="x:700,y:300" mouse="onOver:showKortrijkBubble,onOut:hideBubble"/>
+				<map id="map1" path="~media/images/maps/map_1.jpg">
+					<waypoint target="kiev" position="x:330,y:200" mouse="onOver:showBubbleKiev,onOut:hideBubble"/>
+					<waypoint target="park" position="x:650,y:380" mouse="onOver:showBubblePark,onOut:hideBubble"/>
+				</map>
+				<map id="map2" path="~media/images/maps/map_2.jpg">
+					<waypoint target="blueChecker" position="x:250,y:200" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
+					<waypoint target="greenChecker" position="x:450,y:400" mouse="onOver:showBubbleGreen,onOut:hideBubble"/>
+					<waypoint target="redChecker" position="x:250,y:400" mouse="onOver:showBubbleRed,onOut:hideBubble"/>
+					<waypoint target="yellowChecker" position="x:450,y:200" mouse="onOver:showBubbleYellow,onOut:hideBubble"/>
 				</map>
 			</maps>
 		</ImageMap>
 		<ImageButton path="~modules/ImageButton-1.2.swf">
 			<buttons>
-				<button id="button1" path="~modules/images/imagebutton/imagemap_icon.png" align="vertical:top,horizontal:right" move="horizontal:-30,vertical:30" mouse="onClick:mapToggle"/>
-				<button id="help" path="~modules/images/imagebutton/help.png" align="vertical:middle,horizontal:center" mouse="onClick:helpToggle" open="false" onOpen="helpOpened" onClose="helpClosed" />
+				<button id="help" path="~media/images/misc/help.png" align="vertical:middle,horizontal:center" mouse="onClick:helpToggle" open="false" onOpen="helpOpened" onClose="helpClosed"/>
+				<button id="buttonMenu" path="~media/images/misc/ms_open.png" align="vertical:middle,horizontal:left" move="horizontal:0,vertical:0" mouse="onClick:menuOpen" openTween="time:0" closeTween="time:0"/>
+				<button id="mapIcon" path="~media/images/misc/imagemap_icon.png" align="vertical:top,horizontal:right" move="horizontal:-30,vertical:30" mouse="onClick:mapOpen"/>
 			</buttons>
 		</ImageButton>
-		<ButtonBar path="~modules/ButtonBar-1.1.swf">
-			<bar path="~modules/images/buttonbar/bar/bar_350x35_green.png" size="height:35,width:300"/>
-			<buttons path="~modules/images/buttonbar/buttons/buttons_25x25_green.png">
-				<button name="left"/>
-				<button name="right"/>
-				<button name="up"/>
-				<button name="down"/>
+		<DropDown path="~modules/DropDown-1.1.swf">
+			<elements>
+				<element target="kiev" label="Kiev"/>
+				<element target="park" label="Park"/>
+				<element target="blueChecker" label="Blue checker"/>
+				<element target="greenChecker" label="Green checker"/>
+				<element target="redChecker" label="Red checker"/>
+				<element target="yellowChecker" label="Yellow checker"/>
+			</elements>
+		</DropDown>
+		<ButtonBar path="~modules/ButtonBar-1.2.swf">
+			<buttons path="~modules/images/buttonbar/buttons_40x40_black.png">
 				<button name="in"/>
 				<button name="out"/>
-				<button name="drag"/>
-				<extraButton name="b" action="mapToggle"/>
-				<extraButton name="c" action="bubbleToggle"/>
-				<button name="fullscreen"/>
-				<extraButton name="e" action="helpToggle"/>
+				<extraButton name="b" action="mapToggle" mouse="onOver:showBubbleMap,onOut:hideBubble"/>
+				<button name="drag" mouse="onOver:showBubbleDrag,onOut:hideBubble"/>
+				<button name="autorotation" mouse="onOver:showBubbleAutorotation,onOut:hideBubble"/>
+				<button name="fullscreen" mouse="onOver:showBubbleFullscreen,onOut:hideBubble"/>
+				<extraButton name="e" action="helpToggle" mouse="onOver:showBubbleHelp,onOut:hideBubble"/>
 			</buttons>
 		</ButtonBar>
-		<MouseCursor path="~modules/MouseCursor-1.0.swf">
+		<MouseCursor path="~modules/MouseCursor-1.1.swf">
 			<settings path="~modules/images/mousecursor/cursors_31x31.png"/>
 		</MouseCursor>
 	</modules>
 	<actions>
+		<action id="showBubbleDrag" content="InfoBubble.show(b_drag)"/>
+		<action id="showBubbleAutorotation" content="InfoBubble.show(b_autorotation)"/>
+		<action id="showBubbleFullscreen" content="InfoBubble.show(b_fullscreen)"/>
+		<action id="showBubbleMap" content="InfoBubble.show(b_map)"/>
+		<action id="showBubbleHelp" content="InfoBubble.show(b_help)"/>
+		<action id="showBubbleKievResolution" content="InfoBubble.show(kiev_resolution)"/>
+		<action id="showBubbleParkResolution" content="InfoBubble.show(park_resolution)"/>
+		<action id="showBubbleKiev" content="InfoBubble.show(bubbleKiev)"/>
+		<action id="showBubblePark" content="InfoBubble.show(bubblePark)"/>
+		<action id="showBubbleBlue" content="InfoBubble.show(bubbleBlue)"/>
+		<action id="showBubbleGreen" content="InfoBubble.show(bubbleGreen)"/>
+		<action id="showBubbleRed" content="InfoBubble.show(bubbleRed)"/>
+		<action id="showBubbleYellow" content="InfoBubble.show(bubbleYellow)"/>
+		<action id="hideBubble" content="InfoBubble.hide()"/>
+		
+		<action id="menuOpen" content="MenuScroller.setOpen(true)"/>
+		<action id="menuClose" content="MenuScroller.setOpen(false)"/>
+		<action id="menuOpened" content="ImageButton.setOpen(buttonMenu,false)"/>
+		<action id="menuClosed" content="SaladoPlayer.waitThen(0.5,openButtonMenu)"/>
+		<action id="openButtonMenu" content="ImageButton.setOpen(buttonMenu,true)"/>
+		
 		<action id="mapToggle" content="ImageMap.toggleOpen()"/>
-		<action id="mapOpened" content="ImageButton.close(button1);ButtonBar.setExtraButtonActive(b,true)"/>
-		<action id="mapClosed" content="ImageButton.open(button1);ButtonBar.setExtraButtonActive(b,false)"/>
+		<action id="mapOpen" content="ImageMap.setOpen(true)"/>
+		<action id="mapOpened" content="ImageButton.setOpen(mapIcon,false);ButtonBar.setActive(b,true)"/>
+		<action id="mapClosed" content="ImageButton.setOpen(mapIcon,true);ButtonBar.setActive(b,false)"/>
+		
 		<action id="helpToggle" content="ImageButton.toggleOpen(help)"/>
-		<action id="helpOpened" content="ButtonBar.setExtraButtonActive(e,true)"/>
-		<action id="helpClosed" content="ButtonBar.setExtraButtonActive(e,false)"/>
-		<action id="showParkBubble" content="InfoBubble.showBubble(parkBubble)"/>
-		<action id="showKortrijkBubble" content="InfoBubble.showBubble(kortrijkBubble)"/>
-		<action id="hideBubble" content="InfoBubble.hideBubble()"/>
-		<action id="loadPark" content="SaladoPlayer.loadPano(park)"/>
-		<action id="loadKortrijk" content="SaladoPlayer.loadPano(kortrijk)"/>
-		<action id="bubbleToggle" content="InfoBubble.toggleEnabled()"/>
-		<action id="onBubbleAct" content="ButtonBar.setExtraButtonActive(c,true)"/>
-		<action id="onBubbleDisact" content="ButtonBar.setExtraButtonActive(c,false)"/>
+		<action id="helpOpened" content="ButtonBar.setActive(e,true)"/>
+		<action id="helpClosed" content="ButtonBar.setActive(e,false)"/>
+		
+		<action id="loadBlue" content="SaladoPlayer.loadPano(blueChecker)"/>
+		<action id="loadGreen" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="loadRed" content="SaladoPlayer.loadPano(redChecker)"/>
+		<action id="loadYellow" content="SaladoPlayer.loadPano(yellowChecker)"/>
+		
+		<action id="blueMoveToYellow" content="SaladoPlayer.moveToHotspotThen(bc_yellowArrow,loadYellow)"/>
+		<action id="blueMoveToRed" content="SaladoPlayer.moveToHotspotThen(bc_redArrow,loadRed)"/>
+		<action id="greenMoveToYellow" content="SaladoPlayer.moveToHotspotThen(gc_yellowArrow,loadYellow)"/>
+		<action id="greenMoveToRed" content="SaladoPlayer.moveToHotspotThen(gc_redArrow,loadRed)"/>
+		<action id="yellowMoveToGreen" content="SaladoPlayer.moveToHotspotThen(yc_greenArrow,loadGreen)"/>
+		<action id="yellowMoveToBlue" content="SaladoPlayer.moveToHotspotThen(yc_blueArrow,loadBlue)"/>
+		<action id="redMoveToGreen" content="SaladoPlayer.moveToHotspotThen(rc_greenArrow,loadGreen)"/>
+		<action id="redMoveToBlue" content="SaladoPlayer.moveToHotspotThen(rc_blueArrow,loadBlue)"/>
 	</actions>
 </SaladoPlayer>
