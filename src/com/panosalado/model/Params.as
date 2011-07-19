@@ -81,6 +81,17 @@ public class Params
 	public function copyInto(viewData:ViewData):ViewData {
 		if (path != null) viewData.path = path;
 		
+		viewData.maximumPan = NaN;
+		viewData.minimumPan = NaN;
+		viewData.maximumTilt = NaN;
+		viewData.minimumTilt = NaN;
+		viewData.maximumFieldOfView = NaN;
+		viewData.minimumFieldOfView = NaN;
+		viewData.maximumHorizontalFieldOfView = NaN;
+		viewData.minimumHorizontalFieldOfView = NaN;
+		viewData.maximumVerticalFieldOfView = NaN;
+		viewData.minimumVerticalFieldOfView = NaN;
+		
 		var secondaryViewData:DependentViewData = viewData.secondaryViewData;
 		if (!isNaN(pan)) secondaryViewData.pan = viewData.pan - pan;
 		if (!isNaN(tilt)) secondaryViewData.tilt = viewData.tilt - tilt;

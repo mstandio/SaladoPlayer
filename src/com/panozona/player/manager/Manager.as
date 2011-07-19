@@ -37,7 +37,7 @@ package com.panozona.player.manager {
 	
 	public class Manager extends PanoSalado{
 		
-		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.2", "http://panozona.com/wiki/SaladoPlayer:Configuration");
+		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.2.2", "http://panozona.com/wiki/SaladoPlayer:Configuration");
 		
 		/**
 		 * Dictionary, where key is hotspotData object
@@ -142,17 +142,6 @@ package com.panozona.player.manager {
 			}
 			
 			arrListeners = new Array();
-			
-			_maximumPan = NaN;
-			_minimumPan = NaN;
-			_maximumTilt = NaN;
-			_minimumTilt = NaN;
-			_maximumFieldOfView = NaN;
-			_minimumFieldOfView = NaN;
-			_maximumHorizontalFieldOfView = NaN;
-			_minimumHorizontalFieldOfView = NaN;
-			_maximumVerticalFieldOfView = NaN;
-			_minimumVerticalFieldOfView = NaN;
 			
 			_canvas.blendMode = BlendMode.LAYER;
 			_secondaryCanvas.blendMode = BlendMode.LAYER;
