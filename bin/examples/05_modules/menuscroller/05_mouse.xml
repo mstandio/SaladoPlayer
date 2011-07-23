@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Assign mouse events on interaction with each element. You can display content
-	when mouse is hovering over element with other modules, like InfoBubble.
+	Assign mouse events on interaction with each element or extraElement. You can display
+	content when mouse is hovering over element with other modules, like InfoBubble.
 	
 	http://panozona.com/wiki/Module:MenuScroller
 -->
@@ -13,14 +13,18 @@
 		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<MenuScroller path="~modules/MenuScroller-1.0.swf">
+		<MenuScroller path="~modules/MenuScroller-1.1.swf">
 			<elements>
 				<element target="blueChecker" path="~media/images/thumbs/blue.jpg" mouse="onOver:blueOnOver,onOut:blueOnOut"/>
+				<extraElement id="logo" action="printHello" path="~media/images/misc/panozona_logo.png" mouse="onOver:logoOnOver,onOut:logoOnOut"/>
 			</elements>
 		</MenuScroller>
 	</modules>
 	<actions>
 		<action id="blueOnOver" content="SaladoPlayer.print(blue onOver!)"/>
 		<action id="blueOnOut" content="SaladoPlayer.print(blue onOut!)"/>
+		<action id="logoOnOver" content="SaladoPlayer.print(logo onOver!)"/>
+		<action id="logoOnOut" content="SaladoPlayer.print(logo onOut!)"/>
+		<action id="printHello" content="SaladoPlayer.print(Hello I am logo)"/>
 	</actions>
 </SaladoPlayer>

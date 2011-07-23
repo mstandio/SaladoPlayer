@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	You can use module for other purposes than navigating between panoramas by using extraElements.
+	They do not represent panoramas, and you can assign custom actions when user clicks on them.
+	
+	http://panozona.com/wiki/Module:MenuScroller
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="bc_logo" path="~media/images/misc/panozona_logo.png" location="pan:90"/>
+			<image id="bc_help" path="~media/images/misc/help.png" location="tilt:90,distance:800"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<MenuScroller path="~modules/MenuScroller-1.1.swf">
+			<elements>
+				<extraElement id="logo" action="showLogo" path="~media/images/misc/panozona_logo.png"/>
+				<extraElement id="help" action="showHelp" path="~media/images/misc/help.png" />
+			</elements>
+		</MenuScroller>
+	</modules>
+	<actions>
+		<action id="showLogo" content="SaladoPlayer.moveToHotspot(bc_logo)"/>
+		<action id="showHelp" content="SaladoPlayer.moveToHotspot(bc_help)"/>
+	</actions>
+</SaladoPlayer>

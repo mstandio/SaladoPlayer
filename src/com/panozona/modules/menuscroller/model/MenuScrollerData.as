@@ -21,6 +21,8 @@ package com.panozona.modules.menuscroller.model {
 	import com.panozona.modules.menuscroller.model.structure.Close;
 	import com.panozona.modules.menuscroller.model.structure.Element;
 	import com.panozona.modules.menuscroller.model.structure.Elements;
+	import com.panozona.modules.menuscroller.model.structure.ExtraElement;
+	import com.panozona.modules.menuscroller.model.structure.RawElement;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
@@ -60,18 +62,28 @@ package com.panozona.modules.menuscroller.model {
 					throw new Error("Action does not exist: " + windowData.window.onClose);
 				}
 				var elementTargets:Object = new Object();
-				for each (var element:Element in elements.getChildrenOfGivenClass(Element)) {
-					if (element.target == null) throw new Error("Element target not specified.");
-					if (saladoPlayer.managerData.getPanoramaDataById(element.target) == null) throw new Error("Invalid waypoint target: " + element.target);
-					if (elementTargets[element.target] != undefined) {
-						throw new Error("Repeating element target: " + element.target);
+				var extraElementIds:Object = new Object();
+				for each (var rawElement:RawElement in elements.getAllChildren()) {
+					if (rawElement.path == null || !rawElement.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)) {
+						throw new Error("Invalid element path: " + rawElement.path);
+					}
+					if (rawElement.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(rawElement.mouse.onOver) == null){
+						throw new Error("Action does not exist: " + rawElement.mouse.onOver);
+					}
+					if (rawElement.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(rawElement.mouse.onOut) == null){
+						throw new Error("Action does not exist: " + rawElement.mouse.onOut);
+					}
+					if (rawElement is Element){
+						if ((rawElement as Element).target == null) throw new Error("Element target not specified.");
+						if (saladoPlayer.managerData.getPanoramaDataById((rawElement as Element).target) == null) throw new Error("Invalid element target: " + (rawElement as Element).target);
+						if (elementTargets[(rawElement as Element).target] != undefined) throw new Error("Repeating element target: " + (rawElement as Element).target);
+						elementTargets[(rawElement as Element).target] = ""; // something
 					}else {
-						elementTargets[element.target] = ""; // something
-						if (element.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(element.mouse.onOver) == null){
-							throw new Error("Action does not exist: " + element.mouse.onOver);
-						}
-						if (element.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(element.mouse.onOut) == null){
-							throw new Error("Action does not exist: " + element.mouse.onOut);
+						if ((rawElement as ExtraElement).id == null) throw new Error("ExtraElement id not specified.");
+						if (extraElementIds[(rawElement as ExtraElement).id] != undefined) throw new Error("Repeating extraElement id: " + (rawElement as ExtraElement).id);
+						extraElementIds[(rawElement as ExtraElement).id] = ""; // somethig
+						if (saladoPlayer.managerData.getActionDataById((rawElement as ExtraElement).action) == null){
+							throw new Error("Action in extraElement does not exist: " + (rawElement as ExtraElement).action);
 						}
 					}
 				}

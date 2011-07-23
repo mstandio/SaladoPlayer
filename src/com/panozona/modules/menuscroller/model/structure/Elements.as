@@ -25,6 +25,7 @@ package com.panozona.modules.menuscroller.model.structure{
 		override public function getChildrenTypes():Vector.<Class>{
 			var result:Vector.<Class> = new Vector.<Class>();
 			result.push(Element);
+			result.push(ExtraElement);
 			return result;
 		}
 	}

@@ -21,6 +21,8 @@ package com.panozona.modules.menuscroller.controller {
 	import caurina.transitions.Tweener;
 	import com.panozona.modules.menuscroller.events.ElementEvent;
 	import com.panozona.modules.menuscroller.model.ElementData;
+	import com.panozona.modules.menuscroller.model.structure.Element;
+	import com.panozona.modules.menuscroller.model.structure.ExtraElement;
 	import com.panozona.modules.menuscroller.view.ElementView;
 	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.Module;
@@ -45,12 +47,14 @@ package com.panozona.modules.menuscroller.controller {
 			
 			elementView.elementData.addEventListener(ElementEvent.CHANGED_IS_SHOWING, handleIsShowingChange, false, 0, true);
 			
-			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
+			if (elementView.elementData.rawElement is Element){
+				var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+				_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
+			}
 		}
 		
 		private function onPanoramaLoaded(panoramaEvent:Object):void {
-			if (_module.saladoPlayer.manager.currentPanoramaData.id == _elementView.elementData.element.target) {
+			if (_module.saladoPlayer.manager.currentPanoramaData.id == (_elementView.elementData.rawElement as Element).target) {
 				_elementView.elementData.isActive = true;
 			}else {
 				_elementView.elementData.isActive = false;
@@ -65,7 +69,7 @@ package com.panozona.modules.menuscroller.controller {
 					var imageLoader:Loader = new Loader();
 					imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
 					imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
-					imageLoader.load(new URLRequest(_elementView.elementData.element.path));
+					imageLoader.load(new URLRequest(_elementView.elementData.rawElement.path));
 					_elementView.elementData.loaded = true;
 				}
 			}else {
@@ -108,8 +112,12 @@ package com.panozona.modules.menuscroller.controller {
 		}
 		
 		private function handleMouseClick(e:Event):void {
-			if (_module.saladoPlayer.manager.currentPanoramaData.id != _elementView.elementData.element.target){
-				_module.saladoPlayer.manager.loadPano(_elementView.elementData.element.target);
+			if (_elementView.elementData.rawElement is Element){
+				if (_module.saladoPlayer.manager.currentPanoramaData.id != (_elementView.elementData.rawElement as Element).target){
+					_module.saladoPlayer.manager.loadPano((_elementView.elementData.rawElement as Element).target);
+				}
+			}else{
+				_module.saladoPlayer.manager.runAction((_elementView.elementData.rawElement as ExtraElement).action);
 			}
 		}
 		

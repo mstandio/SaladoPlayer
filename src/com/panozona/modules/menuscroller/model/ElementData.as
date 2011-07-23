@@ -19,7 +19,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.menuscroller.model {
 	
 	import com.panozona.modules.menuscroller.events.ElementEvent;
-	import com.panozona.modules.menuscroller.model.structure.Element;
+	import com.panozona.modules.menuscroller.model.structure.RawElement;
 	import com.panozona.modules.menuscroller.model.structure.Scroller;
 	import com.panozona.player.module.data.property.Size;
 	import flash.events.EventDispatcher;
@@ -33,17 +33,17 @@ package com.panozona.modules.menuscroller.model {
 		private var _isActive:Boolean;
 		private var _mouseOver:Boolean;
 		
-		private var _element:Element;
+		private var _rawElement:RawElement;
 		private var _scroller:Scroller;
 		
-		public function ElementData(element:Element, scroller:Scroller):void {
-			_element = element;
+		public function ElementData(rawElement:RawElement, scroller:Scroller):void {
+			_rawElement = rawElement;
 			_scroller = scroller;
 			_size = new Size(scroller.sizeLimit, scroller.sizeLimit);
 		}
 		
-		public function get element():Element {
-			return _element;
+		public function get rawElement():RawElement {
+			return _rawElement;
 		}
 		
 		public function get scroller():Scroller {

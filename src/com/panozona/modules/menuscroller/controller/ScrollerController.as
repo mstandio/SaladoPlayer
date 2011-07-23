@@ -23,6 +23,7 @@ package com.panozona.modules.menuscroller.controller{
 	import com.panozona.modules.menuscroller.events.WindowEvent;
 	import com.panozona.modules.menuscroller.model.ElementData;
 	import com.panozona.modules.menuscroller.model.structure.Element;
+	import com.panozona.modules.menuscroller.model.structure.RawElement;
 	import com.panozona.modules.menuscroller.view.ElementView;
 	import com.panozona.modules.menuscroller.view.ScrollerView;
 	import com.panozona.player.module.Module;
@@ -54,8 +55,8 @@ package com.panozona.modules.menuscroller.controller{
 			var elementData:ElementData;
 			var elementView:ElementView;
 			var elementController:ElementController;
-			for each (var element:Element in _scrollerView.menuScrollerData.elements.getChildrenOfGivenClass(Element)) {
-				elementData = new ElementData(element, _scrollerView.menuScrollerData.scrollerData.scroller);
+			for each (var rawElement:RawElement in _scrollerView.menuScrollerData.elements.getAllChildren()) {
+				elementData = new ElementData(rawElement, _scrollerView.menuScrollerData.scrollerData.scroller);
 				elementView = new ElementView(elementData);
 				scrollerView.elementsContainer.addChild(elementView);
 				elementController = new ElementController(elementView, _module);
@@ -64,11 +65,11 @@ package com.panozona.modules.menuscroller.controller{
 				
 				elementData.addEventListener(ElementEvent.CHANGED_SIZE, onElementSizeChanged, false, 0, true);
 				
-				if (element.mouse.onOver != null) {
-					elementView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(element.mouse.onOver));
+				if (rawElement.mouse.onOver != null) {
+					elementView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(rawElement.mouse.onOver));
 				}
-				if (element.mouse.onOut != null) {
-					elementView.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(element.mouse.onOut));
+				if (rawElement.mouse.onOut != null) {
+					elementView.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(rawElement.mouse.onOut));
 				}
 			}
 			

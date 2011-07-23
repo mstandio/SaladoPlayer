@@ -18,7 +18,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<MenuScroller path="~modules/MenuScroller-1.0.swf">
+		<MenuScroller path="~modules/MenuScroller-1.1.swf">
 			<window open="false" onOpen="printOpen" onClose="printClose"/>
 			<elements>
 				<element target="blueChecker" path="~media/images/thumbs/blue.jpg"/>

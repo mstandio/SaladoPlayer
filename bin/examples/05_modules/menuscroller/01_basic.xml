@@ -15,7 +15,7 @@
 		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<MenuScroller path="~modules/MenuScroller-1.0.swf">
+		<MenuScroller path="~modules/MenuScroller-1.1.swf">
 			<elements>
 				<element target="blueChecker" path="~media/images/thumbs/blue.jpg"/>
 				<element target="greenChecker" path="~media/images/thumbs/green.jpg"/>

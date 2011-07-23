@@ -18,8 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.menuscroller.model.structure{
 	
-	public class Element extends RawElement{
+	public class ExtraElement extends RawElement{
 		
-		public var target:String = null;
+		public var id:String = null;
+		public var action:String = null;
 	}
 }

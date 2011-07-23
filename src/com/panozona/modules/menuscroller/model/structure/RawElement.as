@@ -18,8 +18,11 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.menuscroller.model.structure{
 	
-	public class Element extends RawElement{
+	import com.panozona.player.module.data.property.MouseOverOut;
+	
+	public class RawElement{
 		
-		public var target:String = null;
+		public var path:String = null;
+		public const mouse:MouseOverOut = new MouseOverOut();
 	}
 }

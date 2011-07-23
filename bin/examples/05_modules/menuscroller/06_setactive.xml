@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Each one of extraElements can change active state on demand. This feature can be usefull
+	when MenuScroiller reflects some state of interface, like when given content is presented.
+	
+	http://panozona.com/wiki/Module:MenuScroller
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="bc_yellowArrow" path="~hotspots/images/yellow_arrow.png" location="pan:-10" mouse="onClick:setLogoActive"/>
+			<image id="bc_blueArrow" path="~hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:setHelpActive"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<MenuScroller path="~modules/MenuScroller-1.1.swf">
+			<elements>
+				<extraElement id="logo" action="printHelloLogo" path="~media/images/misc/panozona_logo.png"/>
+				<extraElement id="help" action="printHelloHelp" path="~media/images/misc/help.png"/>
+			</elements>
+		</MenuScroller>
+	</modules>
+	<actions>
+		<action id="setLogoActive" content="MenuScroller.setActive(logo,true);MenuScroller.setActive(help,false)"/>
+		<action id="setHelpActive" content="MenuScroller.setActive(help,true);MenuScroller.setActive(logo,false)"/>
+		<action id="printHelloLogo" content="SaladoPlayer.print(Hello I am logo)"/>
+		<action id="printHelloHelp" content="SaladoPlayer.print(Hello I am logo)"/>
+	</actions>
+</SaladoPlayer>

@@ -12,7 +12,7 @@ src/com/panozona/modules/imagemap/ImageMap.as -> modules/ImageMap-1.2.swf
 src/com/panozona/modules/infobubble/InfoBubble.as -> modules/InfoBubble-1.2.swf
 src/com/panozona/modules/jsgateway/JSGateway.as -> modules/JSGateway-1.0.swf
 src/com/panozona/modules/jsgooglemap/JSGoogleMap.as -> modules/JSGoogleMap-1.0.swf
-src/com/panozona/modules/menuscroller/MenuScroller.as -> modules/MenuScroller-1.0.swf
+src/com/panozona/modules/menuscroller/MenuScroller.as -> modules/MenuScroller-1.1.swf
 src/com/panozona/modules/mousecursor/MouseCursor.as -> modules/MouseCursor-1.0.swf
 src/com/panozona/modules/panolink/PanoLink.as -> modules/PanoLink-1.0.swf
 src/com/panozona/modules/viewfinder/ViewFinder.as -> modules/ViewFinder-1.2.swf

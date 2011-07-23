@@ -11,7 +11,7 @@
 	</panoramas>
 	<modules>
 		<ViewFinder path="~modules/ViewFinder-1.2.swf"/>
-		<MenuScroller path="~modules/MenuScroller-1.0.swf">
+		<MenuScroller path="~modules/MenuScroller-1.1.swf">
 			<window onOpen="onMenuOpen" onClose="onMenuClose" openTween="time:0.5" closeTween="time:0.5"/>
 			<close path="~media/images/misc/ms_close.png" align="vertical:middle" move="horizontal:60"/>
 			<elements>

@@ -20,6 +20,8 @@ package com.panozona.modules.menuscroller {
 	
 	import com.panozona.modules.menuscroller.controller.WindowController;
 	import com.panozona.modules.menuscroller.model.MenuScrollerData;
+	import com.panozona.modules.menuscroller.model.structure.ExtraElement;
+	import com.panozona.modules.menuscroller.view.ElementView;
 	import com.panozona.modules.menuscroller.view.WindowView;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.Module;
@@ -32,9 +34,10 @@ package com.panozona.modules.menuscroller {
 		private var windowController:WindowController;
 		
 		public function MenuScroller(){
-			super("MenuScroller", "1.0", "http://panozona.com/wiki/Module:MenuScroller");
+			super("MenuScroller", "1.1", "http://panozona.com/wiki/Module:MenuScroller");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen");
+			moduleDescription.addFunctionDescription("setActive", String, Boolean);
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
@@ -56,6 +59,18 @@ package com.panozona.modules.menuscroller {
 		
 		public function toggleOpen():void {
 			menuScrollerData.windowData.open = !menuScrollerData.windowData.open;
+		}
+		
+		public function setActive(id:String, active:Boolean):void {
+			var elementView:ElementView;
+			for (var i:int = 0; i < windowView.scrollerView.elementsContainer.numChildren; i++) {
+				elementView = windowView.scrollerView.elementsContainer.getChildAt(i) as ElementView;
+				if (elementView.elementData.rawElement is ExtraElement && (elementView.elementData.rawElement as ExtraElement).id == id) {
+					elementView.elementData.isActive = active;
+					return;
+				}
+			}
+			printWarning("ExtraElement not found: " + id);
 		}
 	}
 }
