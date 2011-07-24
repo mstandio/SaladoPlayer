@@ -10,51 +10,46 @@ the Free Software Foundation, either version 3 of the License, or
 
 PanoSalado is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with PanoSalado.  If not, see <http://www.gnu.org/licenses/>.
+along with PanoSalado. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panosalado.model
-{
-
-import flash.events.Event;
-import flash.events.EventDispatcher;
-
-import com.panosalado.events.CameraEvent;
-
-public class InertialMouseCameraData extends EventDispatcher
-{
-	public var sensitivity:Number;
+package com.panosalado.model{
 	
-	/**
-	* friction of camera after mouse is up
-	*/
-	public var friction:Number;
+	import com.panosalado.events.CameraEvent;
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	
-	/**
-	* camera pan / tilt threshold at which motion jumps to 0
-	*/
-	public var threshold:Number;
-	
-	public var _enabled:Boolean;
-	
-	public function InertialMouseCameraData()
-	{
-		sensitivity      = 0.0001;
-		friction         = 0.25;
-		threshold        = 0.001;
-		_enabled         = true;
+	public class InertialMouseCameraData extends EventDispatcher{
+		
+		public var sensitivity:Number;
+		
+		/**
+		* friction of camera after mouse is up
+		*/
+		public var friction:Number;
+		
+		/**
+		* camera pan / tilt threshold at which motion jumps to 0
+		*/
+		public var threshold:Number;
+		
+		public var _enabled:Boolean;
+		
+		public function InertialMouseCameraData() {
+			sensitivity = 0.0001;
+			friction = 0.25;
+			threshold = 0.001;
+			_enabled = true;
+		}
+		
+		public function get enabled():Boolean { return _enabled;}
+		public function set enabled(value:Boolean):void {
+			if (value == _enabled) return;
+			_enabled = value;
+			dispatchEvent( new Event(CameraEvent.ENABLED_CHANGE));
+		}
 	}
-	
-	public function get enabled():Boolean {
-		return _enabled;
-	}
-	public function set enabled(value:Boolean):void {
-		if (value == _enabled) return;
-		_enabled = value;
-		dispatchEvent( new Event(CameraEvent.ENABLED_CHANGE) );
-	}
-}
 }

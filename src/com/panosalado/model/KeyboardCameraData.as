@@ -10,62 +10,57 @@ the Free Software Foundation, either version 3 of the License, or
 
 PanoSalado is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with PanoSalado.  If not, see <http://www.gnu.org/licenses/>.
+along with PanoSalado. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panosalado.model
-{
-
-import flash.events.Event;
-import flash.events.EventDispatcher;
-
-import com.panosalado.events.CameraEvent;
-
-final public class KeyboardCameraData extends EventDispatcher
-{	
-	/**
-	* sensitivity of keyboard
-	*/
-	public var sensitivity:Number;
+package com.panosalado.model{
 	
-	/**
-	* friction of camera after mouse is up
-	*/
-	public var friction:Number;
+	import com.panosalado.events.CameraEvent;
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	
-	/**
-	* delta pan and tilt value that will be used for key movement
-	*/
-	public var directionSpeed:Number;
-	
-	/**
-	* delta zoom value that will be used for key zooming
-	*/
-	public var zoomSpeed:Number;
-	
-	public var _enabled:Boolean;
-	
-	public function KeyboardCameraData()
-	{
-		friction = 0.25;
-		sensitivity = 0.5;
+	final public class KeyboardCameraData extends EventDispatcher {
 		
-		directionSpeed = 2;
-		zoomSpeed = 1;
+		/**
+		* sensitivity of keyboard
+		*/
+		public var sensitivity:Number;
 		
-		enabled = true;
+		/**
+		* friction of camera after mouse is up
+		*/
+		public var friction:Number;
+		
+		/**
+		* delta pan and tilt value that will be used for key movement
+		*/
+		public var directionSpeed:Number;
+		
+		/**
+		* delta zoom value that will be used for key zooming
+		*/
+		public var zoomSpeed:Number;
+		
+		public var _enabled:Boolean;
+		
+		public function KeyboardCameraData() {
+			friction = 0.25;
+			sensitivity = 0.5;
+			
+			directionSpeed = 2;
+			zoomSpeed = 1;
+			
+			enabled = true;
+		}
+		
+		public function get enabled():Boolean { return _enabled;}
+		public function set enabled(value:Boolean):void {
+			if (value == _enabled) return;
+			_enabled = value;
+			dispatchEvent(new Event(CameraEvent.ENABLED_CHANGE));
+		}
 	}
-	
-	public function get enabled():Boolean {
-		return _enabled;
-	}
-	public function set enabled(value:Boolean):void {
-		if (value == _enabled) return;
-		_enabled = value;
-		dispatchEvent( new Event(CameraEvent.ENABLED_CHANGE) );
-	}
-}
 }

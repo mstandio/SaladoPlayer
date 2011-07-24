@@ -10,29 +10,22 @@ the Free Software Foundation, either version 3 of the License, or
 
 PanoSalado is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with PanoSalado.  If not, see <http://www.gnu.org/licenses/>.
+along with PanoSalado. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panosalado.loading
-{
-import flash.display.Loader;
-
-import com.panosalado.model.Tile
-import com.panosalado.model.ViewData;
-
-public class TileLoader extends Loader
-{
-	public var tile:Tile
-	public var timeStamp:int;
-	public var viewData:ViewData;  //reference to viewData so that it can be invalidated when this loads.
+package com.panosalado.loading {
 	
-	public function TileLoader()
-	{
-		super();
+	import com.panosalado.model.Tile;
+	import com.panosalado.model.ViewData;
+	import flash.display.Loader;
+	
+	public class TileLoader extends Loader {
+		
+		public var tile:Tile
+		public var timeStamp:int;
+		public var viewData:ViewData; //reference to viewData so that it can be invalidated when this loads.
 	}
-	
-}
 }

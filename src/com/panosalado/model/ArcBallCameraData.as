@@ -10,38 +10,27 @@ the Free Software Foundation, either version 3 of the License, or
 
 PanoSalado is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with PanoSalado.  If not, see <http://www.gnu.org/licenses/>.
+along with PanoSalado. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panosalado.model
-{
-
-import flash.events.Event;
-import flash.events.EventDispatcher;
-
-import com.panosalado.events.CameraEvent;
-
-public class ArcBallCameraData extends EventDispatcher
-{	
+package com.panosalado.model{
 	
-	protected var _enabled:Boolean;
+	import com.panosalado.events.CameraEvent;
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	
-	public function ArcBallCameraData()
-	{
-		_enabled = false;
+	public class ArcBallCameraData extends EventDispatcher {
+		
+		protected var _enabled:Boolean = false;
+		
+		public function get enabled():Boolean { return _enabled;}
+		public function set enabled(value:Boolean):void {
+			if (value == _enabled) return;
+			_enabled = value;
+			dispatchEvent( new Event(CameraEvent.ENABLED_CHANGE));
+		}
 	}
-	
-	
-	public function get enabled():Boolean {
-		return _enabled;
-	}
-	public function set enabled(value:Boolean):void {
-		if (value == _enabled) return;
-		_enabled = value;
-		dispatchEvent( new Event(CameraEvent.ENABLED_CHANGE) );
-	}
-}
 }

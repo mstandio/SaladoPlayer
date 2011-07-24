@@ -10,24 +10,24 @@ the Free Software Foundation, either version 3 of the License, or
 
 PanoSalado is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with PanoSalado.  If not, see <http://www.gnu.org/licenses/>.
+along with PanoSalado. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panosalado.model
-{
-public class DisassembledDescriptorURL
-{
-	public var base:String;
-	public var id:String;
-	public var extension:String;
+package com.panosalado.model {
 	
-	public function DisassembledDescriptorURL(base:String=null,id:String=null,extension:String=null) {
-		this.base = base;
-		this.id = id;
-		this.extension=extension;
+	public class DisassembledDescriptorURL {
+		
+		public var base:String;
+		public var id:String;
+		public var extension:String;
+		
+		public function DisassembledDescriptorURL(base:String=null,id:String=null,extension:String=null) {
+			this.base = base;
+			this.id = id;
+			this.extension=extension;
+		}
 	}
-}
 }
