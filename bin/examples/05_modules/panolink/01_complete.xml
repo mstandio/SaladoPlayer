@@ -10,15 +10,15 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
+		<panorama id="blueCheckera" path="~panoramas/dz_blue_check/blue_check_f.xml">
 			<image id="bc_redArrow" path="~hotspots/images/red_arrow.png" mouse="onClick:loadRedChecker"/>
 		</panorama>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml">
+		<panorama id="redCheckera" path="~panoramas/dz_red_check/red_check_f.xml">
 			<image id="rc_blueArrow" path="~hotspots/images/blue_arrow.png" mouse="onClick:loadBlueChecker"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<ViewFinder path="~modules/ViewFinder-1.2.swf"/>
+		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
 		<PanoLink path="~modules/PanoLink-1.0.swf">
 			<window open="false" onOpen="onLinkOpen" onClose="onLinkClose"/>
 		</PanoLink>
@@ -30,8 +30,8 @@
 		</ImageButton>
 	</modules>
 	<actions>
-		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(blueChecker)"/>
-		<action id="loadRedChecker" content="SaladoPlayer.loadPano(redChecker)"/>
+		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(blueCheckera)"/>
+		<action id="loadRedChecker" content="SaladoPlayer.loadPano(redCheckera)"/>
 		<action id="linkOpen" content="PanoLink.setOpen(true)"/>
 		<action id="linkClose" content="PanoLink.setOpen(false)"/>
 		<action id="onLinkOpen" content="ImageButton.setOpen(buttonOn,true)"/>

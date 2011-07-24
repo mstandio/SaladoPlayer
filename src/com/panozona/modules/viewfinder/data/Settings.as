@@ -27,8 +27,8 @@ package com.panozona.modules.viewfinder.data {
 		
 		public const move:Move = new Move(0, 0);
 		
-		public var showDot:Boolean = true;
-		
 		public var showDirection:Boolean = false;
+		
+		public var useCursor:Boolean = false;
 	}
 }

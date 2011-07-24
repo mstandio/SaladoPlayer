@@ -36,14 +36,14 @@ package com.panozona.modules.viewfinder{
 		private var currentDirection:Number = 0;
 		
 		public function ViewFinder():void{
-			super("ViewFinder", "1.2", "http://panozona.com/wiki/Module:ViewFinder");
+			super("ViewFinder", "1.3", "http://panozona.com/wiki/Module:ViewFinder");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			
 			viewFinderData = new ViewFinderData(moduleData, saladoPlayer); // always first
 			
-			if(viewFinderData.settings.showDot){
+			if(!viewFinderData.settings.useCursor){
 				pointer = new Sprite();
 				pointer.graphics.beginFill(0x000000);
 				pointer.graphics.drawCircle(0, 0, 3);
@@ -73,12 +73,14 @@ package com.panozona.modules.viewfinder{
 			txtOutput.width = 105;
 			addChild(txtOutput);
 			
-			if (!viewFinderData.settings.showDirection) {
-				stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
-			}else {
+			if (viewFinderData.settings.showDirection) {
 				var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-				saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0 , true);
-				stage.addEventListener(Event.ENTER_FRAME, enterFrameHandlerDir, false, 0, true );
+				saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
+			}
+			if (viewFinderData.settings.useCursor) {
+				stage.addEventListener(Event.ENTER_FRAME, enterFrameHandlerCursor, false, 0, true);
+			}else{
+				stage.addEventListener(Event.ENTER_FRAME, enterFrameHandlerDot, false, 0, true);
 			}
 			
 			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
@@ -90,21 +92,55 @@ package com.panozona.modules.viewfinder{
 			currentDirection = saladoPlayer.manager.currentPanoramaData.direction;
 		}
 		
-		private function enterFrameHandler(event:Event):void {
-			txtOutput.text = "pan  " + saladoPlayer.manager._pan.toFixed(2) +
-			"\ntilt " + saladoPlayer.manager._tilt.toFixed(2) +
-			"\nfov  " + saladoPlayer.manager._fieldOfView.toFixed(2);
+		private function enterFrameHandlerDot(event:Event):void {
+			if (viewFinderData.settings.showDirection) {
+				txtOutput.text = "pan  " + saladoPlayer.manager._pan.toFixed(2) +
+				"\ntilt " + saladoPlayer.manager._tilt.toFixed(2) +
+				"\nfov  " + saladoPlayer.manager._fieldOfView.toFixed(2) +
+				"\ndir  " + validateDir(saladoPlayer.manager.pan + currentDirection).toFixed(2);
+			}else{
+				txtOutput.text = "pan  " + saladoPlayer.manager._pan.toFixed(2) +
+				"\ntilt " + saladoPlayer.manager._tilt.toFixed(2) +
+				"\nfov  " + saladoPlayer.manager._fieldOfView.toFixed(2);
+			}
 		}
 		
-		private function enterFrameHandlerDir(event:Event):void {
-			txtOutput.text = "pan  " + saladoPlayer.manager._pan.toFixed(2) +
-			"\ntilt " + saladoPlayer.manager._tilt.toFixed(2) +
-			"\nfov  " + saladoPlayer.manager._fieldOfView.toFixed(2) +
-			"\ndir  " + validateDir(saladoPlayer.manager.pan + currentDirection).toFixed(2);
+		private function enterFrameHandlerCursor(event:Event):void {
+			if (viewFinderData.settings.showDirection) {
+				txtOutput.text = "pan  " + getCursorPan().toFixed(2) +
+				"\ntilt " + getCursorTilt().toFixed(2) +
+				"\nfov  " + saladoPlayer.manager._fieldOfView.toFixed(2) +
+				"\ndir  " + validateDir(getCursorPan() + currentDirection).toFixed(2);
+			}else {
+				txtOutput.text = "pan  " + getCursorPan().toFixed(2) +
+				"\ntilt " + getCursorTilt().toFixed(2) +
+				"\nfov  " + saladoPlayer.manager._fieldOfView.toFixed(2);
+			}
+		}
+		
+		private function getCursorPan():Number {
+			return validatePanTilt( saladoPlayer.manager._pan +
+				Math.atan((saladoPlayer.manager.mouseX - saladoPlayer.manager.boundsWidth * 0.5)
+				* Math.tan(saladoPlayer.manager.fieldOfView * 0.5 * __toRadians) / (saladoPlayer.manager.boundsWidth * 0.5)) * __toDegrees);
+		}
+		
+		private var verticalFieldOfView:Number
+		private function getCursorTilt():Number {
+			verticalFieldOfView = __toDegrees * 2 * Math.atan((saladoPlayer.manager.boundsHeight / saladoPlayer.manager.boundsWidth)
+				* Math.tan(__toRadians * 0.5 * saladoPlayer.manager.fieldOfView));
+			return validatePanTilt( saladoPlayer.manager._tilt -
+				Math.atan(( saladoPlayer.manager.mouseY - saladoPlayer.manager.boundsHeight * 0.5)
+				* Math.tan(verticalFieldOfView * 0.5 * __toRadians) / (saladoPlayer.manager.boundsHeight * 0.5)) * __toDegrees);
 		}
 		
 		private function validateDir(value:Number):Number {
 			if ( value <= 0 || value > 360 ) return ((value + 360) % 360);
+			return value;
+		}
+		
+		private function validatePanTilt(value:Number):Number {
+			if (value <= -180) value = (((value + 180) % 360) + 180);
+			if (value > 180) value = (((value + 180) % 360) - 180);
 			return value;
 		}
 		
@@ -126,10 +162,13 @@ package com.panozona.modules.viewfinder{
 			txtOutput.x += viewFinderData.settings.move.horizontal;
 			txtOutput.y += viewFinderData.settings.move.vertical;
 			
-			if(viewFinderData.settings.showDot){
+			if(!viewFinderData.settings.useCursor){
 				pointer.x = (saladoPlayer.manager.boundsWidth) * 0.5;
 				pointer.y = (saladoPlayer.manager.boundsHeight) * 0.5;
 			}
 		}
+		
+		private var __toDegrees:Number = 180 / Math.PI;
+		private var __toRadians:Number = Math.PI / 180;
 	}
 }

@@ -17,7 +17,7 @@
 		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" camera="maxFov:160,minFov:10"/>
 	</panoramas>
 	<modules>
-		<ViewFinder path="~modules/ViewFinder-1.2.swf"/>
+		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
 		<DropDown path="~modules/DropDown-1.1.swf">
 			<elements>
 				<element target="violetChecker" label="Violet checker"/>

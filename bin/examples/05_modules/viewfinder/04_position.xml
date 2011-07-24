@@ -10,8 +10,8 @@
 		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<ViewFinder path="~modules/ViewFinder-1.2.swf">
-			<settings align="vertical:bottom" move="vertical:-30,horizontal:10" showDot="false"/>
+		<ViewFinder path="~modules/ViewFinder-1.3.swf">
+			<settings align="vertical:bottom" move="vertical:-30,horizontal:10"/>
 		</ViewFinder>
 	</modules>
 </SaladoPlayer>
