@@ -260,13 +260,12 @@ package com.panozona.player.manager {
 			_canvas.blendMode = BlendMode.NORMAL;
 			_secondaryCanvas.blendMode = BlendMode.NORMAL;
 			
-			runAction(currentPanoramaData.onTransitionEnd);
-			if(_previousPanoramaData != null){
-				runAction(currentPanoramaData.onTransitionEndFrom[_previousPanoramaData.id]);
-			}else {
+			if (_previousPanoramaData == null) {
 				runAction(_managerData.allPanoramasData.firstOnTransitionEnd);
+			}else {
+				runAction(currentPanoramaData.onTransitionEndFrom[_previousPanoramaData.id]);
 			}
-			if (_background.numChildren)_background.removeChildAt(0);
+			runAction(currentPanoramaData.onTransitionEnd);
 			
 			dispatchEvent(new PanoramaEvent(PanoramaEvent.TRANSITION_ENDED));
 		}

@@ -320,7 +320,7 @@ package com.panosalado.core{
 				return;
 			}
 			
-			if (canvas.width > 0) { // COREMOD, entire section
+			if (canvas != null && canvas.width > 0 && canvas.height > 0) { // COREMOD, entire section
 				try{
 					var bd:BitmapData = new BitmapData(canvas.width, canvas.height);
 					bd.draw(canvas);
@@ -328,15 +328,13 @@ package com.panosalado.core{
 					bmp.alpha = canvas.alpha;
 					_background.addChild(bmp);
 				}catch(e:Error){}
-			}else {
-				_background.addChild(new Bitmap());
 			}
-			updateFOV = (params.minFov) ? true : false 
+			updateFOV = (params.minFov) ? true : false ;
 			_params[path] = null;
 			params.path = null;
 			params.copyInto(this as ViewData);
 			super.commitPath(e, updateFOV);
-			dispatchEvent( new CameraEvent(CameraEvent.INACTIVE) );
+			dispatchEvent( new CameraEvent(CameraEvent.INACTIVE));
 		}
 		
 		/**
@@ -500,8 +498,8 @@ package com.panosalado.core{
 				pan += _deltaPan;
 				tilt -= _deltaTilt;
 				
-				if (_tilt < -90) tilt -= (_tilt +90) * _friction * 2;
-				else if ( _tilt > 90 ) tilt -= (_tilt -90) * _friction * 2;
+				if (_tilt < - 90) tilt -= (_tilt + 90) * _friction * 2;
+				else if ( _tilt > 90 ) tilt -= (_tilt - 90) * _friction * 2;
 			}else { // motion is under threshold
 				_now = NaN;
 				_deltaPan = NaN;
@@ -522,9 +520,8 @@ package com.panosalado.core{
 		* specified in startInertialSwing().
 		*/
 		public function stopInertialSwing():void {
-			_panSpeed = 
-			_tiltSpeed =
-				0;
+			_panSpeed = 0;
+			_tiltSpeed = 0;
 		}
 		
 		override public function addChild(child:DisplayObject):DisplayObject {
