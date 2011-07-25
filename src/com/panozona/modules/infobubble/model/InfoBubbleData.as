@@ -60,7 +60,6 @@ package com.panozona.modules.infobubble.model{
 				var stylesArray:Array = styles.getChildrenOfGivenClass(Style);
 				for each (var bubble:Bubble in bubbles.getChildrenOfGivenClass(Bubble)) {
 					if (bubble.id == null) throw new Error("Bubble id not specified.");
-					if (bubble.angle > 180 || bubble.angle < -180) throw new Error("Invalid bubble angle in: " + bubble.id);
 					if (bubble is Image && ((bubble as Image).path == null || !(bubble as Image).path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i))) {
 						throw new Error("Invalid image path: " + (bubble as Image).path);
 					}else if (bubble is Text && ((bubble as Text).style != null)) {

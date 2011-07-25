@@ -33,7 +33,7 @@ package com.panozona.modules.infobubble{
 		private var bubbleController:BubbleController;
 		
 		public function InfoBubble(){
-			super("InfoBubble", "1.2", "http://panozona.com/wiki/Module:InfoBubble");
+			super("InfoBubble", "1.3", "http://panozona.com/wiki/Module:InfoBubble");
 			
 			moduleDescription.addFunctionDescription("show", String);
 			moduleDescription.addFunctionDescription("hide");

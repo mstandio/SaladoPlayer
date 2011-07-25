@@ -45,6 +45,8 @@ package com.panozona.modules.infobubble.controller {
 		private var angle:Number;
 		private var currentDefaultAngle:Number;
 		
+		private var rotationRegistry:Number;
+		
 		public function BubbleController(bubbleView:BubbleView, module:Module){
 			_bubbleView = bubbleView;
 			_module = module;
@@ -82,8 +84,7 @@ package com.panozona.modules.infobubble.controller {
 			}catch(e:Error){}
 			for each (var bubble:Bubble in _bubbleView.infoBubbleData.bubbles.getChildrenOfGivenClass(Bubble)){
 				if (bubble.id == _bubbleView.infoBubbleData.bubbleData.currentId) {
-					currentDefaultAngle = Math.floor(bubble.angle);
-					dir = (currentDefaultAngle >= 0) ? 0.5 : -0.5; // 0.5 clockwise, -0.5 counterclockwise
+					currentDefaultAngle = -validate(Math.floor(-bubble.angle));
 					if (bubble is Image) {
 						imageLoader.load(new URLRequest((bubble as Image).path));
 						return;
@@ -132,7 +133,8 @@ package com.panozona.modules.infobubble.controller {
 			if (_bubbleView.numChildren == 0) return; // nothing loaded yet
 			if (!_bubbleView.infoBubbleData.bubbleData.enabled && _bubbleView.infoBubbleData.bubbleData.isShowing) return; // do not show when disabled
 			_bubbleView.visible = true;
-			if (_bubbleView.infoBubbleData.bubbleData.isShowing){
+			if (_bubbleView.infoBubbleData.bubbleData.isShowing) {
+				rotationRegistry = 0;
 				_module.stage.addEventListener(Event.ENTER_FRAME, handleEnterFrame, false, 0, true);
 				Tweener.addTween(_bubbleView.getChildAt(0),{
 					alpha:1,
@@ -148,37 +150,67 @@ package com.panozona.modules.infobubble.controller {
 		}
 		
 		private function cleanUp():void {
-			if (!_bubbleView.infoBubbleData.bubbleData.isShowing){
+			if (!_bubbleView.infoBubbleData.bubbleData.isShowing) {
+				angle = -currentDefaultAngle;
 				_bubbleView.visible = false;
 				_module.stage.removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
 			}
 		}
 		
 		private function handleEnterFrame(e:Event = null):void {
-			if (angle == -currentDefaultAngle) {
-				if (_module.mouseY > _module.saladoPlayer.manager.boundsHeight * 0.5) {
-					dir = (currentDefaultAngle > 0) ? 0.5 : -0.5;
-				}else {
-					dir = (currentDefaultAngle > 0) ? -0.5 : 0.5;
+			if (angle == -currentDefaultAngle){
+				// 0.5 clockwise, -0.5 counterclockwise
+				if (currentDefaultAngle > -45 && currentDefaultAngle <= 45) {
+					if (getMouseX() > (_module.saladoPlayer.manager.boundsWidth * 0.5)) {
+						dir = 0.5;
+					}else {
+						dir = -0.5;
+					}
+				}else if (currentDefaultAngle > 45 && currentDefaultAngle <= 135) {
+					if (getMouseY() > (_module.saladoPlayer.manager.boundsHeight * 0.5)) {
+						dir = 0.5;
+					}else {
+						dir = -0.5;
+					}
+				}else if (currentDefaultAngle > 135 || currentDefaultAngle <= -135) {
+					if (getMouseX() > (_module.saladoPlayer.manager.boundsWidth * 0.5)) {
+						dir = -0.5;
+					}else {
+						dir = 0.5;
+					}
+				}else if (currentDefaultAngle > -135 && currentDefaultAngle <= -45){
+					if (getMouseY() > (_module.saladoPlayer.manager.boundsHeight * 0.5)) {
+						dir = -0.5;
+					}else {
+						dir = 0.5;
+					}
 				}
 			}
 			
 			_bubbleView.x = getMouseX() - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
 			_bubbleView.y = getMouseY() - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
 			
-			if (hasConflict()) {
-				while (hasConflict()) {
-					angle += dir;
-					angle = validate(angle);
-					_bubbleView.x = getMouseX() - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
-					_bubbleView.y = getMouseY() - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
-				}
-			}else if (wontBeConflict(angle - dir)){
-				while (wontBeConflict(angle - dir) && angle != -currentDefaultAngle) {
-					angle -= dir;
-					angle = validate(angle);
-					_bubbleView.x = getMouseX() - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
-					_bubbleView.y = getMouseY() - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
+			if (Math.abs(rotationRegistry) != 360){
+				if (hasConflict()) {
+					while (hasConflict()) {
+						angle += dir;
+						angle = validate(angle);
+						_bubbleView.x = getMouseX() - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
+						_bubbleView.y = getMouseY() - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
+						
+						rotationRegistry += dir;
+						if (Math.abs(rotationRegistry) == 360) break;
+					}
+				}else if (wontBeConflict(angle - dir)){
+					while (wontBeConflict(angle - dir) && angle != -currentDefaultAngle) {
+						angle -= dir;
+						angle = validate(angle);
+						_bubbleView.x = getMouseX() - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
+						_bubbleView.y = getMouseY() - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
+						
+						rotationRegistry -= dir;
+						if (Math.abs(rotationRegistry) == 360) break;
+					}
 				}
 			}
 		}
@@ -207,22 +239,22 @@ package com.panozona.modules.infobubble.controller {
 		private function wontBeConflict(angle:Number):Boolean {
 			bub_x = getMouseX() - Math.sin(angle * __toRadians) * ellipseAxisX - _bubbleView.width * 0.5;
 			bub_y = getMouseY() - Math.cos(angle * __toRadians) * ellipseAxisY - _bubbleView.height * 0.5;
-			return(bub_x + _bubbleView.width <= _module.saladoPlayer.manager.boundsWidth 
-			&& bub_y + _bubbleView.height <= _module.saladoPlayer.manager.boundsHeight
-			&& bub_y >= 0
-			&& bub_x >= 0);
+			return(bub_x + _bubbleView.width <= _module.saladoPlayer.manager.boundsWidth
+				&& bub_y + _bubbleView.height <= _module.saladoPlayer.manager.boundsHeight
+				&& bub_y >= 0
+				&& bub_x >= 0);
 		}
 		
 		private function hasConflict():Boolean {
 			return(_bubbleView.x + _bubbleView.width > _module.saladoPlayer.manager.boundsWidth
-			|| _bubbleView.y + _bubbleView.height > _module.saladoPlayer.manager.boundsHeight
-			|| _bubbleView.y < 0
-			|| _bubbleView.x < 0);
+				|| _bubbleView.y + _bubbleView.height > _module.saladoPlayer.manager.boundsHeight
+				|| _bubbleView.y < 0
+				|| _bubbleView.x < 0);
 		}
 		
-		private function validate(value:Number):Number{
-			if ( value < -180 ) value = ((value + 180) % 360) + 180;
-			if ( value > 180 ) value = ((value + 180) % 360) - 180;
+		private function validate(value:Number):Number {
+			if (value <= -180) value = (((value + 180) % 360) + 180);
+			if (value > 180) value = (((value + 180) % 360) - 180);
 			return value;
 		}
 		
