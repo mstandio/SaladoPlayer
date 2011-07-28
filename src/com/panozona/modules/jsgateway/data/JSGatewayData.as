@@ -24,7 +24,8 @@ package com.panozona.modules.jsgateway.data{
 	
 	public class JSGatewayData {
 		
-		public var jsfuncttions:JSFunctions = new JSFunctions();
+		public const jsfuncttions:JSFunctions = new JSFunctions();
+		public const asfuncttions:ASFunctions = new ASFunctions();
 		
 		public function JSGatewayData(moduleData:ModuleData, saladoPlayer:Object) {
 			
@@ -33,6 +34,8 @@ package com.panozona.modules.jsgateway.data{
 			for each(var dataNode:DataNode in moduleData.nodes) {
 				if (dataNode.name == "jsfunctions") {
 					translator.dataNodeToObject(dataNode, jsfuncttions);
+				}else if (dataNode.name == "asfunctions") {
+					translator.dataNodeToObject(dataNode, asfuncttions);
 				}else {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
@@ -47,6 +50,16 @@ package com.panozona.modules.jsgateway.data{
 						throw new Error("Repeating jsfunction id: " + jsfunction.id);
 					}else {
 						jsfunctionIds[jsfunction.id] = ""; // something
+					}
+				}
+				var asfunctionNames:Object = new Object();
+				for each (var asfunction:ASFunction in asfuncttions.getChildrenOfGivenClass(ASFunction)) {
+					if (asfunction.name == null) throw new Error("asfunction name not specified.");
+					if (asfunction.callback == null) throw new Error("asfunction callback not specified.");
+					if (asfunctionNames[asfunction.name] != undefined) {
+						throw new Error("Repeating asfunction name: " + asfunction.name);
+					}else {
+						asfunctionNames[asfunction.name] = ""; // something
 					}
 				}
 			}

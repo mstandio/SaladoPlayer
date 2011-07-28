@@ -12,10 +12,13 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<JSGateway path="~modules/JSGateway-1.0.swf">
+		<JSGateway path="~modules/JSGateway-1.1.swf">
 			<jsfunctions>
 				<jsfunction id="js1" name="someJavaScriptFunction" text="hello"/>
 			</jsfunctions>
+			<asfunctions>
+				<asfunction name="moveSaladoPlayerToView" callback="saladoPlayer.manager.moveToView"/>
+			</asfunctions>
 		</JSGateway>
 	</modules>
 	<actions>

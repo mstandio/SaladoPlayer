@@ -18,18 +18,21 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.jsgateway {
 	
+	import com.panozona.modules.jsgateway.data.ASFunction;
 	import com.panozona.modules.jsgateway.data.JSFunction;
 	import com.panozona.modules.jsgateway.data.JSGatewayData;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.Module;
 	import flash.external.ExternalInterface;
+	import flash.system.ApplicationDomain;
+	import flash.utils.getDefinitionByName;
 	
 	public class JSGateway extends Module{
 		
 		private var jsgatewayData:JSGatewayData;
 		
 		public function JSGateway(){
-			super("JSGateway", "1.0", "http://panozona.com/wiki/Module:JSGateway");
+			super("JSGateway", "1.1", "http://panozona.com/wiki/Module:JSGateway");
 			moduleDescription.addFunctionDescription("run", String);
 		}
 		
@@ -37,6 +40,26 @@ package com.panozona.modules.jsgateway {
 			jsgatewayData = new JSGatewayData(moduleData, saladoPlayer);
 			visible = false;
 			ExternalInterface.addCallback("runAction", saladoPlayer.manager.runAction);
+			
+			for each (var asfunction:ASFunction in jsgatewayData.asfuncttions.getChildrenOfGivenClass(ASFunction)) {
+				try {
+					ExternalInterface.addCallback(asfunction.name, getReference(asfunction.callback) as Function);
+				}catch (e:Error) {
+					printWarning("Could not expose asfunction: " + asfunction.name +", " + e.message);
+				}
+			}
+		}
+		
+		private function getReference(input:String):Object {
+			return getReferenceR(input.split("."), 0, this);
+		}
+		
+		private function getReferenceR(path:Array, currentIndex:int, inputObject:Object):Object {
+			if (currentIndex < path.length) {
+				return getReferenceR(path, currentIndex+1, inputObject[path[currentIndex]]);
+			}else {
+				return inputObject;
+			}
 		}
 		
 ///////////////////////////////////////////////////////////////////////////////
