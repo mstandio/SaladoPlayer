@@ -11,16 +11,35 @@
 				counter++;
 			}
 			
+			// onEnter, onTransitionEnd and onMoveEnd are called from SaladoPlayer by default
+			function onEnter(panoramaId){
+				var box2 = document.getElementById('box2');
+				box2.value = 'panorama loaded: ' + panoramaId;
+			}
+			function onTransitionEnd(panoramaId){
+				var box2 = document.getElementById('box2');
+				box2.value = 'transition ended: ' + panoramaId;
+			}
+			function onMoveEnd(){
+				var box2 = document.getElementById('box2');
+				box2.value = 'move ended';
+			}
+			
 			function handleClick(actionId){
-				document.getElementById('SaladoPlayer').runAction(actionId);
-				document.getElementById('SaladoPlayer').moveSaladoPlayerToView(50,50,NaN);
+				
+				// exposed by default
+				document.getElementById('SaladoPlayer').runAction(actionId); 
+				
+				// exposed via asfunction
+				document.getElementById('SaladoPlayer').setActiveButtonBar('a', true);
+				document.getElementById('SaladoPlayer').moveSaladoPlayerToView(Math.ceil(100 * Math.random()), Math.ceil(100 * Math.random()), NaN);
 			}
 			
 		</script>
 		<script type="text/javascript" src="../../embed/swfobject.js"></script>
 		<script type="text/javascript">
 			var flashvars = {};
-			flashvars.xml = "../../examples/05_modules/jsgateway/01_basic.xml"
+			flashvars.xml = "../../examples/05_modules/jsgateway/01_complete.xml"
 			flashvars.tilde="../../"
 			var params = {};
 			params.play = "true";
@@ -44,7 +63,7 @@
 		</div>
 		<div style="text-align:center; margin-top:10px;">
 			<u><a href="#" onClick="handleClick('javaScriptToSaladoPlayer');">Click here to execute action "javaScriptToSaladoPlayer"</a></u>
-			<form><input type="text" id="box" name="box" value=""/></form>
+			<form><input type="text" id="box" value=""/><input type="text2" id="box2" value=""/></form>
 		</div>
 	</body>
 </html>

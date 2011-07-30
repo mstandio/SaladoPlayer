@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	By default JSGateway exposes to JavaScript function "runAction" that takes action id as parameter, and therefore
+	it enables executing actions via javascript. Another default behaviour is calling JavaScript functions named
+	onEnter, onTransitionEnd (both with argument of panorama id) and onMoveEnd whenever such events have place.
+	
+	asfunction
+		callback points to function name that will be exposed to JavaScript. Pointing to specific functions requires
+		basic knowledge of SaladoPlayer source structure and is not analogical to regular syntax used in configuration.
+	jsfuncion
+		enables calling JavaScript functions via actions, arguments passed to JavaScript are hard-coded into configuration.
+		
+	http://panozona.com/wiki/Module:JSGateway
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+			<image id="gc_blueArrow" path="~hotspots/images/blue_arrow.png" mouse="onClick:loadBlueChecker"/>
+		</panorama>
+		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
+			<image id="bc_greenArrow" path="~hotspots/images/green_arrow.png" mouse="onClick:loadGreenChecker"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ButtonBar path="~modules/ButtonBar-1.2.swf">
+			<buttons path="~modules/images/buttonbar/buttons_40x40_black.png">
+				<extraButton name="a" action="saladoPlayerToJavascript"/>
+			</buttons>
+		</ButtonBar>
+		<JSGateway path="~modules/JSGateway-1.2.swf">
+			<jsfunctions>
+				<jsfunction id="js1" name="someJavaScriptFunction" text="hello"/>
+			</jsfunctions>
+			<asfunctions>
+				<asfunction name="moveSaladoPlayerToView" callback="saladoPlayer.manager.moveToView"/>
+				<asfunction name="setActiveButtonBar" callback="saladoPlayer.getModuleByName(ButtonBar).setActive"/>
+			</asfunctions>
+		</JSGateway>
+	</modules>
+	<actions>
+		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(blueChecker)"/>
+		<action id="loadGreenChecker" content="SaladoPlayer.loadPano(greenChecker)"/>
+		
+		<action id="saladoPlayerToJavascript" content="JSGateway.run(js1)"/>
+		<action id="javaScriptToSaladoPlayer" content="SaladoPlayer.print(got called from javascript)"/>
+	</actions>
+</SaladoPlayer>
