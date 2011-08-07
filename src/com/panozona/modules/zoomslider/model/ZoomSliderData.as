@@ -42,6 +42,7 @@ package com.panozona.modules.zoomslider.model{
 			}
 			
 			windowData.open = windowData.window.open;
+			if (sliderData.slider.length < 0) sliderData.slider.length = 0;
 			
 			if (saladoPlayer.managerData.debugMode) {
 				if (sliderData.slider.path == null || !sliderData.slider.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)) {

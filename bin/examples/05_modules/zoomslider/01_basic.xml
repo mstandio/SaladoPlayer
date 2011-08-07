@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	
+	http://panozona.com/wiki/Module:ZoomSlider
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<ZoomSlider path="~modules/ZoomSlider-1.0.swf">
+			<slider path="~modules/images/zoomslider/elements_30x30.png"/>
+		</ZoomSlider>
+	</modules>
+</SaladoPlayer>

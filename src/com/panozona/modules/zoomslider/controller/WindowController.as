@@ -42,6 +42,19 @@ package com.panozona.modules.zoomslider.controller {
 			_sliderController = new SliderController(windowView.sliderView, module);
 			
 			_windowView.zoomSliderData.windowData.addEventListener(WindowEvent.CHANGED_SIZE, handleSizeChange, false, 0, true);
+			
+			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
+		}
+		
+		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
+			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+			_module.saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
+			if (_windowView.windowData.open){
+				_module.saladoPlayer.manager.runAction(_windowView.windowData.window.onOpen);
+			}else {
+				_module.saladoPlayer.manager.runAction(_windowView.windowData.window.onClose);
+			}
 		}
 		
 		private function handleSizeChange(e:Event):void {
@@ -120,7 +133,7 @@ package com.panozona.modules.zoomslider.controller {
 			var result:Number = 0;
 			switch(_windowView.windowData.window.align.horizontal) {
 				case Align.RIGHT:
-					result += _module.saladoPlayer.manager.boundsWidth 
+					result += _module.saladoPlayer.manager.boundsWidth
 						- _windowView.windowData.size.width 
 						+ _windowView.windowData.window.move.horizontal;
 				break;
@@ -128,7 +141,7 @@ package com.panozona.modules.zoomslider.controller {
 					result += _windowView.windowData.window.move.horizontal;
 				break;
 				default: // CENTER
-					result += (_module.saladoPlayer.manager.boundsWidth 
+					result += (_module.saladoPlayer.manager.boundsWidth
 						- _windowView.windowData.size.width) * 0.5 
 						+ _windowView.windowData.window.move.horizontal;
 			}
@@ -142,12 +155,12 @@ package com.panozona.modules.zoomslider.controller {
 					result += _windowView.windowData.window.move.vertical;
 				break;
 				case Align.BOTTOM:
-					result += _module.saladoPlayer.manager.boundsHeight 
+					result += _module.saladoPlayer.manager.boundsHeight
 						- _windowView.windowData.size.height
 						+ _windowView.windowData.window.move.vertical;
 				break;
 				default: // MIDDLE
-					result += (_module.saladoPlayer.manager.boundsHeight 
+					result += (_module.saladoPlayer.manager.boundsHeight
 						- _windowView.windowData.size.height) * 0.5
 						+ _windowView.windowData.window.move.vertical;
 			}
