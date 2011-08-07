@@ -18,13 +18,16 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.zoomslider.model.structure{
 	
+	import caurina.transitions.Equations;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.Transition;
+	import com.panozona.player.module.data.property.Tween;
 	
 	public class Window{
 		
-		public const align:Align = new Align(Align.RIGHT, Align.TOP);
-		public const move:Move = new Move(-20, 20);
+		public const align:Align = new Align(Align.LEFT, Align.MIDDLE);
+		public const move:Move = new Move(10, 0);
 		
 		public var alpha:Number = 1.0;
 		
@@ -34,6 +37,6 @@ package com.panozona.modules.zoomslider.model.structure{
 		
 		public const openTween:Tween = new Tween(Equations.easeNone, 0.5);
 		public const closeTween:Tween = new Tween(Equations.easeNone, 0.5);
-		public const transition:Transition = new Transition(Transition.SLIDE_RIGHT);
+		public const transition:Transition = new Transition(Transition.SLIDE_LEFT);
 	}
 }

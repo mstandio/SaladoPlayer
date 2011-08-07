@@ -23,6 +23,7 @@ package com.panozona.modules.zoomslider.events{
 	public class WindowEvent extends Event{
 		
 		public static const CHANGED_OPEN:String = "changedOpen";
+		public static const CHANGED_SIZE:String = "changedSize";
 		
 		public function WindowEvent(type:String){
 			super(type);

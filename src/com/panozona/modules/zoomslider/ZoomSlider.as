@@ -22,8 +22,9 @@ package com.panozona.modules.zoomslider{
 	import com.panozona.modules.zoomslider.model.ZoomSliderData;
 	import com.panozona.modules.zoomslider.view.WindowView;
 	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.Module;
 	
-	public class ZoomSlider{
+	public class ZoomSlider extends Module{
 		
 		private var windowView:WindowView;
 		private var windowController:WindowController;
@@ -38,7 +39,7 @@ package com.panozona.modules.zoomslider{
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
-			zoomSliderData = new ZoomSliderData();
+			zoomSliderData = new ZoomSliderData(moduleData, this.saladoPlayer);
 			windowView = new WindowView(zoomSliderData);
 			windowController = new WindowController(windowView, this);
 			addChild(windowView);
@@ -56,4 +57,5 @@ package com.panozona.modules.zoomslider{
 		public function toggleOpen():void {
 			zoomSliderData.windowData.open = !zoomSliderData.windowData.open;
 		}
+	}
 }

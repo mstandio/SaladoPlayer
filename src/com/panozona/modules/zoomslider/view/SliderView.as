@@ -34,7 +34,7 @@ package com.panozona.modules.zoomslider.view {
 			return _zoomSliderData;
 		}
 		
-		public function get sliderData():SliderData{
+		public function get sliderData():SliderData {
 			return _zoomSliderData.sliderData;
 		}
 	}

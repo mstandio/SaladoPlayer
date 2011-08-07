@@ -33,9 +33,9 @@ package com.panozona.modules.zoomslider.model{
 			
 			for each(var dataNode:DataNode in moduleData.nodes) {
 				if (dataNode.name == "slider") {
-					translator.dataNodeToObject(dataNode, sliderData);
+					translator.dataNodeToObject(dataNode, sliderData.slider);
 				}else if (dataNode.name == "window") {
-					translator.dataNodeToObject(dataNode, windowData);
+					translator.dataNodeToObject(dataNode, windowData.window);
 				}else {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
@@ -44,7 +44,9 @@ package com.panozona.modules.zoomslider.model{
 			windowData.open = windowData.window.open;
 			
 			if (saladoPlayer.managerData.debugMode) {
-				
+				if (sliderData.slider.path == null || !sliderData.slider.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)) {
+					throw new Error("Invalid path: " + sliderData.slider.path);
+				}
 			}
 		}
 	}

@@ -18,7 +18,14 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.zoomslider.controller {
 	
+	import caurina.transitions.Tweener;
+	import com.panozona.modules.zoomslider.events.WindowEvent;
+	import com.panozona.modules.zoomslider.view.WindowView;
+	import com.panozona.player.module.data.property.Transition;
+	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.Module;
+	import flash.events.Event;
+	import flash.system.ApplicationDomain;
 	
 	public class WindowController {
 		
@@ -34,9 +41,18 @@ package com.panozona.modules.zoomslider.controller {
 			
 			_sliderController = new SliderController(windowView.sliderView, module);
 			
+			_windowView.zoomSliderData.windowData.addEventListener(WindowEvent.CHANGED_SIZE, handleSizeChange, false, 0, true);
 		}
 		
-		private function handleResize(event:Event = null):void {
+		private function handleSizeChange(e:Event):void {
+			_windowView.zoomSliderData.windowData.removeEventListener(WindowEvent.CHANGED_SIZE, handleSizeChange);
+			
+			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
+			_module.saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
+			handleResize();
+		}
+		
+		private function handleResize(viewEvent:Object = null):void {
 			placeWindow();
 		}
 		
@@ -105,7 +121,7 @@ package com.panozona.modules.zoomslider.controller {
 			switch(_windowView.windowData.window.align.horizontal) {
 				case Align.RIGHT:
 					result += _module.saladoPlayer.manager.boundsWidth 
-						- _windowView.windowData.window.size.width 
+						- _windowView.windowData.size.width 
 						+ _windowView.windowData.window.move.horizontal;
 				break;
 				case Align.LEFT:
@@ -113,7 +129,7 @@ package com.panozona.modules.zoomslider.controller {
 				break;
 				default: // CENTER
 					result += (_module.saladoPlayer.manager.boundsWidth 
-						- _windowView.windowData.window.size.width) * 0.5 
+						- _windowView.windowData.size.width) * 0.5 
 						+ _windowView.windowData.window.move.horizontal;
 			}
 			return result;
@@ -127,12 +143,12 @@ package com.panozona.modules.zoomslider.controller {
 				break;
 				case Align.BOTTOM:
 					result += _module.saladoPlayer.manager.boundsHeight 
-						- _windowView.windowData.window.size.height
+						- _windowView.windowData.size.height
 						+ _windowView.windowData.window.move.vertical;
 				break;
 				default: // MIDDLE
 					result += (_module.saladoPlayer.manager.boundsHeight 
-						- _windowView.windowData.window.size.height) * 0.5
+						- _windowView.windowData.size.height) * 0.5
 						+ _windowView.windowData.window.move.vertical;
 			}
 			return result;
@@ -145,7 +161,7 @@ package com.panozona.modules.zoomslider.controller {
 					result = _module.saladoPlayer.manager.boundsWidth;
 				break;
 				case Transition.SLIDE_LEFT:
-					result = -_windowView.windowData.window.size.width;
+					result = -_windowView.windowData.size.width;
 				break;
 				default: //SLIDE_UP, SLIDE_DOWN
 					result = getWindowOpenX();
@@ -157,7 +173,7 @@ package com.panozona.modules.zoomslider.controller {
 			var result:Number = 0;
 			switch(_windowView.windowData.window.transition.type){
 				case Transition.SLIDE_UP:
-					result = -_windowView.windowData.window.size.height;
+					result = -_windowView.windowData.size.height;
 				break;
 				case Transition.SLIDE_DOWN:
 					result = _module.saladoPlayer.manager.boundsHeight;
