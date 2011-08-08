@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
+	Change size and alignment of module window. Slider can be displayed horizontal, but it should use bitmaps
+	that have buttons lables rotetd 90 degrees, so that they were readable in horizontal position.
 	
 	http://panozona.com/wiki/Module:ZoomSlider
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
 	</panoramas>
 	<modules>
 		<ZoomSlider path="~modules/ZoomSlider-1.0.swf">
-			<slider path="~modules/images/zoomslider/elements_40x40.png"/>
+			<window align="horizontal:center,vertical:bottom" move="horizontal:0,vertical:-10"/>
+			<slider path="~modules/images/zoomslider/elements_40x40.png" slidesVertical="false" length="400"/>
 		</ZoomSlider>
 	</modules>
 </SaladoPlayer>

@@ -39,6 +39,8 @@ package com.panozona.modules.zoomslider.controller {
 			_module = module;
 			_windowView = windowView;
 			
+			_windowView.windowData.addEventListener(WindowEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
+			
 			_sliderController = new SliderController(windowView.sliderView, module);
 			
 			_windowView.zoomSliderData.windowData.addEventListener(WindowEvent.CHANGED_SIZE, handleSizeChange, false, 0, true);

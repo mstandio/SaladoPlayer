@@ -25,6 +25,6 @@ package com.panozona.modules.zoomslider.model.structure{
 		public var length:Number = 200;
 		public var slidesVertical:Boolean = true;
 		
-		public var speed:Number = 0.3;
+		public var listenKeys:Boolean = false;
 	}
 }

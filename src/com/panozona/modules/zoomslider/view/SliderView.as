@@ -29,6 +29,7 @@ package com.panozona.modules.zoomslider.view {
 	public class SliderView extends Sprite{
 		
 		public const pointer:Sprite = new Sprite();
+		public const bar:Sprite = new Sprite();
 		
 		private var zoomIn:Bitmap;
 		private var zoomOut:Bitmap;
@@ -54,7 +55,6 @@ package com.panozona.modules.zoomslider.view {
 			this.zoomInActiveBD = zoomInActiveBD;
 			this.zoomOutActiveBD = zoomOutActiveBD;
 			
-			var bar:Sprite = new Sprite();
 			bar.graphics.beginBitmapFill(barBD, null, true);
 			bar.graphics.drawRect(
 				0,
@@ -64,14 +64,13 @@ package com.panozona.modules.zoomslider.view {
 			bar.graphics.endFill();
 			bar.y = zoomInPlainBD.height * 0.5;
 			addChild(bar);
-			// TODO: click
+			bar.addEventListener(MouseEvent.MOUSE_DOWN, dragStart, false, 0, true);
+			bar.addEventListener(MouseEvent.MOUSE_UP, dragStop, false, 0, true);
+			stage.addEventListener(MouseEvent.MOUSE_UP, dragStop, false, 0, true);
 			
-			if (_zoomSliderData.sliderData.slider.length > 0){
-				pointer.addChild(new Bitmap(pointerBD));
-				pointer.y = bar.y + (bar.height - pointer.height) * 0.5;
-				addChild(pointer);
-				// TODO: drag
-			}
+			pointer.addChild(new Bitmap(pointerBD));
+			pointer.y = bar.y + (bar.height - pointer.height) * 0.5;
+			bar.addChild(pointer);
 			
 			zoomIn = new Bitmap(this.zoomInPlainBD);
 			var zoomInButton:Sprite = new Sprite();
@@ -83,7 +82,6 @@ package com.panozona.modules.zoomslider.view {
 			zoomInButton.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
 			zoomInButton.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
 			
-			
 			zoomOut = new Bitmap(this.zoomOutPlainBD);
 			var zoomOutButton:Sprite = new Sprite();
 			zoomOutButton.addChild(zoomOut);
@@ -93,6 +91,11 @@ package com.panozona.modules.zoomslider.view {
 			zoomOutButton.addEventListener(MouseEvent.MOUSE_DOWN, navZoomOut, false, 0, true);
 			zoomOutButton.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
 			zoomOutButton.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
+			
+			if (!_zoomSliderData.sliderData.slider.slidesVertical) {
+				x = height;
+				rotation = 90;
+			}
 		}
 		
 		public function get zoomSliderData():ZoomSliderData {
@@ -103,21 +106,38 @@ package com.panozona.modules.zoomslider.view {
 			return _zoomSliderData.sliderData;
 		}
 		
+		public function showZoomIn():void {
+			zoomIn.bitmapData = zoomInActiveBD;
+		}
+		
+		public function showZoomOut():void {
+			zoomOut.bitmapData = zoomOutActiveBD;
+		}
+		
+		public function showZoomStop():void {
+			zoomOut.bitmapData = zoomOutPlainBD;
+			zoomIn.bitmapData = zoomInPlainBD;
+		}
+		
 		private function navZoomIn(e:Event):void {
 			_zoomSliderData.sliderData.zoomIn = true;
-			zoomIn.bitmapData = zoomInActiveBD;
 		}
 		
 		private function navZoomOut(e:Event):void {
 			_zoomSliderData.sliderData.zoomOut = true;
-			zoomOut.bitmapData = zoomOutActiveBD;
 		}
 		
 		private function navZoomStop(e:Event):void {
 			_zoomSliderData.sliderData.zoomIn = false;
 			_zoomSliderData.sliderData.zoomOut = false;
-			zoomOut.bitmapData = zoomOutPlainBD;
-			zoomIn.bitmapData = zoomInPlainBD;
+		}
+		
+		private function dragStart(e:Event):void {
+			_zoomSliderData.sliderData.mouseDrag = true;
+		}
+		
+		private function dragStop(e:Event):void {
+			_zoomSliderData.sliderData.mouseDrag = false;
 		}
 	}
 }

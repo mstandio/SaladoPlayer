@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
+	ZoomSlider is simple module that provides interface for changing value of fieldFovView in limits
+	that are definded in currently displayed panorama settings.
 	
 	http://panozona.com/wiki/Module:ZoomSlider
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
+		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
 	</panoramas>
 	<modules>
 		<ZoomSlider path="~modules/ZoomSlider-1.0.swf">

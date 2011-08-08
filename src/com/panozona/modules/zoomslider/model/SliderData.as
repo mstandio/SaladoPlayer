@@ -29,6 +29,9 @@ package com.panozona.modules.zoomslider.model {
 		private var _zoomIn:Boolean;
 		private var _zoomOut:Boolean;
 		
+		private var _maxFov:Number;
+		private var _minFov:Number;
+		
 		private var _mouseDrag:Boolean;
 		
 		public function get zoomIn():Boolean {return _zoomIn;}
@@ -43,6 +46,20 @@ package com.panozona.modules.zoomslider.model {
 			if (value == _zoomOut) return;
 			_zoomOut = value;
 			dispatchEvent(new SliderEvent(SliderEvent.CHANGED_ZOOM));
+		}
+		
+		public function get maxFov():Number {return _maxFov;}
+		public function set maxFov(value:Number):void {
+			if (value == _maxFov) return;
+			_maxFov = value;
+			dispatchEvent(new SliderEvent(SliderEvent.CHANGED_FOV_LIMIT));
+		}
+		
+		public function get minFov():Number {return _minFov;}
+		public function set minFov(value:Number):void {
+			if (value == _minFov) return;
+			_minFov = value;
+			dispatchEvent(new SliderEvent(SliderEvent.CHANGED_FOV_LIMIT));
 		}
 		
 		public function get mouseDrag():Boolean {return _mouseDrag;}
