@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Change size and alignment of module window. Slider can be displayed horizontal, but it should use bitmaps
-	that have buttons lables rotetd 90 degrees, so that they were readable in horizontal position.
+	Change size and alignment of module window. Slider can be displayed horizontal, but it may require
+	modification of bitmaps that have buttons rotetd 90 degrees.
 	
 	http://panozona.com/wiki/Module:ZoomSlider
 -->

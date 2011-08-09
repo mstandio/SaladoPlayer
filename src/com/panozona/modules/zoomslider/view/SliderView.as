@@ -95,6 +95,10 @@ package com.panozona.modules.zoomslider.view {
 			if (!_zoomSliderData.sliderData.slider.slidesVertical) {
 				x = height;
 				rotation = 90;
+				zoomInButton.y += zoomInButton.height;
+				zoomInButton.rotation = -90;
+				zoomOutButton.x += zoomOutButton.height;
+				zoomOutButton.rotation = -270;
 			}
 		}
 		
