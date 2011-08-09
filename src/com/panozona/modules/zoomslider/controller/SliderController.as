@@ -39,6 +39,7 @@ package com.panozona.modules.zoomslider.controller {
 		private var _module:Module;
 		
 		private var cameraKeyBindingsClass:Class;
+		private var cameraEventClass:Class;
 		
 		private var currentFov:Number;
 		
@@ -47,6 +48,7 @@ package com.panozona.modules.zoomslider.controller {
 			_module = module;
 			
 			cameraKeyBindingsClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.model.CameraKeyBindings") as Class;
+			cameraEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.CameraEvent") as Class;
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onLimitsChange, false, 0, true);
@@ -105,6 +107,7 @@ package com.panozona.modules.zoomslider.controller {
 			
 			_sliderView.sliderData.addEventListener(SliderEvent.CHANGED_ZOOM, handleZoomChange, false, 0, true);
 			_sliderView.sliderData.addEventListener(SliderEvent.CHANGED_FOV_LIMIT, handleFovLimitsChange, false, 0, true);
+			_sliderView.sliderData.addEventListener(SliderEvent.CHANGED_MOUSE_DRAG, handleMouseDragChange, false, 0, true);
 			_sliderView.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
 			
 			if (_sliderView.sliderData.slider.listenKeys){
@@ -129,6 +132,14 @@ package com.panozona.modules.zoomslider.controller {
 		
 		private function handleFovLimitsChange(e:SliderEvent):void {
 			translateValueToPosition();
+		}
+		
+		private function handleMouseDragChange(e:SliderEvent):void {
+			if(_sliderView.sliderData.mouseDrag == true){ // handle autorotation
+				_module.saladoPlayer.manager.dispatchEvent(new cameraEventClass(cameraEventClass.ACTIVE));
+			}else {
+				_module.saladoPlayer.manager.dispatchEvent(new cameraEventClass(cameraEventClass.INACTIVE));
+			}
 		}
 		
 		private function onEnterFrame(e:Event):void {
