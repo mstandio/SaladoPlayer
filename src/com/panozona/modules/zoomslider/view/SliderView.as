@@ -97,8 +97,8 @@ package com.panozona.modules.zoomslider.view {
 				rotation = 90;
 				zoomInButton.y += zoomInButton.height;
 				zoomInButton.rotation = -90;
-				zoomOutButton.x += zoomOutButton.height;
-				zoomOutButton.rotation = -270;
+				zoomOutButton.y += zoomOutButton.height;
+				zoomOutButton.rotation = -90;
 			}
 		}
 		
