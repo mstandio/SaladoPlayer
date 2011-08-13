@@ -288,7 +288,7 @@ final public class Panorama
 			/*0*/						frustumTop.y = cosV; 		frustumTop.z = sinV; 		/*0*/				//top plane
 			/*0*/						frustumBottom.y = -cosV; 	frustumBottom.z = sinV; 	/*0*/				//bottom plane
 			
-			perspectiveProjection.focalLength = isNaN(adjacent) ? 0.001 : adjacent; // COREMOD
+			perspectiveProjection.focalLength = isNaN(adjacent) ? 0.000001 : adjacent; // COREMOD
 			perspective = viewData.perspectiveMatrix3D = perspectiveProjection.toMatrix3D();  // NB: toMatrix3D returns a NEW object so must copy it back to _perspective too.
 			/* Flash bug: with stage.scaleMode = StageScaleMode.NO_RESIZE setting 
 			perspectiveProjection.fieldOfView does not update focalLength, BUT setting focalLength
