@@ -21,12 +21,15 @@ package com.panozona.modules.dropdown.controller{
 	import caurina.transitions.Tweener;
 	import com.panozona.modules.dropdown.controller.ElementController;
 	import com.panozona.modules.dropdown.events.BoxEvent;
+	import com.panozona.modules.dropdown.events.ElementEvent;
 	import com.panozona.modules.dropdown.model.ElementData;
 	import com.panozona.modules.dropdown.model.structure.Element;
 	import com.panozona.modules.dropdown.model.structure.Elements;
+	import com.panozona.modules.dropdown.model.structure.RawElement;
 	import com.panozona.modules.dropdown.view.BoxView;
 	import com.panozona.modules.dropdown.view.ElementView;
 	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.Module;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -47,12 +50,6 @@ package com.panozona.modules.dropdown.controller{
 			
 			_module.stage.addEventListener(MouseEvent.MOUSE_DOWN, cickedOnStage, false, 0, true);
 			
-			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
-			_module.saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
-			
-			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
-			
 			elementControllers = new Vector.<ElementController>();
 			buildElementsContainer();
 		}
@@ -62,8 +59,8 @@ package com.panozona.modules.dropdown.controller{
 			var elementController:ElementController;
 			var elements:Elements = _boxView.dropDownData.boxData.elements;
 			var finalWidth:Number = 0;
-			for each(var element:Element in elements.getChildrenOfGivenClass(Element)) {
-				elementView = new ElementView(new ElementData(element), _boxView.dropDownData);
+			for each(var rawElement:RawElement in elements.getAllChildren()) {
+				elementView = new ElementView(new ElementData(rawElement), _boxView.dropDownData);
 				if (elementView.width > finalWidth) finalWidth = elementView.width;
 				_boxView.elementsContainer.addChild(elementView);
 				elementController = new ElementController(elementView, _module);
@@ -76,6 +73,7 @@ package com.panozona.modules.dropdown.controller{
 				elementView.elementData.width = finalWidth;
 				elementView.y = lastY;
 				lastY += elementView.height;
+				elementView.elementData.addEventListener(ElementEvent.CHANGED_IS_ACTIVE, handleActiveChange, false, 0, true);
 			}
 			_boxView.textField.width = finalWidth;
 			_boxView.button.x = _boxView.textField.width - _boxView.button.width;
@@ -84,33 +82,17 @@ package com.panozona.modules.dropdown.controller{
 			_boxView.elementsContainer.y = containerFoldY();
 			_boxView.elementsContainerMask.y = containerUnfoldY();
 			_boxView.elementsContainerMask.graphics.beginFill(0x000000)
-			_boxView.elementsContainerMask.graphics.drawRect(-5, -5, _boxView.elementsContainer.width + 10, _boxView.elementsContainer.height + 10);
+			_boxView.elementsContainerMask.graphics.drawRect( -1, -1, _boxView.elementsContainer.width + 2, _boxView.elementsContainer.height + 2);
+			
+			_boxView.dropDownData.windowData.finalSize = new Size(finalWidth, _boxView.textField.height);
 		}
 		
-		public function handleResize(e:Event = null):void {
-			if (_boxView.dropDownData.settings.align.horizontal == Align.LEFT) {
-				_boxView.x = 0;
-			}else if (_boxView.dropDownData.settings.align.horizontal == Align.RIGHT) {
-				_boxView.x = _module.saladoPlayer.manager.boundsWidth - _boxView.width;
-			}else { // CENTER
-				_boxView.x = (_module.saladoPlayer.manager.boundsWidth - _boxView.width) * 0.5;
-			}
-			if (_boxView.dropDownData.settings.align.vertical == Align.TOP){
-				_boxView.y = 0;
-			}else if (_boxView.dropDownData.settings.align.vertical == Align.BOTTOM) {
-				_boxView.y = _module.saladoPlayer.manager.boundsHeight - _boxView.textField.height;
-			}else { // MIDDLE
-				_boxView.y = (_module.saladoPlayer.manager.boundsHeight - _boxView.textField.height) * 0.5;
-			}
-			_boxView.x += _boxView.dropDownData.settings.move.horizontal;
-			_boxView.y += _boxView.dropDownData.settings.move.vertical;
-		}
-		
-		private function onPanoramaStartedLoading(PanoramaEvent:Object):void {
+		private function handleActiveChange(e:Event):void {
 			var elementView:ElementView;
-			for each (var element:Element in _boxView.dropDownData.boxData.elements.getChildrenOfGivenClass(Element)) {
-				if (element.target == _module.saladoPlayer.manager.currentPanoramaData.id) {
-					_boxView.textField.text = element.label;
+			for (var i:int=0; i < _boxView.elementsContainer.numChildren; i++) {
+				elementView = _boxView.elementsContainer.getChildAt(i) as ElementView;
+				if (elementView.elementData.isActive) {
+					_boxView.textField.text = elementView.elementData.rawElement.label;
 					return;
 				}
 			}
@@ -123,13 +105,13 @@ package com.panozona.modules.dropdown.controller{
 				_boxView.elementsContainerMask.visible = true;
 				Tweener.addTween(_boxView.elementsContainer, {
 					y:containerUnfoldY(),
-					time:_boxView.dropDownData.settings.unfoldTween.time,
-					transition:_boxView.dropDownData.settings.unfoldTween.transition});
+					time:_boxView.dropDownData.boxData.box.unfoldTween.time,
+					transition:_boxView.dropDownData.boxData.box.unfoldTween.transition});
 			}else {
 				Tweener.addTween(_boxView.elementsContainer, {
 					y:containerFoldY(),
-					time:_boxView.dropDownData.settings.foldTween.time,
-					transition:_boxView.dropDownData.settings.foldTween.transition,
+					time:_boxView.dropDownData.boxData.box.foldTween.time,
+					transition:_boxView.dropDownData.boxData.box.foldTween.transition,
 					onComplete:onComplete});
 			}
 		}
@@ -140,7 +122,7 @@ package com.panozona.modules.dropdown.controller{
 		}
 		
 		private function containerFoldY():Number {
-			if (_boxView.dropDownData.settings.style.opensUp) {
+			if (_boxView.dropDownData.boxData.box.opensUp) {
 				return 0;
 			}else {
 				return _boxView.textField.height - _boxView.elementsContainer.height;
@@ -148,7 +130,7 @@ package com.panozona.modules.dropdown.controller{
 		}
 		
 		private function containerUnfoldY():Number {
-			if (_boxView.dropDownData.settings.style.opensUp) {
+			if (_boxView.dropDownData.boxData.box.opensUp) {
 				return -_boxView.elementsContainer.height;
 			}else {
 				return _boxView.textField.height

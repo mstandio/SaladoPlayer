@@ -14,7 +14,7 @@
 		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
 	</panoramas>
 	<modules>
-		<DropDown path="~modules/DropDown-1.1.swf">
+		<DropDown path="~modules/DropDown-1.2.swf">
 			<elements>
 				<element target="greenChecker" label="Green checker"/>
 				<element target="blueChecker" label="Blue checker"/>

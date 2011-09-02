@@ -20,33 +20,36 @@ package com.panozona.modules.dropdown.model {
 	
 	import com.panozona.modules.dropdown.events.ElementEvent;
 	import com.panozona.modules.dropdown.model.structure.Element;
+	import com.panozona.modules.dropdown.model.structure.RawElement;
 	import flash.events.EventDispatcher;
 	
 	public class ElementData extends EventDispatcher{
 		
-		public static const STATE_PLAIN:String = "statePlain";
-		public static const STATE_HOVER:String = "stateHover";
-		public static const STATE_ACTIVE:String = "stateActive";
-		
-		private var _element:Element;
-		
-		private var _state:String = ElementData.STATE_PLAIN;
+		private var _isActive:Boolean;
 		private var _mouseOver:Boolean;
+		
+		private var _rawElement:RawElement;
+		
 		private var _width:Number;
 		
-		public function ElementData(element:Element) {
-			_element = element;
+		public function ElementData(rawElement:RawElement) {
+			_rawElement = rawElement;
 		}
 		
-		public function get element():Element { return _element;}
+		public function get rawElement():RawElement { return _rawElement;}
 		
-		public function get state():String { return _state;}
-		public function set state(value:String):void {
-			if (value == _state) return;
-			if (value == STATE_PLAIN || value == STATE_HOVER || value == STATE_ACTIVE) {
-				_state = value;
-				dispatchEvent(new ElementEvent(ElementEvent.CHANGED_STATE));
-			}
+		public function get width():Number { return _width;}
+		public function set width(value:Number):void {
+			if (value == _width) return;
+			_width = value;
+			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_WIDTH));
+		}
+		
+		public function get isActive():Boolean { return _isActive;}
+		public function set isActive(value:Boolean):void {
+			if (value == _isActive) return;
+			_isActive = value;
+			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_IS_ACTIVE));
 		}
 		
 		public function get mouseOver():Boolean { return _mouseOver;}
@@ -54,13 +57,6 @@ package com.panozona.modules.dropdown.model {
 			if (value == _mouseOver) return;
 			_mouseOver = value;
 			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_MOUSE_OVER));
-		}
-		
-		public function get width():Number { return _width;}
-		public function set width(value:Number):void {
-			if (value == _width) return;
-			_width = value;
-			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_WIDTH));
 		}
 	}
 }

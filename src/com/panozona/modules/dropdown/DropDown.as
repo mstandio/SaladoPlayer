@@ -18,9 +18,11 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.dropdown{
 	
-	import com.panozona.modules.dropdown.controller.BoxController;
+	import com.panozona.modules.dropdown.controller.WindowController;
 	import com.panozona.modules.dropdown.model.DropDownData;
-	import com.panozona.modules.dropdown.view.BoxView;
+	import com.panozona.modules.dropdown.model.structure.ExtraElement;
+	import com.panozona.modules.dropdown.view.ElementView;
+	import com.panozona.modules.dropdown.view.WindowView;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.Module;
 	
@@ -28,19 +30,46 @@ package com.panozona.modules.dropdown{
 		
 		private var dropDownData:DropDownData;
 		
-		private var boxView:BoxView;
-		private var boxController:BoxController;
+		private var windowView:WindowView;
+		private var windowController:WindowController;
 		
 		public function DropDown(){
-			super("DropDown", "1.1", "http://panozona.com/wiki/Module:DropDown");
+			super("DropDown", "1.2", "http://panozona.com/wiki/Module:DropDown");
+			moduleDescription.addFunctionDescription("setOpen", Boolean);
+			moduleDescription.addFunctionDescription("toggleOpen");
+			moduleDescription.addFunctionDescription("setActive", String, Boolean);
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			dropDownData = new DropDownData(moduleData, saladoPlayer);
 			
-			boxView = new BoxView(dropDownData);
-			boxController = new BoxController(boxView, this);
-			addChild(boxView);
+			windowView = new WindowView(dropDownData);
+			windowController = new WindowController(windowView, this);
+			addChild(windowView);
+		}
+		
+///////////////////////////////////////////////////////////////////////////////
+//  Exposed functions 
+///////////////////////////////////////////////////////////////////////////////
+		
+		public function setOpen(value:Boolean):void {
+			dropDownData.windowData.open = value;
+		}
+		
+		public function toggleOpen():void {
+			dropDownData.windowData.open = !dropDownData.windowData.open;
+		}
+		
+		public function setActive(id:String, active:Boolean):void {
+			var elementView:ElementView;
+			for (var i:int = 0; i < windowView.boxView.elementsContainer.numChildren; i++) {
+				elementView = windowView.boxView.elementsContainer.getChildAt(i) as ElementView;
+				if (elementView.elementData.rawElement is ExtraElement && (elementView.elementData.rawElement as ExtraElement).id == id) {
+					elementView.elementData.isActive = active;
+					return;
+				}
+			}
+			printWarning("ExtraElement not found: " + id);
 		}
 	}
 }

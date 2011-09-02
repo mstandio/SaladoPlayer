@@ -33,7 +33,7 @@
 				</map>
 			</maps>
 		</ImageMap>
-		<DropDown path="~modules/DropDown-1.1.swf">
+		<DropDown path="~modules/DropDown-1.2.swf">
 			<elements>
 				<element target="greenChecker" label="Green checker"/>
 				<element target="redChecker" label="Red checker"/>

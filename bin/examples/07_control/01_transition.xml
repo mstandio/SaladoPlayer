@@ -14,7 +14,7 @@
 		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml" direction="45"/>
 	</panoramas>
 	<modules>
-		<DropDown path="~modules/DropDown-1.1.swf">
+		<DropDown path="~modules/DropDown-1.2.swf">
 			<elements>
 				<element target="blueChecker" label="Blue checker"/>
 				<element target="redChecker" label="Red checker"/>

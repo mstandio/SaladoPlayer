@@ -40,23 +40,23 @@ package com.panozona.modules.dropdown.view{
 			
 			var textFormat:TextFormat = new TextFormat();
 			textFormat.blockIndent = 0;
-			textFormat.font = dropDownData.settings.style.fontFamily;
-			textFormat.bold = dropDownData.settings.style.fontBold;
-			textFormat.size = dropDownData.settings.style.fontSize;
-			textFormat.color = dropDownData.settings.style.fontColor;
-			textFormat.leftMargin = dropDownData.settings.style.fontSize * 0.3;
-			textFormat.rightMargin = dropDownData.settings.style.fontSize * 0.7;
+			textFormat.font = dropDownData.boxData.box.style.fontFamily;
+			textFormat.bold = dropDownData.boxData.box.style.fontBold;
+			textFormat.size = dropDownData.boxData.box.style.fontSize;
+			textFormat.color = dropDownData.boxData.box.style.fontColor;
+			textFormat.leftMargin = dropDownData.boxData.box.style.fontSize * 0.3;
+			textFormat.rightMargin = dropDownData.boxData.box.style.fontSize * 0.7;
 			
 			textField.defaultTextFormat = textFormat;
-			textField.text = elementData.element.label;
+			textField.text = elementData.rawElement.label;
 			textField.width = textField.textWidth + textFormat.leftMargin + textFormat.rightMargin;
 			textField.selectable = false;
 			textField.blendMode = BlendMode.LAYER;
 			textField.background = true;
-			textField.backgroundColor = dropDownData.settings.style.plainColor;
+			textField.backgroundColor = dropDownData.boxData.box.style.plainColor;
 			textField.border = true;
-			textField.borderColor = dropDownData.settings.style.borderColor;
-			textField.height = dropDownData.settings.style.fontSize * 1.4;
+			textField.borderColor = dropDownData.boxData.box.style.borderColor;
+			textField.height = dropDownData.boxData.box.style.fontSize * 1.4;
 			addChild(textField);
 			
 			elementData.width = textField.width;

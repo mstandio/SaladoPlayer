@@ -20,8 +20,6 @@ package com.panozona.modules.dropdown.model.structure {
 	
 	public class Style {
 		
-		public var opensUp:Boolean = true;
-		
 		public var fontFamily:String = "Tahoma";
 		public var fontBold:Boolean = true;
 		public var fontSize:Number = 20;

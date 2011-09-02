@@ -18,15 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.dropdown.model.structure{
 	
-	import com.panozona.player.module.data.structure.DataParent;
-	
-	public class Elements extends DataParent{
+	public class RawElement{
 		
-		override public function getChildrenTypes():Vector.<Class>{
-			var result:Vector.<Class> = new Vector.<Class>();
-			result.push(Element);
-			result.push(ExtraElement);
-			return result;
-		}
+		public var label:String = "";
 	}
 }

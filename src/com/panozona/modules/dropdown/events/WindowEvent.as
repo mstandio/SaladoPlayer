@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,19 +16,17 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.dropdown.model.structure{
+package com.panozona.modules.dropdown.events {
 	
-	import caurina.transitions.Equations;
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
-	import com.panozona.player.module.data.property.Tween;
+	import flash.events.Event;
 	
-	public class Settings {
-		public const move:Move = new Move(0, -10); // horizontal, vertical
-		public const align:Align = new Align(Align.CENTER, Align.BOTTOM); // horizontal , vertical
-		public const style:Style = new Style();
+	public class WindowEvent extends Event{
 		
-		public const unfoldTween:Tween = new Tween(Equations.easeNone, 0.25);
-		public const foldTween:Tween = new Tween(Equations.easeNone, 0.25);
+		public static const CHANGED_OPEN:String = "changedOpen";
+		public static const CHANGED_FINAL_SIZE:String = "changedFinalSize";
+		
+		public function WindowEvent(type:String){
+			super(type);
+		}
 	}
 }

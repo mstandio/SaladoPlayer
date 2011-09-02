@@ -100,7 +100,7 @@
 				<button id="mapIcon" path="~media/images/misc/imagemap_icon.png" align="vertical:top,horizontal:right" move="horizontal:-30,vertical:30" mouse="onClick:mapOpen"/>
 			</buttons>
 		</ImageButton>
-		<DropDown path="~modules/DropDown-1.1.swf">
+		<DropDown path="~modules/DropDown-1.2.swf">
 			<elements>
 				<element target="kiev" label="Kiev"/>
 				<element target="park" label="Park"/>

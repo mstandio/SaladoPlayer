@@ -18,9 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.dropdown.model.structure{
 	
-	public class Element {
+	public class Element extends RawElement{
 		
 		public var target:String = null;
-		public var label:String = "";
 	}
 }
