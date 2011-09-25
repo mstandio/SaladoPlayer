@@ -88,8 +88,8 @@ package com.panozona.modules.imagemap.controller{
 			deltaZoom = 0;
 			zoomActive = false;
 			
-			_viewerView.container.x = (_viewerView.containerMask.width -_viewerView.container.width) * 0.5;
-			_viewerView.container.y = (_viewerView.containerMask.height - _viewerView.container.height) * 0.5;
+			_viewerView.container.x = (_viewerView.containerMask.width -_viewerView.containerWidth) * 0.5;
+			_viewerView.container.y = (_viewerView.containerMask.height - _viewerView.containerHeight) * 0.5;
 			
 			if (_viewerView.viewerData.viewer.autofocusEnabled) {
 				handleFocusPointChange();
@@ -262,10 +262,10 @@ package com.panozona.modules.imagemap.controller{
 				}
 			}
 			if (_viewerView.container.x + deltaX < 0) {
-				if (_viewerView.container.x + deltaX > _viewerView.containerMask.width - _viewerView.container.width) {
+				if (_viewerView.container.x + deltaX > _viewerView.containerMask.width - _viewerView.containerWidth) {
 					_viewerView.container.x += deltaX;
 				}else {
-					_viewerView.container.x = _viewerView.containerMask.width - _viewerView.container.width;
+					_viewerView.container.x = _viewerView.containerMask.width - _viewerView.containerWidth;
 					deltaX = 0;
 					focusX = NaN;
 				}
@@ -275,10 +275,10 @@ package com.panozona.modules.imagemap.controller{
 				focusX = NaN;
 			}
 			if (_viewerView.container.y + deltaY < 0) {
-				if (_viewerView.container.y + deltaY > _viewerView.containerMask.height - _viewerView.container.height) {
+				if (_viewerView.container.y + deltaY > _viewerView.containerMask.height - _viewerView.containerHeight) {
 					_viewerView.container.y += deltaY;
 				}else {
-					_viewerView.container.y = _viewerView.containerMask.height - _viewerView.container.height;
+					_viewerView.container.y = _viewerView.containerMask.height - _viewerView.containerHeight;
 					deltaY = 0;
 					focusY = NaN;
 				}

@@ -66,11 +66,13 @@ package com.panozona.modules.imagemap.view {
 		public function radarFirst():void {
 			addChild(button);
 			addChild(radar);
+			(parent as Sprite).addChildAt(this, (parent as Sprite).numChildren - 1);
 		}
 		
 		public function buttonFirst():void {
 			addChild(radar);
 			addChild(button);
+			(parent as Sprite).addChildAt(this, 0);
 		}
 		
 		private function mouseOver(e:Event):void {

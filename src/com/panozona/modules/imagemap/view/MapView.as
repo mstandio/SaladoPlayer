@@ -26,6 +26,7 @@ package com.panozona.modules.imagemap.view {
 	public class MapView extends Sprite {
 		
 		public const waypointsContainer:Sprite = new Sprite();
+		public const radarContainer:Sprite = new Sprite();
 		
 		private var _content:DisplayObject;
 		private var _imageMapData:ImageMapData;
@@ -38,6 +39,10 @@ package com.panozona.modules.imagemap.view {
 		
 		public function get imageMapData():ImageMapData {
 			return _imageMapData;
+		}
+		
+		public function get content():DisplayObject {
+			return _content;
 		}
 		
 		public function set content(value:DisplayObject):void {

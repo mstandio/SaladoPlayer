@@ -189,6 +189,20 @@ package com.panozona.modules.imagemap.view{
 			return _mapView;
 		}
 		
+		public function get containerWidth():Number {
+			if (_mapView.content != null) {
+				return _mapView.content.width * container.scaleX;
+			}
+			return container.width;
+		}
+		
+		public function get containerHeight():Number {
+			if (_mapView.content != null) {
+				return _mapView.content.height * container.scaleY;
+			}
+			return container.height;
+		}
+		
 		private function navLeft(e:Event):void {
 			viewerData.moveLeft = true; 
 			bitmapMove.bitmapData = new EmbededGraphics.BitmapMoveLeft().bitmapData;
