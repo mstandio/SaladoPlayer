@@ -1,0 +1,41 @@
+﻿/*
+Copyright 2011 Marek Standio.
+
+This file is part of DIY streetview player.
+
+SaladoPlayer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published
+by the Free Software Foundation, either version 3 of the License,
+or (at your option) any later version.
+
+SaladoPlayer is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
+*/
+package org.diystreetview.player.manager.utils.loading {
+	
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+	
+	public class URLLoader_ extends URLLoader{
+		
+		private var _urlRequest:URLRequest;
+		
+		public function URLLoader_(request:URLRequest = null){
+			_urlRequest = request;
+		}
+		
+		override public function load(request:URLRequest):void {
+			_urlRequest = request;
+			super.load(request);
+		}
+		
+		public function get urlRequest():URLRequest {
+			return _urlRequest;
+		}
+	}
+}

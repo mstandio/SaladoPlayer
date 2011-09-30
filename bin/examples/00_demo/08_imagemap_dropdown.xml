@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
+		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
+	</panoramas>
+	<modules>
+		<DropDown path="~modules/DropDown-1.2.swf">
+			<window align="horizontal:right,vertical:top" move="vertical:30,horizontal:-180" transition="type:slideRight"/>
+			<box opensUp="false" style="fontFamily:Arial,fontSize:15,fontColor:#949694,plainColor:#f7f7f7,hoverColor:#ddd3dd,activeColor:#ddd3dd,borderColor:#949694"/>
+			<elements>
+				<extraElement id="map1_label" label="Impact" action="setMap1"/>
+				<extraElement id="map2_label" label="Galaxy" action="setMap2"/>
+			</elements>
+		</DropDown>
+		<ImageMap path="~modules/ImageMap-1.2.swf">
+			<window onOpen="onMapOpen" onClose="onMapClose"/>
+			<maps>
+				<map id="map1" path="~media/images/maps/map_1.jpg" onSet="onSetMap1">
+					<waypoint target="greenChecker" position="x:150,y:100"/>
+				</map>
+				<map id="map2" path="~media/images/maps/map_2.jpg" onSet="onSetMap2">
+					<waypoint target="redChecker" position="x:250,y:200"/>
+				</map>
+			</maps>
+		</ImageMap>
+		<ButtonBar path="~modules/ButtonBar-1.2.swf">
+			<buttons path="~modules/images/buttonbar/buttons_30x30_black.png">
+				<extraButton name="b" action="mapToggle"/>
+			</buttons>
+		</ButtonBar>
+	</modules>
+	<actions>
+		<action id="setMap1" content="ImageMap.setMap(map1)"/>
+		<action id="setMap2" content="ImageMap.setMap(map2)"/>
+		<action id="onSetMap1" content="DropDown.setActive(map1_label,true);DropDown.setActive(map2_label,false)"/>
+		<action id="onSetMap2" content="DropDown.setActive(map2_label,true);DropDown.setActive(map1_label,false)"/>
+		<action id="mapToggle" content="ImageMap.toggleOpen()"/>
+		<action id="onMapOpen" content="DropDown.setOpen(true)"/>
+		<action id="onMapClose" content="DropDown.setOpen(false)"/>
+	</actions>
+</SaladoPlayer>

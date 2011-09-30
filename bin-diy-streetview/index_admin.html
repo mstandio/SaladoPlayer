@@ -1,0 +1,127 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<title>DIY streetview player ADMIN MODE</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+		<script type="text/javascript" src="embed/calls_and_callbacks.js"></script>
+		<script type="text/javascript" src="embed/swfobject.js"></script>
+		<script type="text/javascript">
+			var flashvars = {};
+			flashvars.xml = "settings-admin.xml";
+			var params = {};
+			params.play = "true";
+			params.loop = "false";
+			params.menu = "false";
+			params.quality = "high";
+			params.scale = "showall";
+			params.salign = "";
+			params.wmode = "window";
+			params.bgcolor = "#FFFFFF";
+			params.devicefont = "false";
+			params.allowfullscreen = "true";
+			params.allowscriptaccess = "sameDomain";
+			var attributes = {};
+			swfobject.embedSWF("DiyStreetviewPlayer-1.2.5.swf", "DIY_streetview_player", "100%", "100%", "10.0.0", "embed/expressInstall.swf", flashvars, params, attributes);
+		</script>
+
+	<script type="text/javascript" src="scripts/OpenLayers.js"></script>
+	<script type="text/javascript" src="scripts/OpenStreetMap.js"></script>
+	<script type="text/javascript">
+			var map, layer, spot=1;
+
+// Source: http://wiki.openstreetmap.org/wiki/User:MHohmann 
+		function init()
+		{
+			// First of all, we need to create the map.
+			map = new OpenLayers.Map ("map1", {
+				controls:[
+					new OpenLayers.Control.Navigation(),
+					new OpenLayers.Control.PanZoomBar(),
+					new OpenLayers.Control.LayerSwitcher(),
+//					new OpenLayers.Control.Attribution()
+					],
+				maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
+				maxResolution: 156543.0399,
+				numZoomLevels: 19,
+				units: 'm',
+				projection: new OpenLayers.Projection("EPSG:900913"),
+				displayProjection: new OpenLayers.Projection("EPSG:4326")
+			} );
+ 
+			// Add the base layers.
+			map.addLayer(new OpenLayers.Layer.OSM.Mapnik("Mapnik"));
+			map.addLayer(new OpenLayers.Layer.OSM.Osmarender("Osmarender"));
+ 
+			// This will enable us to autozoom the map to the displayed data.
+			var dataExtent;
+			var setExtent = function()
+			{
+				if(dataExtent)
+					dataExtent.extend(this.getDataExtent());
+				else
+					dataExtent = this.getDataExtent();
+				map.zoomToExtent(dataExtent);
+			};
+ 
+			// Now add a layer for the GPX data. The file "map_data.txt" contains some GPX data.
+			var lgpx = new OpenLayers.Layer.GML("Panorama", 
+					"./map_data.txt",{
+					format: OpenLayers.Format.Text,
+				projection: new OpenLayers.Projection("EPSG:4326")
+			});
+ 
+			// This will perform the autozoom as soon as the GPX file is loaded.
+			lgpx.events.register("loadend", lgpx, setExtent);
+			map.addLayer(lgpx);
+ 
+			// When clicking a red icon on the map, show the streetview in the DIY streetview player
+			function showstreetview(feature) {
+				var str=feature.attributes.filename.slice(0, - 4)
+				// alert('str: ' + str);
+				callPano(str);
+			}
+ 
+			// This feature connects the click events to the functions defined above, such that they are invoked when the user clicks on the map.
+			var selcontrol = new OpenLayers.Control.SelectFeature(lgpx, {
+				onSelect: showstreetview,
+				// onUnselect: destroyPopup
+			});
+			map.addControl(selcontrol);
+			selcontrol.activate();
+ 
+			// Finally, center the map - this will activate the autozoom / autocenter feature.
+			if(!map.getCenter())
+				map.setCenter(null, null);
+		}
+	</script>
+	</head>
+
+	<body onload="init();">
+
+	<div style="position:absolute;left:20px;top:20px;width: 800px; height: 400px;">
+			<div id="DIY_streetview_player">
+				<!--
+				<a href="http://www.adobe.com/go/getflashplayer">
+					<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
+				</a>
+				-->
+			</div>
+	</div>
+
+<div style="position:absolute;right:20px;top:20px;width: 400px; height: 400px; border: 1px solid black;" id="map1"></div>
+<div style="position:absolute;right:20px;bottom:20px;width: 20%; height: 20%;" id="map2"></div>
+
+<div style="position:absolute;left:20px;bottom:50px;width: 20%; height: 20%;" id="buttons">
+	<form name="a_form">
+		<input type="text" id="a_tbox" name="a_tbox" value="" />
+		<input type="text" id="b_tbox" name="b_tbox" value="" />
+	</form>
+<div id="nation">nation data here</div>
+<div id="country">country data here</div>
+<div id="town">town data here</div>
+<div id="street">street data here</div>
+</div>
+
+
+	</body>
+</html>

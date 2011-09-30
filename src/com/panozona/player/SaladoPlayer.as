@@ -83,6 +83,10 @@ package com.panozona.player {
 			autorotationCamera = new AutorotationCamera();
 			simpleTransition = new SimpleTransition();
 			nanny = new Nanny();
+			//init() // midification made for DIY streetview player, make it work by add
+		}
+		
+		protected function init():void {
 			
 			traceWindow.printLink(manager.description.homeUrl, manager.description.name+" "+manager.description.version);
 			
