@@ -29,7 +29,6 @@ package com.panozona.modules.dropdown.model.structure{
 		
 		public const align:Align = new Align(Align.CENTER, Align.BOTTOM);
 		public const move:Move = new Move(0, -10);
-		//public const size:Size = new Size(400, 300);
 		
 		public var alpha:Number = 1.0;
 		
