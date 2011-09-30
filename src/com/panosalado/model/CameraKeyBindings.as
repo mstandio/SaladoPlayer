@@ -21,11 +21,14 @@ package com.panosalado.model {
 	import flash.ui.Keyboard;
 	
 	final public class CameraKeyBindings{
-		public static const UP:uint = Keyboard.UP;
-		public static const DOWN:uint = Keyboard.DOWN;
+		public static const UP:uint = Keyboard.F14;
+		public static const DOWN:uint = Keyboard.F15;
 		public static const LEFT:uint = Keyboard.LEFT;
 		public static const RIGHT:uint = Keyboard.RIGHT;
 		public static const IN:uint = Keyboard.SHIFT;
 		public static const OUT:uint = Keyboard.CONTROL;
+		
+		public static const FORWARD:uint  = Keyboard.UP;
+		public static const BACKWARD:uint = Keyboard.DOWN;
 	}
 }

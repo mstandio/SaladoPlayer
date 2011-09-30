@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of DIY streetview player.
@@ -16,12 +16,11 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package org.diystreetview.player.manager.data.diystreetview{
+package org.diystreetview.player.manager.data.diystreetview {
 	
-	public class LocationData {
+	public class Settings{
 		
-		public var directory:String;
-		public var prefix:String;
-		public var hotspot:String;
+		public const params:DsvParams = new DsvParams();
+		public var hotspots:String;
 	}
 }

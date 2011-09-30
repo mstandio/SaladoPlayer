@@ -23,12 +23,12 @@
 			var attributes = {};
 			swfobject.embedSWF("DiyStreetviewPlayer-1.2.5.swf", "DIY_streetview_player", "100%", "100%", "10.0.0", "embed/expressInstall.swf", flashvars, params, attributes);
 		</script>
-
+		
 	<script type="text/javascript" src="scripts/OpenLayers.js"></script>
 	<script type="text/javascript" src="scripts/OpenStreetMap.js"></script>
 	<script type="text/javascript">
 			var map, layer, spot=1;
-
+			
 // Source: http://wiki.openstreetmap.org/wiki/User:MHohmann 
 		function init()
 		{
@@ -47,11 +47,11 @@
 				projection: new OpenLayers.Projection("EPSG:900913"),
 				displayProjection: new OpenLayers.Projection("EPSG:4326")
 			} );
- 
+			
 			// Add the base layers.
 			map.addLayer(new OpenLayers.Layer.OSM.Mapnik("Mapnik"));
 			map.addLayer(new OpenLayers.Layer.OSM.Osmarender("Osmarender"));
- 
+			
 			// This will enable us to autozoom the map to the displayed data.
 			var dataExtent;
 			var setExtent = function()
@@ -62,25 +62,25 @@
 					dataExtent = this.getDataExtent();
 				map.zoomToExtent(dataExtent);
 			};
- 
+			
 			// Now add a layer for the GPX data. The file "map_data.txt" contains some GPX data.
 			var lgpx = new OpenLayers.Layer.GML("Panorama", 
 					"./map_data.txt",{
 					format: OpenLayers.Format.Text,
 				projection: new OpenLayers.Projection("EPSG:4326")
 			});
- 
+			
 			// This will perform the autozoom as soon as the GPX file is loaded.
 			lgpx.events.register("loadend", lgpx, setExtent);
 			map.addLayer(lgpx);
- 
+			
 			// When clicking a red icon on the map, show the streetview in the DIY streetview player
 			function showstreetview(feature) {
 				var str=feature.attributes.filename.slice(0, - 4)
 				// alert('str: ' + str);
 				callPano(str);
 			}
- 
+			
 			// This feature connects the click events to the functions defined above, such that they are invoked when the user clicks on the map.
 			var selcontrol = new OpenLayers.Control.SelectFeature(lgpx, {
 				onSelect: showstreetview,
@@ -88,16 +88,16 @@
 			});
 			map.addControl(selcontrol);
 			selcontrol.activate();
- 
+			
 			// Finally, center the map - this will activate the autozoom / autocenter feature.
 			if(!map.getCenter())
 				map.setCenter(null, null);
 		}
 	</script>
 	</head>
-
+	
 	<body onload="init();">
-
+	
 	<div style="position:absolute;left:20px;top:20px;width: 800px; height: 400px;">
 			<div id="DIY_streetview_player">
 				<!--
@@ -107,23 +107,21 @@
 				-->
 			</div>
 	</div>
-
+	
 <div style="position:absolute;right:20px;top:20px;width: 400px; height: 400px; border: 1px solid black;" id="map1"></div>
 <div style="position:absolute;right:20px;bottom:20px;width: 20%; height: 20%;" id="map2"></div>
-
+	
 <!-- <div style="position:absolute;left:20px;bottom:50px;width: 20%; height: 20%;" id="buttons">
 	<form name="a_form">
 		<input type="text" id="a_tbox" name="a_tbox" value="" />
 		<input type="text" id="b_tbox" name="b_tbox" value="" />
 	</form>
-
+	
 	<div id="nation">nation data here</div>
 	<div id="country">country data here</div>
 	<div id="town">town data here</div>
 	<div id="street">street data here</div>
 </div>
 -->
-
-
 	</body>
 </html>

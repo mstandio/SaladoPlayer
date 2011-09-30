@@ -21,6 +21,9 @@ package org.diystreetview.player.manager.utils{
 	public class UrlParser {
 		
 		public var pano:String;
+		public var pan:Number;
+		public var tilt:Number;
+		public var fov:Number;
 		
 		public function UrlParser (url:String) {
 			if(url != null && url.length>0){
@@ -31,9 +34,20 @@ package org.diystreetview.player.manager.utils{
 					var temp:Array;
 					for each(var setting:String in settings){
 						temp = setting.split("=");
-						if (temp[0] == "pano")
+						if (temp[0] == "pano"){
 							pano = (temp[1]);
-							return;
+						}else if (temp[0] == "cam"){
+							temp = temp[1].split(",");
+							if (temp.length > 0) {
+								pan = temp[0];
+							}
+							if (temp.length > 1) {
+								tilt = temp[1];
+							}
+							if (temp.length > 2) {
+								fov = temp[2];
+							}
+							continue;
 						}
 					}
 				}

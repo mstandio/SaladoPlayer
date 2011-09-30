@@ -18,9 +18,12 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package org.diystreetview.player.manager.data.diystreetview{
 	
-	public class DiyStreetviewData {
+	public class DsvParams{
 		
-		public const resources:Resources = new Resources();
-		public const settings:Settings = new Settings();
+		public var maxFov:Number;
+		public var minFov:Number;
+		
+		public var maxVerticalFov:Number;
+		public var minVerticlaFov:Number;
 	}
 }

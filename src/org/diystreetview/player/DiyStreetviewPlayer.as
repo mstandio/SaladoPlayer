@@ -19,14 +19,19 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package org.diystreetview.player{
 	
 	import com.panozona.player.manager.events.ConfigurationEvent;
+	import com.panozona.player.manager.events.LoadLoadableEvent;
+	import com.panozona.player.manager.utils.loading.ILoadable;
+	import com.panozona.player.manager.utils.loading.LoadablesLoader;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.SaladoPlayer;
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.utils.ByteArray;
 	import org.diystreetview.controller.DsvKeyboardCamera;
 	import org.diystreetview.player.manager.data.DsvManagerData;
 	import org.diystreetview.player.manager.DsvManager;
 	import org.diystreetview.player.manager.utils.configuration.DsvManagerDataParserXML;
+	import org.diystreetview.player.manager.utils.configuration.DsvManagerDataValidator;
 	
 	[SWF(width="500", height="375", frameRate="30", backgroundColor="#FFFFFF")] // default size is mandatory
 	
@@ -53,7 +58,7 @@ package org.diystreetview.player{
 				return;
 			}
 			
-			var managerDataParserXML:ManagerDataParserXML = new DsvManagerDataParserXML(); // use custom parser
+			var managerDataParserXML:DsvManagerDataParserXML = new DsvManagerDataParserXML(); // use custom parser
 			managerDataParserXML.addEventListener(ConfigurationEvent.INFO, printConfigurationMessage, false, 0, true);
 			managerDataParserXML.addEventListener(ConfigurationEvent.WARNING, printConfigurationMessage, false, 0, true);
 			managerDataParserXML.addEventListener(ConfigurationEvent.ERROR, printConfigurationMessage, false, 0, true);

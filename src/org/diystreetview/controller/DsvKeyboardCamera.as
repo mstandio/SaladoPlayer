@@ -34,7 +34,6 @@ package org.diystreetview.controller{
 					(_viewData as DsvManager).clickBackwardHotspot();
 				break;
 			}
-			
 			super.keyDownEvent(event);
 		}
 	}

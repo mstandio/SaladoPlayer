@@ -22,7 +22,8 @@ package org.diystreetview.player.manager.data.panoramas {
 	
 	public class DsvPanoramaData extends PanoramaData{
 		
-		public function DsvPanoramaData(){
-			super();
+		public function DsvPanoramaData(id:String, path:String){
+			super(id, path);
 		}
 	}
+}

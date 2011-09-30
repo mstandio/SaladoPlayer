@@ -16,10 +16,9 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package org.diystreetview.player.manager{
+package org.diystreetview.player.manager {
 	
 	import com.panozona.player.manager.data.actions.ActionData;
-	import com.panozona.player.manager.data.panoramas.HotspotData;
 	import com.panozona.player.manager.data.panoramas.PanoramaData;
 	import com.panozona.player.manager.Manager;
 	import com.panozona.player.manager.utils.Trace;
@@ -30,19 +29,15 @@ package org.diystreetview.player.manager{
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 	import org.diystreetview.player.manager.data.actions.DsvActionData;
-	import org.diystreetview.player.manager.data.panoramas.DsvHotspotData;
 	import org.diystreetview.player.manager.data.DsvManagerData;
+	import org.diystreetview.player.manager.data.panoramas.DsvHotspotData;
 	import org.diystreetview.player.manager.data.panoramas.DsvPanoramaData;
 	import org.diystreetview.player.manager.utils.loading.URLLoader_;
 	import org.diystreetview.player.manager.utils.UrlParser;
 	
-	public class DsvManager extends com.panozona.player.manager.Manager{
+	public class DsvManager extends com.panozona.player.manager.Manager {
 		
 		private var xmlLoader:URLLoader_;
-		private var urlParser:UrlParser;
-		
-		private var _previusDirection:Number = 0;
-		private var _currentDirection:Number = 0;
 		
 		private var calledPano:String;
 		private var panoWasLoaded:Boolean;
@@ -53,47 +48,59 @@ package org.diystreetview.player.manager{
 			addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
 		}
 		
+		private var tmpPan:Number;
+		private var tmpTilt:Number;
+		private var tmpfov:Number;
+		private function onEnterFrame(e:Event):void {
+			if (tmpPan == Math.round(pan) && tmpTilt == Math.round(tilt) && tmpfov == Math.round(fieldOfView)) return;
+			tmpPan = Math.round(pan);
+			tmpTilt = Math.round(tilt);
+			tmpfov = Math.round(fieldOfView);
+			ExternalInterface.call("viewChanged", tmpPan, tmpTilt, tmpfov);
+		}
+		
+		override protected function panoramaLoaded(e:Event):void {
+			super.panoramaLoaded(e);
+			ExternalInterface.call("viewChanged", Math.round(pan), Math.round(tilt), Math.round(fieldOfView));
+		}
+		
 		private function callPano(panoIdentifyier:String):void {
 			if (!panoWasLoaded){
 				calledPano = panoIdentifyier;
 				return;
 			}
-			var panoramaData:PanoramaData = new PanoramaData();
-			panoramaData.path = panoIdentifyier + ".xml";
-			panoramaData.id = "jscall";
+			var panoramaData:DsvPanoramaData = new DsvPanoramaData(panoIdentifyier, panoIdentifyier + ".xml" );
 			_managerData.panoramasData.push(panoramaData);
-			loadPano("jscall");
+			loadPano(panoIdentifyier);
 		}
 		
 		// this is starting point 
 		override public function loadFirstPanorama():void {
-			
 			panoWasLoaded = true;
-			
 			// if javascript was called 
 			if (calledPano != null){
 				callPano(calledPano);
 				calledPano = null;
 			}
-			
 			try {
 				// checks if there is data in url (for instance [...]/index.html?pano=1281729751-472798&pan=90&tilt=20&fov=60)
-				urlParser = new UrlParser(ExternalInterface.call("window.location.href.toString"));
+				var urlParser:UrlParser = new UrlParser(ExternalInterface.call("window.location.href.toString"));
 				if(urlParser.pano != null){
-					var panoramaData:PanoramaData = new PanoramaData();
-					panoramaData.path = urlParser.pano + ".xml";
-					panoramaData.id = "url";
+					var panoramaData:DsvPanoramaData = new DsvPanoramaData(urlParser.pano, urlParser.pano + ".xml");
+					panoramaData.params.pan = urlParser.pan;
+					panoramaData.params.tilt = urlParser.tilt;
+					panoramaData.params.fov = urlParser.fov;
 					_managerData.panoramasData.push(panoramaData);
-					loadPano("url");
+					loadPano(urlParser.pano);
 				// otherwise it reads "start" pano from configuration
 				}else {
-					if(_managerData.getPanoramaDataById("start") != null){
+					if(_managerData.getPanoramaDataById() != null){
 						loadPano("start");
 					}
 				}
 				// if there is no "start" panorama it waits for externalinterface callback for panorama id
 			}catch (error:Error) {
-				Trace.instance.printError("Invalid url configuration: "+error.message);
+				Trace.instance.printError("Invalid url configuration: " + error.message);
 			}
 		}
 		
@@ -103,9 +110,9 @@ package org.diystreetview.player.manager{
 			try {
 				xmlLoader.addEventListener(IOErrorEvent.IO_ERROR, xmlLost, false, 0, true);
 				xmlLoader.addEventListener(Event.COMPLETE, xmlLoaded, false, 0, true);
-				xmlLoader.load( new URLRequest(buildPath(_managerData.getPanoramaDataById(panoramaId).path)));
+				xmlLoader.load( new URLRequest(buildPath(_managerData.getPanoramaDataById(panoramaId).params.path)));
 			}catch (error:Error) {
-				Trace.instance.printError("Failed to load configuration file: " + xmlLoader.urlRequest.url);
+				Trace.instance.printError("Security error, cannot access local resources: " + xmlLoader.urlRequest.url);
 				trace(error.getStackTrace());
 			}
 		}
@@ -113,7 +120,7 @@ package org.diystreetview.player.manager{
 		private function xmlLost(error:IOErrorEvent):void {
 			xmlLoader.removeEventListener(IOErrorEvent.IO_ERROR, xmlLost);
 			xmlLoader.removeEventListener(Event.COMPLETE, xmlLoaded);
-			Trace.instance.printError("Failed to load configuration file: "+xmlLoader.urlRequest.url);
+			Trace.instance.printError("Failed to load configuration file: " + xmlLoader.urlRequest.url);
 		}
 		
 		private function xmlLoaded(event:Event):void {
@@ -121,14 +128,15 @@ package org.diystreetview.player.manager{
 			try {input.uncompress()}catch (error:Error) {}
 			try {
 				var panoxml:XML = XML(input);
-				var panoramaData:PanoramaData;
+				var panoramaData:DsvPanoramaData;
+				
+				
+				/*
 				_previusDirection = _currentDirection;
 				_currentDirection = Number(panoxml.pano.@direction);
 				
 				// create first and main panorama
-				panoramaData = new PanoramaData();
-				panoramaData.id = "main"; // or whatever, it just needs to be first
-				panoramaData.path = (event.target as URLLoader_).urlRequest.url.replace(".xml", "_f.xml");
+				panoramaData = new DsvPanoramaData("main", (event.target as URLLoader_).urlRequest.url.replace(".xml", "_f.xml"));
 				panoramaData.label = extractFromPath(panoramaData.path);
 				panoramaData.params.pan = pan - (_previusDirection - _currentDirection);
 				
@@ -140,12 +148,7 @@ package org.diystreetview.player.manager{
 				for (var cleanedPanoramaData:PanoramaData in _managerData.panoramasData) {
 					
 				}
-				if(urlParser!=null){
-					panoramaData.params.pan = urlParser.pan;
-					panoramaData.params.tilt = urlParser.tilt;
-					panoramaData.params.fov = urlParser.fov;
-					urlParser = null;
-				}
+				
 				_managerData.panoramasData.push(panoramaData);
 				
 				var mainGpsData:GpsData = new GpsData();
@@ -163,7 +166,7 @@ package org.diystreetview.player.manager{
 				var hotspotDistanceAway:Number;
 				
 				for each(var neighbour:XML in panoxml.neighbours.children()){
-					hotspotData = new com.diystreetview.player.manager.data.hotspot.HotspotData(neighbour.@path);
+					hotspotData = new DsvHotspotData("?", neighbour.@path);
 					hotspotData.id = String(counter);
 					hotspotData.path = (_managerData as ManagerData).locationData.hotspot;
 					
@@ -197,20 +200,18 @@ package org.diystreetview.player.manager{
 					_managerData.panoramasData[0].hotspotsData.push(hotspotData);
 					
 					// create neighbour panoramas 
-					panoramaData = new DsvPanoramaData();
-					panoramaData.id = String(counter);
-					panoramaData.path = neighbour.@path;
+					panoramaData = new DsvPanoramaData(String(counter), neighbour.@path);
 					_managerData.panoramasData.push(panoramaData);
 					
 					counter++;
 				}
 				
-				_managerData.populateGlobalParams();
+				//_managerData.populateGlobalParams();
 				
 				super.loadPanoramaById(_managerData.panoramasData[0].id);
 				
-				ExternalInterface.call("panoChanged", _managerData.panoramasData[0].label);
-				
+				ExternalInterface.call("panoChanged", _managerData.panoramasData[0].id);
+				*/
 			}catch (error:Error) {
 				Trace.instance.printError("Error in new configuration file structure: " + error.message);
 				trace(error.getStackTrace());
@@ -220,32 +221,32 @@ package org.diystreetview.player.manager{
 		private function buildPath(path:String):String {
 			var name:String = path.substr(0, path.lastIndexOf("."));
 			var result:String = "";
-			result += (_managerData as ManagerData).diyStreetviewData.locationData.directory;
-			if ((_managerData as ManagerData).diyStreetviewData.locationData.prefix != null) {
-				result += (_managerData as ManagerData).locationData.prefix;
+			result += (_managerData as DsvManagerData).diyStreetviewData.resources.directory;
+			if ((_managerData as DsvManagerData).diyStreetviewData.resources.prefix != null) {
+				result += (_managerData as DsvManagerData).diyStreetviewData.resources.prefix;
 			}
 			result += name +"/" + path;
 			return result;
 		}
 		
-		private function cleanPanoramasData() {
+		private function cleanPanoramasData():void {
 			var tmpPanoramasData:Vector.<PanoramaData> = new Vector.<PanoramaData>();
-			for (var panoramaData:PanoramaData in _managerData.panoramasData) {
+			for each(var panoramaData:PanoramaData in _managerData.panoramasData) {
 				if (!panoramaData is DsvPanoramaData) {
 					tmpPanoramasData.push(panoramaData);
 				}
 			}
 			while (_managerData.panoramasData.length > 0) {
-					_managerData.panoramasData.pop();
+				_managerData.panoramasData.pop();
 			}
-			for (panoramaData in tmpPanoramasData) {
+			for each(panoramaData in tmpPanoramasData) {
 				_managerData.panoramasData.push(panoramaData);
 			}
 		}
 		
-		private function cleanActionsData() {
+		private function cleanActionsData():void {
 			var tmpActionsData:Vector.<ActionData> = new Vector.<ActionData>();
-			for (var actionData:ActionData in _managerData.actionsData) {
+			for each(var actionData:ActionData in _managerData.actionsData) {
 				if (!actionData is DsvActionData) {
 					tmpActionsData.push(actionData);
 				}
@@ -253,29 +254,13 @@ package org.diystreetview.player.manager{
 			while (_managerData.actionsData.length > 0) {
 				_managerData.actionsData.pop();
 			}
-			for (actiondata in tmpActionsData) {
+			for each(actionData in tmpActionsData) {
 				_managerData.actionsData.push(actionData);
 			}
 		}
 		
 		private function extractFromPath(path:String):String {
 			return path.substring(path.lastIndexOf("/")+1, path.lastIndexOf("_"));
-		}
-		
-		private var tmpPan:Number;
-		private var tmpTilt:Number;
-		private var tmpfov:Number;
-		private function onEnterFrame(e:Event):void {
-			if (tmpPan == Math.round(pan) && tmpTilt == Math.round(tilt) && tmpfov == Math.round(fieldOfView)) return;
-			tmpPan = Math.round(pan);
-			tmpTilt = Math.round(tilt);
-			tmpfov = Math.round(fieldOfView);
-			ExternalInterface.call("viewChanged", tmpPan, tmpTilt, tmpfov);
-		}
-		
-		override protected function panoramaLoaded(e:Event):void {
-			super.panoramaLoaded(e);
-			ExternalInterface.call("viewChanged", Math.round(pan), Math.round(tilt), Math.round(fieldOfView));
 		}
 		
 		private function distance(lat1:Number, lon1:Number, lat2:Number, lon2:Number, noAbs:Boolean = false):Number {
@@ -295,22 +280,12 @@ package org.diystreetview.player.manager{
 			return dist;
 		}
 		
-		private function deg2rad(deg:Number):Number {
-			return (deg * Math.PI / 180.0);
-		}
-		
-		private function rad2deg(rad:Number):Number {
-			return (rad / Math.PI * 180.0);
-		}
-		
 		public function clickForwardHotspot():void {
 			var minDistance:Number =  Number.POSITIVE_INFINITY;
-			var closestHotspot:org.diystreetview.player.manager.data.hotspot.HotspotData;
+			var closestHotspot:DsvHotspotData;
 			var distance:Number;
-			for each (var hotspotData:org.diystreetview.player.manager.data.hotspot.HotspotData 
-				in (_managerData.panoramasData[0] as PanoramaData).hotspotsData) {
-				
-				distance = Math.abs(_pan - hotspotData.position.pan);
+			for each (var hotspotData:DsvHotspotData in (_managerData.panoramasData[0] as PanoramaData).hotspotsData) {
+				distance = Math.abs(_pan - hotspotData.location.pan);
 				if (distance > 180) distance = 360 - distance;
 				if (distance < minDistance) {
 					closestHotspot = hotspotData;
@@ -324,14 +299,12 @@ package org.diystreetview.player.manager{
 		
 		public function clickBackwardHotspot():void {
 			var minDistance:Number =  Number.POSITIVE_INFINITY;
-			var closestHotspot:org.diystreetview.player.manager.data.hotspot.HotspotData;
+			var closestHotspot:DsvHotspotData;
 			var distance:Number;
 			var panReverse:Number = _pan - 180;
 			if ( panReverse <= -180 ) panReverse = (((panReverse + 180) % 360) + 180);
-			for each (var hotspotData:org.diystreetview.player.manager.data.hotspot.HotspotData 
-			in (_managerData.panoramasData[0] as PanoramaData).hotspotsData) {
-				
-				distance = Math.abs(panReverse - hotspotData.position.pan);
+			for each (var hotspotData:DsvHotspotData in (_managerData.panoramasData[0] as PanoramaData).hotspotsData) {
+				distance = Math.abs(panReverse - hotspotData.location.pan);
 				if (distance > 180) distance = 360 - distance;
 				if (distance < minDistance) {
 					closestHotspot = hotspotData;
@@ -341,6 +314,14 @@ package org.diystreetview.player.manager{
 			if (closestHotspot != null) {
 				runAction(closestHotspot.mouse.onClick);
 			}
+		}
+		
+		private function deg2rad(deg:Number):Number {
+			return (deg * Math.PI / 180.0);
+		}
+		
+		private function rad2deg(rad:Number):Number {
+			return (rad / Math.PI * 180.0);
 		}
 	}
 }

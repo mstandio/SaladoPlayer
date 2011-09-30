@@ -22,8 +22,8 @@ package org.diystreetview.player.manager.data.actions {
 	
 	public class DsvActionData extends ActionData{
 		
-		public function DsvActionData(){
-			super();
+		public function DsvActionData(id:String){
+			super(id);
 		}
 	}
 }

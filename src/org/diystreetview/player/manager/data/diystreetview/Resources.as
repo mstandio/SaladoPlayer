@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright 2011 Marek Standio.
 
 This file is part of DIY streetview player.
@@ -18,9 +18,10 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package org.diystreetview.player.manager.data.diystreetview{
 	
-	public class DiyStreetviewData {
+	public class Resources {
 		
-		public const resources:Resources = new Resources();
-		public const settings:Settings = new Settings();
+		public var directory:String;
+		public var prefix:String;
+		public var start:String;
 	}
 }

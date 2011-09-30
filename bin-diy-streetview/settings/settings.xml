@@ -1,39 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>
-	<global debug="false" transition="time:0.5" autorotation="enabled:false" mouseDrag="enabled:true" mouseInertial="enabled:false">
-		<branding visible="false"/>
-		<location directory="../../data/" hotspot="hotspots/arrow.png"/>
-	</global>
-	<panoramas>
-		<panorama id="start" path="000037.xml"/>
-	</panoramas>
+	<global debug="true" transition="time:0.5" autorotation="delay:600" mouseDrag="enabled:true" mouseInertial="enabled:false"/>
 	<modules>
-		<NavigationBar path="modules/NavigationBar.swf">
-			<buttons path="modules/images/buttons_30x30_blue.png">
-				<button name="autorotation" visible="false"/>
-				<button name="drag" visible="false"/>
-				<extraButton name="b" action="togglePermalink"/>
-				<extraButton name="c" action="showCeiling"/>
-				<extraButton name="d" action="showFloor"/>
+		<ButtonBar path="~modules/ButtonBar-1.2.swf">
+			<buttons path="~modules/images/buttonbar/buttons_40x40_black.png">
+				<button name="up"/>
+				<button name="down"/>
+				<button name="left"/>
+				<button name="right"/>
+				<button name="in"/>
+				<button name="out"/>
+				<button name="drag"/>
+				<button name="hotspots"/>
+				<button name="autorotation"/>
+				<button name="fullscreen"/>
 			</buttons>
-			<combobox visible="false"/>
-			<bar visible="false"/>
-		</NavigationBar>
-		<Permalink path="modules/Permalink.swf">
-			<settings extraButtonName="b" animation="slideUp"/>
-		</Permalink>
-		<ImageButton path="modules/ImageButton.swf">
+		</ButtonBar>
+		<ImageButton path="modules/ImageButton-1.2.swf">
 			<buttons>
-				<button id="logo" path="modules/images/logo.png" align="vertical:bottom" move="vertical:-5,horizontal:5">
+				<button id="logo" path="modules/images/imagebutton/diy-streetview-logo.png" align="vertical:bottom" move="vertical:-5,horizontal:5">
 					<![CDATA[http://www.diy-streetview.com/]]>
 				</button>
 			</buttons>
 		</ImageButton>
 	</modules>
 	<actions>
-		<action id="[hide]" content="DebugBubble.hideBubble()"/>
-		<action id="togglePermalink" content="Permalink.toggleVisibility()"/>
-		<action id="showCeiling" content="SaladoPlayer.jumpToView(NaN,90,NaN)"/>
-		<action id="showFloor" content="SaladoPlayer.jumpToView(NaN,-90,NaN)"/>
 	</actions>
+	<diystreetview>
+		<resources directory="../../../diynew/ata/" start="000037.xml"/>
+		<settings/>
+	</diystreetview>
 </SaladoPlayer>

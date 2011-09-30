@@ -21,8 +21,9 @@ package org.diystreetview.player.manager.utils.configuration{
 	import com.panozona.player.manager.events.ConfigurationEvent;
 	import com.panozona.player.manager.utils.configuration.ManagerDataParserXML;
 	import com.panozona.player.manager.data.ManagerData;
+	import org.diystreetview.player.manager.data.diystreetview.Settings;
 	import org.diystreetview.player.manager.data.diystreetview.DiyStreetviewData;
-	import org.diystreetview.player.manager.data.diystreetview.LocationData;
+	import org.diystreetview.player.manager.data.diystreetview.Resources;
 	import org.diystreetview.player.manager.data.DsvManagerData;
 	
 	public class DsvManagerDataParserXML extends ManagerDataParserXML {
@@ -67,27 +68,44 @@ package org.diystreetview.player.manager.utils.configuration{
 			var diyStreetviewChildNodeName:String;
 			for each(var diyStreetviewChildNode:XML in diyStreetviewNode.children()) {
 				diyStreetviewChildNodeName = diyStreetviewChildNode.localName();
-				if (diyStreetviewChildNodeName == "location") {
-					parseLocation(diyStreetviewData.locationData, diyStreetviewChildNode);
+				if (diyStreetviewChildNodeName == "resources") {
+					parseResources(diyStreetviewData.resources, diyStreetviewChildNode);
+				}else if (diyStreetviewChildNodeName == "settings") {
+					parseSettings(diyStreetviewData.settings, diyStreetviewChildNode);
 				}else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Unrecognized diystreetview node: " + diyStreetviewChildNodeName));
 				}
 			}
 		}
-		private function parseLocation(locationData:LocationData, locationNode:XML) :void {
-			var locationAttributeName:String;
-			for each(var locationAttribute:XML in locationNode.attributes()) {
-				locationAttributeName = locationAttribute.localName();
-				if (locationAttributeName == "directory") {
-					locationData.directory = getAttributeValue(locationAttribute, String);
-				}else if (locationAttributeName == "prefix") {
-					locationData.prefix = getAttributeValue(locationAttribute, String);
-				}else if (locationAttributeName == "hotspot") {
-					locationData.hotspot = getAttributeValue(locationAttribute, String);
+		private function parseResources(resources:Resources, resourcesNode:XML) :void {
+			var resourcesAttributeName:String;
+			for each(var resourcesAttribute:XML in resourcesNode.attributes()) {
+				resourcesAttributeName = resourcesAttribute.localName();
+				if (resourcesAttributeName == "directory") {
+					resources.directory = getAttributeValue(resourcesAttribute, String);
+				}else if (resourcesAttributeName == "prefix") {
+					resources.prefix = getAttributeValue(resourcesAttribute, String);
+				}else if (resourcesAttributeName == "start") {
+					resources.start = getAttributeValue(resourcesAttribute, String);
 				}else{
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-					"Unrecognized location attribute: " + locationAttributeName));
+					"Unrecognized resources attribute: " + resourcesAttributeName));
+				}
+			}
+		}
+		
+		private function parseSettings(settings:Settings, settingsNode:XML) :void {
+			var settingsAttributeName:String;
+			for each(var settingsAttribute:XML in settingsNode.attributes()) {
+				settingsAttributeName = settingsAttribute.localName();
+				if (settingsAttributeName == "camera") {
+					applySubAttributes(settings.params, settingsAttribute);
+				}else if (settingsAttributeName == "hotspots") {
+					settings.hotspots = getAttributeValue(settingsAttribute, String);
+				}else{
+					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
+					"Unrecognized settings attribute: " + settingsAttributeName));
 				}
 			}
 		}

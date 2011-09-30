@@ -18,6 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package org.diystreetview.player.manager.utils.configuration{
 	
+	import com.panozona.player.manager.data.ManagerData;
 	import com.panozona.player.manager.data.panoramas.PanoramaData;
 	import com.panozona.player.manager.events.ConfigurationEvent;
 	import com.panozona.player.manager.utils.configuration.ManagerDataValidator;
