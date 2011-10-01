@@ -126,13 +126,8 @@ package com.panozona.modules.imagemap.controller {
 				_tilt = _module.saladoPlayer.manager._tilt;
 			}
 			if (_pan != _module.saladoPlayer.manager._pan) {
-				if (isNaN(_waypointView.waypointData.waypoint.panShift)) {
-					_waypointView.radar.rotationZ = _module.saladoPlayer.manager._pan + currentDirection;
-				}else {
-					_waypointView.radar.rotationZ = _module.saladoPlayer.manager._pan + _waypointView.waypointData.waypoint.panShift;
-				}
+				_waypointView.radar.rotationZ = _module.saladoPlayer.manager._pan + currentDirection + _waypointView.waypointData.panShift;
 				_pan = _module.saladoPlayer.manager._pan;
-				
 				pan3 = pan2;
 				pan2 = pan1;
 				pan1 = _module.saladoPlayer.manager._pan;

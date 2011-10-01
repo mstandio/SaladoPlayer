@@ -18,6 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model {
 	
+	import com.panozona.modules.imagemap.model.structure.Close;
 	import com.panozona.modules.imagemap.model.structure.Map;
 	import com.panozona.modules.imagemap.model.structure.Waypoint;
 	import com.panozona.player.module.data.DataNode;
@@ -27,6 +28,7 @@ package com.panozona.modules.imagemap.model {
 	public class ImageMapData {
 		
 		public const windowData:WindowData = new WindowData();
+		public const close:Close = new Close();
 		public const viewerData:ViewerData = new ViewerData();
 		public const mapData:MapData = new MapData();
 		
@@ -35,6 +37,8 @@ package com.panozona.modules.imagemap.model {
 			for each(var dataNode:DataNode in moduleData.nodes) {
 				if (dataNode.name == "window") {
 					tarnslator.dataNodeToObject(dataNode, windowData.window);
+				}else if (dataNode.name == "close") {
+					tarnslator.dataNodeToObject(dataNode, close);
 				}else if (dataNode.name == "viewer") {
 					tarnslator.dataNodeToObject(dataNode, viewerData.viewer);
 				}else if (dataNode.name == "maps") {
@@ -47,6 +51,10 @@ package com.panozona.modules.imagemap.model {
 			windowData.open = windowData.window.open;
 			
 			if (saladoPlayer.managerData.debugMode) {
+				if (viewerData.viewer.moveEnabled || viewerData.viewer.zoomEnabled || viewerData.viewer.dragEnabled) {
+					if (viewerData.viewer.path == null || !viewerData.viewer.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i))
+						throw new Error("Invalid viewer path: " + viewerData.viewer.path);
+				}
 				if (windowData.window.onOpen != null && saladoPlayer.managerData.getActionDataById(windowData.window.onOpen) == null) {
 					throw new Error("Action does not exist: " + windowData.window.onOpen);
 				}

@@ -31,6 +31,9 @@ package com.panozona.modules.imagemap.model.structure{
 		public var id:String = null;
 		public var path:String = null;
 		public var initZoom:Number = 75;
+		public var maxZoom:Number = 2;
+		public var minZoom:Number = NaN;
+		public var panShift:Number = 0;
 		
 		public var onSet:String = null; // action id
 		

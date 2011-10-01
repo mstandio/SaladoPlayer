@@ -18,11 +18,12 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.view{
 	
-	import com.panozona.modules.imagemap.model.ViewerData;
-	import com.panozona.modules.imagemap.model.EmbededGraphics;
 	import com.panozona.modules.imagemap.model.ImageMapData;
+	import com.panozona.modules.imagemap.model.NavigationData;
+	import com.panozona.modules.imagemap.model.ViewerData;
 	import com.panozona.modules.imagemap.view.MapView;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -31,12 +32,17 @@ package com.panozona.modules.imagemap.view{
 		
 		public const containerMask:Sprite = new Sprite();
 		public const container:Sprite = new Sprite();
-		public const cursor:Bitmap = new Bitmap();
 		
-		private var navigationMove:Sprite;
-		private var navigationZoom:Sprite;
-		private var bitmapMove:Bitmap;
-		private var bitmapZoom:Bitmap;
+		public const cursor:Bitmap = new Bitmap();
+		private var _bitmapDataDrag:BitmapData;
+		private var _bitmapDataHover:BitmapData;
+		
+		public var navigationUp:NavigationView;
+		public var navigationDown:NavigationView;
+		public var navigationLeft:NavigationView;
+		public var navigationRight:NavigationView;
+		public var navigationIn:NavigationView;
+		public var navigationOut:NavigationView;
 		
 		private var _imageMapData:ImageMapData;
 		private var _mapView:MapView;
@@ -59,113 +65,18 @@ package com.panozona.modules.imagemap.view{
 			container.addChild(_mapView);
 			
 			if (_imageMapData.viewerData.viewer.moveEnabled){
-				
-				var navigationMove:Sprite = new Sprite(); // bitmap is square so it wont interact with mouse
-				bitmapMove = new Bitmap(new EmbededGraphics.BitmapMovePlain().bitmapData);
-				navigationMove.addChild(bitmapMove);
-				navigationMove.mouseEnabled = false;
-				navigationMove.x = navigationMove.y = 5; 
-				navigationMove.alpha = 1 / _imageMapData.windowData.window.alpha;
-				addChild(navigationMove);
-				
-				var moveLeft:Sprite = new Sprite();
-				moveLeft.graphics.beginFill(0x000000,0);
-				moveLeft.graphics.drawRect(0, 0, 18, 18);
-				moveLeft.graphics.endFill();
-				moveLeft.buttonMode = true;
-				moveLeft.x = 4;
-				moveLeft.y = (navigationMove.height - moveLeft.height) * 0.5;
-				navigationMove.addChild(moveLeft);
-				
-				moveLeft.addEventListener(MouseEvent.MOUSE_DOWN, navLeft, false, 0, true);
-				moveLeft.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
-				moveLeft.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
-				
-				var moveRight:Sprite = new Sprite();
-				moveRight.graphics.beginFill(0x000000,0);
-				moveRight.graphics.drawRect(0, 0, 18, 18);
-				moveRight.graphics.endFill();
-				moveRight.buttonMode = true;
-				moveRight.x = navigationMove.width - moveRight.width - 4;
-				moveRight.y = (navigationMove.height - moveLeft.height) * 0.5;
-				navigationMove.addChild(moveRight);
-				
-				moveRight.addEventListener(MouseEvent.MOUSE_DOWN, navRight, false, 0, true);
-				moveRight.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
-				moveRight.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
-				
-				var moveDown:Sprite = new Sprite();
-				moveDown.graphics.beginFill(0x000000,0);
-				moveDown.graphics.drawRect(0, 0, 18, 18);
-				moveDown.graphics.endFill();
-				moveDown.buttonMode = true;
-				moveDown.x = (navigationMove.width - moveDown.width) * 0.5;
-				moveDown.y = navigationMove.height - moveDown.height -3;
-				navigationMove.addChild(moveDown);
-				
-				moveDown.addEventListener(MouseEvent.MOUSE_DOWN, navDown, false, 0, true);
-				moveDown.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
-				moveDown.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
-				
-				var moveUp:Sprite = new Sprite();
-				moveUp.graphics.beginFill(0x000000,0);
-				moveUp.graphics.drawRect(0, 0, 18, 18);
-				moveUp.graphics.endFill();
-				moveUp.buttonMode = true;
-				moveUp.x = (navigationMove.width - moveUp.width) * 0.5;
-				moveUp.y = 3;
-				navigationMove.addChild(moveUp);
-				
-				moveUp.addEventListener(MouseEvent.MOUSE_DOWN, navUp, false, 0, true);
-				moveUp.addEventListener(MouseEvent.MOUSE_UP, navStop, false, 0, true);
-				moveUp.addEventListener(MouseEvent.ROLL_OUT, navStop, false, 0, true);
+				navigationLeft = new NavigationView(new NavigationData(navLeft, navStop), _imageMapData.viewerData);
+				navigationRight = new NavigationView(new NavigationData(navRight, navStop), _imageMapData.viewerData);
+				navigationUp = new NavigationView(new NavigationData(navUp, navStop), _imageMapData.viewerData);
+				navigationDown = new NavigationView(new NavigationData(navDown, navStop), _imageMapData.viewerData);
 			}
 			
 			if (_imageMapData.viewerData.viewer.zoomEnabled){
-				
-				navigationZoom = new Sprite();
-				bitmapZoom = new Bitmap(new EmbededGraphics.BitmapZoomPlain().bitmapData);
-				navigationZoom.addChild(bitmapZoom);
-				navigationZoom.alpha = 1 / _imageMapData.windowData.window.alpha;
-				addChild(navigationZoom);
-				
-				if (_imageMapData.viewerData.viewer.moveEnabled) {
-					navigationZoom.x = (navigationMove.width - navigationZoom.width) * 0.5 + navigationMove.x;
-					navigationZoom.y = navigationMove.y + navigationMove.height + 12; 
-				}else {
-					navigationZoom.x = 5;
-					navigationZoom.y = 5;
-				}
-				
-				var zoomIn:Sprite = new Sprite();
-				zoomIn.graphics.beginFill(0x000000,0);
-				zoomIn.graphics.drawRect(0, 0, 21, 20);
-				zoomIn.graphics.endFill();
-				zoomIn.buttonMode = true;
-				zoomIn.x = (navigationZoom.width - zoomIn.width) * 0.5;
-				zoomIn.y = 0;
-				navigationZoom.addChild(zoomIn);
-				
-				zoomIn.addEventListener(MouseEvent.MOUSE_DOWN, navZoomIn, false, 0, true);
-				zoomIn.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
-				zoomIn.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
-				
-				var zoomOut:Sprite = new Sprite();
-				zoomOut.graphics.beginFill(0x000000,0);
-				zoomOut.graphics.drawRect(0, 0, 21, 20);
-				zoomOut.graphics.endFill();
-				zoomOut.buttonMode = true;
-				zoomOut.x = (navigationZoom.width - zoomOut.width) * 0.5 ;
-				zoomOut.y = navigationZoom.height - zoomOut.height ;
-				navigationZoom.addChild(zoomOut);
-				
-				zoomOut.addEventListener(MouseEvent.MOUSE_DOWN, navZoomOut, false, 0, true);
-				zoomOut.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
-				zoomOut.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
+				navigationIn = new NavigationView(new NavigationData(navIn, navZoomStop), _imageMapData.viewerData);
+				navigationOut = new NavigationView(new NavigationData(navOut, navZoomStop), _imageMapData.viewerData);
 			}
 			
 			if (_imageMapData.viewerData.viewer.dragEnabled) {
-				cursor.bitmapData = new EmbededGraphics.BitmapCursorHandOpened().bitmapData;
 				cursor.alpha = 1 / _imageMapData.windowData.window.alpha;
 				cursor.visible = false;
 				addChild(cursor);
@@ -174,6 +85,48 @@ package com.panozona.modules.imagemap.view{
 				container.addEventListener(MouseEvent.MOUSE_DOWN, containerMouseDown, false, 0, true);
 				container.addEventListener(MouseEvent.ROLL_OUT, containerMouseOut, false, 0, true);
 				container.addEventListener(MouseEvent.MOUSE_UP, containerMouseUp, false, 0, true);
+			}
+		}
+		
+		public function placeNavigation():void {
+			var marginTop:Number = 5;
+			var marginLeft:Number = 5;
+			
+			if (_imageMapData.viewerData.viewer.moveEnabled) {
+				navigationUp.rotation = 0;
+				navigationLeft.rotation = -90;
+				navigationRight.rotation = 90;
+				navigationDown.rotation = 180;
+				navigationUp.x = navigationLeft.width - navigationUp.width * 0.5 + marginLeft;
+				navigationUp.y = marginTop;
+				navigationLeft.x = marginLeft;
+				navigationLeft.y = navigationLeft.height + navigationUp.y + navigationUp.height - 1;
+				navigationRight.x = navigationLeft.x + navigationLeft.width + navigationRight.width;
+				navigationRight.y = navigationUp.y + navigationUp.height - 1;
+				navigationDown.x = navigationDown.width + navigationUp.x;
+				navigationDown.y = navigationUp.y + navigationUp.height + navigationDown.height + navigationLeft.height - 2;
+				addChild(navigationUp);
+				addChild(navigationLeft);
+				addChild(navigationRight);
+				addChild(navigationDown);
+			}
+			
+			if (_imageMapData.viewerData.viewer.zoomEnabled) {
+				navigationIn.rotation = 0;
+				navigationOut.rotation = 180;
+				if (_imageMapData.viewerData.viewer.moveEnabled) {
+					navigationIn.x = navigationUp.x;
+					navigationIn.y = navigationUp.y + navigationUp.height + navigationLeft.height + navigationDown.height + marginTop;
+					navigationOut.x = navigationIn.x + navigationOut.width;
+					navigationOut.y = navigationIn.y + navigationOut.height + navigationIn.height - 1;
+				}else {
+					navigationIn.x = marginLeft;
+					navigationIn.y = marginTop;
+					navigationOut.x = navigationIn.x + navigationOut.width;
+					navigationOut.y = navigationIn.y + navigationOut.height + navigationIn.height - 1;
+				}
+				addChild(navigationIn);
+				addChild(navigationOut);
 			}
 		}
 		
@@ -203,48 +156,66 @@ package com.panozona.modules.imagemap.view{
 			return container.height;
 		}
 		
-		private function navLeft(e:Event):void {
-			viewerData.moveLeft = true; 
-			bitmapMove.bitmapData = new EmbededGraphics.BitmapMoveLeft().bitmapData;
+		public function set bitmapDataHover(value:BitmapData):void {
+			_bitmapDataHover = value;
+			if (!viewerData.mouseDrag) {
+				cursor.bitmapData = _bitmapDataHover;
+			}
 		}
 		
-		private function navRight(e:Event):void {
-			viewerData.moveRight = true; 
-			bitmapMove.bitmapData = new EmbededGraphics.BitmapMoveRight().bitmapData;
+		public function set bitmapDataDrag(value:BitmapData):void {
+			_bitmapDataDrag = value;
+			if (viewerData.mouseDrag) {
+				cursor.bitmapData = _bitmapDataDrag;
+			}
 		}
 		
-		private function navUp(e:Event):void {
-			viewerData.moveUp = true; 
-			bitmapMove.bitmapData = new EmbededGraphics.BitmapMoveUp().bitmapData;
+		public function setHover():void {
+			if (_bitmapDataHover != null) {
+				cursor.bitmapData = _bitmapDataHover;
+			}
 		}
 		
-		private function navDown(e:Event):void {
-			viewerData.moveDown = true; 
-			bitmapMove.bitmapData = new EmbededGraphics.BitmapMoveDown().bitmapData;
+		public function setDrag():void {
+			if (_bitmapDataDrag != null) {
+				cursor.bitmapData = _bitmapDataDrag;
+			}
 		}
 		
-		private function navStop(e:Event):void {
+		private function navLeft():void {
+			viewerData.moveLeft = true;
+		}
+		
+		private function navRight():void {
+			viewerData.moveRight = true;
+		}
+		
+		private function navUp():void {
+			viewerData.moveUp = true;
+		}
+		
+		private function navDown():void {
+			viewerData.moveDown = true;
+		}
+		
+		private function navStop():void {
 			viewerData.moveLeft = false;
 			viewerData.moveRight = false;
 			viewerData.moveUp = false;
 			viewerData.moveDown = false;
-			bitmapMove.bitmapData = new EmbededGraphics.BitmapMovePlain().bitmapData;
 		}
 		
-		private function navZoomIn(e:Event):void {
-			viewerData.zoomIn = true; 
-			bitmapZoom.bitmapData = new EmbededGraphics.BitmapZoomIn().bitmapData;
+		private function navIn():void {
+			viewerData.zoomIn = true;
 		}
 		
-		private function navZoomOut(e:Event):void {
+		private function navOut():void {
 			viewerData.zoomOut = true;
-			bitmapZoom.bitmapData = new EmbededGraphics.BitmapZoomOut().bitmapData;
 		}
 		
-		private function navZoomStop(e:Event):void {
+		private function navZoomStop():void {
 			viewerData.zoomIn = false;
 			viewerData.zoomOut = false;
-			bitmapZoom.bitmapData = new EmbededGraphics.BitmapZoomPlain().bitmapData;
 		}
 		
 		private function containerMouseOver(e:Event):void {

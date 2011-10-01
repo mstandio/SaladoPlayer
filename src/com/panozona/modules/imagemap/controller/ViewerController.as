@@ -19,13 +19,17 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.imagemap.controller{
 	
 	import com.panozona.modules.imagemap.events.ViewerEvent;
-	import com.panozona.modules.imagemap.events.MapEvent;
-	import com.panozona.modules.imagemap.model.EmbededGraphics;
-	import com.panozona.modules.imagemap.model.structure.Map;
 	import com.panozona.modules.imagemap.view.ViewerView;
 	import com.panozona.player.module.Module;
+	import flash.display.BitmapData;
+	import flash.display.Loader;
+	import flash.display.LoaderInfo;
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	import flash.net.URLRequest;
 	import flash.ui.Mouse;
 	
 	public class ViewerController{
@@ -53,6 +57,8 @@ package com.panozona.modules.imagemap.controller{
 		
 		private var deltaZoom:Number;
 		
+		private const navigationControllers:Vector.<NavigationController> = new Vector.<NavigationController>();
+		
 		public function ViewerController(viewerView:ViewerView, module:Module) {
 			_viewerView = viewerView;
 			_module = module;
@@ -77,6 +83,74 @@ package com.panozona.modules.imagemap.controller{
 			if (_viewerView.viewerData.viewer.autofocusEnabled){
 				viewerView.viewerData.addEventListener(ViewerEvent.CHANGED_FOCUS_POINT, handleFocusPointChange, false, 0, true);
 			}
+			
+			var naviagationLoader:Loader = new Loader();
+			naviagationLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, naviagationImageLost, false, 0, true);
+			naviagationLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, naviagationImageLoaded, false, 0, true);
+			naviagationLoader.load(new URLRequest(_viewerView.viewerData.viewer.path));
+		}
+		
+		private function naviagationImageLost(e:IOErrorEvent):void {
+			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, naviagationImageLost);
+			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, naviagationImageLoaded);
+			_module.printError(e.text);
+		}
+		
+		private function naviagationImageLoaded(e:Event):void {
+			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, naviagationImageLost);
+			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, naviagationImageLoaded);
+			var bitmapData:BitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
+			bitmapData.draw((e.target as LoaderInfo).content);
+			var navWidth:Number = Math.ceil((bitmapData.width - 3) / 4);
+			var navHeight:Number = Math.ceil((bitmapData.height - 1) / 2);
+			var bitmapdata1:BitmapData;
+			var bitmapdata2:BitmapData;
+			if(_viewerView.viewerData.viewer.moveEnabled){
+				bitmapdata1 = new BitmapData(navWidth, navHeight, true, 0);
+				bitmapdata1.copyPixels(bitmapData, new Rectangle(0, 0, navWidth, navHeight), new Point(0, 0), null, null, true);
+				bitmapdata2 = new BitmapData(navWidth, navHeight, true, 0);
+				bitmapdata2.copyPixels(bitmapData, new Rectangle(0, navHeight + 1, navWidth, navHeight), new Point(0, 0), null, null, true);
+				_viewerView.navigationUp.bitmapDataPlain = bitmapdata1;
+				_viewerView.navigationUp.bitmapDataActive = bitmapdata2;
+				_viewerView.navigationDown.bitmapDataPlain = bitmapdata1;
+				_viewerView.navigationDown.bitmapDataActive = bitmapdata2;
+				_viewerView.navigationLeft.bitmapDataPlain = bitmapdata1;
+				_viewerView.navigationLeft.bitmapDataActive = bitmapdata2;
+				_viewerView.navigationRight.bitmapDataPlain = bitmapdata1;
+				_viewerView.navigationRight.bitmapDataActive = bitmapdata2;
+				
+				navigationControllers.push(new NavigationController(_viewerView.navigationUp, _module));
+				navigationControllers.push(new NavigationController(_viewerView.navigationDown, _module));
+				navigationControllers.push(new NavigationController(_viewerView.navigationLeft, _module));
+				navigationControllers.push(new NavigationController(_viewerView.navigationRight, _module));
+			}
+			if (_viewerView.viewerData.viewer.zoomEnabled) {
+				bitmapdata1 = new BitmapData(navWidth, navHeight, true, 0);
+				bitmapdata1.copyPixels(bitmapData, new Rectangle(navWidth + 1, 0, navWidth, navHeight), new Point(0, 0), null, null, true);
+				bitmapdata2 = new BitmapData(navWidth, navHeight, true, 0);
+				bitmapdata2.copyPixels(bitmapData, new Rectangle(navWidth + 1, navHeight + 1, navWidth, navHeight), new Point(0, 0), null, null, true);
+				_viewerView.navigationIn.bitmapDataPlain = bitmapdata1;
+				_viewerView.navigationIn.bitmapDataActive = bitmapdata2;
+				bitmapdata1 = new BitmapData(navWidth, navHeight, true, 0);
+				bitmapdata1.copyPixels(bitmapData, new Rectangle(navWidth * 2 + 2, 0, navWidth, navHeight), new Point(0, 0), null, null, true);
+				bitmapdata2 = new BitmapData(navWidth, navHeight, true, 0);
+				bitmapdata2.copyPixels(bitmapData, new Rectangle(navWidth * 2 + 2, navHeight + 1, navWidth, navHeight), new Point(0, 0), null, null, true);
+				_viewerView.navigationOut.bitmapDataPlain = bitmapdata1;
+				_viewerView.navigationOut.bitmapDataActive = bitmapdata2;
+				
+				navigationControllers.push(new NavigationController(_viewerView.navigationIn, _module));
+				navigationControllers.push(new NavigationController(_viewerView.navigationOut, _module));
+			}
+			
+			if (_viewerView.viewerData.viewer.dragEnabled) {
+				bitmapdata1 = new BitmapData(navWidth, navHeight, true, 0);
+				bitmapdata1.copyPixels(bitmapData, new Rectangle(navWidth * 3 + 3, 0, navWidth, navHeight), new Point(0, 0), null, null, true);
+				bitmapdata2 = new BitmapData(navWidth, navHeight, true, 0);
+				bitmapdata2.copyPixels(bitmapData, new Rectangle(navWidth * 3 + 3, navHeight + 1, navWidth, navHeight), new Point(0, 0), null, null, true);
+				_viewerView.bitmapDataHover = bitmapdata1;
+				_viewerView.bitmapDataDrag = bitmapdata2;
+			}
+			_viewerView.placeNavigation();
 		}
 		
 		private function handleSizeChange(e:Event):void {
@@ -148,11 +222,11 @@ package com.panozona.modules.imagemap.controller{
 		private function handleMouseDragChange(e:Event):void {
 			if (_viewerView.viewerData.mouseDrag) {
 				focusActive = false;
-				_viewerView.cursor.bitmapData = new EmbededGraphics.BitmapCursorHandClosed().bitmapData;
+				_viewerView.setDrag();
 				mouseX = _viewerView.mouseX;
 				mouseY = _viewerView.mouseY;
 			}else {
-				_viewerView.cursor.bitmapData = new EmbededGraphics.BitmapCursorHandOpened().bitmapData;
+				_viewerView.setHover();
 			}
 		}
 		

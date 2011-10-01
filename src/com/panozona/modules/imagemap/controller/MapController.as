@@ -112,7 +112,7 @@ package com.panozona.modules.imagemap.controller {
 			var waypointController:WaypointController;
 			var map:Map = _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId);
 			for each(var waypoint:Waypoint in map.getChildrenOfGivenClass(Waypoint)) {
-				waypointView = new WaypointView(_mapView.imageMapData, new WaypointData(waypoint, map.buttons, map.radars));
+				waypointView = new WaypointView(_mapView.imageMapData, new WaypointData(waypoint, map.buttons, map.radars, map.panShift));
 				_mapView.waypointsContainer.addChild(waypointView);
 				waypointController = new WaypointController(waypointView, _module);
 				waypointControlers.push(waypointController);

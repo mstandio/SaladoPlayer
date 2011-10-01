@@ -29,14 +29,16 @@ package com.panozona.modules.imagemap.model{
 		public var waypoint:Waypoint;
 		public var button:Button;
 		public var radar:Radar;
+		public var panShift:Number;
 		
 		private var _showRadar:Boolean;
 		private var _mouseOver:Boolean;
 		
-		public function WaypointData(waypoint:Waypoint, button:Button, radar:Radar){
+		public function WaypointData(waypoint:Waypoint, button:Button, radar:Radar, panShift:Number){
 			this.waypoint = waypoint;
 			this.button = button;
 			this.radar = radar;
+			this.panShift = panShift;
 		}
 		
 		public function get showRadar():Boolean {return _showRadar;}
