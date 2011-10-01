@@ -12,12 +12,12 @@
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
 			<buttons path="~modules/images/buttonbar/buttons_40x40_black.png" listenKeys="true">
-				<button name="up"/>
 				<button name="down"/>
+				<button name="up"/>
 				<button name="left"/>
 				<button name="right"/>
-				<button name="in"/>
 				<button name="out"/>
+				<button name="in"/>
 			</buttons>
 		</ButtonBar>
 	</modules>

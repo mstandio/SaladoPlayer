@@ -112,8 +112,8 @@
 		</DropDown>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
 			<buttons path="~modules/images/buttonbar/buttons_40x40_black.png">
-				<button name="in"/>
 				<button name="out"/>
+				<button name="in"/>
 				<extraButton name="b" action="mapToggle" mouse="onOver:showBubbleMap,onOut:hideBubble"/>
 				<button name="drag" mouse="onOver:showBubbleDrag,onOut:hideBubble"/>
 				<button name="autorotation" mouse="onOver:showBubbleAutorotation,onOut:hideBubble"/>
