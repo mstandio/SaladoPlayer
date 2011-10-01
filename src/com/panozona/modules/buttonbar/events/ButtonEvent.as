@@ -22,10 +22,8 @@ package com.panozona.modules.buttonbar.events{
 	
 	public class ButtonEvent extends Event{
 		
-		public static const CHANGED_STATE:String = "chngdState";
+		public static const CHANGED_IS_ACTIVE:String = "chngdIsActive";
 		public static const CHANGED_MOUSE_PRESS:String = "chngdMousePress";
-		public static const CHANGED_BITMAP_PLAIN:String = "chngdBitmapPlain";
-		public static const CHANGED_BITMAP_ACTIVE:String = "chngdBitmapActive";
 		
 		public function ButtonEvent( type:String){
 			super(type);

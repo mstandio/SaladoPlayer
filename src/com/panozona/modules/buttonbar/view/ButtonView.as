@@ -32,6 +32,9 @@ package com.panozona.modules.buttonbar.view{
 		private var _buttonData:ButtonData;
 		private var _buttonBarData:ButtonBarData;
 		
+		private var _bitmapDataPlain:BitmapData;
+		private var _bitmapDataActive:BitmapData;
+		
 		public function ButtonView(buttonData:ButtonData, buttonBarData:ButtonBarData){
 			_buttonData = buttonData;
 			_buttonBarData = buttonBarData;
@@ -51,6 +54,32 @@ package com.panozona.modules.buttonbar.view{
 		
 		public function get buttonBarData():ButtonBarData {
 			return _buttonBarData;
+		}
+		
+		public function set bitmapDataPlain(value:BitmapData):void {
+			_bitmapDataPlain = value;
+			if(!_buttonData.isActive){
+				setPlain();
+			}
+		}
+		
+		public function set bitmapDataActive(value:BitmapData):void {
+			_bitmapDataActive = value;
+			if (_buttonData.isActive) {
+				setActive();
+			}
+		}
+		
+		public function setPlain():void {
+			if(_bitmapDataPlain != null){
+				bitmap.bitmapData = _bitmapDataPlain;
+			}
+		}
+		
+		public function setActive():void {
+			if(_bitmapDataActive != null){
+				bitmap.bitmapData = _bitmapDataActive;
+			}
 		}
 		
 		private function onMousePress(e:MouseEvent):void {
