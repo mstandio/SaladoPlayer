@@ -18,16 +18,16 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package org.diystreetview.player.manager.data.panoramas{
 	
-	import com.panozona.player.manager.data.panoramas.HotspotData;
+	import com.panozona.player.manager.data.panoramas.HotspotDataImage;
 	import com.panozona.player.module.data.property.Geolocation;
 	
-	public class DsvHotspotData extends HotspotData{
+	public class DsvHotspotData extends HotspotDataImage{
 		
 		public const gps:Geolocation = new Geolocation();
 		private var _targetFile:String;
 		
-		public function DsvHotspotData(id:String, targetFile:String) {
-			super(id);
+		public function DsvHotspotData(id:String, path:String, targetFile:String) {
+			super(id, path);
 			_targetFile = targetFile;
 		}
 		

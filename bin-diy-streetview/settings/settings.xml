@@ -27,7 +27,7 @@
 	<actions>
 	</actions>
 	<diystreetview>
-		<resources directory="../../../diynew/ata/" start="000037.xml"/>
-		<settings/>
+		<resources directory="../../../diynew/data/" start="[000037]"/>
+		<settings hotspots="~hotspots/arrow.png"/>
 	</diystreetview>
 </SaladoPlayer>

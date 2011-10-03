@@ -19,9 +19,11 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package org.diystreetview.player.manager {
 	
 	import com.panozona.player.manager.data.actions.ActionData;
+	import com.panozona.player.manager.data.actions.FunctionData;
 	import com.panozona.player.manager.data.panoramas.PanoramaData;
 	import com.panozona.player.manager.Manager;
 	import com.panozona.player.manager.utils.Trace;
+	import com.panozona.player.module.data.property.Geolocation;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.external.ExternalInterface;
@@ -38,7 +40,6 @@ package org.diystreetview.player.manager {
 	public class DsvManager extends com.panozona.player.manager.Manager {
 		
 		private var xmlLoader:URLLoader_;
-		
 		private var calledPano:String;
 		private var panoWasLoaded:Boolean;
 		
@@ -46,32 +47,6 @@ package org.diystreetview.player.manager {
 			super();
 			ExternalInterface.addCallback("callPano", callPano);
 			addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
-		}
-		
-		private var tmpPan:Number;
-		private var tmpTilt:Number;
-		private var tmpfov:Number;
-		private function onEnterFrame(e:Event):void {
-			if (tmpPan == Math.round(pan) && tmpTilt == Math.round(tilt) && tmpfov == Math.round(fieldOfView)) return;
-			tmpPan = Math.round(pan);
-			tmpTilt = Math.round(tilt);
-			tmpfov = Math.round(fieldOfView);
-			ExternalInterface.call("viewChanged", tmpPan, tmpTilt, tmpfov);
-		}
-		
-		override protected function panoramaLoaded(e:Event):void {
-			super.panoramaLoaded(e);
-			ExternalInterface.call("viewChanged", Math.round(pan), Math.round(tilt), Math.round(fieldOfView));
-		}
-		
-		private function callPano(panoIdentifyier:String):void {
-			if (!panoWasLoaded){
-				calledPano = panoIdentifyier;
-				return;
-			}
-			var panoramaData:DsvPanoramaData = new DsvPanoramaData(panoIdentifyier, panoIdentifyier + ".xml" );
-			_managerData.panoramasData.push(panoramaData);
-			loadPano(panoIdentifyier);
 		}
 		
 		// this is starting point 
@@ -90,30 +65,48 @@ package org.diystreetview.player.manager {
 					panoramaData.params.pan = urlParser.pan;
 					panoramaData.params.tilt = urlParser.tilt;
 					panoramaData.params.fov = urlParser.fov;
+					cleanActionsData();
+					cleanPanoramasData();
 					_managerData.panoramasData.push(panoramaData);
 					loadPano(urlParser.pano);
 				// otherwise it reads "start" pano from configuration
-				}else {
-					if(_managerData.getPanoramaDataById() != null){
-						loadPano("start");
-					}
+				}else if ((_managerData as DsvManagerData).diyStreetviewData.resources.start != null) {
+					var start:String = (_managerData as DsvManagerData).diyStreetviewData.resources.start;
+					var panoramaData2:DsvPanoramaData = new DsvPanoramaData(start, buildPath(start) + "_f.xml");
+					cleanActionsData();
+					cleanPanoramasData();
+					_managerData.panoramasData.push(panoramaData2);
+					loadPano(start);
 				}
-				// if there is no "start" panorama it waits for externalinterface callback for panorama id
 			}catch (error:Error) {
-				Trace.instance.printError("Invalid url configuration: " + error.message);
+				Trace.instance.printError("Invalid url configuration: " + error.getStackTrace());
 			}
 		}
 		
+		private function callPano(panoIdentifyier:String):void {
+			if (!panoWasLoaded){
+				calledPano = panoIdentifyier;
+				return;
+			}
+			var panoramaData:DsvPanoramaData = new DsvPanoramaData(panoIdentifyier, panoIdentifyier + ".xml" );
+			_managerData.panoramasData.push(panoramaData);
+			loadPano(panoIdentifyier);
+		}
+		
 		override public function loadPano(panoramaId:String):void {
+			if (!_managerData.getPanoramaDataById(panoramaId) is DsvPanoramaData) {
+				super.loadPano(panoramaId);
+				return;
+			}
 			xmlLoader = new URLLoader_();
 			xmlLoader.dataFormat = URLLoaderDataFormat.BINARY;
 			try {
 				xmlLoader.addEventListener(IOErrorEvent.IO_ERROR, xmlLost, false, 0, true);
 				xmlLoader.addEventListener(Event.COMPLETE, xmlLoaded, false, 0, true);
-				xmlLoader.load( new URLRequest(buildPath(_managerData.getPanoramaDataById(panoramaId).params.path)));
+				xmlLoader.load(new URLRequest(buildPath(panoramaId) + ".xml"));
 			}catch (error:Error) {
 				Trace.instance.printError("Security error, cannot access local resources: " + xmlLoader.urlRequest.url);
-				trace(error.getStackTrace());
+				trace(error.message);
 			}
 		}
 		
@@ -128,90 +121,75 @@ package org.diystreetview.player.manager {
 			try {input.uncompress()}catch (error:Error) {}
 			try {
 				var panoxml:XML = XML(input);
-				var panoramaData:DsvPanoramaData;
-				
-				
-				/*
-				_previusDirection = _currentDirection;
-				_currentDirection = Number(panoxml.pano.@direction);
-				
-				// create first and main panorama
-				panoramaData = new DsvPanoramaData("main", (event.target as URLLoader_).urlRequest.url.replace(".xml", "_f.xml"));
-				panoramaData.label = extractFromPath(panoramaData.path);
-				panoramaData.params.pan = pan - (_previusDirection - _currentDirection);
-				
-				if (_managerData.panoramasData[0] != undefined && 
-				 panoramaData.path == _managerData.panoramasData[0].path) {
-					return;
+				var dsvPanoramaData:DsvPanoramaData;
+				for each(var panoramaData:PanoramaData in _managerData.panoramasData) {
+					if (panoramaData is DsvPanoramaData) {
+						dsvPanoramaData = panoramaData as DsvPanoramaData;
+						break;
+					}
 				}
-				
-				for (var cleanedPanoramaData:PanoramaData in _managerData.panoramasData) {
-					
-				}
-				
-				_managerData.panoramasData.push(panoramaData);
-				
-				var mainGpsData:GpsData = new GpsData();
+				var mainGpsData:Geolocation = new Geolocation();
 				mainGpsData.latitude = Number(panoxml.pano.@latitude);
 				mainGpsData.longitude = Number(panoxml.pano.@longitude);
-				mainGpsData.altitude = Number(panoxml.pano.@altitude);
+				mainGpsData.elevation = Number(panoxml.pano.@altitude);
 				
 				Trace.instance.printInfo("main lat: "+panoxml.pano.@latitude+" lon: "+panoxml.pano.@longitude);
 				
 				// add hotspots to main panorama, create neighbour panoramas
 				
 				var counter:int = 0;
-				var hotspotData:com.diystreetview.player.manager.data.hotspot.HotspotData;
-				var hotspotGpsData:GpsData;
+				var hotspotData:DsvHotspotData;
+				var actionData:DsvActionData;
+				var functionData:FunctionData;
+				var hotspotGpsData:Geolocation;
 				var hotspotDistanceAway:Number;
 				
-				for each(var neighbour:XML in panoxml.neighbours.children()){
-					hotspotData = new DsvHotspotData("?", neighbour.@path);
-					hotspotData.id = String(counter);
-					hotspotData.path = (_managerData as ManagerData).locationData.hotspot;
+				for each(var neighbour:XML in panoxml.neighbours.children()) {
 					
-					hotspotData.mouse.onClick = String(counter); // child with id "n" when clikcked triggers action with id "n"
-					hotspotData.mouse.onOver = String(counter) + "over"; 
-					hotspotData.mouse.onOut = "hide"; 
+					functionData = new FunctionData("SaladoPlayer", "loadPano");
+					functionData.args.push("asd");
+					actionData = new DsvActionData(neighbour.@path);
+					actionData.functions.push(functionData);
+					_managerData.actionsData.push(actionData);
 					
-					hotspotGpsData = new GpsData();
+					hotspotData = new DsvHotspotData(String(counter), (_managerData as DsvManagerData).diyStreetviewData.settings.hotspots, neighbour.@path);
+					
+					hotspotData.mouse.onClick = neighbour.@path;
+					
+					hotspotGpsData = new Geolocation();
 					hotspotGpsData.latitude = Number(neighbour.@latitude);
 					hotspotGpsData.longitude = Number(neighbour.@longitude);
-					hotspotGpsData.altitude = Number(neighbour.@altitude);
+					hotspotGpsData.elevation = Number(neighbour.@altitude);
 					
 					hotspotDistanceAway = distance(mainGpsData.latitude, mainGpsData.longitude, hotspotGpsData.latitude, hotspotGpsData.longitude);
 					
-					hotspotData.position.pan = Math.atan2(
+					hotspotData.location.pan = Math.atan2(
 						distance(mainGpsData.latitude, 0, hotspotGpsData.latitude, 0, true),
 						distance(0, mainGpsData.longitude, 0, hotspotGpsData.longitude, true)
 					) * 180 / Math.PI;
 					
-					hotspotData.position.pan += Number(panoxml.pano.@direction) - 90;
-					hotspotData.position.tilt = -90 + (180 / Math.PI) * Math.atan(hotspotDistanceAway / 0.0019); // 0.0019 is camera height in kilometers
-					hotspotData.position.distance = 30000 * hotspotDistanceAway;
+					hotspotData.location.pan += Number(panoxml.pano.@direction) - 90;
+					hotspotData.location.tilt = -90 + (180 / Math.PI) * Math.atan(hotspotDistanceAway / 0.0019); // 0.0019 is camera height in kilometers
+					hotspotData.location.distance = 30000 * hotspotDistanceAway;
 					
-					if ( hotspotData.position.pan <= -180 ) hotspotData.position.pan = (((hotspotData.position.pan + 180) % 360) + 180);
-					if ( hotspotData.position.pan >   180 ) hotspotData.position.pan = (((hotspotData.position.pan + 180) % 360) - 180);
+					if ( hotspotData.location.pan <= -180 ) hotspotData.location.pan = (((hotspotData.location.pan + 180) % 360) + 180);
+					if ( hotspotData.location.pan >   180 ) hotspotData.location.pan = (((hotspotData.location.pan + 180) % 360) - 180);
 					
 					hotspotData.gps.latitude = Number(neighbour.@latitude);
 					hotspotData.gps.longitude = Number(neighbour.@longitude);
-					hotspotData.gps.altitude = Number(neighbour.@altitude);
+					hotspotData.gps.elevation = Number(neighbour.@altitude);
 					
-					_managerData.panoramasData[0].hotspotsData.push(hotspotData);
+					dsvPanoramaData.hotspotsData.push(hotspotData);
 					
-					// create neighbour panoramas 
-					panoramaData = new DsvPanoramaData(String(counter), neighbour.@path);
-					_managerData.panoramasData.push(panoramaData);
-					
+					// create neighbour panoramas
+					//panoramaData = new DsvPanoramaData(String(counter), neighbour.@path);
 					counter++;
 				}
 				
-				//_managerData.populateGlobalParams();
+				super.loadPanoramaById(dsvPanoramaData.id);
 				
-				super.loadPanoramaById(_managerData.panoramasData[0].id);
+				ExternalInterface.call("panoChanged", dsvPanoramaData.id);
 				
-				ExternalInterface.call("panoChanged", _managerData.panoramasData[0].id);
-				*/
 			}catch (error:Error) {
 				Trace.instance.printError("Error in new configuration file structure: " + error.message);
 				trace(error.getStackTrace());
@@ -219,13 +197,12 @@ package org.diystreetview.player.manager {
 		}
 		
 		private function buildPath(path:String):String {
-			var name:String = path.substr(0, path.lastIndexOf("."));
 			var result:String = "";
 			result += (_managerData as DsvManagerData).diyStreetviewData.resources.directory;
 			if ((_managerData as DsvManagerData).diyStreetviewData.resources.prefix != null) {
 				result += (_managerData as DsvManagerData).diyStreetviewData.resources.prefix;
 			}
-			result += name +"/" + path;
+			result += path +"/" + path;
 			return result;
 		}
 		
@@ -257,10 +234,6 @@ package org.diystreetview.player.manager {
 			for each(actionData in tmpActionsData) {
 				_managerData.actionsData.push(actionData);
 			}
-		}
-		
-		private function extractFromPath(path:String):String {
-			return path.substring(path.lastIndexOf("/")+1, path.lastIndexOf("_"));
 		}
 		
 		private function distance(lat1:Number, lon1:Number, lat2:Number, lon2:Number, noAbs:Boolean = false):Number {
@@ -314,6 +287,22 @@ package org.diystreetview.player.manager {
 			if (closestHotspot != null) {
 				runAction(closestHotspot.mouse.onClick);
 			}
+		}
+		
+		private var tmpPan:Number;
+		private var tmpTilt:Number;
+		private var tmpfov:Number;
+		private function onEnterFrame(e:Event):void {
+			if (tmpPan == Math.round(pan) && tmpTilt == Math.round(tilt) && tmpfov == Math.round(fieldOfView)) return;
+			tmpPan = Math.round(pan);
+			tmpTilt = Math.round(tilt);
+			tmpfov = Math.round(fieldOfView);
+			ExternalInterface.call("viewChanged", tmpPan, tmpTilt, tmpfov);
+		}
+		
+		override protected function panoramaLoaded(e:Event):void {
+			super.panoramaLoaded(e);
+			ExternalInterface.call("viewChanged", Math.round(pan), Math.round(tilt), Math.round(fieldOfView));
 		}
 		
 		private function deg2rad(deg:Number):Number {
