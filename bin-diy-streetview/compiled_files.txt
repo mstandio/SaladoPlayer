@@ -1,6 +1,13 @@
 
 src/org/diystreetview/player/DiyStreetviewPlayer.as -> DiyStreetviewPlayer-1.2.5.swf
 
+// dedicated modules
+
+src/org/diystreetview/modules/debugBubble/DebugBubble.as -> modules/DebugBubble-1.0.swf
+src/org/diystreetview/modules/directionfixer/DirectionFixer.as -> modules/DirectionFixer-1.0.swf
+
+// other modules 
+
 src/com/panozona/modules/buttonbar/ButtonBar.as -> modules/ButtonBar-1.2.swf
 src/com/panozona/modules/compass/Compass.as -> modules/Compass-1.0.swf
 src/com/panozona/modules/imagebutton/ImageButton.as -> modules/ImageButton-1.2.swf

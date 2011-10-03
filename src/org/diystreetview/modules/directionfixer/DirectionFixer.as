@@ -18,9 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package org.diystreetview.modules.directionfixer{
 	
-	import com.diystreetview.modules.directionfixer.controller.*;
-	import com.diystreetview.modules.directionfixer.data.*;
-	import com.diystreetview.modules.directionfixer.view.*;
+	import org.diystreetview.modules.directionfixer.controller.*;
+	import org.diystreetview.modules.directionfixer.data.*;
+	import org.diystreetview.modules.directionfixer.view.*;
 	import com.panozona.player.module.*;
 	import com.panozona.player.module.data.*;
 	
@@ -34,15 +34,14 @@ package org.diystreetview.modules.directionfixer{
 		
 		private var directionFixerData:DirectionFixerData;
 		
-		public function DirectionFixer(){
-			super("DirectionFixer", 0.1, "Marek Standio", "mstandio@o2.pl", null);
-				aboutThisModule = "use buttons z and x to move hotspots around panorama.";
+		public function DirectionFixer() {
+			super("DirectionFixer", "1.0", "http://diy-streetview.org");
 			moduleDescription.addFunctionDescription("toggleVisibility");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			
-			directionFixerData = new DirectionFixerData(moduleData, debugMode); // allways first
+			directionFixerData = new DirectionFixerData(moduleData, saladoPlayer); // allways first
 			
 			inOutView = new InOutView(directionFixerData);
 			addChild(inOutView);

@@ -19,26 +19,25 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package org.diystreetview.modules.directionfixer.data{
 	
 	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.data.structure.Master;
+	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.utils.DataNodeTranslator;
 	
-	public class DirectionFixerData extends Master{
+	public class DirectionFixerData {
 		
 		public var settings:Settings = new Settings();
 		public var valuesData:ValuesData = new ValuesData();
 		public var inOutData:InOutData = new InOutData();
 		public var labelToDirection:LabelToDirection = new LabelToDirection();
 		
-		public function DirectionFixerData(moduleData:ModuleData, debugMode:Boolean){
-			super(debugMode);
+		public function DirectionFixerData(moduleData:ModuleData, saladoPlayer:Object) {
 			
-			for each(var moduleNode:ModuleNode in moduleData.moduleNodes) {
-				switch (moduleNode.nodeName) {
-					case "settings":
-						readRecursive(settings, moduleNode);
-					break;
-					default:
-						throw new Error("Could not recognize: "+moduleNode.nodeName);
+			var translator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
+			
+			for each(var dataNode:DataNode in moduleData.nodes) {
+				if(dataNode.name == "settings") {
+					translator.dataNodeToObject(dataNode, settings);
+				}else {
+					throw new Error("Could not recognize: " + dataNode.name);
 				}
 			}
 		}

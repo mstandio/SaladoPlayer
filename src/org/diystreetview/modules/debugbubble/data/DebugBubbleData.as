@@ -18,30 +18,23 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package org.diystreetview.modules.debugbubble.data{
 	
-	import com.diystreetview.modules.debugbubble.data.structure.Settings;
+	import org.diystreetview.modules.debugbubble.data.structure.Settings;
 	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.ModuleNode;
-	import com.panozona.player.module.data.structure.Master;
+	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.utils.DataNodeTranslator;
 	
-	public class DebugBubbleData extends Master{
+	public class DebugBubbleData {
 		
-		public var settings:Settings = new Settings();
+		public const settings:Settings = new Settings();
 		
-		public function DebugBubbleData(moduleData:ModuleData, debugMode:Boolean) {
-			super(debugMode);
-			
-			for each(var moduleNode:ModuleNode in moduleData.moduleNodes){
-				switch(moduleNode.nodeName) {
-					case "settings": 
-						readRecursive(settings, moduleNode);
-					break;
-					default:
-						throw new Error("Invalid node name: "+moduleNode.nodeName);
+		public function DebugBubbleData(moduleData:ModuleData, saladoPlayer:Object) {
+			var translator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
+			for each(var dataNode:DataNode in moduleData.nodes){
+				if(dataNode.name == "settings"){
+					translator.dataNodeToObject(dataNode, settings);
+				}else {
+					throw new Error("Invalid node name: " + dataNode.name);
 				}
-			}
-			
-			if (debugMode) {
-				
 			}
 		}
 	}

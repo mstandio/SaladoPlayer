@@ -18,9 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package org.diystreetview.modules.directionfixer.controller{
 	
-	import com.diystreetview.modules.directionfixer.data.*;
-	import com.diystreetview.modules.directionfixer.events.*;
-	import com.diystreetview.modules.directionfixer.view.*;
+	import org.diystreetview.modules.directionfixer.data.*;
+	import org.diystreetview.modules.directionfixer.events.*;
+	import org.diystreetview.modules.directionfixer.view.*;
 	import com.panozona.player.module.*;
 	import com.panozona.player.module.data.property.*;
 	import flash.display.*;
@@ -48,8 +48,8 @@ package org.diystreetview.modules.directionfixer.controller{
 		}
 		
 		public function handleStageResize(e:Event = null):void {
-			_inOutView.textField.x = _module.boundsWidth - _inOutView.textField.width - 10;
-			_inOutView.textField.y = (_module.boundsHeight - _inOutView.textField.height) * 0.5;
+			_inOutView.textField.x = _module.saladoPlayer.manager.boundsWidth - _inOutView.textField.width - 10;
+			_inOutView.textField.y = (_module.saladoPlayer.manager.boundsHeight - _inOutView.textField.height) * 0.5;
 			_inOutView.closeButton.x = _inOutView.textField.x + _inOutView.textField.width - _inOutView.closeButton.width;
 			_inOutView.closeButton.y = _inOutView.textField.y;
 			_inOutView.readButton.x = _inOutView.textField.x;

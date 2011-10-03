@@ -18,9 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package org.diystreetview.modules.directionfixer.controller{
 	
-	import com.diystreetview.modules.directionfixer.data.*;
-	import com.diystreetview.modules.directionfixer.events.*;
-	import com.diystreetview.modules.directionfixer.view.*;
+	import org.diystreetview.modules.directionfixer.data.*;
+	import org.diystreetview.modules.directionfixer.events.*;
+	import org.diystreetview.modules.directionfixer.view.*;
 	import com.panozona.player.module.*;
 	import com.panozona.player.module.data.property.*;
 	import flash.display.*;
@@ -31,7 +31,6 @@ package org.diystreetview.modules.directionfixer.controller{
 	public class ValuesController {
 		
 		private var checkTimer:Timer;
-		private var currentPanoramaId:String; // NO.
 		
 		private var currentDirection:Number = 0;
 		private var directionCorrection:Number = 0;
@@ -45,7 +44,7 @@ package org.diystreetview.modules.directionfixer.controller{
 			_valuesView = valuesView;
 			_module = module;
 			
-			var LoadPanoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.LoadPanoramaEvent") as Class;
+			var LoadPanoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(LoadPanoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 			
 			_valuesView.directionFixerData.labelToDirection.addEventListener(LabelToDirectionEvent.FOR_CURRENT_LABEL_CHANGED, handleDirectionForCurrentChange, false, 0, true);
@@ -71,10 +70,9 @@ package org.diystreetview.modules.directionfixer.controller{
 			}
 			
 			// set data for panorama that is just loaded
-			currentPanoramaId = loadPanoramaEvent.panoramaData.id; // NO.
-			_valuesView.directionFixerData.labelToDirection.currentLabel = _module.saladoPlayer.managerData.getPanoramaDataById(currentPanoramaId).label;
+			_valuesView.directionFixerData.labelToDirection.currentLabel = _module.saladoPlayer.manager.currentPanoramaData.id;
 			
-			currentDirection = _module.saladoPlayer.manager.currentDirection;
+			currentDirection = _module.saladoPlayer.manager.currentPanoramaData.direction;
 			directionCorrection = 0;
 			
 			// if correction for direction exists for new panorama 
@@ -83,7 +81,7 @@ package org.diystreetview.modules.directionfixer.controller{
 				jumpValue += directionCorrection;
 			}
 			
-			_module.saladoPlayer.manager.jumpToView(_module.saladoPlayer.managerData.getPanoramaDataById(currentPanoramaId).params.pan + jumpValue, NaN, NaN);
+			_module.saladoPlayer.manager.jumpToView(_module.saladoPlayer.managerData.getPanoramaDataById(_module.saladoPlayer.manager.currentPanoramaData.id).params.pan + jumpValue, NaN, NaN);
 			
 			// load hotspots i new panorama 
 			displayedHotspots = new Object();
@@ -91,9 +89,9 @@ package org.diystreetview.modules.directionfixer.controller{
 		}
 		
 		private function onTick(e:Event):void {
-			for each (var hotspotData:Object in _module.saladoPlayer.managerData.getPanoramaDataById(currentPanoramaId).hotspotsData) {
+			for each (var hotspotData:Object in _module.saladoPlayer.managerData.getPanoramaDataById(_module.saladoPlayer.manager.currentPanoramaData.id).hotspotsData) {
 				if (displayedHotspots [hotspotData.id] == undefined) {
-					displayedHotspots[hotspotData.id] = _module.saladoPlayer.manager.nameToHotspot[hotspotData.id];
+					displayedHotspots[hotspotData.id] = _module.saladoPlayer.manager.hotspots[hotspotData];
 				}
 			}
 			var count:int = 0;
@@ -103,7 +101,7 @@ package org.diystreetview.modules.directionfixer.controller{
 				}
 			}
 			_valuesView.directionFixerData.valuesData.hotspotsLoaded =
-				(count == _module.saladoPlayer.managerData.getPanoramaDataById(currentPanoramaId).hotspotsData.length);
+				(count == _module.saladoPlayer.managerData.getPanoramaDataById(_module.saladoPlayer.manager.currentPanoramaData.id).hotspotsData.length);
 		}
 		
 		private function handleHotspotsLoadedChange(e:Event):void {
@@ -114,21 +112,21 @@ package org.diystreetview.modules.directionfixer.controller{
 		}
 		
 		private function handleDirectionForCurrentChange(e:Event = null):void {
-			for each (var hotspotData:Object in _module.saladoPlayer.managerData.getPanoramaDataById(currentPanoramaId).hotspotsData) {
+			for each (var hotspotData:Object in _module.saladoPlayer.managerData.getPanoramaDataById(_module.saladoPlayer.manager.currentPanoramaData.id).hotspotsData) {
 				if (displayedHotspots [hotspotData.id] != undefined) {
 					var piOver180:Number = Math.PI / 180;
-					var pr:Number = (-1*(-hotspotData.position.pan - directionCorrection - 90)) * piOver180; // "-" couse panosalado counts pan counterclockwise
-					var tr:Number = -1*  hotspotData.position.tilt * piOver180;
-					var xc:Number = hotspotData.position.distance * Math.cos(pr) * Math.cos(tr);
-					var yc:Number = hotspotData.position.distance * Math.sin(tr);
-					var zc:Number = hotspotData.position.distance * Math.sin(pr) * Math.cos(tr);
+					var pr:Number = (-1*(-hotspotData.location.pan - directionCorrection - 90)) * piOver180; // "-" couse panosalado counts pan counterclockwise
+					var tr:Number = -1* hotspotData.location.tilt * piOver180;
+					var xc:Number = hotspotData.location.distance * Math.cos(pr) * Math.cos(tr);
+					var yc:Number = hotspotData.location.distance * Math.sin(tr);
+					var zc:Number = hotspotData.location.distance * Math.sin(pr) * Math.cos(tr);
 					
 					displayedHotspots[hotspotData.id].x = xc;
 					displayedHotspots[hotspotData.id].y = yc;
 					displayedHotspots[hotspotData.id].z = zc;
-					displayedHotspots[hotspotData.id].rotationY = (-hotspotData.position.pan - directionCorrection + hotspotData.transformation.rotationY) * piOver180;
-					displayedHotspots[hotspotData.id].rotationX = (hotspotData.position.tilt + hotspotData.transformation.rotationX) * piOver180;
-					displayedHotspots[hotspotData.id].rotationZ = hotspotData.transformation.rotationZ * piOver180
+					displayedHotspots[hotspotData.id].rotationY = (-hotspotData.location.pan - directionCorrection + hotspotData.transform.rotationY) * piOver180;
+					displayedHotspots[hotspotData.id].rotationX = (hotspotData.location.tilt + hotspotData.transform.rotationX) * piOver180;
+					displayedHotspots[hotspotData.id].rotationZ = hotspotData.transform.rotationZ * piOver180
 				}
 			}
 		}
@@ -163,17 +161,17 @@ package org.diystreetview.modules.directionfixer.controller{
 			if (_valuesView.directionFixerData.settings.align.horizontal == Align.LEFT) {
 				_valuesView.txtOutput.x = 0;
 			}else if (_valuesView.directionFixerData.settings.align.horizontal == Align.RIGHT) {
-				_valuesView.txtOutput.x = _module.boundsWidth - _valuesView.txtOutput.width;
+				_valuesView.txtOutput.x = _module.saladoPlayer.manager.boundsWidth - _valuesView.txtOutput.width;
 			}else if (_valuesView.directionFixerData.settings.align.horizontal == Align.CENTER) {
-				_valuesView.txtOutput.x = (_module.boundsWidth - _valuesView.txtOutput.width) * 0.5;
+				_valuesView.txtOutput.x = (_module.saladoPlayer.manager.boundsWidth - _valuesView.txtOutput.width) * 0.5;
 			}
 			
 			if (_valuesView.directionFixerData.settings.align.vertical == Align.TOP){
 				_valuesView.txtOutput.y = 0;
 			}else if (_valuesView.directionFixerData.settings.align.vertical == Align.MIDDLE) {
-				_valuesView.txtOutput.y = (_module.boundsHeight - _valuesView.txtOutput.height) * 0.5;
+				_valuesView.txtOutput.y = (_module.saladoPlayer.manager.boundsHeight - _valuesView.txtOutput.height) * 0.5;
 			}else if (_valuesView.directionFixerData.settings.align.vertical == Align.BOTTOM) {
-				_valuesView.txtOutput.y = _module.boundsHeight - _valuesView.txtOutput.height;
+				_valuesView.txtOutput.y = _module.saladoPlayer.manager.boundsHeight - _valuesView.txtOutput.height;
 			}
 			
 			_valuesView.txtOutput.x += _valuesView.directionFixerData.settings.move.horizontal;

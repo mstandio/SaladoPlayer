@@ -19,7 +19,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package org.diystreetview.modules.directionfixer.data {
 	
 	import flash.events.EventDispatcher;
-	import com.diystreetview.modules.directionfixer.events.ValuesDataEvent;
+	import org.diystreetview.modules.directionfixer.events.ValuesDataEvent;
 	
 	public class ValuesData extends EventDispatcher{
 		
