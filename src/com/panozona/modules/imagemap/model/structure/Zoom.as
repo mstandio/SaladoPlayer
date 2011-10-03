@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -18,15 +18,10 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model.structure {
 	
-	public class Radar{
+	public class Zoom {
 		
-		public var displayTilt:Boolean = true;
-		
-		public var alpha:Number = 0.5;
-		public var radius:Number = 60;
-		public var color:Number = 0x00ff00; // green
-		
-		public var borderColor:Number = 0x000000; // black
-		public var borderSize:Number = 2;
+		public var init:Number = 75;
+		public var max:Number = 200;
+		public var min:Number = 0;
 	}
 }

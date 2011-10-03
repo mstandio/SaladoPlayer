@@ -20,12 +20,12 @@ package com.panozona.modules.imagemap.model.structure {
 	
 	public class Button{
 		
-		public var radius:Number = 15;
+		public var radius:Number = 10;
 		public var plainColor:Number = 0x00ff00; // green
 		public var hoverColor:Number = 0xffff00; // yellow
 		public var activeColor:Number = 0xff0000; // red
 		
 		public var borderColor:Number = 0x000000; // black
-		public var borderSize:Number = 5;
+		public var borderSize:Number = 3;
 	}
 }

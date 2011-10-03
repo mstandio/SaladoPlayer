@@ -20,6 +20,7 @@ package com.panozona.modules.imagemap.model {
 	
 	import com.panozona.modules.imagemap.events.ViewerEvent;
 	import com.panozona.modules.imagemap.model.structure.Viewer;
+	import com.panozona.modules.imagemap.model.structure.Zoom;
 	import com.panozona.player.module.data.property.Size;
 	import flash.events.EventDispatcher;
 	import flash.geom.Point;
@@ -29,6 +30,7 @@ package com.panozona.modules.imagemap.model {
 		public const viewer:Viewer = new Viewer();
 		
 		private var _size:Size;
+		public var currentZoom:Zoom;
 		private var _focusPoint:Point;
 		
 		private var _moveLeft:Boolean;

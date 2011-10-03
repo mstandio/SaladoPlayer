@@ -154,10 +154,12 @@ package com.panozona.modules.imagemap.controller{
 		}
 		
 		private function handleSizeChange(e:Event):void {
-			var initZoom:Number = _viewerView.imageMapData.mapData.getMapById(_viewerView.imageMapData.mapData.currentMapId).initZoom;
 			focusActive = false;
 			zoomActive = true;
-			deltaZoom = initZoom * 0.01 - _viewerView.container.scaleX;
+			_viewerView.imageMapData.viewerData.currentZoom.init *= 0.01;
+			_viewerView.imageMapData.viewerData.currentZoom.max *= 0.01;
+			_viewerView.imageMapData.viewerData.currentZoom.min *= 0.01;
+			deltaZoom = _viewerView.imageMapData.viewerData.currentZoom.init - _viewerView.container.scaleX;
 			onEnterFrame();
 			deltaZoom = 0;
 			zoomActive = false;
@@ -318,7 +320,10 @@ package com.panozona.modules.imagemap.controller{
 				}else if (_viewerView.viewerData.zoomOut) {
 					deltaZoom = - _viewerView.viewerData.viewer.zoomSpeed;
 				}
-				if (_viewerView.container.scaleX + deltaZoom < 2 && _viewerView.container.scaleY + deltaZoom < 2) {
+				if (_viewerView.container.scaleX + deltaZoom <= _viewerView.viewerData.currentZoom.max
+					&& _viewerView.container.scaleY + deltaZoom <= _viewerView.viewerData.currentZoom.max
+					&& _viewerView.container.scaleX + deltaZoom >= _viewerView.viewerData.currentZoom.min
+					&& _viewerView.container.scaleY + deltaZoom >= _viewerView.viewerData.currentZoom.min) {
 					if (_viewerView.imageMapData.viewerData.size.width * (_viewerView.container.scaleX + deltaZoom) < _viewerView.containerMask.width) {
 						deltaZoom = (_viewerView.containerMask.width -
 							_viewerView.container.scaleX * _viewerView.imageMapData.viewerData.size.width) / _viewerView.imageMapData.viewerData.size.width;

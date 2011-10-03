@@ -100,6 +100,7 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function mapContentLoaded(e:Event):void {
+			_mapView.imageMapData.viewerData.currentZoom = _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).zoom;
 			_mapView.content = mapContentLoader.content;
 			_mapView.imageMapData.viewerData.size = new Size(mapContentLoader.content.width, mapContentLoader.content.height);
 			_mapView.waypointsContainer.visible = true;
