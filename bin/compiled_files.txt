@@ -10,7 +10,7 @@ src/com/panozona/modules/dropdown/DropDown.as -> modules/DropDown-1.2.swf
 src/com/panozona/modules/imagebutton/ImageButton.as -> modules/ImageButton-1.2.swf
 src/com/panozona/modules/imagemap/ImageMap.as -> modules/ImageMap-1.3.swf
 src/com/panozona/modules/infobubble/InfoBubble.as -> modules/InfoBubble-1.3.swf
-src/com/panozona/modules/jsgateway/JSGateway.as -> modules/JSGateway-1.2.swf
+src/com/panozona/modules/jsgateway/JSGateway.as -> modules/JSGateway-1.3.swf
 src/com/panozona/modules/jsgooglemap/JSGoogleMap.as -> modules/JSGoogleMap-1.0.swf
 src/com/panozona/modules/menuscroller/MenuScroller.as -> modules/MenuScroller-1.1.swf
 src/com/panozona/modules/mousecursor/MouseCursor.as -> modules/MouseCursor-1.0.swf

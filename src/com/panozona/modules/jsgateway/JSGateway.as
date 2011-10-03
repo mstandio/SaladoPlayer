@@ -18,14 +18,14 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.jsgateway {
 	
-	import com.panozona.modules.jsgateway.data.ASFunction;
-	import com.panozona.modules.jsgateway.data.JSFunction;
 	import com.panozona.modules.jsgateway.data.JSGatewayData;
+	import com.panozona.modules.jsgateway.data.structure.ASFunction;
+	import com.panozona.modules.jsgateway.data.structure.JSFunction;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.Module;
+	import flash.events.Event;
 	import flash.external.ExternalInterface;
 	import flash.system.ApplicationDomain;
-	import flash.utils.getDefinitionByName;
 	
 	public class JSGateway extends Module{
 		
@@ -58,12 +58,27 @@ package com.panozona.modules.jsgateway {
 			}
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
-			saladoPlayer.manager.addEventListener(panoramaEventClass.TRANSITION_ENDED, onTransitionEnded, false, 0, true);
 			
-			var panoSaladoEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.PanoSaladoEvent") as Class;
-			saladoPlayer.manager.addEventListener(panoSaladoEventClass.SWING_TO_COMPLETE, onMoveEnded, false, 0, true);
-			saladoPlayer.manager.addEventListener(panoSaladoEventClass.SWING_TO_CHILD_COMPLETE, onMoveEnded, false, 0, true);
+			
+			if(jsgatewayData.settings.callOnEnter){
+				saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
+			}
+			if(jsgatewayData.settings.callOnTransitionEnd){
+				saladoPlayer.manager.addEventListener(panoramaEventClass.TRANSITION_ENDED, onTransitionEnded, false, 0, true);
+			}
+			if(jsgatewayData.settings.callOnMoveEnd){
+				var panoSaladoEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.PanoSaladoEvent") as Class;
+				saladoPlayer.manager.addEventListener(panoSaladoEventClass.SWING_TO_COMPLETE, onMoveEnded, false, 0, true);
+				saladoPlayer.manager.addEventListener(panoSaladoEventClass.SWING_TO_CHILD_COMPLETE, onMoveEnded, false, 0, true);
+			}
+			if(jsgatewayData.settings.callOnViewChange){
+				saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
+				stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
+			}
+		}
+		
+		private function onPanoramaStartedLoading(panoramaEvent:Object):void {
+			__currentDirection = saladoPlayer.manager.currentPanoramaData.direction;
 		}
 		
 		private function onPanoramaLoaded(panoramaEvent:Object):void {
@@ -76,6 +91,18 @@ package com.panozona.modules.jsgateway {
 		
 		private function onMoveEnded(panoSaladoEvent:Object):void {
 			ExternalInterface.call("onMoveEnd", saladoPlayer.manager.currentPanoramaData.id);
+		}
+		
+		private var __pan:Number = 0;
+		private var __tilt:Number = 0;
+		private var __fov:Number = 0;
+		private var __currentDirection:Number = 0;
+		private function onEnterFrame(e:Event):void {
+			if (__pan == saladoPlayer.manager._pan && __tilt == saladoPlayer.manager._tilt && __fov == saladoPlayer.manager._fieldOfView) return;
+			__pan = saladoPlayer.manager._pan;
+			__tilt = saladoPlayer.manager._pan;
+			__fov = saladoPlayer.manager._fieldOfView;
+			ExternalInterface.call("onViewChange", __pan.toFixed(0), __tilt.toFixed(0), __fov.toFixed(0), __currentDirection.toFixed(0));
 		}
 		
 		private function getReference(input:String):Object {

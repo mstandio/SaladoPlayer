@@ -16,11 +16,12 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.jsgateway.data{
+package com.panozona.modules.jsgateway.data.structure{
 	
-	public class ASFunction {
+	public class JSFunction{
 		
-		public var name:String = null;
-		public var callback:String = null;
+		public var id:String;
+		public var name:String;
+		public var text:String
 	}
 }

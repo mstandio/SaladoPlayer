@@ -30,7 +30,8 @@
 				<extraButton name="a" action="saladoPlayerToJavascript"/>
 			</buttons>
 		</ButtonBar>
-		<JSGateway path="~modules/JSGateway-1.2.swf">
+		<JSGateway path="~modules/JSGateway-1.3.swf">
+			<settings callOnEnter="true" callOnTransitionEnd="true" callOnMoveEnd="true" callOnViewChange="true"/>
 			<jsfunctions>
 				<jsfunction id="js1" name="someJavaScriptFunction" text="hello"/>
 			</jsfunctions>

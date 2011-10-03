@@ -16,16 +16,11 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.jsgateway.data {
+package com.panozona.modules.jsgateway.data.structure{
 	
-	import com.panozona.player.module.data.structure.DataParent;
-	
-	public class ASFunctions extends DataParent{
+	public class ASFunction {
 		
-		override public function getChildrenTypes():Vector.<Class>{
-			var result:Vector.<Class> = new Vector.<Class>();
-			result.push(ASFunction);
-			return result;
-		}
+		public var name:String = null;
+		public var callback:String = null;
 	}
 }
