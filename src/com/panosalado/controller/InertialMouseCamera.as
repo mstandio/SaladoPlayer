@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with PanoSalado. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panosalado.controller{
+package com.panosalado.controller {
 	
 	import com.panosalado.controller.ICamera;
 	import com.panosalado.events.CameraEvent;
@@ -28,7 +28,7 @@ package com.panosalado.controller{
 	import flash.events.MouseEvent;
 	import flash.utils.getTimer;
 	
-	public class InertialMouseCamera extends Sprite implements ICamera{
+	public class InertialMouseCamera extends Sprite implements ICamera {
 		
 		protected var _mouseObject:Sprite;
 		protected var _viewData:ViewData;
@@ -54,7 +54,7 @@ package com.panosalado.controller{
 		}
 		
 		public function processDependency(reference:Object,characteristics:*):void {
-			if (characteristics == Characteristics.VIEW_DATA) { 
+			if (characteristics == Characteristics.VIEW_DATA) {
 				viewData = reference as ViewData;
 				if(cameraData != null){
 					mouseObject = reference as Sprite;
@@ -62,7 +62,7 @@ package com.panosalado.controller{
 			}else if (characteristics == Characteristics.INERTIAL_MOUSE_CAMERA_DATA) cameraData = reference as InertialMouseCameraData;
 		}
 		
-		private function downHandler(event:MouseEvent):void{
+		private function downHandler(event:MouseEvent):void {
 			mouseIsDown = true;
 			startPointX = _mouseObject.mouseX;
 			startPointY = _mouseObject.mouseY;
@@ -71,7 +71,7 @@ package com.panosalado.controller{
 			dispatchEvent(new CameraEvent(CameraEvent.ACTIVE));
 		}
 		
-		private function upHandler(event:MouseEvent):void{
+		private function upHandler(event:MouseEvent):void {
 			mouseIsDown = false;
 			// don't remove enterframe listener yet. remove when friction has slowed motion to under threshold
 		}
@@ -80,30 +80,30 @@ package com.panosalado.controller{
 		private var currentTimeStamp:Number;
 		private var inverseFriction:Number;
 		private function enterFrameHandler(event:Event):void {
-			if (mouseIsDown){
+			if (mouseIsDown) {
 				// calculate new position changes
 				currentTimeStamp = getTimer();
 				elapsedTime = currentTimeStamp - __lastTimeStamp;
-				deltaPan  += (startPointX - _mouseObject.mouseX) * elapsedTime * _cameraData.sensitivity;
-				deltaTilt -= (startPointY - _mouseObject.mouseY) * elapsedTime * _cameraData.sensitivity;
+				deltaPan += (startPointX - _mouseObject.mouseX) / _viewData._boundsWidth * elapsedTime * _cameraData.sensitivity;
+				deltaTilt -= (startPointY - _mouseObject.mouseY) / _viewData._boundsHeight * elapsedTime * _cameraData.sensitivity;
 				__lastTimeStamp = currentTimeStamp;
 			}
 			
 			// motion is still over the threshold, so apply friction
-			if ( ( deltaPan * deltaPan + deltaTilt * deltaTilt ) > _cameraData.threshold ){
+			if ((deltaPan * deltaPan + deltaTilt * deltaTilt ) > _cameraData.threshold) {
 				// always apply friction so that motion slows AFTER mouse is up
-				inverseFriction = 1 - _cameraData.friction;
-				deltaPan  *=  inverseFriction;
+				inverseFriction = (1 - _cameraData.friction);
+				deltaPan *= inverseFriction;
 				deltaTilt *= inverseFriction;
 				
-				_viewData.pan -= deltaPan;
-				_viewData.tilt -= deltaTilt; 
+				_viewData.pan -= deltaPan * _viewData._fieldOfView / 90;
+				_viewData.tilt -= deltaTilt * _viewData._fieldOfView / 90;
 				
-				if ( _viewData._tilt < -90 ) _viewData.tilt -= (_viewData._tilt +90) * _cameraData.friction * 2;
-				else if ( _viewData._tilt > 90 ) _viewData.tilt -= (_viewData._tilt -90) * _cameraData.friction * 2;
+				if (_viewData._tilt < -90 ) _viewData.tilt -= (_viewData._tilt + 90) * _cameraData.friction * 2;
+				else if (_viewData._tilt > 90 ) _viewData.tilt -= (_viewData._tilt - 90) * _cameraData.friction * 2;
 				
 			}else { // motion is under threshold stop camera motion
-				if ( !mouseIsDown){
+				if (!mouseIsDown) {
 					deltaPan = deltaTilt = 0;
 					removeEventListener(Event.ENTER_FRAME, enterFrameHandler, false);
 					dispatchEvent(new CameraEvent(CameraEvent.INACTIVE));
@@ -126,7 +126,7 @@ package com.panosalado.controller{
 		}
 		
 		public function get cameraData():InertialMouseCameraData { return _cameraData; }
-		public function set cameraData(value:InertialMouseCameraData):void{
+		public function set cameraData(value:InertialMouseCameraData):void {
 			if (value === _cameraData) return;
 			if (value != null) {
 				value.addEventListener(CameraEvent.ENABLED_CHANGE, enabledChangeHandler, false, 0, true);
@@ -139,13 +139,13 @@ package com.panosalado.controller{
 		}
 		
 		public function get mouseObject():Sprite { return _mouseObject; }
-		public function set mouseObject(value:Sprite):void{
-			if ( _mouseObject === value ) return;
-			if ( value != null && cameraData.enabled){
+		public function set mouseObject(value:Sprite):void {
+			if (_mouseObject === value) return;
+			if (value != null && cameraData.enabled) {
 				value.addEventListener(MouseEvent.MOUSE_DOWN, downHandler, false, 0, true);
 				value.addEventListener(MouseEvent.MOUSE_UP, upHandler, false, 0, true);
 				value.addEventListener(MouseEvent.ROLL_OUT, upHandler, false, 0, true);
-			}else if(value == null && _mouseObject != null ){
+			}else if(value == null && _mouseObject != null) {
 				_mouseObject.removeEventListener(MouseEvent.MOUSE_DOWN, downHandler);
 				_mouseObject.removeEventListener(MouseEvent.MOUSE_UP, upHandler);
 				_mouseObject.removeEventListener(MouseEvent.ROLL_OUT, upHandler);
@@ -154,7 +154,7 @@ package com.panosalado.controller{
 		}
 		
 		public function get viewData():ViewData { return _viewData; }
-		public function set viewData(value:ViewData):void{
+		public function set viewData(value:ViewData):void {
 			_viewData = value;
 		}
 	}

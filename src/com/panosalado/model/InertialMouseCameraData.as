@@ -39,9 +39,9 @@ package com.panosalado.model{
 		public var _enabled:Boolean;
 		
 		public function InertialMouseCameraData() {
-			sensitivity = 0.0001;
-			friction = 0.25;
-			threshold = 0.001;
+			sensitivity = 0.15;
+			friction = 0.18;
+			threshold = 0.0001;
 			_enabled = true;
 		}
 		
