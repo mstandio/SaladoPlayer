@@ -26,14 +26,19 @@ package com.panosalado.model{
 		
 		protected var _enabled:Boolean;
 		
-		/**
-		* delta zoom value that will be used for scroll zooming
-		*/
-		public var zoomIncrement:Number;
+		public var zoomAtCursor:Boolean;
+		
+		public var sensitivity:Number;
+		public var friction:Number;
+		public var threshold:Number;
 		
 		public function ScrollCameraData(){
 			_enabled = true;
-			zoomIncrement = 3;
+			zoomAtCursor = true;
+			
+			sensitivity = 1.0;
+			threshold = 0.0001;
+			friction = 0.25;
 		}
 		
 		public function get enabled():Boolean{return _enabled;}
