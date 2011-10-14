@@ -32,7 +32,7 @@ package com.panozona.modules.jsgateway {
 		private var jsgatewayData:JSGatewayData;
 		
 		public function JSGateway(){
-			super("JSGateway", "1.2", "http://panozona.com/wiki/Module:JSGateway");
+			super("JSGateway", "1.3", "http://panozona.com/wiki/Module:JSGateway");
 			moduleDescription.addFunctionDescription("run", String);
 		}
 		
