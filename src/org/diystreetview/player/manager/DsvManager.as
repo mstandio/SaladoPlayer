@@ -159,12 +159,12 @@ package org.diystreetview.player.manager {
 					
 					var hotspotDistanceAway:Number = distance(mainGpsData.latitude, mainGpsData.longitude, hotspotGeolocation.latitude, hotspotGeolocation.longitude);
 					
-					hotspotData.location.pan = Math.atan2(
+					hotspotData.location.pan = -Math.atan2(
 						distance(mainGpsData.latitude, 0, hotspotGeolocation.latitude, 0, true),
 						distance(0, mainGpsData.longitude, 0, hotspotGeolocation.longitude, true)
 					) * 180 / Math.PI;
 					
-					hotspotData.location.pan += Number(panoxml.pano.@direction) - 90;
+					hotspotData.location.pan += Number(panoxml.pano.@direction) + 90;
 					hotspotData.location.tilt = -90 + (180 / Math.PI) * Math.atan(hotspotDistanceAway / 0.0019); // 0.0019 is camera height in kilometers
 					hotspotData.location.distance = 30000 * hotspotDistanceAway;
 					
@@ -191,7 +191,7 @@ package org.diystreetview.player.manager {
 		
 		private function buildDescriptionPath(path:String):String {
 			var result:String = "";
-			if ((_managerData as DsvManagerData).diyStreetviewData.resources.url != null) {
+			if ((_managerData as DsvManagerData).diyStreetviewData.resources.url == null) {
 				result += (_managerData as DsvManagerData).diyStreetviewData.resources.directory;
 				if ((_managerData as DsvManagerData).diyStreetviewData.resources.prefix != null) {
 					result += (_managerData as DsvManagerData).diyStreetviewData.resources.prefix;

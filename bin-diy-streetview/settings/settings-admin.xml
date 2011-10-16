@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SaladoPlayer>
-	<global debug="true" transition="time:0.5" autorotation="delay:600" mouseDrag="enabled:true" mouseInertial="enabled:false"/>
+	<global debug="true" transition="time:0.5" autorotation="delay:600" mouseDrag="enabled:true" mouseInertial="enabled:false">
+		<branding visible="false"/>
+		<control mouseInertial="enabled:false" mouseDrag="enabled:true"/>
+	</global>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
 			<buttons path="~modules/images/buttonbar/buttons_40x40_black.png">
-				<button name="up"/>
-				<button name="down"/>
-				<button name="left"/>
-				<button name="right"/>
 				<button name="in"/>
 				<button name="out"/>
 				<button name="drag"/>
@@ -17,21 +16,30 @@
 				<extraButton name="a" action="toggleDirectoryFixer"/>
 			</buttons>
 		</ButtonBar>
-		<ImageButton path="modules/ImageButton-1.2.swf">
+		<ImageButton path="~modules/ImageButton-1.2.swf">
 			<buttons>
-				<button id="logo" path="modules/images/imagebutton/diy-streetview-logo.png" align="vertical:bottom" move="vertical:-5,horizontal:5">
+				<button id="logo" path="~modules/images/imagebutton/diy-streetview-logo.png" align="vertical:bottom" move="vertical:-5,horizontal:5">
 					<![CDATA[http://www.diy-streetview.com/]]>
 				</button>
 			</buttons>
 		</ImageButton>
-		<DirectionFixer path="modules/DirectionFixer-1.0.swf"/>
-		<DebugBubble path="modules/DebugBubble-1.0.swf"/>
+		<DirectionFixer path="~modules/DirectionFixer-1.0.swf"/>
+		<DebugBubble path="~modules/DebugBubble-1.0.swf"/>
+		<PanoLink path="~modules/PanoLink-1.0.swf">
+			<window open="false" onOpen="onLinkOpen" onClose="onLinkClose"/>
+		</PanoLink>
+		<MouseCursor path="~modules/MouseCursor-1.1.swf">
+			<settings path="~modules/images/mousecursor/cursors_31x31.png"/>
+		</MouseCursor>
 	</modules>
 	<actions>
 		<action id="toggleDirectoryFixer" content="DirectionFixer.toggleVisibility()"/>
+		<action id="linkToggle" content="PanoLink.toggleOpen()"/>
+		<action id="onLinkOpen" content="ButtonBar.setActive(a,true)"/>
+		<action id="onLinkClose" content="ButtonBar.setActive(a,false)"/>
 	</actions>
 	<diystreetview>
-		<resources directory="../../../diynew/data/" start="[000101]" url="http://www.diy-streetview.com/diy-streetview-player-test/diy-streetview-database.php?streetview="/>
+		<resources directory="http://s3.amazonaws.com/diy-streetview-20110418/" start="[000143]" url="http://www.diy-streetview.com/diy-streetview-player-test/diy-streetview-database.php?streetview="/>
 		<settings hotspots="~hotspots/arrow.png"/>
 	</diystreetview>
 </SaladoPlayer>
