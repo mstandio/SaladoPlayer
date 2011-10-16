@@ -31,7 +31,7 @@
 		<action id="toggleDirectoryFixer" content="DirectionFixer.toggleVisibility()"/>
 	</actions>
 	<diystreetview>
-		<resources directory="../../../diynew/data/" start="[000037]"/>
+		<resources directory="../../../diynew/data/" start="[000101]" url="http://www.diy-streetview.com/diy-streetview-player-test/diy-streetview-database.php?streetview="/>
 		<settings hotspots="~hotspots/arrow.png"/>
 	</diystreetview>
 </SaladoPlayer>

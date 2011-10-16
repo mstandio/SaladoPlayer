@@ -88,6 +88,8 @@ package org.diystreetview.player.manager.utils.configuration{
 					resources.prefix = getAttributeValue(resourcesAttribute, String);
 				}else if (resourcesAttributeName == "start") {
 					resources.start = getAttributeValue(resourcesAttribute, String);
+				}else if (resourcesAttributeName == "url") {
+					resources.url = getAttributeValue(resourcesAttribute, String);
 				}else{
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 					"Unrecognized resources attribute: " + resourcesAttributeName));

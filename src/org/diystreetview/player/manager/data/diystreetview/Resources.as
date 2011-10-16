@@ -23,5 +23,7 @@ package org.diystreetview.player.manager.data.diystreetview{
 		public var directory:String;
 		public var prefix:String;
 		public var start:String;
+		
+		public var url:String;
 	}
 }

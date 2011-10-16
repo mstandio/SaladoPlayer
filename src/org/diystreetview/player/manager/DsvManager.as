@@ -61,7 +61,7 @@ package org.diystreetview.player.manager {
 				// checks if there is data in url (for instance [...]/index.html?pano=1281729751-472798&cam=90,20,60 (pan, tilt, fov)
 				var urlParser:UrlParser = new UrlParser(ExternalInterface.call("window.location.href.toString"));
 				if(urlParser.pano != null){
-					var panoramaData:DsvPanoramaData = new DsvPanoramaData(urlParser.pano, buildPath(urlParser.pano) + "_f.xml");
+					var panoramaData:DsvPanoramaData = new DsvPanoramaData(urlParser.pano, buildImagesPath(urlParser.pano) + "_f.xml");
 					panoramaData.params.pan = urlParser.pan;
 					panoramaData.params.tilt = urlParser.tilt;
 					panoramaData.params.fov = urlParser.fov;
@@ -70,7 +70,7 @@ package org.diystreetview.player.manager {
 				// otherwise it reads "start" pano from configuration
 				}else if ((_managerData as DsvManagerData).diyStreetviewData.resources.start != null) {
 					var start:String = (_managerData as DsvManagerData).diyStreetviewData.resources.start;
-					var panoramaData2:DsvPanoramaData = new DsvPanoramaData(start, buildPath(start) + "_f.xml");
+					var panoramaData2:DsvPanoramaData = new DsvPanoramaData(start, buildImagesPath(start) + "_f.xml");
 					_managerData.panoramasData.push(panoramaData2);
 					loadPano(start);
 				}
@@ -84,7 +84,7 @@ package org.diystreetview.player.manager {
 				calledPano = panoIdentifyier;
 				return;
 			}
-			var panoramaData:DsvPanoramaData = new DsvPanoramaData(panoIdentifyier, buildPath(panoIdentifyier) + "_f.xml");
+			var panoramaData:DsvPanoramaData = new DsvPanoramaData(panoIdentifyier, buildImagesPath(panoIdentifyier) + "_f.xml");
 			_managerData.panoramasData.push(panoramaData);
 			loadPano(panoIdentifyier);
 		}
@@ -101,7 +101,7 @@ package org.diystreetview.player.manager {
 			try {
 				xmlLoader.addEventListener(IOErrorEvent.IO_ERROR, xmlLost, false, 0, true);
 				xmlLoader.addEventListener(Event.COMPLETE, xmlLoaded, false, 0, true);
-				xmlLoader.load(new URLRequest(buildPath(panoramaId) + ".xml"));
+				xmlLoader.load(new URLRequest(buildDescriptionPath(panoramaId)));
 			}catch (error:Error) {
 				Trace.instance.printError("Security error, cannot access local resources: " + xmlLoader.urlRequest.url);
 				trace(error.message);
@@ -178,7 +178,7 @@ package org.diystreetview.player.manager {
 					
 					dsvPanoramaData.hotspotsData.push(hotspotData);
 					
-					_managerData.panoramasData.push(new DsvPanoramaData(neighbourName, buildPath(neighbourName) + "_f.xml"));
+					_managerData.panoramasData.push(new DsvPanoramaData(neighbourName, buildImagesPath(neighbourName) + "_f.xml"));
 				}
 				super.loadPanoramaById(dsvPanoramaData.id);
 				ExternalInterface.call("panoChanged", dsvPanoramaData.id);
@@ -189,7 +189,21 @@ package org.diystreetview.player.manager {
 			}
 		}
 		
-		private function buildPath(path:String):String {
+		private function buildDescriptionPath(path:String):String {
+			var result:String = "";
+			if ((_managerData as DsvManagerData).diyStreetviewData.resources.url != null) {
+				result += (_managerData as DsvManagerData).diyStreetviewData.resources.directory;
+				if ((_managerData as DsvManagerData).diyStreetviewData.resources.prefix != null) {
+					result += (_managerData as DsvManagerData).diyStreetviewData.resources.prefix;
+				}
+				result += path +"/" + path + ".xml";
+			}else {
+				result += (_managerData as DsvManagerData).diyStreetviewData.resources.url + path;
+			}
+			return result;
+		}
+		
+		private function buildImagesPath(path:String):String {
 			var result:String = "";
 			result += (_managerData as DsvManagerData).diyStreetviewData.resources.directory;
 			if ((_managerData as DsvManagerData).diyStreetviewData.resources.prefix != null) {

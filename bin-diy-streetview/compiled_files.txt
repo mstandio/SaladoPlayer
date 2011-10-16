@@ -1,5 +1,5 @@
 
-src/org/diystreetview/player/DiyStreetviewPlayer.as -> DiyStreetviewPlayer-1.2.5.swf
+src/org/diystreetview/player/DiyStreetviewPlayer.as -> DiyStreetviewPlayer-1.2.6.swf
 
 // dedicated modules
 
