@@ -69,11 +69,19 @@ package com.panozona.modules.imagemap.view{
 				navigationRight = new NavigationView(new NavigationData(navRight, navStop), _imageMapData.viewerData);
 				navigationUp = new NavigationView(new NavigationData(navUp, navStop), _imageMapData.viewerData);
 				navigationDown = new NavigationView(new NavigationData(navDown, navStop), _imageMapData.viewerData);
+				
+				navigationLeft.alpha = 1 / _imageMapData.windowData.window.alpha;
+				navigationRight.alpha = 1 / _imageMapData.windowData.window.alpha;
+				navigationUp.alpha = 1 / _imageMapData.windowData.window.alpha;
+				navigationDown.alpha = 1 / _imageMapData.windowData.window.alpha;
 			}
 			
 			if (_imageMapData.viewerData.viewer.zoomEnabled){
 				navigationIn = new NavigationView(new NavigationData(navIn, navZoomStop), _imageMapData.viewerData);
 				navigationOut = new NavigationView(new NavigationData(navOut, navZoomStop), _imageMapData.viewerData);
+				
+				navigationIn.alpha = 1 / _imageMapData.windowData.window.alpha;
+				navigationOut.alpha = 1 / _imageMapData.windowData.window.alpha;
 			}
 			
 			if (_imageMapData.viewerData.viewer.dragEnabled) {
