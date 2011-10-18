@@ -40,5 +40,7 @@ package com.panozona.modules.imagemap.model.structure{
 		
 		public const radars:Radar = new Radar();
 		public const buttons:Button = new Button();
+		
+		public var buttonsPath:String = null;
 	}
 }

@@ -332,12 +332,15 @@ package com.panozona.modules.imagemap.controller{
 						deltaZoom = (_viewerView.containerMask.height -
 							_viewerView.container.scaleY * _viewerView.imageMapData.viewerData.size.height) / _viewerView.imageMapData.viewerData.size.height;
 					}
+					if (_viewerView.viewerData.mouseOver) {
+						deltaX -= (_viewerView.mouseX - _viewerView.container.x) * deltaZoom / _viewerView.container.scaleX;
+						deltaY -= (_viewerView.mouseY - _viewerView.container.y) * deltaZoom / _viewerView.container.scaleY;
+					}else {
+						deltaX -= (_viewerView.containerMask.width * 0.5 - _viewerView.container.x) * deltaZoom / _viewerView.container.scaleX;
+						deltaY -= (_viewerView.containerMask.height * 0.5 - _viewerView.container.y) * deltaZoom / _viewerView.container.scaleY;
+					}
 					_viewerView.container.scaleX += deltaZoom;
 					_viewerView.container.scaleY += deltaZoom;
-					deltaX = ( - _viewerView.container.x + _viewerView.containerMask.width * 0.5) * 
-					( _viewerView.container.scaleX / (_viewerView.container.scaleX + deltaZoom) - 1);
-					deltaY = ( - _viewerView.container.y + _viewerView.containerMask.height * 0.5) * 
-					( _viewerView.container.scaleX / (_viewerView.container.scaleX + deltaZoom) - 1);
 				}
 			}
 			if (_viewerView.container.x + deltaX < 0) {
