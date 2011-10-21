@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -18,14 +18,26 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model.structure {
 	
-	public class Button{
+	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.structure.DataParent;
+	import com.panozona.player.manager.utils.loading.ILoadable
+	
+	public class Waypoints extends DataParent implements ILoadable{
 		
-		public var radius:Number = 10;
-		public var plainColor:Number = 0x00ff00; // green
-		public var hoverColor:Number = 0xffff00; // yellow
-		public var activeColor:Number = 0xff0000; // red
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Waypoint);
+			return result;
+		}
 		
-		public var borderColor:Number = 0x000000; // black
-		public var borderSize:Number = 3;
+		private var _path:String = null;
+		
+		public function get path():String { return _path; }
+		public function set path(value:String):void {
+			_path = value; 
+		}
+		
+		public const move:Move = new Move(0, 0);
+		public const radar:Radar = new Radar();
 	}
 }

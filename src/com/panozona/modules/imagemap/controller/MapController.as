@@ -18,21 +18,27 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.controller {
 	
-	import com.panozona.modules.imagemap.events.ViewerEvent;
 	import com.panozona.modules.imagemap.events.MapEvent;
+	import com.panozona.modules.imagemap.events.ViewerEvent;
 	import com.panozona.modules.imagemap.model.structure.Map;
 	import com.panozona.modules.imagemap.model.structure.Waypoint;
+	import com.panozona.modules.imagemap.model.structure.Waypoints;
 	import com.panozona.modules.imagemap.model.WaypointData;
 	import com.panozona.modules.imagemap.view.MapView;
 	import com.panozona.modules.imagemap.view.WaypointView;
+	import com.panozona.player.manager.events.LoadLoadableEvent;
+	import com.panozona.player.manager.utils.loading.ILoadable;
+	import com.panozona.player.manager.utils.loading.LoadablesLoader;
 	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.Module;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	
@@ -46,12 +52,22 @@ package com.panozona.modules.imagemap.controller {
 		
 		private var mapContentLoader:Loader;
 		
+		private var waypointsLoader:LoadablesLoader;
+		
 		public function MapController(mapView:MapView, module:Module){
 			_mapView = mapView;
 			_module = module;
 			
 			waypointControlers = new Array();
 			arrListeners = new Array();
+			
+			mapContentLoader = new Loader();
+			mapContentLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, mapContentLost, false, 0, true);
+			mapContentLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, mapContentLoaded, false, 0, true);
+			
+			waypointsLoader = new LoadablesLoader();
+			waypointsLoader.addEventListener(LoadLoadableEvent.LOST, waypointsLost);
+			waypointsLoader.addEventListener(LoadLoadableEvent.LOADED, waypointsLoaded);
 			
 			_mapView.imageMapData.mapData.addEventListener(MapEvent.CHANGED_CURRENT_MAP_ID, handleCurrentMapIdChange, false, 0, true);
 			_mapView.imageMapData.mapData.addEventListener(ViewerEvent.FOCUS_LOST, handleFocusLost, false, 0, true);
@@ -75,16 +91,10 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function handleCurrentMapIdChange(e:Event):void {
-			if (mapContentLoader == null) {
-				mapContentLoader = new Loader();
-				mapContentLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, mapContentLost, false, 0, true);
-				mapContentLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, mapContentLoaded, false, 0, true);
-			}else {
-				mapContentLoader.unload();
-			}
-			_mapView.waypointsContainer.visible = false;
+			mapContentLoader.unload();
+			//waypointsLoader.abort();
+			destroyWaypoints();
 			_mapView.imageMapData.viewerData.focusPoint = new Point(NaN, NaN);
-			buildWaypoints();
 			mapContentLoader.load(new URLRequest(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).path));
 			_module.saladoPlayer.manager.runAction(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).onSet);
 		}
@@ -103,17 +113,43 @@ package com.panozona.modules.imagemap.controller {
 			_mapView.imageMapData.viewerData.currentZoom = _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).zoom;
 			_mapView.content = mapContentLoader.content;
 			_mapView.imageMapData.viewerData.size = new Size(mapContentLoader.content.width, mapContentLoader.content.height);
-			_mapView.waypointsContainer.visible = true;
+			buildWaypoints();
 		}
 		
 		private function buildWaypoints():void {
-			destroyWaypoints();
+			var waypointsGroup:Vector.<ILoadable> = new Vector.<ILoadable>();
+			for each (var waypoints:Waypoints in _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).getChildrenOfGivenClass(Waypoints)) {
+				waypointsGroup.push(waypoints);
+			}
+			waypointsLoader.load(waypointsGroup);
+		}
+		
+		protected function waypointsLost(event:LoadLoadableEvent):void {
+			_module.printError("Could not load waypoints: " + event.loadable.path);
+		}
+		
+		protected function waypointsLoaded(event:LoadLoadableEvent):void {
+			var bitmapData:BitmapData = new BitmapData(event.content.width, event.content.height, true, 0);
+			bitmapData.draw((event.content as Bitmap).bitmapData);
+			
+			var cellHeight:int = Math.ceil((bitmapData.height - 2) / 3);
+			
+			var bitmapDataPlain:BitmapData = new BitmapData(bitmapData.width, cellHeight, true, 0);
+			bitmapDataPlain.copyPixels(bitmapData, new Rectangle(0, 0, bitmapData.width, cellHeight), new Point(0, 0), null, null, true);
+			
+			var bitmapDataHover:BitmapData = new BitmapData(bitmapData.width, cellHeight, true, 0);
+			bitmapDataHover.copyPixels(bitmapData, new Rectangle(0, cellHeight + 1, bitmapData.width, cellHeight), new Point(0, 0), null, null, true);
+			
+			var bitmapDataActive:BitmapData = new BitmapData(bitmapData.width, cellHeight, true, 0);
+			bitmapDataActive.copyPixels(bitmapData, new Rectangle(0, cellHeight * 2 + 2, bitmapData.width, cellHeight), new Point(0, 0), null, null, true);
 			
 			var waypointView:WaypointView;
 			var waypointController:WaypointController;
 			var map:Map = _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId);
-			for each(var waypoint:Waypoint in map.getChildrenOfGivenClass(Waypoint)) {
-				waypointView = new WaypointView(_mapView.imageMapData, new WaypointData(waypoint, map.buttons, map.radars, map.panShift));
+			var waypoints:Waypoints = (event.loadable as Waypoints);
+			for each(var waypoint:Waypoint in waypoints.getChildrenOfGivenClass(Waypoint)) {
+				waypointView = new WaypointView(_mapView.imageMapData, new WaypointData(waypoint, waypoints.radar, map.panShift, waypoints.move,
+				bitmapDataPlain, bitmapDataHover, bitmapDataActive));
 				_mapView.waypointsContainer.addChild(waypointView);
 				waypointController = new WaypointController(waypointView, _module);
 				waypointControlers.push(waypointController);

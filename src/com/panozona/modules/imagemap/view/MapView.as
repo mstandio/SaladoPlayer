@@ -26,7 +26,6 @@ package com.panozona.modules.imagemap.view {
 	public class MapView extends Sprite {
 		
 		public const waypointsContainer:Sprite = new Sprite();
-		public const radarContainer:Sprite = new Sprite();
 		
 		private var _content:DisplayObject;
 		private var _imageMapData:ImageMapData;

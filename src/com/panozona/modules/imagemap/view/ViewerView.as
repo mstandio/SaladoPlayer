@@ -164,6 +164,22 @@ package com.panozona.modules.imagemap.view{
 			return container.height;
 		}
 		
+		public function set containerScaleX(value:Number):void {
+			container.scaleX = value;
+			for (var i:int = 0; i < mapView.waypointsContainer.numChildren; i++) {
+				(mapView.waypointsContainer.getChildAt(i) as WaypointView).button.scaleX = 1 / value;
+				(mapView.waypointsContainer.getChildAt(i) as WaypointView).radar.scaleX = 1 / value;
+			}
+		}
+		
+		public function set containerScaleY(value:Number):void {
+			container.scaleY = value;
+			for (var i:int = 0; i < mapView.waypointsContainer.numChildren; i++) {
+				(mapView.waypointsContainer.getChildAt(i) as WaypointView).button.scaleY = 1 / value;
+				(mapView.waypointsContainer.getChildAt(i) as WaypointView).radar.scaleY = 1 / value;
+			}
+		}
+		
 		public function set bitmapDataHover(value:BitmapData):void {
 			_bitmapDataHover = value;
 			if (!viewerData.mouseDrag) {

@@ -24,7 +24,7 @@ package com.panozona.modules.imagemap.model.structure{
 		
 		override public function getChildrenTypes():Vector.<Class>{
 			var result:Vector.<Class> = new Vector.<Class>();
-			result.push(Waypoint);
+			result.push(Waypoints);
 			return result;
 		}
 		
@@ -37,10 +37,5 @@ package com.panozona.modules.imagemap.model.structure{
 		
 		public var onSet:String = null; // action id
 		public var onUnset:String = null; // action id
-		
-		public const radars:Radar = new Radar();
-		public const buttons:Button = new Button();
-		
-		public var buttonsPath:String = null;
 	}
 }

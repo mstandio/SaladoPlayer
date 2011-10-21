@@ -339,8 +339,8 @@ package com.panozona.modules.imagemap.controller{
 						deltaX -= (_viewerView.containerMask.width * 0.5 - _viewerView.container.x) * deltaZoom / _viewerView.container.scaleX;
 						deltaY -= (_viewerView.containerMask.height * 0.5 - _viewerView.container.y) * deltaZoom / _viewerView.container.scaleY;
 					}
-					_viewerView.container.scaleX += deltaZoom;
-					_viewerView.container.scaleY += deltaZoom;
+					_viewerView.containerScaleX = _viewerView.container.scaleX + deltaZoom;
+					_viewerView.containerScaleY = _viewerView.container.scaleY + deltaZoom;
 				}
 			}
 			if (_viewerView.container.x + deltaX < 0) {
