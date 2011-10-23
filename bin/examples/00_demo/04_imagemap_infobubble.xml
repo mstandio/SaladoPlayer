@@ -23,9 +23,11 @@
 			<viewer path="~modules/images/imagemap/navigation_20x20_black.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map_1.jpg">
-					<waypoint target="greenChecker" position="x:150,y:100" mouse="onOver:showGreenBubble,onOut:hideBubble"/>
-					<waypoint target="blueChecker" position="x:800,y:200" mouse="onOver:showBlueBubble,onOut:hideBubble"/>
-					<waypoint target="redChecker" position="x:500,y:300" mouse="onOver:showRedBubble,onOut:hideBubble"/>
+					<waypoints path="~modules/images/imagemap/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="showTilt:false">
+						<waypoint target="greenChecker" position="x:150,y:100" mouse="onOver:showGreenBubble,onOut:hideBubble"/>
+						<waypoint target="blueChecker" position="x:800,y:200" mouse="onOver:showBlueBubble,onOut:hideBubble"/>
+						<waypoint target="redChecker" position="x:500,y:300" mouse="onOver:showRedBubble,onOut:hideBubble"/>
+					</waypoints>
 				</map>
 			</maps>
 		</ImageMap>

@@ -25,10 +25,14 @@
 			<viewer path="~modules/images/imagemap/navigation_20x20_black.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map_1.jpg" onSet="onSetMap1">
-					<waypoint target="greenChecker" position="x:150,y:100"/>
+					<waypoints path="~modules/images/imagemap/waypoints_button_20x20.png">
+						<waypoint target="greenChecker" position="x:500,y:200"/>
+					</waypoints>
 				</map>
 				<map id="map2" path="~media/images/maps/map_2.jpg" onSet="onSetMap2">
-					<waypoint target="redChecker" position="x:250,y:200"/>
+					<waypoints path="~modules/images/imagemap/waypoints_button_20x20.png">
+						<waypoint target="redChecker" position="x:250,y:200"/>
+					</waypoints>
 				</map>
 			</maps>
 		</ImageMap>

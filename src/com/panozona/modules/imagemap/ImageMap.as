@@ -60,7 +60,11 @@ package com.panozona.modules.imagemap{
 		}
 		
 		public function setMap(value:String):void {
-			imageMapData.mapData.currentMapId = value;
+			if(imageMapData.mapData.getMapById(value) != null){
+				imageMapData.mapData.currentMapId = value;
+			}else {
+				printWarning("Invalid map id: " + value);
+			}
 		}
 	}
 }

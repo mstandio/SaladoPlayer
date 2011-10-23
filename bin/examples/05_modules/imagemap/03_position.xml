@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Change size and alignment of module window. InitZoom determines zoom level each time
-	given map is set, however image will never be zoomed higher then 200% and lower than size, when shorter
-	of its sides will be same as analogical map window dimension. If initZoom exceeds those limits,
+	Change size and alignment of module window. zoom attribute determines zoom level each time
+	given map is set, however image will never be zoomed lower than size, when shorter of its
+	sides will be same as analogical map window dimension. If zoom values exceed those limits,
 	values of those limits will be applied.
 	
 	http://panozona.com/wiki/Module:ImageMap
@@ -17,8 +17,10 @@
 			<window size="width:200,height:300" align="vertical:bottom" move="vertical:-20"/>
 			<viewer path="~modules/images/imagemap/navigation_20x20_black.png"/>
 			<maps>
-				<map id="map1" path="~media/images/maps/map_2.jpg" initZoom="30">
-					<waypoint target="blueChecker" position="x:150,y:100"/>
+				<map id="map1" path="~media/images/maps/map_2.jpg" zoom="init:30,max:200,min:10">
+					<waypoints path="~modules/images/imagemap/waypoints_button_20x20.png">
+						<waypoint target="blueChecker" position="x:250,y:150"/>
+					</waypoints>
 				</map>
 			</maps>
 		</ImageMap>

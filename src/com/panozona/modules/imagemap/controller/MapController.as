@@ -78,10 +78,12 @@ package com.panozona.modules.imagemap.controller {
 		
 		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {
 			for each(var map:Map in _mapView.imageMapData.mapData.maps.getChildrenOfGivenClass(Map)) {
-				for each(var waypoint:Waypoint in map.getChildrenOfGivenClass(Waypoint)) {
-					if (waypoint.target == _module.saladoPlayer.manager.currentPanoramaData.id) {
-						_mapView.imageMapData.mapData.currentMapId = map.id;
-						return;
+				for each(var waypoints:Waypoints in map.getChildrenOfGivenClass(Waypoints)) {
+					for each(var waypoint:Waypoint in waypoints.getChildrenOfGivenClass(Waypoint)) {
+						if (waypoint.target == _module.saladoPlayer.manager.currentPanoramaData.id) {
+							_mapView.imageMapData.mapData.currentMapId = map.id;
+							return;
+						}
 					}
 				}
 			}
@@ -147,9 +149,14 @@ package com.panozona.modules.imagemap.controller {
 			var waypointController:WaypointController;
 			var map:Map = _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId);
 			var waypoints:Waypoints = (event.loadable as Waypoints);
+			
+			if (map.getChildrenOfGivenClass(Waypoints).indexOf(waypoints) < 0) return;
+			
 			for each(var waypoint:Waypoint in waypoints.getChildrenOfGivenClass(Waypoint)) {
 				waypointView = new WaypointView(_mapView.imageMapData, new WaypointData(waypoint, waypoints.radar, map.panShift, waypoints.move,
 				bitmapDataPlain, bitmapDataHover, bitmapDataActive));
+				waypointView.button.scaleX = waypointView.radar.scaleX = 1 / _mapView.parent.scaleX;
+				waypointView.button.scaleY = waypointView.radar.scaleY = 1 / _mapView.parent.scaleY;
 				_mapView.waypointsContainer.addChild(waypointView);
 				waypointController = new WaypointController(waypointView, _module);
 				waypointControlers.push(waypointController);

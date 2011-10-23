@@ -34,7 +34,7 @@ package com.panozona.modules.imagemap.model.structure {
 		
 		public function get path():String { return _path; }
 		public function set path(value:String):void {
-			_path = value; 
+			_path = value;
 		}
 		
 		public const move:Move = new Move(0, 0);

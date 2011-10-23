@@ -88,10 +88,12 @@
 					<waypoint target="park" position="x:650,y:380" mouse="onOver:showBubblePark,onOut:hideBubble"/>
 				</map>
 				<map id="map2" path="~media/images/maps/map_2.jpg">
-					<waypoint target="blueChecker" position="x:250,y:200" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
-					<waypoint target="greenChecker" position="x:450,y:400" mouse="onOver:showBubbleGreen,onOut:hideBubble"/>
-					<waypoint target="redChecker" position="x:250,y:400" mouse="onOver:showBubbleRed,onOut:hideBubble"/>
-					<waypoint target="yellowChecker" position="x:450,y:200" mouse="onOver:showBubbleYellow,onOut:hideBubble"/>
+					<waypoints path="~modules/images/imagemap/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="showTilt:false">
+						<waypoint target="blueChecker" position="x:250,y:200" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
+						<waypoint target="greenChecker" position="x:450,y:400" mouse="onOver:showBubbleGreen,onOut:hideBubble"/>
+						<waypoint target="redChecker" position="x:250,y:400" mouse="onOver:showBubbleRed,onOut:hideBubble"/>
+						<waypoint target="yellowChecker" position="x:450,y:200" mouse="onOver:showBubbleYellow,onOut:hideBubble"/>
+					</waypoints>
 				</map>
 			</maps>
 		</ImageMap>

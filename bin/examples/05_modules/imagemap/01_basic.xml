@@ -3,8 +3,7 @@
 	Point to image that will be used as map. Place waypoints on image and assign panoramas opened when waypoint
 	gets clicked. When user loads panorama, module draws radar at waypoint targeting to given panorama.
 	Module uses panorama direction attribute to synchronise radars with map. If your map is not positioned "north-up"
-	you can use panShift value to alter all waypoints in your map. 
-	
+	you can use panShift value to alter all waypoints in your map.
 	
 	http://panozona.com/wiki/Module:ImageMap
 -->
@@ -12,7 +11,7 @@
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" direction="45"/>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" direction="0"/>
+		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" direction="90"/>
 		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
 	</panoramas>
 	<modules>
@@ -20,9 +19,11 @@
 			<viewer path="~modules/images/imagemap/navigation_20x20_black.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map_1.jpg" panShift="90">
-					<waypoint target="blueChecker" position="x:800,y:200"/>
-					<waypoint target="greenChecker" position="x:150,y:100"/>
-					<waypoint target="redChecker" position="x:500,y:300"/>
+					<waypoints path="~modules/images/imagemap/waypoints_button_20x20.png">
+						<waypoint target="greenChecker" position="x:200,y:350"/>
+						<waypoint target="redChecker" position="x:500,y:200"/>
+						<waypoint target="blueChecker" position="x:800,y:400"/>
+					</waypoints>
 				</map>
 			</maps>
 		</ImageMap>

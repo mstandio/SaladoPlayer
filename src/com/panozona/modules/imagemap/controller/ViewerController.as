@@ -41,6 +41,7 @@ package com.panozona.modules.imagemap.controller{
 		
 		private var moveActive:Boolean;
 		private var zoomActive:Boolean;
+		private var scrollActive:Boolean;
 		private var focusActive:Boolean;
 		
 		private var mouseX:Number;
@@ -156,17 +157,12 @@ package com.panozona.modules.imagemap.controller{
 		private function handleSizeChange(e:Event):void {
 			focusActive = false;
 			zoomActive = true;
-			_viewerView.imageMapData.viewerData.currentZoom.init *= 0.01;
-			_viewerView.imageMapData.viewerData.currentZoom.max *= 0.01;
-			_viewerView.imageMapData.viewerData.currentZoom.min *= 0.01;
 			deltaZoom = _viewerView.imageMapData.viewerData.currentZoom.init - _viewerView.container.scaleX;
 			onEnterFrame();
 			deltaZoom = 0;
 			zoomActive = false;
-			
 			_viewerView.container.x = (_viewerView.containerMask.width -_viewerView.containerWidth) * 0.5;
 			_viewerView.container.y = (_viewerView.containerMask.height - _viewerView.containerHeight) * 0.5;
-			
 			if (_viewerView.viewerData.viewer.autofocusEnabled) {
 				handleFocusPointChange();
 			}
@@ -199,11 +195,11 @@ package com.panozona.modules.imagemap.controller{
 		
 		private function handleMouseWheel(e:MouseEvent):void {
 			focusActive = false;
-			zoomActive = true;
+			scrollActive = true;
 			deltaZoom = _viewerView.viewerData.viewer.zoomSpeed * e.delta;
 			onEnterFrame();
 			deltaZoom = 0;
-			zoomActive = false;
+			scrollActive = false;
 		}
 		
 		private function handleMouseOverChange(e:Event):void {
@@ -314,7 +310,7 @@ package com.panozona.modules.imagemap.controller{
 					deltaX = 0
 					deltaY = - _viewerView.viewerData.viewer.moveSpeed;
 				}
-			} else if (zoomActive) {
+			} else if (zoomActive || scrollActive) {
 				if (_viewerView.viewerData.zoomIn) {
 					deltaZoom = _viewerView.viewerData.viewer.zoomSpeed;
 				}else if (_viewerView.viewerData.zoomOut) {
@@ -332,12 +328,12 @@ package com.panozona.modules.imagemap.controller{
 						deltaZoom = (_viewerView.containerMask.height -
 							_viewerView.container.scaleY * _viewerView.imageMapData.viewerData.size.height) / _viewerView.imageMapData.viewerData.size.height;
 					}
-					if (_viewerView.viewerData.mouseOver) {
-						deltaX -= (_viewerView.mouseX - _viewerView.container.x) * deltaZoom / _viewerView.container.scaleX;
-						deltaY -= (_viewerView.mouseY - _viewerView.container.y) * deltaZoom / _viewerView.container.scaleY;
-					}else {
+					if (zoomActive) {
 						deltaX -= (_viewerView.containerMask.width * 0.5 - _viewerView.container.x) * deltaZoom / _viewerView.container.scaleX;
 						deltaY -= (_viewerView.containerMask.height * 0.5 - _viewerView.container.y) * deltaZoom / _viewerView.container.scaleY;
+					}else {
+						deltaX -= (_viewerView.mouseX - _viewerView.container.x) * deltaZoom / _viewerView.container.scaleX;
+						deltaY -= (_viewerView.mouseY - _viewerView.container.y) * deltaZoom / _viewerView.container.scaleY;
 					}
 					_viewerView.containerScaleX = _viewerView.container.scaleX + deltaZoom;
 					_viewerView.containerScaleY = _viewerView.container.scaleY + deltaZoom;

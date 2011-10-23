@@ -18,7 +18,9 @@
 			<viewer path="~modules/images/imagemap/navigation_20x20_black.png"/>
 			<maps>
 				<map id="map2" path="~media/images/maps/map_2.jpg">
-					<waypoint target="blueChecker" position="x:150,y:100"/>
+					<waypoints path="~modules/images/imagemap/waypoints_button_20x20.png">
+						<waypoint target="blueChecker" position="x:150,y:100"/>
+					</waypoints>
 				</map>
 			</maps>
 		</ImageMap>
