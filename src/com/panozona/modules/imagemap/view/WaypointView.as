@@ -38,7 +38,7 @@ package com.panozona.modules.imagemap.view {
 		private var _imageMapData:ImageMapData;
 		private var _waypointData:WaypointData;
 		
-		public function WaypointView (imageMapData:ImageMapData, waypointData:WaypointData) {
+		public function WaypointView (imageMapData:ImageMapData, waypointData:WaypointData, mapView:MapView) {
 			
 			_imageMapData = imageMapData;
 			_waypointData = waypointData;
@@ -47,7 +47,7 @@ package com.panozona.modules.imagemap.view {
 			radar.alpha = (1 / imageMapData.windowData.window.alpha) * _waypointData.radar.alpha;
 			radar.x = waypointData.waypoint.position.x;
 			radar.y = waypointData.waypoint.position.y;
-			addChild(radar);
+			mapView.radarContainer.addChild(radar);
 			
 			button.buttonMode = true;
 			button.alpha = 1 / imageMapData.windowData.window.alpha;
@@ -60,6 +60,10 @@ package com.panozona.modules.imagemap.view {
 			
 			button.addEventListener(MouseEvent.ROLL_OVER, mouseOver, false, 0, true);
 			button.addEventListener(MouseEvent.ROLL_OUT, mouseOut, false, 0, true);
+		}
+		
+		public function get imageMapData():ImageMapData {
+			return _imageMapData;
 		}
 		
 		public function get viewerData():ViewerData {
@@ -76,18 +80,6 @@ package com.panozona.modules.imagemap.view {
 			_buttonImage.y = - _buttonImage.height * 0.5;
 			_buttonImage.x += _waypointData.move.horizontal;
 			_buttonImage.y += _waypointData.move.vertical;
-		}
-		
-		public function radarFirst():void {
-			addChild(button);
-			addChild(radar);
-			(parent as Sprite).addChildAt(this, (parent as Sprite).numChildren - 1);
-		}
-		
-		public function buttonFirst():void {
-			addChild(radar);
-			addChild(button);
-			(parent as Sprite).addChildAt(this, 0);
 		}
 		
 		private function mouseOver(e:Event):void {

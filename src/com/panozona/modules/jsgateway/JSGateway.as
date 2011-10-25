@@ -32,7 +32,7 @@ package com.panozona.modules.jsgateway {
 		private var jsgatewayData:JSGatewayData;
 		
 		public function JSGateway(){
-			super("JSGateway", "1.3", "http://panozona.com/wiki/Module:JSGateway");
+			super("JSGateway", "1.3.2", "http://panozona.com/wiki/Module:JSGateway");
 			moduleDescription.addFunctionDescription("run", String);
 		}
 		
@@ -100,7 +100,7 @@ package com.panozona.modules.jsgateway {
 		private function onEnterFrame(e:Event):void {
 			if (__pan == saladoPlayer.manager._pan && __tilt == saladoPlayer.manager._tilt && __fov == saladoPlayer.manager._fieldOfView) return;
 			__pan = saladoPlayer.manager._pan;
-			__tilt = saladoPlayer.manager._pan;
+			__tilt = saladoPlayer.manager._tilt;
 			__fov = saladoPlayer.manager._fieldOfView;
 			ExternalInterface.call("onViewChange", __pan.toFixed(0), __tilt.toFixed(0), __fov.toFixed(0), __currentDirection.toFixed(0));
 		}

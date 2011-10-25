@@ -117,9 +117,9 @@ package com.panozona.modules.imagemap.controller {
 				_waypointView.radar.scaleY = _waypointView.button.scaleY * (1 - Math.abs(_module.saladoPlayer.manager._tilt) / 100);
 				if (_waypointView.radar.scaleY < 0.15) _waypointView.radar.scaleY = 0.15;
 				if (_module.saladoPlayer.manager._tilt > 0) {
-					_waypointView.radarFirst();
+					_waypointView.imageMapData.mapData.radarFirst = true;
 				}else {
-					_waypointView.buttonFirst();
+					_waypointView.imageMapData.mapData.radarFirst = false;
 				}
 			}
 			if (_pan != _module.saladoPlayer.manager._pan) {
