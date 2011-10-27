@@ -34,18 +34,7 @@ package com.panozona.modules.imagemap.view {
 		public function MapView(imageMapData:ImageMapData) {
 			_imageMapData = imageMapData;
 			
-			addChild(radarContainer);
-			addChild(waypointsContainer);
-		}
-		
-		public function radarFirst():void {
-			addChild(waypointsContainer);
-			addChild(radarContainer);
-		}
-		
-		public function buttonFirst():void {
-			addChild(radarContainer);
-			addChild(waypointsContainer);
+			placeContainers();
 		}
 		
 		public function get imageMapData():ImageMapData {
@@ -61,6 +50,10 @@ package com.panozona.modules.imagemap.view {
 			while(numChildren) removeChildAt(0);
 			_content = value;
 			addChild(_content);
+			placeContainers();
+		}
+		
+		public function placeContainers():void {
 			if(_imageMapData.mapData.radarFirst){
 				addChild(waypointsContainer);
 				addChild(radarContainer);

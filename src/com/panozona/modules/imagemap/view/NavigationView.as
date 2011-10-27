@@ -81,7 +81,6 @@ package com.panozona.modules.imagemap.view {
 			}
 		}
 		
-		
 		private function onMousePress(e:MouseEvent):void {
 			_navigationData.isActive = true;
 		}

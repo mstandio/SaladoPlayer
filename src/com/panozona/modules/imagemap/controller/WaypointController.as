@@ -79,6 +79,9 @@ package com.panozona.modules.imagemap.controller {
 				currentDirection = _module.saladoPlayer.managerData.getPanoramaDataById(_waypointView.waypointData.waypoint.target).direction;
 				_waypointView.viewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
 				_waypointView.waypointData.showRadar = true;
+				if (!_waypointView.waypointData.radar.showTilt) {
+					_waypointView.imageMapData.mapData.radarFirst = false;
+				}
 			}else {
 				_waypointView.waypointData.showRadar = false;
 			}

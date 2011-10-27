@@ -75,7 +75,7 @@ package com.panozona.modules.imagemap.model {
 						throw new Error("Repeating map id: " + map.id);
 					}else {
 						mapIds[map.id] = ""; // something
-						for each(var waypoints:Waypoints in map.getChildrenOfGivenClass(Waypoint)) {
+						for each(var waypoints:Waypoints in map.getChildrenOfGivenClass(Waypoints)) {
 							if (waypoints.path == null || !waypoints.path.match(/^(.+)\.(png|gif|jpg|jpeg|)$/i)) throw new Error("Invalid waypoints path: " + waypoints.path);
 							for each(var waypoint:Waypoint in waypoints.getChildrenOfGivenClass(Waypoint)) {
 								if (waypoint.target == null) throw new Error("Waypoint target not specified in map: " + map.id);

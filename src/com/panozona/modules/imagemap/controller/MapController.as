@@ -103,11 +103,7 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function handleRadarFirstChange(e:Event):void {
-			if (_mapView.imageMapData.mapData.radarFirst) {
-				_mapView.radarFirst();
-			}else {
-				_mapView.buttonFirst();
-			}
+			_mapView.placeContainers();
 		}
 		
 		private function handleFocusLost(e:Event):void {
