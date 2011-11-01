@@ -49,7 +49,7 @@ package com.panozona.modules.compass {
 		
 		public function Compass() {
 			
-			super("Compass", "1.0", "http://panozona.com/wiki/Module:Compass");
+			super("Compass", "1.1", "http://panozona.com/wiki/Module:Compass");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
@@ -95,6 +95,7 @@ package com.panozona.modules.compass {
 			
 			addChild(dial)
 			axis = new Sprite();
+			axis.mouseEnabled = false;
 			axis.addChild(needle);
 			addChild(axis);
 			
