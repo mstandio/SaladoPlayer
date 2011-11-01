@@ -17,11 +17,11 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="gc_blueArrow" path="~hotspots/images/blue_arrow.png" mouse="onClick:loadBlueChecker"/>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" mouse="onClick:loadBlueChecker"/>
 		</panorama>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
-			<image id="bc_greenArrow" path="~hotspots/images/green_arrow.png" mouse="onClick:loadGreenChecker"/>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" mouse="onClick:loadcheckerGreen"/>
 		</panorama>
 	</panoramas>
 	<modules>
@@ -42,8 +42,8 @@
 		</JSGateway>
 	</modules>
 	<actions>
-		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(blueChecker)"/>
-		<action id="loadGreenChecker" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(checkerBlue)"/>
+		<action id="loadcheckerGreen" content="SaladoPlayer.loadPano(checkerGreen)"/>
 		
 		<action id="saladoPlayerToJavascript" content="JSGateway.run(js1)"/>
 		<action id="javaScriptToSaladoPlayer" content="SaladoPlayer.print(got called from javascript)"/>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	In this example music is turned off by default. You can toggle background music by clicking button on ButtonBar.
+	Entering panoramas changed played tracks. If you can change tracks even when if music is stopped, 
+	so that correct track would be played when user decides to turn music on.
+	
+	http://panozona.com/wiki/Module:BackgroundMusic
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" onEnter="setTrackVsadnik">
+			<image id="gc_arrowBlue" path="hotspots/images/blue_arrow.png" mouse="onClick:loadBlueCheck"/>
+		</panorama>
+		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml" onEnter="setTrackMovox">
+			<image id="bc_greenArrow" path="hotspots/images/green_arrow.png" mouse="onClick:loadGreenCheck"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ButtonBar path="modules/ButtonBar-1.0.swf">
+			<bar path="modules/images/buttonbar/bar/bar_30_white.png" size="height:30"/>
+			<buttons path="modules/images/buttonbar/buttons/buttons_30x30_blue.png">
+				<button name="in"/>
+				<button name="out"/>
+				<button name="drag"/>
+				<button name="autorotation"/>
+				<button name="fullscreen"/>
+				<extraButton name="a" action="toggleBackgroundMusic"/>
+			</buttons>
+		</ButtonBar>
+		<BackgroundMusic path="modules/BackgroundMusic-1.1.swf">
+			<settings onPlay="setMusicButonActive" onStop="setMusicButonInactive"/>
+			<tracks>
+				<track id="movox" path="modules/sound/backgroundmusic/czesc.mp3"/>
+				<track id="vsadnik" path="modules/sound/backgroundmusic/bomba.mp3" loop="false"/>
+			</tracks>
+		</BackgroundMusic>
+	</modules>
+	<actions>
+		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueChecker)"/>
+		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="setTrackMovox" content="BackgroundMusic.setTrack(movox)"/>
+		<action id="setTrackVsadnik" content="BackgroundMusic.setTrack(vsadnik)"/>
+		<action id="toggleBackgroundMusic" content="BackgroundMusic.togglePlay()"/>
+		<action id="setMusicButonActive" content="ButtonBar.setExtraButtonActive(a,true)"/>
+		<action id="setMusicButonInactive" content="ButtonBar.setExtraButtonActive(a,false)"/>
+	</actions>
+</SaladoPlayer>

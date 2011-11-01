@@ -9,17 +9,17 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
-			<image id="bc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMenu"/>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+			<image id="bc_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMenu"/>
 		</panorama>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="gc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMenu"/>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="gc_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMenu"/>
 		</panorama>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml">
-			<image id="rc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMenu"/>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
+			<image id="rc_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMenu"/>
 		</panorama>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
-			<image id="yc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMenu"/>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
+			<image id="yc_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMenu"/>
 		</panorama>
 	</panoramas>
 	<modules>
@@ -28,10 +28,10 @@
 			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
 			<scroller scrollsVertical="false"/>
 			<elements>
-				<element target="blueChecker" path="~media/images/thumbs/blue.jpg"/>
-				<element target="greenChecker" path="~media/images/thumbs/green.jpg"/>
-				<element target="redChecker" path="~media/images/thumbs/red.jpg"/>
-				<element target="yellowChecker" path="~media/images/thumbs/yellow.jpg"/>
+				<element target="checkerBlue" path="~media/images/thumbs/blue.jpg"/>
+				<element target="checkerGreen" path="~media/images/thumbs/green.jpg"/>
+				<element target="checkerRed" path="~media/images/thumbs/red.jpg"/>
+				<element target="checkerYellow" path="~media/images/thumbs/yellow.jpg"/>
 			</elements>
 		</MenuScroller>
 	</modules>

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 	onEnterFrom allows assignment of actions executed when entering from given panorama. for instance: in panorama
-	greenChecker onEnterFrom="blueChecker:printGreenFromBlue,redChecker:printGreenFromRed means that when entering 
-	from panotrama blueChecker to panorama greenChecker, action printGreenFromBlue is executed, similar for redChecker.
+	checkerGreen onEnterFrom="checkerBlue:printGreenFromBlue,checkerRed:printGreenFromRed means that when entering 
+	from panotrama checkerBlue to panorama checkerGreen, action printGreenFromBlue is executed, similar for checkerRed.
 	
 	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
@@ -11,23 +11,23 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml" onEnterFrom="blueChecker:printGreenFromBlue,redChecker:printGreenFromRed">
-			<image id="gc_RedArrow" path="~hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadBlueChecker"/>
-			<image id="gc_BlueArrow" path="~hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueChecker"/>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" onEnterFrom="checkerBlue:printGreenFromBlue,checkerRed:printGreenFromRed">
+			<image id="gc_ArrowRed" path="~hotspots/images/arrow_red.png" location="pan:-10" mouse="onClick:loadBlueChecker"/>
+			<image id="gc_ArrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:10" mouse="onClick:loadBlueChecker"/>
 		</panorama>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml" onEnterFrom="greenChecker:printBlueFromGreen,redChecker:printBlueFromRed">
-			<image id="bc_RedArrow" path="~hotspots/images/red_arrow.png" location="pan:-10" mouse="onClick:loadRedChecker"/>
-			<image id="bc_GreenArrow" path="~hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenChecker"/>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onEnterFrom="checkerGreen:printBlueFromGreen,checkerRed:printBlueFromRed">
+			<image id="bc_ArrowRed" path="~hotspots/images/arrow_red.png" location="pan:-10" mouse="onClick:loadRedChecker"/>
+			<image id="bc_ArrowGreen" path="~hotspots/images/arrow_green.png" location="pan:10" mouse="onClick:loadcheckerGreen"/>
 		</panorama>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml" onEnterFrom="greenChecker:printRedFromGreen,blueChecker:printRedFromBlue">
-			<image id="rc_BlueArrow" path="~hotspots/images/blue_arrow.png" location="pan:-10" mouse="onClick:loadBlueChecker"/>
-			<image id="rc_GreenArrow" path="~hotspots/images/green_arrow.png" location="pan:10" mouse="onClick:loadGreenChecker"/>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml" onEnterFrom="checkerGreen:printRedFromGreen,checkerBlue:printRedFromBlue">
+			<image id="rc_ArrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:-10" mouse="onClick:loadBlueChecker"/>
+			<image id="rc_ArrowGreen" path="~hotspots/images/arrow_green.png" location="pan:10" mouse="onClick:loadcheckerGreen"/>
 		</panorama>
 	</panoramas>
 	<actions>
-		<action id="loadGreenChecker" content="SaladoPlayer.loadPano(greenChecker)"/>
-		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(blueChecker)"/>
-		<action id="loadRedChecker" content="SaladoPlayer.loadPano(redChecker)"/>
+		<action id="loadcheckerGreen" content="SaladoPlayer.loadPano(checkerGreen)"/>
+		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(checkerBlue)"/>
+		<action id="loadRedChecker" content="SaladoPlayer.loadPano(checkerRed)"/>
 		<action id="printGreenFromBlue" content="SaladoPlayer.print(Welcome in green checker from blue one)"/>
 		<action id="printGreenFromRed" content="SaladoPlayer.print(Welcome in green checker from red one)"/>
 		<action id="printBlueFromGreen" content="SaladoPlayer.print(Welcome in blue checker from green one)"/>

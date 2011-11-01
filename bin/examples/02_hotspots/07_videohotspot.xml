@@ -9,7 +9,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
 			<swf id="gc_hello" path="~hotspots/VideoHotspot-1.0.swf" location="distance:600">
 				<settings splashPath="~media/video/hello/hello_splash.png" videoPath="http://linkowiec.pl/saladoplayer/hotspots/video/hello.mp4" size="width:400,height:300"/>
 			</swf>

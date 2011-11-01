@@ -10,8 +10,8 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml"/>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
 		<ImageMap path="~modules/ImageMap-1.3.swf">
@@ -19,20 +19,20 @@
 			<maps>
 				<map id="map1" path="~media/images/maps/map_1.jpg">
 					<waypoints path="~modules/images/imagemap/waypoints_button_20x20.png">
-						<waypoint target="greenChecker" position="x:150,y:100"/>
+						<waypoint target="checkerGreen" position="x:150,y:100"/>
 					</waypoints>
 				</map>
 				<map id="map2" path="~media/images/maps/map_2.jpg">
 					<waypoints path="~modules/images/imagemap/waypoints_button_20x20.png">
-						<waypoint target="redChecker" position="x:250,y:200"/>
+						<waypoint target="checkerRed" position="x:250,y:200"/>
 					</waypoints>
 				</map>
 			</maps>
 		</ImageMap>
 		<DropDown path="~modules/DropDown-1.2.swf">
 			<elements>
-				<element target="greenChecker" label="Green checker"/>
-				<element target="redChecker" label="Red checker"/>
+				<element target="checkerGreen" label="Green checker"/>
+				<element target="checkerRed" label="Red checker"/>
 			</elements>
 		</DropDown>
 	</modules>

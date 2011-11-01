@@ -8,8 +8,8 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
-			<image id="bc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMap"/>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+			<image id="bc_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMap"/>
 		</panorama>
 	</panoramas>
 	<modules>
@@ -19,7 +19,7 @@
 			<maps>
 				<map id="map2" path="~media/images/maps/map_2.jpg">
 					<waypoints path="~modules/images/imagemap/waypoints_button_20x20.png">
-						<waypoint target="blueChecker" position="x:150,y:100"/>
+						<waypoint target="checkerBlue" position="x:150,y:100"/>
 					</waypoints>
 				</map>
 			</maps>

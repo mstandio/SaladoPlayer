@@ -9,8 +9,8 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
-			<image id="yc_blueArrow" path="~hotspots/images/blue_arrow.png"/>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
+			<image id="yc_arrowBlue" path="~hotspots/images/arrow_blue.png"/>
 		</panorama>
 	</panoramas>
 	<modules>

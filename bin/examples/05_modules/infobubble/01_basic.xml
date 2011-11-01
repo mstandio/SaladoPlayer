@@ -8,10 +8,10 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
-			<image id="yc_yellowArrow" location="pan:-40" path="~hotspots/images/yellow_arrow.png" mouse="onOver:showBubbleText,onOut:hideBubble"/>
-			<image id="yc_blueArrow" location="pan:0" path="~hotspots/images/blue_arrow.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
-			<image id="yc_redArrow" location="pan:40" path="~hotspots/images/red_arrow.png" mouse="onOver:showBubbleRed,onOut:hideBubble"/>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
+			<image id="yc_arrowYellow" location="pan:-40" path="~hotspots/images/arrow_yellow.png" mouse="onOver:showBubbleText,onOut:hideBubble"/>
+			<image id="yc_arrowBlue" location="pan:0" path="~hotspots/images/arrow_blue.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
+			<image id="yc_arrowRed" location="pan:40" path="~hotspots/images/arrow_red.png" mouse="onOver:showBubbleRed,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>
 	<modules>
