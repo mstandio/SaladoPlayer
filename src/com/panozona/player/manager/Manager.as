@@ -80,7 +80,7 @@ package com.panozona.player.manager {
 		
 		private function stageReady(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, stageReady);
-			_saladoPlayer = SaladoPlayer(this.parent.root);
+			_saladoPlayer = SaladoPlayer(this.parent);
 			_managerData = _saladoPlayer.managerData;
 		}
 		
@@ -237,8 +237,23 @@ package com.panozona.player.manager {
 			managedChild.scaleY = hotspotData.transform.scaleY;
 			managedChild.scaleZ = hotspotData.transform.scaleZ;
 			
+			var precedingHotspotData:HotspotData = null;
+			for (var addedHotspotData:Object in hotspots) {
+				if (addedHotspotData.location.distance < hotspotData.location.distance) {
+					if (precedingHotspotData == null || (precedingHotspotData != null && precedingHotspotData.location.distance > addedHotspotData.location.distance)){
+						precedingHotspotData = addedHotspotData as HotspotData;
+					}
+				}
+			}
+			
 			hotspots[hotspotData as HotspotData] = managedChild;
-			addChild(managedChild);
+			
+			if (precedingHotspotData == null) {
+				addChild(managedChild);
+			}else {
+				addChildAt(managedChild, _managedChildren.getChildIndex(hotspots[precedingHotspotData]));
+			}
+			
 			updateChildren(_managedChildren, this);
 		}
 		

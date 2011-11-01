@@ -7,22 +7,22 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml">
-			<image id="rc_greenArrow" path="~hotspots/images/green_arrow.png" location="pan:-10" mouse="onClick:loadGreenChecker"/>
-			<image id="rc_blueArrow" path="~hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:loadBlueChecker"/>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
+			<image id="rc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-10" mouse="onClick:loadcheckerGreen"/>
+			<image id="rc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:10" mouse="onClick:loadBlueChecker"/>
 		</panorama>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="gc_blueArrow" path="~hotspots/images/blue_arrow.png" location="pan:-10" mouse="onClick:loadBlueChecker"/>
-			<image id="gc_redArrow" path="~hotspots/images/red_arrow.png" location="pan:10" mouse="onClick:loadRedChecker"/>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:-10" mouse="onClick:loadBlueChecker"/>
+			<image id="gc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:10" mouse="onClick:loadRedChecker"/>
 		</panorama>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
-			<image id="bc_greenArrow" path="~hotspots/images/green_arrow.png" location="pan:-10" mouse="onClick:loadGreenChecker"/>
-			<image id="bc_redArrow" path="~hotspots/images/red_arrow.png" location="pan:10" mouse="onClick:loadRedChecker"/>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-10" mouse="onClick:loadcheckerGreen"/>
+			<image id="bc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:10" mouse="onClick:loadRedChecker"/>
 		</panorama>
 	</panoramas>
 	<actions>
-		<action id="loadRedChecker" content="SaladoPlayer.loadPano(redChecker)"/>
-		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(blueChecker)"/>
-		<action id="loadGreenChecker" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="loadRedChecker" content="SaladoPlayer.loadPano(checkerRed)"/>
+		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(checkerBlue)"/>
+		<action id="loadcheckerGreen" content="SaladoPlayer.loadPano(checkerGreen)"/>
 	</actions>
 </SaladoPlayer>

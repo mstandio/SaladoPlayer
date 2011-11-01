@@ -9,20 +9,20 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="gc_blueArrow" path="~hotspots/images/blue_arrow.png" location="pan:0" mouse="onClick:jumpToYellowArrow"/>
-			<image id="gc_greenArrow" path="~hotspots/images/green_arrow.png" location="pan:180" mouse="onClick:jumpToRedArrow"/>
-			<image id="gc_redArrow" path="~hotspots/images/red_arrow.png" location="tilt:-85" mouse="onClick:jumpToBlueArrow"/>
-			<image id="gc_yellowArrow" path="~hotspots/images/yellow_arrow.png" location="tilt:85" mouse="onClick:jumpToGreenArrow"/>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:0" mouse="onClick:jumpToArrowYellow"/>
+			<image id="gc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:180" mouse="onClick:jumpToArrowRed"/>
+			<image id="gc_arrowRed" path="~hotspots/images/arrow_red.png" location="tilt:-85" mouse="onClick:jumpToArrowBlue"/>
+			<image id="gc_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="tilt:85" mouse="onClick:jumpToArrowGreen"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
 	</modules>
 	<actions>
-		<action id="jumpToYellowArrow" content="SaladoPlayer.jumpToView(NaN,85,30)"/>
-		<action id="jumpToRedArrow" content="SaladoPlayer.jumpToView(NaN,-85,90)"/>
-		<action id="jumpToBlueArrow" content="SaladoPlayer.jumpToView(0,0,120)"/>
-		<action id="jumpToGreenArrow" content="SaladoPlayer.jumpToView(180,0,NaN)"/>
+		<action id="jumpToArrowYellow" content="SaladoPlayer.jumpToView(NaN,85,30)"/>
+		<action id="jumpToArrowRed" content="SaladoPlayer.jumpToView(NaN,-85,90)"/>
+		<action id="jumpToArrowBlue" content="SaladoPlayer.jumpToView(0,0,120)"/>
+		<action id="jumpToArrowGreen" content="SaladoPlayer.jumpToView(180,0,NaN)"/>
 	</actions>
 </SaladoPlayer>

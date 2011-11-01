@@ -4,10 +4,10 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml"/>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
 		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
@@ -15,10 +15,10 @@
 			<window onOpen="onMenuOpen" onClose="onMenuClose" openTween="time:0.5" closeTween="time:0.5"/>
 			<close path="~media/images/misc/ms_close.png" align="vertical:middle" move="horizontal:60"/>
 			<elements>
-				<element target="blueChecker" path="~media/images/thumbs/blue.jpg"/>
-				<element target="greenChecker" path="~media/images/thumbs/green.jpg"/>
-				<element target="redChecker" path="~media/images/thumbs/red.jpg"/>
-				<element target="yellowChecker" path="~media/images/thumbs/yellow.jpg"/>
+				<element target="checkerBlue" path="~media/images/thumbs/blue.jpg"/>
+				<element target="checkerGreen" path="~media/images/thumbs/green.jpg"/>
+				<element target="checkerRed" path="~media/images/thumbs/red.jpg"/>
+				<element target="checkerYellow" path="~media/images/thumbs/yellow.jpg"/>
 			</elements>
 		</MenuScroller>
 		<ImageButton path="~modules/ImageButton-1.2.swf">

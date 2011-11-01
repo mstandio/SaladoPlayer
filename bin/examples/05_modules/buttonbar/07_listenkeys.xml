@@ -7,17 +7,17 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
 			<buttons path="~modules/images/buttonbar/buttons_40x40_black.png" listenKeys="true">
-				<button name="up"/>
 				<button name="down"/>
+				<button name="up"/>
 				<button name="left"/>
 				<button name="right"/>
-				<button name="in"/>
 				<button name="out"/>
+				<button name="in"/>
 			</buttons>
 		</ButtonBar>
 	</modules>

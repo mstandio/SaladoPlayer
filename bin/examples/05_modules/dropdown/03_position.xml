@@ -7,20 +7,20 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml"/>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
 		<DropDown path="~modules/DropDown-1.2.swf">
 			<window align="horizontal:right,vertical:top" move="horizontal:-40,vertical:40"/>
 			<box style="opensUp:false">
 			<elements>
-				<element target="blueChecker" label="Blue checker"/>
-				<element target="greenChecker" label="Green checker"/>
-				<element target="redChecker" label="Red checker"/>
-				<element target="yellowChecker" label="Yellow checker"/>
+				<element target="checkerBlue" label="Blue checker"/>
+				<element target="checkerGreen" label="Green checker"/>
+				<element target="checkerRed" label="Red checker"/>
+				<element target="checkerYellow" label="Yellow checker"/>
 			</elements>
 		</DropDown>
 	</modules>

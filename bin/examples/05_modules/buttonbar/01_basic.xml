@@ -9,19 +9,19 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
-			<image id="yc_blueArrow" path="~hotspots/images/blue_arrow.png"/>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
+			<image id="yc_arrowBlue" path="~hotspots/images/arrow_blue.png"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
 			<buttons path="~modules/images/buttonbar/buttons_40x40_black.png">
-				<button name="up"/>
 				<button name="down"/>
+				<button name="up"/>
 				<button name="left"/>
 				<button name="right"/>
-				<button name="in"/>
 				<button name="out"/>
+				<button name="in"/>
 				<button name="drag"/>
 				<button name="hotspots"/>
 				<button name="autorotation"/>

@@ -10,12 +10,12 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml"/>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
 	</panoramas>
 	<modules>
 		<MenuScroller path="~modules/MenuScroller-1.1.swf">
 			<elements>
-				<element target="blueChecker" path="~media/images/thumbs/blue.jpg" mouse="onOver:blueOnOver,onOut:blueOnOut"/>
+				<element target="checkerBlue" path="~media/images/thumbs/blue.jpg" mouse="onOver:blueOnOver,onOut:blueOnOut"/>
 				<extraElement id="logo" action="printHello" path="~media/images/misc/panozona_logo.png" mouse="onOver:logoOnOver,onOut:logoOnOut"/>
 			</elements>
 		</MenuScroller>

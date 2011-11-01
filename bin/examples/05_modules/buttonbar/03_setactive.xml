@@ -8,9 +8,9 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
-			<image id="yc_redArrow" location="pan:-10" path="~hotspots/images/red_arrow.png" mouse="onClick:setInactive"/>
-			<image id="yc_greenArrow" location="pan:10" path="~hotspots/images/green_arrow.png" mouse="onClick:setActive"/>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
+			<image id="yc_arrowRed" location="pan:-10" path="~hotspots/images/arrow_red.png" mouse="onClick:setInactive"/>
+			<image id="yc_arrowGreen" location="pan:10" path="~hotspots/images/arrow_green.png" mouse="onClick:setActive"/>
 		</panorama>
 	</panoramas>
 	<modules>

@@ -10,13 +10,13 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml">
-			<image id="hs1" location="pan:-20,tilt:10" path="~hotspots/images/green_arrow.png" mouse="onClick:act1"/>
-			<image id="hs2" location="pan:0,tilt:10" path="~hotspots/images/green_arrow.png" mouse="onPress:act2"/>
-			<image id="hs3" location="pan:20,tilt:10" path="~hotspots/images/green_arrow.png" mouse="onRelease:act3"/>
-			<image id="hs4" location="pan:-20,tilt:-10" path="~hotspots/images/green_arrow.png" mouse="onOver:act4"/>
-			<image id="hs5" location="pan:0,tilt:-10" path="~hotspots/images/green_arrow.png" mouse="onOut:act5"/>
-			<image id="hs6" location="pan:20,tilt:-10" path="~hotspots/images/green_arrow.png"mouse="onPress:act2,onRelease:act3,onOver:act4,onOut:act5"/>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
+			<image id="hs1" location="pan:-20,tilt:10" path="~hotspots/images/arrow_green.png" mouse="onClick:act1"/>
+			<image id="hs2" location="pan:0,tilt:10" path="~hotspots/images/arrow_green.png" mouse="onPress:act2"/>
+			<image id="hs3" location="pan:20,tilt:10" path="~hotspots/images/arrow_green.png" mouse="onRelease:act3"/>
+			<image id="hs4" location="pan:-20,tilt:-10" path="~hotspots/images/arrow_green.png" mouse="onOver:act4"/>
+			<image id="hs5" location="pan:0,tilt:-10" path="~hotspots/images/arrow_green.png" mouse="onOut:act5"/>
+			<image id="hs6" location="pan:20,tilt:-10" path="~hotspots/images/arrow_green.png"mouse="onPress:act2,onRelease:act3,onOver:act4,onOut:act5"/>
 		</panorama>
 	</panoramas>
 	<actions>
