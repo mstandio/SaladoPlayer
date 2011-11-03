@@ -33,7 +33,6 @@ package com.panozona.modules.imagemap.controller {
 		private var _module:Module;
 		
 		private var _pan:Number;
-		private var _tilt:Number;
 		private var _fov:Number;
 		
 		private var _isFocused:Boolean;
@@ -80,6 +79,9 @@ package com.panozona.modules.imagemap.controller {
 				currentDirection = _module.saladoPlayer.managerData.getPanoramaDataById(_waypointView.waypointData.waypoint.target).direction;
 				_waypointView.viewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
 				_waypointView.waypointData.showRadar = true;
+				if (!_waypointView.waypointData.radar.showTilt) {
+					_waypointView.imageMapData.mapData.radarFirst = false;
+				}
 			}else {
 				_waypointView.waypointData.showRadar = false;
 			}
@@ -96,7 +98,6 @@ package com.panozona.modules.imagemap.controller {
 			drawButton();
 			if (_waypointView.waypointData.showRadar){
 				_pan = NaN;
-				_tilt = NaN;
 				_fov = NaN;
 				_module.stage.addEventListener(Event.ENTER_FRAME, handleEnterFrame, false, 0, true);
 				handleEnterFrame();
@@ -115,24 +116,18 @@ package com.panozona.modules.imagemap.controller {
 				drawRadar();
 				_fov = _module.saladoPlayer.manager._fieldOfView;
 			}
-			if(_tilt != _module.saladoPlayer.manager._tilt && _waypointView.waypointData.radar.displayTilt){
-				_waypointView.radar.scaleY = 1 - Math.abs(_module.saladoPlayer.manager._tilt) / 100;
-				if (_waypointView.radar.scaleY < 0.1) _waypointView.radar.scaleY = 0.1;
+			if(_waypointView.waypointData.radar.showTilt){
+				_waypointView.radar.scaleY = _waypointView.button.scaleY * (1 - Math.abs(_module.saladoPlayer.manager._tilt) / 100);
+				if (_waypointView.radar.scaleY < 0.15) _waypointView.radar.scaleY = 0.15;
 				if (_module.saladoPlayer.manager._tilt > 0) {
-					_waypointView.radarFirst();
+					_waypointView.imageMapData.mapData.radarFirst = true;
 				}else {
-					_waypointView.buttonFirst();
+					_waypointView.imageMapData.mapData.radarFirst = false;
 				}
-				_tilt = _module.saladoPlayer.manager._tilt;
 			}
 			if (_pan != _module.saladoPlayer.manager._pan) {
-				if (isNaN(_waypointView.waypointData.waypoint.panShift)) {
-					_waypointView.radar.rotationZ = _module.saladoPlayer.manager._pan + currentDirection;
-				}else {
-					_waypointView.radar.rotationZ = _module.saladoPlayer.manager._pan + _waypointView.waypointData.waypoint.panShift;
-				}
+				_waypointView.radar.rotationZ = _module.saladoPlayer.manager._pan + currentDirection + _waypointView.waypointData.panShift;
 				_pan = _module.saladoPlayer.manager._pan;
-				
 				pan3 = pan2;
 				pan2 = pan1;
 				pan1 = _module.saladoPlayer.manager._pan;
@@ -169,17 +164,13 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function drawButton():void {
-			_waypointView.button.graphics.clear();
 			if (_waypointView.waypointData.showRadar){
-				_waypointView.button.graphics.beginFill(_waypointView.waypointData.button.activeColor);
+				_waypointView.buttonBitmapData = _waypointView.waypointData.bitmapDataActive;
 			}else if (_waypointView.waypointData.mouseOver) {
-				_waypointView.button.graphics.beginFill(_waypointView.waypointData.button.hoverColor);
+				_waypointView.buttonBitmapData = _waypointView.waypointData.bitmapDataHover;
 			}else { // !mouseOver
-				_waypointView.button.graphics.beginFill(_waypointView.waypointData.button.plainColor);
+				_waypointView.buttonBitmapData = _waypointView.waypointData.bitmapDataPlain;
 			}
-			_waypointView.button.graphics.lineStyle(_waypointView.waypointData.button.borderSize, _waypointView.waypointData.button.borderColor);
-			_waypointView.button.graphics.drawCircle(0, 0, _waypointView.waypointData.button.radius);
-			_waypointView.button.graphics.endFill();
 		}
 	}
 }

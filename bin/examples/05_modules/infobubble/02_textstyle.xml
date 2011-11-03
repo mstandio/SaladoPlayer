@@ -7,13 +7,13 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml">
-			<image id="yc_hs1" location="pan:-20,tilt:10" path="~hotspots/images/green_arrow.png" mouse="onOver:showBubble1,onOut:hideBubble"/>
-			<image id="yc_hs2" location="pan:0,tilt:10" path="~hotspots/images/green_arrow.png" mouse="onOver:showBubble2,onOut:hideBubble"/>
-			<image id="yc_hs3" location="pan:20,tilt:10" path="~hotspots/images/green_arrow.png" mouse="onOver:showBubble3,onOut:hideBubble"/>
-			<image id="yc_hs4" location="pan:-20,tilt:-10" path="~hotspots/images/green_arrow.png" mouse="onOver:showBubble4,onOut:hideBubble"/>
-			<image id="yc_hs5" location="pan:0,tilt:-10" path="~hotspots/images/green_arrow.png" mouse="onOver:showBubble5,onOut:hideBubble"/>
-			<image id="yc_hs6" location="pan:20,tilt:-10" path="~hotspots/images/green_arrow.png" mouse="onOver:showBubble6,onOut:hideBubble"/>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
+			<image id="yc_hs1" location="pan:-20,tilt:10" path="~hotspots/images/arrow_green.png" mouse="onOver:showBubble1,onOut:hideBubble"/>
+			<image id="yc_hs2" location="pan:0,tilt:10" path="~hotspots/images/arrow_green.png" mouse="onOver:showBubble2,onOut:hideBubble"/>
+			<image id="yc_hs3" location="pan:20,tilt:10" path="~hotspots/images/arrow_green.png" mouse="onOver:showBubble3,onOut:hideBubble"/>
+			<image id="yc_hs4" location="pan:-20,tilt:-10" path="~hotspots/images/arrow_green.png" mouse="onOver:showBubble4,onOut:hideBubble"/>
+			<image id="yc_hs5" location="pan:0,tilt:-10" path="~hotspots/images/arrow_green.png" mouse="onOver:showBubble5,onOut:hideBubble"/>
+			<image id="yc_hs6" location="pan:20,tilt:-10" path="~hotspots/images/arrow_green.png" mouse="onOver:showBubble6,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>
 	<modules>

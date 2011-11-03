@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	SaladoPlayer contains option that fixes problem of both zooming panorama in/out and scrolling page at the same time
+	when using mouse wheel. MouseWheelTrap overcomes this Flash Player bug and scrolling zooms panorama in/out ONLY.
+	MouseWheelTrap was created by Liam O'Donnell http://www.spikything.com/
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control mouseWheelTrap="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml"/>
+	</panoramas>
+</SaladoPlayer>

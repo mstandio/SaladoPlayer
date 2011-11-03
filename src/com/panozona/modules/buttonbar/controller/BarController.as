@@ -134,7 +134,7 @@ package com.panozona.modules.buttonbar.controller{
 			for (var i:int = 0; i < _barView.buttonsContainer.numChildren; i++) {
 				buttonView = _barView.buttonsContainer.getChildAt(i) as ButtonView;
 				if (buttonView.buttonData.button.name == name) {
-					buttonView.buttonData.state = active ? ButtonData.STATE_ACTIVE : ButtonData.STATE_PLAIN;
+					buttonView.buttonData.isActive = active;
 					return;
 				}
 			}
@@ -234,65 +234,65 @@ package com.panozona.modules.buttonbar.controller{
 			for ( var i:int = 0; i < _barView.buttonsContainer.numChildren; i++) {
 				buttonView = _barView.buttonsContainer.getChildAt(i) as ButtonView;
 				if (buttonView.buttonData.button.name == "left") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(0);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(10);
+					buttonView.bitmapDataPlain = getButtonBitmap(0);
+					buttonView.bitmapDataActive = getButtonBitmap(10);
 				}else if (buttonView.buttonData.button.name == "right") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(1);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(11);
+					buttonView.bitmapDataPlain = getButtonBitmap(1);
+					buttonView.bitmapDataActive = getButtonBitmap(11);
 				}else if (buttonView.buttonData.button.name == "up") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(2);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(12);
+					buttonView.bitmapDataPlain = getButtonBitmap(2);
+					buttonView.bitmapDataActive = getButtonBitmap(12);
 				}else if (buttonView.buttonData.button.name == "down") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(3);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(13);
+					buttonView.bitmapDataPlain = getButtonBitmap(3);
+					buttonView.bitmapDataActive = getButtonBitmap(13);
 				}else if (buttonView.buttonData.button.name == "in") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(4);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(14);
+					buttonView.bitmapDataPlain = getButtonBitmap(4);
+					buttonView.bitmapDataActive = getButtonBitmap(14);
 				}else if (buttonView.buttonData.button.name == "out") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(5);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(15);
+					buttonView.bitmapDataPlain = getButtonBitmap(5);
+					buttonView.bitmapDataActive = getButtonBitmap(15);
 				}else if (buttonView.buttonData.button.name == "drag") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(6);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(16);
+					buttonView.bitmapDataPlain = getButtonBitmap(6);
+					buttonView.bitmapDataActive = getButtonBitmap(16);
 				}else if (buttonView.buttonData.button.name == "hotspots") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(7);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(17);
+					buttonView.bitmapDataPlain = getButtonBitmap(7);
+					buttonView.bitmapDataActive = getButtonBitmap(17);
 				}else if (buttonView.buttonData.button.name == "autorotation") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(8);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(18);
+					buttonView.bitmapDataPlain = getButtonBitmap(8);
+					buttonView.bitmapDataActive = getButtonBitmap(18);
 				}else if (buttonView.buttonData.button.name == "fullscreen") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(9);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(19);
+					buttonView.bitmapDataPlain = getButtonBitmap(9);
+					buttonView.bitmapDataActive = getButtonBitmap(19);
 				}else if (buttonView.buttonData.button.name == "a") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(20);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(30);
+					buttonView.bitmapDataPlain = getButtonBitmap(20);
+					buttonView.bitmapDataActive = getButtonBitmap(30);
 				}else if (buttonView.buttonData.button.name == "b") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(21);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(31);
+					buttonView.bitmapDataPlain = getButtonBitmap(21);
+					buttonView.bitmapDataActive = getButtonBitmap(31);
 				}else if (buttonView.buttonData.button.name == "c") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(22);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(32);
+					buttonView.bitmapDataPlain = getButtonBitmap(22);
+					buttonView.bitmapDataActive = getButtonBitmap(32);
 				}else if (buttonView.buttonData.button.name == "d") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(23);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(33);
+					buttonView.bitmapDataPlain = getButtonBitmap(23);
+					buttonView.bitmapDataActive = getButtonBitmap(33);
 				}else if (buttonView.buttonData.button.name == "e") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(24);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(34);
+					buttonView.bitmapDataPlain = getButtonBitmap(24);
+					buttonView.bitmapDataActive = getButtonBitmap(34);
 				}else if (buttonView.buttonData.button.name == "f") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(25);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(35);
+					buttonView.bitmapDataPlain = getButtonBitmap(25);
+					buttonView.bitmapDataActive = getButtonBitmap(35);
 				}else if (buttonView.buttonData.button.name == "g") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(26);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(36);
+					buttonView.bitmapDataPlain = getButtonBitmap(26);
+					buttonView.bitmapDataActive = getButtonBitmap(36);
 				}else if (buttonView.buttonData.button.name == "h") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(27);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(37);
+					buttonView.bitmapDataPlain = getButtonBitmap(27);
+					buttonView.bitmapDataActive = getButtonBitmap(37);
 				}else if (buttonView.buttonData.button.name == "i") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(28);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(38);
+					buttonView.bitmapDataPlain = getButtonBitmap(28);
+					buttonView.bitmapDataActive = getButtonBitmap(38);
 				}else if (buttonView.buttonData.button.name == "j") {
-					buttonView.buttonData.bitmapPlain = getButtonBitmap(29);
-					buttonView.buttonData.bitmapActive = getButtonBitmap(39);
+					buttonView.bitmapDataPlain = getButtonBitmap(29);
+					buttonView.bitmapDataActive = getButtonBitmap(39);
 				}
 				
 				if (isNaN(buttonView.buttonData.button.move.horizontal) && isNaN(buttonView.buttonData.button.move.vertical)) {

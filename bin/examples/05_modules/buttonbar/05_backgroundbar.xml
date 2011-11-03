@@ -9,13 +9,13 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
 			<buttons path="~modules/images/buttonbar/buttons_30x30_black.png">
-				<button name="in"/>
 				<button name="out"/>
+				<button name="in"/>
 				<button name="drag"/>
 				<button name="autorotation"/>
 			</buttons>

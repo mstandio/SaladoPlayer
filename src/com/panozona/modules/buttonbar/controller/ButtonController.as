@@ -44,51 +44,23 @@ package com.panozona.modules.buttonbar.controller{
 					_buttonView.addEventListener(MouseEvent.ROLL_OUT, buttonView.buttonData.onRelease, false, 0, true);
 				}
 			}
-			
-			_buttonView.buttonData.addEventListener(ButtonEvent.CHANGED_BITMAP_PLAIN, handleButtonBitmapPlainChange, false, 0, true);
-			_buttonView.buttonData.addEventListener(ButtonEvent.CHANGED_BITMAP_ACTIVE, handleButtonBitmapActiveChange, false, 0, true);
-			
 			_buttonView.buttonData.addEventListener(ButtonEvent.CHANGED_MOUSE_PRESS, handleButtonMousePressChange, false, 0, true);
-			_buttonView.buttonData.addEventListener(ButtonEvent.CHANGED_STATE, handleButtonStateChange, false, 0, true);
-		}
-		
-		private function handleButtonBitmapPlainChange(e:ButtonEvent):void {
-			if (_buttonView.buttonData.state == ButtonData.STATE_PLAIN) {
-				drawPlain();
-			}
-		}
-		
-		private function handleButtonBitmapActiveChange(e:ButtonEvent):void {
-			if (_buttonView.buttonData.state == ButtonData.STATE_ACTIVE) {
-				drawActive();
-			}
+			_buttonView.buttonData.addEventListener(ButtonEvent.CHANGED_IS_ACTIVE, handleButtonIsActiveChange, false, 0, true);
 		}
 		
 		private function handleButtonMousePressChange(e:ButtonEvent):void {
 			if (_buttonView.buttonData.mousePress) {
-				drawActive();
-			}else if (_buttonView.buttonData.state != ButtonData.STATE_ACTIVE){
-				drawPlain();
+				_buttonView.setActive();
+			}else if (!_buttonView.buttonData.isActive) {
+				_buttonView.setPlain();
 			}
 		}
 		
-		private function handleButtonStateChange(e:ButtonEvent):void {
-			if (_buttonView.buttonData.state == ButtonData.STATE_PLAIN) {
-				drawPlain();
+		private function handleButtonIsActiveChange(e:ButtonEvent):void {
+			if (!_buttonView.buttonData.isActive) {
+				_buttonView.setPlain();
 			}else {
-				drawActive();
-			}
-		}
-		
-		private function drawPlain():void {
-			if (_buttonView.buttonData.bitmapPlain != null) {
-				_buttonView.bitmap.bitmapData = _buttonView.buttonData.bitmapPlain;
-			}
-		}
-		
-		private function drawActive():void{
-			if (_buttonView.buttonData.bitmapActive != null) {
-				_buttonView.bitmap.bitmapData = _buttonView.buttonData.bitmapActive;
+				_buttonView.setActive();
 			}
 		}
 	}

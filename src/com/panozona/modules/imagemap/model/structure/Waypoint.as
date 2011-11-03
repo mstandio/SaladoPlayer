@@ -26,6 +26,5 @@ package com.panozona.modules.imagemap.model.structure {
 		public var target:String = null;
 		public const position:Position = new Position(0,0);
 		public const mouse:MouseOverOut = new MouseOverOut();
-		public var panShift:Number = NaN;
 	}
 }

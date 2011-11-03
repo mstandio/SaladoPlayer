@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	
+	http://panozona.com/wiki/Module:BackgroundMusic
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+		<panoramas firstOnEnter="playBackgroundMusic"/>
+	</global>
+	<panoramas>
+		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml" onEnter="setTrackVsadnik">
+			<image id="gc_arrowBlue" path="hotspots/images/blue_arrow.png" mouse="onClick:loadBlueCheck"/>
+		</panorama>
+		<panorama id="blueChecker" path="panoramas/dz_blue_check/blue_check_f.xml" onEnter="setTrackMovox">
+			<image id="bc_greenArrow" path="hotspots/images/green_arrow.png" mouse="onClick:loadGreenCheck"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ImageButton path="modules/ImageButton-1.1.swf">
+			<buttons>
+				<button id="buttonMusicPlaying" path="modules/images/imagebutton/music_playing.png" align="vertical:top" move="horizontal:30,vertical:30" mouse="onClick:stopBackgroundMusic"/>
+				<button id="buttonMusicStopped" path="modules/images/imagebutton/music_stopped.png" align="vertical:top" move="horizontal:30,vertical:30" mouse="onClick:playBackgroundMusic"/>
+			</buttons>
+		</ImageButton>
+		<BackgroundMusic path="modules/BackgroundMusic-1.0.swf">
+			<settings onPlay="setButtonMusicPlaying" onStop="setButtonMusicStopped"/>
+			<tracks>
+				<track id="movox" path="modules/sound/backgroundmusic/MoVoX - Euphoria.mp3"/>
+				<track id="vsadnik" path="modules/sound/backgroundmusic/Vsadnik - I Can Fly.mp3"/>
+			</tracks>
+		</BackgroundMusic>
+	</modules>
+	<actions>
+		<action id="loadBlueCheck" content="SaladoPlayer.loadPano(blueChecker)"/>
+		<action id="loadGreenCheck" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="setTrackMovox" content="BackgroundMusic.setTrack(movox)"/>
+		<action id="setTrackVsadnik" content="BackgroundMusic.setTrack(vsadnik)"/>
+		<action id="playBackgroundMusic" content="BackgroundMusic.setPlay(true)"/>
+		<action id="stopBackgroundMusic" content="BackgroundMusic.setPlay(false)"/>
+		<action id="setButtonMusicPlaying" content="ImageButton.close(buttonMusicStopped);ImageButton.open(buttonMusicPlaying)"/>
+		<action id="setButtonMusicStopped" content="ImageButton.close(buttonMusicPlaying);ImageButton.open(buttonMusicStopped)"/>
+	</actions>
+</SaladoPlayer>

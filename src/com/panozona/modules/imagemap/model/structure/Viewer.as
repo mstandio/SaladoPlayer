@@ -18,17 +18,16 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model.structure{
 	
-	public class Viewer{
+	public class Viewer {
+		
+		public var path:String = null; // path to navigation bitmaps grid
 		
 		public var moveEnabled:Boolean = true;
 		public var moveSpeed:Number = 10;
-		
 		public var zoomEnabled:Boolean = true;
 		public var zoomSpeed:Number = 0.03;
 		public var scrollEnabled:Boolean = true;
-		
 		public var dragEnabled:Boolean = true;
-		
 		public var autofocusEnabled:Boolean = true;
 	}
 }

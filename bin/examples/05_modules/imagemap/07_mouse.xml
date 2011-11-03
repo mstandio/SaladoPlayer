@@ -10,21 +10,21 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
-			<image id="bc_yellowArrow" path="~hotspots/images/yellow_arrow.png" mouse="onClick:toggleOpenMap"/>
-		</panorama>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/ImageMap-1.2.swf">
+		<ImageMap path="~modules/ImageMap-1.3.swf">
+			<viewer path="~modules/images/imagemap/navigation_20x20_black.png"/>
 			<maps>
 				<map id="map2" path="~media/images/maps/map_2.jpg">
-					<waypoint target="blueChecker" position="x:350,y:300" mouse="onOver:printOver,onOut:printOut"/>
+					<waypoints path="~modules/images/imagemap/waypoints_button_20x20.png">
+						<waypoint target="checkerBlue" position="x:350,y:300" mouse="onOver:printOver,onOut:printOut"/>
+					</waypoints>
 				</map>
 			</maps>
 		</ImageMap>
 	</modules>
 	<actions>
-		<action id="toggleOpenMap" content="ImageMap.toggleOpen()"/>
 		<action id="printOver" content="SaladoPlayer.print(over)"/>
 		<action id="printOut" content="SaladoPlayer.print(out)"/>
 	</actions>

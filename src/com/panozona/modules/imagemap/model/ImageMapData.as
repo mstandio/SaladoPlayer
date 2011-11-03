@@ -18,8 +18,10 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model {
 	
+	import com.panozona.modules.imagemap.model.structure.Close;
 	import com.panozona.modules.imagemap.model.structure.Map;
 	import com.panozona.modules.imagemap.model.structure.Waypoint;
+	import com.panozona.modules.imagemap.model.structure.Waypoints;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
@@ -27,6 +29,7 @@ package com.panozona.modules.imagemap.model {
 	public class ImageMapData {
 		
 		public const windowData:WindowData = new WindowData();
+		public const close:Close = new Close();
 		public const viewerData:ViewerData = new ViewerData();
 		public const mapData:MapData = new MapData();
 		
@@ -35,6 +38,8 @@ package com.panozona.modules.imagemap.model {
 			for each(var dataNode:DataNode in moduleData.nodes) {
 				if (dataNode.name == "window") {
 					tarnslator.dataNodeToObject(dataNode, windowData.window);
+				}else if (dataNode.name == "close") {
+					tarnslator.dataNodeToObject(dataNode, close);
 				}else if (dataNode.name == "viewer") {
 					tarnslator.dataNodeToObject(dataNode, viewerData.viewer);
 				}else if (dataNode.name == "maps") {
@@ -47,6 +52,10 @@ package com.panozona.modules.imagemap.model {
 			windowData.open = windowData.window.open;
 			
 			if (saladoPlayer.managerData.debugMode) {
+				if (viewerData.viewer.moveEnabled || viewerData.viewer.zoomEnabled || viewerData.viewer.dragEnabled) {
+					if (viewerData.viewer.path == null || !viewerData.viewer.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i))
+						throw new Error("Invalid viewer path: " + viewerData.viewer.path);
+				}
 				if (windowData.window.onOpen != null && saladoPlayer.managerData.getActionDataById(windowData.window.onOpen) == null) {
 					throw new Error("Action does not exist: " + windowData.window.onOpen);
 				}
@@ -66,18 +75,21 @@ package com.panozona.modules.imagemap.model {
 						throw new Error("Repeating map id: " + map.id);
 					}else {
 						mapIds[map.id] = ""; // something
-						for each(var waypoint:Waypoint in map.getChildrenOfGivenClass(Waypoint)) {
-							if (waypoint.target == null) throw new Error("Waypoint target not specified in map: " + map.id);
-							if (saladoPlayer.managerData.getPanoramaDataById(waypoint.target) == null) throw new Error("Invalid waypoint target: " + waypoint.target);
-							if (waypointTargets[waypoint.target] != undefined) {
-								throw new Error("Repeating waypoint target: " + waypoint.target);
-							}else {
-								waypointTargets[waypoint.target] = ""; // something
-								if (waypoint.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOver) == null){
-									throw new Error("Action does not exist: " + waypoint.mouse.onOver);
-								}
-								if (waypoint.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOut) == null){
-									throw new Error("Action does not exist: " + waypoint.mouse.onOut);
+						for each(var waypoints:Waypoints in map.getChildrenOfGivenClass(Waypoints)) {
+							if (waypoints.path == null || !waypoints.path.match(/^(.+)\.(png|gif|jpg|jpeg|)$/i)) throw new Error("Invalid waypoints path: " + waypoints.path);
+							for each(var waypoint:Waypoint in waypoints.getChildrenOfGivenClass(Waypoint)) {
+								if (waypoint.target == null) throw new Error("Waypoint target not specified in map: " + map.id);
+								if (saladoPlayer.managerData.getPanoramaDataById(waypoint.target) == null) throw new Error("Invalid waypoint target: " + waypoint.target);
+								if (waypointTargets[waypoint.target] != undefined) {
+									throw new Error("Repeating waypoint target: " + waypoint.target);
+								}else {
+									waypointTargets[waypoint.target] = ""; // something
+									if (waypoint.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOver) == null){
+										throw new Error("Action does not exist: " + waypoint.mouse.onOver);
+									}
+									if (waypoint.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOut) == null){
+										throw new Error("Action does not exist: " + waypoint.mouse.onOut);
+									}
 								}
 							}
 						}

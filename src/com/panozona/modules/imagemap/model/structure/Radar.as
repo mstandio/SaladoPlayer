@@ -20,10 +20,10 @@ package com.panozona.modules.imagemap.model.structure {
 	
 	public class Radar{
 		
-		public var displayTilt:Boolean = true;
+		public var showTilt:Boolean = true;
 		
 		public var alpha:Number = 0.5;
-		public var radius:Number = 80;
+		public var radius:Number = 50;
 		public var color:Number = 0x00ff00; // green
 		
 		public var borderColor:Number = 0x000000; // black

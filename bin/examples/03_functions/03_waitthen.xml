@@ -11,9 +11,9 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="gc_blueArrow" path="~hotspots/images/blue_arrow.png" location="pan:10" mouse="onClick:wait"/>
-			<image id="gc_greenArrow" path="~hotspots/images/green_arrow.png" location="pan:-10" mouse="onClick:wait2"/>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:10" mouse="onClick:wait"/>
+			<image id="gc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-10" mouse="onClick:wait2"/>
 		</panorama>
 	</panoramas>
 	<actions>

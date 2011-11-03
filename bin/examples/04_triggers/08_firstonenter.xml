@@ -8,19 +8,19 @@
 <SaladoPlayer>
 	<global debug="true">
 		<trace open="true"/>
-		<panoramas firstPanorama="blueChecker" firstOnEnter="printFirstEnter" firstOnTransitionEnd="printFirstTransitionEnd"/>
+		<panoramas firstPanorama="checkerBlue" firstOnEnter="printFirstEnter" firstOnTransitionEnd="printFirstTransitionEnd"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml">
-			<image id="blueArrow" path="~hotspots/images/blue_arrow.png" mouse="onClick:loadBlueChecker" />
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="arrowBlue" path="~hotspots/images/arrow_blue.png" mouse="onClick:loadBlueChecker" />
 		</panorama>
-		<panorama id="blueChecker" path="~panoramas/dz_blue_check/blue_check_f.xml">
-			<image id="greenArrow" path="~hotspots/images/green_arrow.png" mouse="onClick:loadGreenChecker"/>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+			<image id="arrowGreen" path="~hotspots/images/arrow_green.png" mouse="onClick:loadcheckerGreen"/>
 		</panorama>
 	</panoramas>
 	<actions>
-		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(blueChecker)"/>
-		<action id="loadGreenChecker" content="SaladoPlayer.loadPano(greenChecker)"/>
+		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(checkerBlue)"/>
+		<action id="loadcheckerGreen" content="SaladoPlayer.loadPano(checkerGreen)"/>
 		<action id="printFirstEnter" content="SaladoPlayer.print(First enter in virtual tour)"/>
 		<action id="printFirstTransitionEnd" content="SaladoPlayer.print(First transition end in virtual tour)"/>
 	</actions>

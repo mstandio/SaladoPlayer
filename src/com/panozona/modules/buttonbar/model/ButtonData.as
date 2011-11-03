@@ -25,18 +25,12 @@ package com.panozona.modules.buttonbar.model {
 	
 	public class ButtonData extends EventDispatcher {
 		
-		public static const STATE_PLAIN:String = "statePlain";
-		public static const STATE_ACTIVE:String = "stateActive";
-		
 		public var name:String;
 		public var onPress:Function;
 		public var onRelease:Function;
 		
-		private var _state:String = ButtonData.STATE_PLAIN;
+		private var _isActive:Boolean;
 		private var _mousePress:Boolean;
-		
-		private var _bitmapPlain:BitmapData;
-		private var _bitmapActive:BitmapData;
 		
 		private var _button:Button;
 		
@@ -48,13 +42,11 @@ package com.panozona.modules.buttonbar.model {
 			return _button;
 		}
 		
-		public function get state():String { return _state}
-		public function set state(value:String):void {
-			if (value == _state) return;
-			if (value == STATE_PLAIN || value == STATE_ACTIVE) {
-				_state = value;
-				dispatchEvent(new ButtonEvent(ButtonEvent.CHANGED_STATE));
-			}
+		public function get isActive():Boolean { return _isActive; }
+		public function set isActive(value:Boolean):void {
+			if (value == _isActive) return;
+			_isActive= value;
+			dispatchEvent(new ButtonEvent(ButtonEvent.CHANGED_IS_ACTIVE));
 		}
 		
 		public function get mousePress():Boolean { return _mousePress}
@@ -62,20 +54,6 @@ package com.panozona.modules.buttonbar.model {
 			if (value == mousePress) return;
 			_mousePress = value;
 			dispatchEvent(new ButtonEvent(ButtonEvent.CHANGED_MOUSE_PRESS));
-		}
-		
-		public function get bitmapPlain():BitmapData { return _bitmapPlain }
-		public function set bitmapPlain(value:BitmapData):void {
-			if (value == _bitmapPlain) return;
-			_bitmapPlain = value;
-			dispatchEvent(new ButtonEvent(ButtonEvent.CHANGED_BITMAP_PLAIN));
-		}
-		
-		public function get bitmapActive():BitmapData { return _bitmapActive }
-		public function set bitmapActive(value:BitmapData):void {
-			if (value  == _bitmapActive) return;
-			_bitmapActive = value;
-			dispatchEvent(new ButtonEvent(ButtonEvent.CHANGED_BITMAP_ACTIVE));
 		}
 	}
 }

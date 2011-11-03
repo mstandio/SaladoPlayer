@@ -18,7 +18,6 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.view{
 	
-	import com.panozona.modules.imagemap.model.EmbededGraphics;
 	import com.panozona.modules.imagemap.model.ImageMapData;
 	import com.panozona.modules.imagemap.model.WindowData;
 	import flash.display.Bitmap;
@@ -29,6 +28,7 @@ package com.panozona.modules.imagemap.view{
 	
 	public class WindowView extends Sprite{
 		
+		private var _closeView:CloseView;
 		private var _viewerView:ViewerView;
 		
 		private var window:Sprite;
@@ -52,36 +52,22 @@ package com.panozona.modules.imagemap.view{
 			_viewerView = new ViewerView(_imageMapData);
 			window.addChild(_viewerView);
 			
-			// draw close button
-			windowCloseButton = new SimpleButton();
-			var closePlainIcon:Sprite = new Sprite();
-			closePlainIcon.addChild(new Bitmap(new EmbededGraphics.BitmapClosePlain().bitmapData));
-			var closePressIcon:Sprite = new Sprite();
-			closePressIcon.addChild(new Bitmap(new EmbededGraphics.BitmapClosePress().bitmapData));
-			windowCloseButton.upState = closePlainIcon;
-			windowCloseButton.overState = closePlainIcon;
-			windowCloseButton.downState = closePressIcon;
-			windowCloseButton.hitTestState = closePressIcon;
-			windowCloseButton.x = window.width - windowCloseButton.width - 3;
-			windowCloseButton.y = 3;
-			windowCloseButton.alpha = 1 / _imageMapData.windowData.window.alpha;
-			window.addChild(windowCloseButton);
+			_closeView = new CloseView(_imageMapData);
+			window.addChild(_closeView);
 			
 			visible = _imageMapData.windowData.open;
-			
-			windowCloseButton.addEventListener(MouseEvent.CLICK, closeWindow, false, 0, true);
 		}
 		
 		public function get windowData():WindowData {
 			return _imageMapData.windowData;
 		}
 		
-		public function get viewerView():ViewerView {
-			return _viewerView;
+		public function get closeView():CloseView {
+			return _closeView;
 		}
 		
-		private function closeWindow(e:Event):void {
-			_imageMapData.windowData.open = false;
+		public function get viewerView():ViewerView {
+			return _viewerView;
 		}
 	}
 }

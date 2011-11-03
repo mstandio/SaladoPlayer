@@ -18,12 +18,18 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.jsgateway.data{
 	
-	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.modules.jsgateway.data.structure.ASFunction;
+	import com.panozona.modules.jsgateway.data.structure.ASFunctions;
+	import com.panozona.modules.jsgateway.data.structure.JSFunction;
+	import com.panozona.modules.jsgateway.data.structure.JSFunctions;
+	import com.panozona.modules.jsgateway.data.structure.Settings;
 	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class JSGatewayData {
 		
+		public const settings:Settings = new Settings();
 		public const jsfuncttions:JSFunctions = new JSFunctions();
 		public const asfuncttions:ASFunctions = new ASFunctions();
 		
@@ -36,6 +42,8 @@ package com.panozona.modules.jsgateway.data{
 					translator.dataNodeToObject(dataNode, jsfuncttions);
 				}else if (dataNode.name == "asfunctions") {
 					translator.dataNodeToObject(dataNode, asfuncttions);
+				}else if (dataNode.name == "settings") {
+					translator.dataNodeToObject(dataNode, settings);
 				}else {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}

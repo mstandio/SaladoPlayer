@@ -11,7 +11,7 @@
 		<control mouseInertial="enabled:false" mouseDrag="enabled:true"/>
 	</global>
 	<panoramas>
-		<panorama id="yellowChecker" path="~panoramas/dz_yellow_check/yellow_check_f.xml"/>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
 		<MouseCursor path="~modules/MouseCursor-1.1.swf">

@@ -29,10 +29,11 @@ package com.panozona.modules.imagemap.controller{
 	
 	public class WindowController{
 		
+		private var closeController:CloseController;
+		private var viewerController:ViewerController;
+		
 		private var _windowView:WindowView;
 		private var _module:Module;
-		
-		private var viewerController:ViewerController;
 		
 		public function WindowController(windowView:WindowView, module:Module) {
 			
@@ -41,7 +42,9 @@ package com.panozona.modules.imagemap.controller{
 			
 			_windowView.windowData.addEventListener(WindowEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
 			
-			viewerController = new ViewerController(windowView.viewerView, module);
+			closeController = new CloseController(windowView.closeView, _module);
+			viewerController = new ViewerController(windowView.viewerView, _module);
+			
 			
 			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);

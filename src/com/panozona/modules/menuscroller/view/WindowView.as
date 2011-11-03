@@ -32,7 +32,6 @@ package com.panozona.modules.menuscroller.view{
 		private var _scrollerView:ScrollerView;
 		
 		private var window:Sprite;
-		private var windowCloseButton:SimpleButton;
 		
 		private var _menuScrollerData:MenuScrollerData;
 		

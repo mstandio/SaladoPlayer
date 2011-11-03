@@ -20,6 +20,7 @@ package com.panozona.modules.imagemap.model {
 	
 	import com.panozona.modules.imagemap.events.ViewerEvent;
 	import com.panozona.modules.imagemap.model.structure.Viewer;
+	import com.panozona.modules.imagemap.model.structure.Zoom;
 	import com.panozona.player.module.data.property.Size;
 	import flash.events.EventDispatcher;
 	import flash.geom.Point;
@@ -29,6 +30,7 @@ package com.panozona.modules.imagemap.model {
 		public const viewer:Viewer = new Viewer();
 		
 		private var _size:Size;
+		private var _currentZoom:Zoom;
 		private var _focusPoint:Point;
 		
 		private var _moveLeft:Boolean;
@@ -44,6 +46,7 @@ package com.panozona.modules.imagemap.model {
 		
 		public function ViewerData() {
 			_size = new Size(NaN, NaN);
+			_currentZoom = new Zoom();
 			_focusPoint = new Point(NaN, NaN);
 		}
 		
@@ -52,6 +55,13 @@ package com.panozona.modules.imagemap.model {
 			_size.width = value.width;
 			_size.height = value.height;
 			dispatchEvent(new ViewerEvent(ViewerEvent.CHANGED_SIZE));
+		}
+		
+		public function get currentZoom():Zoom {return _currentZoom;}
+		public function set currentZoom(value:Zoom):void {
+			_currentZoom.init = value.init * 0.01;
+			_currentZoom.max = value.max * 0.01;
+			_currentZoom.min = value.min * 0.01;
 		}
 		
 		public function get focusPoint():Point {return _focusPoint;}
