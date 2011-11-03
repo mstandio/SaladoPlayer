@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	
+	http://panozona.com/wiki/Module:FullScreener
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace align="horizontal:left"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
+	</panoramas>
+	<modules>
+		<FullScreener path="~modules/FullScreener-1.0.swf">
+			<settings path="~modules/images/fullscreener/button_thick_white_50x50.png"/>
+		</FullScreener>
+	</modules>
+</SaladoPlayer>
