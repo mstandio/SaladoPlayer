@@ -135,13 +135,14 @@ package org.diystreetview.player.manager {
 				mainGpsData.longitude = Number(panoxml.pano.@longitude);
 				mainGpsData.elevation = Number(panoxml.pano.@altitude);
 				
-				Trace.instance.printInfo("main lat: "+panoxml.pano.@latitude+" lon: "+panoxml.pano.@longitude);
-				
 				// add hotspots to main panorama, create neighbour panoramas
 				
 				cleanActionsData();
 				for each(var neighbour:XML in panoxml.neighbours.children()) {
+					
 					var neighbourName:String = neighbour.@path.substr(0, neighbour.@path.lastIndexOf("."));
+					
+					if (neighbourName == loadedId) continue;
 					
 					var functionData:FunctionData = new FunctionData("SaladoPlayer", "loadPano");
 					functionData.args.push(neighbourName);
@@ -159,14 +160,13 @@ package org.diystreetview.player.manager {
 					
 					var hotspotDistanceAway:Number = distance(mainGpsData.latitude, mainGpsData.longitude, hotspotGeolocation.latitude, hotspotGeolocation.longitude);
 					
-					hotspotData.location.pan = -Math.atan2(
-						distance(mainGpsData.latitude, 0, hotspotGeolocation.latitude, 0, true),
-						distance(0, mainGpsData.longitude, 0, hotspotGeolocation.longitude, true)
-					) * 180 / Math.PI;
+					hotspotData.location.pan = 90 + rad2deg(Math.atan2(
+						distance(mainGpsData.latitude, 0, hotspotGeolocation.latitude, 0, false),
+						distance(0, mainGpsData.longitude, 0, hotspotGeolocation.longitude, false)));
 					
-					hotspotData.location.pan += Number(panoxml.pano.@direction) + 90;
-					hotspotData.location.tilt = -90 + (180 / Math.PI) * Math.atan(hotspotDistanceAway / 0.0019); // 0.0019 is camera height in kilometers
-					hotspotData.location.distance = 30000 * hotspotDistanceAway;
+					hotspotData.location.pan += Number(panoxml.pano.@direction);
+					hotspotData.location.tilt = -90 + rad2deg(Math.atan(hotspotDistanceAway / 0.003)); // 0.003 is camera height in kilometers
+					hotspotData.location.distance = 25000 * hotspotDistanceAway;
 					
 					if ( hotspotData.location.pan <= -180 ) hotspotData.location.pan = (((hotspotData.location.pan + 180) % 360) + 180);
 					if ( hotspotData.location.pan >   180 ) hotspotData.location.pan = (((hotspotData.location.pan + 180) % 360) - 180);
@@ -213,21 +213,18 @@ package org.diystreetview.player.manager {
 			return result;
 		}
 		
-		private function distance(lat1:Number, lon1:Number, lat2:Number, lon2:Number, noAbs:Boolean = false):Number {
-			var theta:Number  = lon1 - lon2;
-			var dist:Number = Math.sin(deg2rad(lat1)) 
-				* Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1))
-				* Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
-			dist = Math.acos(dist);
-			dist = rad2deg(dist);
-			dist = dist * 60 * 1.1515;
-			dist = dist * 1.609344;
-			
-			if (noAbs){
-				if (lat1 - lat2 > 0) return - dist
-				if (lon1 - lon2 > 0) return - dist
+		private function distance(lat1:Number, lon1:Number, lat2:Number, lon2:Number, abs:Boolean = true):Number {
+			// haversine formula
+			var dLat:Number = deg2rad(lat2 - lat1);
+			var dLon:Number = deg2rad(lon2 - lon1);
+			var a:Number = Math.pow(Math.sin(dLat / 2), 2) +
+				Math.pow(Math.sin(dLon / 2), 2) * Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2));
+			var c:Number = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)) * 6371;
+			if (!abs && (lat2 - lat1 > 0 || lon2 - lon1 > 0)) {
+				return -c;
+			}else {
+				return c;
 			}
-			return dist;
 		}
 		
 		public function clickForwardHotspot():void {

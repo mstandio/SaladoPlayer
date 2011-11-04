@@ -90,14 +90,8 @@ package org.diystreetview.modules.debugbubble{
 				
 				hotspotData.mouse.onOver = "debug_" + hotspotData.id;
 				hotspotData.mouse.onOut = "hide_debug";
+				hotspotData.mouse.onPress = "hide_debug";
 			}
-			
-			//saladoPlayer.manager.removeEventListener(LoadPanoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
-			//if (debugBubbleData.settings.active) {
-			//	saladoPlayer.manager.runAction(debugBubbleData.settings.onActivate);
-			//}else {
-			//	saladoPlayer.manager.runAction(debugBubbleData.settings.onDisactivate);
-			//}
 		}
 		
 		private function handleEnterFrame(e:Event = null):void {

@@ -42,7 +42,7 @@ package com.panozona.modules.panolink.controller{
 			if (recognizedValues != null){
 				var panoDataReference:Object = _module.saladoPlayer.managerData.getPanoramaDataById(recognizedValues.id);
 				if (panoDataReference == null) {
-					_module.printWarning("Panorama does not exist: " + recognizedValues.id);
+					//_module.printWarning("Panorama does not exist: " + recognizedValues.id);
 				}else {
 					var paramsReference:Object = panoDataReference.params;
 					stashOriginalParams(recognizedValues.id);
@@ -79,7 +79,7 @@ package com.panozona.modules.panolink.controller{
 			var result:String = "";
 			if (url.indexOf("?") > 0) {
 				result += url.substr(0, url.indexOf("?"));
-				var params:Array = url.substring(url.indexOf("?"), url.length).split("&");
+				var params:Array = url.substring(url.indexOf("?") + 1, url.length).split("&");
 				for each(var param:String in params) {
 					if (!param.match(/^pano=.+/) && !param.match(/^cam=.+/)) {
 						result += param +"&";
