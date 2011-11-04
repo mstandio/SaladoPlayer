@@ -2,7 +2,7 @@
 <SaladoPlayer>
 	<global debug="true" transition="time:0.5" autorotation="delay:600" mouseDrag="enabled:true" mouseInertial="enabled:false">
 		<branding visible="false"/>
-		<control mouseInertial="enabled:false" mouseDrag="enabled:true"/>
+		<control mouseInertial="enabled:false" mouseDrag="enabled:true" autorotation="delay:600" transition="time:0.5"/>
 	</global>
 	<modules>
 		<ButtonBar path="~modules/ButtonBar-1.2.swf">
@@ -35,7 +35,7 @@
 		<action id="onLinkClose" content="ButtonBar.setActive(a,false)"/>
 	</actions>
 	<diystreetview>
-		<resources directory="http://s3.amazonaws.com/diy-streetview-20110418/" start="[000143]" url="http://www.diy-streetview.com/diy-streetview-player-test/diy-streetview-database.php?streetview="/>
+		<resources directory="http://s3.amazonaws.com/diy-streetview-a/" start="[000139]" url="http://www.diy-streetview.com/diy-streetview-player-test/diy-streetview-database.php?streetview="/>
 		<settings hotspots="~hotspots/arrow.png"/>
 	</diystreetview>
 </SaladoPlayer>
