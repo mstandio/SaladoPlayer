@@ -240,7 +240,7 @@ package com.panozona.player.manager {
 			var precedingHotspotData:HotspotData = null;
 			for (var addedHotspotData:Object in hotspots) {
 				if (addedHotspotData.location.distance < hotspotData.location.distance) {
-					if (precedingHotspotData == null || (precedingHotspotData != null && precedingHotspotData.location.distance > addedHotspotData.location.distance)){
+					if (precedingHotspotData == null || precedingHotspotData.location.distance < addedHotspotData.location.distance){
 						precedingHotspotData = addedHotspotData as HotspotData;
 					}
 				}
