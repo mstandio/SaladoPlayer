@@ -35,7 +35,7 @@ package org.diystreetview.modules.directionfixer{
 		private var directionFixerData:DirectionFixerData;
 		
 		public function DirectionFixer() {
-			super("DirectionFixer", "1.0", "http://diy-streetview.org");
+			super("DirectionFixer", "1.1", "http://diy-streetview.org");
 			moduleDescription.addFunctionDescription("toggleVisibility");
 		}
 		

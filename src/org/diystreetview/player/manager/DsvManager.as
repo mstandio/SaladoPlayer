@@ -160,11 +160,11 @@ package org.diystreetview.player.manager {
 					
 					var hotspotDistanceAway:Number = distance(mainGpsData.latitude, mainGpsData.longitude, hotspotGeolocation.latitude, hotspotGeolocation.longitude);
 					
-					hotspotData.location.pan = 90 + rad2deg(Math.atan2(
+					hotspotData.location.pan = -90 + rad2deg(Math.atan2(
 						distance(mainGpsData.latitude, 0, hotspotGeolocation.latitude, 0, false),
 						distance(0, mainGpsData.longitude, 0, hotspotGeolocation.longitude, false)));
 					
-					hotspotData.location.pan += Number(panoxml.pano.@direction);
+					hotspotData.location.pan -= Number(panoxml.pano.@direction);
 					hotspotData.location.tilt = -90 + rad2deg(Math.atan(hotspotDistanceAway / 0.003)); // 0.003 is camera height in kilometers
 					hotspotData.location.distance = 25000 * hotspotDistanceAway;
 					
@@ -220,7 +220,9 @@ package org.diystreetview.player.manager {
 			var a:Number = Math.pow(Math.sin(dLat / 2), 2) +
 				Math.pow(Math.sin(dLon / 2), 2) * Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2));
 			var c:Number = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)) * 6371;
-			if (!abs && (lat2 - lat1 > 0 || lon2 - lon1 > 0)) {
+			//var c:Number = Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2)) * 100;
+			
+			if (!abs && ( lat2 - lat1 < 0 || lon2 - lon1 > 0)) {
 				return -c;
 			}else {
 				return c;
@@ -297,16 +299,16 @@ package org.diystreetview.player.manager {
 		private var tmpTilt:Number;
 		private var tmpfov:Number;
 		private function onEnterFrame(e:Event):void {
-			if (tmpPan == Math.round(pan) && tmpTilt == Math.round(tilt) && tmpfov == Math.round(fieldOfView)) return;
-			tmpPan = Math.round(pan);
-			tmpTilt = Math.round(tilt);
-			tmpfov = Math.round(fieldOfView);
-			ExternalInterface.call("viewChanged", tmpPan, tmpTilt, tmpfov);
+			if (tmpPan == Math.round(_pan) && tmpTilt == Math.round(_tilt) && tmpfov == Math.round(_fieldOfView)) return;
+			tmpPan = Math.round(_pan);
+			tmpTilt = Math.round(_tilt);
+			tmpfov = Math.round(_fieldOfView);
+			ExternalInterface.call("viewChanged", loadedId, tmpPan, tmpTilt, tmpfov);
 		}
 		
 		override protected function panoramaLoaded(e:Event):void {
 			super.panoramaLoaded(e);
-			ExternalInterface.call("viewChanged", Math.round(pan), Math.round(tilt), Math.round(fieldOfView));
+			ExternalInterface.call("viewChanged", loadedId, Math.round(_pan), Math.round(_tilt), Math.round(_fieldOfView));
 		}
 		
 		private function deg2rad(deg:Number):Number {

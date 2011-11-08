@@ -66,7 +66,7 @@ package org.diystreetview.modules.directionfixer.controller{
 			
 			// if previous panorama has changed direction 
 			if (_valuesView.directionFixerData.labelToDirection.currentLabel != null && directionCorrection != 0) {
-				jumpValue -= directionCorrection;
+				jumpValue += directionCorrection;
 			}
 			
 			// set data for panorama that is just loaded
@@ -77,7 +77,7 @@ package org.diystreetview.modules.directionfixer.controller{
 			
 			// if correction for direction exists for new panorama 
 			if (_valuesView.directionFixerData.labelToDirection.labelExists(_valuesView.directionFixerData.labelToDirection.currentLabel)) {
-				directionCorrection = _valuesView.directionFixerData.labelToDirection.getLabel(_valuesView.directionFixerData.labelToDirection.currentLabel) - currentDirection;
+				directionCorrection = _valuesView.directionFixerData.labelToDirection.getLabel(_valuesView.directionFixerData.labelToDirection.currentLabel) + currentDirection;
 				jumpValue += directionCorrection;
 			}
 			
@@ -115,7 +115,7 @@ package org.diystreetview.modules.directionfixer.controller{
 			for each (var hotspotData:Object in _module.saladoPlayer.managerData.getPanoramaDataById(_module.saladoPlayer.manager.currentPanoramaData.id).hotspotsData) {
 				if (displayedHotspots [hotspotData.id] != undefined) {
 					var piOver180:Number = Math.PI / 180;
-					var pr:Number = (-1*(-hotspotData.location.pan - directionCorrection - 90)) * piOver180; // "-" couse panosalado counts pan counterclockwise
+					var pr:Number = -1*(hotspotData.location.pan - 90 + directionCorrection) * piOver180;
 					var tr:Number = -1* hotspotData.location.tilt * piOver180;
 					var xc:Number = hotspotData.location.distance * Math.cos(pr) * Math.cos(tr);
 					var yc:Number = hotspotData.location.distance * Math.sin(tr);
@@ -124,7 +124,7 @@ package org.diystreetview.modules.directionfixer.controller{
 					displayedHotspots[hotspotData.id].x = xc;
 					displayedHotspots[hotspotData.id].y = yc;
 					displayedHotspots[hotspotData.id].z = zc;
-					displayedHotspots[hotspotData.id].rotationY = (-hotspotData.location.pan - directionCorrection + hotspotData.transform.rotationY) * piOver180;
+					displayedHotspots[hotspotData.id].rotationY = (hotspotData.location.pan + hotspotData.transform.rotationY + directionCorrection) * piOver180;
 					displayedHotspots[hotspotData.id].rotationX = (hotspotData.location.tilt + hotspotData.transform.rotationX) * piOver180;
 					displayedHotspots[hotspotData.id].rotationZ = hotspotData.transform.rotationZ * piOver180
 				}
@@ -133,9 +133,9 @@ package org.diystreetview.modules.directionfixer.controller{
 		
 		private function handleEnterFrame(e:Event = null):void {
 			if (_valuesView.directionFixerData.valuesData.state == ValuesData.STATE_INCREMENTING){
-				directionCorrection --;
-			} else if (_valuesView.directionFixerData.valuesData.state == ValuesData.STATE_DECREMENTING){
 				directionCorrection ++;
+			} else if (_valuesView.directionFixerData.valuesData.state == ValuesData.STATE_DECREMENTING){
+				directionCorrection --;
 			}
 			if (directionCorrection != 0){
 				_valuesView.directionFixerData.labelToDirection.setLabel(
@@ -147,13 +147,13 @@ package org.diystreetview.modules.directionfixer.controller{
 		
 		private function displayState():void {
 			_valuesView.txtOutput.text =
-			"new dir " + validateDirection(-_module.saladoPlayer.manager.pan + currentDirection + directionCorrection).toFixed(2) +
+			"new dir " + validateDirection(_module.saladoPlayer.manager.pan + currentDirection + directionCorrection).toFixed(2) +
 			"\n\nold dir val " + currentDirection +
 			"\nnew dir val " + validateDirection(currentDirection + directionCorrection);
 		}
 		
 		private function validateDirection(value:Number):Number {
-			if ( value <= 0 || value  > 360 ) return ((value + 360) % 360);
+			if ( value <= 0 || value > 360 ) return ((value + 360) % 360);
 			return value;
 		}
 		
