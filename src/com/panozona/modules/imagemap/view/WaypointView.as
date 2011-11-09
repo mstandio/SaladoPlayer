@@ -38,13 +38,16 @@ package com.panozona.modules.imagemap.view {
 		private var _imageMapData:ImageMapData;
 		private var _waypointData:WaypointData;
 		
+		private var _radarTilt:Number;
+		private var _radarScaleY:Number;
+		
 		public function WaypointView (imageMapData:ImageMapData, waypointData:WaypointData, mapView:MapView) {
 			
 			_imageMapData = imageMapData;
 			_waypointData = waypointData;
 			
 			radar.mouseEnabled = false;
-			radar.alpha = (1 / imageMapData.windowData.window.alpha) * _waypointData.radar.alpha;
+			
 			radar.x = waypointData.waypoint.position.x;
 			radar.y = waypointData.waypoint.position.y;
 			mapView.radarContainer.addChild(radar);
@@ -72,6 +75,20 @@ package com.panozona.modules.imagemap.view {
 		
 		public function get waypointData():WaypointData {
 			return _waypointData;
+		}
+		
+		public function set radarTilt(value:Number):void {
+			if (value < 0.15) {
+				_radarTilt = 0.15;
+			}else {
+				_radarTilt = value;
+			}
+			radar.scaleY = _radarTilt * button.scaleX;
+		}
+		
+		public function set radarScaleY(value:Number):void {
+			_radarScaleY = value;
+			radar.scaleY = _radarTilt * value;
 		}
 		
 		public function set buttonBitmapData(bitmapData:BitmapData):void {

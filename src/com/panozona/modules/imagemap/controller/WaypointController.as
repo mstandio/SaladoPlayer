@@ -18,8 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.controller {
 	
+	import caurina.transitions.Tweener;
 	import com.panozona.modules.imagemap.events.WaypointEvent;
-	import com.panozona.modules.imagemap.events.MapEvent;
 	import com.panozona.modules.imagemap.view.WaypointView;
 	import com.panozona.player.module.Module;
 	import flash.events.Event;
@@ -33,6 +33,7 @@ package com.panozona.modules.imagemap.controller {
 		private var _module:Module;
 		
 		private var _pan:Number;
+		private var _tilt:Number;
 		private var _fov:Number;
 		
 		private var _isFocused:Boolean;
@@ -57,7 +58,10 @@ package com.panozona.modules.imagemap.controller {
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
-			onPanoramaLoaded(); // in case when map just got changed
+			
+			if(_module.saladoPlayer.manager.currentPanoramaData != null){
+				onPanoramaLoaded(); // in case when map just got changed
+			}
 			
 			drawButton();
 		}
@@ -98,9 +102,13 @@ package com.panozona.modules.imagemap.controller {
 			drawButton();
 			if (_waypointView.waypointData.showRadar){
 				_pan = NaN;
+				_tilt = NaN;
 				_fov = NaN;
 				_module.stage.addEventListener(Event.ENTER_FRAME, handleEnterFrame, false, 0, true);
 				handleEnterFrame();
+				_waypointView.radar.alpha = 0;
+				Tweener.addTween(_waypointView.radar,
+					{alpha:((1 / _waypointView.imageMapData.windowData.window.alpha) * _waypointView.waypointData.radar.alpha), time:0.5, transition:"easeInExpo" } );
 			}else {
 				_waypointView.radar.graphics.clear();
 				_module.stage.removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
@@ -116,14 +124,14 @@ package com.panozona.modules.imagemap.controller {
 				drawRadar();
 				_fov = _module.saladoPlayer.manager._fieldOfView;
 			}
-			if(_waypointView.waypointData.radar.showTilt){
-				_waypointView.radar.scaleY = _waypointView.button.scaleY * (1 - Math.abs(_module.saladoPlayer.manager._tilt) / 100);
-				if (_waypointView.radar.scaleY < 0.15) _waypointView.radar.scaleY = 0.15;
+			if(_waypointView.waypointData.radar.showTilt && _tilt != _module.saladoPlayer.manager._tilt){
+				_waypointView.radarTilt = (1 - Math.abs(_module.saladoPlayer.manager._tilt) / 100);
 				if (_module.saladoPlayer.manager._tilt > 0) {
 					_waypointView.imageMapData.mapData.radarFirst = true;
 				}else {
 					_waypointView.imageMapData.mapData.radarFirst = false;
 				}
+				_tilt = _module.saladoPlayer.manager._tilt;
 			}
 			if (_pan != _module.saladoPlayer.manager._pan) {
 				_waypointView.radar.rotationZ = _module.saladoPlayer.manager._pan + currentDirection + _waypointView.waypointData.panShift;
@@ -142,8 +150,8 @@ package com.panozona.modules.imagemap.controller {
 		
 		private function drawRadar():void {
 			_waypointView.radar.graphics.clear();
-			var startAngle:Number = (-_module.saladoPlayer.manager.fieldOfView - 180) * Math.PI / 180 * 0.5;
-			var endAngle:Number = (_module.saladoPlayer.manager.fieldOfView - 180) * Math.PI / 180 * 0.5;
+			var startAngle:Number = (-_module.saladoPlayer.manager._fieldOfView - 180) * Math.PI / 180 * 0.5;
+			var endAngle:Number = (_module.saladoPlayer.manager._fieldOfView - 180) * Math.PI / 180 * 0.5;
 			var divisions:Number = Math.floor(Math.abs(endAngle - startAngle) / (Math.PI / 4)) + 1;
 			var span:Number = Math.abs(endAngle - startAngle) / (2 * divisions);
 			var controlRadius:Number = _waypointView.waypointData.radar.radius / Math.cos(span);

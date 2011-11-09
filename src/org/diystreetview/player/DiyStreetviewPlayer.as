@@ -37,6 +37,8 @@ package org.diystreetview.player{
 	
 	public class DiyStreetviewPlayer extends SaladoPlayer{
 		
+		// IMPORTANT! when compiling this file comment out init() form SaladoPlayer constructor
+		
 		public function DiyStreetviewPlayer() {
 			keyboardCamera = new DsvKeyboardCamera();
 			managerData = new DsvManagerData();

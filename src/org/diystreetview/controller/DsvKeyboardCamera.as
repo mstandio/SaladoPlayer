@@ -19,7 +19,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package org.diystreetview.controller{
 	
 	import com.panosalado.controller.KeyboardCamera;
-	import com.panosalado.model.CameraKeyBindings;
+	import org.diystreetview.model.CameraKeyBindings;
 	import flash.events.KeyboardEvent;
 	import org.diystreetview.player.manager.DsvManager;
 	
@@ -33,8 +33,10 @@ package org.diystreetview.controller{
 				case CameraKeyBindings.BACKWARD:
 					(_viewData as DsvManager).clickBackwardHotspot();
 				break;
+				
+				default:
+					super.keyDownEvent(event);
 			}
-			super.keyDownEvent(event);
 		}
 	}
 }

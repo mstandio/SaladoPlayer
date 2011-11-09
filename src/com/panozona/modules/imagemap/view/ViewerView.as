@@ -176,7 +176,7 @@ package com.panozona.modules.imagemap.view{
 			container.scaleY = value;
 			for (var i:int = 0; i < mapView.waypointsContainer.numChildren; i++) {
 				(mapView.waypointsContainer.getChildAt(i) as WaypointView).button.scaleY = 1 / value;
-				(mapView.waypointsContainer.getChildAt(i) as WaypointView).radar.scaleY = 1 / value;
+				(mapView.waypointsContainer.getChildAt(i) as WaypointView).radarScaleY = 1 / value;
 			}
 		}
 		
