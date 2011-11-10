@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Waypoints needs to have unique targets among all maps. Whenever user loads panorama, module switches 
-	to map that contains waypoint targeting to given panorama. If user loads first panorama and none of maps
-	contains waypoints targeting to given panorama, first map in line is displayed. If same situation occures 
-	when loading further panoramas, map is not changed.
+	Waypoints need to have unique targets among all maps. Whenever user loads panorama, module switches to map
+	that contains waypoint targeting to given panorama. If user loads first panorama and none of maps contains
+	waypoints targeting to given panorama, first map in line is displayed. If same situation occures when loading
+	further panoramas, map is not changed.
 	
 	http://panozona.com/wiki/Module:ImageMap
 -->
@@ -15,7 +15,7 @@
 	</panoramas>
 	<modules>
 		<ImageMap path="~modules/ImageMap-1.3.swf">
-			<viewer path="~modules/images/imagemap/navigation_20x20_black.png"/>
+			<viewer path="~modules/images/imagemap/navigation_black_20x20.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map_1.jpg">
 					<waypoints path="~modules/images/imagemap/waypoints_button_20x20.png">

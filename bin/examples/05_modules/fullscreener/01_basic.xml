@@ -12,7 +12,15 @@
 	</panoramas>
 	<modules>
 		<FullScreener path="~modules/FullScreener-1.0.swf">
-			<settings path="~modules/images/fullscreener/button_thick_white_50x50.png"/>
+			<settings path="~modules/images/fullscreener/button_thick_black_50x50.png"/>
 		</FullScreener>
+		<ImageButton path="~modules/ImageButton-1.2.swf">
+			<buttons>
+				<button id="logo1" path="~media/images/misc/panozona_logo.png" mouse="onClick:printClick"/>
+			</buttons>
+		</ImageButton>
 	</modules>
+	<actions>
+		<action id="printClick" content="FullScreener.toggleFullScreenOn()"/>
+	</actions>
 </SaladoPlayer>
