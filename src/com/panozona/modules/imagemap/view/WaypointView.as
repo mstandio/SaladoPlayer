@@ -61,6 +61,9 @@ package com.panozona.modules.imagemap.view {
 			_buttonImage = new Bitmap();
 			button.addChild(_buttonImage);
 			
+			_radarTilt = 1;
+			_radarScaleY = 1;
+			
 			button.addEventListener(MouseEvent.ROLL_OVER, mouseOver, false, 0, true);
 			button.addEventListener(MouseEvent.ROLL_OUT, mouseOut, false, 0, true);
 		}

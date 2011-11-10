@@ -54,6 +54,8 @@ package com.panozona.modules.imagemap.controller {
 		
 		private var waypointsLoader:LoadablesLoader;
 		
+		private var previousMapId:String;
+		
 		public function MapController(mapView:MapView, module:Module){
 			_mapView = mapView;
 			_module = module;
@@ -99,6 +101,10 @@ package com.panozona.modules.imagemap.controller {
 			destroyWaypoints();
 			_mapView.imageMapData.viewerData.focusPoint = new Point(NaN, NaN);
 			mapContentLoader.load(new URLRequest(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).path));
+			if (previousMapId != null) {
+				_module.saladoPlayer.manager.runAction(_mapView.imageMapData.mapData.getMapById(previousMapId).onUnset);
+			}
+			previousMapId = _mapView.imageMapData.mapData.currentMapId;
 			_module.saladoPlayer.manager.runAction(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).onSet);
 		}
 		
