@@ -103,33 +103,34 @@ package com.panozona.modules.fullscreener{
 			button.addChild(buttonBitmap);
 			addChild(button);
 			
-			button.addEventListener(MouseEvent.MOUSE_UP, toggleFullscreen, false, 0, true);
+			button.addEventListener(MouseEvent.MOUSE_UP, toggleFullscreen, false, 0, true); // important! on some browsers using MOUSE_CLICK can freeze flash player
 			
-			button.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver, false, 0, true);
+			button.addEventListener(MouseEvent.MOUSE_MOVE, onMouseOver, false, 0, true);
 			button.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut, false, 0, true);
 			button.addEventListener(MouseEvent.ROLL_OUT, onMouseOut, false, 0, true);
 			
 			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
 			saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
-			
 			handleResize();
 		}
 		
 		private function onMouseOver(e:Event):void {
+			if (mouseOver) return;
 			mouseOver = true;
 			buildButton();
 		}
 		
 		private function onMouseOut(e:Event):void {
+			if (!mouseOver) return;
 			mouseOver = false;
 			buildButton();
 		}
 		
 		private function toggleFullscreen(e:Event = null):void {
+			mouseOver = false;
 			stage.displayState = (stage.displayState == StageDisplayState.NORMAL) ?
 				StageDisplayState.FULL_SCREEN :
 				StageDisplayState.NORMAL;
-			mouseOver = false;
 		}
 		
 		private function buildButton():void {
@@ -149,9 +150,7 @@ package com.panozona.modules.fullscreener{
 		}
 		
 		private function handleResize(e:Event = null):void {
-			
 			buildButton();
-			
 			if (fullScreenerData.settings.align.horizontal == Align.LEFT) {
 				button.x = 0;
 			}else if (fullScreenerData.settings.align.horizontal == Align.RIGHT) {

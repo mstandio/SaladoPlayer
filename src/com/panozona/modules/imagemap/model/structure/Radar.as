@@ -20,7 +20,7 @@ package com.panozona.modules.imagemap.model.structure {
 	
 	public class Radar{
 		
-		public var showTilt:Boolean = true;
+		public var showTilt:Boolean = false;
 		
 		public var alpha:Number = 0.5;
 		public var radius:Number = 50;
