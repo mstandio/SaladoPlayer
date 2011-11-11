@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,24 +16,17 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.buttonbar.view{
+package com.panozona.modules.buttonbar.events {
 	
-	import com.panozona.modules.buttonbar.model.ButtonBarData;
-	import flash.display.Sprite;
+	import flash.events.Event;
 	
-	public class BarView extends Sprite{
+	public class WindowEvent extends Event {
 		
-		public const buttonsContainer:Sprite = new Sprite();
+		public static const CHANGED_OPEN:String = "changedOpen";
+		public static const CHANGED_SIZE:String = "changedSize";
 		
-		private var _buttonBarData:ButtonBarData;
-		
-		public function BarView(buttonBarData:ButtonBarData):void {
-			_buttonBarData = buttonBarData;
-			addChild(buttonsContainer);
-		}
-		
-		public function get buttonBarData():ButtonBarData {
-			return _buttonBarData;
+		public function WindowEvent(type:String){
+			super(type);
 		}
 	}
 }

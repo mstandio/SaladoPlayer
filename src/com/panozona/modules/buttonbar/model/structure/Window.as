@@ -18,26 +18,25 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.buttonbar.model.structure{
 	
+	import caurina.transitions.Equations;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Move;
-	import com.panozona.player.module.data.property.Size;
+	import com.panozona.player.module.data.property.Transition;
+	import com.panozona.player.module.data.property.Tween;
 	
-	public class Bar {
+	public class Window{
 		
-		public var visible:Boolean = false;
-		public var alpha:Number = 0.5;
-		public var color:Number = 0x000000; // black
+		public const align:Align = new Align(Align.RIGHT, Align.BOTTOM);
+		public const move:Move = new Move( -5, -5);
 		
-		/**
-		 * background image, x y repeated
-		 * when not set color is used instead
-		 */
-		public var path:String = null;
+		public var alpha:Number = 1.0;
 		
-		/**
-		 * when width is set to NaN, bar uses width of panorama window
-		 */
-		public const size:Size = new Size(NaN, 50);
-		public const move:Move = new Move(0, 0); // horizontal, vertical
+		public var open:Boolean = true;
+		public var onOpen:String = null; // actions executed on window open change
+		public var onClose:String = null;
+		
+		public const openTween:Tween = new Tween(Equations.easeNone, 0.5);
+		public const closeTween:Tween = new Tween(Equations.easeNone, 0.5);
+		public const transition:Transition = new Transition(Transition.SLIDE_DOWN);
 	}
 }

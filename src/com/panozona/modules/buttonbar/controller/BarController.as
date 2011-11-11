@@ -23,7 +23,6 @@ package com.panozona.modules.buttonbar.controller{
 	import com.panozona.modules.buttonbar.model.structure.ExtraButton;
 	import com.panozona.modules.buttonbar.view.BarView;
 	import com.panozona.modules.buttonbar.view.ButtonView;
-	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.Module;
 	import flash.display.BitmapData;
@@ -48,13 +47,11 @@ package com.panozona.modules.buttonbar.controller{
 		private var autorotationEventClass:Class;
 		private var cameraEventClass:Class;
 		
-		private var barBitmapData:BitmapData;
 		private var buttonsBitmapData:BitmapData;
 		private var buttonSize:Size;
 		
 		private var buttonsController:Vector.<ButtonController>;
 		
-		private var numButtons:int = 0;
 		private var hotspots:Boolean = true;
 		
 		public function BarController(barView:BarView, module:Module){
@@ -64,9 +61,6 @@ package com.panozona.modules.buttonbar.controller{
 			buttonsController = new Vector.<ButtonController>();
 			buttonSize = new Size(30,30);
 			buildButtonsBar();
-			
-			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
-			_module.saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0 , true);
@@ -83,45 +77,10 @@ package com.panozona.modules.buttonbar.controller{
 				_module.saladoPlayer.stage.addEventListener( KeyboardEvent.KEY_UP, keyUpEvent, false, 0, true);
 			}
 			
-			if (_barView.buttonBarData.bar.visible && _barView.buttonBarData.bar.path != null){
-				var barLoader:Loader = new Loader();
-				barLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, barImageLost, false, 0, true);
-				barLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, barImageLoaded, false, 0, true);
-				barLoader.load(new URLRequest(_barView.buttonBarData.bar.path));
-			}
-			
 			var buttonsLoader:Loader = new Loader();
 			buttonsLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonsImageLost, false, 0, true);
 			buttonsLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, buttonsImageLoaded, false, 0, true);
 			buttonsLoader.load(new URLRequest(_barView.buttonBarData.buttons.path));
-		}
-		
-		private function handleResize(e:Event = null):void {
-			if (_barView.buttonBarData.buttons.align.horizontal == Align.LEFT) {
-				_barView.buttonsContainer.x = 0;
-			}else if (_barView.buttonBarData.buttons.align.horizontal == Align.RIGHT) {
-				_barView.buttonsContainer.x = _module.saladoPlayer.manager.boundsWidth
-					- (buttonSize.width + _barView.buttonBarData.buttons.spacing)
-					* numButtons;
-			}else { // CENTER
-				_barView.buttonsContainer.x = (_module.saladoPlayer.manager.boundsWidth
-					- (buttonSize.width + _barView.buttonBarData.buttons.spacing)
-					* numButtons) * 0.5;
-			}
-			if (_barView.buttonBarData.buttons.align.vertical == Align.TOP){
-				_barView.buttonsContainer.y = 0;
-			}else if (_barView.buttonBarData.buttons.align.vertical == Align.BOTTOM) {
-				_barView.buttonsContainer.y = _module.saladoPlayer.manager.boundsHeight - buttonSize.height;
-			}else { // MIDDLE
-				_barView.buttonsContainer.y = (_module.saladoPlayer.manager.boundsHeight - buttonSize.height) * 0.5;
-			}
-			_barView.buttonsContainer.x += _barView.buttonBarData.buttons.move.horizontal;
-			_barView.buttonsContainer.y += _barView.buttonBarData.buttons.move.vertical;
-			
-			if (_barView.buttonBarData.bar.visible){
-				buildBackgroundBar();
-			}
-			displayFullscreen();
 		}
 		
 		public function onPanoramaLoaded(panoramaEvent:Object):void {
@@ -140,20 +99,6 @@ package com.panozona.modules.buttonbar.controller{
 			}
 		}
 		
-		private function barImageLost(e:IOErrorEvent):void {
-			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, barImageLost);
-			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, barImageLoaded);
-			_module.printError(e.text);
-		}
-		
-		private function barImageLoaded(e:Event):void {
-			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, barImageLost);
-			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, barImageLoaded);
-			barBitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
-			barBitmapData.draw((e.target as LoaderInfo).content);
-			buildBackgroundBar();
-		}
-		
 		private function buttonsImageLost(e:IOErrorEvent):void {
 			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, buttonsImageLost);
 			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, buttonsImageLoaded);
@@ -168,10 +113,11 @@ package com.panozona.modules.buttonbar.controller{
 			buttonSize.width = Math.ceil((buttonsBitmapData.width - 9) / 10);
 			buttonSize.height = Math.ceil((buttonsBitmapData.height - 3) / 4);
 			updateButtonsBar();
-			handleResize();
 			onIsAutorotatingChange();
 			onDragEnabledChange();
 			displayHotspots();
+			
+			_barView.buttonBarData.windowData.size = new Size(_barView.buttonsContainer.width, _barView.buttonsContainer.height);
 		}
 		
 		private function buildButtonsBar():void {
@@ -298,7 +244,6 @@ package com.panozona.modules.buttonbar.controller{
 				if (isNaN(buttonView.buttonData.button.move.horizontal) && isNaN(buttonView.buttonData.button.move.vertical)) {
 					buttonView.x = lastX;
 					lastX += buttonView.width + _barView.buttonBarData.buttons.spacing;
-					numButtons++;
 				}else {
 					buttonView.x = buttonView.buttonData.button.move.horizontal;
 					buttonView.y = buttonView.buttonData.button.move.vertical;
@@ -317,38 +262,6 @@ package com.panozona.modules.buttonbar.controller{
 			return function(e:MouseEvent):void {
 				_module.saladoPlayer.manager.runAction(actionId);
 			}
-		}
-		
-		private function buildBackgroundBar():void {
-			_barView.backgroundBar.graphics.clear();
-			if (_barView.buttonBarData.bar.path == null ) {
-				_barView.backgroundBar.graphics.beginFill(_barView.buttonBarData.bar.color);
-			}else if ( barBitmapData != null){
-				_barView.backgroundBar.graphics.beginBitmapFill(barBitmapData, null, true);
-			}else {
-				return;
-			}
-			_barView.backgroundBar.graphics.drawRect(0,0,
-				(isNaN(_barView.buttonBarData.bar.size.width) ? _module.saladoPlayer.manager.boundsWidth : _barView.buttonBarData.bar.size.width),
-				_barView.buttonBarData.bar.size.height);
-			_barView.backgroundBar.graphics.endFill();
-			
-			if (_barView.buttonBarData.buttons.align.horizontal == Align.LEFT) {
-				_barView.backgroundBar.x = 0;
-			}else if (_barView.buttonBarData.buttons.align.horizontal == Align.RIGHT) {
-				_barView.backgroundBar.x = _module.saladoPlayer.manager.boundsWidth - _barView.backgroundBar.width;
-			}else { // CENTER
-				_barView.backgroundBar.x = (_module.saladoPlayer.manager.boundsWidth - _barView.backgroundBar.width) * 0.5;
-			}
-			if (_barView.buttonBarData.buttons.align.vertical == Align.TOP){
-				_barView.backgroundBar.y = 0;
-			}else if (_barView.buttonBarData.buttons.align.vertical == Align.BOTTOM) {
-				_barView.backgroundBar.y = _module.saladoPlayer.manager.boundsHeight - _barView.backgroundBar.height;
-			}else { // MIDDLE
-				_barView.backgroundBar.y = (_module.saladoPlayer.manager.boundsHeight - _barView.backgroundBar.height) * 0.5;
-			}
-			_barView.backgroundBar.x += _barView.buttonBarData.bar.move.horizontal;
-			_barView.backgroundBar.y += _barView.buttonBarData.bar.move.vertical;
 		}
 		
 		// ids hardcoded 

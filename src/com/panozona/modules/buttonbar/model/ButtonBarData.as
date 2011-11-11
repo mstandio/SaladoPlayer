@@ -18,7 +18,6 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.buttonbar.model{
 	
-	import com.panozona.modules.buttonbar.model.structure.Bar;
 	import com.panozona.modules.buttonbar.model.structure.Button;
 	import com.panozona.modules.buttonbar.model.structure.Buttons;
 	import com.panozona.modules.buttonbar.model.structure.ExtraButton;
@@ -28,22 +27,24 @@ package com.panozona.modules.buttonbar.model{
 	
 	public class ButtonBarData {
 		
+		public const windowData:WindowData = new WindowData();
 		public const buttons:Buttons = new Buttons();
-		public const bar:Bar = new Bar();
 		
 		public function ButtonBarData(moduleData:ModuleData, saladoPlayer:Object){
 			
 			var translator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
 			
 			for each(var dataNode:DataNode in moduleData.nodes) {
-				if (dataNode.name == "buttons") {
+				if (dataNode.name == "window") {
+					translator.dataNodeToObject(dataNode, windowData.window);
+				}else if (dataNode.name == "buttons") {
 					translator.dataNodeToObject(dataNode, buttons);
-				}else if (dataNode.name == "bar") {
-					translator.dataNodeToObject(dataNode, bar);
 				}else {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
+			
+			windowData.open = windowData.window.open;
 			
 			if (saladoPlayer.managerData.debugMode) {
 				if (buttons.path == null || !buttons.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)) throw new Error("Invalid buttons path: " + buttons.path);
