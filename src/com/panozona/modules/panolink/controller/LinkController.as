@@ -78,7 +78,7 @@ package com.panozona.modules.panolink.controller{
 		public function getUrlLink(url:String):String {
 			var result:String = "";
 			if (url.indexOf("?") > 0) {
-				result += url.substr(0, url.indexOf("?"));
+				result += url.substr(0, url.indexOf("?") + 1);
 				var params:Array = url.substring(url.indexOf("?") + 1, url.length).split("&");
 				for each(var param:String in params) {
 					if (!param.match(/^pano=.+/) && !param.match(/^cam=.+/)) {

@@ -72,6 +72,8 @@ package com.panozona.modules.buttonbar.controller{
 			_module.saladoPlayer.managerData.controlData.arcBallCameraData.addEventListener(cameraEventClass.ENABLED_CHANGE, onDragEnabledChange, false, 0, true);
 			_module.saladoPlayer.managerData.controlData.autorotationCameraData.addEventListener(autorotationEventClass.AUTOROTATION_CHANGE, onIsAutorotatingChange, false, 0, true);
 			
+			_module.stage.addEventListener(Event.FULLSCREEN, onFullScreenChange, false, 0, true);
+			
 			if (_barView.buttonBarData.buttons.listenKeys) {
 				_module.saladoPlayer.stage.addEventListener( KeyboardEvent.KEY_DOWN, keyDownEvent, false, 0, true);
 				_module.saladoPlayer.stage.addEventListener( KeyboardEvent.KEY_UP, keyUpEvent, false, 0, true);
@@ -284,6 +286,10 @@ package com.panozona.modules.buttonbar.controller{
 				null,
 				true);
 			return bmd;
+		}
+		
+		private function onFullScreenChange(event:Event):void {
+			setButtonActive("fullscreen", _barView.stage.displayState != StageDisplayState.NORMAL);
 		}
 		
 		private function onIsAutorotatingChange(autorotationEvent:Object = null):void {

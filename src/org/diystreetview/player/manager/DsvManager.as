@@ -114,6 +114,9 @@ package org.diystreetview.player.manager {
 			Trace.instance.printError("Failed to load configuration file: " + xmlLoader.urlRequest.url);
 		}
 		
+		private var mainGpsData:Geolocation = new Geolocation();
+		private var direction:Number = 0;
+		
 		private function xmlLoaded(event:Event):void {
 			cleanPanoramasData(loadedId);
 			var input:ByteArray = event.target.data;
@@ -130,7 +133,8 @@ package org.diystreetview.player.manager {
 				
 				dsvPanoramaData.direction = Number(panoxml.pano.@direction);
 				
-				var mainGpsData:Geolocation = new Geolocation();
+				direction = dsvPanoramaData.direction;
+				
 				mainGpsData.latitude = Number(panoxml.pano.@latitude);
 				mainGpsData.longitude = Number(panoxml.pano.@longitude);
 				mainGpsData.elevation = Number(panoxml.pano.@altitude);
@@ -181,7 +185,7 @@ package org.diystreetview.player.manager {
 					_managerData.panoramasData.push(new DsvPanoramaData(neighbourName, buildImagesPath(neighbourName) + "_f.xml"));
 				}
 				super.loadPanoramaById(dsvPanoramaData.id);
-				ExternalInterface.call("panoChanged", dsvPanoramaData.id);
+				ExternalInterface.call("panoChanged", dsvPanoramaData.id, mainGpsData.latitude, mainGpsData.longitude, direction);
 				
 			}catch (error:Error) {
 				Trace.instance.printError("Error in new configuration file structure: " + error.message);
@@ -196,7 +200,7 @@ package org.diystreetview.player.manager {
 				if ((_managerData as DsvManagerData).diyStreetviewData.resources.prefix != null) {
 					result += (_managerData as DsvManagerData).diyStreetviewData.resources.prefix;
 				}
-				result += path +"/" + path + ".xml";
+				result += path + ".xml";
 			}else {
 				result += (_managerData as DsvManagerData).diyStreetviewData.resources.url + path;
 			}
@@ -303,12 +307,12 @@ package org.diystreetview.player.manager {
 			tmpPan = Math.round(_pan);
 			tmpTilt = Math.round(_tilt);
 			tmpfov = Math.round(_fieldOfView);
-			ExternalInterface.call("viewChanged", loadedId, tmpPan, tmpTilt, tmpfov);
+			ExternalInterface.call("viewChanged", loadedId, tmpPan, tmpTilt, tmpfov, mainGpsData.latitude, mainGpsData.longitude, direction);
 		}
 		
 		override protected function panoramaLoaded(e:Event):void {
 			super.panoramaLoaded(e);
-			ExternalInterface.call("viewChanged", loadedId, Math.round(_pan), Math.round(_tilt), Math.round(_fieldOfView));
+			ExternalInterface.call("viewChanged", loadedId, Math.round(_pan), Math.round(_tilt), Math.round(_fieldOfView), mainGpsData.latitude, mainGpsData.longitude, direction);
 		}
 		
 		private function deg2rad(deg:Number):Number {
