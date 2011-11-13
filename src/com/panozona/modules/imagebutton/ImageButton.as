@@ -18,38 +18,38 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton{
 	
-	import com.panozona.modules.imagebutton.controller.ButtonController;
-	import com.panozona.modules.imagebutton.model.ButtonData;
+	import com.panozona.modules.buttonbar.model.WindowData;
+	import com.panozona.modules.imagebutton.controller.WindowController;
 	import com.panozona.modules.imagebutton.model.ImageButtonData;
-	import com.panozona.modules.imagebutton.model.structure.Button;
-	import com.panozona.modules.imagebutton.view.ButtonView;
+	import com.panozona.modules.imagebutton.model.structure.SubButton;
+	import com.panozona.modules.imagebutton.view.WindowView;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.Module;
 	
 	public class ImageButton extends Module{
 		
 		private var imageButtonData:ImageButtonData;
-		private var buttonControllers:Vector.<ButtonController>;
+		private var windowControllers:Vector.<WindowController>;
 		
 		public function ImageButton(){
 			super("ImageButton", "1.2", "http://panozona.com/wiki/Module:ImageButton");
 			moduleDescription.addFunctionDescription("setOpen", String, Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen", String);
+			moduleDescription.addFunctionDescription("setActive", String, Boolean);
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void{
 			
 			imageButtonData = new ImageButtonData(moduleData, saladoPlayer);
-			buttonControllers = new Vector.<ButtonController>();
+			windowControllers = new Vector.<WindowController>();
 			
-			var buttonView:ButtonView;
-			var buttonController:ButtonController;
-			var buttons:Array = imageButtonData.buttons.getChildrenOfGivenClass(Button);
-			for (var i:int = buttons.length-1; i >= 0; i--){
-				buttonView = new ButtonView(new ButtonData(buttons[i]), imageButtonData);
-				addChild(buttonView);
-				buttonController = new ButtonController(buttonView, this);
-				buttonControllers.push(buttonController);
+			var windowView:WindowView;
+			var windowController:WindowController;
+			for (var i:int = imageButtonData.buttons.length-1; i >= 0; i--){
+				buttonView = new WindowView(new WindowData(imageButtonData.buttons[i]));
+				addChild(windowView);
+				windowController = new WindowController(windowView, this);
+				windowControllers.push(windowController);
 			}
 		}
 		
@@ -59,8 +59,8 @@ package com.panozona.modules.imagebutton{
 		
 		public function setOpen(buttonId:String, value:Boolean):void{
 			for (var i:int = 0; i < numChildren; i++) {
-				if (getChildAt(i) is ButtonView && (getChildAt(i) as ButtonView).buttonData.button.id == buttonId){
-					(getChildAt(i) as ButtonView).buttonData.open = value;
+				if ((getChildAt(i) as WindowView).windowData.button.id == buttonId){
+					(getChildAt(i) as WindowView).windowData.open = value;
 					return;
 				}
 			}
@@ -69,12 +69,21 @@ package com.panozona.modules.imagebutton{
 		
 		public function toggleOpen(buttonId:String):void {
 			for (var i:int = 0; i < numChildren; i++) {
-				if (getChildAt(i) is ButtonView && (getChildAt(i) as ButtonView).buttonData.button.id == buttonId){
-					(getChildAt(i) as ButtonView).buttonData.open = !(getChildAt(i) as ButtonView).buttonData.open;
+				if ((getChildAt(i) as WindowView).windowData.button.id == buttonId){
+					(getChildAt(i) as WindowView).windowData.open = !(getChildAt(i) as WindowView).windowData.open;
 					return;
 				}
 			}
 			printWarning("Nonexistant button id: " + buttonId);
+		}
+		
+		public function setActive(subButtonId:String, value:Boolean):void {
+			for (var i:int = 0; i < numChildren; i++) {
+				for each(var subButton:SubButton in (getChildAt(i) as WindowView).windowData.button.subButtons.getChildrenOfGivenClass(SubButton)) {
+					// what now
+				}
+			}
+			printWarning("Nonexistant subButton id: " + subButtonId);
 		}
 	}
 }

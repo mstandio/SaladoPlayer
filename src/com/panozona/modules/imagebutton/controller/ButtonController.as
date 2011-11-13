@@ -18,22 +18,20 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.controller{
 	
+	import caurina.transitions.Tweener;
 	import com.panozona.modules.imagebutton.events.ButtonEvent;
 	import com.panozona.modules.imagebutton.view.ButtonView;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Transition;
 	import com.panozona.player.module.Module;
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
 	import flash.events.IOErrorEvent;
-	import flash.net.URLRequest;
+	import flash.events.MouseEvent;
 	import flash.net.navigateToURL;
+	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
-	import caurina.transitions.Tweener;
 	
 	public class ButtonController {
 		
@@ -80,25 +78,6 @@ package com.panozona.modules.imagebutton.controller{
 			
 			_buttonView.addChild((e.target as LoaderInfo).content);
 			
-			if (_buttonView.buttonData.button.text != null) {
-				_buttonView.addEventListener(MouseEvent.CLICK, getMouseUrlHandler(_buttonView.buttonData.button.text));
-			}
-			if (_buttonView.buttonData.button.mouse.onClick != null) {
-				_buttonView.addEventListener(MouseEvent.CLICK, getMouseEventHandler(_buttonView.buttonData.button.mouse.onClick));
-			}
-			if (_buttonView.buttonData.button.mouse.onPress != null) {
-				_buttonView.addEventListener(MouseEvent.MOUSE_DOWN, getMouseEventHandler(_buttonView.buttonData.button.mouse.onPress));
-			}
-			if (_buttonView.buttonData.button.mouse.onRelease != null) {
-				_buttonView.addEventListener(MouseEvent.MOUSE_UP, getMouseEventHandler(_buttonView.buttonData.button.mouse.onRelease));
-			}
-			if (_buttonView.buttonData.button.mouse.onOver != null) {
-				_buttonView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(_buttonView.buttonData.button.mouse.onOver));
-			}
-			if (_buttonView.buttonData.button.mouse.onOut != null) {
-				_buttonView.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(_buttonView.buttonData.button.mouse.onOut));
-			}
-			
 			handleResize();
 		}
 		
@@ -106,148 +85,6 @@ package com.panozona.modules.imagebutton.controller{
 			return function(e:MouseEvent):void {
 				_module.saladoPlayer.manager.runAction(actionId);
 			}
-		}
-		
-		private function getMouseUrlHandler(url:String):Function{
-			return function(e:MouseEvent):void {
-				navigateToURL(new URLRequest(url), '_BLANK');
-			}
-		}
-		
-		public function handleResize(event:Event = null):void {
-			placeButton();
-		}
-		
-		private function onOpenChange(e:Event):void {
-			if (_buttonView.buttonData.open) {
-				_module.saladoPlayer.manager.runAction(_buttonView.buttonData.button.onOpen);
-				openButton();
-			}else {
-				_module.saladoPlayer.manager.runAction(_buttonView.buttonData.button.onClose);
-				closeButton();
-			}
-		}
-		
-		private function openButton():void {
-			_buttonView.visible = true;
-			if(_buttonView.buttonData.button.text || _buttonView.buttonData.button.mouse.onClick
-				|| _buttonView.buttonData.button.mouse.onOut || _buttonView.buttonData.button.mouse.onOver
-				|| _buttonView.buttonData.button.mouse.onPress || _buttonView.buttonData.button.mouse.onRelease){
-				_buttonView.mouseEnabled = true;
-				_buttonView.mouseChildren = true;
-			}
-			var tweenObj:Object = new Object();
-			tweenObj["time"] = _buttonView.buttonData.button.openTween.time;
-			tweenObj["transition"] = _buttonView.buttonData.button.openTween.transition;
-			if (_buttonView.buttonData.button.transition.type == Transition.FADE) {
-				tweenObj["alpha"] = _buttonView.buttonData.button.alpha;
-			}else{
-				tweenObj["x"] = getButtonOpenX();
-				tweenObj["y"] = getButtonOpenY();
-			}
-			Tweener.addTween(_buttonView, tweenObj);
-		}
-		
-		private function closeButton():void {
-			var tweenObj:Object = new Object();
-			tweenObj["time"] = _buttonView.buttonData.button.closeTween.time;
-			tweenObj["transition"] = _buttonView.buttonData.button.closeTween.transition;
-			tweenObj["onComplete"] = closeButtonOnComplete;
-			if (_buttonView.buttonData.button.transition.type == Transition.FADE) {
-				tweenObj["alpha"] = 0;
-			}else {
-				tweenObj["x"] = getButtonCloseX();
-				tweenObj["y"] = getButtonCloseY();
-			}
-			_buttonView.mouseEnabled = false;
-			_buttonView.mouseChildren = false;
-			Tweener.addTween(_buttonView, tweenObj);
-		}
-		
-		private function closeButtonOnComplete():void {
-			_buttonView.visible = false;
-		}
-		
-		private function placeButton(e:Event = null):void {
-			if (_buttonView.buttonData.open) {
-				Tweener.addTween(_buttonView, {x:getButtonOpenX(), y:getButtonOpenY()});
-				_buttonView.alpha = _buttonView.buttonData.button.alpha;
-				_buttonView.visible = true;
-			}else {
-				Tweener.addTween(_buttonView, {x:getButtonCloseX(), y:getButtonCloseY()});
-				if(_buttonView.buttonData.button.transition.type == Transition.FADE){
-					_buttonView.alpha = 0;
-				}
-				_buttonView.visible = false;
-			}
-		}
-		
-		private function getButtonOpenX():Number {
-			var result:Number = 0;
-			switch(_buttonView.buttonData.button.align.horizontal) {
-				case Align.RIGHT:
-					result += _module.saladoPlayer.manager.boundsWidth
-						- _buttonView.width
-						+ _buttonView.buttonData.button.move.horizontal;
-				break;
-				case Align.LEFT:
-					result += _buttonView.buttonData.button.move.horizontal;
-				break;
-				default: // CENTER
-					result += (_module.saladoPlayer.manager.boundsWidth 
-						- _buttonView.width) * 0.5
-						+ _buttonView.buttonData.button.move.horizontal;
-			}
-			return result;
-		}
-		
-		private function getButtonOpenY():Number{
-			var result:Number = 0;
-			switch(_buttonView.buttonData.button.align.vertical){
-				case Align.TOP:
-					result += _buttonView.buttonData.button.move.vertical;
-				break;
-				case Align.BOTTOM:
-					result += _module.saladoPlayer.manager.boundsHeight
-						- _buttonView.height
-						+ _buttonView.buttonData.button.move.vertical;
-				break;
-				default: // MIDDLE
-					result += (_module.saladoPlayer.manager.boundsHeight
-						- _buttonView.height) * 0.5
-						+ _buttonView.buttonData.button.move.vertical;
-			}
-			return result;
-		}
-		
-		private function getButtonCloseX():Number {
-			var result:Number = 0;
-			switch(_buttonView.buttonData.button.transition.type){
-				case Transition.SLIDE_RIGHT:
-					result = _module.saladoPlayer.manager.boundsWidth;
-				break;
-				case Transition.SLIDE_LEFT:
-					result = -_buttonView.width;
-				break;
-				default: //SLIDE_UP, SLIDE_DOWN
-					result = getButtonOpenX();
-			}
-			return result;
-		}
-		
-		private function getButtonCloseY():Number{
-			var result:Number = 0;
-			switch(_buttonView.buttonData.button.transition.type){
-				case Transition.SLIDE_UP:
-					result = -_buttonView.height;
-				break;
-				case Transition.SLIDE_DOWN:
-					result = _module.saladoPlayer.manager.boundsHeight;
-				break;
-				default: //SLIDE_LEFT, SLIDE_RIGHT
-					result = getButtonOpenY();
-			}
-			return result;
 		}
 	}
 }

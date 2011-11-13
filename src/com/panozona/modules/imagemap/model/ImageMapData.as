@@ -68,28 +68,40 @@ package com.panozona.modules.imagemap.model {
 				var mapIds:Object = new Object();
 				var waypointTargets:Object = new Object();
 				for each(var map:Map in mapData.maps.getChildrenOfGivenClass(Map)) {
-					if (map.id == null) throw new Error("Map id not specified.");
-					if (map.path == null || !map.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)) throw new Error("Invalid map path: " + map.path);
-					if (map.onSet != null && saladoPlayer.managerData.getActionDataById(map.onSet) == null) throw new Error("Action does not exist: " + map.onSet);
+					if (map.id == null) {
+						throw new Error("Map id not specified.");
+					}
+					if (map.path == null || !map.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)) {
+						throw new Error("Invalid map path: " + map.path);
+					}
+					if (map.onSet != null && saladoPlayer.managerData.getActionDataById(map.onSet) == null) {
+						throw new Error("Action does not exist: " + map.onSet);
+					}
 					if (mapIds[map.id] != undefined) {
 						throw new Error("Repeating map id: " + map.id);
 					}else {
 						mapIds[map.id] = ""; // something
 						for each(var waypoints:Waypoints in map.getChildrenOfGivenClass(Waypoints)) {
-							if (waypoints.path == null || !waypoints.path.match(/^(.+)\.(png|gif|jpg|jpeg|)$/i)) throw new Error("Invalid waypoints path: " + waypoints.path);
+							if (waypoints.path == null || !waypoints.path.match(/^(.+)\.(png|gif|jpg|jpeg|)$/i)) {
+								throw new Error("Invalid waypoints path: " + waypoints.path);
+							}
 							for each(var waypoint:Waypoint in waypoints.getChildrenOfGivenClass(Waypoint)) {
-								if (waypoint.target == null) throw new Error("Waypoint target not specified in map: " + map.id);
-								if (saladoPlayer.managerData.getPanoramaDataById(waypoint.target) == null) throw new Error("Invalid waypoint target: " + waypoint.target);
+								if (waypoint.target == null) {
+									throw new Error("Waypoint target not specified in map: " + map.id);
+								}
+								if (saladoPlayer.managerData.getPanoramaDataById(waypoint.target) == null) {
+									throw new Error("Invalid waypoint target: " + waypoint.target);
+								}
+								if (waypoint.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOver) == null){
+									throw new Error("Action does not exist: " + waypoint.mouse.onOver);
+								}
+								if (waypoint.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOut) == null){
+									throw new Error("Action does not exist: " + waypoint.mouse.onOut);
+								}
 								if (waypointTargets[waypoint.target] != undefined) {
 									throw new Error("Repeating waypoint target: " + waypoint.target);
 								}else {
 									waypointTargets[waypoint.target] = ""; // something
-									if (waypoint.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOver) == null){
-										throw new Error("Action does not exist: " + waypoint.mouse.onOver);
-									}
-									if (waypoint.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOut) == null){
-										throw new Error("Action does not exist: " + waypoint.mouse.onOut);
-									}
 								}
 							}
 						}

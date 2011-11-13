@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,21 +16,17 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagebutton.model.structure {
+package com.panozona.modules.imagebutton.events{
 	
-	import com.panozona.player.module.data.property.Move;
-	import com.panozona.player.module.data.property.MouseOverOut;
+	import flash.events.Event;
 	
-	public class Button{
+	public class SubButtonEvent extends Event{
 		
-		public var id:String = null;
-		public var path:String = null;
+		public static const CHANGED_IS_ACTIVE:String = "chngdIsActive";
+		public static const CHANGED_MOUSE_PRESS:String = "chngdMousePress";
 		
-		public var action:String = null;
-		
-		public const mouse:MouseOverOut = new MouseOverOut();
-		
-		public const window:Window = new Window();
-		public const subButtons:SubButtons = new SubButtons();
+		public function SubButtonEvent( type:String){
+			super(type);
+		}
 	}
 }

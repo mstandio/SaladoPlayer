@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,12 +16,36 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagebutton.model{
+package com.panozona.modules.imagebutton.view{
 	
+	import com.panozona.modules.imagebutton.model.ImageButtonData;
 	import com.panozona.modules.imagebutton.model.structure.Button;
-	import flash.events.EventDispatcher;
+	import com.panozona.modules.imagebutton.model.WindowData;
+	import flash.display.Sprite;
 	
-	public class ButtonData extends EventDispatcher{
+	public class WindowView extends Sprite{
 		
+		private var _buttonView:ButtonView;
+		private var _windowData:WindowData;
+		
+		public function WindowView(windowData:WindowData):void {
+			
+			_windowData = windowData;
+			
+			this.alpha = _windowData.window.alpha;
+			
+			_buttonView = new ButtonView(_windowData);
+			addChild(_buttonView);
+			
+			visible = _windowData.open;
+		}
+		
+		public function get windowData():WindowData {
+			return _windowData;
+		}
+		
+		public function get buttonView():ButtonView {
+			return _buttonView;
+		}
 	}
 }

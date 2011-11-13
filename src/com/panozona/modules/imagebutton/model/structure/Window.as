@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -18,19 +18,25 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.model.structure {
 	
+	import caurina.transitions.Equations;
+	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Move;
-	import com.panozona.player.module.data.property.MouseOverOut;
+	import com.panozona.player.module.data.property.Transition;
+	import com.panozona.player.module.data.property.Tween;
 	
-	public class Button{
+	public class Window {
 		
-		public var id:String = null;
-		public var path:String = null;
+		public var alpha:Number = 1;
 		
-		public var action:String = null;
+		public const align:Align = new Align(Align.CENTER, Align.MIDDLE);
+		public const move:Move = new Move(0, 0);
 		
-		public const mouse:MouseOverOut = new MouseOverOut();
+		public var open:Boolean = true;
+		public var onOpen:String = null;
+		public var onClose:String = null;
 		
-		public const window:Window = new Window();
-		public const subButtons:SubButtons = new SubButtons();
+		public const openTween:Tween = new Tween(Equations.easeNone, 0.5);
+		public const closeTween:Tween = new Tween(Equations.easeNone, 0.5);
+		public const transition:Transition = new Transition(Transition.FADE);
 	}
 }

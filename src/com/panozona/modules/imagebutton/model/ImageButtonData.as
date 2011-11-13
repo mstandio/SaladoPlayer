@@ -19,20 +19,30 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.imagebutton.model{
 	
 	import com.panozona.modules.imagebutton.model.structure.Button;
-	import com.panozona.modules.imagebutton.model.structure.Butttons;
-	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.modules.imagebutton.model.structure.SubButton;
 	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class ImageButtonData{
 		
-		public const buttons:Butttons = new Butttons();
+		public const buttons:Vector.<Button> = new Vector.<Button>();
 		
 		public function ImageButtonData(moduleData:ModuleData, saladoPlayer:Object){
 			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
-			for each(var dataNode:DataNode in moduleData.nodes){
-				if (dataNode.name == "buttons"){
-					tarnslator.dataNodeToObject(dataNode, buttons);
+			for each(var dataNode:DataNode in moduleData.nodes) {
+				if (dataNode.name == "button") {
+					var button:Button = new Button();
+					for each(var dataSubNode:DataNode in dataNode.nodes) {
+						if (dataNode.name == "window") {
+							tarnslator.dataNodeToObject(dataSubNode, button.window);
+						}else if (dataNode.name == "subButtons") {
+							tarnslator.dataNodeToObject(dataSubNode, button.subButtons);
+						}else {
+							throw new Error("Unrecognized node: " + dataSubNode.name);
+						}
+					}
+					buttons.push(button);
 				}else {
 					throw new Error("Unrecognized node: " + moduleData.name);
 				}
@@ -40,34 +50,48 @@ package com.panozona.modules.imagebutton.model{
 			
 			if (saladoPlayer.managerData.debugMode){
 				var buttonIds:Object = new Object();
-				for each (var button:Button in buttons.getChildrenOfGivenClass(Button)){
-					if (button.id == null) throw new Error("Button id not specified.");
-					if (button.path == null || !button.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i))
+				var subButtonIds:Object = new Object();
+				for each (var button:Button in buttons){
+					if (button.id == null) {
+						throw new Error("Button id not specified.");
+					}
+					if (button.path == null || !button.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)){
 						throw new Error("Invalid button path: " + button.path);
+					}
+					if (button.action != null && saladoPlayer.managerData.getActionDataById(button.action) == null){
+						throw new Error("Action does not exist: " + button.action);
+					}
+					if (button.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(button.mouse.onOver) == null){
+						throw new Error("Action does not exist: " + button.mouse.onOver);
+					}
+					if (button.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(button.mouse.onOut) == null){
+						throw new Error("Action does not exist: " + button.mouse.onOut);
+					}
 					if (buttonIds[button.id] != undefined) {
 						throw new Error("Repeating button id: " + button.id);
 					}else {
 						buttonIds[button.id] = ""; // something
-						if (button.onOpen && !saladoPlayer.managerData.getActionDataById(button.onOpen)) {
-							throw new Error("Action does not exist: " + button.onOpen);
-						}
-						if (button.onClose && !saladoPlayer.managerData.getActionDataById(button.onClose)) {
-							throw new Error("Action does not exist: " + button.onClose);
-						}
-						if (button.mouse.onClick && !saladoPlayer.managerData.getActionDataById(button.mouse.onClick)) {
-							throw new Error("Action does not exist: " + button.mouse.onClick);
-						}
-						if (button.mouse.onOut && !saladoPlayer.managerData.getActionDataById(button.mouse.onOut)) {
-							throw new Error("Action does not exist: " + button.mouse.onOut);
-						}
-						if (button.mouse.onOver && !saladoPlayer.managerData.getActionDataById(button.mouse.onOver)) {
-							throw new Error("Action does not exist: " + button.mouse.onOver);
-						}
-						if (button.mouse.onPress && !saladoPlayer.managerData.getActionDataById(button.mouse.onPress)) {
-							throw new Error("Action does not exist: " + button.mouse.onPress);
-						}
-						if (button.mouse.onRelease && !saladoPlayer.managerData.getActionDataById(button.mouse.onRelease)) {
-							throw new Error("Action does not exist: " + button.mouse.onRelease);
+						for each (var subButton:SubButton in button.subButtons.getChildrenOfGivenClass(SubButton)) {
+							if (subButton.id == null) {
+								throw new Error("subButton id not specified.");
+							}
+							if (subButton.path == null || !subButton.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)){
+								throw new Error("Invalid subButton path: " + subButton.path);
+							}
+							if (subButton.action != null && saladoPlayer.managerData.getActionDataById(subButton.action) == null){
+								throw new Error("Action does not exist: " + subButton.action);
+							}
+							if (subButton.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(subButton.mouse.onOver) == null){
+								throw new Error("Action does not exist: " + subButton.mouse.onOver);
+							}
+							if (subButton.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(subButton.mouse.onOut) == null){
+								throw new Error("Action does not exist: " + subButton.mouse.onOut);
+							}
+							if (subButtonIds[subButton.id] != undefined) {
+								throw new Error("Repeating subButton id: " + subButton.id);
+							}else {
+								subButtonIds[subButton.id] = ""; // something
+							}
 						}
 					}
 				}

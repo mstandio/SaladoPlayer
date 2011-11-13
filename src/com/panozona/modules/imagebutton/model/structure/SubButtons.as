@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2011 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -20,12 +20,11 @@ package com.panozona.modules.imagebutton.model.structure {
 	
 	import com.panozona.player.module.data.structure.DataParent;
 	
-	public class Butttons extends DataParent{
+	public class SubButtons extends DataParent{
 		
 		override public function getChildrenTypes():Vector.<Class>{
 			var result:Vector.<Class> = new Vector.<Class>();
-			result.push(Button);
+			result.push(SubButton);
 			return result;
 		}
-	}
 }
