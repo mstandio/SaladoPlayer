@@ -29,8 +29,8 @@ package com.panozona.modules.imagebutton.model.structure {
 		public var action:String = null;
 		
 		public const mouse:MouseOverOut = new MouseOverOut();
-		
 		public const window:Window = new Window();
+		
 		public const subButtons:SubButtons = new SubButtons();
 	}
 }

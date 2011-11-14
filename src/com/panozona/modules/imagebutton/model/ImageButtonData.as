@@ -33,7 +33,8 @@ package com.panozona.modules.imagebutton.model{
 			for each(var dataNode:DataNode in moduleData.nodes) {
 				if (dataNode.name == "button") {
 					var button:Button = new Button();
-					for each(var dataSubNode:DataNode in dataNode.nodes) {
+					tarnslator.dataNodeToObject(dataNode, button);
+					for each(var dataSubNode:DataNode in dataNode.childNodes) {
 						if (dataNode.name == "window") {
 							tarnslator.dataNodeToObject(dataSubNode, button.window);
 						}else if (dataNode.name == "subButtons") {
@@ -51,7 +52,7 @@ package com.panozona.modules.imagebutton.model{
 			if (saladoPlayer.managerData.debugMode){
 				var buttonIds:Object = new Object();
 				var subButtonIds:Object = new Object();
-				for each (var button:Button in buttons){
+				for each (button in buttons){
 					if (button.id == null) {
 						throw new Error("Button id not specified.");
 					}

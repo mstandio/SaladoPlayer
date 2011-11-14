@@ -23,7 +23,7 @@ package com.panozona.modules.imagebutton.model.structure {
 	
 	public class SubButton {
 		
-		public var name:String = null;
+		public var id:String = null;
 		public var path:String = null;
 		
 		public var action:String = null;

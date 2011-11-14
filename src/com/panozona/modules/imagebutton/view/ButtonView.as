@@ -18,28 +18,28 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.view{
 	
-	import com.panozona.modules.imagebutton.model.ButtonData;
-	import com.panozona.modules.imagebutton.model.ImageButtonData;
+	import com.panozona.modules.imagebutton.model.WindowData;
 	import flash.display.Sprite;
 	
 	public class ButtonView extends Sprite{
 		
-		public var buttonData:ButtonData;
-		public var imageButtonData:ImageButtonData;
+		private var _windowData:WindowData;
 		
-		public function ButtonView(buttonData:ButtonData, imageButtonData:ImageButtonData) {
-			this.buttonData = buttonData;
-			this.imageButtonData = imageButtonData;
-			visible = buttonData.button.open;
+		public const subButtonsContainer:Sprite = new Sprite();
+		
+		public function ButtonView(windowData:WindowData) {
+			_windowData = windowData;
+			visible = _windowData.open;
 			
-			if (buttonData.button.text || buttonData.button.mouse.onClick
-						|| buttonData.button.mouse.onOut || buttonData.button.mouse.onOver
-						|| buttonData.button.mouse.onPress || buttonData.button.mouse.onRelease){
+			if (_windowData.button.action != null) {
 				buttonMode = true;
-			}else {
-				mouseEnabled = false;
-				mouseChildren = false;
 			}
+			
+			addChild(subButtonsContainer);
+		}
+		
+		public function get windowData():WindowData {
+			return _windowData;
 		}
 	}
 }

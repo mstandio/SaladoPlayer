@@ -18,8 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.view{
 	
-	import com.panozona.modules.imagebutton.model.ButtonData;
-	import com.panozona.modules.imagebutton.model.ImageButtonData;
+	import com.panozona.modules.imagebutton.model.SubButtonData;
+	import com.panozona.modules.imagebutton.model.WindowData;
 	import flash.events.MouseEvent;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -29,43 +29,45 @@ package com.panozona.modules.imagebutton.view{
 		
 		public const bitmap:Bitmap = new Bitmap();
 		
-		private var _buttonData:ButtonData;
-		private var _imageButtonData:ImageButtonData;
+		private var _subButtonData:SubButtonData;
+		private var _windowData:WindowData;
 		
 		private var _bitmapDataPlain:BitmapData;
 		private var _bitmapDataActive:BitmapData;
 		
-		public function SubButtonView(buttonData:ButtonData, imageButtonData:ImageButtonData){
-			_buttonData = buttonData;
-			_imageButtonData = imageButtonData;
-			
-			buttonMode = true;
+		public function SubButtonView(subButtonData:SubButtonData, windowData:WindowData){
+			_subButtonData = subButtonData;
+			_windowData = windowData;
 			
 			addChild(bitmap);
+			
+			if (subButtonData.subButton.action != null) {
+				buttonMode = true;
+			}
 			
 			addEventListener(MouseEvent.MOUSE_DOWN, onMousePress, false, 0, true);
 			addEventListener(MouseEvent.MOUSE_UP, onMouseRelease, false, 0, true);
 			addEventListener(MouseEvent.ROLL_OUT, onMouseRelease, false, 0, true);
 		}
 		
-		public function get buttonData():ButtonData {
-			return _buttonData;
+		public function get subButtonData():SubButtonData {
+			return _subButtonData;
 		}
 		
-		public function get imageButtonData():ImageButtonData {
-			return _imageButtonData;
+		public function get windowData():WindowData {
+			return _windowData;
 		}
 		
 		public function set bitmapDataPlain(value:BitmapData):void {
 			_bitmapDataPlain = value;
-			if(!_buttonData.isActive){
+			if(!_subButtonData.isActive){
 				setPlain();
 			}
 		}
 		
 		public function set bitmapDataActive(value:BitmapData):void {
 			_bitmapDataActive = value;
-			if (_buttonData.isActive) {
+			if (_subButtonData.isActive) {
 				setActive();
 			}
 		}
@@ -83,11 +85,11 @@ package com.panozona.modules.imagebutton.view{
 		}
 		
 		private function onMousePress(e:MouseEvent):void {
-			_buttonData.mousePress = true;
+			_subButtonData.mousePress = true;
 		}
 		
 		private function onMouseRelease(e:MouseEvent):void {
-			_buttonData.mousePress = false;
+			_subButtonData.mousePress = false;
 		}
 	}
 }

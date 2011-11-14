@@ -18,10 +18,10 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton{
 	
-	import com.panozona.modules.buttonbar.model.WindowData;
 	import com.panozona.modules.imagebutton.controller.WindowController;
 	import com.panozona.modules.imagebutton.model.ImageButtonData;
-	import com.panozona.modules.imagebutton.model.structure.SubButton;
+	import com.panozona.modules.imagebutton.model.WindowData;
+	import com.panozona.modules.imagebutton.view.SubButtonView;
 	import com.panozona.modules.imagebutton.view.WindowView;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.Module;
@@ -32,7 +32,7 @@ package com.panozona.modules.imagebutton{
 		private var windowControllers:Vector.<WindowController>;
 		
 		public function ImageButton(){
-			super("ImageButton", "1.2", "http://panozona.com/wiki/Module:ImageButton");
+			super("ImageButton", "1.3", "http://panozona.com/wiki/Module:ImageButton");
 			moduleDescription.addFunctionDescription("setOpen", String, Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen", String);
 			moduleDescription.addFunctionDescription("setActive", String, Boolean);
@@ -45,8 +45,8 @@ package com.panozona.modules.imagebutton{
 			
 			var windowView:WindowView;
 			var windowController:WindowController;
-			for (var i:int = imageButtonData.buttons.length-1; i >= 0; i--){
-				buttonView = new WindowView(new WindowData(imageButtonData.buttons[i]));
+			for (var i:int = imageButtonData.buttons.length - 1; i >= 0; i--){
+				windowView = new WindowView(new WindowData(imageButtonData.buttons[i]));
 				addChild(windowView);
 				windowController = new WindowController(windowView, this);
 				windowControllers.push(windowController);
@@ -79,8 +79,11 @@ package com.panozona.modules.imagebutton{
 		
 		public function setActive(subButtonId:String, value:Boolean):void {
 			for (var i:int = 0; i < numChildren; i++) {
-				for each(var subButton:SubButton in (getChildAt(i) as WindowView).windowData.button.subButtons.getChildrenOfGivenClass(SubButton)) {
-					// what now
+				for (var j:int = 0; j < (getChildAt(i) as WindowView).buttonView.subButtonsContainer.numChildren; j++) {
+					if (((getChildAt(i) as WindowView).buttonView.subButtonsContainer.getChildAt(j) as SubButtonView).subButtonData.subButton.id == subButtonId) {
+						((getChildAt(i) as WindowView).buttonView.subButtonsContainer.getChildAt(j) as SubButtonView).subButtonData.isActive = value;
+						return;
+					}
 				}
 			}
 			printWarning("Nonexistant subButton id: " + subButtonId);

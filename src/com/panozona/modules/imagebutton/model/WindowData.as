@@ -18,9 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.model {
 	
-	import com.panozona.modules.buttonbar.events.WindowEvent;
-	import com.panozona.modules.buttonbar.model.structure.Button;
-	import com.panozona.modules.buttonbar.model.structure.Window;
+	import com.panozona.modules.imagebutton.events.WindowEvent;
+	import com.panozona.modules.imagebutton.model.structure.Button;
+	import com.panozona.modules.imagebutton.model.structure.Window;
 	import com.panozona.player.module.data.property.Size;
 	import flash.events.EventDispatcher;
 	
@@ -36,6 +36,7 @@ package com.panozona.modules.imagebutton.model {
 		public function WindowData (button:Button):void {
 			_size = new Size(1, 1);
 			_button = button;
+			_open = window.open;
 		}
 		
 		public function get open():Boolean{return _open}

@@ -18,18 +18,17 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.controller{
 	
-	import caurina.transitions.Tweener;
-	import com.panozona.modules.imagebutton.events.ButtonEvent;
+	import com.panozona.modules.imagebutton.model.structure.SubButton;
+	import com.panozona.modules.imagebutton.model.SubButtonData;
 	import com.panozona.modules.imagebutton.view.ButtonView;
-	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Transition;
+	import com.panozona.modules.imagebutton.view.SubButtonView;
+	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.Module;
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
-	import flash.net.navigateToURL;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	
@@ -38,32 +37,47 @@ package com.panozona.modules.imagebutton.controller{
 		private var _buttonView:ButtonView;
 		private var _module:Module;
 		
+		private var subButtonControllers:Vector.<SubButtonController>;
+		
 		public function ButtonController(buttonView:ButtonView, module:Module) {
 			
 			_buttonView = buttonView;
 			_module = module;
-			_buttonView.buttonData.addEventListener(ButtonEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
-			
-			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
-			_module.saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
 			
+			if(_buttonView.windowData.button.action != null){
+				buttonView.addEventListener(MouseEvent.CLICK, onMouseClick, false, 0, true);
+			}
+			
 			var buttonLoader:Loader = new Loader();
 			buttonLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonImageLost);
 			buttonLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, buttonImageLoaded);
-			buttonLoader.load(new URLRequest(_buttonView.buttonData.button.path));
+			buttonLoader.load(new URLRequest(_buttonView.windowData.button.path));
+			
+			var subButtonView:SubButtonView;
+			var subButtonController:SubButtonController;
+			for each(var subButton:SubButton in buttonView.windowData.button.subButtons.getChildrenOfGivenClass(SubButton)) {
+				subButtonView = new SubButtonView(new SubButtonData(subButton), _buttonView.windowData);
+				_buttonView.subButtonsContainer.addChild(subButtonView);
+				subButtonController = new SubButtonController(subButtonView, _module);
+				subButtonControllers.push(subButtonController);
+			}
 		}
 		
 		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
-			if (_buttonView.buttonData.open) {
-				_module.saladoPlayer.manager.runAction(_buttonView.buttonData.button.onOpen);
+			if (_buttonView.windowData.open) {
+				_module.saladoPlayer.manager.runAction(_buttonView.windowData.window.onOpen);
 			}else {
-				_module.saladoPlayer.manager.runAction(_buttonView.buttonData.button.onClose);
+				_module.saladoPlayer.manager.runAction(_buttonView.windowData.window.onClose);
 			}
+		}
+		
+		private function onMouseClick(e:Event):void {
+			_module.saladoPlayer.manager.runAction(_buttonView.windowData.button.action);
 		}
 		
 		public function buttonImageLost(e:IOErrorEvent):void {
@@ -75,10 +89,9 @@ package com.panozona.modules.imagebutton.controller{
 		public function buttonImageLoaded(e:Event):void {
 			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, buttonImageLost);
 			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, buttonImageLoaded);
+			_buttonView.addChildAt((e.target as LoaderInfo).content, 0);
 			
-			_buttonView.addChild((e.target as LoaderInfo).content);
-			
-			handleResize();
+			_buttonView.windowData.size = new Size(_buttonView.width, _buttonView.height);
 		}
 		
 		private function getMouseEventHandler(actionId:String):Function{

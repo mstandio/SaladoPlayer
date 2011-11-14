@@ -18,9 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.controller{
 	
-	import com.panozona.modules.imagebutton.events.ButtonEvent;
-	import com.panozona.modules.imagebutton.model.ButtonData;
-	import com.panozona.modules.imagebutton.view.ButtonView;
+	import com.panozona.modules.imagebutton.events.SubButtonEvent;
+	import com.panozona.modules.imagebutton.model.SubButtonData;
+	import com.panozona.modules.imagebutton.view.SubButtonView;
 	import com.panozona.player.module.Module;
 	import flash.display.Bitmap;
 	import flash.events.MouseEvent;
@@ -28,39 +28,37 @@ package com.panozona.modules.imagebutton.controller{
 	public class SubButtonController {
 		
 		private var _module:Module;
-		private var _buttonView:ButtonView;
+		private var _subButtonView:SubButtonView;
 		
-		public function SubButtonController(buttonView:ButtonView, module:Module){
-			_buttonView = buttonView;
+		public function SubButtonController(subButtonView:SubButtonView, module:Module){
+			_subButtonView = subButtonView;
 			_module = module;
 			
-			if (buttonView.buttonData.onPress != null) {
-				_buttonView.addEventListener(MouseEvent.MOUSE_DOWN, buttonView.buttonData.onPress, false, 0, true);
+			if (subButtonView.subButtonData.onPress != null) {
+				_subButtonView.addEventListener(MouseEvent.MOUSE_DOWN, subButtonView.subButtonData.onPress, false, 0, true);
 			}
 			
-			if (buttonView.buttonData.onRelease != null) {
-				_buttonView.addEventListener(MouseEvent.MOUSE_UP, buttonView.buttonData.onRelease, false, 0, true);
-				if(buttonView.buttonData.button.name != "fullscreen"){ // bug when switching to fullscreen
-					_buttonView.addEventListener(MouseEvent.ROLL_OUT, buttonView.buttonData.onRelease, false, 0, true);
-				}
+			if (subButtonView.subButtonData.onRelease != null) {
+				_subButtonView.addEventListener(MouseEvent.MOUSE_UP, subButtonView.subButtonData.onRelease, false, 0, true);
+				_subButtonView.addEventListener(MouseEvent.ROLL_OUT, subButtonView.subButtonData.onRelease, false, 0, true);
 			}
-			_buttonView.buttonData.addEventListener(ButtonEvent.CHANGED_MOUSE_PRESS, handleButtonMousePressChange, false, 0, true);
-			_buttonView.buttonData.addEventListener(ButtonEvent.CHANGED_IS_ACTIVE, handleButtonIsActiveChange, false, 0, true);
+			_subButtonView.subButtonData.addEventListener(SubButtonEvent.CHANGED_MOUSE_PRESS, handleButtonMousePressChange, false, 0, true);
+			_subButtonView.subButtonData.addEventListener(SubButtonEvent.CHANGED_IS_ACTIVE, handleButtonIsActiveChange, false, 0, true);
 		}
 		
-		private function handleButtonMousePressChange(e:ButtonEvent):void {
-			if (_buttonView.buttonData.mousePress) {
-				_buttonView.setActive();
-			}else if (!_buttonView.buttonData.isActive) {
-				_buttonView.setPlain();
+		private function handleButtonMousePressChange(e:SubButtonEvent):void {
+			if (_subButtonView.subButtonData.mousePress) {
+				_subButtonView.setActive();
+			}else if (!_subButtonView.subButtonData.isActive) {
+				_subButtonView.setPlain();
 			}
 		}
 		
-		private function handleButtonIsActiveChange(e:ButtonEvent):void {
-			if (!_buttonView.buttonData.isActive) {
-				_buttonView.setPlain();
+		private function handleButtonIsActiveChange(e:SubButtonEvent):void {
+			if (!_subButtonView.subButtonData.isActive) {
+				_subButtonView.setPlain();
 			}else {
-				_buttonView.setActive();
+				_subButtonView.setActive();
 			}
 		}
 	}

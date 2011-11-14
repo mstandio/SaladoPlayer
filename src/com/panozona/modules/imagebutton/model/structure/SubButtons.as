@@ -27,4 +27,5 @@ package com.panozona.modules.imagebutton.model.structure {
 			result.push(SubButton);
 			return result;
 		}
+	}
 }

@@ -18,8 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.model {
 	
-	import com.panozona.modules.buttonbar.events.ButtonEvent;
-	import com.panozona.modules.buttonbar.model.structure.Button;
+	import com.panozona.modules.imagebutton.events.SubButtonEvent;
+	import com.panozona.modules.imagebutton.model.structure.SubButton;
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
 	
@@ -32,28 +32,28 @@ package com.panozona.modules.imagebutton.model {
 		private var _isActive:Boolean;
 		private var _mousePress:Boolean;
 		
-		private var _button:Button;
+		private var _subButton:SubButton;
 		
-		public function SubButtonData(button:Button):void {
-			_button = button;
+		public function SubButtonData(subButton:SubButton):void {
+			_subButton = subButton;
 		}
 		
-		public function get button():Button {
-			return _button;
+		public function get subButton():SubButton {
+			return _subButton;
 		}
 		
 		public function get isActive():Boolean { return _isActive; }
 		public function set isActive(value:Boolean):void {
 			if (value == _isActive) return;
 			_isActive= value;
-			dispatchEvent(new ButtonEvent(ButtonEvent.CHANGED_IS_ACTIVE));
+			dispatchEvent(new SubButtonEvent(SubButtonEvent.CHANGED_IS_ACTIVE));
 		}
 		
 		public function get mousePress():Boolean { return _mousePress}
 		public function set mousePress(value:Boolean):void {
 			if (value == mousePress) return;
 			_mousePress = value;
-			dispatchEvent(new ButtonEvent(ButtonEvent.CHANGED_MOUSE_PRESS));
+			dispatchEvent(new SubButtonEvent(SubButtonEvent.CHANGED_MOUSE_PRESS));
 		}
 	}
 }
