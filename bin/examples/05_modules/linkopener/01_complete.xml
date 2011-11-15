@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	http://panozona.com/wiki/Module:LinkOpener
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="cg_arrowGreen" path="~hotspots/images/arrow_green.png" mouse="onClick:openPanoZona"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<LinkOpener path="~modules/LinkOpener-1.0.swf">
+			<links>
+				<link id="panozona" content="http://panozona.com/"/>
+			</links>
+		</LinkOpener>
+	</modules>
+	<actions>
+		<action id="openPanoZona" content="LinkOpener.open(panozona)" />
+	</actions>
+</SaladoPlayer>
