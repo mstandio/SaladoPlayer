@@ -18,8 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.model.structure {
 	
-	import com.panozona.player.module.data.property.Move;
 	import com.panozona.player.module.data.property.MouseOverOut;
+	import com.panozona.player.module.data.property.Move;
 	
 	public class SubButton {
 		
@@ -29,6 +29,6 @@ package com.panozona.modules.imagebutton.model.structure {
 		public var action:String = null;
 		
 		public const mouse:MouseOverOut = new MouseOverOut();
-		public const window:Window = new Window();
+		public const move:Move = new Move(0, 0);
 	}
 }

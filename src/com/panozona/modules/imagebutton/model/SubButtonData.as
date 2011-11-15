@@ -25,10 +25,6 @@ package com.panozona.modules.imagebutton.model {
 	
 	public class SubButtonData extends EventDispatcher{
 		
-		public var name:String;
-		public var onPress:Function;
-		public var onRelease:Function;
-		
 		private var _isActive:Boolean;
 		private var _mousePress:Boolean;
 		

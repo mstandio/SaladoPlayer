@@ -28,7 +28,7 @@ package com.panozona.modules.imagebutton.model.structure {
 		
 		public var alpha:Number = 1;
 		
-		public const align:Align = new Align(Align.CENTER, Align.MIDDLE);
+		public const align:Align = new Align(Align.LEFT, Align.TOP);
 		public const move:Move = new Move(0, 0);
 		
 		public var open:Boolean = true;

@@ -29,12 +29,9 @@ package com.panozona.modules.imagebutton.view{
 		
 		public function ButtonView(windowData:WindowData) {
 			_windowData = windowData;
-			visible = _windowData.open;
-			
 			if (_windowData.button.action != null) {
 				buttonMode = true;
 			}
-			
 			addChild(subButtonsContainer);
 		}
 		

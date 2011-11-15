@@ -26,8 +26,6 @@ package com.panozona.modules.imagebutton.model {
 	
 	public class WindowData extends EventDispatcher{
 		
-		public const window:Window = new Window();
-		
 		private var _open:Boolean;
 		private var _size:Size;
 		
@@ -36,7 +34,7 @@ package com.panozona.modules.imagebutton.model {
 		public function WindowData (button:Button):void {
 			_size = new Size(1, 1);
 			_button = button;
-			_open = window.open;
+			_open = _button.window.open;
 		}
 		
 		public function get open():Boolean{return _open}
@@ -52,6 +50,7 @@ package com.panozona.modules.imagebutton.model {
 			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_SIZE));
 		}
 		
-		public function get button():Button { return _button;}
+		public function get button():Button { return _button; }
+		public function get window():Window { return _button.window; }
 	}
 }

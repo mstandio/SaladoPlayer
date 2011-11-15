@@ -92,6 +92,13 @@ package com.panozona.modules.imagebutton.controller{
 			_buttonView.addChildAt((e.target as LoaderInfo).content, 0);
 			
 			_buttonView.windowData.size = new Size(_buttonView.width, _buttonView.height);
+			
+			if (_buttonView.windowData.button.mouse.onOver != null) {
+				_buttonView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(_buttonView.windowData.button.mouse.onOver));
+			}
+			if (_buttonView.windowData.button.mouse.onOut != null) {
+				_buttonView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(_buttonView.windowData.button.mouse.onOut));
+			}
 		}
 		
 		private function getMouseEventHandler(actionId:String):Function{

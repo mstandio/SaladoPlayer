@@ -20,6 +20,8 @@ package com.panozona.modules.imagebutton.model{
 	
 	import com.panozona.modules.imagebutton.model.structure.Button;
 	import com.panozona.modules.imagebutton.model.structure.SubButton;
+	import com.panozona.modules.imagebutton.model.structure.SubButtons;
+	import com.panozona.modules.imagebutton.model.structure.Window;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
@@ -34,14 +36,16 @@ package com.panozona.modules.imagebutton.model{
 				if (dataNode.name == "button") {
 					var button:Button = new Button();
 					tarnslator.dataNodeToObject(dataNode, button);
-					for each(var dataSubNode:DataNode in dataNode.childNodes) {
-						if (dataNode.name == "window") {
-							tarnslator.dataNodeToObject(dataSubNode, button.window);
-						}else if (dataNode.name == "subButtons") {
-							tarnslator.dataNodeToObject(dataSubNode, button.subButtons);
-						}else {
-							throw new Error("Unrecognized node: " + dataSubNode.name);
-						}
+					
+					if (button.getChildrenOfGivenClass(Window).length == 1) {
+						button.window = button.getChildrenOfGivenClass(Window).pop();
+					}else if (button.getChildrenOfGivenClass(Window).length == 0) {
+						button.window = new Window();
+					}
+					if (button.getChildrenOfGivenClass(SubButtons).length == 1) {
+						button.subButtons = button.getChildrenOfGivenClass(SubButtons).pop();
+					}else if (button.getChildrenOfGivenClass(SubButtons).length == 0) {
+						button.subButtons = new SubButtons();
 					}
 					buttons.push(button);
 				}else {

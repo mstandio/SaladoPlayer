@@ -18,8 +18,6 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagebutton.view{
 	
-	import com.panozona.modules.imagebutton.model.ImageButtonData;
-	import com.panozona.modules.imagebutton.model.structure.Button;
 	import com.panozona.modules.imagebutton.model.WindowData;
 	import flash.display.Sprite;
 	

@@ -32,13 +32,12 @@ package com.panozona.modules.imagebutton.view{
 		private var _subButtonData:SubButtonData;
 		private var _windowData:WindowData;
 		
-		private var _bitmapDataPlain:BitmapData;
-		private var _bitmapDataActive:BitmapData;
-		
 		public function SubButtonView(subButtonData:SubButtonData, windowData:WindowData){
 			_subButtonData = subButtonData;
 			_windowData = windowData;
 			
+			bitmap.x = subButtonData.subButton.move.horizontal;
+			bitmap.y = subButtonData.subButton.move.vertical;
 			addChild(bitmap);
 			
 			if (subButtonData.subButton.action != null) {
@@ -56,32 +55,6 @@ package com.panozona.modules.imagebutton.view{
 		
 		public function get windowData():WindowData {
 			return _windowData;
-		}
-		
-		public function set bitmapDataPlain(value:BitmapData):void {
-			_bitmapDataPlain = value;
-			if(!_subButtonData.isActive){
-				setPlain();
-			}
-		}
-		
-		public function set bitmapDataActive(value:BitmapData):void {
-			_bitmapDataActive = value;
-			if (_subButtonData.isActive) {
-				setActive();
-			}
-		}
-		
-		public function setPlain():void {
-			if(_bitmapDataPlain != null){
-				bitmap.bitmapData = _bitmapDataPlain;
-			}
-		}
-		
-		public function setActive():void {
-			if(_bitmapDataActive != null){
-				bitmap.bitmapData = _bitmapDataActive;
-			}
 		}
 		
 		private function onMousePress(e:MouseEvent):void {

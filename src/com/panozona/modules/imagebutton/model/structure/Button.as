@@ -20,8 +20,16 @@ package com.panozona.modules.imagebutton.model.structure {
 	
 	import com.panozona.player.module.data.property.Move;
 	import com.panozona.player.module.data.property.MouseOverOut;
+	import com.panozona.player.module.data.structure.DataParent;
 	
-	public class Button{
+	public class Button extends DataParent {
+		
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Window);
+			result.push(SubButtons);
+			return result;
+		}
 		
 		public var id:String = null;
 		public var path:String = null;
@@ -29,8 +37,8 @@ package com.panozona.modules.imagebutton.model.structure {
 		public var action:String = null;
 		
 		public const mouse:MouseOverOut = new MouseOverOut();
-		public const window:Window = new Window();
 		
-		public const subButtons:SubButtons = new SubButtons();
+		public var window:Window;
+		public var subButtons:SubButtons;
 	}
 }
