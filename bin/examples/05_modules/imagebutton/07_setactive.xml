@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+	http://panozona.com/wiki/Module:ImageButton
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
+			<image id="cy_arrowRed" location="pan:-10" path="~hotspots/images/arrow_red.png" mouse="onClick:setInactive"/>
+			<image id="cy_arrowGreen" location="pan:10" path="~hotspots/images/arrow_green.png" mouse="onClick:setActive"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ImageButton path="~modules/ImageButton-1.3.swf">
+			<button id="logo1">
+				<subButtons>
+					<subButton id="map1" path="~media/images/misc/button_map1.png"/>
+				</subButtons>
+			</button>
+		</ImageButton>
+	</modules>
+	<actions>
+		<action id="printHello" content="SaladoPlayer.print(Hello I am subButton map1)"/>
+		<action id="setActive" content="ImageButton.setActive(map1,true)"/>
+		<action id="setInactive" content="ImageButton.setActive(map1,false)"/>
+	</actions>
+</SaladoPlayer>

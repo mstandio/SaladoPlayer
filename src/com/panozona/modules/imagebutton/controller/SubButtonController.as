@@ -20,6 +20,7 @@ package com.panozona.modules.imagebutton.controller{
 	
 	import com.panozona.modules.imagebutton.events.SubButtonEvent;
 	import com.panozona.modules.imagebutton.view.SubButtonView;
+	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.Module;
 	import flash.display.BitmapData;
 	import flash.display.Loader;
@@ -63,15 +64,20 @@ package com.panozona.modules.imagebutton.controller{
 			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, subButtonImageLoaded);
 			var bitmapData:BitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
 			bitmapData.draw((e.target as LoaderInfo).content);
-			var butWidth:Number = bitmapData.width;
-			var butHeight:Number = Math.ceil((bitmapData.height - 1) / 2);
 			
-			bitmapDataPlain = new BitmapData(butWidth, butHeight, true, 0);
-			bitmapDataPlain.copyPixels(bitmapData, new Rectangle(0, 0, butWidth, butHeight), new Point(0, 0), null, null, true);
-			bitmapDataActive = new BitmapData(butWidth, butHeight, true, 0);
-			bitmapDataActive.copyPixels(bitmapData, new Rectangle(0, butHeight + 1, butWidth, butHeight), new Point(0, 0), null, null, true);
-			
-			//todo: adjust window size
+			if (_subButtonView.subButtonData.subButton.singleState) {
+				bitmapDataPlain = bitmapData;
+				bitmapDataActive = bitmapData;
+			}else {
+				var butWidth:Number = bitmapData.width;
+				var butHeight:Number = Math.ceil((bitmapData.height - 1) / 2);
+				bitmapDataPlain = new BitmapData(butWidth, butHeight, true, 0);
+				bitmapDataPlain.copyPixels(bitmapData, new Rectangle(0, 0, butWidth, butHeight), new Point(0, 0), null, null, true);
+				bitmapDataActive = new BitmapData(butWidth, butHeight, true, 0);
+				bitmapDataActive.copyPixels(bitmapData, new Rectangle(0, butHeight + 1, butWidth, butHeight), new Point(0, 0), null, null, true);
+			}
+			var size:Size = new Size(_subButtonView.x + bitmapDataPlain.width, _subButtonView.y + bitmapDataPlain.height);
+			_subButtonView.windowData.size = size;
 			
 			if(!_subButtonView.subButtonData.isActive){
 				setPlain();
@@ -81,11 +87,14 @@ package com.panozona.modules.imagebutton.controller{
 				setActive();
 			}
 			
-			if (_subButtonView.windowData.button.mouse.onOver != null) {
+			if (_subButtonView.subButtonData.subButton.action != null) {
+				_subButtonView.addEventListener(MouseEvent.CLICK, getMouseEventHandler(_subButtonView.subButtonData.subButton.action));
+			}
+			if (_subButtonView.subButtonData.subButton.mouse.onOver != null) {
 				_subButtonView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(_subButtonView.subButtonData.subButton.mouse.onOver));
 			}
-			if (_subButtonView.windowData.button.mouse.onOut != null) {
-				_subButtonView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(_subButtonView.subButtonData.subButton.mouse.onOut));
+			if (_subButtonView.subButtonData.subButton.mouse.onOut != null) {
+				_subButtonView.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(_subButtonView.subButtonData.subButton.mouse.onOut));
 			}
 		}
 		

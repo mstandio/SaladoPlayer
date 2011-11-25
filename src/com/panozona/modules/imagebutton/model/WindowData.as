@@ -46,7 +46,12 @@ package com.panozona.modules.imagebutton.model {
 		
 		public function get size():Size { return _size;}
 		public function set size(value:Size):void {
-			_size = value;
+			if (value.width > _size.width) {
+				_size.width = value.width;
+			}
+			if (value.height > _size.height) {
+				_size.height = value.height;
+			}
 			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_SIZE));
 		}
 		

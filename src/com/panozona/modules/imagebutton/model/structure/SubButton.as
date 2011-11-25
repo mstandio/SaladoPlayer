@@ -30,5 +30,7 @@ package com.panozona.modules.imagebutton.model.structure {
 		
 		public const mouse:MouseOverOut = new MouseOverOut();
 		public const move:Move = new Move(0, 0);
+		
+		public var singleState:Boolean = false;
 	}
 }

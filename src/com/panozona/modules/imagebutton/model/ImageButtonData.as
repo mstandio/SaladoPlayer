@@ -60,7 +60,8 @@ package com.panozona.modules.imagebutton.model{
 					if (button.id == null) {
 						throw new Error("Button id not specified.");
 					}
-					if (button.path == null || !button.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)){
+					if ((button.path != null && !button.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i))
+						|| (button.path == null && button.subButtons.getChildrenOfGivenClass(SubButton).length == 0)){
 						throw new Error("Invalid button path: " + button.path);
 					}
 					if (button.action != null && saladoPlayer.managerData.getActionDataById(button.action) == null){
@@ -80,7 +81,7 @@ package com.panozona.modules.imagebutton.model{
 							if (subButton.id == null) {
 								throw new Error("subButton id not specified.");
 							}
-							if (subButton.path == null || !subButton.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)){
+							if (subButton.path == null || !subButton.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)){
 								throw new Error("Invalid subButton path: " + subButton.path);
 							}
 							if (subButton.action != null && saladoPlayer.managerData.getActionDataById(subButton.action) == null){

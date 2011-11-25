@@ -48,13 +48,17 @@ package com.panozona.modules.imagebutton.controller{
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
 			
 			if(_buttonView.windowData.button.action != null){
-				buttonView.addEventListener(MouseEvent.CLICK, onMouseClick, false, 0, true);
+				_buttonView.addEventListener(MouseEvent.CLICK, getMouseEventHandler(_buttonView.windowData.button.action));
 			}
 			
-			var buttonLoader:Loader = new Loader();
-			buttonLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonImageLost);
-			buttonLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, buttonImageLoaded);
-			buttonLoader.load(new URLRequest(_buttonView.windowData.button.path));
+			if (_buttonView.windowData.button.path != null){
+				var buttonLoader:Loader = new Loader();
+				buttonLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonImageLost);
+				buttonLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, buttonImageLoaded);
+				buttonLoader.load(new URLRequest(_buttonView.windowData.button.path));
+			}
+			
+			subButtonControllers = new Vector.<SubButtonController>();
 			
 			var subButtonView:SubButtonView;
 			var subButtonController:SubButtonController;
@@ -76,10 +80,6 @@ package com.panozona.modules.imagebutton.controller{
 			}
 		}
 		
-		private function onMouseClick(e:Event):void {
-			_module.saladoPlayer.manager.runAction(_buttonView.windowData.button.action);
-		}
-		
 		public function buttonImageLost(e:IOErrorEvent):void {
 			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, buttonImageLost);
 			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, buttonImageLoaded);
@@ -97,7 +97,7 @@ package com.panozona.modules.imagebutton.controller{
 				_buttonView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(_buttonView.windowData.button.mouse.onOver));
 			}
 			if (_buttonView.windowData.button.mouse.onOut != null) {
-				_buttonView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(_buttonView.windowData.button.mouse.onOut));
+				_buttonView.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(_buttonView.windowData.button.mouse.onOut));
 			}
 		}
 		

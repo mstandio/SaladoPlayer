@@ -6,15 +6,18 @@
 	http://panozona.com/wiki/Module:ImageButton
 -->
 <SaladoPlayer>
-	<global debug="true"/>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageButton path="~modules/ImageButton-1.2.swf">
-			<buttons>
-				<button id="logo1" path="~media/images/misc/panozona_logo.png"/>
-			</buttons>
+		<ImageButton path="~modules/ImageButton-1.3.swf">
+			<button id="logo" path="~media/images/misc/panozona_logo.png" action="logoOnClick"/>
 		</ImageButton>
 	</modules>
+	<actions>
+		<action id="logoOnClick" content="SaladoPlayer.print(logo got clicked)"/>
+	</actions>
 </SaladoPlayer>
