@@ -197,6 +197,12 @@ package com.panosalado.model{
 		public var _maximumVerticalFieldOfView:Number;
 		
 		/**
+		* Maximum pixel zoom. Can be used in place of getter for faster access. Do NOT use in place of setter.
+		* @see maximumVerticalFieldOfView
+		*/
+		public var _maximumPixelZoom:Number;
+		
+		/**
 		* Invalidation flag for all properties. i.e. if one of them is invalid, this must be invalid as well.
 		*/
 		public var invalid:Boolean;
@@ -447,6 +453,8 @@ package com.panosalado.model{
 			dispatchEvent( new Event(Event.COMPLETE));
 			if (!success && (event.isDefaultPrevented())) return;
 			secondaryViewData.path = null;
+			
+			adjustLimits();
 		}
 		
 		/**
@@ -600,6 +608,20 @@ package com.panosalado.model{
 		}
 		
 		/**
+		* maximumPixelZoom
+		* @default 1.0
+		*/
+		public function get maximumPixelZoom():Number { return _maximumPixelZoom; }
+		/**
+		* @private
+		*/
+		public function set maximumPixelZoom(value:Number):void {
+			if (value == _maximumPixelZoom || isNaN(value)) return;
+			_maximumPixelZoom = value;
+			adjustLimits();
+		}
+		
+		/**
 		* Clones the properties of this view data object into another. If into arg is not null it will
 		* clone into that ViewData object, otherwise it will clone into a new ViewData
 		* @param into ViewData to clone into (optional, will create new if null)
@@ -627,7 +649,8 @@ package com.panosalado.model{
 			ret._minimumVerticalFieldOfView = _minimumVerticalFieldOfView;
 			ret._maximumVerticalFieldOfView = _maximumVerticalFieldOfView;
 			ret._minimumHorizontalFieldOfView = _minimumHorizontalFieldOfView;
-			ret._maximumHorizontalFieldOfView= _maximumHorizontalFieldOfView;
+			ret._maximumHorizontalFieldOfView = _maximumHorizontalFieldOfView;
+			ret._maximumPixelZoom = _maximumPixelZoom;
 			
 			ret.invalidTransform = invalidTransform;
 			ret.invalidPerspective = invalidPerspective;
@@ -662,6 +685,13 @@ package com.panosalado.model{
 			
 			if (!isNaN(_minimumHorizontalFieldOfView)) minimumPan = _minimumHorizontalFieldOfView + _fieldOfView / 2;
 			if (!isNaN(_maximumHorizontalFieldOfView)) maximumPan = _maximumHorizontalFieldOfView - _fieldOfView / 2;
+			
+			if (tile != null){
+				var boundsDiagonal:Number = Math.sqrt(_boundsWidth * _boundsWidth + _boundsHeight * _boundsHeight);
+				minimumFieldOfView = 2 * 180 / Math.PI * Math.atan(Math.tan(boundsDiagonal /
+					(tile.tilePyramid.width * Math.PI * _maximumPixelZoom / 90 * _tierThreshold * 2) * Math.PI / 180 ) *
+					_boundsWidth / boundsDiagonal);
+			}
 		}
 	}
 }

@@ -49,6 +49,8 @@ package com.panosalado.model {
 		public var minHorizontalFov:Number;
 		public var maxHorizontalFov:Number;
 		
+		public var maxPixelZoom:Number = 1.0;
+		
 		public function Params( path:String, pan:Number = NaN, tilt:Number = NaN, fov:Number = NaN) {
 			this.path = path;
 			this.pan = pan;
@@ -71,6 +73,7 @@ package com.panosalado.model {
 			result.maxHorizontalFov = maxHorizontalFov;
 			result.minVerticalFov = minVerticalFov;
 			result.maxVerticalFov = maxVerticalFov;
+			result.maxPixelZoom = maxPixelZoom;
 			return result;
 		}
 		
@@ -116,6 +119,8 @@ package com.panosalado.model {
 			if (!isNaN(maxHorizontalFov)) viewData.maximumHorizontalFieldOfView = maxHorizontalFov;
 			if (!isNaN(minVerticalFov)) viewData.minimumVerticalFieldOfView = minVerticalFov;
 			if (!isNaN(maxVerticalFov)) viewData.maximumVerticalFieldOfView = maxVerticalFov;
+			
+			viewData.maximumPixelZoom = maxPixelZoom;
 			
 			return viewData;
 		}

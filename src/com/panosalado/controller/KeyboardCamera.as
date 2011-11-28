@@ -139,17 +139,18 @@ package com.panosalado.controller{
 		}
 		
 		private function enterFrameHandler(event:Event):void {
-			_viewData.pan -= deltaPan;
+			_viewData.pan -= deltaPan * _viewData._fieldOfView / 90;
 			
 			if (_viewData.tilt + deltaTilt < -90 ) {_viewData.tilt = -90} else
 			if (_viewData.tilt + deltaTilt > 90 ) {_viewData.tilt = 90} else
-			_viewData.tilt += deltaTilt;
+			
+			_viewData.tilt += deltaTilt * _viewData._fieldOfView / 90;
 			
 			viewData.fieldOfView += deltaFieldOfView;
 			
 			if (keyIsDown){
-				if (go_right) { deltaPan  = inertialPan.decrement();  } else
-				if (go_left) { deltaPan  = inertialPan.increment();  } else
+				if (go_right) { deltaPan  = inertialPan.decrement(); } else
+				if (go_left) { deltaPan  = inertialPan.increment(); } else
 				deltaPan  = inertialPan.aimZero();
 				
 				if (go_up) { deltaTilt = inertialTilt.increment(); } else
@@ -162,7 +163,7 @@ package com.panosalado.controller{
 			
 			}else {
 				if (deltaPan != 0 || deltaTilt != 0 || deltaFieldOfView !=0) {
-					if (deltaPan  != 0) deltaPan  = inertialPan.aimZero();
+					if (deltaPan != 0) deltaPan = inertialPan.aimZero();
 					if (deltaTilt != 0) deltaTilt = inertialTilt.aimZero();
 					if (deltaFieldOfView != 0) deltaFieldOfView = inertialFieldOfView.aimZero();
 				}else {
