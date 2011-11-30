@@ -35,7 +35,6 @@ package test.com.panozona.player.manager.utils.configuration{
 			"<root>" +
 				"<image id=\"hs1\" path=\"hspath1\"/>" + 
 				"<swf id=\"hs2\" path=\"hspath2\"/>" +
-				"<product id=\"hs3\" factory=\"hspath3\"/>" +
 			"</root>");
 			parseHotspots(panoramaData, nodeXML);
 			
@@ -43,19 +42,16 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
 			
-			Assert.assertEquals(3, panoramaData.hotspotsData.length);
+			Assert.assertEquals(2, panoramaData.hotspotsData.length);
 			
 			Assert.assertStrictlyEquals("hs1", panoramaData.hotspotsData[0].id);
 			Assert.assertStrictlyEquals("hs2", panoramaData.hotspotsData[1].id);
-			Assert.assertStrictlyEquals("hs3", panoramaData.hotspotsData[2].id);
 			
 			Assert.assertTrue(panoramaData.hotspotsData[0] is HotspotDataImage);
 			Assert.assertTrue(panoramaData.hotspotsData[1] is HotspotDataSwf);
-			Assert.assertTrue(panoramaData.hotspotsData[2] is HotspotDataFactory);
 			
 			Assert.assertStrictlyEquals("hspath1", (panoramaData.hotspotsData[0] as HotspotDataImage).path);
 			Assert.assertStrictlyEquals("hspath2", (panoramaData.hotspotsData[1] as HotspotDataSwf).path);
-			Assert.assertStrictlyEquals("hspath3", (panoramaData.hotspotsData[2] as HotspotDataFactory).factory);
 		}
 		
 		[Test]
@@ -88,13 +84,10 @@ package test.com.panozona.player.manager.utils.configuration{
 			var nodeXML:XML = new XML(
 				"<root>" +
 					"<panorama id=\"pano1\" path=\"path1\">" +
-						"<product id=\"hs1\" factory=\"factoryId\"/>" +
-					"</panorama>" +
-					"<panorama id=\"pano2\" path=\"path2\">" +
 						"<image id=\"hs2\" path=\"pathh2\"/>" +
 						"<swf id=\"hs3\" path=\"pathh3\"/>" +
 					"</panorama>" +
-					"<panorama id=\"pano3\" path=\"path3\"/>" +
+					"<panorama id=\"pano2\" path=\"path2\"/>" +
 				"</root>");
 			parsePanoramas(panoramasData, nodeXML);
 			
@@ -102,22 +95,17 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertEquals(0, warningCount);
 			Assert.assertEquals(0, errorCount);
 			
-			Assert.assertEquals(3, panoramasData.length);
+			Assert.assertEquals(2, panoramasData.length);
 			
 			Assert.assertStrictlyEquals("pano1", panoramasData[0].id);
 			Assert.assertStrictlyEquals("path1", panoramasData[0].params.path);
-			Assert.assertEquals(1, panoramasData[0].hotspotsData.length);
-			Assert.assertStrictlyEquals("hs1", panoramasData[0].hotspotsData[0].id);
+			Assert.assertEquals(2, panoramasData[0].hotspotsData.length);
+			Assert.assertStrictlyEquals("hs2", panoramasData[0].hotspotsData[0].id);
+			Assert.assertStrictlyEquals("hs3", panoramasData[0].hotspotsData[1].id);
 			
 			Assert.assertStrictlyEquals("pano2", panoramasData[1].id);
 			Assert.assertStrictlyEquals("path2", panoramasData[1].params.path);
-			Assert.assertEquals(2, panoramasData[1].hotspotsData.length);
-			Assert.assertStrictlyEquals("hs2", panoramasData[1].hotspotsData[0].id);
-			Assert.assertStrictlyEquals("hs3", panoramasData[1].hotspotsData[1].id);
-			
-			Assert.assertStrictlyEquals("pano3", panoramasData[2].id);
-			Assert.assertStrictlyEquals("path3", panoramasData[2].params.path);
-			Assert.assertEquals(0, panoramasData[2].hotspotsData.length);
+			Assert.assertEquals(0, panoramasData[1].hotspotsData.length);
 		}
 		
 		[Test]

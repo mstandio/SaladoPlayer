@@ -32,7 +32,7 @@ package test.com.panozona.player.module.utils{
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid numberInit value (Number expected): true", message);
+			Assert.assertEquals("Invalid numberInit type (Number expected): true", message);
 		}
 		
 		[Test]
@@ -45,7 +45,7 @@ package test.com.panozona.player.module.utils{
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid numberNonInit value (Number expected): true", message);
+			Assert.assertEquals("Invalid numberNonInit type (Number expected): true", message);
 		}
 		
 		[Test]
@@ -58,7 +58,7 @@ package test.com.panozona.player.module.utils{
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid numberInit value (Number expected): foo", message);
+			Assert.assertEquals("Invalid numberInit type (Number expected): foo", message);
 		}
 		
 		[Test]
@@ -71,7 +71,7 @@ package test.com.panozona.player.module.utils{
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid numberNonInit value (Number expected): foo", message);
+			Assert.assertEquals("Invalid numberNonInit type (Number expected): foo", message);
 		}
 		
 		[Test]
@@ -84,7 +84,7 @@ package test.com.panozona.player.module.utils{
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid numberInit value (Number expected): function Function() {}", message);
+			Assert.assertEquals("Invalid numberInit type (Number expected): function Function() {}", message);
 		}
 		
 		[Test]
@@ -97,7 +97,7 @@ package test.com.panozona.player.module.utils{
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid numberNonInit value (Number expected): function Function() {}", message);
+			Assert.assertEquals("Invalid numberNonInit type (Number expected): function Function() {}", message);
 		}
 		
 		[Test]
@@ -110,7 +110,7 @@ package test.com.panozona.player.module.utils{
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid numberInit value (Number expected): [object Object]", message);
+			Assert.assertEquals("Invalid numberInit type (Number expected): [object Object]", message);
 		}
 		
 		[Test]
@@ -123,7 +123,7 @@ package test.com.panozona.player.module.utils{
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid numberNonInit value (Number expected): [object Object]", message);
+			Assert.assertEquals("Invalid numberNonInit type (Number expected): [object Object]", message);
 		}
 	}
 }

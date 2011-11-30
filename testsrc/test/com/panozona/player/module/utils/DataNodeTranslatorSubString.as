@@ -32,7 +32,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid stringInit value (String expected): true", message);
+			Assert.assertEquals("Invalid stringInit type (String expected): true", message);
 		}
 		
 		[Test]
@@ -45,7 +45,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid stringNonInit value (String expected): true", message);
+			Assert.assertEquals("Invalid stringNonInit type (String expected): true", message);
 		}
 		
 		[Test]
@@ -58,7 +58,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid stringInit value (String expected): -21.21", message);
+			Assert.assertEquals("Invalid stringInit type (String expected): -21.21", message);
 		}
 		
 		[Test]
@@ -71,7 +71,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid stringNonInit value (String expected): -21.21", message);
+			Assert.assertEquals("Invalid stringNonInit type (String expected): -21.21", message);
 		}
 		
 		[Test]
@@ -84,7 +84,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid stringInit value (String expected): function Function() {}", message);
+			Assert.assertEquals("Invalid stringInit type (String expected): function Function() {}", message);
 		}
 		
 		[Test]
@@ -97,7 +97,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid stringNonInit value (String expected): function Function() {}", message);
+			Assert.assertEquals("Invalid stringNonInit type (String expected): function Function() {}", message);
 		}
 	}
 }

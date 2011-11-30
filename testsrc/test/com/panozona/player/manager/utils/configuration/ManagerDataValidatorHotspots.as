@@ -43,11 +43,8 @@ package test.com.panozona.player.manager.utils.configuration {
 		[Test]
 		public function smokeTest():void {
 			
-			managerData.modulesData.push(new ModuleDataFactory("factory_b", "path_b"));
-			
 			managerData.panoramasData[0].hotspotsData.push(new HotspotDataImage("hs_1", "path_1"));
 			managerData.panoramasData[0].hotspotsData.push(new HotspotDataSwf("hs_2", "path_2"));
-			managerData.panoramasData[0].hotspotsData.push(new HotspotDataFactory("hs_3", "factory_b"));
 			
 			checkHotspots(managerData);
 			
@@ -106,28 +103,6 @@ package test.com.panozona.player.manager.utils.configuration {
 		[Test]
 		public function missingPathImage():void {
 			managerData.panoramasData[0].hotspotsData.push(new HotspotDataImage("hs_1", null));
-			
-			checkHotspots(managerData);
-			
-			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
-		}
-		
-		[Test]
-		public function missingXmlFactory():void {
-			managerData.panoramasData[0].hotspotsData.push(new HotspotDataFactory("hs_1", null));
-			
-			checkHotspots(managerData);
-			
-			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(1, errorCount);
-		}
-		
-		[Test]
-		public function invalidFactory():void {
-			managerData.panoramasData[0].hotspotsData.push(new HotspotDataFactory("hs_1", "factory_99"));
 			
 			checkHotspots(managerData);
 			

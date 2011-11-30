@@ -3,7 +3,6 @@ package suite.configuration {
 	import test.com.panozona.player.manager.utils.configuration.ManagerDataValidatorPanoramas;
 	import test.com.panozona.player.manager.utils.configuration.ManagerDataValidatorHotspots;
 	import test.com.panozona.player.manager.utils.configuration.ManagerDataValidatorModules;
-	import test.com.panozona.player.manager.utils.configuration.ManagerDataValidatorFactories;
 	import test.com.panozona.player.manager.utils.configuration.ManagerDataValidatorActions;
 	
 	[Suite]
@@ -13,7 +12,6 @@ package suite.configuration {
 		public var managerDataValidatorPanoramas:ManagerDataValidatorPanoramas;
 		public var managerDataValidatorHotspots:ManagerDataValidatorHotspots;
 		public var managerDataValidatorModules:ManagerDataValidatorModules;
-		public var managerDataValidatorFactories:ManagerDataValidatorFactories;
 		public var managerDataValidatorActions:ManagerDataValidatorActions;
 	}
 }

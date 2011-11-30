@@ -32,7 +32,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid dummyObject value (Object expected): true", message);
+			Assert.assertEquals("Invalid dummyObject type (Object expected): true", message);
 		}
 		
 		[Test]
@@ -45,7 +45,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid dynamicObject value (Object expected): true", message);
+			Assert.assertEquals("Invalid dynamicObject type (Object expected): true", message);
 		}
 		
 		[Test]
@@ -58,7 +58,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid dummyObject value (Object expected): -21.21", message);
+			Assert.assertEquals("Invalid dummyObject type (Object expected): -21.21", message);
 		}
 		
 		[Test]
@@ -71,7 +71,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid dynamicObject value (Object expected): -21.21", message);
+			Assert.assertEquals("Invalid dynamicObject type (Object expected): -21.21", message);
 		}
 		
 		[Test]
@@ -84,7 +84,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid dummyObject value (Object expected): foo", message);
+			Assert.assertEquals("Invalid dummyObject type (Object expected): foo", message);
 		}
 		
 		[Test]
@@ -97,7 +97,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid dynamicObject value (Object expected): foo", message);
+			Assert.assertEquals("Invalid dynamicObject type (Object expected): foo", message);
 		}
 		
 		[Test]
@@ -110,7 +110,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid dummyObject value (Object expected): function Function() {}", message);
+			Assert.assertEquals("Invalid dummyObject type (Object expected): function Function() {}", message);
 		}
 		
 		[Test]
@@ -123,7 +123,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid dynamicObject value (Object expected): function Function() {}", message);
+			Assert.assertEquals("Invalid dynamicObject type (Object expected): function Function() {}", message);
 		}
 	}
 }

@@ -32,7 +32,7 @@ package test.com.panozona.player.module.utils{
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid boolean value (Boolean expected): -21.21", message);
+			Assert.assertEquals("Invalid boolean type (Boolean expected): -21.21", message);
 		}
 		
 		[Test]
@@ -45,7 +45,7 @@ package test.com.panozona.player.module.utils{
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid boolean value (Boolean expected): foo", message);
+			Assert.assertEquals("Invalid boolean type (Boolean expected): foo", message);
 		}
 		
 		[Test]
@@ -58,7 +58,7 @@ package test.com.panozona.player.module.utils{
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid boolean value (Boolean expected): function Function() {}", message);
+			Assert.assertEquals("Invalid boolean type (Boolean expected): function Function() {}", message);
 		}
 		
 		[Test]
@@ -71,7 +71,7 @@ package test.com.panozona.player.module.utils{
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid boolean value (Boolean expected): [object Object]", message);
+			Assert.assertEquals("Invalid boolean type (Boolean expected): [object Object]", message);
 		}
 	}
 }

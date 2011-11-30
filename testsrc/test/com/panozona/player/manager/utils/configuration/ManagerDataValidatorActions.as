@@ -42,15 +42,6 @@ package test.com.panozona.player.manager.utils.configuration{
 			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_str", String);
 			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_fun", Function);
 			managerData.modulesData[0].descriptionReference.addFunctionDescription("fun_a_all", Boolean, Number, String, Function);
-			
-			managerData.modulesData.push(new ModuleDataFactory("module_b", "path_b"));
-			managerData.modulesData[1].descriptionReference = new ModuleDescription("module_b", "1.0", "http://panozona.com/");
-			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_emp");
-			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_boo", Boolean);
-			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_num", Number);
-			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_str", String);
-			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_fun", Function);
-			managerData.modulesData[1].descriptionReference.addFunctionDescription("fun_b_all", Boolean, Number, String, Function);
 		}
 		
 		[Test]
@@ -108,40 +99,6 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertEquals(0, errorCount);
 		}
 		
-		[Test]
-		public function functionFactorySmokeTest():void {
-			
-			managerData.panoramasData.push(new PanoramaData("pano_1", "path_1"));
-			managerData.panoramasData[0].hotspotsData.push(new HotspotDataFactory("hs_1", "module_b"));
-			managerData.panoramasData[0].hotspotsData.push(new HotspotDataFactory("hs_2", "module_b"));
-			
-			managerData.actionsData.push(new ActionData("act1"));
-			managerData.actionsData[0].functions.push(new FunctionDataFactory("module_b", ["hs_1", "hs_2"], "fun_b_emp"));
-			
-			managerData.actionsData[0].functions.push(new FunctionDataFactory("module_b", ["hs_1", "hs_2"], "fun_b_boo"));
-			managerData.actionsData[0].functions[1].args.push(false);
-			
-			managerData.actionsData[0].functions.push(new FunctionDataFactory("module_b", ["hs_1", "hs_2"], "fun_b_num"));
-			managerData.actionsData[0].functions[2].args.push(-12.12);
-			
-			managerData.actionsData[0].functions.push(new FunctionDataFactory("module_b", ["hs_1", "hs_2"], "fun_b_str"));
-			managerData.actionsData[0].functions[3].args.push("foo");
-			
-			managerData.actionsData[0].functions.push(new FunctionDataFactory("module_b", ["hs_1", "hs_2"], "fun_b_fun"));
-			managerData.actionsData[0].functions[4].args.push(Linear.easeNone);
-			
-			managerData.actionsData[0].functions.push(new FunctionDataFactory("module_b", ["hs_1", "hs_2"], "fun_b_all"));
-			managerData.actionsData[0].functions[5].args.push(false);
-			managerData.actionsData[0].functions[5].args.push(-12.12);
-			managerData.actionsData[0].functions[5].args.push("string");
-			managerData.actionsData[0].functions[5].args.push(Linear.easeNone);
-			
-			validate(managerData);
-			
-			Assert.assertEquals(0, infoCount);
-			Assert.assertEquals(0, warningCount);
-			Assert.assertEquals(0, errorCount);
-		}
 		/*
 		[Test]
 		public function ownerTargetCheck():void {

@@ -32,7 +32,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid functionInit value (Function expected): true", message);
+			Assert.assertEquals("Invalid functionInit type (Function expected): true", message);
 		}
 		
 		/*[Test]
@@ -45,7 +45,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid attribute value (Function expected): true", message);
+			Assert.assertEquals("Invalid attribute type (Function expected): true", message);
 		}*/
 		
 		[Test]
@@ -58,7 +58,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid functionInit value (Function expected): -21.21", message);
+			Assert.assertEquals("Invalid functionInit type (Function expected): -21.21", message);
 		}
 		
 		/*[Test]
@@ -71,7 +71,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid attribute value (Function expected): -21.21", message);
+			Assert.assertEquals("Invalid attribute type (Function expected): -21.21", message);
 		}*/
 		
 		[Test]
@@ -84,7 +84,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid functionInit value (Function expected): foo", message);
+			Assert.assertEquals("Invalid functionInit type (Function expected): foo", message);
 		}
 		
 		/*[Test]
@@ -97,7 +97,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid attribute value (Function expected): foo", message);
+			Assert.assertEquals("Invalid attribute type (Function expected): foo", message);
 		}*/
 		
 		[Test]
@@ -110,7 +110,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid functionInit value (Function expected): [object Object]", message);
+			Assert.assertEquals("Invalid functionInit type (Function expected): [object Object]", message);
 		}
 		
 		/*[Test]
@@ -123,7 +123,7 @@ package test.com.panozona.player.module.utils {
 			}catch(e:Error){
 				message = e.message;
 			}
-			Assert.assertEquals("Invalid attribute value (Function expected): [object Object]", message);
+			Assert.assertEquals("Invalid attribute type (Function expected): [object Object]", message);
 		}*/
 	}
 }

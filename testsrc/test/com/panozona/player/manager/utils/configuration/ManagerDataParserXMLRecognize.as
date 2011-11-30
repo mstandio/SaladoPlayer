@@ -113,7 +113,7 @@ package test.com.panozona.player.manager.utils.configuration{
 			Assert.assertFalse(recognizeContent(" ") is String)
 			//Assert.assertFalse(recognizeContent(null) is String);
 			Assert.assertFalse(recognizeContent("a:b") is String);
-			Assert.assertFalse(recognizeContent("http://panozona.com") is String);
+			Assert.assertTrue(recognizeContent("http://panozona.com") is String);
 			Assert.assertFalse(recognizeContent("Linear.easeNone") is String);
 			
 			Assert.assertEquals(0, infoCount);
