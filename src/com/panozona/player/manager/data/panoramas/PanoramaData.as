@@ -115,15 +115,5 @@ package com.panozona.player.manager.data.panoramas {
 			}
 			return result;
 		}
-		
-		public function getHotspotsFactory():Vector.<HotspotDataFactory> {
-			var result:Vector.<HotspotDataFactory> = new Vector.<HotspotDataFactory>();
-			for (var i:int = 0; i < hotspotsData.length; i++) {
-				if (hotspotsData[i] is HotspotDataFactory) {
-					result.push(hotspotsData[i] as HotspotDataFactory);
-				}
-			}
-			return result;
-		}
 	}
 }

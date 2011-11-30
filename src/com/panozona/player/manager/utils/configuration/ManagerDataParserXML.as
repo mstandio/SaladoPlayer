@@ -56,8 +56,6 @@ package com.panozona.player.manager.utils.configuration {
 					parsePanoramas(managerData.panoramasData, mainNode);
 				}else if (mainNode.localName().toString() == "modules") {
 					parseModules(managerData.modulesData, mainNode);
-				}else if (mainNode.localName().toString() == "factories") {
-					parseModules(managerData.modulesData, mainNode);
 				}else if (mainNode.localName().toString() == "actions") {
 					parseActions(managerData.actionsData, mainNode);
 				}else {
@@ -255,9 +253,6 @@ package com.panozona.player.manager.utils.configuration {
 						}
 						panoramaData.hotspotsData.push(hotspotData as HotspotDataSwf);
 					}
-				}else if (hotspotNode.localName() == "product") {
-					hotspotData = new HotspotDataFactory(hotspotId, hotspotNode.@factory);
-					panoramaData.hotspotsData.push(hotspotData as HotspotDataFactory);
 				}else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Unrecognized hotspot: " + hotspotNode.localName()));
@@ -273,7 +268,7 @@ package com.panozona.player.manager.utils.configuration {
 						applySubAttributes(hotspotData.transform, hotspotAttribute);
 					}else if (hotspotAttributeName == "handCursor") {
 						hotspotData.handCursor = getAttributeValue(hotspotAttribute, Boolean);
-					}else if (hotspotAttributeName != "id" && hotspotAttributeName != "path" && hotspotAttributeName != "factory"){
+					}else if (hotspotAttributeName != "id" && hotspotAttributeName != "path"){
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 							"Unrecognized hotspot attribute: " + hotspotAttribute.localName()));
 					}
@@ -293,12 +288,6 @@ package com.panozona.player.manager.utils.configuration {
 				if (modulesNode.localName() == "modules") {
 					moduleData = new ModuleData(moduleNode.localName(), moduleNode.@path);
 					modulesData.push(moduleData);
-				}else if (modulesNode.localName() == "factories") {
-					moduleData = new ModuleDataFactory(moduleNode.localName(), moduleNode.@path);
-					if (moduleNode.@definition != undefined) {
-						applySubAttributes((moduleData as ModuleDataFactory).definition, moduleNode.@definition);
-					}
-					modulesData.push(moduleData as ModuleData);
 				}else {
 					continue;
 				}
@@ -375,27 +364,6 @@ package com.panozona.player.manager.utils.configuration {
 					actionData.functions.push(functionData);
 					if (singleFunctionArray.length == 3) {
 						allArguments = singleFunctionArray[2].split(",");
-						for each(singleArgument in allArguments) {
-							recognizedValue = recognizeContent(singleArgument);
-							functionData.args.push(recognizedValue);
-						}
-					}
-				}else if (singleFunction.match(/^[\w]+\[[^\[\]]+\]\.[\w]+\(.*\)$/)) {
-					singleFunctionArray = singleFunction.match(/(^[\w]+)|(?<=(\w\[)).+(?=\]\.)|([\w]+(?=\())|((?<=\().+(?=\)))/g);
-					//owner.function(arguments)
-					//(^[\w]+)              owner
-					//(?<=(\w\[)).+(?=\]\.) target
-					//([\w]+(?=\())         function
-					//((?<=\().+(?=\)))     arguments
-					if (singleFunctionArray.length < 3 || singleFunctionArray.length > 4) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-							"Wrong format of function: " + singleFunction));
-						continue;
-					}
-					functionData = new FunctionDataFactory(singleFunctionArray[0], singleFunctionArray[1].split(","), singleFunctionArray[2]);
-					actionData.functions.push(functionData);
-					if (singleFunctionArray.length == 4) {
-						allArguments = singleFunctionArray[3].split(",");
 						for each(singleArgument in allArguments) {
 							recognizedValue = recognizeContent(singleArgument);
 							functionData.args.push(recognizedValue);

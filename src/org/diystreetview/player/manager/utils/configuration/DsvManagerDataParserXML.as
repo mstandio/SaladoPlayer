@@ -51,8 +51,6 @@ package org.diystreetview.player.manager.utils.configuration{
 					parsePanoramas(managerData.panoramasData, mainNode);
 				}else if (mainNode.localName().toString() == "modules") {
 					parseModules(managerData.modulesData, mainNode);
-				}else if (mainNode.localName().toString() == "factories") {
-					parseModules(managerData.modulesData, mainNode);
 				}else if (mainNode.localName().toString() == "actions") {
 					parseActions(managerData.actionsData, mainNode);
 				}else if (mainNode.localName().toString() == "diystreetview") {

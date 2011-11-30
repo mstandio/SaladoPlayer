@@ -57,7 +57,7 @@ package com.panozona.player {
 		
 		/**
 		 * Dictionary, where key is moduleData object
-		 * and value is loaded module or factory(swf file)
+		 * and value is loaded module (swf file)
 		 */
 		public var modules:Dictionary = new Dictionary();
 		

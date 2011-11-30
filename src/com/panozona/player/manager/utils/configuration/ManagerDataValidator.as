@@ -82,8 +82,6 @@ package com.panozona.player.manager.utils.configuration{
 		}
 		
 		protected function checkHotspots(managerData:ManagerData):void {
-			var factoryFound:Boolean;
-			var moduleData:ModuleData;
 			var hotspotsId:Object = new Object();
 			for each(var panoramaData:PanoramaData in managerData.panoramasData) {
 				for each(var hotspotData:HotspotData in panoramaData.hotspotsData) {
@@ -110,13 +108,6 @@ package com.panozona.player.manager.utils.configuration{
 							dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 								"Missig hotspot path in: " + hotspotData.id));
 							continue;
-						}
-					}else if (hotspotData is HotspotDataFactory) {
-						moduleData = managerData.getModuleDataByName((hotspotData as HotspotDataFactory).factory);
-						if (!(moduleData is ModuleDataFactory)){
-								dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-									"Invalid factory name in hotspot: "+ hotspotData.id));
-								continue;
 						}
 					}
 				}
@@ -148,7 +139,6 @@ package com.panozona.player.manager.utils.configuration{
 		
 		protected function checkModules(managerData:ManagerData):void {
 			var modulesName:Object = new Object();
-			var hotspotDataFactoryFound:Boolean;
 			for each(var moduleData:ModuleData in managerData.modulesData) {
 				if (moduleData.name == null) {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
@@ -171,27 +161,6 @@ package com.panozona.player.manager.utils.configuration{
 					continue;
 				}
 				modulesName[moduleData.name] = ""; // not undefined
-				if (moduleData is ModuleDataFactory) {
-					for (var hotspotId:String in (moduleData as ModuleDataFactory).definition) {
-						hotspotDataFactoryFound = false;
-						p: for each(var panoramaData:PanoramaData in managerData.panoramasData) {
-							for each (var hotspotDataFactory:HotspotDataFactory in panoramaData.getHotspotsFactory()){
-								if (hotspotDataFactory.id == hotspotId) {
-									hotspotDataFactoryFound = true;
-									if (hotspotDataFactory.factory != moduleData.name) {
-										dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-											"Hotspot points do another factory: " + hotspotId));
-									}
-									break p;
-								}
-							}
-						}
-						if (!hotspotDataFactoryFound) {
-							dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
-								"Unknown hotspot in definition: " + hotspotId));
-						}
-					}
-				}
 			}
 		}
 		
@@ -228,7 +197,6 @@ package com.panozona.player.manager.utils.configuration{
 		
 		protected function verifyFunction(functionData:FunctionData, managerData:ManagerData):void {
 			var moduleDescription:ModuleDescription = managerData.getModuleDataByName(functionData.owner).descriptionReference;
-			var hotspotDataFactoryFound:Boolean;
 			if (moduleDescription.functionsDescription[functionData.name] == undefined) {
 				dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 					"Function not defined in owner: " + functionData.owner + "." + functionData.name));
@@ -241,24 +209,6 @@ package com.panozona.player.manager.utils.configuration{
 					" (expected " + (moduleDescription.functionsDescription[functionData.name] as Vector.<Class>).length +
 					"): " + functionData.args.length));
 				return;
-			}
-			if (functionData is FunctionDataFactory ) {
-				for each(var hotspotId:String in (functionData as FunctionDataFactory).targets) {
-					hotspotDataFactoryFound = false;
-					p: for each (var panoramaData:PanoramaData in managerData.panoramasData) {
-						for each (var hotspotDataFactory:HotspotDataFactory in panoramaData.getHotspotsFactory()) {
-							if (hotspotDataFactory.id == hotspotId) {
-								hotspotDataFactoryFound = true;
-								break p;
-							}
-						}
-					}
-					if (!hotspotDataFactoryFound) {
-						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
-							"Target not found: " + functionData.owner + "[" + hotspotId + "]." + functionData.name));
-						return;
-					}
-				}
 			}
 			if ((moduleDescription.functionsDescription[functionData.name] as Vector.<Class>).length > 0){
 				for (var i:uint = 0; i < functionData.args.length; i++) {
