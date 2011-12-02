@@ -1,3 +1,10 @@
+body {
+	background-color:#000000;
+	color:#00ff00;
+	font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+	font-weight:bold;
+	font-size:1em !important;
+}
 
 a:link {
 	color:#00ff00;
@@ -13,26 +20,4 @@ a:active {
 
 a:hover {
 	color:red;
-}
-
-.L {
-	color:#00ff00;
-	font-family:Verdana;
-	text-decoration:none;
-	font-size:14px;
-	font-weight:bold;
-	line-height:180%;
-	white-space: nowrap;
-}
-
-.L0{
-	
-}
-
-.L1{
-	margin-left:30px;
-}
-
-.L2{
-	margin-left:60px;
 }
