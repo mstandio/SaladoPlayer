@@ -5,16 +5,16 @@
 		
 		<link type="text/css" href="resources/style.css" rel="stylesheet">
 		
-		<script type="text/javascript" src="../../javascript/jquery-1.5.2.min.js"></script>
+		<script type="text/javascript" src="../../embed/jquery-1.5.2.min.js"></script>
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=false"></script>
 		
 		<!--[if IE]>
-		<script type="text/javascript" src="../../javascript/jsgooglemap/excanvas.compiled.js"></script>
+		<script type="text/javascript" src="../../modules/jsgooglemap/javascript/excanvas.compiled.js"></script>
 		<![endif]-->
 		
-		<script type="text/javascript" src="../../javascript/jsgooglemap/saladoplayer.jsgooglemap.js"></script>
-		<script type="text/javascript" src="../../javascript/jsgooglemap/saladoplayer.jsgooglemap.radar.js"></script>
-		<script type="text/javascript" src="../../javascript/jsgooglemap/jsgooglemap_utils.js"></script>
+		<script type="text/javascript" src="../../modules/jsgooglemap/javascript/saladoplayer.jsgooglemap.js"></script>
+		<script type="text/javascript" src="../../modules/jsgooglemap/javascript/saladoplayer.jsgooglemap.radar.js"></script>
+		<script type="text/javascript" src="../../modules/jsgooglemap/javascript/jsgooglemap_utils.js"></script>
 		
 		<script type="text/javascript" src="../../embed/swfobject.js"></script>
 		<script type="text/javascript">
@@ -29,7 +29,7 @@
 			params.devicefont = "false";
 			params.allowfullscreen = "true";
 			params.allowscriptaccess = "sameDomain";
-			swfobject.embedSWF("../../SaladoPlayer-1.2.swf", "player", "100%", "100%", "10.1", "../../embed/expressInstall.swf", flashvars, params);
+			swfobject.embedSWF("../../SaladoPlayer-1.2.9.swf", "player", "100%", "100%", "10.1", "../../embed/expressInstall.swf", flashvars, params);
 		</script>
 	</head>
 	<body>
@@ -46,7 +46,7 @@
 			<div id="footer"></div>
 		</div>
 		<!-- this div is needed to support IE -->
-		<div id="radar_div" style="display: none; width: 162px; height: 162px; position: absolute; top: 0; left: 0; padding: 0;">
+		<div id="radar_div" style="display:none; width:162px; height:162px; position:absolute; top:0; left:0; padding:0;">
 			<canvas id="radar_canvas" width="162" height="162"></canvas>
 		</div>
 	</body>

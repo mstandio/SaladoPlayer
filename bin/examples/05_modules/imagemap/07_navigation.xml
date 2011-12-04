@@ -12,11 +12,11 @@
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/ImageMap-1.3.swf">
-			<viewer path="~modules/images/imagemap/navigation_black_20x20.png" moveEnabled="false" zoomSpeed="0.05"/>
+		<ImageMap path="~modules/imagemap/ImageMap-1.3.swf">
+			<viewer path="~modules/imagemap/images/navigation_black_20x20.png" moveEnabled="false" zoomSpeed="0.05"/>
 			<maps>
-				<map id="map1" path="~media/images/maps/map_1.jpg">
-					<waypoints path="~modules/images/imagemap/waypoints_button_20x20.png">
+				<map id="map1" path="~media/images/maps/map1.jpg">
+					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png">
 						<waypoint target="checkerBlue" position="x:150,y:100"/>
 					</waypoints>
 				</map>

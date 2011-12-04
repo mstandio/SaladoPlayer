@@ -15,7 +15,7 @@
 	<modules>
 		<DropDown path="~modules/DropDown-1.2.swf">
 			<window align="horizontal:right,vertical:top" move="horizontal:-40,vertical:40"/>
-			<box style="opensUp:false">
+			<box opensUp="false"/>
 			<elements>
 				<element target="checkerBlue" label="Blue checker"/>
 				<element target="checkerGreen" label="Green checker"/>

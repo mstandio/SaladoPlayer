@@ -11,14 +11,9 @@
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
-		<FullScreener path="~modules/FullScreener-1.0.swf">
-			<settings path="~modules/images/fullscreener/button_thick_black_50x50.png"/>
+		<FullScreener path="~modules/fullscreener/FullScreener-1.0.swf">
+			<settings path="~modules/fullscreener/images/button_thick_black_50x50.png"/>
 		</FullScreener>
-		<ImageButton path="~modules/ImageButton-1.2.swf">
-			<buttons>
-				<button id="logo1" path="~media/images/misc/panozona_logo.png" mouse="onClick:printClick"/>
-			</buttons>
-		</ImageButton>
 	</modules>
 	<actions>
 		<action id="printClick" content="FullScreener.toggleFullScreenOn()"/>

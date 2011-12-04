@@ -15,15 +15,14 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ButtonBar path="~modules/ButtonBar-1.2.swf">
-			<bar visible="false"/>
-			<buttons path="~modules/images/buttonbar/buttons_30x30_black.png">
+		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">
+			<buttons path="~modules/buttonbar/images/buttons_dark_30x30.png">
 				<extraButton name="b" action="jsgooglemapToggle"/>
 			</buttons>
 		</ButtonBar>
-		<JSGoogleMap path="~modules/JSGoogleMap-1.0.swf">
+		<JSGoogleMap path="~modules/jsgooglemap/JSGoogleMap-1.0.swf">
 			<settings open="true" onOpen="jsgooglemapOnOpen" onClose="jsgooglemapOnClose"/>
-			<waypoints markerOn="~modules/images/jsgooglemap/marker_on.png" markerOff="~modules/images/jsgooglemap/marker_off.png">
+			<waypoints markerOn="~modules/jsgooglemap/images/marker_on.png" markerOff="~modules/jsgooglemap/images/marker_off.png">
 				<waypoint target="checkerGreen" geolocation="latitude:46.44,longitude:11.08" label="Green checker"/>
 				<waypoint target="checkerRed" geolocation="latitude:47.04,longitude:11.14" label="Red checker"/>
 			</waypoints>

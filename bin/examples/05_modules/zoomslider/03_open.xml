@@ -18,9 +18,9 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ZoomSlider path="~modules/ZoomSlider-1.0.swf">
+		<ZoomSlider path="~modules/zoomslider/ZoomSlider-1.1.swf">
 			<window onOpen="printOpen" onClose="printClose"/>
-			<slider path="~modules/images/zoomslider/elements_30x30.png"/>
+			<slider path="~modules/zoomslider/images/elements_light_40x40.png"/>
 		</ZoomSlider>
 	</modules>
 	<actions>

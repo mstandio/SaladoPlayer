@@ -14,7 +14,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ButtonBar path="~modules/ButtonBar-1.3.swf">
+		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">
 			<buttons path="~modules/images/buttonbar/buttons_dark_40x40.png">
 				<extraButton name="a" action="printHello"/>
 			</buttons>

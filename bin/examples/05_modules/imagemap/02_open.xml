@@ -18,13 +18,13 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/ImageMap-1.3.swf">
+		<ImageMap path="~modules/imagemap/ImageMap-1.3.swf">
 			<window open="false" onOpen="printOpen" onClose="printClose"/>
 			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
-			<viewer path="~modules/images/imagemap/navigation_black_20x20.png"/>
+			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
 			<maps>
-				<map id="map2" path="~media/images/maps/map_2.jpg">
-					<waypoints path="~modules/images/imagemap/waypoints_button_20x20.png">
+				<map id="map2" path="~media/images/maps/map2.jpg">
+					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png">
 						<waypoint target="checkerBlue" position="x:300,y:400"/>
 					</waypoints>
 				</map>

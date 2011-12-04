@@ -11,8 +11,8 @@
 		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
-		<ZoomSlider path="~modules/ZoomSlider-1.0.swf">
-			<slider path="~modules/images/zoomslider/elements_30x30.png"/>
+		<ZoomSlider path="~modules/zoomslider/ZoomSlider-1.1.swf">
+			<slider path="~modules/zoomslider/images/elements_dark_30x30.png"/>
 		</ZoomSlider>
 	</modules>
 </SaladoPlayer>

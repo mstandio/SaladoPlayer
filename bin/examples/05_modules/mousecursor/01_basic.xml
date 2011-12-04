@@ -12,8 +12,8 @@
 		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
-		<MouseCursor path="~modules/MouseCursor-1.1.swf">
-			<settings path="~modules/images/mousecursor/cursors_31x31.png"/>
+		<MouseCursor path="~modules/mousecursor/MouseCursor-1.2.swf">
+			<settings path="~modules/mousecursor/images/cursors_31x31.png"/>
 		</MouseCursor>
 	</modules>
 </SaladoPlayer>
