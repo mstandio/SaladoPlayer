@@ -16,14 +16,11 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.mousecursor.data{
+package com.panozona.modules.mousecursor.data {
 	
-	public class Settings{
+	public class Style {
 		
-		public var path:String;
-		
-		public var showLine:Boolean = false;
-		
-		public const style:Style = new Style();
+		public var lineColor:Number = 0x000000;
+		public var lineSize:Number = 2;
 	}
 }

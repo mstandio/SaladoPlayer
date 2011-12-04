@@ -62,7 +62,7 @@ package com.panozona.modules.mousecursor {
 		private var startY:Number = 0;
 		
 		public function MouseCursor(){
-			super("MouseCursor", "1.1", "http://panozona.com/wiki/Module:MouseCursor");
+			super("MouseCursor", "1.2", "http://panozona.com/wiki/Module:MouseCursor");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
@@ -102,26 +102,26 @@ package com.panozona.modules.mousecursor {
 			var bitmapData:BitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
 			bitmapData.draw((e.target as LoaderInfo).content);
 			
-			cursorWidth = Math.ceil((bitmapData.width - 2) / 3);
-			cursorHeight = Math.ceil((bitmapData.height - 1) / 2);
-			
-			handHover = new BitmapData(cursorWidth, cursorHeight, true, 0);
-			handHover.copyPixels(bitmapData, new Rectangle(0, 0, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
-			
-			handPress = new BitmapData(cursorWidth, cursorHeight, true, 0);
-			handPress.copyPixels(bitmapData, new Rectangle(cursorWidth + 1, 0, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
-			
-			handDrag = new BitmapData(cursorWidth, cursorHeight, true, 0);
-			handDrag.copyPixels(bitmapData, new Rectangle(cursorWidth * 2 + 2, 0, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			cursorWidth = Math.ceil((bitmapData.width - 1) / 2);
+			cursorHeight = Math.ceil((bitmapData.height - 2) / 3);
 			
 			arrowHover = new BitmapData(cursorWidth, cursorHeight, true, 0);
-			arrowHover.copyPixels(bitmapData, new Rectangle(0, cursorHeight + 1, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			arrowHover.copyPixels(bitmapData, new Rectangle(0, 0, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
 			
 			arrowPress = new BitmapData(cursorWidth, cursorHeight, true, 0);
-			arrowPress.copyPixels(bitmapData, new Rectangle(cursorWidth + 1, cursorHeight + 1, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			arrowPress.copyPixels(bitmapData, new Rectangle(0, cursorHeight + 1, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
 			
 			arrowDrag = new BitmapData(cursorWidth, cursorHeight, true, 0);
-			arrowDrag.copyPixels(bitmapData, new Rectangle(cursorWidth * 2 + 2, cursorHeight + 1, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			arrowDrag.copyPixels(bitmapData, new Rectangle(0, cursorHeight * 2 + 2, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			
+			handHover = new BitmapData(cursorWidth, cursorHeight, true, 0);
+			handHover.copyPixels(bitmapData, new Rectangle(cursorWidth + 1, 0, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			
+			handPress = new BitmapData(cursorWidth, cursorHeight, true, 0);
+			handPress.copyPixels(bitmapData, new Rectangle(cursorWidth + 1, cursorHeight + 1, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			
+			handDrag = new BitmapData(cursorWidth, cursorHeight, true, 0);
+			handDrag.copyPixels(bitmapData, new Rectangle(cursorWidth + 1, cursorHeight * 2 + 2, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
 			
 			onDragEnabledChange();
 			
@@ -217,6 +217,14 @@ package com.panozona.modules.mousecursor {
 					cursorWrapper.rotationZ = ( -90 + Math.atan2(startY - mouseY, startX - mouseX) * 180 / Math.PI);
 				}else {
 					cursorWrapper.rotationZ = 0;
+				}
+			}
+			if(!dragMode && mouseCursorData.settings.showLine){
+				graphics.clear();
+				if(mousePress) {
+					graphics.lineStyle(mouseCursorData.settings.style.lineSize, mouseCursorData.settings.style.lineColor);
+					graphics.moveTo(startX, startY);
+					graphics.lineTo(mouseX, mouseY);
 				}
 			}
 		}
