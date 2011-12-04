@@ -50,14 +50,14 @@ package com.panozona.modules.zoomslider.model {
 		
 		public function get maxFov():Number {return _maxFov;}
 		public function set maxFov(value:Number):void {
-			if (value == _maxFov) return;
+			if (isNaN(value) || value == _maxFov) return;
 			_maxFov = value;
 			dispatchEvent(new SliderEvent(SliderEvent.CHANGED_FOV_LIMIT));
 		}
 		
 		public function get minFov():Number {return _minFov;}
 		public function set minFov(value:Number):void {
-			if (value == _minFov) return;
+			if (isNaN(value) || value == _minFov) return;
 			_minFov = value;
 			dispatchEvent(new SliderEvent(SliderEvent.CHANGED_FOV_LIMIT));
 		}
