@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Module by default uses first track as current track. Track is looped by default.
+	Module by default uses first track as current track, all tracks are looped. By default music is not playing,
+	so that downloading mp3 would not delay loading of first panorama. However, You can set module music as
+	playing by default, and play/stop it by calling proper functions. Assign actions that will be executed whenever
+	BackgroundMusic changes "play" state, so this change could be reflected in your interface, for example by
+	changing state of buttons.
 	
 	http://panozona.com/wiki/Module:BackgroundMusic
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<control autorotation="enabled:false"/>
+		<trace open="true"/>
+		<panoramas firstOnEnter="playBgMusic"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="panoramas/dz_green_check/green_check_f.xml">
-			<image id="gc_greenArrow" path="hotspots/images/green_arrow.png" location="pan:-10" mouse="onClick:playBackgroundMusic"/>
-			<image id="gc_redArrow" path="hotspots/images/red_arrow.png" location="pan:10" mouse="onClick:stopBackgroundMusic"/>
-			<image id="gc_arrowBlue" path="hotspots/images/blue_arrow.png" location="tilt:-10" mouse="onClick:toggleBackgroundMusic"/>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="cb_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:playBgMusic"/>
+			<image id="cb_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:stopBgMusic"/>
+			<image id="cb_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="pan:5" mouse="onClick:togglePlayBgMusic"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<BackgroundMusic path="modules/BackgroundMusic-1.1.swf">
-			<settings play="true"/>
+		<BackgroundMusic path="~modules/BackgroundMusic-1.1.swf">
+			<settings play="true" onPlay="printPlay" onStop="printStop"/>
 			<tracks>
-				<track id="ip2" path="modules/sound/backgroundmusic/ip2.mp3" loop="false" next="MoVoX"/>
-				<track id="MoVoX" path="modules/sound/backgroundmusic/czesc.mp3" loop="false" next="ip2"/>
+				<track id="always" path="~media/sound/looperman-djgadget-always.mp3" volume="1.25"/>
 			</tracks>
 		</BackgroundMusic>
 	</modules>
 	<actions>
-		<action id="playBackgroundMusic" content="BackgroundMusic.setPlay(true)"/>
-		<action id="stopBackgroundMusic" content="BackgroundMusic.setPlay(false)"/>
-		<action id="toggleBackgroundMusic" content="BackgroundMusic.togglePlay()"/>
+		<action id="playBgMusic" content="BackgroundMusic.setPlay(true)"/>
+		<action id="stopBgMusic" content="BackgroundMusic.setPlay(false)"/>
+		<action id="togglePlayBgMusic" content="BackgroundMusic.togglePlay()"/>
+		<action id="printPlay" content="SaladoPlayer.print(music playing)"/>
+		<action id="printStop" content="SaladoPlayer.print(music stopped)"/>
 	</actions>
 </SaladoPlayer>

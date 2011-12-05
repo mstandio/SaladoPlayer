@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	You can set different track to be played in different panoramas. BackgroundMusic has "current" track that
+	is played whenever module "play" state i set to true. Setting tracks is independent to playing music,
+	so music can be playing or not, yet tracks ale still changed and there always is some current track.
+	
+	http://panozona.com/wiki/Module:BackgroundMusic
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<panoramas firstOnEnter="playBgMusic"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" onEnter="setTrackAncoral"/>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onEnter="setTrackAlways"/>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml" onEnter="setTrackSpiccato"/>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml" onEnter="setTrackTechnologically"/>
+	</panoramas>
+	<modules>
+		<DropDown path="~modules/DropDown-1.2.swf">
+			<elements>
+				<element target="checkerGreen" label="Green checker"/>
+				<element target="checkerBlue" label="Blue checker"/>
+				<element target="checkerRed" label="Red checker"/>
+				<element target="checkerYellow" label="Yellow checker"/>
+			</elements>
+		</DropDown>
+		<BackgroundMusic path="~modules/BackgroundMusic-1.1.swf">
+			<tracks>
+				<track id="ancoral" path="~media/sound/looperman-ancoral-acp-string-choir-ensemble-01.mp3"/>
+				<track id="always" path="~media/sound/looperman-djgadget-always.mp3"/>
+				<track id="spiccato" path="~media/sound/looperman-djgadget-catchy-spiccato-violins.mp3"/>
+				<track id="technologically" path="~media/sound/looperman-moonwhisper-technologically.mp3"/>
+			</tracks>
+		</BackgroundMusic>
+	</modules>
+	<actions>
+		<action id="playBgMusic" content="BackgroundMusic.setPlay(true)"/>
+		<action id="setTrackAncoral" content="BackgroundMusic.setTrack(ancoral)"/>
+		<action id="setTrackAlways" content="BackgroundMusic.setTrack(always)"/>
+		<action id="setTrackSpiccato" content="BackgroundMusic.setTrack(spiccato)"/>
+		<action id="setTrackTechnologically" content="BackgroundMusic.setTrack(technologically)"/>
+	</actions>
+</SaladoPlayer>

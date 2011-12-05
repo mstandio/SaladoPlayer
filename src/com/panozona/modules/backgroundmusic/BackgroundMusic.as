@@ -16,10 +16,10 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.BackgroundMusic{
+package com.panozona.modules.backgroundmusic{
 	
-	import com.panozona.modules.BackgroundMusic.data.BackgroundMusicData;
-	import com.panozona.modules.BackgroundMusic.data.structure.Track;
+	import com.panozona.modules.backgroundmusic.data.BackgroundMusicData;
+	import com.panozona.modules.backgroundmusic.data.structure.Track;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.Module;
 	import flash.events.Event;
