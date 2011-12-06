@@ -16,11 +16,11 @@
 	<modules>
 		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">
 			<window transition="type:slideUp" openTween="transition:Bounce.easeOut,time:0.75" closeTween="transition:Expo.easeIn,time:0.75"/>
-			<buttons path="~modules/images/buttonbar/buttons_light_40x40.png">
-				<button name="down"/>
-				<button name="up"/>
+			<buttons path="~modules/buttonbar/images/buttons_light_40x40.png">
 				<button name="left"/>
 				<button name="right"/>
+				<button name="down"/>
+				<button name="up"/>
 				<button name="out"/>
 				<button name="in"/>
 				<button name="drag"/>

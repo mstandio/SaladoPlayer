@@ -187,16 +187,16 @@ package com.panozona.modules.buttonbar.controller{
 				}else if (buttonView.buttonData.button.name == "right") {
 					buttonView.bitmapDataPlain = getButtonBitmap(1);
 					buttonView.bitmapDataActive = getButtonBitmap(11);
-				}else if (buttonView.buttonData.button.name == "up") {
+				}else if (buttonView.buttonData.button.name == "down") {
 					buttonView.bitmapDataPlain = getButtonBitmap(2);
 					buttonView.bitmapDataActive = getButtonBitmap(12);
-				}else if (buttonView.buttonData.button.name == "down") {
+				}else if (buttonView.buttonData.button.name == "up") {
 					buttonView.bitmapDataPlain = getButtonBitmap(3);
 					buttonView.bitmapDataActive = getButtonBitmap(13);
-				}else if (buttonView.buttonData.button.name == "in") {
+				}else if (buttonView.buttonData.button.name == "out") {
 					buttonView.bitmapDataPlain = getButtonBitmap(4);
 					buttonView.bitmapDataActive = getButtonBitmap(14);
-				}else if (buttonView.buttonData.button.name == "out") {
+				}else if (buttonView.buttonData.button.name == "in") {
 					buttonView.bitmapDataPlain = getButtonBitmap(5);
 					buttonView.bitmapDataActive = getButtonBitmap(15);
 				}else if (buttonView.buttonData.button.name == "drag") {
@@ -268,7 +268,7 @@ package com.panozona.modules.buttonbar.controller{
 		
 		// ids hardcoded 
 		// button id as in:
-		// [0 ][1 ][2 ][3 ][4 ][5 ][6 ][7 ][8 ][ 9]
+		// [ 0][ 1][ 2][ 3][ 4][ 5][ 6][ 7][ 8][ 9]
 		// [10][11][12][13][14][15][16][17][18][19]
 		// [20][21][22][23][24][25][26][27][28][29]
 		// [30][31][32][33][34][35][36][37][38][39]
