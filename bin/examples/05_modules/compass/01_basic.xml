@@ -11,8 +11,8 @@
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" direction="45"/>
 	</panoramas>
 	<modules>
-		<Compass path="~modules/Compass-1.0.swf">
-			<settings path="~modules/images/compass/compass_81.png"/>
+		<Compass path="~modules/compass/Compass-1.1.swf">
+			<settings path="~modules/compass/images/compass_dark_93x81.png"/>
 		</Compass>
 	</modules>
 </SaladoPlayer>

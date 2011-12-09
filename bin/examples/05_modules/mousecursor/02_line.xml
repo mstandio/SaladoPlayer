@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	
+	http://panozona.com/wiki/Module:MouseCursor
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
+	</panoramas>
+	<modules>
+		<MouseCursor path="~modules/mousecursor/MouseCursor-1.2.swf">
+			<settings path="~modules/mousecursor/images/cursors_31x31.png" hideLine="false" style="lineColor:#FFFFFF,lineSize:2"/>
+		</MouseCursor>
+	</modules>
+</SaladoPlayer>

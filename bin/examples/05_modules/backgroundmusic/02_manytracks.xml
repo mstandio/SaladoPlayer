@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	You can set different track to be played in different panoramas. BackgroundMusic has "current" track that
-	is played whenever module "play" state i set to true. Setting tracks is independent to playing music,
+	is played whenever module "play" state is set to true. Setting tracks is independent to playing music,
 	so music can be playing or not, yet tracks ale still changed and there always is some current track.
 	
 	http://panozona.com/wiki/Module:BackgroundMusic

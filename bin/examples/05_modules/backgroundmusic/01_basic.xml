@@ -22,7 +22,7 @@
 	</panoramas>
 	<modules>
 		<BackgroundMusic path="~modules/BackgroundMusic-1.1.swf">
-			<settings play="true" onPlay="printPlay" onStop="printStop"/>
+			<settings play="false" onPlay="printPlay" onStop="printStop"/>
 			<tracks>
 				<track id="always" path="~media/sound/looperman-djgadget-always.mp3" volume="1.25"/>
 			</tracks>
