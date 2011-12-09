@@ -22,7 +22,7 @@ package com.panozona.modules.mousecursor.data{
 		
 		public var path:String;
 		
-		public var showLine:Boolean = false;
+		public var hideLine:Boolean = true;
 		
 		public const style:Style = new Style();
 	}

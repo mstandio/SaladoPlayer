@@ -219,7 +219,7 @@ package com.panozona.modules.mousecursor {
 					cursorWrapper.rotationZ = 0;
 				}
 			}
-			if(!dragMode && mouseCursorData.settings.showLine){
+			if(!dragMode && !mouseCursorData.settings.hideLine){
 				graphics.clear();
 				if(mousePress) {
 					graphics.lineStyle(mouseCursorData.settings.style.lineSize, mouseCursorData.settings.style.lineColor);

@@ -39,6 +39,7 @@ package com.panozona.modules.compass {
 		
 		private var compassData:CompassData;
 		
+		private var base:Sprite;
 		private var dial:Bitmap;
 		private var needle:Bitmap;
 		private var axis:Sprite;
@@ -80,6 +81,12 @@ package com.panozona.modules.compass {
 			e.target.removeEventListener(IOErrorEvent.IO_ERROR, compassImageLost);
 			e.target.removeEventListener(Event.COMPLETE, compassImageLoaded);
 			
+			mouseEnabled = false;
+			mouseChildren = false;
+			
+			base = new Sprite();
+			addChild(base);
+			
 			var bitmapData:BitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
 			bitmapData.draw((e.target as LoaderInfo).content);
 			
@@ -90,14 +97,28 @@ package com.panozona.modules.compass {
 			var needleBitmapdata:BitmapData = new BitmapData(bitmapData.width - bitmapData.height - 1, bitmapData.height, true, 0);
 			needleBitmapdata.copyPixels(bitmapData, new Rectangle(bitmapData.height + 1, 0, bitmapData.width - bitmapData.height - 1, bitmapData.height), new Point(0, 0), null, null, true);
 			needle = new Bitmap(needleBitmapdata);
-			needle.x = -needle.width * 0.5;
-			needle.y = -needle.height * 0.5;
 			
-			addChild(dial)
-			axis = new Sprite();
-			axis.mouseEnabled = false;
-			axis.addChild(needle);
-			addChild(axis);
+			
+			if (compassData.settings.rotateNeedle) {
+				needle.x = -needle.width * 0.5;
+				needle.y = -needle.height * 0.5;
+				base.addChild(dial)
+				axis = new Sprite();
+				axis.x = dial.x + dial.width * 0.5;
+				axis.y = dial.y + dial.height * 0.5;
+				axis.addChild(needle);
+				base.addChild(axis);
+			}else {
+				axis = new Sprite();
+				axis.x = dial.width * 0.5;
+				axis.y = dial.height * 0.5;
+				dial.x = -dial.width * 0.5;
+				dial.y = -dial.height * 0.5;
+				needle.x = (dial.width - needle.width) * 0.5;
+				axis.addChild(dial);
+				base.addChild(axis);
+				base.addChild(needle);
+			}
 			
 			stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
 			
@@ -112,24 +133,21 @@ package com.panozona.modules.compass {
 		
 		private function handleResize(e:Event = null):void {
 			if (compassData.settings.align.horizontal == Align.LEFT) {
-				dial.x = 0;
+				base.x = 0;
 			}else if (compassData.settings.align.horizontal == Align.RIGHT) {
-				dial.x = saladoPlayer.manager.boundsWidth - dial.width;
+				base.x = saladoPlayer.manager.boundsWidth - dial.width;
 			}else { // CENTER
-				dial.x = (saladoPlayer.manager.boundsWidth - dial.width) * 0.5;
+				base.x = (saladoPlayer.manager.boundsWidth - dial.width) * 0.5;
 			}
 			if (compassData.settings.align.vertical == Align.TOP){
-				dial.y = 0;
+				base.y = 0;
 			}else if (compassData.settings.align.vertical == Align.BOTTOM) {
-				dial.y = saladoPlayer.manager.boundsHeight - dial.height;
+				base.y = saladoPlayer.manager.boundsHeight - dial.height;
 			}else { // MIDDLE
-				dial.y = (saladoPlayer.manager.boundsHeight - dial.height) * 0.5;
+				base.y = (saladoPlayer.manager.boundsHeight - dial.height) * 0.5;
 			}
-			dial.x += compassData.settings.move.horizontal;
-			dial.y += compassData.settings.move.vertical;
-			
-			axis.x = dial.x + dial.width * 0.5;
-			axis.y = dial.y + dial.height * 0.5;
+			base.x += compassData.settings.move.horizontal;
+			base.y += compassData.settings.move.vertical;
 		}
 	}
 }
