@@ -2,7 +2,7 @@
 	
 	var position = {
 		fov: 90,
-		pan: 0,
+		pan: 0
 	}
 	
 	var style = {

@@ -6,7 +6,7 @@ $(document).ready(function() {
 	$('#jgooglemap').SaladoPlayerJSGoogleMap({
 		higlight_callback: jsgm_out_setPanorama,
 		setOpen_callback: jsgm_out_setOpen,
-		radar_id: 'radar_div',
+		radar_id: 'radar_div'
 	});
 });
 
