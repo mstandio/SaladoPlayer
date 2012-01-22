@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Point to image containig bitmaps grid with bitmaps for compass. You can choose from many such grids
-	or you can easily create your own. Compass reflects pan and panorama direction into geografphical direction.
 	
 	http://panozona.com/wiki/Module:Compass
 -->
@@ -12,7 +10,8 @@
 	</panoramas>
 	<modules>
 		<Compass path="~modules/compass/Compass-1.2.swf">
-			<settings path="~modules/compass/images/compass_dark_93x81.png" rotateNeedle="false"/>
+			<window align="vertical:middle" move="horizontal:20"/>
+			<settings path="~modules/compass/images/compass_dark_93x81.png"/>
 		</Compass>
 	</modules>
 </SaladoPlayer>

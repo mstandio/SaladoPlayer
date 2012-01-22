@@ -18,136 +18,44 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.compass {
 	
-	import com.panozona.modules.compass.data.CompassData;
+	import com.panozona.modules.compass.controller.WindowController;
+	import com.panozona.modules.compass.model.CompassData;
+	import com.panozona.modules.compass.view.WindowView;
 	import com.panozona.player.module.data.ModuleData;
-	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.Module;
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
-	import flash.display.Loader;
-	import flash.display.LoaderInfo;
-	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.events.IOErrorEvent;
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
-	import flash.net.URLRequest;
-	import flash.system.ApplicationDomain;
 	
-	
-	public class Compass extends Module{
+	public class Compass extends Module {
 		
 		private var compassData:CompassData;
 		
-		private var base:Sprite;
-		private var dial:Bitmap;
-		private var needle:Bitmap;
-		private var axis:Sprite;
-		
-		private var currentDirection:Number = 0;
-		
-		private var panoramaEventClass:Class;
+		private var windowView:WindowView;
+		private var windowController:WindowController;
 		
 		public function Compass() {
-			
-			super("Compass", "1.1", "http://panozona.com/wiki/Module:Compass");
+			super("Compass", "1.2", "http://panozona.com/wiki/Module:Compass");
+			moduleDescription.addFunctionDescription("toggleOpen");
+			moduleDescription.addFunctionDescription("setOpen", Boolean);
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			
-			compassData = new CompassData(moduleData, saladoPlayer);
+			compassData = new CompassData(moduleData, saladoPlayer); // always first
 			
-			panoramaEventClass = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-			
-			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0 , true);
-			
-			var compassLoader:Loader = new Loader();
-			compassLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, compassImageLost, false, 0, true);
-			compassLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, compassImageLoaded, false, 0, true);
-			compassLoader.load(new URLRequest(compassData.settings.path));
+			windowView = new WindowView(compassData);
+			windowController = new WindowController(windowView, this);
+			addChild(windowView);
 		}
 		
-		private function onPanoramaLoaded(e:Event):void {
-			currentDirection = saladoPlayer.manager.currentPanoramaData.direction;
+///////////////////////////////////////////////////////////////////////////////
+//  Exposed functions 
+///////////////////////////////////////////////////////////////////////////////
+		
+		public function setOpen(value:Boolean):void {
+			compassData.windowData.open = value;
 		}
 		
-		protected function compassImageLost(error:IOErrorEvent):void {
-			error.target.removeEventListener(IOErrorEvent.IO_ERROR, compassImageLost);
-			error.target.removeEventListener(Event.COMPLETE, compassImageLoaded);
-			printError(error.text);
-		}
-		
-		protected function compassImageLoaded(e:Event):void {
-			e.target.removeEventListener(IOErrorEvent.IO_ERROR, compassImageLost);
-			e.target.removeEventListener(Event.COMPLETE, compassImageLoaded);
-			
-			mouseEnabled = false;
-			mouseChildren = false;
-			
-			base = new Sprite();
-			addChild(base);
-			
-			var bitmapData:BitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
-			bitmapData.draw((e.target as LoaderInfo).content);
-			
-			var dialBitmapdata:BitmapData = new BitmapData(bitmapData.height, bitmapData.height, true, 0);
-			dialBitmapdata.copyPixels(bitmapData, new Rectangle(0, 0, bitmapData.height, bitmapData.height), new Point(0, 0), null, null, true)
-			dial = new Bitmap(dialBitmapdata);
-			
-			var needleBitmapdata:BitmapData = new BitmapData(bitmapData.width - bitmapData.height - 1, bitmapData.height, true, 0);
-			needleBitmapdata.copyPixels(bitmapData, new Rectangle(bitmapData.height + 1, 0, bitmapData.width - bitmapData.height - 1, bitmapData.height), new Point(0, 0), null, null, true);
-			needle = new Bitmap(needleBitmapdata);
-			
-			
-			if (compassData.settings.rotateNeedle) {
-				needle.x = -needle.width * 0.5;
-				needle.y = -needle.height * 0.5;
-				base.addChild(dial)
-				axis = new Sprite();
-				axis.x = dial.x + dial.width * 0.5;
-				axis.y = dial.y + dial.height * 0.5;
-				axis.addChild(needle);
-				base.addChild(axis);
-			}else {
-				axis = new Sprite();
-				axis.x = dial.width * 0.5;
-				axis.y = dial.height * 0.5;
-				dial.x = -dial.width * 0.5;
-				dial.y = -dial.height * 0.5;
-				needle.x = (dial.width - needle.width) * 0.5;
-				axis.addChild(dial);
-				base.addChild(axis);
-				base.addChild(needle);
-			}
-			
-			stage.addEventListener(Event.ENTER_FRAME, enterFrameHandler, false, 0, true );
-			
-			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
-			saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
-			handleResize();
-		}
-		
-		private function enterFrameHandler(event:Event):void{
-			axis.rotationZ = saladoPlayer.manager._pan + currentDirection;
-		}
-		
-		private function handleResize(e:Event = null):void {
-			if (compassData.settings.align.horizontal == Align.LEFT) {
-				base.x = 0;
-			}else if (compassData.settings.align.horizontal == Align.RIGHT) {
-				base.x = saladoPlayer.manager.boundsWidth - dial.width;
-			}else { // CENTER
-				base.x = (saladoPlayer.manager.boundsWidth - dial.width) * 0.5;
-			}
-			if (compassData.settings.align.vertical == Align.TOP){
-				base.y = 0;
-			}else if (compassData.settings.align.vertical == Align.BOTTOM) {
-				base.y = saladoPlayer.manager.boundsHeight - dial.height;
-			}else { // MIDDLE
-				base.y = (saladoPlayer.manager.boundsHeight - dial.height) * 0.5;
-			}
-			base.x += compassData.settings.move.horizontal;
-			base.y += compassData.settings.move.vertical;
+		public function toggleOpen():void {
+			compassData.windowData.open = !compassData.windowData.open;
 		}
 	}
 }

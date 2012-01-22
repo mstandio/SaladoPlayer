@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Point to image containig bitmaps grid with bitmaps for compass. You can choose from many such grids
+	or you can easily create your own. Compass reflects pan and panorama direction into geografphical direction.
+	
+	http://panozona.com/wiki/Module:Compass
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true" align="horizontal:left"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" direction="45">
+			<image id="cb_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openCompass"/>
+			<image id="cb_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeCompass"/>
+			<image id="cb_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenCompass"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<Compass path="~modules/compass/Compass-1.2.swf">
+			<settings path="~modules/compass/images/compass_dark_93x81.png"/>
+			<window open="false" onOpen="printOpen" onClose="printClose"/>
+			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
+		</Compass>
+	</modules>
+	<actions>
+		<action id="openCompass" content="Compass.setOpen(true)"/>
+		<action id="closeCompass" content="Compass.setOpen(false)"/>
+		<action id="toggleOpenCompass" content="Compass.toggleOpen()"/>
+		<action id="printOpen" content="SaladoPlayer.print(compass opened)"/>
+		<action id="printClose" content="SaladoPlayer.print(compass closed)"/>
+	</actions>
+</SaladoPlayer>
