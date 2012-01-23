@@ -10,11 +10,11 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBluea" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
-			<image id="bc_arrowRed" path="~hotspots/images/arrow_red.png" mouse="onClick:loadRedChecker"/>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+			<image id="bc_arrowRed" path="~hotspots/images/arrow_red.png" target="checkerRed"/>
 		</panorama>
-		<panorama id="checkerReda" path="~panoramas/dz_checker_red/checker_red_f.xml">
-			<image id="rc_arrowBlue" path="~hotspots/images/arrow_blue.png" mouse="onClick:loadBlueChecker"/>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
+			<image id="rc_arrowBlue" path="~hotspots/images/arrow_blue.png" target="checkerBlue"/>
 		</panorama>
 	</panoramas>
 	<modules>
@@ -30,8 +30,6 @@
 		</ImageButton>
 	</modules>
 	<actions>
-		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(checkerBluea)"/>
-		<action id="loadRedChecker" content="SaladoPlayer.loadPano(checkerReda)"/>
 		<action id="linkOpen" content="PanoLink.setOpen(true)"/>
 		<action id="linkClose" content="PanoLink.setOpen(false)"/>
 		<action id="onLinkOpen" content="ImageButton.setOpen(buttonOn,true)"/>

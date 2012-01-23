@@ -18,16 +18,19 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.data.panoramas {
 	
-	import com.panozona.player.module.data.property.*;
-	import flash.display.*;
+	import com.panozona.player.module.data.property.Location;
+	import com.panozona.player.module.data.property.Mouse;
+	import com.panozona.player.module.data.property.Transform;
 	
 	public class HotspotData{
 		
 		public var location:Location = new Location();
-		public var transform:Transform = new Transform();
+		public var target:String = null;
 		
 		public var mouse:Mouse = new Mouse();
 		public var handCursor:Boolean = true;
+		
+		public var transform:Transform = new Transform();
 		
 		protected var _id:String;
 		

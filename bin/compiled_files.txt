@@ -1,4 +1,4 @@
-src/com/panozona/player/SaladoPlayer.as -> SaladoPlayer-1.2.9swf
+src/com/panozona/player/SaladoPlayer.as -> SaladoPlayer-1.2.10.swf
 
 src/com/panozona/hotspots/advancedhotspot/AdvancedHotspot.as -> hotspots/AdvancedHotspot-1.0.swf
 src/com/panozona/hotspots/simplehotspot/SimpleHotspot.as -> hotspots/SimpleHotspot-1.0.swf

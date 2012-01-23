@@ -12,22 +12,19 @@
 	</global>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" onLeaveTo="checkerBlue:printGreenToBlue,checkerRed:printGreenToRed">
-			<image id="gc_ArrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:10" mouse="onClick:loadBlueChecker"/>
-			<image id="gc_ArrowRed" path="~hotspots/images/arrow_red.png" location="pan:-10" mouse="onClick:loadBlueChecker"/>
+			<image id="gc_ArrowRed" path="~hotspots/images/arrow_red.png" location="pan:-10" target="checkerRed"/>
+			<image id="gc_ArrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:10" target="checkerBlue"/>
 		</panorama>
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onLeaveTo="checkerGreen:printBlueToGreen,checkerRed:printBlueToRed">
-			<image id="bc_ArrowGreen" path="~hotspots/images/arrow_green.png" location="pan:10" mouse="onClick:loadcheckerGreen"/>
-			<image id="bc_ArrowRed" path="~hotspots/images/arrow_red.png" location="pan:-10" mouse="onClick:loadRedChecker"/>
+			<image id="bc_ArrowGreen" path="~hotspots/images/arrow_green.png" location="pan:10" target="checkerGreen"/>
+			<image id="bc_ArrowRed" path="~hotspots/images/arrow_red.png" location="pan:-10" target="checkerRed"/>
 		</panorama>
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml" onLeaveTo="checkerGreen:printRedToGreen,checkerBlue:printRedToBlue">
-			<image id="rc_ArrowGreen" path="~hotspots/images/arrow_green.png" location="pan:10" mouse="onClick:loadcheckerGreen"/>
-			<image id="rc_ArrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:-10" mouse="onClick:loadBlueChecker"/>
+			<image id="rc_ArrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:-10" target="checkerBlue"/>
+			<image id="rc_ArrowGreen" path="~hotspots/images/arrow_green.png" location="pan:10" target="checkerGreen"/>
 		</panorama>
 	</panoramas>
 	<actions>
-		<action id="loadcheckerGreen" content="SaladoPlayer.loadPano(checkerGreen)"/>
-		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(checkerBlue)"/>
-		<action id="loadRedChecker" content="SaladoPlayer.loadPano(checkerRed)"/>
 		<action id="printGreenToBlue" content="SaladoPlayer.print(Green checker says goodbeye have fun in blue one)"/>
 		<action id="printGreenToRed" content="SaladoPlayer.print(Green checker says goodbeye have fun in red one)"/>
 		<action id="printBlueToGreen" content="SaladoPlayer.print(Blue checker says goodbeye have fun in green one)"/>

@@ -8,10 +8,10 @@
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
-			<image id="gc_arrowRed" path="~hotspots/images/arrow_red.png" mouse="onClick:loadRedChecker"/>
+			<image id="gc_arrowRed" path="~hotspots/images/arrow_red.png" target="checkerRed"/>
 		</panorama>
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
-			<image id="rc_arrowGreen" path="~hotspots/images/arrow_green.png" mouse="onClick:loadcheckerGreen"/>
+			<image id="rc_arrowGreen" path="~hotspots/images/arrow_green.png" target="checkerGreen"/>
 		</panorama>
 	</panoramas>
 	<modules>
@@ -33,10 +33,8 @@
 		</JSGoogleMap>
 	</modules>
 	<actions>
-		<action id="jsgooglemapToggle" content="JSGoogleMap.toggleOpen()" />
-		<action id="jsgooglemapOnOpen" content="ButtonBar.setActive(b,true)" />
-		<action id="jsgooglemapOnClose" content="ButtonBar.setActive(b,false)" />
-		<action id="loadRedChecker" content="SaladoPlayer.loadPano(checkerRed)"/>
-		<action id="loadcheckerGreen" content="SaladoPlayer.loadPano(checkerGreen)"/>
+		<action id="jsgooglemapToggle" content="JSGoogleMap.toggleOpen()"/>
+		<action id="jsgooglemapOnOpen" content="ButtonBar.setActive(b,true)"/>
+		<action id="jsgooglemapOnClose" content="ButtonBar.setActive(b,false)"/>
 	</actions>
 </SaladoPlayer>

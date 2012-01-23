@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,16 +18,19 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils.configuration{
 	
+	import com.panozona.player.manager.data.actions.ActionData;
+	import com.panozona.player.manager.data.actions.FunctionData;
+	import com.panozona.player.manager.data.ManagerData;
+	import com.panozona.player.manager.data.panoramas.HotspotData;
+	import com.panozona.player.manager.data.panoramas.HotspotDataImage;
+	import com.panozona.player.manager.data.panoramas.HotspotDataSwf;
+	import com.panozona.player.manager.data.panoramas.PanoramaData;
+	import com.panozona.player.manager.events.ConfigurationEvent;
 	import com.panozona.player.manager.utils.loading.ILoadable;
-	import com.panozona.player.module.*;
-	import com.panozona.player.module.data.*;
-	import com.panozona.player.module.utils.*;
-	import com.panozona.player.manager.data.*;
-	import com.panozona.player.manager.data.actions.*;
-	import com.panozona.player.manager.data.panoramas.*;
-	import com.panozona.player.manager.events.*;
-	import flash.events.*;
-	import flash.utils.*;
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.utils.ModuleDescription;
+	import flash.events.EventDispatcher;
+	import flash.utils.getQualifiedClassName;
 	
 	public class ManagerDataValidator extends EventDispatcher{
 		
@@ -88,6 +91,11 @@ package com.panozona.player.manager.utils.configuration{
 					if (hotspotData.id == null || hotspotData.id.length == 0) {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
 							"Missig hotspot id."));
+						continue;
+					}
+					if (hotspotData.target != null && managerData.getPanoramaDataById(hotspotData.target) == null) {
+						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.ERROR,
+							"Panorama not found: " + hotspotData.target));
 						continue;
 					}
 					if (hotspotsId[hotspotData.id] != undefined) {

@@ -686,7 +686,7 @@ package com.panosalado.model{
 			if (!isNaN(_minimumHorizontalFieldOfView)) minimumPan = _minimumHorizontalFieldOfView + _fieldOfView / 2;
 			if (!isNaN(_maximumHorizontalFieldOfView)) maximumPan = _maximumHorizontalFieldOfView - _fieldOfView / 2;
 			
-			if (tile != null){
+			if (tile != null && tile.tilePyramid != null){
 				var boundsDiagonal:Number = Math.sqrt(_boundsWidth * _boundsWidth + _boundsHeight * _boundsHeight);
 				minimumFieldOfView = 2 * 180 / Math.PI * Math.atan(Math.tan(boundsDiagonal /
 					(tile.tilePyramid.width * Math.PI * _maximumPixelZoom / 90 * _tierThreshold * 2) * Math.PI / 180 ) *

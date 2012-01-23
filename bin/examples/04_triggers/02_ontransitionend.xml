@@ -10,15 +10,13 @@
 	</global>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" onEnter="printWelcomeGreen" onTransitionEnd="printReadyGreen">
-			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" mouse="onClick:loadBlueChecker"/>
+			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" target="checkerBlue"/>
 		</panorama>
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onEnter="printWelcomeBlue" onTransitionEnd="printReadyBlue">
-			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" mouse="onClick:loadcheckerGreen"/>
+			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" target="checkerGreen"/>
 		</panorama>
 	</panoramas>
 	<actions>
-		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(checkerBlue)"/>
-		<action id="loadcheckerGreen" content="SaladoPlayer.loadPano(checkerGreen)"/>
 		<action id="printWelcomeGreen" content="SaladoPlayer.print(Welcome in green checker)"/>
 		<action id="printReadyGreen" content="SaladoPlayer.print(Green checker finished transition)"/>
 		<action id="printWelcomeBlue" content="SaladoPlayer.print(Welcome in blue checker)"/>

@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,16 +18,31 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.utils.configuration {
 	
-	import com.panozona.player.module.data.*;
-	import com.panozona.player.manager.data.*;
-	import com.panozona.player.manager.data.actions.*;
-	import com.panozona.player.manager.data.global.*;
-	import com.panozona.player.manager.data.panoramas.*;
-	import com.panozona.player.manager.events.*;
-	import com.panozona.player.manager.utils.*;
-	import com.robertpenner.easing.*;
-	import flash.events.*;
-	import flash.utils.*;
+	import com.panozona.player.manager.data.actions.ActionData;
+	import com.panozona.player.manager.data.actions.FunctionData;
+	import com.panozona.player.manager.data.global.AllPanoramasData;
+	import com.panozona.player.manager.data.global.BrandingData;
+	import com.panozona.player.manager.data.global.ControlData;
+	import com.panozona.player.manager.data.global.StatsData;
+	import com.panozona.player.manager.data.global.TraceData;
+	import com.panozona.player.manager.data.ManagerData;
+	import com.panozona.player.manager.data.panoramas.HotspotData;
+	import com.panozona.player.manager.data.panoramas.HotspotDataImage;
+	import com.panozona.player.manager.data.panoramas.HotspotDataSwf;
+	import com.panozona.player.manager.data.panoramas.PanoramaData;
+	import com.panozona.player.manager.events.ConfigurationEvent;
+	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.data.ModuleData;
+	import com.robertpenner.easing.Back;
+	import com.robertpenner.easing.Bounce;
+	import com.robertpenner.easing.Cubic;
+	import com.robertpenner.easing.Elastic;
+	import com.robertpenner.easing.Expo;
+	import com.robertpenner.easing.Linear;
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
 	
 	public class ManagerDataParserXML extends EventDispatcher{
 		
@@ -262,6 +277,8 @@ package com.panozona.player.manager.utils.configuration {
 					hotspotAttributeName = hotspotAttribute.localName();
 					if (hotspotAttributeName == "location"){
 						applySubAttributes(hotspotData.location, hotspotAttribute);
+					}else if (hotspotAttributeName == "target"){
+						hotspotData.target = getAttributeValue(hotspotAttribute, String);
 					}else if (hotspotAttributeName == "mouse") {
 						applySubAttributes(hotspotData.mouse, hotspotAttribute);
 					}else if (hotspotAttributeName == "transform") {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Clicking on hotspots results in loading new panoramas.
+	Clicking on hotspots results in loading new panoramas. You can either assign action to mouse event
+	or use shortcut that targets hotspot to given panorama.
 	
 	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
 -->
@@ -8,21 +9,21 @@
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
-			<image id="rc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-10" mouse="onClick:loadcheckerGreen"/>
-			<image id="rc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:10" mouse="onClick:loadBlueChecker"/>
+			<image id="rc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-10" mouse="onClick:loadCheckerGreen"/>
+			<image id="rc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:10" mouse="onClick:loadCheckerBlue"/>
 		</panorama>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
-			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:-10" mouse="onClick:loadBlueChecker"/>
-			<image id="gc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:10" mouse="onClick:loadRedChecker"/>
+			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:-10" target="checkerBlue"/>
+			<image id="gc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:10" target="checkerRed"/>
 		</panorama>
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
-			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-10" mouse="onClick:loadcheckerGreen"/>
-			<image id="bc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:10" mouse="onClick:loadRedChecker"/>
+			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-10" mouse="onClick:loadCheckerGreen"/>
+			<image id="bc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:10" mouse="onClick:loadCheckerRed"/>
 		</panorama>
 	</panoramas>
 	<actions>
-		<action id="loadRedChecker" content="SaladoPlayer.loadPano(checkerRed)"/>
-		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(checkerBlue)"/>
-		<action id="loadcheckerGreen" content="SaladoPlayer.loadPano(checkerGreen)"/>
+		<action id="loadCheckerRed" content="SaladoPlayer.loadPano(checkerRed)"/>
+		<action id="loadCheckerBlue" content="SaladoPlayer.loadPano(checkerBlue)"/>
+		<action id="loadCheckerGreen" content="SaladoPlayer.loadPano(checkerGreen)"/>
 	</actions>
 </SaladoPlayer>

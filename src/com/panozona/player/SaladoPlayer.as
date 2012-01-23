@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,23 +18,42 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player {
 	
-	import com.panosalado.controller.*;
-	import com.panosalado.core.*;
-	import com.panosalado.model.*;
-	import com.panosalado.view.*;
-	import com.panozona.player.module.*;
-	import com.panozona.player.module.data.*;
-	import com.panozona.player.manager.*;
-	import com.panozona.player.manager.data.*;
-	import com.panozona.player.manager.utils.configuration.*;
-	import com.panozona.player.manager.events.*;
-	import com.panozona.player.manager.utils.loading.*;
-	import com.panozona.player.manager.utils.*;
+	import com.panosalado.controller.ArcBallCamera;
+	import com.panosalado.controller.AutorotationCamera;
+	import com.panosalado.controller.ICamera;
+	import com.panosalado.controller.InertialMouseCamera;
+	import com.panosalado.controller.IResizer;
+	import com.panosalado.controller.KeyboardCamera;
+	import com.panosalado.controller.Nanny;
+	import com.panosalado.controller.Resizer;
+	import com.panosalado.controller.ScrollCamera;
+	import com.panosalado.controller.SimpleTransition;
+	import com.panosalado.controller.StageReference;
+	import com.panosalado.model.DeepZoomTilePyramid;
+	import com.panosalado.view.Panorama;
+	import com.panozona.player.manager.data.ManagerData;
+	import com.panozona.player.manager.events.ConfigurationEvent;
+	import com.panozona.player.manager.events.LoadLoadableEvent;
+	import com.panozona.player.manager.Manager;
+	import com.panozona.player.manager.utils.Branding;
+	import com.panozona.player.manager.utils.configuration.ManagerDataParserXML;
+	import com.panozona.player.manager.utils.configuration.ManagerDataValidator;
+	import com.panozona.player.manager.utils.loading.ILoadable;
+	import com.panozona.player.manager.utils.loading.LoadablesLoader;
+	import com.panozona.player.manager.utils.Stats;
+	import com.panozona.player.manager.utils.Trace;
+	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.Module;
 	import com.spikything.utils.MouseWheelTrap;
-	import flash.display.*;
-	import flash.events.*;
-	import flash.net.*;
-	import flash.utils.*;
+	import flash.display.DisplayObject;
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.IOErrorEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
+	import flash.net.URLRequest;
+	import flash.utils.ByteArray;
+	import flash.utils.Dictionary;
 	
 	[SWF(width="500", height="375", frameRate="30")] // default size is MANDATORY
 	
@@ -95,10 +114,14 @@ package com.panozona.player {
 			try {
 				xmlLoader.addEventListener(IOErrorEvent.IO_ERROR, configurationLost);
 				xmlLoader.addEventListener(Event.COMPLETE, configurationLoaded);
-				xmlLoader.load(new URLRequest(loaderInfo.parameters.xml ? loaderInfo.parameters.xml + "?v=" + (new Date().getTime()) : "settings.xml?v=" + (new Date().getTime())));
+				xmlLoader.load(new URLRequest((loaderInfo.parameters.xml ?
+					(loaderInfo.parameters.xml + (loaderInfo.parameters.xml.indexOf("?") > 0 ? "&" : "?")) :
+					"settings.xml?") +
+					"v=" + new Date().getTime()));
 			}catch (error:Error) {
 				addChild(traceWindow);
-				traceWindow.printError("Could not load configuration, security error: " + error.message);
+				traceWindow.printError("Could not access local files, error: " + error.message);
+				traceWindow.printLink("http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html", "configure Global Security Settings");
 			}
 		}
 		
@@ -204,6 +227,7 @@ package com.panozona.player {
 			manager.initialize([
 				panorama,
 				DeepZoomTilePyramid,
+				//ZoomifyTilePyramid,
 				resizer,
 				managerData.controlData.keyboardCameraData,
 				keyboardCamera,

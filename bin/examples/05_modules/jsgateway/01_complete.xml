@@ -18,10 +18,10 @@
 	</global>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
-			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" mouse="onClick:loadBlueChecker"/>
+			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" target="checkerBlue"/>
 		</panorama>
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
-			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" mouse="onClick:loadcheckerGreen"/>
+			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" target="checkerGreen"/>
 		</panorama>
 	</panoramas>
 	<modules>
@@ -42,9 +42,6 @@
 		</JSGateway>
 	</modules>
 	<actions>
-		<action id="loadBlueChecker" content="SaladoPlayer.loadPano(checkerBlue)"/>
-		<action id="loadcheckerGreen" content="SaladoPlayer.loadPano(checkerGreen)"/>
-		
 		<action id="saladoPlayerToJavascript" content="JSGateway.run(js1)"/>
 		<action id="javaScriptToSaladoPlayer" content="SaladoPlayer.print(got called from javascript)"/>
 	</actions>

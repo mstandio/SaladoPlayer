@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,26 +18,35 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager {
 	
-	import com.panosalado.controller.*;
-	import com.panosalado.core.*;
-	import com.panosalado.events.*;
-	import com.panosalado.view.*;
-	import com.panozona.player.*;
-	import com.panozona.player.module.*;
-	import com.panozona.player.module.utils.*;
-	import com.panozona.player.manager.data.*;
-	import com.panozona.player.manager.data.actions.*;
-	import com.panozona.player.manager.data.panoramas.*;
-	import com.panozona.player.manager.events.*;
-	import com.panozona.player.manager.utils.*;
-	import com.panozona.player.manager.utils.loading.*;
-	import flash.display.*;
-	import flash.events.*;
-	import flash.utils.*;
+	import com.panosalado.controller.SimpleTransition;
+	import com.panosalado.core.PanoSalado;
+	import com.panosalado.events.PanoSaladoEvent;
+	import com.panosalado.view.Hotspot;
+	import com.panosalado.view.ManagedChild;
+	import com.panozona.player.manager.data.actions.ActionData;
+	import com.panozona.player.manager.data.actions.FunctionData;
+	import com.panozona.player.manager.data.ManagerData;
+	import com.panozona.player.manager.data.panoramas.HotspotData;
+	import com.panozona.player.manager.data.panoramas.HotspotDataSwf;
+	import com.panozona.player.manager.data.panoramas.PanoramaData;
+	import com.panozona.player.manager.events.LoadLoadableEvent;
+	import com.panozona.player.manager.events.PanoramaEvent;
+	import com.panozona.player.manager.utils.loading.LoadablesLoader;
+	import com.panozona.player.manager.utils.Trace;
+	import com.panozona.player.module.utils.ModuleDescription;
+	import com.panozona.player.SaladoPlayer;
+	import flash.display.Bitmap;
+	import flash.display.BlendMode;
+	import flash.display.DisplayObject;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
+	import flash.utils.Dictionary;
+	import flash.utils.Timer;
 	
 	public class Manager extends PanoSalado{
 		
-		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.2.6", "http://panozona.com/wiki/SaladoPlayer:Configuration");
+		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.2.10", "http://panozona.com/wiki/SaladoPlayer:Configuration");
 		
 		/**
 		 * Dictionary, where key is hotspotData object
@@ -195,6 +204,10 @@ package com.panozona.player.manager {
 			
 			managedChild.buttonMode = hotspotData.handCursor;
 			
+			if (hotspotData.target != null) {
+				managedChild.addEventListener(MouseEvent.CLICK, getTargetHandler(hotspotData.target));
+				arrListeners.push({type:MouseEvent.CLICK, listener:getTargetHandler(hotspotData.target)});
+			}
 			if (hotspotData.mouse.onClick != null) {
 				managedChild.addEventListener(MouseEvent.CLICK, getMouseEventHandler(hotspotData.mouse.onClick));
 				arrListeners.push({type:MouseEvent.CLICK, listener:getMouseEventHandler(hotspotData.mouse.onClick)});
@@ -257,6 +270,12 @@ package com.panozona.player.manager {
 		private function getMouseEventHandler(id:String):Function{
 			return function(e:MouseEvent):void {
 				runAction(id);
+			}
+		}
+		
+		private function getTargetHandler(panoramaId:String):Function{
+			return function(e:MouseEvent):void {
+				loadPanoramaById(panoramaId);
 			}
 		}
 		

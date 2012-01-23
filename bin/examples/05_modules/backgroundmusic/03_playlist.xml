@@ -22,16 +22,16 @@
 		</DropDown>
 		<BackgroundMusic path="~modules/BackgroundMusic-1.1.swf">
 			<tracks>
-				<track id="ancoral" path="~media/sound/looperman-ancoral-acp-string-choir-ensemble-01.mp3" loop="false" next="always"/>
-				<track id="always" path="~media/sound/looperman-djgadget-always.mp3" loop="false" next="ancoral"/>
 				<track id="spiccato" path="~media/sound/looperman-djgadget-catchy-spiccato-violins.mp3" loop="false" next="technologically"/>
 				<track id="technologically" path="~media/sound/looperman-moonwhisper-technologically.mp3" loop="false" next="spiccato"/>
+				<track id="ancoral" path="~media/sound/looperman-ancoral-acp-string-choir-ensemble-01.mp3" loop="false" next="always"/>
+				<track id="always" path="~media/sound/looperman-djgadget-always.mp3" loop="false" next="ancoral"/>
 			</tracks>
 		</BackgroundMusic>
 	</modules>
 	<actions>
 		<action id="playBgMusic" content="BackgroundMusic.setPlay(true)"/>
-		<action id="setTrackAncoral" content="BackgroundMusic.setTrack(ancoral)"/>
-		<action id="setTrackSpiccato" content="BackgroundMusic.setTrack(spiccato)"/>
+		<action id="setTrackAncoral" content="BackgroundMusic.setTrack(spiccato)"/>
+		<action id="setTrackSpiccato" content="BackgroundMusic.setTrack(ancoral)"/>
 	</actions>
 </SaladoPlayer>
