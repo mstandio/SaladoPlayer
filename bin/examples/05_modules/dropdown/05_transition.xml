@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	
+	http://panozona.com/wiki/Module:DropDown
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
+			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openDropDown"/>
+			<image id="bc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeDropDown"/>
+			<image id="bc_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenDropDown"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<DropDown path="~modules/DropDown-1.2.swf">
+			<window transition="type:slideUp" openTween="transition:Bounce.easeOut,time:0.75" closeTween="transition:Expo.easeIn,time:0.75"/>
+			<elements>
+				<element target="checkerYellow" label="Yellow checker"/>
+			</elements>
+		</DropDown>
+	</modules>
+	<actions>
+		<action id="openDropDown" content="DropDown.setOpen(true)"/>
+		<action id="closeDropDown" content="DropDown.setOpen(false)"/>
+		<action id="toggleOpenDropDown" content="DropDown.toggleOpen()"/>
+	</actions>
+</SaladoPlayer>

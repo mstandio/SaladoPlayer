@@ -70,8 +70,8 @@ package com.panozona.player.manager {
 			description.addFunctionDescription("print", String);
 			description.addFunctionDescription("loadPano", String);
 			description.addFunctionDescription("waitThen", Number, String);
-			description.addFunctionDescription("moveToHotspot", String);
-			description.addFunctionDescription("moveToHotspotThen", String, String);
+			description.addFunctionDescription("moveToHotspot", String, Number);
+			description.addFunctionDescription("moveToHotspotThen", String, Number, String);
 			description.addFunctionDescription("moveToView", Number, Number, Number);
 			description.addFunctionDescription("moveToViewThen", Number, Number, Number, String);
 			description.addFunctionDescription("jumpToView", Number, Number, Number);
@@ -351,20 +351,20 @@ package com.panozona.player.manager {
 			loadPanoramaById(panramaId);
 		}
 		
-		public function moveToHotspot(hotspotId:String):void {
+		public function moveToHotspot(hotspotId:String, fieldOfView:Number):void {
 			if (panoramaIsMoving) return;
 			panoramaIsMoving = true;
 			pendingActionId = null;
 			addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
-			swingToChild(hotspots[currentPanoramaData.hotspotDataById(hotspotId)]);
+			swingToChild(hotspots[currentPanoramaData.hotspotDataById(hotspotId)], fieldOfView);
 		}
 		
-		public function moveToHotspotThen(hotspotId:String, actionId:String):void {
+		public function moveToHotspotThen(hotspotId:String, fieldOfView:Number, actionId:String):void {
 			if (panoramaIsMoving) return;
 			panoramaIsMoving = true;
 			pendingActionId = actionId; 
 			addEventListener(PanoSaladoEvent.SWING_TO_CHILD_COMPLETE, swingComplete);
-			swingToChild(hotspots[currentPanoramaData.hotspotDataById(hotspotId)]);
+			swingToChild(hotspots[currentPanoramaData.hotspotDataById(hotspotId)], fieldOfView);
 		}
 		
 		public function moveToView(pan:Number, tilt:Number, fieldOfView:Number):void {

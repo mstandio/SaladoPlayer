@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	
+	http://panozona.com/wiki/Module:DropDown
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="CheckerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
+	</panoramas>
+	<modules>
+		<DropDown path="~modules/DropDown-1.2.swf">
+			<elements>
+				<extraElement id="pano" label="Pano" action="setPano"/>
+				<extraElement id="zona" label="Zona" action="setZona"/>
+			</elements>
+		</DropDown>
+	</modules>
+	<actions>
+		<action id="setPano" content="SaladoPlayer.print(Pano);DropDown.setActive(pano)"/>
+		<action id="setZona" content="SaladoPlayer.print(Zona);DropDown.setActive(zona)"/>
+	</actions>
+</SaladoPlayer>

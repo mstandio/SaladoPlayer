@@ -26,8 +26,8 @@
 		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
 	</modules>
 	<actions>
-		<action id="moveToArrowYellow" content="SaladoPlayer.moveToHotspot(gc_arrowYellow)"/>
-		<action id="moveToArrowRedThen" content="SaladoPlayer.moveToHotspotThen(gc_arrowRed,printZona)"/>
+		<action id="moveToArrowYellow" content="SaladoPlayer.moveToHotspot(gc_arrowYellow,30)"/>
+		<action id="moveToArrowRedThen" content="SaladoPlayer.moveToHotspotThen(gc_arrowRed,60,printZona)"/>
 		<action id="advancedMoveToArrowBlue" content="SaladoPlayer.advancedMoveToHotspot(gc_arrowBlue,120,30,Expo.easeIn)"/>
 		<action id="advancedMoveToArrowGreenThen" content="SaladoPlayer.advancedMoveToHotspotThen(gc_arrowGreen,NaN,30,Expo.easeIn,printPano)"/>
 		<action id="printPano" content="SaladoPlayer.print(Pano)"/>

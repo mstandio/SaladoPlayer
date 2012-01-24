@@ -37,7 +37,7 @@ package com.panozona.modules.dropdown{
 			super("DropDown", "1.2", "http://panozona.com/wiki/Module:DropDown");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen");
-			moduleDescription.addFunctionDescription("setActive", String, Boolean);
+			moduleDescription.addFunctionDescription("setActive", String);
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
@@ -60,16 +60,23 @@ package com.panozona.modules.dropdown{
 			dropDownData.windowData.open = !dropDownData.windowData.open;
 		}
 		
-		public function setActive(id:String, active:Boolean):void {
+		public function setActive(id:String):void {
 			var elementView:ElementView;
+			var found:Boolean = false;
 			for (var i:int = 0; i < windowView.boxView.elementsContainer.numChildren; i++) {
 				elementView = windowView.boxView.elementsContainer.getChildAt(i) as ElementView;
-				if (elementView.elementData.rawElement is ExtraElement && (elementView.elementData.rawElement as ExtraElement).id == id) {
-					elementView.elementData.isActive = active;
-					return;
+				if (elementView.elementData.rawElement is ExtraElement) {
+					if ((elementView.elementData.rawElement as ExtraElement).id == id) {
+						elementView.elementData.isActive = true;
+						found = true;
+					}else {
+						elementView.elementData.isActive = false;
+					}
 				}
 			}
-			printWarning("ExtraElement not found: " + id);
+			if(!found){
+				printWarning("ExtraElement not found: " + id);
+			}
 		}
 	}
 }
