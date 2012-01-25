@@ -17,18 +17,21 @@
 			params.devicefont = "false";
 			params.allowfullscreen = "true";
 			params.allowscriptaccess = "sameDomain";
-			swfobject.embedSWF("../../SaladoPlayer-1.2.swf", "SaladoPlayer", "100%", "80%", "10.1.0", "../../embed/expressInstall.swf", flashvars, params);
+			swfobject.embedSWF("../../SaladoPlayer-1.2.10.swf", "SaladoPlayer", "100%", "100%", "10.1.0", "../../embed/expressInstall.swf", flashvars, params);
 		</script>
+		<link type="text/css" href="resources/style.css" rel="stylesheet">
 	</head>
-	<body bgcolor="#000000">
-		<div id="SaladoPlayer">
-			<a href="http://www.adobe.com/go/getflashplayer">
-				<img src="../../embed/get_flash_player.gif" alt="Get Adobe Flash player"/>
-			</a>
+	<body>
+		<div id="wrapper">
+			<div id="SaladoPlayer">
+				<a href="http://www.adobe.com/go/getflashplayer">
+					<img src="../../embed/get_flash_player.gif" alt="Get Adobe Flash player"/>
+				</a>
+			</div>
+			<div>
+				<a href="?pano=redChecker&cam=170,8,90">redChecker pan:170 tilt:8 fov:90</a><br/>
+				<a href="?pano=blueChecker&cam=20,-20,120">blueCheckerpan: 20 tilt:-20 fov:120</a>
+			</div>
 		</div>
-		<br/>
-		<a href="?pano=redChecker&cam=170,8,90">redChecker pan:170 tilt:8 fov:90</a><br/>
-		<a href="?pano=blueChecker&cam=20,-20,120">blueCheckerpan: 20 tilt:-20 fov:120</a>
-		
 	</body>
 </html>

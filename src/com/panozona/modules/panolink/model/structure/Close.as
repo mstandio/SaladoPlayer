@@ -16,17 +16,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.panolink.model{
+package com.panozona.modules.panolink.model.structure{
 	
-	public class EmbededGraphics{
+	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Move;
+	
+	public class Close{
 		
-		[Embed(source="../assets/copy_plain.png")]
-			public static const BitmapCopyPlain:Class;
-		[Embed(source="../assets/copy_press.png")]
-			public static const BitmapCopyPress:Class;
-		[Embed(source="../assets/close_plain.png")]
-			public static const BitmapClosePlain:Class;
-		[Embed(source="../assets/close_press.png")]
-			public static const BitmapClosePress:Class;
+		public var path:String = null;
+		
+		public const align:Align = new Align(Align.RIGHT, Align.TOP);
+		public const move:Move = new Move(0, 0);
 	}
 }

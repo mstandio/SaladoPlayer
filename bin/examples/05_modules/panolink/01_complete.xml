@@ -22,11 +22,13 @@
 		<PanoLink path="~modules/PanoLink-1.0.swf">
 			<window open="false" onOpen="onLinkOpen" onClose="onLinkClose"/>
 		</PanoLink>
-		<ImageButton path="~modules/ImageButton-1.2.swf">
-			<buttons>
-				<button id="buttonOn" path="~media/images/misc/on.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:linkClose"/>
-				<button id="buttonOff" path="~media/images/misc/off.png" align="vertical:top,horizontal:left" move="horizontal:30,vertical:30" mouse="onClick:linkOpen"/>
-			</buttons>
+		<ImageButton path="~modules/ImageButton-1.3.swf">
+			<button id="buttonOn" path="~media/images/misc/on.png" action="linkClose">
+				<window align="vertical:top,horizontal:left" move="horizontal:30,vertical:30"/>
+			</button>
+			<button id="buttonOff" path="~media/images/misc/off.png" action="linkOpen">
+				<window align="vertical:top,horizontal:left" move="horizontal:30,vertical:30"/>
+			</button>
 		</ImageButton>
 	</modules>
 	<actions>
