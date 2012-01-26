@@ -19,7 +19,8 @@
 	</panoramas>
 	<modules>
 		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
-		<PanoLink path="~modules/PanoLink-1.0.swf">
+		<PanoLink path="~modules/panolink/PanoLink-1.1.swf">
+			<settings path="~modules/panolink/copy_dark_30x30.png"/>
 			<window open="false" onOpen="onLinkOpen" onClose="onLinkClose"/>
 		</PanoLink>
 		<ImageButton path="~modules/ImageButton-1.3.swf">

@@ -57,16 +57,18 @@
 			params.devicefont = "false";
 			params.allowfullscreen = "true";
 			params.allowscriptaccess = "sameDomain";
-			swfobject.embedSWF("../../SaladoPlayer-1.2.7.swf", "SaladoPlayer", "100%", "80%", "10.0.0", "../../embed/expressInstall.swf", flashvars, params);
+			swfobject.embedSWF("../../SaladoPlayer-1.2.10.swf", "SaladoPlayer", "100%", "100%", "10.0.0", "../../embed/expressInstall.swf", flashvars, params);
 		</script>
+		<link type="text/css" href="resources/style.css" rel="stylesheet">
 	</head>
 	<body bgcolor="#000000">
-		<div id="SaladoPlayer">
-			<a href="http://www.adobe.com/go/getflashplayer">
-				<img src="../../embed/get_flash_player.gif" alt="Get Adobe Flash player" />
-			</a>
-		</div>
-		<div style="text-align:center; margin-top:10px;">
+		<div id="wrapper">
+			<div id="SaladoPlayer">
+				<a href="http://www.adobe.com/go/getflashplayer">
+					<img src="../../embed/get_flash_player.gif" alt="Get Adobe Flash player"/>
+				</a>
+			</div>
+			<div style="text-align:center; margin-top:10px;">
 			<u><a href="#" onClick="handleClick1('javaScriptToSaladoPlayer');">Click here to execute action "javaScriptToSaladoPlayer"</a></u>
 			<u><a href="#" onClick="handleClick2();">Click here to call exposed actionscript function</a></u>
 			<form>
