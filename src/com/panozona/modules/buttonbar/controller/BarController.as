@@ -112,7 +112,7 @@ package com.panozona.modules.buttonbar.controller{
 			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, buttonsImageLoaded);
 			buttonsBitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
 			buttonsBitmapData.draw((e.target as LoaderInfo).content);
-			buttonSize.width = Math.ceil((buttonsBitmapData.width - 9) / 10);
+			buttonSize.width = Math.ceil((buttonsBitmapData.width - 8) / 9);
 			buttonSize.height = Math.ceil((buttonsBitmapData.height - 3) / 4);
 			updateButtonsBar();
 			onIsAutorotatingChange();
@@ -146,14 +146,12 @@ package com.panozona.modules.buttonbar.controller{
 					buttonView.buttonData.onRelease = outRelease;
 				}else if (button.name == "drag") {
 					buttonView.buttonData.onPress = dragToggle;
-				}else if (button.name == "hotspots") {
-					buttonView.buttonData.onPress = hotspotsToggle;
 				}else if (button.name == "autorotation") {
 					buttonView.buttonData.onPress = autorotateToggle;
 				}else if (button.name == "fullscreen") {
 					buttonView.buttonData.onRelease = fullscreenToggle;
 				}else if(button.name == "a" || button.name == "b" || button.name == "c" || button.name == "d" || button.name == "e" ||
-						 button.name == "f" || button.name == "g" || button.name == "h" || button.name == "i" || button.name == "j") {
+						 button.name == "f" || button.name == "g" || button.name == "h" || button.name == "i") {
 					if (button is ExtraButton) {
 						buttonView.buttonData.onPress = extraButtonFunction(button as ExtraButton);
 					}else {
@@ -183,64 +181,58 @@ package com.panozona.modules.buttonbar.controller{
 				buttonView = _barView.buttonsContainer.getChildAt(i) as ButtonView;
 				if (buttonView.buttonData.button.name == "left") {
 					buttonView.bitmapDataPlain = getButtonBitmap(0);
-					buttonView.bitmapDataActive = getButtonBitmap(10);
+					buttonView.bitmapDataActive = getButtonBitmap(9);
 				}else if (buttonView.buttonData.button.name == "right") {
 					buttonView.bitmapDataPlain = getButtonBitmap(1);
-					buttonView.bitmapDataActive = getButtonBitmap(11);
+					buttonView.bitmapDataActive = getButtonBitmap(10);
 				}else if (buttonView.buttonData.button.name == "down") {
 					buttonView.bitmapDataPlain = getButtonBitmap(2);
-					buttonView.bitmapDataActive = getButtonBitmap(12);
+					buttonView.bitmapDataActive = getButtonBitmap(11);
 				}else if (buttonView.buttonData.button.name == "up") {
 					buttonView.bitmapDataPlain = getButtonBitmap(3);
-					buttonView.bitmapDataActive = getButtonBitmap(13);
+					buttonView.bitmapDataActive = getButtonBitmap(12);
 				}else if (buttonView.buttonData.button.name == "out") {
 					buttonView.bitmapDataPlain = getButtonBitmap(4);
-					buttonView.bitmapDataActive = getButtonBitmap(14);
+					buttonView.bitmapDataActive = getButtonBitmap(13);
 				}else if (buttonView.buttonData.button.name == "in") {
 					buttonView.bitmapDataPlain = getButtonBitmap(5);
-					buttonView.bitmapDataActive = getButtonBitmap(15);
+					buttonView.bitmapDataActive = getButtonBitmap(14);
 				}else if (buttonView.buttonData.button.name == "drag") {
 					buttonView.bitmapDataPlain = getButtonBitmap(6);
-					buttonView.bitmapDataActive = getButtonBitmap(16);
-				}else if (buttonView.buttonData.button.name == "hotspots") {
-					buttonView.bitmapDataPlain = getButtonBitmap(7);
-					buttonView.bitmapDataActive = getButtonBitmap(17);
+					buttonView.bitmapDataActive = getButtonBitmap(15);
 				}else if (buttonView.buttonData.button.name == "autorotation") {
-					buttonView.bitmapDataPlain = getButtonBitmap(8);
-					buttonView.bitmapDataActive = getButtonBitmap(18);
+					buttonView.bitmapDataPlain = getButtonBitmap(7);
+					buttonView.bitmapDataActive = getButtonBitmap(16);
 				}else if (buttonView.buttonData.button.name == "fullscreen") {
-					buttonView.bitmapDataPlain = getButtonBitmap(9);
-					buttonView.bitmapDataActive = getButtonBitmap(19);
+					buttonView.bitmapDataPlain = getButtonBitmap(8);
+					buttonView.bitmapDataActive = getButtonBitmap(17);
 				}else if (buttonView.buttonData.button.name == "a") {
-					buttonView.bitmapDataPlain = getButtonBitmap(20);
-					buttonView.bitmapDataActive = getButtonBitmap(30);
+					buttonView.bitmapDataPlain = getButtonBitmap(18);
+					buttonView.bitmapDataActive = getButtonBitmap(27);
 				}else if (buttonView.buttonData.button.name == "b") {
-					buttonView.bitmapDataPlain = getButtonBitmap(21);
-					buttonView.bitmapDataActive = getButtonBitmap(31);
+					buttonView.bitmapDataPlain = getButtonBitmap(19);
+					buttonView.bitmapDataActive = getButtonBitmap(28);
 				}else if (buttonView.buttonData.button.name == "c") {
-					buttonView.bitmapDataPlain = getButtonBitmap(22);
-					buttonView.bitmapDataActive = getButtonBitmap(32);
+					buttonView.bitmapDataPlain = getButtonBitmap(20);
+					buttonView.bitmapDataActive = getButtonBitmap(29);
 				}else if (buttonView.buttonData.button.name == "d") {
-					buttonView.bitmapDataPlain = getButtonBitmap(23);
-					buttonView.bitmapDataActive = getButtonBitmap(33);
+					buttonView.bitmapDataPlain = getButtonBitmap(21);
+					buttonView.bitmapDataActive = getButtonBitmap(30);
 				}else if (buttonView.buttonData.button.name == "e") {
-					buttonView.bitmapDataPlain = getButtonBitmap(24);
-					buttonView.bitmapDataActive = getButtonBitmap(34);
+					buttonView.bitmapDataPlain = getButtonBitmap(22);
+					buttonView.bitmapDataActive = getButtonBitmap(31);
 				}else if (buttonView.buttonData.button.name == "f") {
-					buttonView.bitmapDataPlain = getButtonBitmap(25);
-					buttonView.bitmapDataActive = getButtonBitmap(35);
+					buttonView.bitmapDataPlain = getButtonBitmap(23);
+					buttonView.bitmapDataActive = getButtonBitmap(32);
 				}else if (buttonView.buttonData.button.name == "g") {
-					buttonView.bitmapDataPlain = getButtonBitmap(26);
-					buttonView.bitmapDataActive = getButtonBitmap(36);
+					buttonView.bitmapDataPlain = getButtonBitmap(24);
+					buttonView.bitmapDataActive = getButtonBitmap(33);
 				}else if (buttonView.buttonData.button.name == "h") {
-					buttonView.bitmapDataPlain = getButtonBitmap(27);
-					buttonView.bitmapDataActive = getButtonBitmap(37);
+					buttonView.bitmapDataPlain = getButtonBitmap(25);
+					buttonView.bitmapDataActive = getButtonBitmap(34);
 				}else if (buttonView.buttonData.button.name == "i") {
-					buttonView.bitmapDataPlain = getButtonBitmap(28);
-					buttonView.bitmapDataActive = getButtonBitmap(38);
-				}else if (buttonView.buttonData.button.name == "j") {
-					buttonView.bitmapDataPlain = getButtonBitmap(29);
-					buttonView.bitmapDataActive = getButtonBitmap(39);
+					buttonView.bitmapDataPlain = getButtonBitmap(26);
+					buttonView.bitmapDataActive = getButtonBitmap(35);
 				}
 				
 				if (isNaN(buttonView.buttonData.button.move.horizontal) && isNaN(buttonView.buttonData.button.move.vertical)) {
@@ -268,17 +260,17 @@ package com.panozona.modules.buttonbar.controller{
 		
 		// ids hardcoded 
 		// button id as in:
-		// [ 0][ 1][ 2][ 3][ 4][ 5][ 6][ 7][ 8][ 9]
-		// [10][11][12][13][14][15][16][17][18][19]
-		// [20][21][22][23][24][25][26][27][28][29]
-		// [30][31][32][33][34][35][36][37][38][39]
+		// [ 0][ 1][ 2][ 3][ 4][ 5][ 6][ 7][ 8]
+		// [ 9][10][11][12][13][14][15][16][17]
+		// [18][19][20][21][22][23][24][25][26]
+		// [27][28][29][30][31][32][33][34][35]
 		private function getButtonBitmap(buttonId:int):BitmapData {
 			var bmd:BitmapData = new BitmapData(buttonSize.width, buttonSize.height, true, 0);
 			bmd.copyPixels(
 				buttonsBitmapData,
 				new Rectangle(
-					(buttonId % 10) * buttonSize.width + 1 * (buttonId % 10),
-					Math.floor(buttonId / 10) * buttonSize.height + 1 * Math.floor(buttonId / 10),
+					(buttonId % 9) * buttonSize.width + 1 * (buttonId % 9),
+					Math.floor(buttonId / 9) * buttonSize.height + 1 * Math.floor(buttonId / 9),
 					buttonSize.width,
 					buttonSize.height),
 				new Point(0, 0),
@@ -348,12 +340,6 @@ package com.panozona.modules.buttonbar.controller{
 				_module.saladoPlayer.managerData.controlData.inertialMouseCameraData.enabled = true;
 				_module.saladoPlayer.managerData.controlData.arcBallCameraData.enabled = false;
 			}
-		}
-		
-		private function hotspotsToggle(e:Event = null):void {
-			_module.saladoPlayer.manager.managedChildren.visible = !_module.saladoPlayer.manager.managedChildren.visible;
-			hotspots = _module.saladoPlayer.manager.managedChildren.visible;
-			displayHotspots();
 		}
 		
 		private function displayHotspots():void {

@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,21 +18,21 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.panolink.view {
 	
-	import com.panozona.modules.compass.model.CompassData;
+	import com.panozona.modules.panolink.model.PanoLinkData;
 	import flash.display.Sprite;
 	
 	public class CloseView extends Sprite {
 		
-		private var _compassData:CompassData;
+		private var _panoLinkData:PanoLinkData;
 		
-		public function CloseView(compassData:CompassData):void{
-			_compassData = compassData;
-			alpha = 1 / _compassData.windowData.window.alpha;
+		public function CloseView(panoLinkData:PanoLinkData):void{
+			_panoLinkData = panoLinkData;
+			alpha = 1 / _panoLinkData.windowData.window.alpha;
 			buttonMode = true;
 		}
 		
-		public function get compassData():CompassData {
-			return _compassData;
+		public function get panoLinkData():PanoLinkData {
+			return _panoLinkData;
 		}
 	}
 }

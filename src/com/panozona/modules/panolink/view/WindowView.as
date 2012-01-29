@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,51 +20,29 @@ package com.panozona.modules.panolink.view{
 	
 	import com.panozona.modules.panolink.model.PanoLinkData;
 	import com.panozona.modules.panolink.model.WindowData;
-	import com.panozona.modules.panolink.model.EmbededGraphics;
-	import flash.display.Bitmap;
-	import flash.display.SimpleButton;
+	import com.panozona.modules.panolink.view.CloseView;
 	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
 	
 	public class WindowView extends Sprite{
 		
-		public const window:Sprite = new Sprite;
-		private var windowCloseButton:SimpleButton;
+		private var _linkView:LinkView;
+		private var _closeView:CloseView;
 		
 		private var _panoLinkData:PanoLinkData;
-		
-		private var _linkView:LinkView;
 		
 		public function WindowView(panoLinkData:PanoLinkData){
 			
 			_panoLinkData = panoLinkData;
 			
+			this.alpha = _panoLinkData.windowData.window.alpha;
+			
+			_linkView = new LinkView(_panoLinkData);
+			addChild(_linkView);
+			
+			_closeView = new CloseView(_panoLinkData);
+			addChild(_closeView);
+			
 			visible = _panoLinkData.windowData.open;
-			
-			window.graphics.beginFill(0xFFFFFF);
-			window.graphics.drawRect(0, 0, panoLinkData.windowData.window.size.width, panoLinkData.windowData.window.size.height);
-			window.graphics.endFill();
-			addChild(window);
-			
-			// draw close button
-			windowCloseButton = new SimpleButton();
-			var closePlainIcon:Sprite = new Sprite();
-			closePlainIcon.addChild(new Bitmap(new EmbededGraphics.BitmapClosePlain().bitmapData));
-			var closePressIcon:Sprite = new Sprite();
-			closePressIcon.addChild(new Bitmap(new EmbededGraphics.BitmapClosePress().bitmapData));
-			windowCloseButton.upState = closePlainIcon;
-			windowCloseButton.overState = closePlainIcon;
-			windowCloseButton.downState = closePressIcon;
-			windowCloseButton.hitTestState = closePressIcon;
-			windowCloseButton.x = window.width - windowCloseButton.width - 3;
-			windowCloseButton.y = 3;
-			window.addChild(windowCloseButton);
-			
-			windowCloseButton.addEventListener(MouseEvent.CLICK, closeWindow, false, 0, true);
-			
-			_linkView = new LinkView(panoLinkData);
-			window.addChild(_linkView);
 		}
 		
 		public function get panoLinkData():PanoLinkData {
@@ -79,8 +57,8 @@ package com.panozona.modules.panolink.view{
 			return _linkView;
 		}
 		
-		private function closeWindow(e:Event):void {
-			panoLinkData.windowData.open = false;
+		public function get closeView():CloseView {
+			return _closeView;
 		}
 	}
 }

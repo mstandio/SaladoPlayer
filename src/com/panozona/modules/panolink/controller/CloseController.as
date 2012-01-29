@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,8 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.panolink.controller {
 	
-	import com.panozona.modules.compass.events.WindowEvent;
-	import com.panozona.modules.compass.view.CloseView;
+	import com.panozona.modules.panolink.events.WindowEvent;
+	import com.panozona.modules.panolink.view.CloseView;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.Module;
 	import flash.display.Loader;
@@ -37,9 +37,9 @@ package com.panozona.modules.panolink.controller {
 			_closeView = closeView;
 			_module = module;
 			
-			_closeView.compassData.windowData.addEventListener(WindowEvent.CHANGED_SIZE, placeonWindow, false, 0, true);
+			_closeView.panoLinkData.windowData.addEventListener(WindowEvent.CHANGED_SIZE, placeonWindow, false, 0, true);
 			
-			if (_closeView.compassData.close.path == null) {
+			if (_closeView.panoLinkData.close.path == null) {
 				module.mouseEnabled = false;
 				module.mouseChildren = false;
 				return;
@@ -48,7 +48,7 @@ package com.panozona.modules.panolink.controller {
 			var imageLoader:Loader = new Loader();
 			imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
 			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
-			imageLoader.load(new URLRequest(_closeView.compassData.close.path));
+			imageLoader.load(new URLRequest(_closeView.panoLinkData.close.path));
 		}
 		
 		private function imageLost(error:IOErrorEvent):void {
@@ -66,26 +66,26 @@ package com.panozona.modules.panolink.controller {
 		}
 		
 		private function placeonWindow(e:Event = null):void {
-			if (_closeView.compassData.close.align.horizontal == Align.LEFT) {
+			if (_closeView.panoLinkData.close.align.horizontal == Align.LEFT) {
 				_closeView.x = 0;
-			}else if (_closeView.compassData.close.align.horizontal == Align.RIGHT) {
-				_closeView.x = _closeView.compassData.windowData.size.width - _closeView.width;
+			}else if (_closeView.panoLinkData.close.align.horizontal == Align.RIGHT) {
+				_closeView.x = _closeView.panoLinkData.windowData.size.width - _closeView.width;
 			}else { // CENTER
-				_closeView.x = (_closeView.compassData.windowData.size.width - _closeView.width) * 0.5;
+				_closeView.x = (_closeView.panoLinkData.windowData.size.width - _closeView.width) * 0.5;
 			}
-			if (_closeView.compassData.close.align.vertical == Align.TOP){
+			if (_closeView.panoLinkData.close.align.vertical == Align.TOP){
 				_closeView.y = 0;
-			}else if (_closeView.compassData.close.align.vertical == Align.BOTTOM) {
-				_closeView.y = _closeView.compassData.windowData.size.height - _closeView.height;
+			}else if (_closeView.panoLinkData.close.align.vertical == Align.BOTTOM) {
+				_closeView.y = _closeView.panoLinkData.windowData.size.height - _closeView.height;
 			}else { // MIDDLE
-				_closeView.y = (_closeView.compassData.windowData.size.height - _closeView.height) * 0.5;
+				_closeView.y = (_closeView.panoLinkData.windowData.size.height - _closeView.height) * 0.5;
 			}
-			_closeView.x += _closeView.compassData.close.move.horizontal;
-			_closeView.y += _closeView.compassData.close.move.vertical;
+			_closeView.x += _closeView.panoLinkData.close.move.horizontal;
+			_closeView.y += _closeView.panoLinkData.close.move.vertical;
 		}
 		
 		private function handleMouseClick(e:Event):void {
-			_closeView.compassData.windowData.open = false;
+			_closeView.panoLinkData.windowData.open = false;
 		}
 	}
 }

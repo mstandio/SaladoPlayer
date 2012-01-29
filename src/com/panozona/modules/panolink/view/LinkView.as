@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -16,11 +16,12 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.panolink.view{
+package com.panozona.modules.panolink.view {
 	
-	import com.panozona.modules.panolink.model.EmbededGraphics;
 	import com.panozona.modules.panolink.model.PanoLinkData;
+	import com.panozona.player.module.data.property.Size;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.SimpleButton;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -29,12 +30,12 @@ package com.panozona.modules.panolink.view{
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	
-	public class LinkView extends Sprite{
+	public class LinkView extends Sprite {
 		
 		private var textField:TextField;
 		private var textFormat:TextFormat;
 		
-		private var textCopyButton:SimpleButton;
+		public const copyButton:SimpleButton = new SimpleButton();
 		
 		private var _panoLinkData:PanoLinkData;
 		
@@ -42,38 +43,36 @@ package com.panozona.modules.panolink.view{
 			
 			_panoLinkData = panoLinkData;
 			
-			// draw copy button
-			textCopyButton = new SimpleButton(); // todo: do not use simplebutton!
-			var copyPlainIcon:Sprite = new Sprite();
-			copyPlainIcon.addChild(new Bitmap(new EmbededGraphics.BitmapCopyPlain().bitmapData));
-			var copyPressIcon:Sprite = new Sprite();
-			copyPressIcon.addChild(new Bitmap(new EmbededGraphics.BitmapCopyPress().bitmapData));
-			textCopyButton.upState = copyPlainIcon;
-			textCopyButton.overState = copyPlainIcon;
-			textCopyButton.downState = copyPressIcon;
-			textCopyButton.hitTestState = copyPressIcon;
-			textCopyButton.x = _panoLinkData.windowData.window.size.width - textCopyButton.width - 30;
-			textCopyButton.y = 3;
-			
-			addChild(textCopyButton);
-			
-			// draw textfield
 			textFormat = new TextFormat();
-			textFormat.size = 20;
-			textFormat.font = "Verdana";
-			textField = new TextField();
-			textField.defaultTextFormat = textFormat;
-			textField.width = _panoLinkData.windowData.window.size.width - 82;
-			textField.height = _panoLinkData.windowData.window.size.height;
-			textField.alwaysShowSelection = true;
-			addChild(textField);
+			textFormat.size = _panoLinkData.settings.style.fontSize;
+			textFormat.font = _panoLinkData.settings.style.fontFamily;
+			textFormat.bold = _panoLinkData.settings.style.fontBold;
+			textFormat.color = _panoLinkData.settings.style.fontColor;
 			
-			textCopyButton.addEventListener(MouseEvent.CLICK, copyText, false, 0 , true);
+			textField = new TextField();
+			textField.alwaysShowSelection = true;
+			textField.width = _panoLinkData.settings.style.width;
+			textField.defaultTextFormat = textFormat;
+			addChild(textField);
 		}
 		
-		private function copyText(e:Event):void {
-			textField.setSelection(0, textField.text.length);
-			System.setClipboard(textField.text);
+		public function setBitmapsData(plainBitmapData:BitmapData, activeBitmapData:BitmapData):void {
+			var copyPlainIcon:Sprite = new Sprite();
+			copyPlainIcon.addChild(new Bitmap(plainBitmapData));
+			var copyPressIcon:Sprite = new Sprite();
+			copyPressIcon.addChild(new Bitmap(activeBitmapData));
+			copyButton.upState = copyPlainIcon;
+			copyButton.overState = copyPlainIcon;
+			copyButton.downState = copyPressIcon;
+			copyButton.hitTestState = copyPressIcon;
+			copyButton.x = textField.width + 3;
+			copyButton.y = (_panoLinkData.settings.style.fontSize * 1.4 - copyButton.height) * 0.5;
+			
+			addChild(copyButton);
+			
+			_panoLinkData.windowData.size = new Size(this.width, this.height);
+			
+			copyButton.addEventListener(MouseEvent.CLICK, copyText, false, 0, true);
 		}
 		
 		public function get panoLinkData():PanoLinkData {
@@ -82,7 +81,12 @@ package com.panozona.modules.panolink.view{
 		
 		public function setText(value:String):void {
 			textField.text = value;
-			textField.setSelection(0, 0);
+			textField.setSelection(0, textField.text.length);
+		}
+		
+		private function copyText(e:Event):void {
+			textField.setSelection(0, textField.text.length);
+			System.setClipboard(textField.text);
 		}
 	}
 }

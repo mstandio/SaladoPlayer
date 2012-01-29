@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -16,7 +16,7 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.panolink.controller{
+package com.panozona.modules.panolink.controller {
 	
 	import caurina.transitions.Tweener;
 	import com.panozona.modules.panolink.events.WindowEvent;
@@ -28,24 +28,24 @@ package com.panozona.modules.panolink.controller{
 	import flash.events.MouseEvent;
 	import flash.system.ApplicationDomain;
 	
-	public class WindowController{
+	public class WindowController {
 		
 		private var _module:Module;
 		private var _windowView:WindowView;
 		
 		private var _linkController:LinkController;
+		private var _closeController:CloseController;
 		
 		public function WindowController(windowView:WindowView, module:Module) {
 			
 			_module = module;
 			_windowView = windowView;
 			
-			_linkController = new LinkController(windowView.linkView, module);
-			
 			_windowView.windowData.addEventListener(WindowEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
+			_windowView.windowData.addEventListener(WindowEvent.CHANGED_SIZE, handleResize, false, 0, true);
 			
-			//should be pano change
-			_module.saladoPlayer.manager.addEventListener(MouseEvent.MOUSE_DOWN, handlePlayerClick, false, 0, true);
+			_linkController = new LinkController(windowView.linkView, _module);
+			_closeController = new CloseController(windowView.closeView, _module);
 			
 			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
@@ -53,6 +53,8 @@ package com.panozona.modules.panolink.controller{
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
+			
+			_module.saladoPlayer.manager.addEventListener(MouseEvent.MOUSE_DOWN, handlePlayerClick, false, 0, true);
 		}
 		
 		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
@@ -63,6 +65,7 @@ package com.panozona.modules.panolink.controller{
 			}else {
 				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.windowData.window.onClose);
 			}
+			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, handlePlayerClick, false, 0, true);
 		}
 		
 		private function handleResize(event:Event = null):void {
@@ -154,16 +157,16 @@ package com.panozona.modules.panolink.controller{
 			var result:Number = 0;
 			switch(_windowView.panoLinkData.windowData.window.align.horizontal) {
 				case Align.RIGHT:
-					result += _module.saladoPlayer.manager.boundsWidth 
-						- _windowView.panoLinkData.windowData.window.size.width 
+					result += _module.saladoPlayer.manager.boundsWidth
+						- _windowView.panoLinkData.windowData.size.width
 						+ _windowView.panoLinkData.windowData.window.move.horizontal;
 				break;
 				case Align.LEFT:
 					result += _windowView.panoLinkData.windowData.window.move.horizontal;
 				break;
 				default: // CENTER
-					result += (_module.saladoPlayer.manager.boundsWidth 
-						- _windowView.panoLinkData.windowData.window.size.width) * 0.5 
+					result += (_module.saladoPlayer.manager.boundsWidth
+						- _windowView.panoLinkData.windowData.size.width) * 0.5
 						+ _windowView.panoLinkData.windowData.window.move.horizontal;
 			}
 			return result;
@@ -176,13 +179,13 @@ package com.panozona.modules.panolink.controller{
 					result += _windowView.panoLinkData.windowData.window.move.vertical;
 				break;
 				case Align.BOTTOM:
-					result += _module.saladoPlayer.manager.boundsHeight 
-						- _windowView.panoLinkData.windowData.window.size.height
+					result += _module.saladoPlayer.manager.boundsHeight
+						- _windowView.panoLinkData.windowData.size.height
 						+ _windowView.panoLinkData.windowData.window.move.vertical;
 				break;
 				default: // MIDDLE
 					result += (_module.saladoPlayer.manager.boundsHeight 
-						- _windowView.panoLinkData.windowData.window.size.height) * 0.5
+						- _windowView.panoLinkData.windowData.size.height) * 0.5
 						+ _windowView.panoLinkData.windowData.window.move.vertical;
 			}
 			return result;
@@ -195,7 +198,7 @@ package com.panozona.modules.panolink.controller{
 					result = _module.saladoPlayer.manager.boundsWidth;
 				break;
 				case Transition.SLIDE_LEFT:
-					result = -_windowView.panoLinkData.windowData.window.size.width;
+					result = -_windowView.panoLinkData.windowData.size.width;
 				break;
 				default: //SLIDE_UP, SLIDE_DOWN
 					result = getWindowOpenX();
@@ -207,7 +210,7 @@ package com.panozona.modules.panolink.controller{
 			var result:Number = 0;
 			switch(_windowView.panoLinkData.windowData.window.transition.type){
 				case Transition.SLIDE_UP:
-					result = -_windowView.panoLinkData.windowData.window.size.height;
+					result = -_windowView.panoLinkData.windowData.size.height;
 				break;
 				case Transition.SLIDE_DOWN:
 					result = _module.saladoPlayer.manager.boundsHeight;

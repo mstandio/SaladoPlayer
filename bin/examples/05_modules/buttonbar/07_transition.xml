@@ -24,7 +24,6 @@
 				<button name="out"/>
 				<button name="in"/>
 				<button name="drag"/>
-				<button name="hotspots"/>
 				<button name="autorotation"/>
 				<button name="fullscreen"/>
 			</buttons>

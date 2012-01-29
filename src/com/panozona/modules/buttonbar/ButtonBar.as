@@ -61,7 +61,7 @@ package com.panozona.modules.buttonbar {
 		
 		public function setActive(name:String, active:Boolean):void {
 			if (name == "a" || name == "b" || name == "c" || name == "d" || name == "e" ||
-				name == "f" || name == "g" || name == "h" || name == "i" || name == "j") {
+				name == "f" || name == "g" || name == "h" || name == "i") {
 				var buttonView:ButtonView;
 				for (var i:int = 0; i < windowView.barView.buttonsContainer.numChildren; i++) {
 					buttonView = windowView.barView.buttonsContainer.getChildAt(i) as ButtonView;

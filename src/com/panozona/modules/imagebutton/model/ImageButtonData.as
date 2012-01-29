@@ -49,7 +49,7 @@ package com.panozona.modules.imagebutton.model{
 					}
 					buttons.push(button);
 				}else {
-					throw new Error("Unrecognized node: " + moduleData.name);
+					throw new Error("Unrecognized node: " + dataNode.name);
 				}
 			}
 			

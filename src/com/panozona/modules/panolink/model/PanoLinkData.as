@@ -18,20 +18,27 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.panolink.model {
 	
-	import com.panozona.modules.panolink.model.structure.Window;
+	import com.panozona.modules.panolink.model.structure.Close;
+	import com.panozona.modules.panolink.model.structure.Settings;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class PanoLinkData {
 		
+		public const settings:Settings = new Settings();
 		public const windowData:WindowData = new WindowData();
+		public const close:Close = new Close();
 		
 		public function PanoLinkData(moduleData:ModuleData, saladoPlayer:Object) {
 			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
 			for each(var dataNode:DataNode in moduleData.nodes) {
-				if (dataNode.name == "window") {
+				if (dataNode.name == "settings") {
+					tarnslator.dataNodeToObject(dataNode, settings);
+				}else if (dataNode.name == "window") {
 					tarnslator.dataNodeToObject(dataNode, windowData.window);
+				}else if (dataNode.name == "close") {
+					tarnslator.dataNodeToObject(dataNode, close);
 				}else{
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
@@ -40,6 +47,9 @@ package com.panozona.modules.panolink.model {
 			windowData.open = windowData.window.open;
 			
 			if (saladoPlayer.managerData.debugMode) {
+				if (settings.path == null || !settings.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)){
+					throw new Error("Invalid bitmaps grid path: " + settings.path);
+				}
 				if (windowData.window.onOpen != null && saladoPlayer.managerData.getActionDataById(windowData.window.onOpen) == null) {
 					throw new Error("Action does not exist: " + windowData.window.onOpen);
 				}

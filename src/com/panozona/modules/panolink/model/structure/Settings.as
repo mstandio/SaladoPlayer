@@ -18,16 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.panolink.model.structure {
 	
-	public class Style {
+	public class Settings {
 		
-		public var width:Number = 300;
-		
-		public var fontFamily:String = "Tahoma";
-		public var fontBold:Boolean = true;
-		public var fontSize:Number = 20;
-		public var fontColor:Number = 0xffffff;
-		
-		public var plainColor:Number = 0x000000;
-		public var selectedColor:Number = 0xffffff;
+		public var path:String = null;
+		public const style:Style = new Style();
 	}
 }

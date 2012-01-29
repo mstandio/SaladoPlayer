@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -21,15 +21,15 @@ package com.panozona.modules.panolink.model.structure{
 	import caurina.transitions.Equations;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Move;
-	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.data.property.Transition;
 	import com.panozona.player.module.data.property.Tween;
 	
-	public class Window{
+	public class Window {
+	
+		public var alpha:Number = 1;
 		
 		public var align:Align = new Align(Align.RIGHT, Align.TOP);
 		public var move:Move = new Move(-20, 20);
-		public var size:Size = new Size(350, 30);
 		
 		public var open:Boolean = false;
 		public var onOpen:String = null;

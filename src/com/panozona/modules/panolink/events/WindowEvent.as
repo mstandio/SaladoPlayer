@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -23,6 +23,7 @@ package com.panozona.modules.panolink.events {
 	public class WindowEvent extends Event{
 		
 		public static const CHANGED_OPEN:String = "changedOpen";
+		public static const CHANGED_SIZE:String = "changedSize";
 		
 		public function WindowEvent(type:String){
 			super(type);

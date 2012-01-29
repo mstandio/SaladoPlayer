@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -21,8 +21,17 @@ package com.panozona.modules.panolink.controller{
 	import com.panozona.modules.panolink.events.WindowEvent;
 	import com.panozona.modules.panolink.view.LinkView;
 	import com.panozona.player.module.Module;
+	import flash.display.BitmapData;
+	import flash.display.Loader;
+	import flash.display.LoaderInfo;
+	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.external.ExternalInterface;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
+	
 	
 	public class LinkController{
 		
@@ -36,13 +45,11 @@ package com.panozona.modules.panolink.controller{
 			_linkView = linkView;
 			_module = module;
 			
-			_linkView.panoLinkData.windowData.addEventListener(WindowEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
-			
 			var recognizedValues:Object = recognizeURL(ExternalInterface.call("window.location.href.toString"));
 			if (recognizedValues != null){
 				var panoDataReference:Object = _module.saladoPlayer.managerData.getPanoramaDataById(recognizedValues.id);
 				if (panoDataReference == null) {
-					//_module.printWarning("Panorama does not exist: " + recognizedValues.id);
+					_module.printWarning("Panorama does not exist: " + recognizedValues.id);
 				}else {
 					var paramsReference:Object = panoDataReference.params;
 					stashOriginalParams(recognizedValues.id);
@@ -60,6 +67,36 @@ package com.panozona.modules.panolink.controller{
 			}
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
+			
+			_linkView.panoLinkData.windowData.addEventListener(WindowEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
+			
+			var imageLoader:Loader = new Loader();
+			imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
+			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
+			imageLoader.load(new URLRequest(_linkView.panoLinkData.settings.path));
+		}
+		
+		private function imageLost(error:IOErrorEvent):void {
+			error.target.removeEventListener(IOErrorEvent.IO_ERROR, imageLost);
+			error.target.removeEventListener(Event.COMPLETE, imageLoaded);
+			_module.printError(error.text);
+		}
+		
+		private function imageLoaded(e:Event):void {
+			e.target.removeEventListener(IOErrorEvent.IO_ERROR, imageLost);
+			e.target.removeEventListener(Event.COMPLETE, imageLoaded);
+			
+			var bitmapData:BitmapData = new BitmapData((e.target as LoaderInfo).width, (e.target as LoaderInfo).height, true, 0);
+			bitmapData.draw((e.target as LoaderInfo).content);
+			
+			var butWidth:Number = bitmapData.width;
+			var butHeight:Number = Math.ceil((bitmapData.height - 1) / 2);
+			var bitmapDataPlain:BitmapData = new BitmapData(butWidth, butHeight, true, 0);
+			bitmapDataPlain.copyPixels(bitmapData, new Rectangle(0, 0, butWidth, butHeight), new Point(0, 0), null, null, true);
+			var bitmapDataActive:BitmapData = new BitmapData(butWidth, butHeight, true, 0);
+			bitmapDataActive.copyPixels(bitmapData, new Rectangle(0, butHeight + 1, butWidth, butHeight), new Point(0, 0), null, null, true);
+			
+			_linkView.setBitmapsData(bitmapDataPlain, bitmapDataActive);
 		}
 		
 		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {
@@ -142,7 +179,8 @@ package com.panozona.modules.panolink.controller{
 		
 		private function setOriginalParams():void {
 			if (_module.saladoPlayer.managerData.allPanoramasData.firstPanorama == null) return;
-			var paramsReference:Object = _module.saladoPlayer.managerData.getPanoramaDataById(_module.saladoPlayer.managerData.allPanoramasData.firstPanorama).params;
+			var paramsReference:Object = _module.saladoPlayer.managerData.getPanoramaDataById(
+				_module.saladoPlayer.managerData.allPanoramasData.firstPanorama).params;
 			if (paramsReference != null && paramsFirstClone != null) {
 				paramsReference.pan = paramsFirstClone.pan;
 				paramsReference.tilt = paramsFirstClone.tilt;

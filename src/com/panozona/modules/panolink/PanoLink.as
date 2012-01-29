@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -32,14 +32,16 @@ package com.panozona.modules.panolink{
 		private var panoLinkData:PanoLinkData;
 		
 		public function PanoLink(){
-			super("PanoLink", "1.0", "http://panozona.com/wiki/Module:PanoLink");
+			super("PanoLink", "1.1", "http://panozona.com/wiki/Module:PanoLink");
 			
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
+			
 			panoLinkData = new PanoLinkData(moduleData, saladoPlayer);
+			
 			windowView = new WindowView(panoLinkData);
 			windowController = new WindowController(windowView, this);
 			addChild(windowView);
