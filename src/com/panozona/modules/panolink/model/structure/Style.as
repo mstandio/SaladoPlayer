@@ -20,14 +20,13 @@ package com.panozona.modules.panolink.model.structure {
 	
 	public class Style {
 		
-		public var width:Number = 300;
+		public var width:Number = 330;
 		
 		public var fontFamily:String = "Tahoma";
 		public var fontBold:Boolean = true;
-		public var fontSize:Number = 20;
+		public var fontSize:Number = 15;
 		public var fontColor:Number = 0xffffff;
 		
-		public var plainColor:Number = 0x000000;
-		public var selectedColor:Number = 0xffffff;
+		public var backgroundColor:Number = 0x000000;
 	}
 }

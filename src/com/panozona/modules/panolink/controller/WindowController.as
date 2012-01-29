@@ -53,8 +53,6 @@ package com.panozona.modules.panolink.controller {
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
-			
-			_module.saladoPlayer.manager.addEventListener(MouseEvent.MOUSE_DOWN, handlePlayerClick, false, 0, true);
 		}
 		
 		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
@@ -76,18 +74,11 @@ package com.panozona.modules.panolink.controller {
 			_windowView.panoLinkData.windowData.open = false;
 		}
 		
-		private var initPan:Number;
-		private var initTilt:Number;
-		private var initFov:Number;
 		private function onOpenChange(e:Event):void {
 			if (_windowView.windowData.open) {
+				_module.saladoPlayer.managerData.controlData.autorotationCameraData.isAutorotating = false;
 				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.windowData.window.onOpen);
 				openWindow();
-				
-				initPan = _module.saladoPlayer.manager.pan;
-				initTilt = _module.saladoPlayer.manager.tilt;
-				initFov = _module.saladoPlayer.manager.fieldOfView;
-				_module.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
 			}else {
 				_module.saladoPlayer.manager.runAction(_windowView.panoLinkData.windowData.window.onClose);
 				closeWindow();
@@ -95,9 +86,9 @@ package com.panozona.modules.panolink.controller {
 		}
 		
 		private function onEnterFrame(e:Event):void {
-			if (_module.saladoPlayer.manager.pan != initPan ||
-				_module.saladoPlayer.manager.tilt != initTilt ||
-				_module.saladoPlayer.manager.fieldOfView != initFov) {
+			if (Math.abs(_module.saladoPlayer.manager.pan - initPan) > 1 ||
+				Math.abs(_module.saladoPlayer.manager.tilt - initTilt) > 1 ||
+				Math.abs(_module.saladoPlayer.manager.fieldOfView - initFov) > 1) {
 					_windowView.panoLinkData.windowData.open = false;
 					_module.stage.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			}
@@ -110,6 +101,7 @@ package com.panozona.modules.panolink.controller {
 			var tweenObj:Object = new Object();
 			tweenObj["time"] = _windowView.panoLinkData.windowData.window.openTween.time;
 			tweenObj["transition"] = _windowView.panoLinkData.windowData.window.openTween.transition;
+			tweenObj["onComplete"] = openWindowOnComplete;
 			if (_windowView.panoLinkData.windowData.window.transition.type == Transition.FADE){
 				tweenObj["alpha"] = 1;
 			}else{
@@ -117,6 +109,16 @@ package com.panozona.modules.panolink.controller {
 				tweenObj["y"] = getWindowOpenY();
 			}
 			Tweener.addTween(_windowView, tweenObj);
+		}
+		
+		private var initPan:Number;
+		private var initTilt:Number;
+		private var initFov:Number;
+		private function openWindowOnComplete():void {
+			_module.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
+			initPan = _module.saladoPlayer.manager.pan;
+			initTilt = _module.saladoPlayer.manager.tilt;
+			initFov = _module.saladoPlayer.manager.fieldOfView;
 		}
 		
 		private function closeWindow():void {
@@ -137,6 +139,7 @@ package com.panozona.modules.panolink.controller {
 		
 		private function closeWindowOnComplete():void {
 			_windowView.visible = false;
+			_module.stage.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 		
 		private function placeWindow(e:Event = null):void {

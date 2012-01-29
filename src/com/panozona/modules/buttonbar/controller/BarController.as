@@ -52,8 +52,6 @@ package com.panozona.modules.buttonbar.controller{
 		
 		private var buttonsController:Vector.<ButtonController>;
 		
-		private var hotspots:Boolean = true;
-		
 		public function BarController(barView:BarView, module:Module){
 			_barView = barView;
 			_module = module;
@@ -61,9 +59,6 @@ package com.panozona.modules.buttonbar.controller{
 			buttonsController = new Vector.<ButtonController>();
 			buttonSize = new Size(30,30);
 			buildButtonsBar();
-			
-			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
-			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0 , true);
 			
 			autorotationEventClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.AutorotationEvent") as Class;
 			cameraKeyBindingsClass = ApplicationDomain.currentDomain.getDefinition("com.panosalado.model.CameraKeyBindings") as Class;
@@ -83,11 +78,6 @@ package com.panozona.modules.buttonbar.controller{
 			buttonsLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonsImageLost, false, 0, true);
 			buttonsLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, buttonsImageLoaded, false, 0, true);
 			buttonsLoader.load(new URLRequest(_barView.buttonBarData.buttons.path));
-		}
-		
-		public function onPanoramaLoaded(panoramaEvent:Object):void {
-			_module.saladoPlayer.manager.managedChildren.visible = hotspots;
-			displayHotspots();
 		}
 		
 		public function setButtonActive(name:String, active:Boolean):void {
@@ -117,7 +107,6 @@ package com.panozona.modules.buttonbar.controller{
 			updateButtonsBar();
 			onIsAutorotatingChange();
 			onDragEnabledChange();
-			displayHotspots();
 			
 			_barView.buttonBarData.windowData.size = new Size(_barView.buttonsContainer.width, _barView.buttonsContainer.height);
 		}
@@ -340,10 +329,6 @@ package com.panozona.modules.buttonbar.controller{
 				_module.saladoPlayer.managerData.controlData.inertialMouseCameraData.enabled = true;
 				_module.saladoPlayer.managerData.controlData.arcBallCameraData.enabled = false;
 			}
-		}
-		
-		private function displayHotspots():void {
-			setButtonActive("hotspots", hotspots);
 		}
 		
 		private function autorotateToggle(e:Event = null):void {

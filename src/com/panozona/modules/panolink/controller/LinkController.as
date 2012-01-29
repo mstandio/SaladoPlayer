@@ -32,7 +32,6 @@ package com.panozona.modules.panolink.controller{
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	
-	
 	public class LinkController{
 		
 		private var paramsFirstClone:Object;

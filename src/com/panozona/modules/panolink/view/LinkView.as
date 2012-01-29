@@ -50,9 +50,13 @@ package com.panozona.modules.panolink.view {
 			textFormat.color = _panoLinkData.settings.style.fontColor;
 			
 			textField = new TextField();
+			textField.background = true;
+			textField.backgroundColor = _panoLinkData.settings.style.backgroundColor;
 			textField.alwaysShowSelection = true;
 			textField.width = _panoLinkData.settings.style.width;
+			textField.height = _panoLinkData.settings.style.fontSize * 1.4;
 			textField.defaultTextFormat = textFormat;
+			textField.selectable = false;
 			addChild(textField);
 		}
 		
@@ -67,6 +71,7 @@ package com.panozona.modules.panolink.view {
 			copyButton.hitTestState = copyPressIcon;
 			copyButton.x = textField.width + 3;
 			copyButton.y = (_panoLinkData.settings.style.fontSize * 1.4 - copyButton.height) * 0.5;
+			copyButton.mouseEnabled = true;
 			
 			addChild(copyButton);
 			
@@ -80,8 +85,9 @@ package com.panozona.modules.panolink.view {
 		}
 		
 		public function setText(value:String):void {
+			textField.setSelection(0, 0);
 			textField.text = value;
-			textField.setSelection(0, textField.text.length);
+			textField.scrollH = textField.maxScrollH;
 		}
 		
 		private function copyText(e:Event):void {

@@ -40,8 +40,6 @@ package com.panozona.modules.panolink.controller {
 			_closeView.panoLinkData.windowData.addEventListener(WindowEvent.CHANGED_SIZE, placeonWindow, false, 0, true);
 			
 			if (_closeView.panoLinkData.close.path == null) {
-				module.mouseEnabled = false;
-				module.mouseChildren = false;
 				return;
 			}
 			
