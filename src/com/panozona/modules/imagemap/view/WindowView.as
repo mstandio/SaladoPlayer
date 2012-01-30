@@ -32,7 +32,6 @@ package com.panozona.modules.imagemap.view{
 		private var _viewerView:ViewerView;
 		
 		private var window:Sprite;
-		private var windowCloseButton:SimpleButton;
 		
 		private var _imageMapData:ImageMapData;
 		

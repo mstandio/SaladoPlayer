@@ -121,10 +121,13 @@ package com.panozona.modules.infobubble.controller {
 		
 		private function addDisplayObject(displayObject:DisplayObject):void {
 			while (_bubbleView.numChildren) _bubbleView.removeChildAt(0);
+			
 			_bubbleView.addChild(displayObject);
 			_bubbleView.getChildAt(0).alpha = 0;
-			ellipseAxisX = Math.max(_bubbleView.width, _bubbleView.height) / 2 * Math.SQRT2;
-			ellipseAxisY = Math.min(_bubbleView.width, _bubbleView.height) / 2 * Math.SQRT2;
+			
+			ellipseAxisX = _bubbleView.width / 2 * Math.SQRT2;
+			ellipseAxisY = _bubbleView.height / 2 * Math.SQRT2;
+			
 			angle = -currentDefaultAngle;
 			handleIsShowingChange();
 		}
