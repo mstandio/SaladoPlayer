@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<data>
-
-</data>
+<!--
+	
+	http://panozona.com/wiki/Module:ZoomSlider
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
+			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openSlider"/>
+			<image id="bc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeSlider"/>
+			<image id="bc_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenSlider"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ZoomSlider path="~modules/zoomslider/ZoomSlider-1.1.swf">
+			<window transition="type:slideUp" openTween="transition:Bounce.easeOut,time:0.75" closeTween="transition:Expo.easeIn,time:0.75"/>
+			<slider path="~modules/zoomslider/images/elements_light_40x40.png"/>
+		</ZoomSlider>
+	</modules>
+	<actions>
+		<action id="openSlider" content="ZoomSlider.setOpen(true)"/>
+		<action id="closeSlider" content="ZoomSlider.setOpen(false)"/>
+		<action id="toggleOpenSlider" content="ZoomSlider.toggleOpen()"/>
+	</actions>
+</SaladoPlayer>

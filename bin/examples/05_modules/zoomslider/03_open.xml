@@ -19,7 +19,7 @@
 	</panoramas>
 	<modules>
 		<ZoomSlider path="~modules/zoomslider/ZoomSlider-1.1.swf">
-			<window onOpen="printOpen" onClose="printClose"/>
+			<window open="false" onOpen="printOpen" onClose="printClose"/>
 			<slider path="~modules/zoomslider/images/elements_light_40x40.png"/>
 		</ZoomSlider>
 	</modules>
