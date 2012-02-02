@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -41,11 +41,10 @@ package com.panozona.modules.infobubble.controller {
 		
 		private var ellipseAxisX:Number;
 		private var ellipseAxisY:Number;
-		private var dir:Number;
-		private var angle:Number;
-		private var currentDefaultAngle:Number;
 		
-		private var rotationRegistry:Number;
+		private var angle:Number;
+		private var currentBubbleAngle:Number;
+		private var currentDefaultAngle:Number;
 		
 		public function BubbleController(bubbleView:BubbleView, module:Module){
 			_bubbleView = bubbleView;
@@ -66,7 +65,7 @@ package com.panozona.modules.infobubble.controller {
 					handleIsShowingChange();
 				}
 				_module.saladoPlayer.manager.runAction(_bubbleView.infoBubbleData.settings.onEnable);
-			}else if(_bubbleView.numChildren > 0){
+			}else if (_bubbleView.numChildren > 0) {
 				Tweener.addTween(_bubbleView.getChildAt(0),{
 					alpha:0,
 					time:_bubbleView.infoBubbleData.bubbles.hideTween.time,
@@ -84,7 +83,7 @@ package com.panozona.modules.infobubble.controller {
 			}catch(e:Error){}
 			for each (var bubble:Bubble in _bubbleView.infoBubbleData.bubbles.getChildrenOfGivenClass(Bubble)){
 				if (bubble.id == _bubbleView.infoBubbleData.bubbleData.currentId) {
-					currentDefaultAngle = -validate(Math.floor(-bubble.angle));
+					currentBubbleAngle = bubble.angle;
 					if (bubble is Image) {
 						imageLoader.load(new URLRequest((bubble as Image).path));
 						return;
@@ -122,13 +121,20 @@ package com.panozona.modules.infobubble.controller {
 		private function addDisplayObject(displayObject:DisplayObject):void {
 			while (_bubbleView.numChildren) _bubbleView.removeChildAt(0);
 			
+			_bubbleView.graphics.clear();
+			_bubbleView.graphics.beginFill(0x000000, 0);
+			_bubbleView.graphics.drawRect(0, 0, displayObject.width +
+				2 * _bubbleView.infoBubbleData.settings.margin, displayObject.height +
+				2 * _bubbleView.infoBubbleData.settings.margin);
+			_bubbleView.graphics.endFill();
+			
+			displayObject.x = displayObject.y = _bubbleView.infoBubbleData.settings.margin;
 			_bubbleView.addChild(displayObject);
 			_bubbleView.getChildAt(0).alpha = 0;
 			
 			ellipseAxisX = _bubbleView.width / 2 * Math.SQRT2;
 			ellipseAxisY = _bubbleView.height / 2 * Math.SQRT2;
 			
-			angle = -currentDefaultAngle;
 			handleIsShowingChange();
 		}
 		
@@ -137,6 +143,8 @@ package com.panozona.modules.infobubble.controller {
 			if (!_bubbleView.infoBubbleData.bubbleData.enabled && _bubbleView.infoBubbleData.bubbleData.isShowing) return; // do not show when disabled
 			_bubbleView.visible = true;
 			if (_bubbleView.infoBubbleData.bubbleData.isShowing) {
+				calcCurrentDefaultAngle();
+				angle = -currentDefaultAngle;
 				rotationRegistry = 0;
 				_module.stage.addEventListener(Event.ENTER_FRAME, handleEnterFrame, false, 0, true);
 				Tweener.addTween(_bubbleView.getChildAt(0),{
@@ -144,6 +152,7 @@ package com.panozona.modules.infobubble.controller {
 					time:_bubbleView.infoBubbleData.bubbles.showTween.time,
 					transition:_bubbleView.infoBubbleData.bubbles.showTween.transition});
 			}else {
+				rotationRegistry = 360;
 				Tweener.addTween(_bubbleView.getChildAt(0),{
 					alpha:0,
 					time:_bubbleView.infoBubbleData.bubbles.hideTween.time,
@@ -152,14 +161,31 @@ package com.panozona.modules.infobubble.controller {
 			}
 		}
 		
+		private function calcCurrentDefaultAngle():void {
+			if (isNaN(currentBubbleAngle)) {
+				var hbw:Number = _module.saladoPlayer.manager.boundsWidth / 2;
+				var hbh:Number = _module.saladoPlayer.manager.boundsHeight / 2;
+				var z:Number = Math.pow((getMouseX() - hbw) / hbw, 2) + Math.pow((getMouseY() - hbh) / hbh, 2);
+				if (z < 0.1) {
+					currentDefaultAngle = 90;
+				}else {
+					var initDegree:Number = validate(Math.atan2(hbh - getMouseY(), hbw - getMouseX()) / Math.PI * 180 + 90);
+					currentDefaultAngle = initDegree;
+				}
+			}else {
+				 currentDefaultAngle = -validate(Math.floor(-currentBubbleAngle));
+			}
+		}
+		
 		private function cleanUp():void {
 			if (!_bubbleView.infoBubbleData.bubbleData.isShowing) {
-				angle = -currentDefaultAngle;
 				_bubbleView.visible = false;
 				_module.stage.removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
 			}
 		}
 		
+		private var dir:Number;
+		private var rotationRegistry:Number;
 		private function handleEnterFrame(e:Event = null):void {
 			if (angle == -currentDefaultAngle){
 				// 0.5 clockwise, -0.5 counterclockwise
@@ -181,7 +207,7 @@ package com.panozona.modules.infobubble.controller {
 					}else {
 						dir = 0.5;
 					}
-				}else if (currentDefaultAngle > -135 && currentDefaultAngle <= -45){
+				}else if (currentDefaultAngle > -135 && currentDefaultAngle <= -45) {
 					if (getMouseY() > (_module.saladoPlayer.manager.boundsHeight * 0.5)) {
 						dir = -0.5;
 					}else {

@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -33,7 +33,7 @@ package com.panozona.modules.infobubble{
 		private var bubbleController:BubbleController;
 		
 		public function InfoBubble(){
-			super("InfoBubble", "1.3", "http://panozona.com/wiki/Module:InfoBubble");
+			super("InfoBubble", "1.4", "http://panozona.com/wiki/Module:InfoBubble");
 			
 			moduleDescription.addFunctionDescription("show", String);
 			moduleDescription.addFunctionDescription("hide");

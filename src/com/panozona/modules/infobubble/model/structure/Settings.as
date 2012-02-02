@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -19,6 +19,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.infobubble.model.structure {
 	
 	public class Settings {
+		
+		public var margin:Number = 15;
 		
 		public var enabled:Boolean = true;
 		
