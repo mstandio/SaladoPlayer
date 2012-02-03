@@ -31,7 +31,7 @@ package com.panozona.hotspots.simplehotspot{
 	 */
 	public class SimpleHotspot extends Sprite{
 		
-		[Embed(source="assets/blue_arrow.png")]
+		[Embed(source="assets/arrow_blue.png")]
 		private static var Bitmap_blue_arrow:Class;
 		
 		protected var button:Sprite;
