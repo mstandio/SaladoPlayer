@@ -107,7 +107,7 @@ package com.panozona.player {
 		
 		protected function init():void {
 			
-			traceWindow.printLink(manager.description.homeUrl, manager.description.name+" "+manager.description.version);
+			traceWindow.printLink(manager.description.homeUrl, manager.description.name + " " + manager.description.version);
 			
 			var xmlLoader:URLLoader = new URLLoader();
 			xmlLoader.dataFormat = URLLoaderDataFormat.BINARY;
@@ -120,8 +120,9 @@ package com.panozona.player {
 					"v=" + new Date().getTime()));
 			}catch (error:Error) {
 				addChild(traceWindow);
-				traceWindow.printError("Could not access local files, error: " + error.message);
-				traceWindow.printLink("http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html", "configure Global Security Settings");
+				traceWindow.printError("Could not access local files, error: #" + error.errorID);
+				traceWindow.printLink("http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html",
+				"Add directory of unzipped files to Global Security Settings panel if you want to use player on local mashine");
 			}
 		}
 		
