@@ -9,9 +9,9 @@
 	</global>
 	<panoramas>
 		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
-			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openDropDown"/>
-			<image id="bc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeDropDown"/>
-			<image id="bc_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenDropDown"/>
+			<image id="cy_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openDropDown"/>
+			<image id="cy_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeDropDown"/>
+			<image id="cy_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenDropDown"/>
 		</panorama>
 	</panoramas>
 	<modules>

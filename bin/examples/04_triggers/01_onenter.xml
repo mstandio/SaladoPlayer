@@ -10,10 +10,10 @@
 	</global>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" onEnter="printWelcomeGreen">
-			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" target="checkerBlue"/>
+			<image id="cg_arrowBlue" path="~hotspots/images/arrow_blue.png" target="checkerBlue"/>
 		</panorama>
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onEnter="printWelcomeBlue">
-			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" target="checkerGreen"/>
+			<image id="cb_arrowGreen" path="~hotspots/images/arrow_green.png" target="checkerGreen"/>
 		</panorama>
 	</panoramas>
 	<actions>

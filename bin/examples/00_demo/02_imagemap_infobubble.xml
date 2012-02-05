@@ -2,9 +2,7 @@
 <!--
 -->
 <SaladoPlayer>
-	<global debug="true">
-		<control autorotation="enabled:false"/>
-	</global>
+	<global debug="true"/>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml"/>
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
@@ -19,7 +17,7 @@
 			</bubbles>
 		</InfoBubble>
 		<ImageMap path="~modules/imagemap/ImageMap-1.3.swf">
-			<window open="false" transition="type:fade" openTween="transition:Back.easeOut" onOpen="mapOpened" onClose="mapClosed" alpha="0.8"/>
+			<window open="true" alpha="0.8"/>
 			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map1.jpg">
@@ -31,16 +29,8 @@
 				</map>
 			</maps>
 		</ImageMap>
-		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">
-			<buttons path="~modules/buttonbar/images/buttons_dark_30x30.png">
-				<extraButton name="b" action="mapToggle"/>
-			</buttons>
-		</ButtonBar>
 	</modules>
 	<actions>
-		<action id="mapToggle" content="ImageMap.toggleOpen()"/>
-		<action id="mapOpened" content="ButtonBar.setActive(b,true)"/>
-		<action id="mapClosed" content="ButtonBar.setActive(b,false)"/>
 		<action id="showGreenBubble" content="InfoBubble.show(greenBubble)"/>
 		<action id="showBlueBubble" content="InfoBubble.show(blueBubble)"/>
 		<action id="showRedBubble" content="InfoBubble.show(redBubble)"/>

@@ -9,7 +9,7 @@
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
-			<image id="yc_arrowBlue" location="pan:0" path="~hotspots/images/arrow_blue.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
+			<image id="cy_arrowBlue" location="pan:0" path="~hotspots/images/arrow_blue.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>
 	<modules>

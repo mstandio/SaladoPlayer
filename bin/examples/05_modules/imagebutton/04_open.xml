@@ -10,9 +10,9 @@
 	</global>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
-			<image id="gc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openLogo1"/>
-			<image id="gc_garrowRed" path="~hotspots/images/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeLogo1"/>
-			<image id="gc_garrowYellow" path="~hotspots/images/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenLogo1"/>
+			<image id="cg_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openLogo1"/>
+			<image id="cg_garrowRed" path="~hotspots/images/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeLogo1"/>
+			<image id="cg_garrowYellow" path="~hotspots/images/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenLogo1"/>
 		</panorama>
 	</panoramas>
 	<modules>

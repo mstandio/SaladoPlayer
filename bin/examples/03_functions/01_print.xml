@@ -11,8 +11,8 @@
 	</global>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
-			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:-10" mouse="onClick:printPano"/>
-			<image id="gc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:10" mouse="onClick:printZona"/>
+			<image id="cg_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:-10" mouse="onClick:printPano"/>
+			<image id="cg_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:10" mouse="onClick:printZona"/>
 		</panorama>
 	</panoramas>
 	<actions>

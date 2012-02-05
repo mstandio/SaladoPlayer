@@ -9,9 +9,9 @@
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
-			<image id="yc_arrowYellow" location="pan:-40" path="~hotspots/images/arrow_yellow.png" mouse="onOver:showBubbleText,onOut:hideBubble"/>
-			<image id="yc_arrowBlue" location="pan:0" path="~hotspots/images/arrow_blue.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
-			<image id="yc_arrowRed" location="pan:40" path="~hotspots/images/arrow_red.png" mouse="onOver:showBubbleRed,onOut:hideBubble"/>
+			<image id="cg_arrowYellow" location="pan:-40" path="~hotspots/images/arrow_yellow.png" mouse="onOver:showBubbleText,onOut:hideBubble"/>
+			<image id="cg_arrowBlue" location="pan:0" path="~hotspots/images/arrow_blue.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
+			<image id="cg_arrowRed" location="pan:40" path="~hotspots/images/arrow_red.png" mouse="onOver:showBubbleRed,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>
 	<modules>

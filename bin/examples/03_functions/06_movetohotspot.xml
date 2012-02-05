@@ -16,20 +16,20 @@
 	</global>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
-			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:0" mouse="onClick:moveToArrowYellow"/>
-			<image id="gc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:180" mouse="onClick:moveToArrowRedThen"/>
-			<image id="gc_arrowRed" path="~hotspots/images/arrow_red.png" location="tilt:-85" mouse="onClick:advancedMoveToArrowBlue"/>
-			<image id="gc_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="tilt:85" mouse="onClick:advancedMoveToArrowGreenThen"/>
+			<image id="cg_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:0" mouse="onClick:moveToArrowYellow"/>
+			<image id="cg_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:180" mouse="onClick:moveToArrowRedThen"/>
+			<image id="cg_arrowRed" path="~hotspots/images/arrow_red.png" location="tilt:-85" mouse="onClick:advancedMoveToArrowBlue"/>
+			<image id="cg_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="tilt:85" mouse="onClick:advancedMoveToArrowGreenThen"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
 	</modules>
 	<actions>
-		<action id="moveToArrowYellow" content="SaladoPlayer.moveToHotspot(gc_arrowYellow,30)"/>
-		<action id="moveToArrowRedThen" content="SaladoPlayer.moveToHotspotThen(gc_arrowRed,60,printZona)"/>
-		<action id="advancedMoveToArrowBlue" content="SaladoPlayer.advancedMoveToHotspot(gc_arrowBlue,120,30,Expo.easeIn)"/>
-		<action id="advancedMoveToArrowGreenThen" content="SaladoPlayer.advancedMoveToHotspotThen(gc_arrowGreen,NaN,30,Expo.easeIn,printPano)"/>
+		<action id="moveToArrowYellow" content="SaladoPlayer.moveToHotspot(cg_arrowYellow,30)"/>
+		<action id="moveToArrowRedThen" content="SaladoPlayer.moveToHotspotThen(cg_arrowRed,60,printZona)"/>
+		<action id="advancedMoveToArrowBlue" content="SaladoPlayer.advancedMoveToHotspot(cg_arrowBlue,120,30,Expo.easeIn)"/>
+		<action id="advancedMoveToArrowGreenThen" content="SaladoPlayer.advancedMoveToHotspotThen(cg_arrowGreen,NaN,30,Expo.easeIn,printPano)"/>
 		<action id="printPano" content="SaladoPlayer.print(Pano)"/>
 		<action id="printZona" content="SaladoPlayer.print(Zona)"/>
 	</actions>

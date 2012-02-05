@@ -9,16 +9,16 @@
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
-			<image id="rc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-10" mouse="onClick:loadCheckerGreen"/>
-			<image id="rc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:10" mouse="onClick:loadCheckerBlue"/>
+			<image id="cr_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-10" mouse="onClick:loadCheckerGreen"/>
+			<image id="cr_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:10" mouse="onClick:loadCheckerBlue"/>
 		</panorama>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
-			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:-10" target="checkerBlue"/>
-			<image id="gc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:10" target="checkerRed"/>
+			<image id="cg_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:-10" target="checkerBlue"/>
+			<image id="cg_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:10" target="checkerRed"/>
 		</panorama>
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
-			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-10" mouse="onClick:loadCheckerGreen"/>
-			<image id="bc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:10" mouse="onClick:loadCheckerRed"/>
+			<image id="cb_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-10" mouse="onClick:loadCheckerGreen"/>
+			<image id="cb_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:10" mouse="onClick:loadCheckerRed"/>
 		</panorama>
 	</panoramas>
 	<actions>

@@ -10,20 +10,20 @@
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
-			<image id="bc_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMenu"/>
+			<image id="cb_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMenu"/>
 		</panorama>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
-			<image id="gc_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMenu"/>
+			<image id="cg_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMenu"/>
 		</panorama>
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
-			<image id="rc_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMenu"/>
+			<image id="cr_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMenu"/>
 		</panorama>
 		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
-			<image id="yc_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMenu"/>
+			<image id="cy_arrowYellow" path="~hotspots/images/arrow_yellow.png" mouse="onClick:toggleOpenMenu"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<MenuScroller path="~modules/MenuScroller-1.1.swf">
+		<MenuScroller path="~modules/MenuScroller-1.2.swf">
 			<window size="width:700,height:300" align="horizontal:center" transition="type:slideDown"/>
 			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
 			<scroller scrollsVertical="false"/>

@@ -2,6 +2,7 @@
 <!--
 	Use location attribute for positioning hotspots inside panorama. It can take any set of values:
 	pan(horizontal), tilt(vertical) and distance(depth). Default value for distance is 400.
+	Sequence of hotspots is determined by their distance values.
 	
 	http://panozona.com/wiki/SaladoPlayer:Configuration
 -->
@@ -9,8 +10,9 @@
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="greenChecker" path="~panoramas/dz_checker_green/checker_green_f.xml">
-			<image id="gcArrowBlue" path="~hotspots/images/arrow_blue.png" location="tilt:10,distance:600"/>
-			<image id="gcArrowGreen" path="~hotspots/images/arrow_green.png" location="pan:30"/>
+			<image id="gc_ArrowBlue" path="~hotspots/images/arrow_blue.png" location="tilt:10,distance:600"/>
+			<image id="gc_ArrowGreen" path="~hotspots/images/arrow_green.png" location="pan:30"/>
+			<image id="gc_ArrowRed" path="~hotspots/images/arrow_red.png" location="pan:35,tilt:3,distance:550"/>
 		</panorama>
 	</panoramas>
 	<modules>

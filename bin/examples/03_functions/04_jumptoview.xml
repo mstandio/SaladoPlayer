@@ -10,10 +10,10 @@
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
-			<image id="gc_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:0" mouse="onClick:jumpToArrowYellow"/>
-			<image id="gc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:180" mouse="onClick:jumpToArrowRed"/>
-			<image id="gc_arrowRed" path="~hotspots/images/arrow_red.png" location="tilt:-85" mouse="onClick:jumpToArrowBlue"/>
-			<image id="gc_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="tilt:85" mouse="onClick:jumpToArrowGreen"/>
+			<image id="cg_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:0" mouse="onClick:jumpToArrowYellow"/>
+			<image id="cg_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:180" mouse="onClick:jumpToArrowRed"/>
+			<image id="cg_arrowRed" path="~hotspots/images/arrow_red.png" location="tilt:-85" mouse="onClick:jumpToArrowBlue"/>
+			<image id="cg_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="tilt:85" mouse="onClick:jumpToArrowGreen"/>
 		</panorama>
 	</panoramas>
 	<modules>

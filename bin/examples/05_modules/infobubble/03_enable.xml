@@ -12,9 +12,9 @@
 	</global>
 	<panoramas>
 		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
-			<image id="yc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:enableBubbles,onOver:showBubbleGreen,onOut:hideBubble"/>
-			<image id="yc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:disableBubbles,onOver:showBubbleRed,onOut:hideBubble"/>
-			<image id="yc_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="pan:5" mouse="onClick:toggleEnableBubbles,onOver:showBubbleYellow,onOut:hideBubble"/>
+			<image id="cy_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:enableBubbles,onOver:showBubbleGreen,onOut:hideBubble"/>
+			<image id="cy_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:disableBubbles,onOver:showBubbleRed,onOut:hideBubble"/>
+			<image id="cy_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="pan:5" mouse="onClick:toggleEnableBubbles,onOver:showBubbleYellow,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>
 	<modules>

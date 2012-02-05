@@ -9,7 +9,7 @@
 	</panoramas>
 	<modules>
 		<DropDown path="~modules/DropDown-1.2.swf">
-			<window align="horizontal:right,vertical:top" move="vertical:30,horizontal:-180" transition="type:slideRight"/>
+			<window align="horizontal:right,vertical:top" move="vertical:30,horizontal:-180" transition="type:slideUp"/>
 			<box opensUp="false" style="fontFamily:Arial,fontSize:15"/>
 			<elements>
 				<extraElement id="map1_label" label="Impact" action="setMap1"/>

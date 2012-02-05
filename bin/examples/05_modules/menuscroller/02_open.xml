@@ -12,13 +12,13 @@
 	</global>
 	<panoramas>
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
-			<image id="bc_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openMenu"/>
-			<image id="bc_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeMenu"/>
-			<image id="bc_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenMenu"/>
+			<image id="cb_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openMenu"/>
+			<image id="cb_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeMenu"/>
+			<image id="cb_arrowYellow" path="~hotspots/images/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenMenu"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<MenuScroller path="~modules/MenuScroller-1.1.swf">
+		<MenuScroller path="~modules/MenuScroller-1.2.swf">
 			<window open="false" onOpen="printOpen" onClose="printClose"/>
 			<elements>
 				<element target="checkerBlue" path="~media/images/thumbs/checker_blue.jpg"/>

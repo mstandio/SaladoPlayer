@@ -13,34 +13,34 @@
 			</swf>
 		</panorama>
 		<panorama id="checkerBlue" camera="pan:NaN" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onLeaveToAttempt="checkerYellow:blueMoveToYellow,checkerRed:blueMoveToRed">
-			<swf id="bc_arrowYellow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:90" target="checkerYellow" mouse="onOver:showBubbleYellow,onOut:hideBubble">
+			<swf id="cb_arrowYellow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:90" target="checkerYellow" mouse="onOver:showBubbleYellow,onOut:hideBubble">
 				<settings path="~hotspots/images/arrow_yellow.png"/>
 			</swf>
-			<swf id="bc_arrowRed" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:180" target="checkerRed" mouse="onOver:showBubbleRed,onOut:hideBubble">
+			<swf id="cb_arrowRed" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:180" target="checkerRed" mouse="onOver:showBubbleRed,onOut:hideBubble">
 				<settings path="~hotspots/images/arrow_red.png"/>
 			</swf>
 		</panorama>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" camera="pan:NaN" onLeaveToAttempt="checkerYellow:greenMoveToYellow,checkerRed:greenMoveToRed">
-			<swf id="gc_arrowYellow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:0" target="checkerYellow" mouse="onOver:showBubbleYellow,onOut:hideBubble">
+			<swf id="cg_arrowYellow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:0" target="checkerYellow" mouse="onOver:showBubbleYellow,onOut:hideBubble">
 				<settings path="~hotspots/images/arrow_yellow.png"/>
 			</swf>
-			<swf id="gc_arrowRed" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:-90" target="checkerRed" mouse="onOver:showBubbleRed,onOut:hideBubble">
+			<swf id="cg_arrowRed" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:-90" target="checkerRed" mouse="onOver:showBubbleRed,onOut:hideBubble">
 				<settings path="~hotspots/images/arrow_red.png"/>
 			</swf>
 		</panorama>
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml" camera="pan:NaN" onLeaveToAttempt="checkerGreen:redMoveToGreen,checkerBlue:redMoveToBlue">
-			<swf id="rc_arrowGreen" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:90" target="checkerGreen" mouse="onOver:showBubbleGreen,onOut:hideBubble">
+			<swf id="cr_arrowGreen" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:90" target="checkerGreen" mouse="onOver:showBubbleGreen,onOut:hideBubble">
 				<settings path="~hotspots/images/arrow_green.png"/>
 			</swf>
-			<swf id="rc_arrowBlue" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:0" target="checkerBlue" mouse="onOver:showBubbleBlue,onOut:hideBubble">
+			<swf id="cr_arrowBlue" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:0" target="checkerBlue" mouse="onOver:showBubbleBlue,onOut:hideBubble">
 				<settings path="~hotspots/images/arrow_blue.png"/>
 			</swf>
 		</panorama>
 		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml" camera="pan:NaN" onLeaveToAttempt="checkerGreen:yellowMoveToGreen,checkerBlue:yellowMoveToBlue">
-			<swf id="yc_arrowGreen" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:180" target="checkerGreen" mouse="onOver:showBubbleGreen,onOut:hideBubble">
+			<swf id="cy_arrowGreen" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:180" target="checkerGreen" mouse="onOver:showBubbleGreen,onOut:hideBubble">
 				<settings path="~hotspots/images/arrow_green.png"/>
 			</swf>
-			<swf id="yc_arrowBlue" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:-90" target="checkerBlue" mouse="onOver:showBubbleBlue,onOut:hideBubble">
+			<swf id="cy_arrowBlue" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:-90" target="checkerBlue" mouse="onOver:showBubbleBlue,onOut:hideBubble">
 				<settings path="~hotspots/images/arrow_blue.png"/>
 			</swf>
 		</panorama>
@@ -66,7 +66,7 @@
 				<style id="buttonBar" content="bubblePadding:3,fontSize:12,borderSize:2"/>
 			</styles>
 		</InfoBubble>
-		<MenuScroller path="~modules/MenuScroller-1.1.swf">
+		<MenuScroller path="~modules/MenuScroller-1.2.swf">
 			<window open="false" onOpen="menuScrollerOpened" onClose="menuScrollerClosed" openTween="time:0.5" closeTween="time:0.5"/>
 			<close path="~media/images/buttons/dark_left_close.png" align="vertical:middle" move="horizontal:60"/>
 			<elements>
@@ -185,14 +185,14 @@
 		<action id="helpOpened" content="ButtonBar.setActive(e,true)"/>
 		<action id="helpClosed" content="ButtonBar.setActive(e,false)"/>
 		
-		<action id="blueMoveToYellow" content="SaladoPlayer.moveToHotspotThen(bc_arrowYellow,30,loadYellow)"/>
-		<action id="blueMoveToRed" content="SaladoPlayer.moveToHotspotThen(bc_arrowRed,30,loadRed)"/>
-		<action id="greenMoveToYellow" content="SaladoPlayer.moveToHotspotThen(gc_arrowYellow,30,loadYellow)"/>
-		<action id="greenMoveToRed" content="SaladoPlayer.moveToHotspotThen(gc_arrowRed,30,loadRed)"/>
-		<action id="yellowMoveToGreen" content="SaladoPlayer.moveToHotspotThen(yc_arrowGreen,30,loadGreen)"/>
-		<action id="yellowMoveToBlue" content="SaladoPlayer.moveToHotspotThen(yc_arrowBlue,30,loadBlue)"/>
-		<action id="redMoveToGreen" content="SaladoPlayer.moveToHotspotThen(rc_arrowGreen,30,loadGreen)"/>
-		<action id="redMoveToBlue" content="SaladoPlayer.moveToHotspotThen(rc_arrowBlue,30,loadBlue)"/>
+		<action id="blueMoveToYellow" content="SaladoPlayer.moveToHotspotThen(cb_arrowYellow,30,loadYellow)"/>
+		<action id="blueMoveToRed" content="SaladoPlayer.moveToHotspotThen(cb_arrowRed,30,loadRed)"/>
+		<action id="greenMoveToYellow" content="SaladoPlayer.moveToHotspotThen(cg_arrowYellow,30,loadYellow)"/>
+		<action id="greenMoveToRed" content="SaladoPlayer.moveToHotspotThen(cg_arrowRed,30,loadRed)"/>
+		<action id="yellowMoveToGreen" content="SaladoPlayer.moveToHotspotThen(cy_arrowGreen,30,loadGreen)"/>
+		<action id="yellowMoveToBlue" content="SaladoPlayer.moveToHotspotThen(cy_arrowBlue,30,loadBlue)"/>
+		<action id="redMoveToGreen" content="SaladoPlayer.moveToHotspotThen(cr_arrowGreen,30,loadGreen)"/>
+		<action id="redMoveToBlue" content="SaladoPlayer.moveToHotspotThen(cr_arrowBlue,30,loadBlue)"/>
 		
 		<action id="loadBlue" content="SaladoPlayer.loadPano(checkerBlue)"/>
 		<action id="loadGreen" content="SaladoPlayer.loadPano(checkerGreen)"/>

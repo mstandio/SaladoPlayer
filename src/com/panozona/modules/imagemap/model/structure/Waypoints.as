@@ -30,7 +30,12 @@ package com.panozona.modules.imagemap.model.structure {
 			return result;
 		}
 		
-		public var path:String = null;
+		private var _path:String = null;
+		
+		public function get path():String {return _path;}
+		public function set path(value:String):void {
+			_path = value;
+		}
 		
 		public const move:Move = new Move(0, 0);
 		public const radar:Radar = new Radar();
