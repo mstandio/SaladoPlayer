@@ -3,7 +3,7 @@
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<panoramas firstPanorama="kiev"/>
+		<panoramas firstPanorama="kiev" firstOnEnter="firstOpen"/>
 	</global>
 	<panoramas>
 		<panorama id="kiev" path="~../../panoramas5/dz_kiev/kiev_f.xml" camera="minFov:10,tierThreshold:1.2"/>
@@ -79,6 +79,7 @@
 			</elements>
 		</MenuScroller>
 		<DropDown path="~modules/DropDown-1.2.swf">
+			<window open="false"/>
 			<elements>
 				<element target="kiev" label="Kiev"/>
 				<element target="park" label="Park"/>
@@ -120,7 +121,7 @@
 				<window align="vertical:top,horizontal:right" move="horizontal:-30,vertical:30"/>
 			</button>
 			<button id="buttonMenuMap">
-				<window open="false"transition="type:slideRight" align="vertical:top,horizontal:right" move="horizontal:-230,vertical:330"/>
+				<window open="false"transition="type:fade" align="vertical:top,horizontal:right" move="horizontal:-230,vertical:330"/>
 				<subButtons>
 					<subButton id="buttonMenuMap1" path="~media/images/misc/button_map1.png" action="setMap1"/>
 					<subButton id="buttonMenuMap2" path="~media/images/misc/button_map2.png" move="horizontal:85" action="setMap2"/>
@@ -128,6 +129,7 @@
 			</button>
 		</ImageButton>
 		<ButtonBar path="~modules/buttonBar/ButtonBar-1.3.swf">
+			<window open="false" transition="type:slideRight"/>
 			<buttons path="~modules/buttonbar/images/buttons_dark_40x40.png">
 				<button name="out"/>
 				<button name="in"/>
@@ -150,6 +152,8 @@
 		</LensFlare>
 	</modules>
 	<actions>
+		<action id="firstOpen" content="ButtonBar.setOpen(true);DropDown.setOpen(true)"/>
+		
 		<action id="showBubbleDrag" content="InfoBubble.show(b_drag)"/>
 		<action id="showBubbleAutorotation" content="InfoBubble.show(b_autorotation)"/>
 		<action id="showBubbleFullscreen" content="InfoBubble.show(b_fullscreen)"/>

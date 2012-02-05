@@ -36,7 +36,7 @@ package com.panosalado.model{
 			_enabled = true;
 			zoomAtCursor = true;
 			
-			sensitivity = 1.0;
+			sensitivity = 0.75;
 			threshold = 0.0001;
 			friction = 0.25;
 		}

@@ -1,37 +1,36 @@
 ﻿<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 	<head>
-		<title>SaladoPlayer v1.1</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<script type="text/javascript">
 			
-			var counter = 0;
-			function someJavaScriptFunction(passedValue){
-				var box1 = document.getElementById('box1');
-				box1.value = passedValue + " " + counter;
-				counter++;
-			}
-			
 			function onEnter(panoramaId){
-				var box2 = document.getElementById('box2');
-				box2.value = 'panorama loaded: ' + panoramaId;
+				var box1 = document.getElementById('box1');
+				box1.value = 'panorama loaded: ' + panoramaId;
 			}
 			function onTransitionEnd(panoramaId){
-				var box2 = document.getElementById('box2');
-				box2.value = 'transition ended: ' + panoramaId;
+				var box1 = document.getElementById('box1');
+				box1.value = 'transition ended: ' + panoramaId;
 			}
 			function onMoveEnd(){
-				var box2 = document.getElementById('box2');
-				box2.value = 'move ended';
+				var box1 = document.getElementById('box1');
+				box1.value = 'move ended';
 			}
 			
 			function onViewChange(pan, tilt, fov, direction){
-				var box3 = document.getElementById('box3');
-				box3.value = pan+' '+tilt+' '+fov+' '+direction;
+				var box2 = document.getElementById('box2');
+				box2.value = pan + ' ' + tilt + ' ' + fov + ' ' + direction;
 			}
 			
 			function handleClick1(actionId){
 				// exposed by default
-				document.getElementById('SaladoPlayer').runAction(actionId); 
+				document.getElementById('SaladoPlayer').runAction(actionId);
+			}
+			
+			var counter = 0;
+			function someJavaScriptFunction(passedValue){
+				var box3 = document.getElementById('box3');
+				box3.value = passedValue + " " + counter;
+				counter++;
 			}
 			
 			var buttonActive = false
@@ -56,12 +55,11 @@
 			params.menu = "false";
 			params.quality = "high";
 			params.allowfullscreen = "true";
-			//params.allowscriptaccess = "sameDomain";
 			swfobject.embedSWF("../../SaladoPlayer-1.3.swf", "SaladoPlayer", "100%", "100%", "10.0.0", "../../embed/expressInstall.swf", flashvars, params);
 		</script>
 		<link type="text/css" href="resources/style.css" rel="stylesheet"/>
 	</head>
-	<body bgcolor="#000000">
+	<body>
 		<div id="wrapper">
 			<div id="SaladoPlayer">
 				<a href="http://www.adobe.com/go/getflashplayer">
@@ -70,7 +68,8 @@
 			</div>
 			<div style="text-align:center; margin-top:10px;">
 			<u><a href="#" onClick="handleClick1('javaScriptToSaladoPlayer');">Click here to execute action "javaScriptToSaladoPlayer"</a></u>
-			<u><a href="#" onClick="handleClick2();">Click here to call exposed actionscript function</a></u>
+			<u><a href="#" onClick="handleClick2();">Click here to call exposed actionscript functions</a></u>
+			<br/><br/>
 			<form>
 				<input type="text" id="box1" value=""/>
 				<input type="text" id="box2" value=""/>

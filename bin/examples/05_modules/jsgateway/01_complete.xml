@@ -17,10 +17,10 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" direction="15">
 			<image id="cg_arrowBlue" path="~hotspots/images/arrow_blue.png" target="checkerBlue"/>
 		</panorama>
-		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" direction="25">
 			<image id="cb_arrowGreen" path="~hotspots/images/arrow_green.png" target="checkerGreen"/>
 		</panorama>
 	</panoramas>

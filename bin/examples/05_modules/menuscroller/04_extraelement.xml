@@ -23,8 +23,8 @@
 	</modules>
 	<actions>
 		<action id="withdrawThenShowLogo" content="SaladoPlayer.moveToViewThen(NaN,NaN,90,showLogo)"/>
-		<action id="showLogo" content="SaladoPlayer.moveToHotspot(bc_logo,30)"/>
+		<action id="showLogo" content="SaladoPlayer.moveToHotspot(cb_logo,30)"/>
 		<action id="withdrawThenShowHelp" content="SaladoPlayer.moveToViewThen(NaN,NaN,90,showHelp)"/>
-		<action id="showHelp" content="SaladoPlayer.moveToHotspot(bc_help,30)"/>
+		<action id="showHelp" content="SaladoPlayer.moveToHotspot(cb_help,30)"/>
 	</actions>
 </SaladoPlayer>

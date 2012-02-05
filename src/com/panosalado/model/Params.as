@@ -49,7 +49,7 @@ package com.panosalado.model {
 		public var minHorizontalFov:Number;
 		public var maxHorizontalFov:Number;
 		
-		public var maxPixelZoom:Number = 1.0;
+		public var maxPixelZoom:Number = 0.75;
 		
 		public function Params( path:String, pan:Number = 0, tilt:Number = 0, fov:Number = 90) {
 			this.path = path;
