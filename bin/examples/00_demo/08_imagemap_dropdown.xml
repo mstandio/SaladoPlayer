@@ -4,31 +4,36 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_green_check/green_check_f.xml"/>
-		<panorama id="redChecker" path="~panoramas/dz_red_check/red_check_f.xml"/>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml"/>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
 		<DropDown path="~modules/DropDown-1.2.swf">
 			<window align="horizontal:right,vertical:top" move="vertical:30,horizontal:-180" transition="type:slideRight"/>
-			<box opensUp="false" style="fontFamily:Arial,fontSize:15,fontColor:#949694,plainColor:#f7f7f7,hoverColor:#ddd3dd,activeColor:#ddd3dd,borderColor:#949694"/>
+			<box opensUp="false" style="fontFamily:Arial,fontSize:15"/>
 			<elements>
 				<extraElement id="map1_label" label="Impact" action="setMap1"/>
 				<extraElement id="map2_label" label="Galaxy" action="setMap2"/>
 			</elements>
 		</DropDown>
-		<ImageMap path="~modules/ImageMap-1.2.swf">
+		<ImageMap path="~modules/imagemap/ImageMap-1.3.swf">
 			<window onOpen="onMapOpen" onClose="onMapClose"/>
+			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
 			<maps>
-				<map id="map1" path="~media/images/maps/map_1.jpg" onSet="onSetMap1">
-					<waypoint target="greenChecker" position="x:150,y:100"/>
+				<map id="map1" path="~media/images/maps/map1.jpg" onSet="onSetMap1">
+					<waypoints path="~modules/imagemap/images/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="showTilt:false">
+						<waypoint target="checkerGreen" position="x:150,y:100"/>
+					</waypoints>
 				</map>
-				<map id="map2" path="~media/images/maps/map_2.jpg" onSet="onSetMap2">
-					<waypoint target="redChecker" position="x:250,y:200"/>
+				<map id="map2" path="~media/images/maps/map2.jpg" onSet="onSetMap2">
+					<waypoints path="~modules/imagemap/images/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="showTilt:false">
+						<waypoint target="checkerRed" position="x:250,y:200"/>
+					</waypoints>
 				</map>
 			</maps>
 		</ImageMap>
-		<ButtonBar path="~modules/ButtonBar-1.3.swf">
-			<buttons path="~modules/images/buttonbar/buttons_30x30_black.png">
+		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">
+			<buttons path="~modules/buttonbar/images/buttons_dark_30x30.png">
 				<extraButton name="b" action="mapToggle"/>
 			</buttons>
 		</ButtonBar>
@@ -36,8 +41,8 @@
 	<actions>
 		<action id="setMap1" content="ImageMap.setMap(map1)"/>
 		<action id="setMap2" content="ImageMap.setMap(map2)"/>
-		<action id="onSetMap1" content="DropDown.setActive(map1_label,true);DropDown.setActive(map2_label,false)"/>
-		<action id="onSetMap2" content="DropDown.setActive(map2_label,true);DropDown.setActive(map1_label,false)"/>
+		<action id="onSetMap1" content="DropDown.setActive(map1_label)"/>
+		<action id="onSetMap2" content="DropDown.setActive(map2_label)"/>
 		<action id="mapToggle" content="ImageMap.toggleOpen()"/>
 		<action id="onMapOpen" content="DropDown.setOpen(true)"/>
 		<action id="onMapClose" content="DropDown.setOpen(false)"/>

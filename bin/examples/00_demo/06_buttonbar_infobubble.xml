@@ -4,15 +4,12 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
-			<image id="yc_arrowBlue" path="~hotspots/images/arrow_blue.png"/>
-		</panorama>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
-		<InfoBubble path="~modules/InfoBubble-1.3.swf">
+		<InfoBubble path="~modules/InfoBubble-1.3.2.swf">
 			<bubbles>
 				<text id="b_drag" text="change navigation style" style="buttonBar" angle="1"/>
-				<text id="b_hotspots" text="show/hide hotspots" style="buttonBar" angle="1"/>
 				<text id="b_autorotation" text="autorotation" style="buttonBar" angle="1"/>
 				<text id="b_fullscreen" text="fullscreen" style="buttonBar" angle="1"/>
 			</bubbles>
@@ -20,16 +17,11 @@
 				<style id="buttonBar" content="bubblePadding:3,fontSize:12,borderSize:2"/>
 			</styles>
 		</InfoBubble>
-		<ButtonBar path="~modules/ButtonBar-1.3.swf">
-			<buttons path="~modules/images/buttonbar/buttons_40x40_black.png">
-				<button name="up"/>
-				<button name="down"/>
-				<button name="left"/>
-				<button name="right"/>
-				<button name="in"/>
+		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">
+			<buttons path="~modules/buttonbar/images/buttons_fire_40x40.png">
 				<button name="out"/>
+				<button name="in"/>
 				<button name="drag" mouse="onOver:showBubbleDrag,onOut:hideBubble"/>
-				<button name="hotspots" mouse="onOver:showBubbleHotspots,onOut:hideBubble"/>
 				<button name="autorotation" mouse="onOver:showBubbleAutorotation,onOut:hideBubble"/>
 				<button name="fullscreen" mouse="onOver:showBubbleFullscreen,onOut:hideBubble"/>
 			</buttons>
@@ -37,7 +29,6 @@
 	</modules>
 		<actions>
 		<action id="showBubbleDrag" content="InfoBubble.show(b_drag)"/>
-		<action id="showBubbleHotspots" content="InfoBubble.show(b_hotspots)"/>
 		<action id="showBubbleAutorotation" content="InfoBubble.show(b_autorotation)"/>
 		<action id="showBubbleFullscreen" content="InfoBubble.show(b_fullscreen)"/>
 		<action id="hideBubble" content="InfoBubble.hide()"/>

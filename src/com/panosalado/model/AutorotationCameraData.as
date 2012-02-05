@@ -53,7 +53,7 @@ package com.panosalado.model{
 		protected var _enabled:Boolean;
 		
 		public function AutorotationCameraData() {
-			delay = 30;
+			delay = 60;
 			mode = AutorotationCameraData.SPEED;
 			speed = 5;
 			frameIncrement = 0.0333;

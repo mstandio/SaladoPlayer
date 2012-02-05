@@ -15,7 +15,7 @@
 	</panoramas>
 	<modules>
 		<LensFlare path="~modules/LensFlare-1.0.swf">
-			<settings path="~modules/lensflare/images/grid.png"/>
+			<settings path="~modules/lensflare/images/flares1.png"/>
 			<panoramas>
 				<panorama id="checkerRed" location="pan:5,tilt:10"/>
 				<panorama id="checkerBlue" location="pan:-23,tilt:16"/>
