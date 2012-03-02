@@ -22,5 +22,6 @@ package com.panozona.modules.linkopener.data.structure{
 		
 		public var id:String;
 		public var content:String;
+		public var target:String = "_BLANK";
 	}
 }

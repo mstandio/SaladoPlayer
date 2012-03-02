@@ -30,7 +30,7 @@ package com.panozona.modules.linkopener {
 		private var linkOpenerData:LinkOpenerData;
 		
 		public function LinkOpener(){
-			super("LinkOpener", "1.0", "http://panozona.com/wiki/Module:LinkOpener");
+			super("LinkOpener", "1.1", "http://panozona.com/wiki/Module:LinkOpener");
 			moduleDescription.addFunctionDescription("open", String);
 		}
 		
@@ -46,7 +46,7 @@ package com.panozona.modules.linkopener {
 		public function open(linkId:String):void {
 			for each(var link:Link in linkOpenerData.links.getChildrenOfGivenClass(Link)) {
 				if (link.id == linkId) {
-					navigateToURL(new URLRequest(link.content), '_BLANK');
+					navigateToURL(new URLRequest(link.content), link.target);
 					return;
 				}
 			}

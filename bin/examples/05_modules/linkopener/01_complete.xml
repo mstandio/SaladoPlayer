@@ -6,17 +6,20 @@
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
-			<image id="cg_arrowGreen" path="~hotspots/images/arrow_green.png" mouse="onClick:openPanoZona"/>
+			<image id="cg_arrowGreen1" path="~hotspots/images/arrow_green.png" location="pan:-10" mouse="onClick:openPanoZona_blank"/>
+			<image id="cg_arrowGreen2" path="~hotspots/images/arrow_green.png" location="pan:10" mouse="onClick:openPanoZona_parent"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<LinkOpener path="~modules/LinkOpener-1.0.swf">
+		<LinkOpener path="~modules/LinkOpener-1.1.swf">
 			<links>
-				<link id="panozona" content="http://panozona.com/"/>
+				<link id="panozona_blank" content="http://panozona.com/" target="_BALNK"/>
+				<link id="panozona_parent" content="http://panozona.com/" target="_PARENT"/>
 			</links>
 		</LinkOpener>
 	</modules>
 	<actions>
-		<action id="openPanoZona" content="LinkOpener.open(panozona)" />
+		<action id="openPanoZona_blank" content="LinkOpener.open(panozona_blank)"/>
+		<action id="openPanoZona_parent" content="LinkOpener.open(panozona_parent)"/>
 	</actions>
 </SaladoPlayer>
