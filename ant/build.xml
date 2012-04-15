@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="SaladoPlayer" basedir="../.">
+	
+	<property environment="env"/>
+	<property name="FLEX_HOME" value="${env.FLEX_HOME}"/>
+	
+	<property file="bin/compiled_files.txt"/>
+	<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/> 
+	
+	<target name="SaladoPlayer">
+		<mxmlc
+			file="${basedir}/${SaladoPlayer.as}"
+			output="${basedir}/${SaladoPlayer.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<default-frame-rate>30</default-frame-rate>
+			<default-background-color>#000000</default-background-color>
+			<default-size width="500" height="375"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="BackgroundMusic">
+		<mxmlc
+			file="${basedir}/${BackgroundMusic.as}"
+			output="${basedir}/${BackgroundMusic.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="ButtonBar">
+		<mxmlc
+			file="${basedir}/${ButtonBar.as}"
+			output="${basedir}/${ButtonBar.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="Compass">
+		<mxmlc
+			file="${basedir}/${ButtonBar.as}"
+			output="${basedir}/${ButtonBar.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="DropDown">
+		<mxmlc
+			file="${basedir}/${DropDown.as}"
+			output="${basedir}/${DropDown.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="ExampleModule">
+		<mxmlc
+			file="${basedir}/${ExampleModule.as}"
+			output="${basedir}/${ExampleModule.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="FullScreener">
+		<mxmlc
+			file="${basedir}/${FullScreener.as}"
+			output="${basedir}/${FullScreener.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="ImageButton">
+		<mxmlc
+			file="${basedir}/${ImageButton.as}"
+			output="${basedir}/${ImageButton.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="ImageMap">
+		<mxmlc
+			file="${basedir}/${ImageMap.as}"
+			output="${basedir}/${ImageMap.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="InfoBubble">
+		<mxmlc
+			file="${basedir}/${InfoBubble.as}"
+			output="${basedir}/${InfoBubble.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="JSGateway">
+		<mxmlc
+			file="${basedir}/${JSGateway.as}"
+			output="${basedir}/${JSGateway.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="JSGoogleMap">
+		<mxmlc
+			file="${basedir}/${JSGoogleMap.as}"
+			output="${basedir}/${JSGoogleMap.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="MenuScroller">
+		<mxmlc
+			file="${basedir}/${MenuScroller.as}"
+			output="${basedir}/${MenuScroller.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="LinkOpener">
+		<mxmlc
+			file="${basedir}/${LinkOpener.as}"
+			output="${basedir}/${LinkOpener.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="MouseCursor">
+		<mxmlc
+			file="${basedir}/${MouseCursor.as}"
+			output="${basedir}/${MouseCursor.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="PanoLink">
+		<mxmlc
+			file="${basedir}/${PanoLink.as}"
+			output="${basedir}/${PanoLink.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="ViewFinder">
+		<mxmlc
+			file="${basedir}/${ViewFinder.as}"
+			output="${basedir}/${ViewFinder.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="ZoomSlider">
+		<mxmlc
+			file="${basedir}/${ZoomSlider.as}"
+			output="${basedir}/${ZoomSlider.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="AdvancedHotspot">
+		<mxmlc
+			file="${basedir}/${AdvancedHotspot.as}"
+			output="${basedir}/${AdvancedHotspot.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="SimpleHotspot">
+		<mxmlc
+			file="${basedir}/${SimpleHotspot.as}"
+			output="${basedir}/${SimpleHotspot.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="VideoHotspot">
+		<mxmlc
+			file="${basedir}/${VideoHotspot.as}"
+			output="${basedir}/${VideoHotspot.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="ExamplesLoader">
+		<mxmlc
+			file="${basedir}/${ExamplesLoader.as}"
+			output="${basedir}/${ExamplesLoader.swf}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<!--
+		building all files need to be separated as too many targets crashed java
+		and there is no setting to adjust java memeory in FlashDecelop AntPlugin
+	-->
+	
+	<target name="Build all (1-10)"
+		depends="SaladoPlayer,
+				BackgroundMusic,
+				ButtonBar,
+				Compass,
+				DropDown,
+				ExampleModule,
+				FullScreener,
+				ImageButton,
+				ImageMap,
+				InfoBubble"/>
+				
+	<target name="Build all (11-20)"
+		depends="JSGateway,
+				JSGoogleMap,
+				MenuScroller,
+				LinkOpener,
+				MouseCursor,
+				PanoLink,
+				ViewFinder,
+				ZoomSlider,
+				AdvancedHotspot,
+				SimpleHotspot,
+				VideoHotspot,
+				ExamplesLoader"/>
+				
+	<target name="Build all (21)"
+		depends="ExamplesLoader"/>
+	
+</project>

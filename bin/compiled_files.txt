@@ -1,30 +1,68 @@
-src/com/panozona/player/SaladoPlayer.as -> SaladoPlayer-1.3.swf
 
-src/com/panozona/modules/backgroundmusic/BackgroundMusic.as -> modules/BackgroundMusic-1.1.swf
-src/com/panozona/modules/buttonbar/ButtonBar.as -> modules/buttonbar/ButtonBar-1.3.swf
-src/com/panozona/modules/compass/Compass.as -> modules/compass/Compass-1.2.swf
-src/com/panozona/modules/dropdown/DropDown.as -> modules/DropDown-1.2.swf
-src/com/panozona/modules/fullscreener/FullScreener.as -> modules/fullscreener/FullScreener-1.0.swf
-src/com/panozona/modules/imagebutton/ImageButton.as -> modules/ImageButton-1.3.swf
-src/com/panozona/modules/imagemap/ImageMap.as -> modules/imagemap/ImageMap-1.3.swf
-src/com/panozona/modules/infobubble/InfoBubble.as -> modules/InfoBubble-1.3.2.swf
-src/com/panozona/modules/jsgateway/JSGateway.as -> modules/JSGateway-1.3.2.swf
-src/com/panozona/modules/jsgooglemap/JSGoogleMap.as -> modules/jsgooglemap/JSGoogleMap-1.0.swf
-src/com/panozona/modules/menuscroller/MenuScroller.as -> modules/MenuScroller-1.2.swf
-src/com/panozona/modules/linkopener/LinkOpener.as -> modules/LinkOpener-1.1.swf
-src/com/panozona/modules/mousecursor/MouseCursor.as -> modules/mousecursor/MouseCursor-1.2.swf
-src/com/panozona/modules/panolink/PanoLink.as -> modules/panolink/PanoLink-1.1.swf
-src/com/panozona/modules/viewfinder/ViewFinder.as -> modules/ViewFinder-1.3.swf
-src/com/panozona/modules/zoomslider/ZoomSlider.as -> modules/zoomslider/ZoomSlider-1.1.swf
+SaladoPlayer.as  = src/com/panozona/player/SaladoPlayer.as 
+SaladoPlayer.swf = bin/SaladoPlayer-1.3.swf
 
-src/com/panozona/hotspots/advancedhotspot/AdvancedHotspot.as -> hotspots/AdvancedHotspot-1.0.swf
-src/com/panozona/hotspots/simplehotspot/SimpleHotspot.as -> hotspots/SimpleHotspot-1.0.swf
-src/com/panozona/hotspots/videohotspot/VideoHotspot.as -> hotspots/VideoHotspot-1.0.swf
+BackgroundMusic.as  = src/com/panozona/modules/backgroundmusic/BackgroundMusic.as
+BackgroundMusic.swf = bin/modules/BackgroundMusic-1.1.swf
 
-// configuration viewer
+ButtonBar.as  = src/com/panozona/modules/buttonbar/ButtonBar.as
+ButtonBar.swf = bin/modules/buttonbar/ButtonBar-1.3.swf
 
-src/com/panozona/viewer/ExamplesLoader.as -> viewer/resources/ExamplesLoader.swf
+Compass.as  = src/com/panozona/modules/compass/Compass.as
+Compass.swf = bin/modules/compass/Compass-1.2.swf
 
-// for developers
+DropDown.as  = src/com/panozona/modules/dropdown/DropDown.as
+DropDown.swf = bin/modules/DropDown-1.2.swf
 
-src/com/panozona/modules/examplemodule/ExampleModule.as -> modules/ExampleModule-1.0.swf
+ExampleModule.as  = src/com/panozona/modules/examplemodule/ExampleModule.as 
+ExampleModule.swf = bin/modules/ExampleModule-1.0.swf
+
+FullScreener.as  = src/com/panozona/modules/fullscreener/FullScreener.as
+FullScreener.swf = bin/modules/fullscreener/FullScreener-1.0.swf
+
+ImageButton.as  = src/com/panozona/modules/imagebutton/ImageButton.as
+ImageButton.swf = bin/modules/imagebutton/ImageButton-1.3.swf
+
+ImageMap.as  = src/com/panozona/modules/imagemap/ImageMap.as
+ImageMap.swf = bin/modules/imagemap/ImageMap-1.3.swf
+
+InfoBubble.as  = src/com/panozona/modules/infobubble/InfoBubble.as
+InfoBubble.swf = bin/modules/InfoBubble-1.3.2.swf
+
+JSGateway.as  = src/com/panozona/modules/jsgateway/JSGateway.as
+JSGateway.swf = bin/modules/JSGateway-1.3.2.swf
+
+JSGoogleMap.as  = src/com/panozona/modules/jsgooglemap/JSGoogleMap.as
+JSGoogleMap.swf = bin/modules/jsgooglemap/JSGoogleMap-1.0.swf
+
+MenuScroller.as  = src/com/panozona/modules/menuscroller/MenuScroller.as
+MenuScroller.swf = bin/modules/MenuScroller-1.2.swf
+
+LinkOpener.as  = src/com/panozona/modules/linkopener/LinkOpener.as
+LinkOpener.swf = bin/modules/LinkOpener-1.1.swf
+
+MouseCursor.as  = src/com/panozona/modules/mousecursor/MouseCursor.as
+MouseCursor.swf = bin/modules/mousecursor/MouseCursor-1.2.swf
+
+PanoLink.as  = src/com/panozona/modules/panolink/PanoLink.as
+PanoLink.swf = bin/modules/panolink/PanoLink-1.1.swf
+
+ViewFinder.as  = src/com/panozona/modules/viewfinder/ViewFinder.as
+ViewFinder.swf = bin/modules/ViewFinder-1.3.swf
+
+ZoomSlider.as  = src/com/panozona/modules/zoomslider/ZoomSlider.as
+ZoomSlider.swf = bin/modules/zoomslider/ZoomSlider-1.1.swf
+ 
+AdvancedHotspot.as  = src/com/panozona/hotspots/advancedhotspot/AdvancedHotspot.as
+AdvancedHotspot.swf = bin/hotspots/AdvancedHotspot-1.0.swf
+
+SimpleHotspot.as  = src/com/panozona/hotspots/simplehotspot/SimpleHotspot.as
+SimpleHotspot.swf = bin/hotspots/SimpleHotspot-1.0.swf
+ 
+VideoHotspot.as  = src/com/panozona/hotspots/videohotspot/VideoHotspot.as
+VideoHotspot.swf = bin/hotspots/VideoHotspot-1.0.swf
+
+# configuration viewer
+
+ExamplesLoader.as  = src/com/panozona/viewer/ExamplesLoader.as
+ExamplesLoader.swf = bin/_showcase/examplesviewer/resources/ExamplesLoader.swf
