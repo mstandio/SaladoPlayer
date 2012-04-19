@@ -301,11 +301,10 @@
 				ViewFinder,
 				ZoomSlider,
 				AdvancedHotspot,
-				SimpleHotspot,
-				VideoHotspot,
-				ExamplesLoader"/>
+				SimpleHotspot"/>
 				
-	<target name="Build all (21)"
-		depends="ExamplesLoader"/>
+	<target name="Build all (21-22)"
+		depends="VideoHotspot,
+				ExamplesLoader"/>
 	
 </project>

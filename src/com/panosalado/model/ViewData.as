@@ -668,11 +668,16 @@ package com.panosalado.model{
 			if (isNaN(_boundsWidth) || isNaN(_boundsHeight) || isNaN(_fieldOfView)) return;
 			
 			if (!isNaN(_minimumVerticalFieldOfView) && !isNaN(_maximumVerticalFieldOfView) &&
-				(_maximumVerticalFieldOfView - _minimumVerticalFieldOfView) < 180){
-				maximumFieldOfView = (180.0/Math.PI) * 2 *
+				(_maximumVerticalFieldOfView - _minimumVerticalFieldOfView) < 180) {
+				
+				var maximumFieldOfViewTmp:Number = (180.0/Math.PI) * 2 *
 					Math.atan((_boundsWidth/_boundsHeight) *
 					Math.tan((Math.PI/180) * 0.5 *
 					(_maximumVerticalFieldOfView - _minimumVerticalFieldOfView)));
+					
+				if (maximumFieldOfViewTmp < maximumFieldOfView) {
+					maximumFieldOfView = maximumFieldOfViewTmp;
+				}
 			}
 			
 			var cameraVFOV:Number = (180.0/Math.PI) * 2 *
@@ -688,9 +693,14 @@ package com.panosalado.model{
 			
 			if (tile != null && tile.tilePyramid != null){
 				var boundsDiagonal:Number = Math.sqrt(_boundsWidth * _boundsWidth + _boundsHeight * _boundsHeight);
-				minimumFieldOfView = 2 * 180 / Math.PI * Math.atan(Math.tan(boundsDiagonal /
+				
+				var minimumFieldOfViewTmp:Number = 2 * 180 / Math.PI * Math.atan(Math.tan(boundsDiagonal /
 					(tile.tilePyramid.width * Math.PI * _maximumPixelZoom / 90 * _tierThreshold * 2) * Math.PI / 180 ) *
 					_boundsWidth / boundsDiagonal);
+				
+				if (minimumFieldOfViewTmp > minimumFieldOfView) {
+					minimumFieldOfView = minimumFieldOfViewTmp;
+				}
 			}
 		}
 	}

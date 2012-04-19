@@ -6,9 +6,9 @@ how to install ANT:
 	
 	unpack into directory that does not contain spaces (!)
 	
-	set environment variables FLEX_HOME to flex installation directory
+	set environment variable FLEX_HOME to flex installation directory
 	
-	set environment variables ANT_HOME to ant installation directory
+	set environment variable ANT_HOME to ANT installation directory
 	
 	add %ANT_HOME%\bin to your PATH
 	
