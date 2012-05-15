@@ -29,8 +29,10 @@ if using FlashDevelop:
 	restart Flashdevelop
 	open "Ant window" and point to build.xml file
 	
-you can also use ANT via command line 
+you can also use ANT via command line
 	
 	C:\>ant -v -buildfile "F:\SaladoPlayer\ant\build.xml" "SaladoPlayer"
 	(here SaladoPlayer is name of task defined in build.xml file)
 	(-v argument added to debug build.xml file)
+	
+For more details see comments in build.xml file
