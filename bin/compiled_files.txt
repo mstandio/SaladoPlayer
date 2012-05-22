@@ -36,7 +36,7 @@ JSGoogleMap.as  = src/com/panozona/modules/jsgooglemap/JSGoogleMap.as
 JSGoogleMap.swf = bin/modules/jsgooglemap/JSGoogleMap-1.0.swf
 
 MenuScroller.as  = src/com/panozona/modules/menuscroller/MenuScroller.as
-MenuScroller.swf = bin/modules/MenuScroller-1.2.swf
+MenuScroller.swf = bin/modules/MenuScroller-1.2.1.swf
 
 LinkOpener.as  = src/com/panozona/modules/linkopener/LinkOpener.as
 LinkOpener.swf = bin/modules/LinkOpener-1.1.swf

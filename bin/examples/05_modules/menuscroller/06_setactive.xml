@@ -14,7 +14,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<MenuScroller path="~modules/MenuScroller-1.2.swf">
+		<MenuScroller path="~modules/MenuScroller-1.2.1.swf">
 			<elements>
 				<extraElement id="logo" action="printHelloLogo" path="~media/images/misc/panozona_logo.png"/>
 				<extraElement id="help" action="printHelloHelp" path="~media/images/misc/help.png"/>

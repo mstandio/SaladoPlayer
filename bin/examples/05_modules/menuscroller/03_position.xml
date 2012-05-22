@@ -23,7 +23,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<MenuScroller path="~modules/MenuScroller-1.2.swf">
+		<MenuScroller path="~modules/MenuScroller-1.2.1.swf">
 			<window size="width:700,height:300" align="horizontal:center" transition="type:slideDown"/>
 			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
 			<scroller scrollsVertical="false"/>
