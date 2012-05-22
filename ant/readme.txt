@@ -1,7 +1,6 @@
-You can compile each file manually or make your life easier by using ANT
 
 how to install ANT:
-
+	
 	download http://ant.apache.org/bindownload.cgi
 	
 	unpack into directory that does not contain spaces (!)
@@ -20,19 +19,23 @@ how to install ANT:
 	see if it works by typing in command line: C:\>ant
 	
 	copy flexTasks.jar from FLEX_HOME\ant to ANT_HOME\lib
-
-if using FlashDevelop:
+	
+	download http://sourceforge.net/projects/ant-contrib/files/ant-contrib/1.0b3/ant-contrib-1.0b3-bin.zip/download
+	
+	copy ant-contrib-1.0b3.jar to ANT_HOME\lib
+	
+use ANT via command line:
+	
+	C:\>ant -v -buildfile "F:\SaladoPlayer\ant\build.xml" "SaladoPlayer"
+	(here SaladoPlayer is name of task defined in build.xml file)
+	(-v argument added to debug build.xml file)
+	
+when using FlashDevelop:
 	
 	download plugin http://code.google.com/p/fd-ant-plugin/downloads/list
 	place unpacked *.dll in Flashdevelop plugins directory
 	in Program Settings configure AntPlugin and set ANT installation directory
 	restart Flashdevelop
 	open "Ant window" and point to build.xml file
-	
-you can also use ANT via command line
-	
-	C:\>ant -v -buildfile "F:\SaladoPlayer\ant\build.xml" "SaladoPlayer"
-	(here SaladoPlayer is name of task defined in build.xml file)
-	(-v argument added to debug build.xml file)
 	
 For more details see comments in build.xml file

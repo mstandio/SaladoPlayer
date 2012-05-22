@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+	debuggableSwf - if set to true produces much bigger *.swf files
+	but in return displayes source line numbers in error messages
+	
+	In order to see error messages install debug version of Flash Player
+	http://www.adobe.com/support/flashplayer/downloads.html
+	
+	in order to see trace() messages you can use Vizzy Flash Tracer
+	http://code.google.com/p/flash-tracer/
+	
+	for more info on build file see:
+	
+	http://livedocs.adobe.com/flex/3/html/help.html?content=anttasks_1.html
+	http://livedocs.adobe.com/flex/3/html/help.html?content=compilers_14.html
+-->
 <project name="SaladoPlayer" basedir="../.">
 	
-	<!--
-		debuggableSwf - if set to true produces much bigger *.swf files
-		but in return displayes source line numbers in error messages
-		
-		In order to see error messages install debug version of Flash Player
-		http://www.adobe.com/support/flashplayer/downloads.html
-		
-		in order to see trace() messages you can use Vizzy Flash Tracer
-		http://code.google.com/p/flash-tracer/
-		
-		for more info on build file see:
-		
-		http://livedocs.adobe.com/flex/3/html/help.html?content=anttasks_1.html
-		http://livedocs.adobe.com/flex/3/html/help.html?content=compilers_14.html
-	-->
-	
 	<property name="debuggableSwf" value="false"/>
-	
 	
 	<property environment="env"/>
 	<property name="FLEX_HOME" value="${env.FLEX_HOME}"/>
@@ -26,7 +24,21 @@
 	<property file="bin/compiled_files.txt"/>
 	<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/> 
 	
+	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+	
 	<target name="SaladoPlayer">
+		<propertyregex property="SaladoPlayer.swf.dir"
+			input="${SaladoPlayer.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="SaladoPlayer.name"
+			input="${SaladoPlayer.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${SaladoPlayer.swf.dir}"
+				includes="${SaladoPlayer.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${SaladoPlayer.as}"
 			output="${basedir}/${SaladoPlayer.swf}"
@@ -45,6 +57,18 @@
 	</target>
 	
 	<target name="BackgroundMusic">
+		<propertyregex property="BackgroundMusic.swf.dir"
+			input="${BackgroundMusic.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="BackgroundMusic.name"
+			input="${BackgroundMusic.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${BackgroundMusic.swf.dir}"
+				includes="${BackgroundMusic.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${BackgroundMusic.as}"
 			output="${basedir}/${BackgroundMusic.swf}"
@@ -60,6 +84,18 @@
 	</target>
 	
 	<target name="ButtonBar">
+		<propertyregex property="ButtonBar.swf.dir"
+			input="${ButtonBar.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="ButtonBar.name"
+			input="${ButtonBar.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${ButtonBar.swf.dir}"
+				includes="${ButtonBar.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${ButtonBar.as}"
 			output="${basedir}/${ButtonBar.swf}"
@@ -75,9 +111,21 @@
 	</target>
 	
 	<target name="Compass">
+		<propertyregex property="Compass.swf.dir"
+			input="${Compass.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="Compass.name"
+			input="${Compass.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${Compass.swf.dir}"
+				includes="${Compass.name}*.swf"/>
+		</delete>
 		<mxmlc
-			file="${basedir}/${ButtonBar.as}"
-			output="${basedir}/${ButtonBar.swf}"
+			file="${basedir}/${Compass.as}"
+			output="${basedir}/${Compass.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
@@ -90,6 +138,18 @@
 	</target>
 	
 	<target name="DropDown">
+		<propertyregex property="DropDown.swf.dir"
+			input="${DropDown.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="DropDown.name"
+			input="${DropDown.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${DropDown.swf.dir}" 
+				includes="${DropDown.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${DropDown.as}"
 			output="${basedir}/${DropDown.swf}"
@@ -105,6 +165,18 @@
 	</target>
 	
 	<target name="ExampleModule">
+		<propertyregex property="ExampleModule.swf.dir"
+			input="${ExampleModule.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="ExampleModule.name"
+			input="${ExampleModule.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${ExampleModule.swf.dir}"
+				includes="${ExampleModule.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${ExampleModule.as}"
 			output="${basedir}/${ExampleModule.swf}"
@@ -120,6 +192,18 @@
 	</target>
 	
 	<target name="FullScreener">
+		<propertyregex property="FullScreener.swf.dir"
+			input="${FullScreener.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="FullScreener.name"
+			input="${FullScreener.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${FullScreener.swf.dir}"
+				includes="${FullScreener.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${FullScreener.as}"
 			output="${basedir}/${FullScreener.swf}"
@@ -135,6 +219,18 @@
 	</target>
 	
 	<target name="ImageButton">
+		<propertyregex property="ImageButton.swf.dir"
+			input="${ImageButton.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="ImageButton.name"
+			input="${ImageButton.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${ImageButton.swf.dir}"
+				includes="${ImageButton.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${ImageButton.as}"
 			output="${basedir}/${ImageButton.swf}"
@@ -150,6 +246,18 @@
 	</target>
 	
 	<target name="ImageMap">
+		<propertyregex property="ImageMap.swf.dir"
+			input="${ImageMap.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="ImageMap.name"
+			input="${ImageMap.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${ImageMap.swf.dir}"
+				includes="${ImageMap.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${ImageMap.as}"
 			output="${basedir}/${ImageMap.swf}"
@@ -165,6 +273,18 @@
 	</target>
 	
 	<target name="InfoBubble">
+		<propertyregex property="InfoBubble.swf.dir"
+			input="${InfoBubble.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="InfoBubble.name"
+			input="${InfoBubble.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${InfoBubble.swf.dir}"
+				includes="${InfoBubble.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${InfoBubble.as}"
 			output="${basedir}/${InfoBubble.swf}"
@@ -180,6 +300,18 @@
 	</target>
 	
 	<target name="JSGateway">
+		<propertyregex property="JSGateway.swf.dir"
+			input="${JSGateway.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="JSGateway.name"
+			input="${JSGateway.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${JSGateway.swf.dir}"
+				includes="${JSGateway.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${JSGateway.as}"
 			output="${basedir}/${JSGateway.swf}"
@@ -195,6 +327,18 @@
 	</target>
 	
 	<target name="JSGoogleMap">
+		<propertyregex property="JSGoogleMap.swf.dir"
+			input="${JSGoogleMap.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="JSGoogleMap.name"
+			input="${JSGoogleMap.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${JSGoogleMap.swf.dir}"
+				includes="${JSGoogleMap.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${JSGoogleMap.as}"
 			output="${basedir}/${JSGoogleMap.swf}"
@@ -209,7 +353,46 @@
 		</mxmlc>
 	</target>
 	
+	<target name="LensFlare">
+		<propertyregex property="LensFlare.swf.dir"
+			input="${LensFlare.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="LensFlare.name"
+			input="${LensFlare.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${LensFlare.swf.dir}"
+				includes="${LensFlare.name}*.swf"/>
+		</delete>
+		<mxmlc
+			file="${basedir}/${LensFlare.as}"
+			output="${basedir}/${LensFlare.swf}"
+			fork="true" maxmemory="512m"
+			debug="${debuggableSwf}"
+			static-link-runtime-shared-libraries="true">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
 	<target name="MenuScroller">
+		<propertyregex property="MenuScroller.swf.dir"
+			input="${MenuScroller.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="MenuScroller.name"
+			input="${MenuScroller.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${MenuScroller.swf.dir}"
+				includes="${MenuScroller.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${MenuScroller.as}"
 			output="${basedir}/${MenuScroller.swf}"
@@ -225,6 +408,18 @@
 	</target>
 	
 	<target name="LinkOpener">
+		<propertyregex property="LinkOpener.swf.dir"
+			input="${LinkOpener.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="LinkOpener.name"
+			input="${LinkOpener.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${LinkOpener.swf.dir}"
+				includes="${LinkOpener.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${LinkOpener.as}"
 			output="${basedir}/${LinkOpener.swf}"
@@ -240,6 +435,18 @@
 	</target>
 	
 	<target name="MouseCursor">
+		<propertyregex property="MouseCursor.swf.dir"
+			input="${MouseCursor.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="MouseCursor.name"
+			input="${MouseCursor.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${MouseCursor.swf.dir}"
+				includes="${MouseCursor.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${MouseCursor.as}"
 			output="${basedir}/${MouseCursor.swf}"
@@ -255,6 +462,18 @@
 	</target>
 	
 	<target name="PanoLink">
+		<propertyregex property="PanoLink.swf.dir"
+			input="${PanoLink.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="PanoLink.name"
+			input="${PanoLink.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${PanoLink.swf.dir}"
+				includes="${PanoLink.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${PanoLink.as}"
 			output="${basedir}/${PanoLink.swf}"
@@ -270,6 +489,18 @@
 	</target>
 	
 	<target name="ViewFinder">
+		<propertyregex property="ViewFinder.swf.dir"
+			input="${ViewFinder.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="ViewFinder.name"
+			input="${ViewFinder.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${ViewFinder.swf.dir}"
+				includes="${ViewFinder.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${ViewFinder.as}"
 			output="${basedir}/${ViewFinder.swf}"
@@ -285,6 +516,18 @@
 	</target>
 	
 	<target name="ZoomSlider">
+		<propertyregex property="ZoomSlider.swf.dir"
+			input="${ZoomSlider.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="ZoomSlider.name"
+			input="${ZoomSlider.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${ZoomSlider.swf.dir}"
+				includes="${ZoomSlider.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${ZoomSlider.as}"
 			output="${basedir}/${ZoomSlider.swf}"
@@ -300,6 +543,18 @@
 	</target>
 	
 	<target name="AdvancedHotspot">
+		<propertyregex property="AdvancedHotspot.swf.dir"
+			input="${AdvancedHotspot.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="AdvancedHotspot.name"
+			input="${AdvancedHotspot.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${AdvancedHotspot.swf.dir}"
+				includes="${AdvancedHotspot.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${AdvancedHotspot.as}"
 			output="${basedir}/${AdvancedHotspot.swf}"
@@ -315,6 +570,18 @@
 	</target>
 	
 	<target name="SimpleHotspot">
+		<propertyregex property="SimpleHotspot.swf.dir"
+			input="${SimpleHotspot.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="SimpleHotspot.name"
+			input="${SimpleHotspot.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${SimpleHotspot.swf.dir}"
+				includes="${SimpleHotspot.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${SimpleHotspot.as}"
 			output="${basedir}/${SimpleHotspot.swf}"
@@ -330,6 +597,18 @@
 	</target>
 	
 	<target name="VideoHotspot">
+		<propertyregex property="VideoHotspot.swf.dir"
+			input="${VideoHotspot.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="VideoHotspot.name"
+			input="${VideoHotspot.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${VideoHotspot.swf.dir}"
+				includes="${VideoHotspot.name}*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${VideoHotspot.as}"
 			output="${basedir}/${VideoHotspot.swf}"
@@ -345,6 +624,13 @@
 	</target>
 	
 	<target name="ExamplesLoader">
+		<propertyregex property="ExamplesLoader.swf.dir"
+			input="${ExamplesLoader.swf}"
+			regexp="([a-zA-Z/_]+)(?=/)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${ExamplesLoader.swf.dir}" includes="*.swf"/>
+		</delete>
 		<mxmlc
 			file="${basedir}/${ExamplesLoader.as}"
 			output="${basedir}/${ExamplesLoader.swf}"
@@ -372,6 +658,7 @@
 				InfoBubble,
 				JSGateway,
 				JSGoogleMap,
+				LensFlare,
 				MenuScroller,
 				LinkOpener,
 				MouseCursor,
