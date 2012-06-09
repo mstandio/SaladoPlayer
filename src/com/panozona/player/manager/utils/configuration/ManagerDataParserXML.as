@@ -180,6 +180,8 @@ package com.panozona.player.manager.utils.configuration {
 						dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 							"Invalid align value: " + error.message));
 					}
+				}else if (brandingAttributeName == "alpha") {
+					brandingData.alpha = getAttributeValue(brandingAttribute, Number);
 				}else if (brandingAttributeName == "move") {
 					applySubAttributes(brandingData.move, brandingAttribute);
 				}else {

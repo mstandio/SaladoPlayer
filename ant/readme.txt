@@ -26,9 +26,8 @@ how to install ANT:
 	
 use ANT via command line:
 	
-	C:\>ant -v -buildfile "F:\SaladoPlayer\ant\build.xml" "SaladoPlayer"
+	C:\>ant -buildfile "F:\SaladoPlayer\ant\build.xml" "SaladoPlayer"
 	(here SaladoPlayer is name of task defined in build.xml file)
-	(-v argument added to debug build.xml file)
 	
 when using FlashDevelop:
 	

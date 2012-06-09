@@ -13,16 +13,19 @@
 	
 	http://livedocs.adobe.com/flex/3/html/help.html?content=anttasks_1.html
 	http://livedocs.adobe.com/flex/3/html/help.html?content=compilers_14.html
--->
-<project name="SaladoPlayer" basedir="../.">
 	
-	<property name="debuggableSwf" value="false"/>
+	http://ant-contrib.sourceforge.net/
+	http://ant-contrib.sourceforge.net/tasks/tasks/
+-->
+<project name="SaladoPlayer" basedir="../." default="Build all">
+	
+	<property name="debuggableSwf" value="true"/>
 	
 	<property environment="env"/>
 	<property name="FLEX_HOME" value="${env.FLEX_HOME}"/>
 	
 	<property file="bin/compiled_files.txt"/>
-	<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/> 
+	<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/>
 	
 	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
 	
@@ -147,7 +150,7 @@
 			regexp="([\w]+)(?=-.*\.swf)"
 			select="\1"/>
 		<delete>
-			<fileset dir="${DropDown.swf.dir}" 
+			<fileset dir="${DropDown.swf.dir}"
 				includes="${DropDown.name}*.swf"/>
 		</delete>
 		<mxmlc

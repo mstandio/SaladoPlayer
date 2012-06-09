@@ -50,8 +50,8 @@ package com.panosalado.model{
 			friction = 0.25;
 			sensitivity = 0.5;
 			
-			directionSpeed = 3;
-			zoomSpeed = 2;
+			directionSpeed = 1.8;
+			zoomSpeed = 1.5;
 			
 			enabled = true;
 		}

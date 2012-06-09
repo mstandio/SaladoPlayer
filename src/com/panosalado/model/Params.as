@@ -93,12 +93,12 @@ package com.panosalado.model {
 			viewData._minimumHorizontalFieldOfView = NaN;
 			viewData._maximumVerticalFieldOfView = NaN;
 			viewData._minimumVerticalFieldOfView = NaN;
+			viewData._maximumPixelZoom = NaN;
 			
 			var secondaryViewData:DependentViewData = viewData.secondaryViewData;
 			if (!isNaN(pan)) secondaryViewData.pan = viewData.pan - pan;
 			if (!isNaN(tilt)) secondaryViewData.tilt = viewData.tilt - tilt;
 			if (!isNaN(fov)) secondaryViewData.fieldOfView = viewData.fieldOfView - fov;
-			//if (!isNaN(tierThreshold)) secondaryViewData.tierThreshold = viewData.tierThreshold - tierThreshold;
 			
 			if (!isNaN(pan)) viewData.pan = pan;
 			if (!isNaN(tilt)) viewData.tilt = tilt;

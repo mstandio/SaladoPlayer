@@ -231,6 +231,8 @@ package com.panosalado.controller{
 				__delayTimer.removeEventListener( TimerEvent.TIMER, timesUp);
 			}
 			_cameraData = value;
+			__neutralTilt = _cameraData.tilt;
+			__neutralFieldOfView = _cameraData.fov;
 			inactiveHandler();
 		}
 		
@@ -247,8 +249,6 @@ package com.panosalado.controller{
 		public function set viewData(value:ViewData):void{
 			_viewData = value;
 			_render = (_viewData as PanoSalado).render;
-			__neutralTilt = _viewData._tilt;
-			__neutralFieldOfView = _viewData._fieldOfView;
 			_viewData.addEventListener(Event.COMPLETE, panoramaChangeHandler, false, 0, true);
 			inactiveHandler();
 		}

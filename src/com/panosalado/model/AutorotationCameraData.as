@@ -44,6 +44,16 @@ package com.panosalado.model{
 		public var speed:Number;
 		
 		/**
+		* autorotation field of view
+		*/
+		public var fov:Number;
+		
+		/**
+		* autorotation tilt
+		*/
+		public var tilt:Number;
+		
+		/**
 		* in degress per frame
 		*/
 		public var frameIncrement:Number 
@@ -56,6 +66,8 @@ package com.panosalado.model{
 			delay = 60;
 			mode = AutorotationCameraData.SPEED;
 			speed = 5;
+			fov = 90;
+			tilt = 0;
 			frameIncrement = 0.0333;
 			_enabled = true;
 			_isAutorotating = false;
