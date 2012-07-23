@@ -41,6 +41,8 @@ package com.panozona.player.manager {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.geom.Matrix3D;
+	import flash.geom.Vector3D;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 	
@@ -144,7 +146,9 @@ package com.panozona.player.manager {
 				for (var i:int = 0; i < _managedChildren.numChildren; i++ ) {
 					for(var j:Number = 0; j < arrListeners.length; j++){
 						if (_managedChildren.getChildAt(i).hasEventListener(arrListeners[j].type)) {
-							_managedChildren.getChildAt(i).removeEventListener(arrListeners[j].type, arrListeners[j].listener);
+							if(arrListeners[j].type != MouseEvent.ROLL_OUT && arrListeners[j].type != MouseEvent.MOUSE_UP){
+								_managedChildren.getChildAt(i).removeEventListener(arrListeners[j].type, arrListeners[j].listener);
+							}
 						}
 					}
 				}
@@ -204,29 +208,37 @@ package com.panozona.player.manager {
 			
 			managedChild.buttonMode = hotspotData.handCursor;
 			
+			var tmpFunction:Function;
+			
 			if (hotspotData.target != null) {
-				managedChild.addEventListener(MouseEvent.CLICK, getTargetHandler(hotspotData.target));
-				arrListeners.push({type:MouseEvent.CLICK, listener:getTargetHandler(hotspotData.target)});
+				tmpFunction = getTargetHandler(hotspotData.target);
+				managedChild.addEventListener(MouseEvent.CLICK, tmpFunction);
+				arrListeners.push({type:MouseEvent.CLICK, listener:tmpFunction});
 			}
 			if (hotspotData.mouse.onClick != null) {
-				managedChild.addEventListener(MouseEvent.CLICK, getMouseEventHandler(hotspotData.mouse.onClick));
-				arrListeners.push({type:MouseEvent.CLICK, listener:getMouseEventHandler(hotspotData.mouse.onClick)});
+				tmpFunction = getMouseEventHandler(hotspotData.mouse.onClick);
+				managedChild.addEventListener(MouseEvent.CLICK, tmpFunction);
+				arrListeners.push({type:MouseEvent.CLICK, listener:tmpFunction} );
 			}
 			if (hotspotData.mouse.onPress != null) {
-				managedChild.addEventListener(MouseEvent.MOUSE_DOWN, getMouseEventHandler(hotspotData.mouse.onPress));
-				arrListeners.push({type:MouseEvent.MOUSE_DOWN, listener:getMouseEventHandler(hotspotData.mouse.onPress)});
+				tmpFunction = getMouseEventHandler(hotspotData.mouse.onPress)
+				managedChild.addEventListener(MouseEvent.MOUSE_DOWN, tmpFunction);
+				arrListeners.push({type:MouseEvent.MOUSE_DOWN, listener:tmpFunction});
 			}
 			if (hotspotData.mouse.onRelease != null) {
-				managedChild.addEventListener(MouseEvent.MOUSE_UP, getMouseEventHandler(hotspotData.mouse.onRelease));
-				arrListeners.push({type:MouseEvent.MOUSE_UP, listener:getMouseEventHandler(hotspotData.mouse.onRelease)});
+				tmpFunction = getMouseEventHandler(hotspotData.mouse.onRelease)
+				managedChild.addEventListener(MouseEvent.MOUSE_UP, tmpFunction, false, 0, true);
+				arrListeners.push({type:MouseEvent.MOUSE_UP, listener:tmpFunction});
 			}
 			if (hotspotData.mouse.onOver != null) {
-				managedChild.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(hotspotData.mouse.onOver));
-				arrListeners.push({type:MouseEvent.ROLL_OVER, listener:getMouseEventHandler(hotspotData.mouse.onOver)});
+				tmpFunction = getMouseEventHandler(hotspotData.mouse.onOver)
+				managedChild.addEventListener(MouseEvent.ROLL_OVER, tmpFunction);
+				arrListeners.push({type:MouseEvent.ROLL_OVER, listener:tmpFunction});
 			}
 			if (hotspotData.mouse.onOut != null) {
-				managedChild.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(hotspotData.mouse.onOut));
-				arrListeners.push({type:MouseEvent.ROLL_OUT, listener:getMouseEventHandler(hotspotData.mouse.onOut)});
+				tmpFunction = getMouseEventHandler(hotspotData.mouse.onOut)
+				managedChild.addEventListener(MouseEvent.ROLL_OUT, tmpFunction, false, 0, true);
+				arrListeners.push({type:MouseEvent.ROLL_OUT, listener:tmpFunction});
 			}
 			
 			var piOver180:Number = Math.PI / 180;
@@ -236,16 +248,25 @@ package com.panozona.player.manager {
 			var yc:Number = hotspotData.location.distance * Math.sin(tr);
 			var zc:Number = hotspotData.location.distance * Math.sin(pr) * Math.cos(tr);
 			
-			managedChild.x = xc;
-			managedChild.y = yc;
-			managedChild.z = zc;
-			managedChild.rotationY = (hotspotData.location.pan + hotspotData.transform.rotationY) * piOver180;
-			managedChild.rotationX = (hotspotData.location.tilt + hotspotData.transform.rotationX) * piOver180;
-			managedChild.rotationZ = hotspotData.transform.rotationZ * piOver180;
+			var matrix3D:Matrix3D = new Matrix3D();
+			matrix3D.appendRotation(hotspotData.location.tilt, Vector3D.X_AXIS);
+			matrix3D.appendRotation(hotspotData.location.pan, Vector3D.Y_AXIS);
+			matrix3D.appendScale(hotspotData.transform.scaleX, hotspotData.transform.scaleY, hotspotData.transform.scaleZ);
+			matrix3D.appendTranslation(xc, yc, zc);
+			matrix3D.prependRotation(hotspotData.transform.rotationX, Vector3D.X_AXIS);
+			matrix3D.prependRotation(hotspotData.transform.rotationY, Vector3D.Y_AXIS);
+			matrix3D.prependRotation(hotspotData.transform.rotationZ, Vector3D.Z_AXIS);
 			
-			managedChild.scaleX = hotspotData.transform.scaleX;
-			managedChild.scaleY = hotspotData.transform.scaleY;
-			managedChild.scaleZ = hotspotData.transform.scaleZ;
+			var decomposition:Vector.<Vector3D> = matrix3D.decompose();
+			managedChild.x = decomposition[0].x;
+			managedChild.y = decomposition[0].y;
+			managedChild.z = decomposition[0].z;
+			managedChild.rotationX = decomposition[1].x;
+			managedChild.rotationY = decomposition[1].y;
+			managedChild.rotationZ = decomposition[1].z;
+			managedChild.scaleX = decomposition[2].x;
+			managedChild.scaleY = decomposition[2].y;
+			managedChild.scaleZ = decomposition[2].z;
 			
 			var precedingHotspotData:HotspotData = null;
 			for (var addedHotspotData:Object in hotspots) {

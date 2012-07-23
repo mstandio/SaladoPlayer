@@ -141,12 +141,14 @@ package com.panosalado.model{
 		* @see minimumFieldOfView
 		*/
 		public var _minimumFieldOfView:Number;
+		public var _minimumFieldOfViewDefault:Number;
 		
 		/**
 		* Maximum field of view. Can be used in place of getter for faster access. Do NOT use in place of setter.
 		* @see maximumFieldOfView
 		*/
 		public var _maximumFieldOfView:Number;
+		public var _maximumFieldOfViewDefault:Number;
 		
 		/**
 		* Minimum pan. Can be used in place of getter for faster access. Do NOT use in place of setter.
@@ -677,8 +679,10 @@ package com.panosalado.model{
 					Math.tan(__toRadians * 0.5 *
 					(_maximumVerticalFieldOfView - _minimumVerticalFieldOfView)));
 					
-				if (maximumFieldOfViewTmp < maximumFieldOfView) {
+				if (maximumFieldOfViewTmp < _maximumFieldOfViewDefault) {
 					maximumFieldOfView = maximumFieldOfViewTmp;
+				}else {
+					maximumFieldOfView = _maximumFieldOfViewDefault;
 				}
 			}
 			
@@ -696,9 +700,15 @@ package com.panosalado.model{
 			if (!isNaN(_maximumPixelZoom) && tile != null && tile.tilePyramid != null){
 				var boundsDiagonal:Number = Math.sqrt( _boundsWidth * _boundsWidth + _boundsHeight * _boundsHeight);
 				
-				minimumFieldOfView = Math.atan((boundsWidth * 0.5) / ((boundsDiagonal * 0.5) /
+				var minimumFieldOfViewTmp:Number = Math.atan((boundsWidth * 0.5) / ((boundsDiagonal * 0.5) /
 					Math.tan((boundsDiagonal / (_maximumPixelZoom * 100 * tierThreshold)) * 0.5
-					* __toRadians ))) * 2 * __toDegrees
+					* __toRadians))) * 2 * __toDegrees;
+					
+				if (minimumFieldOfViewTmp < _minimumFieldOfViewDefault) {
+					minimumFieldOfView = minimumFieldOfViewTmp;
+				}else {
+					minimumFieldOfView = _minimumFieldOfViewDefault;
+				}
 			} 
 		}
 	}
