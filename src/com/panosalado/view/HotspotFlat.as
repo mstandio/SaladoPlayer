@@ -1,5 +1,5 @@
-﻿/*
-Copyright 2011 Marek Standio.
+/*
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,10 +20,14 @@ package com.panosalado.view {
 	
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	
-	public class Hotspot extends ManagedChild {
+	public class HotspotFlat extends Sprite {
 		
-		public function Hotspot(displayObject:DisplayObject):void {
+		public var pan:Number;
+		public var tilt:Number;
+		
+		public function HotspotFlat(displayObject:DisplayObject):void {
 			if(displayObject is Bitmap){
 				displayObject.x = -displayObject.width * 0.5;
 				displayObject.y = -displayObject.height * 0.5;

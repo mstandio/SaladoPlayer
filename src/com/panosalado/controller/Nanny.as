@@ -32,7 +32,6 @@ package com.panosalado.controller{
 		protected var _panorama:Panorama;
 		protected var _viewData:ViewData;
 		protected var _managedChildren:Sprite;
-		protected var _secondaryManagedChildren:Sprite;
 		protected var _tempChildren:Vector.<DisplayObject>;
 		
 		public function Nanny() {
@@ -48,7 +47,6 @@ package com.panosalado.controller{
 			
 			if (value != null) {
 				_managedChildren = (value as PanoSalado).managedChildren
-				_secondaryManagedChildren = (value as PanoSalado).secondaryManagedChildren
 				value.addEventListener(ViewEvent.PATH, startManagingChildren, false, 0, true);
 				value.addEventListener(ViewEvent.PATH, showManagedChildren, false, 0, true);
 				value.addEventListener(ViewEvent.NULL_PATH, hideManagedChildren, false, 0, true);
@@ -58,7 +56,6 @@ package com.panosalado.controller{
 				_viewData.removeEventListener(ViewEvent.PATH, showManagedChildren);
 				_viewData.removeEventListener(ViewEvent.NULL_PATH, hideManagedChildren);
 				_managedChildren = null
-				_secondaryManagedChildren = null
 			}
 			_viewData = value;
 		}
@@ -66,12 +63,10 @@ package com.panosalado.controller{
 		protected function showManagedChildren(e:Event):void {
 			if (_managedChildren == null) return;
 			_managedChildren.visible = true;
-			_secondaryManagedChildren.visible = true;
 		}
 		protected function hideManagedChildren(e:Event):void {
 			if (_managedChildren == null) return;
 			_managedChildren.visible = false;
-			_secondaryManagedChildren.visible = false;
 		}
 		
 		protected function startManagingChildren(e:Event):void { // this ignores the first path so that pre added hotspots are nor moved
@@ -80,7 +75,7 @@ package com.panosalado.controller{
 		}
 		
 		protected function moveManagedChildren(e:Event=null):void {
-			if (_managedChildren == null || _secondaryManagedChildren == null) return;
+			if (_managedChildren == null) return;
 			var len:int = _managedChildren.numChildren;
 			var i:int = 0;
 			while (0 < len) {
@@ -88,16 +83,6 @@ package com.panosalado.controller{
 				len--;
 				i++;
 			}
-			len = _secondaryManagedChildren.numChildren;
-			while (0 < len) {
-				_secondaryManagedChildren.removeChildAt(0);
-				len--
-			}
-			len = _tempChildren.length;
-			for (i = 0; i < len; i++) {
-				_secondaryManagedChildren.addChildAt(_tempChildren[i], i);
-			}
-			_tempChildren.length = 0;
 		}
 	}
 }

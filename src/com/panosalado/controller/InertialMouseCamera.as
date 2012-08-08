@@ -41,7 +41,6 @@ package com.panosalado.controller {
 		
 		private var deltaPan:Number;
 		private var deltaTilt:Number;
-		private var deltaFieldOfView:Number;
 		
 		private var mouseIsDown:Boolean;
 		

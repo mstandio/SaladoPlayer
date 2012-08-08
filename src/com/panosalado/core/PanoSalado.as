@@ -30,6 +30,7 @@ package com.panosalado.core{
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Matrix3D;
+	import flash.geom.Vector3D;
 	import flash.utils.getQualifiedClassName;
 	
 	/**
@@ -90,13 +91,9 @@ package com.panosalado.core{
 		protected var _params                  :Object;
 		protected var _background              :Sprite;
 		protected var _canvas                  :Sprite;
-		protected var _secondaryCanvas         :Sprite;
 		protected var _canvasInternal          :Sprite;
-		protected var _secondaryCanvasInternal :Sprite;
 		protected var _children                :Sprite;
 		protected var _managedChildren         :Sprite;
-		protected var _secondaryManagedChildren:Sprite;
-		//protected var _render                :Function;
 		protected var _renderFunction          :Function;
 		
 		public function PanoSalado() {
@@ -109,22 +106,14 @@ package com.panosalado.core{
 			
 			_background = new Sprite();
 			_canvas = new Sprite();
-			_secondaryCanvas = new Sprite();
 			_canvasInternal = new Sprite();
-			_secondaryCanvasInternal = new Sprite();
 			_children = new Sprite();
 			_managedChildren = new Sprite();
-			_secondaryManagedChildren = new Sprite();
-			_secondaryManagedChildren.visible = false;
-		
-			//_canvas.blendMode = BlendMode.LAYER;
-			//_secondaryCanvas.blendMode = BlendMode.LAYER; COREMOD: shows overlapping tiles when loading panorama but makes viewing much more fluent
-			_managedChildren.visible = false;
+					
+			//_canvas.blendMode = BlendMode.LAYER; COREMOD: shows overlapping tiles when loading panorama but makes viewing much more fluent
+			//_managedChildren.visible = false;
 			
 			$addChild(_background); //this one first so it is underneath
-			$addChild(_secondaryCanvas); //this one first so it is underneath
-			_secondaryCanvas.addChild(_secondaryCanvasInternal);
-			_secondaryCanvasInternal.addChild(_secondaryManagedChildren);
 			$addChild(_canvas);
 			_canvas.addChild(_canvasInternal);
 			_canvasInternal.addChild(_managedChildren);
@@ -135,9 +124,7 @@ package com.panosalado.core{
 			_dependencyRelay.addCallback(_stageReference.processDependency);
 			_dependencyRelay.addCallback(TilePyramid.processDependency);
 			
-			
 			addEventListener(ViewEvent.NULL_PATH, clearGraphics, false, 0, true);
-			secondaryViewData.addEventListener(ViewEvent.NULL_PATH, clearGraphics, false, 0, true);
 		}
 		
 		/**
@@ -186,34 +173,16 @@ package com.panosalado.core{
 		public function get canvas():Sprite { return _canvas; }
 		
 		/**
-		* The Sprite whose x,y values can be used to move the secondary, outgoing panorama. Also the Sprite on which the BlendMode is set to LAYER.
-		*/
-		public function get secondaryCanvas():Sprite { return _secondaryCanvas; }
-		
-		/**
 		* The Sprite whose graphics object is used to draw the primary panorama. It's x,y is always at half the panorama's width, height.
 		*/
 		public function get canvasInternal():Sprite { return _canvasInternal; }
 		
 		/**
-		* The Sprite whose graphics object is used to draw the secondary panorama. It's x,y is always at half the panorama's width, height.
-		*/
-		public function get secondaryCanvasInternal():Sprite { return _secondaryCanvasInternal; }
-		
-		/**
 		* The Sprite which is the container for all ManagedChild extending children of the primary panorama (hotspots usually).
-		* When a new panorama has loaded all current children will be re-parented to the secondaryManagedChildren Sprite.
 		* When a child is added to PanoSalado, its class is checked for ManagedChild and if true, it will be added to this 
 		* Sprite and managed as part of the current panorama.
 		*/
 		public function get managedChildren():Sprite { return _managedChildren; }
-		
-		/**
-		* The Sprite which is the container for all ManagedChild extending children of the secondary panorama (hotspots).
-		* When a new panorama has loaded all children will be removed from this Sprite, making them eligible for garbage
-		* collection if there are not other outstanding references to them.
-		*/
-		public function get secondaryManagedChildren():Sprite { return _secondaryManagedChildren; }
 		
 		/**
 		* The Sprite which is the container for all children which do NOT extend ManagedChild.
@@ -230,34 +199,18 @@ package com.panosalado.core{
 		*/
 		final public function render(event:Event = null, viewData:ViewData = null):void {
 			if (viewData == null) viewData = this; //if other viewData was passed in, use it instead. useful for predicting future needed bitmaps.
-			if (!viewData._tile && !viewData.secondaryViewData._tile) return;
+			if (!viewData._tile ) return;
 			if (viewData._tile && viewData.invalid) {
-				//_render(viewData, event ? _canvasInternal.graphics : null);
 				_renderFunction(viewData, event ? _canvasInternal.graphics : null);
 				if (viewData.invalidPerspective) { 
-					//_managedChildren.transform.perspectiveProjection = viewData.perspectiveProjection; //COREMOD
+					_managedChildren.transform.perspectiveProjection = viewData.perspectiveProjection;
 					_canvasInternal.x = viewData._boundsWidth * 0.5;
 					_canvasInternal.y = viewData._boundsHeight * 0.5;
 				}
 				viewData.invalid = viewData.invalidTransform = viewData.invalidPerspective = false;
 				viewData.dispatchEvent(new ViewEvent(ViewEvent.RENDERED, event?_canvas:null));
 			}
-			updateChildren(_managedChildren, viewData);
-			// set viewData to secondary view data and try to render secondary canvas
-			viewData = viewData.secondaryViewData;
-			
-			if (viewData._tile && viewData.invalid) {
-				//_render(viewData, event ? _secondaryCanvasInternal.graphics : null);
-				_renderFunction(viewData, event ? _secondaryCanvasInternal.graphics : null);
-				if (viewData.invalidPerspective) {
-					//_secondaryManagedChildren.transform.perspectiveProjection = viewData.perspectiveProjection; //COREMOD
-					_secondaryCanvasInternal.x = viewData._boundsWidth * 0.5;
-					_secondaryCanvasInternal.y = viewData._boundsHeight * 0.5;
-				}
-				viewData.invalid = viewData.invalidTransform = viewData.invalidPerspective = false;
-				viewData.dispatchEvent(new ViewEvent(ViewEvent.RENDERED, event?_secondaryCanvas:null));
-			}
-			updateChildren(_secondaryManagedChildren, viewData);
+			updateChildren(viewData);
 		}
 		
 		/**
@@ -265,17 +218,17 @@ package com.panosalado.core{
 		*/
 		protected function clearGraphics(e:Event):void {
 			if (_path == null) _canvasInternal.graphics.clear();
-			if (secondaryViewData._path == null) _secondaryCanvasInternal.graphics.clear();
 		}
+		
+		private var hotspotFlatTransform:HotspotFlatTransform = new HotspotFlatTransform(this as ViewData);
 		
 		/**
 		* Updates the position of all managedChildren of PanoSalado
 		* @see managedChildren
 		*/
-		final protected function updateChildren(container:Sprite, viewData:ViewData):void {
-			var len:int = container.numChildren;
-			for (var i:int = 0; i < len; i++) {
-				var child:ManagedChild = container.getChildAt(i) as ManagedChild;
+		final protected function updateChildren(viewData:ViewData):void {
+			for (var i:int = 0; i < _managedChildren.numChildren; i++) {
+				var child:ManagedChild = _managedChildren.getChildAt(i) as ManagedChild;
 				var matrix3D:Matrix3D = child._matrix3D;
 				if (child.invalid) {
 					matrix3D.recompose(child._decomposition);
@@ -284,8 +237,10 @@ package com.panosalado.core{
 				matrix3D = matrix3D.clone();
 				matrix3D.append(viewData.transformMatrix3D);
 				matrix3D.appendTranslation(0, 0, -viewData.perspectiveProjection.focalLength);
-				(child as DisplayObject).transform.matrix3D = matrix3D;
-				child.transform.perspectiveProjection = viewData.perspectiveProjection; //COREMOD
+				child.transform.matrix3D = matrix3D;
+			}
+			for (var j:int = 0; j < _children.numChildren; j++) {
+				hotspotFlatTransform.setCoords(_children.getChildAt(j) as HotspotFlat);
 			}
 		}
 		

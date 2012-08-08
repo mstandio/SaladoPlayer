@@ -181,7 +181,7 @@ package com.panosalado.controller{
 		public function set mouseObject(value:Sprite):void{
 			if (_mouseObject === value) return;
 			if (value != null && cameraData.enabled) {
-				frameTime = value.stage.frameRate;
+				frameTime = 1000 / value.stage.frameRate;
 				value.addEventListener( MouseEvent.MOUSE_DOWN, downHandler, false, 0, true);
 				value.addEventListener( MouseEvent.MOUSE_UP, upHandler, false, 0, true);
 				value.addEventListener( MouseEvent.ROLL_OUT, upHandler, false, 0, true);
