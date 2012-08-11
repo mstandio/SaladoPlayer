@@ -220,8 +220,6 @@ package com.panosalado.core{
 			if (_path == null) _canvasInternal.graphics.clear();
 		}
 		
-		private var hotspotFlatTransform:HotspotFlatTransform = new HotspotFlatTransform(this as ViewData);
-		
 		/**
 		* Updates the position of all managedChildren of PanoSalado
 		* @see managedChildren
@@ -237,10 +235,20 @@ package com.panosalado.core{
 				matrix3D = matrix3D.clone();
 				matrix3D.append(viewData.transformMatrix3D);
 				matrix3D.appendTranslation(0, 0, -viewData.perspectiveProjection.focalLength);
-				child.transform.matrix3D = matrix3D;
-			}
-			for (var j:int = 0; j < _children.numChildren; j++) {
-				hotspotFlatTransform.setCoords(_children.getChildAt(j) as HotspotFlat);
+				
+				if (!child.flat) {
+					child.transform.matrix3D = matrix3D;
+				}else {
+					var pos:Vector3D = matrix3D.decompose()[0];
+					var t:Number = viewData.perspectiveProjection.focalLength / (viewData.perspectiveProjection.focalLength + pos.z);
+					if (t > 0) {
+						child.flatX = pos.x * t; 
+						child.flatY = pos.y * t;
+					}else {
+						child.flatX = 9999;
+						child.flatY = 9999;
+					}
+				}
 			}
 		}
 		

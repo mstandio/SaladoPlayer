@@ -84,6 +84,16 @@ import flash.geom.Matrix3D;
 		override public function set scaleY(value:Number):void { _decomposition[2].y = value; _invalid = true; if(stage) stage.invalidate(); }
 		
 		override public function get scaleZ():Number { return _decomposition[2].z; }
-		override public function set scaleZ(value:Number):void { _decomposition[2].z = value; _invalid = true; if(stage) stage.invalidate(); }
+		override public function set scaleZ(value:Number):void { _decomposition[2].z = value; _invalid = true; if (stage) stage.invalidate(); }
+		
+		public var flat:Boolean;
+		
+		public function set flatX(value:Number):void {
+			super.x = value
+		}
+		
+		public function set flatY(value:Number):void {
+			super.y = value
+		}
 	}
 }

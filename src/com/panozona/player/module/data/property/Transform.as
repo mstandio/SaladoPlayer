@@ -27,5 +27,7 @@ package com.panozona.player.module.data.property{
 		public var rotationX:Number = 0;
 		public var rotationY:Number = 0;
 		public var rotationZ:Number = 0;
+		
+		public var flat:Boolean = false;
 	}
 }

@@ -22,7 +22,6 @@ package com.panozona.player.manager {
 	import com.panosalado.core.PanoSalado;
 	import com.panosalado.events.PanoSaladoEvent;
 	import com.panosalado.view.Hotspot;
-	import com.panosalado.view.HotspotFlat;
 	import com.panosalado.view.ManagedChild;
 	import com.panozona.player.manager.data.actions.ActionData;
 	import com.panozona.player.manager.data.actions.FunctionData;
@@ -50,7 +49,7 @@ package com.panozona.player.manager {
 	
 	public class Manager extends PanoSalado{
 		
-		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.3.2", "http://panozona.com/wiki/SaladoPlayer:Configuration");
+		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.3.3", "http://panozona.com/wiki/SaladoPlayer:Configuration");
 		
 		/**
 		 * Dictionary, where key is hotspotData object
@@ -154,23 +153,7 @@ package com.panozona.player.manager {
 						}
 					}
 				}
-				while (_managedChildren.numChildren > 0) {
-					_managedChildren.removeChildAt(0);
-				}
-				for (var k:int = 0; k < _children.numChildren; k++ ) {
-					for(var l:Number = 0; l < arrListeners.length; l++){
-						if (_children.getChildAt(i).hasEventListener(arrListeners[j].type)) {
-							if(arrListeners[l].type != MouseEvent.ROLL_OUT && arrListeners[l].type != MouseEvent.MOUSE_UP){
-								_children.getChildAt(k).removeEventListener(arrListeners[l].type, arrListeners[l].listener);
-							}
-						}
-					}
-				}
-				while (_children.numChildren > 0) {
-					_children.removeChildAt(0);
-				}
 			}
-			
 			
 			arrListeners = new Array();
 			_canvas.blendMode = BlendMode.LAYER;
@@ -213,79 +196,73 @@ package com.panozona.player.manager {
 					try {(event.content as Object).references(_saladoPlayer, (hotspotData as HotspotDataSwf))} catch (e:Error){}
 				}
 			}
-			if (!isNaN(hotspotData.location.distance)) {
-				hotspot = new Hotspot(event.content);
-			}else {
-				hotspot = new HotspotFlat(event.content);
-			}
-			insertHotspot(hotspot, hotspotData);
+			hotspot = new Hotspot(event.content);
+			insertHotspot(hotspot as ManagedChild, hotspotData);
 		}
 		
-		protected function insertHotspot(hotSpot:Sprite, hotspotData:HotspotData):void {
-			hotSpot.buttonMode = hotspotData.handCursor;
+		protected function insertHotspot(managedChild:ManagedChild, hotspotData:HotspotData):void {
+			managedChild.buttonMode = hotspotData.handCursor;
 			var tmpFunction:Function;
 			if (hotspotData.target != null) {
 				tmpFunction = getTargetHandler(hotspotData.target);
-				hotSpot.addEventListener(MouseEvent.CLICK, tmpFunction);
+				managedChild.addEventListener(MouseEvent.CLICK, tmpFunction);
 				arrListeners.push({type:MouseEvent.CLICK, listener:tmpFunction});
 			}
 			if (hotspotData.mouse.onClick != null) {
 				tmpFunction = getMouseEventHandler(hotspotData.mouse.onClick);
-				hotSpot.addEventListener(MouseEvent.CLICK, tmpFunction);
+				managedChild.addEventListener(MouseEvent.CLICK, tmpFunction);
 				arrListeners.push({type:MouseEvent.CLICK, listener:tmpFunction} );
 			}
 			if (hotspotData.mouse.onPress != null) {
 				tmpFunction = getMouseEventHandler(hotspotData.mouse.onPress)
-				hotSpot.addEventListener(MouseEvent.MOUSE_DOWN, tmpFunction);
+				managedChild.addEventListener(MouseEvent.MOUSE_DOWN, tmpFunction);
 				arrListeners.push({type:MouseEvent.MOUSE_DOWN, listener:tmpFunction});
 			}
 			if (hotspotData.mouse.onRelease != null) {
 				tmpFunction = getMouseEventHandler(hotspotData.mouse.onRelease)
-				hotSpot.addEventListener(MouseEvent.MOUSE_UP, tmpFunction, false, 0, true);
+				managedChild.addEventListener(MouseEvent.MOUSE_UP, tmpFunction, false, 0, true);
 				arrListeners.push({type:MouseEvent.MOUSE_UP, listener:tmpFunction});
 			}
 			if (hotspotData.mouse.onOver != null) {
 				tmpFunction = getMouseEventHandler(hotspotData.mouse.onOver)
-				hotSpot.addEventListener(MouseEvent.ROLL_OVER, tmpFunction);
+				managedChild.addEventListener(MouseEvent.ROLL_OVER, tmpFunction);
 				arrListeners.push({type:MouseEvent.ROLL_OVER, listener:tmpFunction});
 			}
 			if (hotspotData.mouse.onOut != null) {
 				tmpFunction = getMouseEventHandler(hotspotData.mouse.onOut)
-				hotSpot.addEventListener(MouseEvent.ROLL_OUT, tmpFunction, false, 0, true);
+				managedChild.addEventListener(MouseEvent.ROLL_OUT, tmpFunction, false, 0, true);
 				arrListeners.push({type:MouseEvent.ROLL_OUT, listener:tmpFunction});
 			}
 			
 			var matrix3D:Matrix3D = new Matrix3D();
 			matrix3D.appendScale(hotspotData.transform.scaleX, hotspotData.transform.scaleY, hotspotData.transform.scaleZ);
-			
-			if(!isNaN(hotspotData.location.distance)){
-				var piOver180:Number = Math.PI / 180;
-				var pr:Number = -1 * (hotspotData.location.pan - 90) * piOver180;
-				var tr:Number = -1 * hotspotData.location.tilt * piOver180;
-				var xc:Number = hotspotData.location.distance * Math.cos(pr) * Math.cos(tr);
-				var yc:Number = hotspotData.location.distance * Math.sin(tr);
-				var zc:Number = hotspotData.location.distance * Math.sin(pr) * Math.cos(tr);
+			if(!hotspotData.transform.flat){
 				matrix3D.appendRotation(hotspotData.location.tilt, Vector3D.X_AXIS);
 				matrix3D.appendRotation(hotspotData.location.pan, Vector3D.Y_AXIS);
-				matrix3D.appendTranslation(xc, yc, zc);
-			} else {
-				(hotSpot as HotspotFlat).pan = hotspotData.location.pan;
-				(hotSpot as HotspotFlat).tilt = hotspotData.location.tilt;
+			}else {
+				managedChild.flat = true;
 			}
+			var piOver180:Number = Math.PI / 180;
+			var pr:Number = -1 * (hotspotData.location.pan - 90) * piOver180;
+			var tr:Number = -1 * hotspotData.location.tilt * piOver180;
+			var xc:Number = hotspotData.location.distance * Math.cos(pr) * Math.cos(tr);
+			var yc:Number = hotspotData.location.distance * Math.sin(tr);
+			var zc:Number = hotspotData.location.distance * Math.sin(pr) * Math.cos(tr);
+			matrix3D.appendTranslation(xc, yc, zc); 
 			matrix3D.prependRotation(hotspotData.transform.rotationX, Vector3D.X_AXIS);
 			matrix3D.prependRotation(hotspotData.transform.rotationY, Vector3D.Y_AXIS);
 			matrix3D.prependRotation(hotspotData.transform.rotationZ, Vector3D.Z_AXIS);
 			
 			var decomposition:Vector.<Vector3D> = matrix3D.decompose();
-			hotSpot.x = decomposition[0].x;
-			hotSpot.y = decomposition[0].y;
-			hotSpot.z = decomposition[0].z;
-			hotSpot.rotationX = decomposition[1].x;
-			hotSpot.rotationY = decomposition[1].y;
-			hotSpot.rotationZ = decomposition[1].z;
-			hotSpot.scaleX = decomposition[2].x;
-			hotSpot.scaleY = decomposition[2].y;
-			hotSpot.scaleZ = decomposition[2].z;
+			managedChild.x = decomposition[0].x;
+			managedChild.y = decomposition[0].y;
+			managedChild.z = decomposition[0].z;
+			managedChild.rotationX = decomposition[1].x;
+			managedChild.rotationY = decomposition[1].y;
+			managedChild.rotationZ = decomposition[1].z;
+			managedChild.scaleX = decomposition[2].x;
+			managedChild.scaleY = decomposition[2].y;
+			managedChild.scaleZ = decomposition[2].z;
 			
 			var precedingHotspotData:HotspotData = null;
 			for (var addedHotspotData:Object in hotspots) {
@@ -296,13 +273,11 @@ package com.panozona.player.manager {
 					}
 				}
 			}
-			hotspots[hotspotData] = hotSpot;
+			hotspots[hotspotData] = managedChild;
 			if (precedingHotspotData == null) {
-				addChild(hotSpot);
-			} else if (hotSpot is Hotspot){
-				addChildAt(hotSpot, _managedChildren.getChildIndex(hotspots[precedingHotspotData]));
-			}else if (hotSpot is HotspotFlat) {
-				addChildAt(hotSpot, _children.getChildIndex(hotspots[precedingHotspotData]));
+				addChild(managedChild);
+			} else {
+				addChildAt(managedChild, _managedChildren.getChildIndex(hotspots[precedingHotspotData]));
 			}
 			updateChildren(this);
 		}
