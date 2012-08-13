@@ -17,9 +17,9 @@
 	http://ant-contrib.sourceforge.net/
 	http://ant-contrib.sourceforge.net/tasks/tasks/
 -->
-<project name="SaladoPlayer" basedir="../." default="Build all">
+<project name="SaladoPlayer" basedir="../.">
 	
-	<property name="debuggableSwf" value="true"/>
+	<property name="debuggableSwf" value="false"/>
 	
 	<property environment="env"/>
 	<property name="FLEX_HOME" value="${env.FLEX_HOME}"/>
@@ -46,7 +46,7 @@
 			file="${basedir}/${SaladoPlayer.as}"
 			output="${basedir}/${SaladoPlayer.swf}"
 			fork="true" maxmemory="512m"
-			debug="${debuggableSwf}"
+			debug="${debuggableSwf}" incremental="true"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
 			<source-path path-element="${basedir}/src"/>
@@ -237,6 +237,33 @@
 		<mxmlc
 			file="${basedir}/${ImageButton.as}"
 			output="${basedir}/${ImageButton.swf}"
+			fork="true" maxmemory="512m"
+			debug="${debuggableSwf}"
+			static-link-runtime-shared-libraries="true">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="ImageGallery">
+		<propertyregex property="ImageGallery.swf.dir"
+			input="${ImageGallery.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="ImageGallery.name"
+			input="${ImageGallery.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${ImageGallery.swf.dir}"
+				includes="${ImageGallery.name}*.swf"/>
+		</delete>
+		<mxmlc
+			file="${basedir}/${ImageGallery.as}"
+			output="${basedir}/${ImageGallery.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
@@ -657,6 +684,7 @@
 				ExampleModule,
 				FullScreener,
 				ImageButton,
+				ImageGallery,
 				ImageMap,
 				InfoBubble,
 				JSGateway,

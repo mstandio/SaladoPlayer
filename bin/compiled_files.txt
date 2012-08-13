@@ -1,6 +1,6 @@
 
 SaladoPlayer.as  = src/com/panozona/player/SaladoPlayer.as
-SaladoPlayer.swf = bin/SaladoPlayer-1.3.2.swf
+SaladoPlayer.swf = bin/SaladoPlayer-1.3.3.swf
 
 BackgroundMusic.as  = src/com/panozona/modules/backgroundmusic/BackgroundMusic.as
 BackgroundMusic.swf = bin/modules/BackgroundMusic-1.1.swf
@@ -22,6 +22,9 @@ FullScreener.swf = bin/modules/fullscreener/FullScreener-1.0.swf
 
 ImageButton.as  = src/com/panozona/modules/imagebutton/ImageButton.as
 ImageButton.swf = bin/modules/ImageButton-1.3.swf
+
+ImageGallery.as  = src/com/panozona/modules/imagegallery/ImageGallery.as
+ImageGallery.swf = bin/modules/imagegallery/ImageGallery-1.0.swf
 
 ImageMap.as  = src/com/panozona/modules/imagemap/ImageMap.as
 ImageMap.swf = bin/modules/imagemap/ImageMap-1.3.swf
