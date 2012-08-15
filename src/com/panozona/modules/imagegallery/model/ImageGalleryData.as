@@ -30,7 +30,6 @@ package com.panozona.modules.imagegallery.model {
 		public const windowData:WindowData = new WindowData();
 		public const close:Close = new Close();
 		public const viewerData:ViewerData =  new ViewerData();
-		public const groupData:GroupData = new GroupData();
 		
 		public function ImageGalleryData(moduleData:ModuleData, saladoPlayer:Object) {
 			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
@@ -42,7 +41,7 @@ package com.panozona.modules.imagegallery.model {
 				}else if (dataNode.name == "viewer") {
 					tarnslator.dataNodeToObject(dataNode, viewerData.viewer);
 				}else if (dataNode.name == "groups") {
-					tarnslator.dataNodeToObject(dataNode, groupData.groups);
+					tarnslator.dataNodeToObject(dataNode, viewerData.groups);
 				}else {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
@@ -57,8 +56,11 @@ package com.panozona.modules.imagegallery.model {
 				if (windowData.window.onClose != null && saladoPlayer.managerData.getActionDataById(windowData.window.onClose) == null) {
 					throw new Error("Action does not exist: " + windowData.window.onClose);
 				}
+				if (viewerData.viewer.path == null || !viewerData.viewer.path.match(/^(.+)\.(png|gif|jpg|jpeg|)$/i)) {
+					throw new Error("Invalid viewer path: " + viewerData.viewer.path);
+				}
 				var groupIds:Object = new Object();
-				for each(var group:Group in groupData.groups.getChildrenOfGivenClass(Group)) {
+				for each(var group:Group in viewerData.groups.getChildrenOfGivenClass(Group)) {
 					if (group.id == null) {
 						throw new Error("Group id not specified.");
 					}

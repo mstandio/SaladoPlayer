@@ -18,11 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagegallery.model.structure {
 	
-	public class Viewer {
+	public class Style {
 		
-		public const style:Style = new Style();
-		
-		public var path:String = null;
-		public var spacing:Number = 0;
+		public var color:Number = 0x000000;
+		public var alpha:Number = 1;
 	}
 }

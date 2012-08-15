@@ -16,13 +16,17 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagegallery.model.structure {
+package com.panozona.modules.imagegallery.events{
 	
-	public class Viewer {
+	import flash.events.Event;
+	
+	public class ButtonEvent extends Event{
 		
-		public const style:Style = new Style();
+		public static const CHANGED_IS_ACTIVE:String = "chngdIsActive";
+		public static const CHANGED_MOUSE_PRESS:String = "chngdMousePress";
 		
-		public var path:String = null;
-		public var spacing:Number = 0;
+		public function ButtonEvent( type:String){
+			super(type);
+		}
 	}
 }

@@ -37,9 +37,6 @@ package com.panozona.modules.imagegallery.view {
 			
 			_viewerView = new ViewerView(_imagegalleryData);
 			addChild(_viewerView);
-			
-			graphics.beginFill(0x00ff00);
-			graphics.drawRect(0, 0, _imagegalleryData.windowData.window.size.width, _imagegalleryData.windowData.window.size.height);
 		}
 		
 		public function get windowData():WindowData {

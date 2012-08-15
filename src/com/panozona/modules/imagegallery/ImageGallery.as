@@ -59,8 +59,8 @@ package com.panozona.modules.imagegallery {
 		}
 		
 		public function setGroup(value:String):void {
-			if(imageGalleryData.groupData.getGroupById(value) != null){
-				imageGalleryData.groupData.currentGroupId = value;
+			if(imageGalleryData.viewerData.getGroupById(value) != null){
+				imageGalleryData.viewerData.currentGroupId = value;
 			} else {
 				printWarning("Invalid group id: " + value);
 			}
