@@ -22,14 +22,16 @@ package com.panozona.modules.imagegallery.model.structure{
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Move;
 	import com.panozona.player.module.data.property.Size;
+	import com.panozona.player.module.data.property.Margin;
 	import com.panozona.player.module.data.property.Transition;
 	import com.panozona.player.module.data.property.Tween;
 	
 	public class Window {
 		
 		public const align:Align = new Align(Align.CENTER, Align.MIDDLE);
-		public const move:Move = new Move(0, 0);
-		public const size:Size = new Size(500, 400);
+		public const margin:Margin = new Margin(20, 20, 20, 20);
+		public const minSize:Size = new Size(300, 200);
+		public const maxSize:Size = new Size(800, 600);
 		
 		public var alpha:Number = 1.0;
 		

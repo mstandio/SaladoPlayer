@@ -18,7 +18,6 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagegallery.model {
 	
-	import com.panozona.modules.imagegallery.events.GroupEvent;
 	import com.panozona.modules.imagegallery.events.ViewerEvent;
 	import com.panozona.modules.imagegallery.model.structure.Group;
 	import com.panozona.modules.imagegallery.model.structure.Groups;
@@ -44,7 +43,7 @@ package com.panozona.modules.imagegallery.model {
 		public function set currentGroupId(value:String):void {
 			if (value == null || value == _currentGroupId) return;
 			_currentGroupId = value;
-			dispatchEvent(new GroupEvent(GroupEvent.CHANGED_CURRENT_GROUP_ID));
+			dispatchEvent(new ViewerEvent(ViewerEvent.CHANGED_CURRENT_GROUP_ID));
 		}
 		
 		public function get currentImageIndex():Number { return _currentImageIndex;}

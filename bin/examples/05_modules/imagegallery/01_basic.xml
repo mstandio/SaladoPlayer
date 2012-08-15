@@ -4,19 +4,23 @@
 	http://panozona.com/wiki/Module:ImageGallery
 -->
 <SaladoPlayer>
-	<global debug="true"/>
+	<global debug="true">
+		<control autorotation="enabled:false"/>
+	</global>
 	<panoramas>
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
 		<ImageGallery path="~modules/imagegallery/ImageGallery-1.0.swf">
-			<window/>
-			<close/>
-			<viewer/>
+			<window align="horizontal:center,vertical:middle"/>
+			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
+			<viewer path="~modules/imagegallery/images/buttons_dark_40x40.png"/>
 			<groups>
 				<group id="g1">
 					<image path="~media/images/maps/map1.jpg"/>
 					<image path="~media/images/maps/map2.jpg"/>
+					<image path="~media/thumbs/kiev.jpg"/>
+					<image path="~media/thumbs/park.jpg"/>
 				</group>
 				<group id="g2">
 					<image path="~media/thumbs/kiev.jpg"/>

@@ -18,15 +18,15 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagegallery.controller {
 	
-	import com.panozona.modules.imagegallery.events.WindowEvent;
 	import com.panozona.modules.imagegallery.view.CloseView;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.Module;
 	import flash.display.Loader;
-	import flash.net.URLRequest;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
+	import flash.net.URLRequest;
+	import flash.system.ApplicationDomain;
 	
 	public class CloseController {
 		
@@ -38,6 +38,10 @@ package com.panozona.modules.imagegallery.controller {
 			_module = module;
 			
 			if (_closeView.imageGalleryData.close.path == null) return;
+			
+			var viewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
+			_module.saladoPlayer.manager.addEventListener(viewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
+			handleResize();
 			
 			var imageLoader:Loader = new Loader();
 			imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
@@ -56,23 +60,23 @@ package com.panozona.modules.imagegallery.controller {
 			e.target.removeEventListener(Event.COMPLETE, imageLoaded);
 			_closeView.addChild(e.target.content)
 			_closeView.addEventListener(MouseEvent.CLICK, handleMouseClick, false, 0, true);
-			placeonWindow();
+			handleResize();
 		}
 		
-		private function placeonWindow(e:Event = null):void {
+		private function handleResize(e:Event = null):void {
 			if (_closeView.imageGalleryData.close.align.horizontal == Align.LEFT) {
 				_closeView.x = 0;
 			}else if (_closeView.imageGalleryData.close.align.horizontal == Align.RIGHT) {
-				_closeView.x = _closeView.imageGalleryData.windowData.window.size.width - _closeView.width;
+				_closeView.x = _closeView.imageGalleryData.windowData.currentSize.width - _closeView.width;
 			}else { // CENTER
-				_closeView.x = (_closeView.imageGalleryData.windowData.window.size.width - _closeView.width) * 0.5;
+				_closeView.x = (_closeView.imageGalleryData.windowData.currentSize.width - _closeView.width) * 0.5;
 			}
 			if (_closeView.imageGalleryData.close.align.vertical == Align.TOP){
 				_closeView.y = 0;
 			}else if (_closeView.imageGalleryData.close.align.vertical == Align.BOTTOM) {
-				_closeView.y = _closeView.imageGalleryData.windowData.window.size.height - _closeView.height;
+				_closeView.y = _closeView.imageGalleryData.windowData.currentSize.height - _closeView.height;
 			}else { // MIDDLE
-				_closeView.y = (_closeView.imageGalleryData.windowData.window.size.height - _closeView.height) * 0.5;
+				_closeView.y = (_closeView.imageGalleryData.windowData.currentSize.height - _closeView.height) * 0.5;
 			}
 			_closeView.x += _closeView.imageGalleryData.close.move.horizontal;
 			_closeView.y += _closeView.imageGalleryData.close.move.vertical;

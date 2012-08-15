@@ -18,8 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagegallery.controller {
 	
-	import com.panozona.modules.imagegallery.events.GroupEvent;
 	import com.panozona.modules.imagegallery.events.ViewerEvent;
+	import com.panozona.modules.imagegallery.events.WindowEvent;
 	import com.panozona.modules.imagegallery.model.ButtonData;
 	import com.panozona.modules.imagegallery.model.structure.Group;
 	import com.panozona.modules.imagegallery.model.structure.Image;
@@ -69,8 +69,11 @@ package com.panozona.modules.imagegallery.controller {
 			imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
 			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
 			
-			_viewerView.imagegalleryData.viewerData.addEventListener(GroupEvent.CHANGED_CURRENT_GROUP_ID, handleCurrentGroupIdChange, false, 0, true);
+			_viewerView.imagegalleryData.viewerData.addEventListener(ViewerEvent.CHANGED_CURRENT_GROUP_ID, handleCurrentGroupIdChange, false, 0, true);
 			_viewerView.imagegalleryData.viewerData.addEventListener(ViewerEvent.CHANGED_CURRENT_IMAGE_INDEX, handleCurrentImageIndexChange, false, 0, true);
+			_viewerView.imagegalleryData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleWindowSizeChange, false, 0, true);
+			
+			handleWindowSizeChange();
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
@@ -176,7 +179,7 @@ package com.panozona.modules.imagegallery.controller {
 				buttonView.x = lastX;
 				lastX += buttonView.width + _viewerView.imagegalleryData.viewerData.viewer.spacing;
 			}
-			onWindowSizeChange();
+			handleWindowSizeChange();
 		}
 		
 		// [0][1]
@@ -217,19 +220,19 @@ package com.panozona.modules.imagegallery.controller {
 			}
 		}
 		
-		private function onWindowSizeChange():void {
+		private function handleWindowSizeChange(event:Event = null):void {
 			_viewerView.graphics.clear();
-			_viewerView.graphics.beginFill(0x00ff00);
-			_viewerView.graphics.drawRect(0,0,_viewerView.imagegalleryData.windowData.window.size.width, _viewerView.imagegalleryData.windowData.window.size.height)
+			_viewerView.graphics.beginFill(_viewerView.imagegalleryData.viewerData.viewer.style.color, _viewerView.imagegalleryData.viewerData.viewer.style.alpha);
+			_viewerView.graphics.drawRect(0, 0, _viewerView.imagegalleryData.windowData.currentSize.width, _viewerView.imagegalleryData.windowData.currentSize.height);
 			_viewerView.graphics.endFill();
 			
 			_viewerView.buttonPrev.x = buttonSize.width * 1.5;
-			_viewerView.buttonNext.x = _viewerView.imagegalleryData.windowData.window.size.width - buttonSize.width * 1.5
-			_viewerView.buttonPrev.y = (_viewerView.imagegalleryData.windowData.window.size.height - buttonSize.height) * 0.5;
+			_viewerView.buttonNext.x = _viewerView.imagegalleryData.windowData.currentSize.width - buttonSize.width * 1.5
+			_viewerView.buttonPrev.y = (_viewerView.imagegalleryData.windowData.currentSize.height - buttonSize.height) * 0.5;
 			_viewerView.buttonNext.y = _viewerView.buttonPrev.y;
 			_viewerView.buttonPrev.rotationY = 180;
-			_viewerView.buttonBar.x = (_viewerView.imagegalleryData.windowData.window.size.width - _viewerView.buttonBar.width) * 0.5;
-			_viewerView.buttonBar.y = _viewerView.imagegalleryData.windowData.window.size.height - buttonSize.height * 1.5;
+			_viewerView.buttonBar.x = (_viewerView.imagegalleryData.windowData.currentSize.width - _viewerView.buttonBar.width) * 0.5;
+			_viewerView.buttonBar.y = _viewerView.imagegalleryData.windowData.currentSize.height - buttonSize.height * 1.5;
 		}
 		
 		private function imageLost(e:IOErrorEvent):void {

@@ -32,11 +32,11 @@ package com.panozona.modules.imagegallery.view {
 		public function WindowView(imagegalleryData:ImageGalleryData) {
 			_imagegalleryData = imagegalleryData;
 			
-			_closeView = new CloseView(_imagegalleryData);
-			addChild(_closeView);
-			
 			_viewerView = new ViewerView(_imagegalleryData);
 			addChild(_viewerView);
+			
+			_closeView = new CloseView(_imagegalleryData);
+			addChild(_closeView);
 		}
 		
 		public function get windowData():WindowData {
