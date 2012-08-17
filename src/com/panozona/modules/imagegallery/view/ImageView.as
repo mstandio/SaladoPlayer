@@ -16,14 +16,21 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagegallery.model.structure {
+package com.panozona.modules.imagegallery.view {
 	
-	public class Viewer {
+	import flash.display.Sprite;
+	import com.panozona.modules.imagegallery.model.ImageGalleryData;
+	
+	public class ImageView extends Sprite{
 		
-		public const style:Style = new Style();
+		private var _imagegalleryData:ImageGalleryData;
 		
-		public var path:String = null;
-		public var spacing:Number = 0;
-		public var throbber:String = null;
+		public function ImageView(imagegalleryData:ImageGalleryData) {
+			_imagegalleryData = imagegalleryData;
+		}
+		
+		public function get imagegalleryData():ImageGalleryData {
+			return _imagegalleryData;
+		}
 	}
 }

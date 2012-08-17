@@ -52,6 +52,7 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="lib\tweener.swc" />
+    <element path="lib\GIFPlayer-0.6.swc" />
     <element path="testlib\flexunit-4.0.0.swc" />
     <element path="testlib\flexunit-uilistener-4.0.0.swc" />
     <element path="testlib\hamcrest-1.0.2.swc" />

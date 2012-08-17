@@ -18,6 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagegallery.controller {
 	
+	import com.panozona.modules.imagegallery.events.ImageEvent;
 	import com.panozona.modules.imagegallery.events.ViewerEvent;
 	import com.panozona.modules.imagegallery.events.WindowEvent;
 	import com.panozona.modules.imagegallery.model.ButtonData;
@@ -37,6 +38,7 @@ package com.panozona.modules.imagegallery.controller {
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
+	import org.bytearray.gif.player.GIFPlayer;
 	
 	public class ViewerController {
 		
@@ -47,7 +49,7 @@ package com.panozona.modules.imagegallery.controller {
 		private var buttonPrevController:ButtonController;
 		private var buttonNextController:ButtonController;
 		
-		private var imageLoader:Loader;
+		private var imageController:ImageController;
 		
 		private var _viewerView:ViewerView;
 		private var _module:Module;
@@ -57,23 +59,18 @@ package com.panozona.modules.imagegallery.controller {
 			_viewerView = viewerView;
 			
 			buttonSize = new Size(30,30);
-			
 			buttonControllers = new Vector.<ButtonController>();
+			
+			imageController = new ImageController(_viewerView.imageView, _module);
 			
 			_viewerView.buttonPrev.buttonData.onRelease = getImageIndexIncrementer(-1);
 			_viewerView.buttonNext.buttonData.onRelease = getImageIndexIncrementer(1);
 			buttonPrevController = new ButtonController(_viewerView.buttonPrev, _module);
 			buttonNextController = new ButtonController(_viewerView.buttonNext, _module);
 			
-			imageLoader = new Loader();
-			imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
-			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
-			
 			_viewerView.imagegalleryData.viewerData.addEventListener(ViewerEvent.CHANGED_CURRENT_GROUP_ID, handleCurrentGroupIdChange, false, 0, true);
 			_viewerView.imagegalleryData.viewerData.addEventListener(ViewerEvent.CHANGED_CURRENT_IMAGE_INDEX, handleCurrentImageIndexChange, false, 0, true);
 			_viewerView.imagegalleryData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleWindowSizeChange, false, 0, true);
-			
-			handleWindowSizeChange();
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
@@ -82,6 +79,15 @@ package com.panozona.modules.imagegallery.controller {
 			buttonsLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonsImageLost, false, 0, true);
 			buttonsLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, buttonsImageLoaded, false, 0, true);
 			buttonsLoader.load(new URLRequest(_viewerView.imagegalleryData.viewerData.viewer.path));
+			
+			if (_viewerView.imagegalleryData.viewerData.viewer.throbber != null) {
+				_viewerView.imagegalleryData.imageData.addEventListener(ImageEvent.CHANGED_IS_THROBBER_SHOWING, handleThrobberShowingChange, false, 0, true);
+				_viewerView.gifPlayer.addEventListener(IOErrorEvent.IO_ERROR, throbberLost, false, 0, true);
+				_viewerView.gifPlayer.addEventListener(Event.COMPLETE, throbberLoaded, false, 0, true);
+				_viewerView.gifPlayer.load(new URLRequest(_viewerView.imagegalleryData.viewerData.viewer.throbber));
+			}
+			
+			handleWindowSizeChange();
 		}
 		
 		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {
@@ -93,7 +99,7 @@ package com.panozona.modules.imagegallery.controller {
 		}
 		
 		private function buttonsImageLost(e:IOErrorEvent):void {
-			(e.target as LoaderInfo).removeEventListener(IOErrorEvent.IO_ERROR, buttonsImageLost);
+			(e.target as org.bytearray.gif.player.GIFPlayer).removeEventListener(IOErrorEvent.IO_ERROR, buttonsImageLost);
 			(e.target as LoaderInfo).removeEventListener(Event.COMPLETE, buttonsImageLoaded);
 			_module.printError(e.text);
 		}
@@ -107,17 +113,38 @@ package com.panozona.modules.imagegallery.controller {
 			buttonSize.height = Math.ceil((buttonsBitmapData.height - 1) / 2);
 			if (_viewerView.imagegalleryData.viewerData.currentGroupId != null) {
 				updateButtonsBar();
-				updateButtonBarSelection();
+				handleCurrentImageIndexChange();
 			}
 			_viewerView.buttonPrev.bitmapDataPlain = getButtonBitmap(0);
 			_viewerView.buttonPrev.bitmapDataActive = getButtonBitmap(2);
 			_viewerView.buttonNext.bitmapDataPlain = getButtonBitmap(0);
 			_viewerView.buttonNext.bitmapDataActive = getButtonBitmap(2);
+			handleWindowSizeChange();
 		}
 		
 		private function getImageIndexIncrementer(value:Number):Function {
 			return function(e:MouseEvent):void {
 				incrementImageIndex(value);
+			}
+		}
+		
+		private function throbberLost(e:IOErrorEvent):void {
+			(e.target as GIFPlayer).removeEventListener(IOErrorEvent.IO_ERROR, throbberLost);
+			(e.target as GIFPlayer).removeEventListener(Event.COMPLETE, throbberLoaded);
+		}
+		
+		private function throbberLoaded(e:Event):void {
+			(e.target as GIFPlayer).removeEventListener(IOErrorEvent.IO_ERROR, throbberLost);
+			(e.target as GIFPlayer).removeEventListener(Event.COMPLETE, throbberLoaded);
+			handleWindowSizeChange();
+			handleThrobberShowingChange();
+		}
+		
+		private function handleThrobberShowingChange(e:Event=null):void {
+			if (_viewerView.imagegalleryData.imageData.isShowingThrobber) {
+				_viewerView.throbberStart()
+			} else {
+				_viewerView.throbberStop();
 			}
 		}
 		
@@ -140,9 +167,19 @@ package com.panozona.modules.imagegallery.controller {
 		}
 		
 		private function handleCurrentGroupIdChange(e:Event):void {
-			if (buttonsBitmapData != null) {
-				buildButtonsBar();
-				updateButtonsBar();
+			if (_viewerView.imagegalleryData.viewerData.getGroupById(_viewerView.imagegalleryData.viewerData.currentGroupId)
+				.getChildrenOfGivenClass(Image).length > 1) {
+				if (buttonsBitmapData != null) {
+					_viewerView.buttonBar.visible = true;
+					_viewerView.buttonPrev.visible = true;
+					_viewerView.buttonNext.visible = true;
+					buildButtonsBar();
+					updateButtonsBar();
+				}
+			} else {
+				_viewerView.buttonBar.visible = false;
+				_viewerView.buttonPrev.visible = false;
+				_viewerView.buttonNext.visible = false;
 			}
 			_viewerView.imagegalleryData.viewerData.currentImageIndex = 0;
 		}
@@ -200,16 +237,7 @@ package com.panozona.modules.imagegallery.controller {
 			return bmd;
 		}
 		
-		private function handleCurrentImageIndexChange(e:Event):void {
-			updateButtonBarSelection();
-			imageLoader.unload();
-			var path:String = _viewerView.imagegalleryData.viewerData.getGroupById(
-				_viewerView.imagegalleryData.viewerData.currentGroupId).getChildrenOfGivenClass(Image)
-				[_viewerView.imagegalleryData.viewerData.currentImageIndex].path;
-			//imageLoader.load(new URLRequest(path));
-		}
-		
-		private function  updateButtonBarSelection():void {
+		private function handleCurrentImageIndexChange(e:Event = null):void {
 			for ( var i:int = 0; i < _viewerView.buttonBar.numChildren; i++) {
 				var buttonView:ButtonView = _viewerView.buttonBar.getChildAt(i) as ButtonView;
 				if (buttonView.buttonData.imageIndex == _viewerView.imagegalleryData.viewerData.currentImageIndex) {
@@ -226,21 +254,17 @@ package com.panozona.modules.imagegallery.controller {
 			_viewerView.graphics.drawRect(0, 0, _viewerView.imagegalleryData.windowData.currentSize.width, _viewerView.imagegalleryData.windowData.currentSize.height);
 			_viewerView.graphics.endFill();
 			
-			_viewerView.buttonPrev.x = buttonSize.width * 1.5;
-			_viewerView.buttonNext.x = _viewerView.imagegalleryData.windowData.currentSize.width - buttonSize.width * 1.5
+			_viewerView.buttonPrev.x = buttonSize.width * 1.25;
+			_viewerView.buttonNext.x = _viewerView.imagegalleryData.windowData.currentSize.width - buttonSize.width * 1.25
 			_viewerView.buttonPrev.y = (_viewerView.imagegalleryData.windowData.currentSize.height - buttonSize.height) * 0.5;
 			_viewerView.buttonNext.y = _viewerView.buttonPrev.y;
 			_viewerView.buttonPrev.rotationY = 180;
 			_viewerView.buttonBar.x = (_viewerView.imagegalleryData.windowData.currentSize.width - _viewerView.buttonBar.width) * 0.5;
-			_viewerView.buttonBar.y = _viewerView.imagegalleryData.windowData.currentSize.height - buttonSize.height * 1.5;
-		}
-		
-		private function imageLost(e:IOErrorEvent):void {
-			_module.printError("Could not load image: " + e.text);
-		}
-		
-		private function imageLoaded(e:Event):void {
-			//view.addChildAt((e.target as LoaderInfo).content, 0);
+			_viewerView.buttonBar.y = _viewerView.imagegalleryData.windowData.currentSize.height - buttonSize.height * 1.25;
+			if (_viewerView.imagegalleryData.viewerData.viewer.throbber) {
+				_viewerView.gifPlayer.x = (_viewerView.imagegalleryData.windowData.currentSize.width - _viewerView.gifPlayer.width) * 0.5;
+				_viewerView.gifPlayer.y = (_viewerView.imagegalleryData.windowData.currentSize.height - _viewerView.gifPlayer.height) * 0.5;
+			}
 		}
 	}
 }

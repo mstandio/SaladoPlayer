@@ -25,7 +25,6 @@ package com.panozona.modules.imagegallery.events {
 		public static const CHANGED_CURRENT_GROUP_ID:String = "changedCurrGroupId";
 		public static const CHANGED_CURRENT_IMAGE_INDEX:String = "changedCurrImgIndex";
 		
-		
 		public function ViewerEvent(type:String) {
 			super(type);
 		}

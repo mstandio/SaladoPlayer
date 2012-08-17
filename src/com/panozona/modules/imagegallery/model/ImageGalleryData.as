@@ -29,7 +29,8 @@ package com.panozona.modules.imagegallery.model {
 		
 		public const windowData:WindowData = new WindowData();
 		public const close:Close = new Close();
-		public const viewerData:ViewerData =  new ViewerData();
+		public const viewerData:ViewerData = new ViewerData();
+		public const imageData:ImageData = new ImageData();
 		
 		public function ImageGalleryData(moduleData:ModuleData, saladoPlayer:Object) {
 			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
