@@ -52,6 +52,9 @@ package com.panozona.modules.imagegallery.view {
 				_gifPlayer = new GIFPlayer();
 				addChild(_gifPlayer);
 			}
+			_buttonBar.visible = false;
+			_buttonPrev.visible = false;
+			_buttonNext.visible = false;
 		}
 		
 		public function get imageView():ImageView  {

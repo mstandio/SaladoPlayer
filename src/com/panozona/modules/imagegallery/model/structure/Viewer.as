@@ -24,6 +24,7 @@ package com.panozona.modules.imagegallery.model.structure {
 		
 		public var path:String = null;
 		public var spacing:Number = 0;
+		public var padding:Number = 20;
 		public var throbber:String = null;
 	}
 }

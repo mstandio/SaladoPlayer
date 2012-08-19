@@ -10,14 +10,11 @@
 	</panoramas>
 	<modules>
 		<ImageGallery path="~modules/imagegallery/ImageGallery-1.0.swf">
-			<window open="true"/>
+			<window open="true" maxSize="width:200,height:100" minSize="width:50,height:50" margin="bottom:50" align="vertical:bottom"/>
 			<viewer path="~modules/imagegallery/images/buttons_dark_40x40.png" throbber="~media/images/misc/throbber-circles.gif"/>
 			<groups>
 				<group id="g1">
 					<image path="~media/images/maps/map1.jpg"/>
-					<image path="~media/images/maps/map2.jpg"/>
-					<image path="~media/images/thumbs/kiev.jpg"/>
-					<image path="~media/images/thumbs/park.jpg"/>
 				</group>
 			</groups>
 		</ImageGallery>

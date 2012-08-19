@@ -29,13 +29,13 @@ package com.panozona.modules.imagegallery.model.structure{
 	public class Window {
 		
 		public const align:Align = new Align(Align.CENTER, Align.MIDDLE);
-		public const margin:Margin = new Margin(20, 20, 20, 20);
+		public const margin:Margin = new Margin(50, 50, 50, 50);
 		public const minSize:Size = new Size(300, 200);
 		public const maxSize:Size = new Size(800, 600);
 		
 		public var alpha:Number = 1.0;
 		
-		public var open:Boolean = true;
+		public var open:Boolean = false;
 		public var onOpen:String = null;
 		public var onClose:String = null;
 		

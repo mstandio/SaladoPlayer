@@ -22,7 +22,7 @@ package com.panozona.modules.imagegallery.events{
 	
 	public class ImageEvent extends Event {
 		
-		public static const CHANGED_MAX_SIZE:String = "chngdMaxSize";
+		public static const CHANGED_MAX_SCALE:String = "chngdMaxScale";
 		public static const CHANGED_IS_THROBBER_SHOWING:String = "chngdThrShow";
 		
 		public function ImageEvent( type:String) {

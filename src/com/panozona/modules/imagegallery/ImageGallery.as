@@ -35,7 +35,7 @@ package com.panozona.modules.imagegallery {
 		public function ImageGallery() {
 			super("ImageGallery", "1.0", "http://panozona.com/wiki/Module:ImageGallery");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
-			moduleDescription.addFunctionDescription("toggleOpen", String);
+			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setGroup", String);
 		}
 		

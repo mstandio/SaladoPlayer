@@ -21,7 +21,7 @@ package com.panozona.modules.imagegallery.view {
 	import flash.display.Sprite;
 	import com.panozona.modules.imagegallery.model.ImageGalleryData;
 	
-	public class ImageView extends Sprite{
+	public class ImageView extends Sprite {
 		
 		private var _imagegalleryData:ImageGalleryData;
 		

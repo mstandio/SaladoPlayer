@@ -22,10 +22,14 @@ package com.panozona.modules.imagegallery.model {
 	import com.panozona.modules.imagegallery.events.ImageEvent;
 	import com.panozona.player.module.data.property.Size;
 	
-	public class ImageData extends EventDispatcher{
+	public class ImageData extends EventDispatcher {
 		
 		private var _isShowingThrobber:Boolean;
-		private var _maxSize:Size;
+		private var _maxScale:Number;
+		
+		public var isOpened:Boolean;
+		public var isOpening:Boolean;
+		public var isClosing:Boolean;
 		
 		public function get isShowingThrobber():Boolean { return _isShowingThrobber; }
 		public function set isShowingThrobber(value:Boolean):void {
@@ -34,15 +38,11 @@ package com.panozona.modules.imagegallery.model {
 			dispatchEvent(new ImageEvent(ImageEvent.CHANGED_IS_THROBBER_SHOWING));
 		}
 		
-		public function get maxSize():Size { return _maxSize };
-		public function set maxSize(value:Size):void {
-			if (value == null 
-				|| _maxSize.width == value.width 
-				&& _maxSize.height == value.height) {
-				return;
-			}
-			_maxSize = value;
-			dispatchEvent(new ImageEvent(ImageEvent.CHANGED_MAX_SIZE));
+		public function get maxScale():Number { return _maxScale };
+		public function set maxScale(value:Number):void {
+			if (isNaN(value) || value == _maxScale) return;
+			_maxScale = value;
+			dispatchEvent(new ImageEvent(ImageEvent.CHANGED_MAX_SCALE));
 		}
 	}
 }

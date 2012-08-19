@@ -18,6 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagegallery.controller {
 	
+	import caurina.transitions.Tweener;
+	import caurina.transitions.Equations;
 	import com.panozona.modules.imagegallery.events.ImageEvent;
 	import com.panozona.modules.imagegallery.events.ViewerEvent;
 	import com.panozona.modules.imagegallery.events.WindowEvent;
@@ -41,27 +43,56 @@ package com.panozona.modules.imagegallery.controller {
 		private var imageLoader:Loader;
 		private var displayObject:DisplayObject;
 		private var displayObjectInitSize:Size;
+		private var nextDisplayObject:DisplayObject;
 		
 		private var _imageView:ImageView;
 		private var _module:Module;
 		private var _throbberDelayTimer:Timer;
 		
+		private const closedMultiplier:Number = 0.5
+		
 		public function ImageController(imageView:ImageView, module:Module) {
 			_imageView = imageView;
 			_module = module;
 			
-			_imageView.imagegalleryData.viewerData.addEventListener(ViewerEvent.CHANGED_CURRENT_IMAGE_INDEX, handleCurrentImageIndexChange, false, 0, true);
-			_imageView.imagegalleryData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleWindowSizeChange, false, 0, true);
-			_imageView.imagegalleryData.imageData.addEventListener(ImageEvent.CHANGED_MAX_SIZE, handleMaxSizeChange, false, 0, true);
+			displayObjectInitSize = new Size(0, 0);
 			
 			imageLoader = new Loader();
 			imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
 			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
 			
+			_imageView.imagegalleryData.windowData.addEventListener(WindowEvent.CHANGED_OPEN, handleWindowOpenChange, false, 0, true);
+			_imageView.imagegalleryData.viewerData.addEventListener(ViewerEvent.CHANGED_CURRENT_IMAGE_INDEX, handleCurrentImageIndexChange, false, 0, true);
+			_imageView.imagegalleryData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleWindowSizeChange, false, 0, true);
+			_imageView.imagegalleryData.imageData.addEventListener(ImageEvent.CHANGED_MAX_SCALE, handleMaxScaleChange, false, 0, true);
+			
 			if (_imageView.imagegalleryData.viewerData.viewer.throbber != null ) {
-				_throbberDelayTimer = new Timer(500, 1);
+				_throbberDelayTimer = new Timer(250, 1);
 				_throbberDelayTimer.addEventListener(TimerEvent.TIMER, timesUp, false, 0, true);
 			}
+		}
+		
+		private function handleWindowOpenChange(e:Event = null):void {
+			if (_imageView.imagegalleryData.windowData.open) {
+				handleCurrentImageIndexChange();
+			}else {
+				startClosing();
+			}
+		}
+		
+		private function handleCurrentImageIndexChange(e:Event = null):void {
+			if (!_imageView.imagegalleryData.windowData.open) {
+				return;
+			}
+			if (_imageView.imagegalleryData.viewerData.viewer.throbber != null) {
+				_throbberDelayTimer.reset();
+				_throbberDelayTimer.start();
+			}
+			imageLoader.unload();
+			var path:String = _imageView.imagegalleryData.viewerData.getGroupById(
+				_imageView.imagegalleryData.viewerData.currentGroupId).getChildrenOfGivenClass(Image)
+				[_imageView.imagegalleryData.viewerData.currentImageIndex].path;
+			imageLoader.load(new URLRequest(path));
 		}
 		
 		private function imageLost(e:IOErrorEvent):void {
@@ -77,29 +108,75 @@ package com.panozona.modules.imagegallery.controller {
 				_throbberDelayTimer.stop();
 			}
 			_imageView.imagegalleryData.imageData.isShowingThrobber = false;
-			displayObject = imageLoader.content;
-			if (displayObject is Bitmap) {
-				(displayObject as Bitmap).smoothing = true;
+			var displayObjectTmp:DisplayObject = imageLoader.content;
+			if (displayObjectTmp is Bitmap) {
+				(displayObjectTmp as Bitmap).smoothing = true;
 			}
+			if (_imageView.imagegalleryData.imageData.isOpened) {
+				nextDisplayObject = displayObjectTmp;
+				startClosing();
+			} else {
+				displayObject = displayObjectTmp;
+				startOpening();
+			}
+		}
+		
+		private function startOpening():void {
+			_imageView.imagegalleryData.imageData.isOpening = true;
+			displayObjectInitSize.width = displayObject.width;
+			displayObjectInitSize.height = displayObject.height;
+			recalculateMaxScale();
+			displayObject.alpha = 0, 
+			displayObject.scaleX = displayObject.scaleY = _imageView.imagegalleryData.imageData.maxScale * closedMultiplier;
+			displayObject.x = (_imageView.imagegalleryData.windowData.currentSize.width - displayObject.width) * 0.5
+			displayObject.y = (_imageView.imagegalleryData.windowData.currentSize.height - displayObject.height) * 0.5
 			while (_imageView.numChildren) {
 				_imageView.removeChildAt(0);
 			}
-			displayObjectInitSize = new Size(displayObject.width, displayObject.height);
 			_imageView.addChild(displayObject);
-			handleWindowSizeChange();
+			Tweener.addTween(displayObject, {
+					time:0.25,
+					transition:Equations.easeOutCirc,
+					scaleX:_imageView.imagegalleryData.imageData.maxScale,
+					scaleY:_imageView.imagegalleryData.imageData.maxScale,
+					x:(_imageView.imagegalleryData.windowData.currentSize.width
+						- displayObjectInitSize.width * _imageView.imagegalleryData.imageData.maxScale) * 0.5,
+					y:(_imageView.imagegalleryData.windowData.currentSize.height 
+						- displayObjectInitSize.height * _imageView.imagegalleryData.imageData.maxScale) * 0.5,
+					alpha:1,
+					onComplete:openingComplete});
 		}
 		
-		private function handleCurrentImageIndexChange(e:Event = null):void {
-			if (_imageView.imagegalleryData.viewerData.viewer.throbber != null) {
-				_throbberDelayTimer.reset();
-				_throbberDelayTimer.start();
-			}
-			imageLoader.unload();
-			var path:String = _imageView.imagegalleryData.viewerData.getGroupById(
-				_imageView.imagegalleryData.viewerData.currentGroupId).getChildrenOfGivenClass(Image)
-				[_imageView.imagegalleryData.viewerData.currentImageIndex].path;
-			imageLoader.load(new URLRequest(path));
+		private function openingComplete():void {
+			_imageView.imagegalleryData.imageData.isOpening = false;
+			_imageView.imagegalleryData.imageData.isOpened = true;
 		}
+		
+		private function startClosing():void {
+			_imageView.imagegalleryData.imageData.isClosing = true;
+			Tweener.addTween(displayObject, {
+					time:0.25,
+					transition:Equations.easeInCirc,
+					scaleX:_imageView.imagegalleryData.imageData.maxScale * closedMultiplier,
+					scaleY:_imageView.imagegalleryData.imageData.maxScale * closedMultiplier,
+					x:(_imageView.imagegalleryData.windowData.currentSize.width - 
+						displayObjectInitSize.width * _imageView.imagegalleryData.imageData.maxScale * closedMultiplier) * 0.5,
+					y:(_imageView.imagegalleryData.windowData.currentSize.height - 
+						displayObjectInitSize.height * _imageView.imagegalleryData.imageData.maxScale * closedMultiplier) * 0.5,
+					alpha:0,
+					onComplete:closingComplete});
+		}
+		
+		private function closingComplete():void {
+			_imageView.imagegalleryData.imageData.isClosing = false;
+			_imageView.imagegalleryData.imageData.isOpened = false;
+			if (nextDisplayObject != null) {
+				displayObject = nextDisplayObject;
+				nextDisplayObject = null;
+				startOpening();
+			}
+		}
+		
 		private function timesUp(e:Event):void {
 			_imageView.imagegalleryData.imageData.isShowingThrobber = true;
 		}
@@ -108,35 +185,45 @@ package com.panozona.modules.imagegallery.controller {
 			if (displayObject == null) {
 				return;
 			}
-			var maxSize:Size = new Size(_imageView.imagegalleryData.windowData.currentSize.width - 20, 
-				_imageView.imagegalleryData.windowData.currentSize.height - 20);
-			if (displayObjectInitSize.width <= maxSize.width && displayObjectInitSize.height <= maxSize.height ) {
-				displayObject.scaleX = displayObject.scaleY = 1;
-			} else {
-				if (maxSize.width > maxSize.height) {
-					if (displayObjectInitSize.width < (displayObjectInitSize.height)) {
-						displayObject.scaleX = maxSize.width / displayObjectInitSize.width;
-						displayObject.scaleY = displayObject.scaleX;
-					} else {
-						displayObject.scaleY = maxSize.height / displayObjectInitSize.height
-						displayObject.scaleX = displayObject.scaleY;
-					}
-				} else {
-					if (displayObjectInitSize.width > (displayObjectInitSize.height)) {
-						displayObject.scaleX = maxSize.width / displayObjectInitSize.width;
-						displayObject.scaleY = displayObject.scaleX;
-					} else {
-						displayObject.scaleY = maxSize.height / displayObjectInitSize.height
-						displayObject.scaleX = displayObject.scaleY;
-					}
-				}
-			}
-			displayObject.x = (_imageView.imagegalleryData.windowData.currentSize.width - displayObject.width) * 0.5
-			displayObject.y = (_imageView.imagegalleryData.windowData.currentSize.height - displayObject.height) * 0.5
+			recalculateMaxScale();
+			displayObject.x = (_imageView.imagegalleryData.windowData.currentSize.width 
+				- displayObjectInitSize.width * _imageView.imagegalleryData.imageData.maxScale) * 0.5
+			displayObject.y = (_imageView.imagegalleryData.windowData.currentSize.height 
+				- displayObjectInitSize.height * _imageView.imagegalleryData.imageData.maxScale) * 0.5
 		}
 		
-		private function handleMaxSizeChange(event:Event = null):void {
-			
+		private function recalculateMaxScale():void {
+			var maxSize:Size = new Size(_imageView.imagegalleryData.windowData.currentSize.width 
+					- _imageView.imagegalleryData.viewerData.viewer.padding,
+					_imageView.imagegalleryData.windowData.currentSize.height 
+					- _imageView.imagegalleryData.viewerData.viewer.padding);
+			if (displayObjectInitSize.width <= maxSize.width  && displayObjectInitSize.height <= maxSize.height ) {
+				_imageView.imagegalleryData.imageData.maxScale = 1;
+			} else {
+				var scale:Number = maxSize.height / displayObjectInitSize.height
+				if (displayObjectInitSize.width * scale > maxSize.width) {
+					scale = maxSize.width / displayObjectInitSize.width;
+				}
+				_imageView.imagegalleryData.imageData.maxScale = scale;
+			}
+		}
+		
+		private function handleMaxScaleChange(event:Event = null):void {
+			if (_imageView.imagegalleryData.imageData.isOpening) {
+				_imageView.imagegalleryData.imageData.isOpening = false;
+				Tweener.addTween(displayObject, { // no time parameter
+					scaleX:_imageView.imagegalleryData.imageData.maxScale,
+					scaleY:_imageView.imagegalleryData.imageData.maxScale});
+				_imageView.alpha = _imageView.imagegalleryData.windowData.window.alpha;
+			} if (_imageView.imagegalleryData.imageData.isClosing) {
+				_imageView.imagegalleryData.imageData.isClosing = false;
+				Tweener.addTween(displayObject, { // no time parameter
+					scaleX:_imageView.imagegalleryData.imageData.maxScale * closedMultiplier,
+					scaleY:_imageView.imagegalleryData.imageData.maxScale * closedMultiplier});
+				_imageView.alpha = 0;
+			} else if (_imageView.imagegalleryData.imageData.isOpened) {
+				displayObject.scaleX = displayObject.scaleY = _imageView.imagegalleryData.imageData.maxScale;
+			}
 		}
 	}
 }

@@ -46,9 +46,12 @@ package com.panozona.modules.imagegallery.model {
 			dispatchEvent(new ViewerEvent(ViewerEvent.CHANGED_CURRENT_GROUP_ID));
 		}
 		
+		private var imageGroupId:String;
+		
 		public function get currentImageIndex():Number { return _currentImageIndex;}
 		public function set currentImageIndex(value:Number):void {
-			if (isNaN(value) || value == _currentImageIndex) return;
+			if (isNaN(value) || (value == _currentImageIndex && imageGroupId == _currentGroupId)) return;
+			imageGroupId = _currentGroupId;
 			_currentImageIndex = value;
 			dispatchEvent(new ViewerEvent(ViewerEvent.CHANGED_CURRENT_IMAGE_INDEX));
 		}
