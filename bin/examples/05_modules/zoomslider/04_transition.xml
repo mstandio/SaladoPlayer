@@ -15,7 +15,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ZoomSlider path="~modules/zoomslider/ZoomSlider-1.1.swf">
+		<ZoomSlider path="~modules/zoomslider/ZoomSlider-1.2.swf">
 			<window transition="type:slideUp" openTween="transition:Bounce.easeOut,time:0.75" closeTween="transition:Expo.easeIn,time:0.75"/>
 			<slider path="~modules/zoomslider/images/elements_light_40x40.png"/>
 		</ZoomSlider>

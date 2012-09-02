@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -22,9 +22,10 @@ package com.panozona.modules.zoomslider.model.structure{
 		
 		public var path:String = null; // bitmap grid
 		
-		public var length:Number = 200;
-		public var slidesVertical:Boolean = true;
+		public var minLength:Number = 100;
+		public var maxLength:Number = 300;
 		
+		public var slidesVertical:Boolean = true;
 		public var listenKeys:Boolean = false;
 	}
 }

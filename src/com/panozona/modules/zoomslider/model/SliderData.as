@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,6 +20,7 @@ package com.panozona.modules.zoomslider.model {
 	
 	import com.panozona.modules.zoomslider.events.SliderEvent;
 	import com.panozona.modules.zoomslider.model.structure.Slider;
+	import com.panozona.player.module.data.property.Size;
 	import flash.events.EventDispatcher;
 	
 	public class SliderData extends EventDispatcher{
@@ -33,6 +34,10 @@ package com.panozona.modules.zoomslider.model {
 		private var _minFov:Number;
 		
 		private var _mouseDrag:Boolean;
+		private var _barLead:Boolean;
+		
+		private var _minSize:Size = new Size(1, 1);
+		private var _maxSize:Size = new Size(1, 1);
 		
 		public function get zoomIn():Boolean {return _zoomIn;}
 		public function set zoomIn(value:Boolean):void {
@@ -67,6 +72,21 @@ package com.panozona.modules.zoomslider.model {
 			if (value == _mouseDrag) return;
 			_mouseDrag = value;
 			dispatchEvent(new SliderEvent(SliderEvent.CHANGED_MOUSE_DRAG));
+		}
+		
+		public function get barLead():Boolean {return _barLead;}
+		public function set barLead(value:Boolean):void {
+			if (value == _barLead || _mouseDrag) return;
+			_barLead = value;
+			dispatchEvent(new SliderEvent(SliderEvent.CHANGED_BAR_LEAD));
+		}
+		
+		public function get minSize():Size {return _minSize};
+		public function get maxSize():Size {return _maxSize};
+		public function setMinMaxSize(minSize:Size, maxSize:Size):void {
+			_minSize = minSize;
+			_maxSize = maxSize;
+			dispatchEvent(new SliderEvent(SliderEvent.CHANGED_SIZE_LIMIT));
 		}
 	}
 }

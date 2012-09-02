@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Change size and alignment of module window. Slider can be displayed horizontal, but it may require
-	modification of bitmaps that have buttons rotetd 90 degrees.
+	Change size and alignment of module window.
 	
 	http://panozona.com/wiki/Module:ZoomSlider
 -->
@@ -11,9 +10,9 @@
 		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
-		<ZoomSlider path="~modules/zoomslider/ZoomSlider-1.1.swf">
-			<window align="horizontal:center,vertical:bottom" move="horizontal:0,vertical:-10"/>
-			<slider path="~modules/zoomslider/images/elements_dark_40x40.png" slidesVertical="false" length="400"/>
+		<ZoomSlider path="~modules/zoomslider/ZoomSlider-1.2.swf">
+			<window align="horizontal:center,vertical:bottom" margin="bottom:20"/>
+			<slider path="~modules/zoomslider/images/elements_dark_40x40.png" slidesVertical="false" maxLength="250" minLength="200"/>
 		</ZoomSlider>
 	</modules>
 </SaladoPlayer>

@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -19,6 +19,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.zoomslider.controller {
 	
 	import com.panozona.modules.zoomslider.events.SliderEvent;
+	import com.panozona.modules.zoomslider.events.WindowEvent;
 	import com.panozona.modules.zoomslider.view.SliderView;
 	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.Module;
@@ -70,11 +71,7 @@ package com.panozona.modules.zoomslider.controller {
 			
 			var cellWidth:Number = Math.ceil((gridBitmapData.width - 2) / 3);
 			var cellHeight:Number = Math.ceil((gridBitmapData.height - 1) / 2);
-			if (_sliderView.sliderData.slider.slidesVertical) {
-				_sliderView.zoomSliderData.windowData.size = new Size(cellWidth, cellHeight + _sliderView.sliderData.slider.length);
-			}else {
-				_sliderView.zoomSliderData.windowData.size = new Size(cellHeight + _sliderView.sliderData.slider.length, cellWidth);
-			}
+			
 			var zoomInPlainBD:BitmapData = new BitmapData(cellWidth, cellHeight, true, 0);
 			zoomInPlainBD.copyPixels(gridBitmapData, new Rectangle(0, 0, cellWidth, cellHeight), new Point(0, 0), null, null, true);
 			var zoomInActiveBD:BitmapData = new BitmapData(cellWidth, cellHeight, true, 0);
@@ -87,6 +84,7 @@ package com.panozona.modules.zoomslider.controller {
 			barBD.copyPixels(gridBitmapData, new Rectangle(cellWidth * 2 + 2, 0, cellWidth, cellHeight), new Point(0, 0), null, null, true);
 			var pointerBD:BitmapData = new BitmapData(cellWidth, cellHeight, true, 0);
 			pointerBD.copyPixels(gridBitmapData, new Rectangle(cellWidth * 2 + 2, cellHeight + 1, cellWidth, cellHeight), new Point(0, 0), null, null, true);
+			
 			_sliderView.build(
 				zoomInPlainBD, zoomOutPlainBD,
 				zoomInActiveBD, zoomOutActiveBD,
@@ -94,13 +92,31 @@ package com.panozona.modules.zoomslider.controller {
 			
 			_sliderView.sliderData.addEventListener(SliderEvent.CHANGED_ZOOM, handleZoomChange, false, 0, true);
 			_sliderView.sliderData.addEventListener(SliderEvent.CHANGED_FOV_LIMIT, handleFovLimitsChange, false, 0, true);
+			_sliderView.sliderData.addEventListener(SliderEvent.CHANGED_BAR_LEAD, handleBarLeadChange, false, 0, true);
 			_sliderView.sliderData.addEventListener(SliderEvent.CHANGED_MOUSE_DRAG, handleMouseDragChange, false, 0, true);
+			
 			_sliderView.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
 			
 			if (_sliderView.sliderData.slider.listenKeys){
 				_module.saladoPlayer.stage.addEventListener( KeyboardEvent.KEY_DOWN, keyDownEvent, false, 0, true);
 				_module.saladoPlayer.stage.addEventListener( KeyboardEvent.KEY_UP, keyUpEvent, false, 0, true);
 			}
+			
+			_sliderView.zoomSliderData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleWindowSizeChange, false, 0, true);
+			
+			var maxSize:Size = new Size( 
+				_sliderView.zoomSliderData.sliderData.slider.slidesVertical ? cellWidth : _sliderView.sliderData.slider.maxLength,
+				_sliderView.zoomSliderData.sliderData.slider.slidesVertical ? _sliderView.sliderData.slider.maxLength : cellHeight);
+			var minSize:Size = new Size(
+				_sliderView.zoomSliderData.sliderData.slider.slidesVertical ? cellWidth : _sliderView.sliderData.slider.minLength,
+				_sliderView.zoomSliderData.sliderData.slider.slidesVertical ? _sliderView.sliderData.slider.minLength : cellHeight);
+				
+			_sliderView.zoomSliderData.sliderData.setMinMaxSize(minSize, maxSize);
+		}
+		
+		private function handleWindowSizeChange(event:Event = null):void {
+			_sliderView.draw();
+			translateValueToPosition();
 		}
 		
 		private function handleZoomChange(e:SliderEvent):void {
@@ -119,6 +135,19 @@ package com.panozona.modules.zoomslider.controller {
 		
 		private function handleFovLimitsChange(e:SliderEvent):void {
 			translateValueToPosition();
+		}
+		
+		private function handleBarLeadChange(e:SliderEvent):void {
+			if (_sliderView.sliderData.barLead) {
+				if (_sliderView.bar.mouseY < _sliderView.pointer.y + _sliderView.pointer.height * 0.5) {
+					_module.stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, true, 0, cameraKeyBindingsClass.IN));
+				}else {
+					_module.stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, true, 0, cameraKeyBindingsClass.OUT));
+				}
+			}else {
+				_module.stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, cameraKeyBindingsClass.IN));
+				_module.stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, cameraKeyBindingsClass.OUT));
+			}
 		}
 		
 		private function handleMouseDragChange(e:SliderEvent):void {
@@ -157,15 +186,15 @@ package com.panozona.modules.zoomslider.controller {
 		
 		private function translatePositionToValue():void {
 			if (isNaN(_sliderView.sliderData.minFov) || isNaN(_sliderView.sliderData.maxFov) || isNaN(currentFov)) return;
-			_module.saladoPlayer.manager.fieldOfView = (_sliderView.sliderData.maxFov - _sliderView.sliderData.minFov) *
-			(1 - (2 * _sliderView.pointer.y + _sliderView.pointer.height) / (2 * _sliderView.bar.height)) +
-			_sliderView.sliderData.minFov;
+			_module.saladoPlayer.manager.fieldOfView = ( -_sliderView.pointer.y / 
+				(_sliderView.bar.height - _sliderView.pointer.height) + 1) *
+				(_sliderView.sliderData.maxFov - _sliderView.sliderData.minFov) + _sliderView.sliderData.minFov;
 		}
 		
 		private function translateValueToPosition():void {
 			if (isNaN(_sliderView.sliderData.minFov) || isNaN(_sliderView.sliderData.maxFov) || isNaN(currentFov)) return;
 			_sliderView.pointer.y = - (((currentFov - _sliderView.sliderData.minFov) /
-			(_sliderView.sliderData.maxFov - _sliderView.sliderData.minFov)) - 1) *
+				(_sliderView.sliderData.maxFov - _sliderView.sliderData.minFov)) - 1) *
 				(_sliderView.bar.height - _sliderView.pointer.height);
 		}
 		

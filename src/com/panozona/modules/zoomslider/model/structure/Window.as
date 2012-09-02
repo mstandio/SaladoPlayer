@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,19 +20,20 @@ package com.panozona.modules.zoomslider.model.structure{
 	
 	import caurina.transitions.Equations;
 	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Margin;
 	import com.panozona.player.module.data.property.Move;
 	import com.panozona.player.module.data.property.Transition;
 	import com.panozona.player.module.data.property.Tween;
 	
-	public class Window{
+	public class Window {
 		
 		public const align:Align = new Align(Align.LEFT, Align.MIDDLE);
-		public const move:Move = new Move(10, 0);
+		public const margin:Margin = new Margin(10, 10, 10, 10);
 		
 		public var alpha:Number = 1.0;
 		
 		public var open:Boolean = true;
-		public var onOpen:String = null; // actions executed on window visibility change
+		public var onOpen:String = null;
 		public var onClose:String = null;
 		
 		public const openTween:Tween = new Tween(Equations.easeNone, 0.5);

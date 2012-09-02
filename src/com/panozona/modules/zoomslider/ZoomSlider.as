@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -32,7 +32,7 @@ package com.panozona.modules.zoomslider{
 		private var zoomSliderData:ZoomSliderData;
 		
 		public function ZoomSlider():void{
-			super("ZoomSlider", "1.1", "http://panozona.com/wiki/Module:ZoomSlider");
+			super("ZoomSlider", "1.2", "http://panozona.com/wiki/Module:ZoomSlider");
 			
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen");

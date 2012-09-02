@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -38,6 +38,11 @@ package com.panozona.modules.zoomslider.view {
 		private var zoomOutPlainBD:BitmapData;
 		private var zoomInActiveBD:BitmapData;
 		private var zoomOutActiveBD:BitmapData;
+		private var barBD:BitmapData;
+		private var pointerBD:BitmapData;
+		
+		private var zoomInButton:Sprite;
+		private var zoomOutButton:Sprite;
 		
 		private var _zoomSliderData:ZoomSliderData;
 		
@@ -54,46 +59,64 @@ package com.panozona.modules.zoomslider.view {
 			this.zoomOutPlainBD = zoomOutPlainBD;
 			this.zoomInActiveBD = zoomInActiveBD;
 			this.zoomOutActiveBD = zoomOutActiveBD;
+			this.barBD = barBD;
+			this.pointerBD = pointerBD;
 			
-			bar.graphics.beginBitmapFill(barBD, null, true);
-			bar.graphics.drawRect(
-				0,
-				0,
-				barBD.width,
-				_zoomSliderData.sliderData.slider.length + (zoomInPlainBD.height + zoomOutPlainBD.height) * 0.5);
-			bar.graphics.endFill();
-			bar.y = zoomInPlainBD.height * 0.5;
 			addChild(bar);
-			bar.addEventListener(MouseEvent.MOUSE_DOWN, dragStart, false, 0, true);
-			bar.addEventListener(MouseEvent.MOUSE_UP, dragStop, false, 0, true);
-			stage.addEventListener(MouseEvent.MOUSE_UP, dragStop, false, 0, true);
+			bar.addEventListener(MouseEvent.MOUSE_DOWN, leadStart, false, 0, true);
+			bar.addEventListener(MouseEvent.MOUSE_UP, leadStop, false, 0, true);
+			bar.addEventListener(MouseEvent.ROLL_OUT, leadStop, false, 0, true);
 			
 			pointer.addChild(new Bitmap(pointerBD));
-			pointer.y = bar.y + (bar.height - pointer.height) * 0.5;
+			pointer.addEventListener(MouseEvent.MOUSE_DOWN, dragStart, false, 0, true);
+			pointer.addEventListener(MouseEvent.MOUSE_UP, dragStop, false, 0, true);
+			pointer.addEventListener(MouseEvent.ROLL_OVER, leadStop, false, 0, true);
+			stage.addEventListener(MouseEvent.MOUSE_UP, dragStop, false, 0, true);
 			bar.addChild(pointer);
 			
 			zoomIn = new Bitmap(this.zoomInPlainBD);
-			var zoomInButton:Sprite = new Sprite();
+			zoomInButton = new Sprite();
 			zoomInButton.addChild(zoomIn);
 			zoomInButton.buttonMode = true;
-			zoomInButton.y = 0;
+			
 			addChild(zoomInButton);
 			zoomInButton.addEventListener(MouseEvent.MOUSE_DOWN, navZoomIn, false, 0, true);
 			zoomInButton.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
 			zoomInButton.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
 			
 			zoomOut = new Bitmap(this.zoomOutPlainBD);
-			var zoomOutButton:Sprite = new Sprite();
+			zoomOutButton = new Sprite();
 			zoomOutButton.addChild(zoomOut);
 			zoomOutButton.buttonMode = true;
-			zoomOutButton.y = bar.y + bar.height - zoomOutButton.height * 0.5;
+			
 			addChild(zoomOutButton);
 			zoomOutButton.addEventListener(MouseEvent.MOUSE_DOWN, navZoomOut, false, 0, true);
 			zoomOutButton.addEventListener(MouseEvent.MOUSE_UP, navZoomStop, false, 0, true);
 			zoomOutButton.addEventListener(MouseEvent.ROLL_OUT, navZoomStop, false, 0, true);
 			
+			draw();
+		}
+		
+		public function draw():void {
+			var length:Number = _zoomSliderData.sliderData.slider.slidesVertical 
+				? _zoomSliderData.windowData.currentSize.height
+				: _zoomSliderData.windowData.currentSize.width;
+			
+			bar.graphics.clear();
+			bar.graphics.beginBitmapFill(barBD, null, true);
+			bar.graphics.drawRect(
+				0,
+				0,
+				barBD.width,
+				length - (zoomInPlainBD.height + zoomOutPlainBD.height) * 0.5);
+			bar.graphics.endFill();
+			bar.y = zoomInPlainBD.height * 0.5;
+			
+			zoomInButton.y = 0;
+			zoomOutButton.y = bar.y + length - zoomInPlainBD.height * 0.5 - zoomOutPlainBD.height;
+			
 			if (!_zoomSliderData.sliderData.slider.slidesVertical) {
-				x = height;
+				x = length;
 				rotation = 90;
 				zoomInButton.y += zoomInButton.height;
 				zoomInButton.rotation = -90;
@@ -142,6 +165,14 @@ package com.panozona.modules.zoomslider.view {
 		
 		private function dragStop(e:Event):void {
 			_zoomSliderData.sliderData.mouseDrag = false;
+		}
+		
+		private function leadStart(e:Event):void {
+			_zoomSliderData.sliderData.barLead = true;
+		}
+		
+		private function leadStop(e:Event):void {
+			_zoomSliderData.sliderData.barLead = false;
 		}
 	}
 }
