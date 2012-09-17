@@ -211,25 +211,44 @@ package com.panozona.modules.menuscroller.controller{
 		private function onEnterFrame(e:Event = null):void {
 			var targetPosition:Number = NaN;
 			var speed:Number = NaN;
+			var shift:Number = NaN;
 			if (_scrollerView.menuScrollerData.scrollerData.scrollsVertical) {
 				speed = _scrollerView.menuScrollerData.windowData.currentSize.height * 0.1;
 				targetPosition = -difference * _scrollerView.mouseY /
 					_scrollerView.menuScrollerData.windowData.currentSize.height;
-				if (Math.abs(targetPosition - _scrollerView.elementsContainer.x) < 1) return;
+				shift = speed * Math.abs(targetPosition - _scrollerView.elementsContainer.y) / difference;
+				if (Math.abs(targetPosition - _scrollerView.elementsContainer.y ) < 1) return;
 				if (targetPosition < _scrollerView.elementsContainer.y) {
-					_scrollerView.elementsContainer.y -= speed * Math.abs(targetPosition - _scrollerView.elementsContainer.y) / difference;
+					if (targetPosition > _scrollerView.elementsContainer.y - shift) {
+						_scrollerView.elementsContainer.y = targetPosition
+					} else {
+						_scrollerView.elementsContainer.y -= shift;
+					}
 				} else {
-					_scrollerView.elementsContainer.y += speed * Math.abs(targetPosition - _scrollerView.elementsContainer.y) / difference;
+					if (targetPosition < _scrollerView.elementsContainer.y + shift) {
+						_scrollerView.elementsContainer.y = targetPosition;
+					} else {
+						_scrollerView.elementsContainer.y += shift;
+					}
 				}
 			} else {
 				speed = _scrollerView.menuScrollerData.windowData.currentSize.width * 0.1;
 				targetPosition = -difference * _scrollerView.mouseX /
 					_scrollerView.menuScrollerData.windowData.currentSize.width;
-				if (Math.abs(targetPosition - _scrollerView.elementsContainer.x) < 1) return;
+				shift = speed * Math.abs(targetPosition - _scrollerView.elementsContainer.x) / difference;
+				if (Math.abs(targetPosition - _scrollerView.elementsContainer.x ) < 1) return;
 				if (targetPosition < _scrollerView.elementsContainer.x) {
-					_scrollerView.elementsContainer.x -= speed * Math.abs(targetPosition - _scrollerView.elementsContainer.x) / difference;
+					if (targetPosition > _scrollerView.elementsContainer.x - shift) {
+						_scrollerView.elementsContainer.x = targetPosition
+					} else {
+						_scrollerView.elementsContainer.x -= shift;
+					}
 				} else {
-					_scrollerView.elementsContainer.x += speed * Math.abs(targetPosition - _scrollerView.elementsContainer.x) / difference;
+					if (targetPosition < _scrollerView.elementsContainer.x + shift) {
+						_scrollerView.elementsContainer.x = targetPosition;
+					} else {
+						_scrollerView.elementsContainer.x += shift;
+					}
 				}
 			}
 		}
