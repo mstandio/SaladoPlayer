@@ -45,7 +45,7 @@ LinkOpener.as  = src/com/panozona/modules/linkopener/LinkOpener.as
 LinkOpener.swf = bin/modules/LinkOpener-1.1.swf
 
 MenuScroller.as  = src/com/panozona/modules/menuscroller/MenuScroller.as
-MenuScroller.swf = bin/modules/MenuScroller-1.2.1.swf
+MenuScroller.swf = bin/modules/MenuScroller-1.3.swf
 
 MouseCursor.as  = src/com/panozona/modules/mousecursor/MouseCursor.as
 MouseCursor.swf = bin/modules/mousecursor/MouseCursor-1.2.swf

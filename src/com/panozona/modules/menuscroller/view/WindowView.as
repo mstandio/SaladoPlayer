@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,11 +20,7 @@ package com.panozona.modules.menuscroller.view{
 	
 	import com.panozona.modules.menuscroller.model.MenuScrollerData;
 	import com.panozona.modules.menuscroller.model.WindowData;
-	import flash.display.Bitmap;
-	import flash.display.SimpleButton;
 	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
 	
 	public class WindowView extends Sprite{
 		
@@ -41,16 +37,15 @@ package com.panozona.modules.menuscroller.view{
 			
 			this.alpha = _menuScrollerData.windowData.window.alpha;
 			
-			// draw map window
 			window = new Sprite();
 			addChild(window);
 			visible = _menuScrollerData.windowData.open;
 			
+			_scrollerView = new ScrollerView(_menuScrollerData, window);
+			window.addChild(_scrollerView);
+			
 			_closeView = new CloseView(_menuScrollerData);
 			window.addChild(_closeView);
-			
-			_scrollerView = new ScrollerView(_menuScrollerData);
-			window.addChild(_scrollerView);
 		}
 		
 		public function get windowData():WindowData {
@@ -67,8 +62,8 @@ package com.panozona.modules.menuscroller.view{
 		
 		public function drawBackground():void {
 			window.graphics.clear()
-			window.graphics.beginFill(_menuScrollerData.windowData.window.color);
-			window.graphics.drawRect(0, 0, _menuScrollerData.windowData.elasticWidth, _menuScrollerData.windowData.elasticHeight);
+			window.graphics.beginFill(_menuScrollerData.scrollerData.scroller.style.color, _menuScrollerData.scrollerData.scroller.style.alpha);
+			window.graphics.drawRect(0, 0, _menuScrollerData.windowData.currentSize.width, _menuScrollerData.windowData.currentSize.height);
 			window.graphics.endFill();
 		}
 	}

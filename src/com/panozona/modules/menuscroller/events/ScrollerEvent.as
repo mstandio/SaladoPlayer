@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -22,9 +22,9 @@ package com.panozona.modules.menuscroller.events{
 	
 	public class ScrollerEvent extends Event{
 		
-		public static const CHANGED_SCROLL:String = "changedScroll";
 		public static const CHANGED_TOTAL_SIZE:String = "changedTotalSize";
 		public static const CHANGED_MOUSE_OVER:String = "changedMouseOver";
+		public static const CHANGED_CURRENT_GROUP_ID:String = "changedCurrGroupId";
 		
 		public function ScrollerEvent(type:String){
 			super(type);

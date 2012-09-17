@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,9 +20,10 @@ package com.panozona.modules.menuscroller.controller{
 	
 	import caurina.transitions.Tweener;
 	import com.panozona.modules.menuscroller.events.WindowEvent;
-	import com.panozona.modules.menuscroller.model.WindowData;
 	import com.panozona.modules.menuscroller.view.WindowView;
 	import com.panozona.player.module.data.property.Align;
+	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.data.property.Transition;
 	import com.panozona.player.module.Module;
 	import flash.events.Event;
@@ -37,19 +38,17 @@ package com.panozona.modules.menuscroller.controller{
 		private var _module:Module;
 		
 		public function WindowController(windowView:WindowView, module:Module) {
-			
 			_module = module;
 			_windowView = windowView;
 			
-			closeController = new CloseController(windowView.closeView, _module);
-			
-			scrollerController = new ScrollerController(windowView.scrollerView, _module);
-			
 			_windowView.windowData.addEventListener(WindowEvent.CHANGED_OPEN, onOpenChange, false, 0, true);
 			
-			var ViewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
-			_module.saladoPlayer.manager.addEventListener(ViewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
+			var viewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
+			_module.saladoPlayer.manager.addEventListener(viewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
 			handleResize();
+			
+			closeController = new CloseController(windowView.closeView, _module);
+			scrollerController = new ScrollerController(windowView.scrollerView, _module);
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
@@ -66,7 +65,53 @@ package com.panozona.modules.menuscroller.controller{
 		}
 		
 		private function handleResize(event:Event = null):void {
-			recalculateSize();
+			var newSize:Size = new Size(0, 0);
+			var newMove:Move = new Move(0, 0);
+			
+			newSize.width = _module.saladoPlayer.manager.boundsWidth 
+				-(_windowView.windowData.window.margin.left + _windowView.windowData.window.margin.right);
+			if (newSize.width > _windowView.windowData.window.maxSize.width) {
+				newSize.width = _windowView.windowData.window.maxSize.width;
+			}
+			if (newSize.width < _windowView.windowData.window.minSize.width) {
+				newSize.width = _windowView.windowData.window.minSize.width;
+			}
+			newSize.height = _module.saladoPlayer.manager.boundsHeight 
+				-(_windowView.windowData.window.margin.top + _windowView.windowData.window.margin.bottom);
+			if (newSize.height > _windowView.windowData.window.maxSize.height) {
+				newSize.height = _windowView.windowData.window.maxSize.height;
+			}
+			if (newSize.height < _windowView.windowData.window.minSize.height) {
+				newSize.height = _windowView.windowData.window.minSize.height;
+			}
+			if (_windowView.windowData.window.align.horizontal == Align.LEFT) {
+				newMove.horizontal = _windowView.windowData.window.margin.left;
+			} else if (_windowView.windowData.window.align.horizontal == Align.RIGHT) {
+				newMove.horizontal = -_windowView.windowData.window.margin.right;
+			} else if (_windowView.windowData.window.align.horizontal == Align.CENTER) {
+				var tmpHorizontal:Number = (_module.saladoPlayer.manager.boundsWidth - newSize.width) * 0.5;
+				if (tmpHorizontal + newSize.width > _module.saladoPlayer.manager.boundsWidth - _windowView.windowData.window.margin.right) {
+					newMove.horizontal = (_module.saladoPlayer.manager.boundsWidth - _windowView.windowData.window.margin.right) - (tmpHorizontal + newSize.width);
+				}
+				if (tmpHorizontal + newMove.horizontal < _windowView.windowData.window.margin.left) {
+					newMove.horizontal = _windowView.windowData.window.margin.left - tmpHorizontal;
+				}
+			}
+			if (_windowView.windowData.window.align.vertical == Align.TOP) {
+				newMove.vertical = _windowView.windowData.window.margin.top;
+			} else if (_windowView.windowData.window.align.vertical == Align.BOTTOM) {
+				newMove.vertical = -_windowView.windowData.window.margin.bottom;
+			} else if (_windowView.windowData.window.align.vertical == Align.MIDDLE) {
+				var tmpVertical:Number = (_module.saladoPlayer.manager.boundsHeight - newSize.height) * 0.5;
+				if (tmpVertical + newSize.height > _module.saladoPlayer.manager.boundsHeight - _windowView.windowData.window.margin.bottom) {
+					newMove.vertical = (tmpVertical + newSize.height) - (_module.saladoPlayer.manager.boundsHeight - _windowView.windowData.window.margin.bottom);
+				}
+				if (tmpVertical + newMove.vertical < _windowView.windowData.window.margin.top) {
+					newMove.vertical = _windowView.windowData.window.margin.top - tmpVertical;
+				}
+			}
+			_windowView.windowData.currentSize = newSize;
+			_windowView.windowData.currentMove = newMove;
 			_windowView.drawBackground();
 			placeWindow();
 		}
@@ -117,15 +162,6 @@ package com.panozona.modules.menuscroller.controller{
 			_windowView.visible = false;
 		}
 		
-		private function recalculateSize():void {
-			if (isNaN(_windowView.windowData.window.size.width)) {
-				_windowView.windowData.elasticWidth = _module.saladoPlayer.manager.boundsWidth;
-			}
-			if (isNaN(_windowView.windowData.window.size.height)) {
-				_windowView.windowData.elasticHeight = _module.saladoPlayer.manager.boundsHeight;
-			}
-		}
-		
 		private function placeWindow(e:Event = null):void {
 			if (_windowView.windowData.open) {
 				Tweener.addTween(_windowView, {x:getWindowOpenX(), y:getWindowOpenY()});  // no time parameter
@@ -145,16 +181,16 @@ package com.panozona.modules.menuscroller.controller{
 			switch(_windowView.windowData.window.align.horizontal) {
 				case Align.RIGHT:
 					result += _module.saladoPlayer.manager.boundsWidth 
-						- _windowView.windowData.elasticWidth 
-						+ _windowView.windowData.window.move.horizontal;
+						- _windowView.windowData.currentSize.width 
+						+ _windowView.windowData.currentMove.horizontal;
 				break;
 				case Align.LEFT:
-					result += _windowView.windowData.window.move.horizontal;
+					result += _windowView.windowData.currentMove.horizontal;
 				break;
 				default: // CENTER
 					result += (_module.saladoPlayer.manager.boundsWidth 
-						- _windowView.windowData.elasticWidth) * 0.5 
-						+ _windowView.windowData.window.move.horizontal;
+						- _windowView.windowData.currentSize.width) * 0.5 
+						+ _windowView.windowData.currentMove.horizontal;
 			}
 			return result;
 		}
@@ -163,17 +199,17 @@ package com.panozona.modules.menuscroller.controller{
 			var result:Number = 0;
 			switch(_windowView.windowData.window.align.vertical) {
 				case Align.TOP:
-					result += _windowView.windowData.window.move.vertical;
+					result += _windowView.windowData.currentMove.vertical;
 				break;
 				case Align.BOTTOM:
 					result += _module.saladoPlayer.manager.boundsHeight 
-						- _windowView.windowData.elasticHeight
-						+ _windowView.windowData.window.move.vertical;
+						- _windowView.windowData.currentSize.height
+						+ _windowView.windowData.currentMove.vertical;
 				break;
 				default: // MIDDLE
 					result += (_module.saladoPlayer.manager.boundsHeight 
-						- _windowView.windowData.elasticHeight) * 0.5
-						+ _windowView.windowData.window.move.vertical;
+						- _windowView.windowData.currentSize.height) * 0.5
+						+ _windowView.windowData.currentMove.vertical;
 			}
 			return result;
 		}
@@ -185,7 +221,7 @@ package com.panozona.modules.menuscroller.controller{
 					result = _module.saladoPlayer.manager.boundsWidth;
 				break;
 				case Transition.SLIDE_LEFT:
-					result = -_windowView.windowData.elasticWidth;
+					result = -_windowView.windowData.currentSize.width;
 				break;
 				default: //SLIDE_UP, SLIDE_DOWN
 					result = getWindowOpenX();
@@ -197,7 +233,7 @@ package com.panozona.modules.menuscroller.controller{
 			var result:Number = 0;
 			switch(_windowView.windowData.window.transition.type){
 				case Transition.SLIDE_UP:
-					result = -_windowView.windowData.elasticHeight;
+					result = -_windowView.windowData.currentSize.height;
 				break;
 				case Transition.SLIDE_DOWN:
 					result = _module.saladoPlayer.manager.boundsHeight;

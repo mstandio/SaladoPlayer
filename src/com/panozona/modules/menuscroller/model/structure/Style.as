@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -16,17 +16,11 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.menuscroller.model.structure{
+package com.panozona.modules.menuscroller.model.structure {
 	
-	import com.panozona.player.module.data.property.Tween;
-	
-	public class Expand extends Tween{
+	public class Style {
 		
-		public var scale:Number;
-		
-		public function Expand(transition:Function, time:Number, scale:Number):void {
-			super(transition, time);
-			this.scale = scale;
-		}
+		public var color:Number = 0x000000;
+		public var alpha:Number = 0.75;
 	}
 }

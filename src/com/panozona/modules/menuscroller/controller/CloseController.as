@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -19,15 +19,14 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.menuscroller.controller {
 	
 	import com.panozona.modules.menuscroller.events.WindowEvent;
-	import com.panozona.modules.menuscroller.model.ElementData;
 	import com.panozona.modules.menuscroller.view.CloseView;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.Module;
 	import flash.display.Loader;
-	import flash.net.URLRequest;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
+	import flash.net.URLRequest;
 	
 	public class CloseController {
 		
@@ -45,8 +44,7 @@ package com.panozona.modules.menuscroller.controller {
 			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
 			imageLoader.load(new URLRequest(_closeView.menuScrollerData.close.path));
 			
-			_closeView.menuScrollerData.windowData.addEventListener(WindowEvent.CHANGED_ELASTIC_WIDTH, handleResize, false, 0, true);
-			_closeView.menuScrollerData.windowData.addEventListener(WindowEvent.CHANGED_ELASTIC_HEIGHT, handleResize, false, 0, true);
+			_closeView.menuScrollerData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleResize, false, 0, true);
 		}
 		
 		private function imageLost(error:IOErrorEvent):void {
@@ -68,16 +66,16 @@ package com.panozona.modules.menuscroller.controller {
 			if (_closeView.menuScrollerData.close.align.horizontal == Align.LEFT) {
 				_closeView.x = 0;
 			}else if (_closeView.menuScrollerData.close.align.horizontal == Align.RIGHT) {
-				_closeView.x = _closeView.menuScrollerData.windowData.elasticWidth - _closeView.width;
+				_closeView.x = _closeView.menuScrollerData.windowData.currentSize.width - _closeView.width;
 			}else { // CENTER
-				_closeView.x = (_closeView.menuScrollerData.windowData.elasticWidth - _closeView.width) * 0.5;
+				_closeView.x = (_closeView.menuScrollerData.windowData.currentSize.width - _closeView.width) * 0.5;
 			}
 			if (_closeView.menuScrollerData.close.align.vertical == Align.TOP){
 				_closeView.y = 0;
 			}else if (_closeView.menuScrollerData.close.align.vertical == Align.BOTTOM) {
-				_closeView.y = _closeView.menuScrollerData.windowData.elasticHeight - _closeView.height;
+				_closeView.y = _closeView.menuScrollerData.windowData.currentSize.height - _closeView.height;
 			}else { // MIDDLE
-				_closeView.y = (_closeView.menuScrollerData.windowData.elasticHeight - _closeView.height) * 0.5;
+				_closeView.y = (_closeView.menuScrollerData.windowData.currentSize.height - _closeView.height) * 0.5;
 			}
 			_closeView.x += _closeView.menuScrollerData.close.move.horizontal;
 			_closeView.y += _closeView.menuScrollerData.close.move.vertical;

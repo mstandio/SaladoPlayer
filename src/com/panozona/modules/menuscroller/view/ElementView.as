@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,6 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.menuscroller.view {
 	
+	import com.panozona.modules.menuscroller.model.MenuScrollerData;
 	import com.panozona.modules.menuscroller.model.ElementData;
 	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
@@ -27,21 +28,28 @@ package com.panozona.modules.menuscroller.view {
 	
 	public class ElementView extends Sprite{
 		
-		public var _content:DisplayObject;
+		private var _content:DisplayObject;
 		private var _contentAnchor:Sprite;
 		
 		private var _elementData:ElementData;
 		
-		public function ElementView(elementData:ElementData) {
+		private var _menuScrollerData:MenuScrollerData;
+		
+		public function ElementView(menuScrollerData:MenuScrollerData, elementData:ElementData) {
 			_elementData = elementData;
+			_menuScrollerData = menuScrollerData;
 			
 			buttonMode = true;
 			
 			_contentAnchor = new Sprite();
 			_contentAnchor.graphics.beginFill(0x000000, 0);
-			_contentAnchor.graphics.drawRect(0, 0, _elementData.size.width * 0.5, _elementData.size.height * 0.5);
+			_contentAnchor.graphics.drawRect(0, 0, _elementData.plainSize.width * 0.5, _elementData.plainSize.height * 0.5);
 			_contentAnchor.graphics.endFill();
 			addChild(_contentAnchor);
+		}
+		
+		public function get menuScrollerData():MenuScrollerData {
+			return _menuScrollerData;
 		}
 		
 		public function get elementData():ElementData {
@@ -49,13 +57,11 @@ package com.panozona.modules.menuscroller.view {
 		}
 		
 		public function set content(displayObject:DisplayObject):void {
-			if (_content != null) return;
 			_contentAnchor.graphics.clear();
-			_contentAnchor.x = displayObject.width * 0.5;
-			_contentAnchor.y = displayObject.height * 0.5;
 			_content = displayObject;
-			_content.x = -displayObject.width * 0.5;
-			_content.y = -displayObject.height * 0.5;
+			
+			placeContent();
+			
 			if (_content is Bitmap) {
 				(_content as Bitmap).smoothing = true;
 			}
@@ -63,6 +69,22 @@ package com.panozona.modules.menuscroller.view {
 			
 			addEventListener(MouseEvent.ROLL_OVER, onMouseOver, false, 0, true);
 			addEventListener(MouseEvent.ROLL_OUT, onMouseOut, false, 0, true);
+		}
+		
+		public function applyScale(scale:Number):void {
+			_content.scaleX = _content.scaleY = scale;
+			placeContent();
+		}
+		
+		public function get content():DisplayObject {
+			return _content;
+		}
+		
+		private function placeContent():void {
+			_content.x = -_content.width * 0.5;
+			_content.y = -_content.height * 0.5;
+			_contentAnchor.x = _content.width * 0.5;
+			_contentAnchor.y = _content.height * 0.5;
 		}
 		
 		private function onMouseOver(e:Event):void {

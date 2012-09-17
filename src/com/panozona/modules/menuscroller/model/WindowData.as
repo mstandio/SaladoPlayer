@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,16 +20,22 @@ package com.panozona.modules.menuscroller.model {
 	
 	import com.panozona.modules.menuscroller.events.WindowEvent;
 	import com.panozona.modules.menuscroller.model.structure.Window;
+	import com.panozona.player.module.data.property.Size;
+	import com.panozona.player.module.data.property.Move;
 	import flash.events.EventDispatcher;
 	
 	public class WindowData extends EventDispatcher{
 		
-		private var _open:Boolean;
-		
-		private var _elasticWidth:Number;
-		private var _elasticHeight:Number;
-		
 		public const window:Window = new Window();
+		
+		private var _open:Boolean;
+		private var _currentSize:Size;
+		private var _currentMove:Move;
+		
+		public function WindowData() {
+			_currentSize = new Size(0, 0);
+			_currentMove = new Move(0, 0);
+		}
 		
 		public function get open():Boolean { return _open;}
 		public function set open(value:Boolean):void {
@@ -38,18 +44,26 @@ package com.panozona.modules.menuscroller.model {
 			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_OPEN));
 		}
 		
-		public function get elasticWidth():Number { return _elasticWidth;}
-		public function set elasticWidth(value:Number):void {
-			if (value == _elasticWidth) return;
-			_elasticWidth = value;
-			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_ELASTIC_WIDTH));
+		public function get currentSize():Size { return _currentSize };
+		public function set currentSize(value:Size):void {
+			if (value == null 
+				|| _currentSize.width == value.width 
+				&& _currentSize.height == value.height) {
+				return;
+			}
+			_currentSize = value;
+			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_CURRENT_SIZE));
 		}
 		
-		public function get elasticHeight():Number { return _elasticHeight;}
-		public function set elasticHeight(value:Number):void {
-			if (value == _elasticHeight) return;
-			_elasticHeight = value;
-			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_ELASTIC_HEIGHT));
+		public function get currentMove():Move { return _currentMove };
+		public function set currentMove(value:Move):void {
+			if (value == null 
+				|| _currentMove.horizontal == value.horizontal 
+				&& _currentMove.vertical == value.vertical) {
+				return;
+			}
+			_currentMove = value;
+			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_CURRENT_MOVE));
 		}
 	}
 }

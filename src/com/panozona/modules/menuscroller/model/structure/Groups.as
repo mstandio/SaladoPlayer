@@ -18,17 +18,14 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.menuscroller.model.structure {
 	
-	import caurina.transitions.Equations;
-	import com.panozona.player.module.data.property.Tween;
+	import com.panozona.player.module.data.structure.DataParent;
 	
-	public class Scroller {
+	public class Groups extends DataParent {
 		
-		public const style:Style = new Style();
-		
-		public var spacing:Number = 20;
-		public var padding:Number = 20;
-		
-		public var overTween:Tween = new Tween(Equations.easeNone, 0.25);
-		public var outTween:Tween = new Tween(Equations.easeNone, 0.25);
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Group);
+			return result;
+		}
 	}
 }

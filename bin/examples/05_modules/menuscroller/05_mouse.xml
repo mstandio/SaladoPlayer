@@ -13,11 +13,13 @@
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
 	</panoramas>
 	<modules>
-		<MenuScroller path="~modules/MenuScroller-1.2.1.swf">
-			<elements>
-				<element target="checkerBlue" path="~media/images/thumbs/checker_blue.jpg" mouse="onOver:blueOnOver,onOut:blueOnOut"/>
-				<extraElement id="logo" action="printHello" path="~media/images/misc/panozona_logo.png" mouse="onOver:logoOnOver,onOut:logoOnOut"/>
-			</elements>
+		<MenuScroller path="~modules/MenuScroller-1.3.swf">
+			<groups>
+				<group id="g1">
+					<element target="checkerBlue" path="~media/images/thumbs/checker_blue.jpg" mouse="onOver:blueOnOver,onOut:blueOnOut"/>
+					<extraElement id="logo" action="printHello" path="~media/images/misc/panozona_logo.png" mouse="onOver:logoOnOver,onOut:logoOnOut"/>
+				</group>
+			</groups>
 		</MenuScroller>
 	</modules>
 	<actions>

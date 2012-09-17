@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -26,46 +26,30 @@ package com.panozona.modules.menuscroller.model {
 	
 	public class ElementData extends EventDispatcher{
 		
-		private var _isShowing:Boolean;
-		private var _loaded:Boolean;
-		private var _size:Size;
+		public var plainSize:Size;
+		public var hoverSize:Size;
 		
+		private var _isLoaded:Boolean;
+		 
 		private var _isActive:Boolean;
 		private var _mouseOver:Boolean;
 		
 		private var _rawElement:RawElement;
-		private var _scroller:Scroller;
 		
-		public function ElementData(rawElement:RawElement, scroller:Scroller):void {
+		public function ElementData(rawElement:RawElement):void {
 			_rawElement = rawElement;
-			_scroller = scroller;
-			_size = new Size(scroller.sizeLimit, scroller.sizeLimit);
+			plainSize = new Size(1, 1);
+			hoverSize = new Size(1, 1);
 		}
 		
 		public function get rawElement():RawElement {
 			return _rawElement;
 		}
 		
-		public function get scroller():Scroller {
-			return _scroller;
-		}
-		
-		public function get isShowing():Boolean { return _isShowing;}
-		public function set isShowing(value:Boolean):void {
-			if (value == _isShowing) return;
-			_isShowing = value;
-			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_IS_SHOWING));
-		}
-		
-		public function get loaded():Boolean { return _loaded; }
-		public function set loaded(value:Boolean):void {
-			if (value) _loaded = true;
-		}
-		
-		public function get size():Size { return _size;}
-		public function set size(value:Size):void {
-			_size = value;
-			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_SIZE));
+		public function get isLoaded():Boolean { return _isLoaded;}
+		public function set isLoaded(value:Boolean):void {
+			_isLoaded = value;
+			dispatchEvent(new ElementEvent(ElementEvent.CHANGED_IS_LOADED));
 		}
 		
 		public function get isActive():Boolean { return _isActive;}

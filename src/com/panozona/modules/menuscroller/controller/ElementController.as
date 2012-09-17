@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,23 +20,24 @@ package com.panozona.modules.menuscroller.controller {
 	
 	import caurina.transitions.Tweener;
 	import com.panozona.modules.menuscroller.events.ElementEvent;
-	import com.panozona.modules.menuscroller.model.ElementData;
 	import com.panozona.modules.menuscroller.model.structure.Element;
 	import com.panozona.modules.menuscroller.model.structure.ExtraElement;
+	import com.panozona.modules.menuscroller.model.structure.Scroller;
 	import com.panozona.modules.menuscroller.view.ElementView;
 	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.Module;
-	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
 	import flash.events.IOErrorEvent;
+	import flash.events.MouseEvent;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	
 	public class ElementController {
 		
-		private var contentInitScale:Number;
+		private var initSize:Size; 
+		private var plainScale:Number;
+		private var hoverScale:Number;
 		
 		private var _elementView:ElementView;
 		private var _module:Module;
@@ -45,11 +46,29 @@ package com.panozona.modules.menuscroller.controller {
 			_elementView = elementView;
 			_module = module;
 			
-			elementView.elementData.addEventListener(ElementEvent.CHANGED_IS_SHOWING, handleIsShowingChange, false, 0, true);
+			initSize = new Size(1, 1);
+			hoverScale = 1;
 			
 			if (elementView.elementData.rawElement is Element){
 				var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 				_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
+			}
+			if (elementView.elementData.rawElement.mouse.onOver != null) {
+				elementView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(elementView.elementData.rawElement.mouse.onOver), false, 0, true);
+			}
+			if (elementView.elementData.rawElement.mouse.onOut != null) {
+				elementView.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(elementView.elementData.rawElement.mouse.onOut), false, 0, true);
+			}
+			
+			var imageLoader:Loader = new Loader();
+			imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
+			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
+			imageLoader.load(new URLRequest(_elementView.elementData.rawElement.path));
+		}
+		
+		private function getMouseEventHandler(actionId:String):Function {
+			return function(e:MouseEvent):void {
+				_module.saladoPlayer.manager.runAction(actionId);
 			}
 		}
 		
@@ -58,22 +77,6 @@ package com.panozona.modules.menuscroller.controller {
 				_elementView.elementData.isActive = true;
 			}else {
 				_elementView.elementData.isActive = false;
-			}
-		}
-		
-		private function handleIsShowingChange(e:Event):void {
-			if (_elementView.elementData.isShowing) {
-				if (_elementView.elementData.loaded) {
-					_elementView.visible = true;
-				}else {
-					var imageLoader:Loader = new Loader();
-					imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
-					imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
-					imageLoader.load(new URLRequest(_elementView.elementData.rawElement.path));
-					_elementView.elementData.loaded = true;
-				}
-			}else {
-				_elementView.visible = false;
 			}
 		}
 		
@@ -87,28 +90,41 @@ package com.panozona.modules.menuscroller.controller {
 			e.target.removeEventListener(IOErrorEvent.IO_ERROR, imageLost);
 			e.target.removeEventListener(Event.COMPLETE, imageLoaded);
 			
-			var displayObject:DisplayObject = e.target.content;
-			
-			var size:Size = new Size(
-				_elementView.elementData.scroller.scrollsVertical ? _elementView.elementData.scroller.sizeLimit : NaN,
-				_elementView.elementData.scroller.scrollsVertical ? NaN : _elementView.elementData.scroller.sizeLimit);
-			
-			if (_elementView.elementData.scroller.scrollsVertical) { // constant width
-				size.height = (displayObject.height * _elementView.elementData.scroller.sizeLimit) / displayObject.width;
-				displayObject.scaleX = displayObject.scaleY = size.height / displayObject.height;
-			} else { // constant height
-				size.width = (displayObject.width * _elementView.elementData.scroller.sizeLimit) / displayObject.height;
-				displayObject.scaleX = displayObject.scaleY = size.width / displayObject.width;
-			}
-			contentInitScale = displayObject.scaleX;
-			_elementView.elementData.size = size; // ScrollerController listenes to size change
-			_elementView.content = displayObject;
+			_elementView.content = e.target.content;
+			initSize.width = _elementView.content.width;
+			initSize.height = _elementView.content.height;
 			
 			_elementView.addEventListener(MouseEvent.CLICK, handleMouseClick, false, 0, true);
-			
 			_elementView.elementData.addEventListener(ElementEvent.CHANGED_IS_ACTIVE, handleMouseOverChange, false, 0, true);
 			_elementView.elementData.addEventListener(ElementEvent.CHANGED_MOUSE_OVER, handleMouseOverChange, false, 0, true);
-			handleMouseOverChange();
+			
+			recaluclateSize();
+			_elementView.elementData.isLoaded = true;
+		}
+		
+		public function recaluclateSize():void {
+			if (_elementView.content == null) {
+				return;
+			}
+			var scrollsVertical:Boolean = _elementView.menuScrollerData.scrollerData.scrollsVertical;
+			var plainSize:Size = new Size(
+				scrollsVertical ? _elementView.menuScrollerData.scrollerData.sizeLimit : NaN,
+				scrollsVertical ? NaN : _elementView.menuScrollerData.scrollerData.sizeLimit);
+			if (scrollsVertical) { // constant width
+				plainSize.height = (initSize.height * _elementView.menuScrollerData.scrollerData.sizeLimit) / initSize.width;
+				plainScale = plainSize.height / initSize.height;
+				hoverScale = _elementView.menuScrollerData.windowData.currentSize.width / plainSize.width;
+			} else { // constant height
+				plainSize.width = (initSize.width * _elementView.menuScrollerData.scrollerData.sizeLimit) / initSize.height;
+				plainScale = plainSize.width / initSize.width;
+				hoverScale = _elementView.menuScrollerData.windowData.currentSize.height / plainSize.height;
+			}
+			var hoverSize:Size = new Size(plainSize.width * hoverScale, plainSize.height * hoverScale);
+			_elementView.applyScale(plainScale);
+			_elementView.elementData.plainSize = plainSize;
+			_elementView.elementData.hoverSize = hoverSize;
+			
+			handleMouseOverChange(null, false);
 		}
 		
 		private function handleMouseClick(e:Event):void {
@@ -116,59 +132,61 @@ package com.panozona.modules.menuscroller.controller {
 				if (_module.saladoPlayer.manager.currentPanoramaData.id != (_elementView.elementData.rawElement as Element).target){
 					_module.saladoPlayer.manager.loadPano((_elementView.elementData.rawElement as Element).target);
 				}
-			}else{
+			} else{
 				_module.saladoPlayer.manager.runAction((_elementView.elementData.rawElement as ExtraElement).action);
 			}
 		}
 		
-		private function handleMouseOverChange(e:Event = null):void {
+		private function handleMouseOverChange(e:Event, useTime:Boolean = true):void {
 			if (_elementView.elementData.mouseOver) {
-				onHover();
-			}else {
-				onPlain();
+				onHover(useTime);
+			} else {
+				onPlain(useTime);
 			}
 		}
 		
-		private function onPlain():void {
+		private function onPlain(useTime:Boolean):void {
+			var scroller:Scroller =  _elementView.menuScrollerData.scrollerData.scroller;
 			if (_elementView.elementData.isActive) {
-				Tweener.addTween(_elementView._content, {
-					scaleX: contentInitScale * ((_elementView.elementData.scroller.mouseOver.scale - 1)/2 + 1),
-					scaleY: contentInitScale * ((_elementView.elementData.scroller.mouseOver.scale - 1)/2 + 1),
-					x: -_elementView.elementData.size.width * ((_elementView.elementData.scroller.mouseOver.scale - 1)/2 + 1) * 0.5,
-					y: -_elementView.elementData.size.height * ((_elementView.elementData.scroller.mouseOver.scale - 1)/2 + 1) * 0.5,
-					time:_elementView.elementData.scroller.mouseOut.time * 0.5,
-					transition:_elementView.elementData.scroller.mouseOut.transition
+				Tweener.addTween(_elementView.content, {
+					scaleX: plainScale * ((hoverScale - 1)/2 + 1),
+					scaleY: plainScale * ((hoverScale - 1)/2 + 1),
+					x: -_elementView.elementData.plainSize.width * ((hoverScale - 1)/2 + 1) * 0.5,
+					y: -_elementView.elementData.plainSize.height * ((hoverScale - 1)/2 + 1) * 0.5,
+					time: useTime ? scroller.outTween.time * 0.5 : 0,
+					transition: scroller.outTween.transition
 				});
-			}else{
-				Tweener.addTween(_elementView._content, {
-					scaleX: contentInitScale,
-					scaleY: contentInitScale,
-					x: -_elementView.elementData.size.width * 0.5,
-					y: -_elementView.elementData.size.height * 0.5,
-					time:_elementView.elementData.scroller.mouseOut.time,
-					transition:_elementView.elementData.scroller.mouseOut.transition
+			} else {
+				Tweener.addTween(_elementView.content, {
+					scaleX: plainScale,
+					scaleY: plainScale,
+					x: -_elementView.elementData.plainSize.width * 0.5,
+					y: -_elementView.elementData.plainSize.height * 0.5,
+					time: useTime ? scroller.outTween.time : 0,
+					transition: scroller.outTween.transition
 				});
 			}
 		}
 		
-		private function onHover():void {
+		private function onHover(useTime:Boolean):void {
+			var scroller:Scroller =  _elementView.menuScrollerData.scrollerData.scroller;
 			if (_elementView.elementData.isActive) {
-				Tweener.addTween(_elementView._content, {
-					scaleX: contentInitScale * _elementView.elementData.scroller.mouseOver.scale,
-					scaleY: contentInitScale * _elementView.elementData.scroller.mouseOver.scale,
-					x: -_elementView.elementData.size.width * _elementView.elementData.scroller.mouseOver.scale * 0.5,
-					y: -_elementView.elementData.size.height * _elementView.elementData.scroller.mouseOver.scale * 0.5,
-					time:_elementView.elementData.scroller.mouseOver.time * 0.5,
-					transition:_elementView.elementData.scroller.mouseOver.transition
+				Tweener.addTween(_elementView.content, {
+					scaleX: plainScale * hoverScale,
+					scaleY: plainScale * hoverScale,
+					x: -_elementView.elementData.plainSize.width * hoverScale * 0.5,
+					y: -_elementView.elementData.plainSize.height * hoverScale * 0.5,
+					time: useTime ? scroller.overTween.time * 0.5 : 0,
+					transition: scroller.overTween.transition
 				});
-			}else {
-				Tweener.addTween(_elementView._content, {
-					scaleX: contentInitScale * _elementView.elementData.scroller.mouseOver.scale,
-					scaleY: contentInitScale * _elementView.elementData.scroller.mouseOver.scale,
-					x: -_elementView.elementData.size.width * _elementView.elementData.scroller.mouseOver.scale * 0.5,
-					y: -_elementView.elementData.size.height * _elementView.elementData.scroller.mouseOver.scale * 0.5,
-					time:_elementView.elementData.scroller.mouseOver.time,
-					transition:_elementView.elementData.scroller.mouseOver.transition
+			} else {
+				Tweener.addTween(_elementView.content, {
+					scaleX: plainScale * hoverScale,
+					scaleY: plainScale * hoverScale,
+					y: -_elementView.elementData.plainSize.height * hoverScale * 0.5,
+					x: -_elementView.elementData.plainSize.width * hoverScale * 0.5,
+					time: useTime ? scroller.overTween.time : 0,
+					transition: scroller.overTween.transition
 				});
 			}
 		}

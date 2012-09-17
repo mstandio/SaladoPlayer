@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -16,25 +16,43 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.menuscroller.model{
+package com.panozona.modules.menuscroller.model {
 	
 	import com.panozona.modules.menuscroller.events.ScrollerEvent;
+	import com.panozona.modules.menuscroller.model.structure.Group;
+	import com.panozona.modules.menuscroller.model.structure.Groups;
 	import com.panozona.modules.menuscroller.model.structure.Scroller;
 	import flash.events.EventDispatcher;
 	
-	public class ScrollerData extends EventDispatcher{
+	public class ScrollerData extends EventDispatcher {
 		
 		public const scroller:Scroller = new Scroller();
+		public const groups:Groups = new Groups();
 		
-		private var _scrollValue:Number = 0;
-		private var _totalSize:Number = 0;
+		public var sizeLimit:Number;
+		public var scrollsVertical:Boolean;
+		
+		private var _currentGroupId:String;
+		private var _totalSize:Number;
 		private var _mouseOver:Boolean;
 		
-		public function get scrollValue():Number { return _scrollValue; }
-		public function set scrollValue(value:Number):void {
-			if (value == _scrollValue) return;
-			_scrollValue = value;
-			dispatchEvent(new ScrollerEvent(ScrollerEvent.CHANGED_SCROLL));
+		public function ScrollerData():void {
+			_totalSize = 0;
+			sizeLimit = 1;
+		}
+		
+		public function getGroupById(groupId:String):Group {
+			for each(var group:Group in groups.getChildrenOfGivenClass(Group)) {
+				if (group.id == groupId) return group;
+			}
+			return null;
+		}
+		
+		public function get currentGroupId():String {return _currentGroupId;}
+		public function set currentGroupId(value:String):void {
+			if (value == null || value == _currentGroupId) return;
+			_currentGroupId = value;
+			dispatchEvent(new ScrollerEvent(ScrollerEvent.CHANGED_CURRENT_GROUP_ID));
 		}
 		
 		public function get totalSize():Number { return _totalSize; }

@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,8 +20,8 @@ package com.panozona.modules.menuscroller.model {
 	
 	import com.panozona.modules.menuscroller.model.structure.Close;
 	import com.panozona.modules.menuscroller.model.structure.Element;
-	import com.panozona.modules.menuscroller.model.structure.Elements;
 	import com.panozona.modules.menuscroller.model.structure.ExtraElement;
+	import com.panozona.modules.menuscroller.model.structure.Group;
 	import com.panozona.modules.menuscroller.model.structure.RawElement;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.data.ModuleData;
@@ -31,7 +31,6 @@ package com.panozona.modules.menuscroller.model {
 		
 		public const windowData:WindowData = new WindowData();
 		public const scrollerData:ScrollerData = new ScrollerData();
-		public const elements:Elements = new Elements();
 		public const close:Close = new Close();
 		
 		public function MenuScrollerData(moduleData:ModuleData, saladoPlayer:Object) {
@@ -41,8 +40,8 @@ package com.panozona.modules.menuscroller.model {
 					tarnslator.dataNodeToObject(dataNode, windowData.window);
 				}else if (dataNode.name == "scroller") {
 					tarnslator.dataNodeToObject(dataNode, scrollerData.scroller);
-				}else if (dataNode.name == "elements") {
-					tarnslator.dataNodeToObject(dataNode, elements);
+				}else if (dataNode.name == "groups") {
+					tarnslator.dataNodeToObject(dataNode, scrollerData.groups);
 				}else if (dataNode.name == "close") {
 					tarnslator.dataNodeToObject(dataNode, close);
 				}else {
@@ -51,8 +50,7 @@ package com.panozona.modules.menuscroller.model {
 			}
 			
 			windowData.open = windowData.window.open;
-			windowData.elasticWidth = windowData.window.size.width;
-			windowData.elasticHeight = windowData.window.size.height;
+			scrollerData.scrollsVertical = windowData.window.maxSize.height > windowData.window.maxSize.width;
 			
 			if (saladoPlayer.managerData.debugMode) {
 				if (windowData.window.onOpen != null && saladoPlayer.managerData.getActionDataById(windowData.window.onOpen) == null) {
@@ -61,29 +59,40 @@ package com.panozona.modules.menuscroller.model {
 				if (windowData.window.onClose != null && saladoPlayer.managerData.getActionDataById(windowData.window.onClose) == null) {
 					throw new Error("Action does not exist: " + windowData.window.onClose);
 				}
+				var groupIds:Object = new Object();
 				var elementTargets:Object = new Object();
 				var extraElementIds:Object = new Object();
-				for each (var rawElement:RawElement in elements.getAllChildren()) {
-					if (rawElement.path == null || !rawElement.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)) {
-						throw new Error("Invalid element path: " + rawElement.path);
-					}
-					if (rawElement.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(rawElement.mouse.onOver) == null){
-						throw new Error("Action does not exist: " + rawElement.mouse.onOver);
-					}
-					if (rawElement.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(rawElement.mouse.onOut) == null){
-						throw new Error("Action does not exist: " + rawElement.mouse.onOut);
-					}
-					if (rawElement is Element){
-						if ((rawElement as Element).target == null) throw new Error("Element target not specified.");
-						if (saladoPlayer.managerData.getPanoramaDataById((rawElement as Element).target) == null) throw new Error("Invalid element target: " + (rawElement as Element).target);
-						if (elementTargets[(rawElement as Element).target] != undefined) throw new Error("Repeating element target: " + (rawElement as Element).target);
-						elementTargets[(rawElement as Element).target] = ""; // something
+				
+				for each (var group:Group in scrollerData.groups.getAllChildren()) {
+					if (group.id == null) throw new Error("Group id not specified.");
+					if (groupIds[group.id] != undefined) {
+						throw new Error("Repeating group id: " + group.id);
 					}else {
-						if ((rawElement as ExtraElement).id == null) throw new Error("ExtraElement id not specified.");
-						if (extraElementIds[(rawElement as ExtraElement).id] != undefined) throw new Error("Repeating extraElement id: " + (rawElement as ExtraElement).id);
-						extraElementIds[(rawElement as ExtraElement).id] = ""; // somethig
-						if (saladoPlayer.managerData.getActionDataById((rawElement as ExtraElement).action) == null){
-							throw new Error("Action in extraElement does not exist: " + (rawElement as ExtraElement).action);
+						groupIds[group.id] = ""; // somethig
+					}
+					for each (var rawElement:RawElement in group.getAllChildren()) {
+						
+						if (rawElement.path == null || !rawElement.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)) {
+							throw new Error("Invalid element path: " + rawElement.path);
+						}
+						if (rawElement.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(rawElement.mouse.onOver) == null){
+							throw new Error("Action does not exist: " + rawElement.mouse.onOver);
+						}
+						if (rawElement.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(rawElement.mouse.onOut) == null){
+							throw new Error("Action does not exist: " + rawElement.mouse.onOut);
+						}
+						if (rawElement is Element){
+							if ((rawElement as Element).target == null) throw new Error("Element target not specified.");
+							if (saladoPlayer.managerData.getPanoramaDataById((rawElement as Element).target) == null) throw new Error("Invalid element target: " + (rawElement as Element).target);
+							if (elementTargets[(rawElement as Element).target] != undefined) throw new Error("Repeating element target: " + (rawElement as Element).target);
+							elementTargets[(rawElement as Element).target] = ""; // something
+						}else {
+							if ((rawElement as ExtraElement).id == null) throw new Error("ExtraElement id not specified.");
+							if (extraElementIds[(rawElement as ExtraElement).id] != undefined) throw new Error("Repeating extraElement id: " + (rawElement as ExtraElement).id);
+							extraElementIds[(rawElement as ExtraElement).id] = ""; // somethig
+							if (saladoPlayer.managerData.getActionDataById((rawElement as ExtraElement).action) == null){
+								throw new Error("Action in extraElement does not exist: " + (rawElement as ExtraElement).action);
+							}
 						}
 					}
 				}

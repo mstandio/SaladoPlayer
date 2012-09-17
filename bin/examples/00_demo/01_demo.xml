@@ -3,16 +3,16 @@
 -->
 <SaladoPlayer>
 	<global debug="true">
-		<panoramas firstPanorama="kiev" firstOnEnter="firstOpen"/>
+		<panoramas firstPanorama="checkerBlue" firstOnEnter="firstOpen"/>
 	</global>
 	<panoramas>
-		<panorama id="kiev" path="~../../panoramas5/dz_kiev/kiev_f.xml" camera="maxPixelZoom:1.5,tierThreshold:1.2"/>
-		<panorama id="park" path="~../../panoramas5/dz_park/park_f.xml" camera="maxPixelZoom:0.5">
+		<panorama id="kiev" path="~../../panoramas5/dz_kiev/kiev_f.xml" camera="maxPixelZoom:0.75,minFov:30,maxFov:90"/>
+		<panorama id="park" path="~../../panoramas5/dz_park/park_f.xml" camera="maxPixelZoom:0.75,minFov:0.1">
 			<swf id="hello" path="~hotspots/VideoHotspot-1.0.swf" location="pan:50,distance:800">
 				<settings splashPath="~media/video/hello/hello_splash.png" videoPath="http://linkowiec.pl/saladoplayer/hotspots/video/hello.mp4" size="width:400,height:300"/>
 			</swf>
 		</panorama>
-		<panorama id="checkerBlue" camera="pan:NaN" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onLeaveToAttempt="checkerYellow:blueMoveToYellow,checkerRed:blueMoveToRed">
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onLeaveToAttempt="checkerYellow:blueMoveToYellow,checkerRed:blueMoveToRed" camera="maxFov:120,maxPixelZoom:0.75,minFov:30">
 			<swf id="cb_arrowYellow" path="~hotspots/AdvancedHotspot-1.0.swf" location="pan:90" target="checkerYellow" mouse="onOver:showBubbleYellow,onOut:hideBubble">
 				<settings path="~hotspots/images/arrow_yellow.png"/>
 			</swf>
@@ -46,6 +46,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
+		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
 		<InfoBubble path="~modules/InfoBubble-1.3.2.swf">
 			<bubbles>
 				<text id="b_drag" text="change navigation style" style="buttonBar" angle="1"/>
@@ -66,7 +67,7 @@
 				<style id="buttonBar" content="bubblePadding:3,fontSize:12,borderSize:2"/>
 			</styles>
 		</InfoBubble>
-		<MenuScroller path="~modules/MenuScroller-1.2.1.swf">
+		<MenuScroller path="~modules/MenuScroller-1.3.swf">
 			<window open="false" onOpen="menuScrollerOpened" onClose="menuScrollerClosed" openTween="time:0.5" closeTween="time:0.5"/>
 			<close path="~media/images/buttons/dark_left_close.png" align="vertical:middle" move="horizontal:60"/>
 			<elements>

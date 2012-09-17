@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -23,14 +23,14 @@ package com.panozona.modules.menuscroller.view{
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	public class ScrollerView extends Sprite{
+	public class ScrollerView extends Sprite {
 		
 		public const elementsContainer:Sprite = new Sprite();
 		public const elementsContainerMask:Sprite = new Sprite();
 		
 		private var _menuScrollerData:MenuScrollerData;
 		
-		public function ScrollerView(menuScrollerData:MenuScrollerData){
+		public function ScrollerView(menuScrollerData:MenuScrollerData, window:Sprite) {
 			_menuScrollerData = menuScrollerData;
 			
 			alpha = 1 / _menuScrollerData.windowData.window.alpha;
@@ -39,8 +39,8 @@ package com.panozona.modules.menuscroller.view{
 			addChild(elementsContainerMask);
 			elementsContainer.mask = elementsContainerMask;
 			
-			elementsContainer.addEventListener(MouseEvent.ROLL_OVER, onOver, false, 0, true);
-			elementsContainer.addEventListener(MouseEvent.ROLL_OUT, onOut, false, 0, true);
+			window.addEventListener(MouseEvent.ROLL_OVER, onOver, false, 0, true);
+			window.addEventListener(MouseEvent.ROLL_OUT, onOut, false, 0, true);
 		}
 		
 		public function get menuScrollerData():MenuScrollerData {

@@ -34,9 +34,10 @@ package com.panozona.modules.menuscroller {
 		private var windowController:WindowController;
 		
 		public function MenuScroller(){
-			super("MenuScroller", "1.2.1", "http://panozona.com/wiki/Module:MenuScroller");
+			super("MenuScroller", "1.3", "http://panozona.com/wiki/Module:MenuScroller");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen");
+			moduleDescription.addFunctionDescription("setGroup", String);
 			moduleDescription.addFunctionDescription("setActive", String);
 		}
 		
@@ -59,6 +60,14 @@ package com.panozona.modules.menuscroller {
 		
 		public function toggleOpen():void {
 			menuScrollerData.windowData.open = !menuScrollerData.windowData.open;
+		}
+		
+		public function setGroup(value:String):void {
+			if(menuScrollerData.scrollerData.getGroupById(value) != null){
+				menuScrollerData.scrollerData.currentGroupId = value;
+			} else {
+				printWarning("Invalid group id: " + value);
+			}
 		}
 		
 		public function setActive(id:String):void {
