@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -30,7 +30,7 @@ package com.panozona.modules.imagemap.events {
 		
 		public static const CHANGED_FOCUS_POINT:String = "changedfPoint";
 		
-		public static const CHANGED_SIZE:String = "changedSize";
+		public static const CHANGED_SCALE:String = "changedScale";
 		
 		public static const FOCUS_LOST:String = "focusLost";
 		

@@ -3,7 +3,7 @@
 	Choose navigation skin, point to image that will be used as map. Place waypoints on image and assign panoramas
 	opened when waypoint gets clicked. When user loads panorama, module draws radar at waypoint targeting to given
 	panorama. Module uses panorama direction attribute to synchronise radars with map. If your map is not positioned
-	"north-up" you can use panShift value to alter all waypoints in your map.
+	"north-up" you can use panShift value to alter all waypoints in your map at once
 	
 	http://panozona.com/wiki/Module:ImageMap
 -->
@@ -15,7 +15,7 @@
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/imagemap/ImageMap-1.3.swf">
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.swf">
 			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map1.jpg" panShift="90">

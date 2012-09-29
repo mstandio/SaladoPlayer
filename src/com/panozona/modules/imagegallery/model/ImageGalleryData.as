@@ -57,7 +57,7 @@ package com.panozona.modules.imagegallery.model {
 				if (windowData.window.onClose != null && saladoPlayer.managerData.getActionDataById(windowData.window.onClose) == null) {
 					throw new Error("Action does not exist: " + windowData.window.onClose);
 				}
-				if (viewerData.viewer.path == null || !viewerData.viewer.path.match(/^(.+)\.(png|gif|jpg|jpeg|)$/i)) {
+				if (viewerData.viewer.path == null || !viewerData.viewer.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)) {
 					throw new Error("Invalid viewer path: " + viewerData.viewer.path);
 				}
 				var groupIds:Object = new Object();
@@ -73,7 +73,7 @@ package com.panozona.modules.imagegallery.model {
 							throw new Error("Group is empty: " + group.id);
 						}
 						for each(var image:Image in group.getChildrenOfGivenClass(Image)) {
-							if (image.path == null || !image.path.match(/^(.+)\.(png|gif|jpg|jpeg|)$/i)) {
+							if (image.path == null || !image.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)) {
 								throw new Error("Invalid image path: " + image.path);
 							}
 						}

@@ -90,7 +90,7 @@
 				<element target="checkerYellow" label="Yellow checker"/>
 			</elements>
 		</DropDown>
-		<ImageMap path="~modules/imagemap/ImageMap-1.3.swf">
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.swf">
 			<window open="false" transition="type:slideRight" openTween="transition:Back.easeOut" onOpen="mapOpened" onClose="mapClosed" alpha="0.8"/>
 			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
 			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>

@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -16,16 +16,17 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagemap.events{
+package com.panozona.modules.imagemap.events {
 	
 	import flash.events.Event;
 	
-	public class WaypointEvent extends Event{
+	public class WaypointEvent extends Event {
 		
-		public static const CHANGED_SHOW_RADAR:String  = "changedShowRadar";
-		public static const CHANGED_MOUSE_OVER:String  = "changedMouseOver";
+		public static const CHANGED_SHOW_RADAR:String = "changedShowRadar";
+		public static const CHANGED_MOUSE_OVER:String = "changedMouseOver";
+		public static const FOCUS_GAINED:String = "focusGained";
 		
-		public function WaypointEvent(type:String){
+		public function WaypointEvent(type:String) {
 			super(type);
 		}
 	}

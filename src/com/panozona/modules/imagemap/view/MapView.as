@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -27,8 +27,8 @@ package com.panozona.modules.imagemap.view {
 		
 		public const waypointsContainer:Sprite = new Sprite();
 		public const radarContainer:Sprite = new Sprite();
+		public const mapContainer:Sprite = new Sprite();
 		
-		private var _content:DisplayObject;
 		private var _imageMapData:ImageMapData;
 		
 		public function MapView(imageMapData:ImageMapData) {
@@ -41,20 +41,18 @@ package com.panozona.modules.imagemap.view {
 			return _imageMapData;
 		}
 		
-		public function get content():DisplayObject {
-			return _content;
-		}
-		
 		public function set content(value:DisplayObject):void {
 			if (value == null) return;
-			while(numChildren) removeChildAt(0);
-			_content = value;
-			addChild(_content);
+			while (mapContainer.numChildren) {
+				mapContainer.removeChildAt(0);
+			}
+			mapContainer.addChild(value);
 			placeContainers();
 		}
 		
 		public function placeContainers():void {
-			if(_imageMapData.mapData.radarFirst){
+			addChild(mapContainer);
+			if (_imageMapData.mapData.radarFirst) {
 				addChild(waypointsContainer);
 				addChild(radarContainer);
 			}else {

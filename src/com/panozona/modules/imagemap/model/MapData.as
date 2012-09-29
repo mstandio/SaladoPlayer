@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -16,18 +16,27 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagemap.model{
+package com.panozona.modules.imagemap.model {
 	
 	import com.panozona.modules.imagemap.events.MapEvent;
 	import com.panozona.modules.imagemap.model.structure.Map;
 	import com.panozona.modules.imagemap.model.structure.Maps;
+	import com.panozona.player.module.data.property.Size;
 	import flash.events.EventDispatcher;
 	
-	public class MapData extends EventDispatcher{
+	public class MapData extends EventDispatcher {
 		
 		public const maps:Maps = new Maps();
-		private var _currentMapId:String = null;
-		private var _radarFirst:Boolean = false;
+		
+		private var _currentMapId:String
+		private var _size:Size;
+		private var _radarFirst:Boolean;
+		
+		public function MapData() {
+			_currentMapId = null;
+			_size = null;
+			_radarFirst = false
+		}
 		
 		public function getMapById(mapId:String):Map {
 			for each(var map:Map in maps.getChildrenOfGivenClass(Map)) {
@@ -41,6 +50,12 @@ package com.panozona.modules.imagemap.model{
 			if (value == null || value == _currentMapId) return;
 			_currentMapId = value;
 			dispatchEvent(new MapEvent(MapEvent.CHANGED_CURRENT_MAP_ID));
+		}
+		
+		public function get size():Size {return _size;}
+		public function set size(value:Size):void {
+			_size = value;
+			dispatchEvent(new MapEvent(MapEvent.CHANGED_SIZE));
 		}
 		
 		public function get radarFirst():Boolean {return _radarFirst;}

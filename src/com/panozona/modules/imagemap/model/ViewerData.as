@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -21,7 +21,7 @@ package com.panozona.modules.imagemap.model {
 	import com.panozona.modules.imagemap.events.ViewerEvent;
 	import com.panozona.modules.imagemap.model.structure.Viewer;
 	import com.panozona.modules.imagemap.model.structure.Zoom;
-	import com.panozona.player.module.data.property.Size;
+	
 	import flash.events.EventDispatcher;
 	import flash.geom.Point;
 	
@@ -29,7 +29,7 @@ package com.panozona.modules.imagemap.model {
 		
 		public const viewer:Viewer = new Viewer();
 		
-		private var _size:Size;
+		private var _scale:Number;
 		private var _currentZoom:Zoom;
 		private var _focusPoint:Point;
 		
@@ -45,16 +45,16 @@ package com.panozona.modules.imagemap.model {
 		private var _mouseDrag:Boolean;
 		
 		public function ViewerData() {
-			_size = new Size(NaN, NaN);
+			_scale = 1;
 			_currentZoom = new Zoom();
 			_focusPoint = new Point(NaN, NaN);
 		}
 		
-		public function get size():Size {return _size;}
-		public function set size(value:Size):void {
-			_size.width = value.width;
-			_size.height = value.height;
-			dispatchEvent(new ViewerEvent(ViewerEvent.CHANGED_SIZE));
+		public function get scale():Number {return _scale;}
+		public function set scale(value:Number):void {
+			if (_scale == value) return;
+			_scale = value;
+			dispatchEvent(new ViewerEvent(ViewerEvent.CHANGED_SCALE));
 		}
 		
 		public function get currentZoom():Zoom {return _currentZoom;}

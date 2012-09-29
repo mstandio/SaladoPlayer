@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,6 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.controller{
 	
+	import com.panozona.modules.imagemap.events.MapEvent;
+	import com.panozona.modules.imagemap.events.WindowEvent;
 	import com.panozona.modules.imagemap.events.ViewerEvent;
 	import com.panozona.modules.imagemap.view.ViewerView;
 	import com.panozona.player.module.Module;
@@ -58,6 +60,8 @@ package com.panozona.modules.imagemap.controller{
 		
 		private var deltaZoom:Number;
 		
+		private var fittingScale:Number;
+		
 		private const navigationControllers:Vector.<NavigationController> = new Vector.<NavigationController>();
 		
 		public function ViewerController(viewerView:ViewerView, module:Module) {
@@ -66,7 +70,8 @@ package com.panozona.modules.imagemap.controller{
 			
 			mapControler = new MapController(viewerView.mapView, module);
 			
-			viewerView.viewerData.addEventListener(ViewerEvent.CHANGED_SIZE, handleSizeChange, false, 0, true);
+			viewerView.imageMapData.mapData.addEventListener(MapEvent.CHANGED_SIZE, handleMapSizeChange, false, 0, true);
+			viewerView.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleCurrentSizeChange, false, 0, true);
 			
 			if (_viewerView.viewerData.viewer.moveEnabled){
 				viewerView.viewerData.addEventListener(ViewerEvent.CHANGED_MOVE, handleMoveChange, false, 0, true);
@@ -154,18 +159,29 @@ package com.panozona.modules.imagemap.controller{
 			_viewerView.placeNavigation();
 		}
 		
-		private function handleSizeChange(e:Event):void {
+		private function handleCurrentSizeChange(e:Event):void {
+			_viewerView.redrawWindow();
 			focusActive = false;
-			zoomActive = true;
-			deltaZoom = _viewerView.imageMapData.viewerData.currentZoom.init - _viewerView.container.scaleX;
-			onEnterFrame();
-			deltaZoom = 0;
-			zoomActive = false;
-			_viewerView.container.x = (_viewerView.containerMask.width -_viewerView.containerWidth) * 0.5;
-			_viewerView.container.y = (_viewerView.containerMask.height - _viewerView.containerHeight) * 0.5;
-			if (_viewerView.viewerData.viewer.autofocusEnabled) {
-				handleFocusPointChange();
+			if (_viewerView.containerWidth == 0 || _viewerView.containerHeight == 0) {
+				onEnterFrame();
+			}else {
+				zoomActive = true; 
+				onEnterFrame();
+				zoomActive = false; 
 			}
+			deltaZoom = 0;
+		}
+		
+		private function handleMapSizeChange(e:Event):void {
+			_viewerView.container.x = (_viewerView.windowData.currentSize.width - _viewerView.containerWidth) * 0.5;
+			_viewerView.container.y = (_viewerView.windowData.currentSize.height - _viewerView.containerHeight) * 0.5;
+			
+			focusActive = false;
+			deltaZoom = _viewerView.imageMapData.viewerData.currentZoom.init - _viewerView.containerScale;
+			zoomActive = true;
+			onEnterFrame();
+			zoomActive = false;
+			deltaZoom = 0;
 		}
 		
 		private function handleMoveChange(e:Event):void {
@@ -195,11 +211,11 @@ package com.panozona.modules.imagemap.controller{
 		
 		private function handleMouseWheel(e:MouseEvent):void {
 			focusActive = false;
-			scrollActive = true;
 			deltaZoom = _viewerView.viewerData.viewer.zoomSpeed * e.delta;
+			scrollActive = true;
 			onEnterFrame();
-			deltaZoom = 0;
 			scrollActive = false;
+			deltaZoom = 0;
 		}
 		
 		private function handleMouseOverChange(e:Event):void {
@@ -230,10 +246,11 @@ package com.panozona.modules.imagemap.controller{
 		
 		private function handleFocusPointChange(e:Event = null):void {
 			if(!(moveActive || zoomActive || _viewerView.viewerData.mouseDrag)){
-				focusX = _viewerView.viewerData.focusPoint.x * _viewerView.container.scaleX;
-				focusY = _viewerView.viewerData.focusPoint.y * _viewerView.container.scaleY;
-				distanceX = Math.abs(_viewerView.container.x + focusX - _viewerView.containerMask.width * 0.5);
-				distanceY = Math.abs(_viewerView.container.y + focusY - _viewerView.containerMask.height * 0.5);
+				focusX = _viewerView.viewerData.focusPoint.x;
+				focusY = _viewerView.viewerData.focusPoint.y;
+				distanceX = Math.abs(_viewerView.container.x + focusX - _viewerView.windowData.currentSize.width * 0.5);
+				distanceY = Math.abs(_viewerView.container.y + focusY - _viewerView.windowData.currentSize.height * 0.5);
+				
 				focusActive = true;
 				_module.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
 			}
@@ -256,16 +273,16 @@ package com.panozona.modules.imagemap.controller{
 			
 			if (focusActive) {
 				if (!isNaN(focusX)) {
-					if (_viewerView.container.x + focusX != _viewerView.containerMask.width * 0.5) {
-						if (_viewerView.container.x + focusX > _viewerView.containerMask.width * 0.5) {
+					if (_viewerView.container.x + focusX != _viewerView.windowData.currentSize.width * 0.5) {
+						if (_viewerView.container.x + focusX > _viewerView.windowData.currentSize.width * 0.5) {
 							deltaX = - _viewerView.viewerData.viewer.moveSpeed;
-							if (_viewerView.container.x + focusX + deltaX < _viewerView.containerMask.width * 0.5) {
-								deltaX = _viewerView.containerMask.width * 0.5 - _viewerView.container.x - focusX;
+							if (_viewerView.container.x + focusX + deltaX < _viewerView.windowData.currentSize.width * 0.5) {
+								deltaX = _viewerView.windowData.currentSize.width * 0.5 - _viewerView.container.x - focusX;
 							}
 						}else {
 							deltaX = _viewerView.viewerData.viewer.moveSpeed;
-							if (_viewerView.container.x + focusX + deltaX > _viewerView.containerMask.width * 0.5) {
-								deltaX = _viewerView.containerMask.width * 0.5 -_viewerView.container.x - focusX;
+							if (_viewerView.container.x + focusX + deltaX > _viewerView.windowData.currentSize.width * 0.5) {
+								deltaX = _viewerView.windowData.currentSize.width * 0.5 -_viewerView.container.x - focusX;
 							}
 						}
 					}else {
@@ -273,16 +290,16 @@ package com.panozona.modules.imagemap.controller{
 					}
 				}
 				if (!isNaN(focusY)) {
-					if (_viewerView.container.y + focusY != _viewerView.containerMask.height * 0.5) {
-						if (_viewerView.container.y + focusY > _viewerView.containerMask.height * 0.5) {
+					if (_viewerView.container.y + focusY != _viewerView.windowData.currentSize.height * 0.5) {
+						if (_viewerView.container.y + focusY > _viewerView.windowData.currentSize.height * 0.5) {
 							deltaY = - _viewerView.viewerData.viewer.moveSpeed;
-							if (_viewerView.container.y + focusY + deltaY < _viewerView.containerMask.height * 0.5) {
-								deltaY = _viewerView.containerMask.height * 0.5 - _viewerView.container.y - focusY;
+							if (_viewerView.container.y + focusY + deltaY < _viewerView.windowData.currentSize.height * 0.5) {
+								deltaY = _viewerView.windowData.currentSize.height * 0.5 - _viewerView.container.y - focusY;
 							}
 						}else {
 							deltaY = _viewerView.viewerData.viewer.moveSpeed;
-							if (_viewerView.container.y + focusY + deltaY > _viewerView.containerMask.height * 0.5) {
-								deltaY = _viewerView.containerMask.height * 0.5 -_viewerView.container.y - focusY;
+							if (_viewerView.container.y + focusY + deltaY > _viewerView.windowData.currentSize.height * 0.5) {
+								deltaY = _viewerView.windowData.currentSize.height * 0.5 -_viewerView.container.y - focusY;
 							}
 						}
 					}else {
@@ -296,6 +313,7 @@ package com.panozona.modules.imagemap.controller{
 						deltaX *= distanceX / distanceY;
 					}
 				}
+				
 			}else if (moveActive) {
 				if (_viewerView.viewerData.moveLeft) {
 					deltaX = _viewerView.viewerData.viewer.moveSpeed;
@@ -316,51 +334,59 @@ package com.panozona.modules.imagemap.controller{
 				}else if (_viewerView.viewerData.zoomOut) {
 					deltaZoom = - _viewerView.viewerData.viewer.zoomSpeed;
 				}
-				if (_viewerView.container.scaleX + deltaZoom <= _viewerView.viewerData.currentZoom.max
-					&& _viewerView.container.scaleY + deltaZoom <= _viewerView.viewerData.currentZoom.max
-					&& _viewerView.container.scaleX + deltaZoom >= _viewerView.viewerData.currentZoom.min
-					&& _viewerView.container.scaleY + deltaZoom >= _viewerView.viewerData.currentZoom.min) {
-					if (_viewerView.imageMapData.viewerData.size.width * (_viewerView.container.scaleX + deltaZoom) < _viewerView.containerMask.width) {
-						deltaZoom = (_viewerView.containerMask.width -
-							_viewerView.container.scaleX * _viewerView.imageMapData.viewerData.size.width) / _viewerView.imageMapData.viewerData.size.width;
+				if (_viewerView.imageMapData.mapData.size.width * (_viewerView.containerScale + deltaZoom) < _viewerView.windowData.currentSize.width
+					&& _viewerView.imageMapData.mapData.size.height * (_viewerView.containerScale + deltaZoom) < _viewerView.windowData.currentSize.height) {
+					fittingScale = _viewerView.windowData.currentSize.height / _viewerView.imageMapData.mapData.size.height;
+					if (_viewerView.imageMapData.mapData.size.width * fittingScale> _viewerView.windowData.currentSize.width) {
+						fittingScale = _viewerView.windowData.currentSize.width / _viewerView.imageMapData.mapData.size.width;
 					}
-					if (_viewerView.imageMapData.viewerData.size.height * (_viewerView.container.scaleY + deltaZoom) < _viewerView.containerMask.height) {
-						deltaZoom = (_viewerView.containerMask.height -
-							_viewerView.container.scaleY * _viewerView.imageMapData.viewerData.size.height) / _viewerView.imageMapData.viewerData.size.height;
-					}
-					if (zoomActive) {
-						deltaX -= (_viewerView.containerMask.width * 0.5 - _viewerView.container.x) * deltaZoom / _viewerView.container.scaleX;
-						deltaY -= (_viewerView.containerMask.height * 0.5 - _viewerView.container.y) * deltaZoom / _viewerView.container.scaleY;
-					}else {
-						deltaX -= (_viewerView.mouseX - _viewerView.container.x) * deltaZoom / _viewerView.container.scaleX;
-						deltaY -= (_viewerView.mouseY - _viewerView.container.y) * deltaZoom / _viewerView.container.scaleY;
-					}
-					_viewerView.containerScaleX = _viewerView.container.scaleX + deltaZoom;
-					_viewerView.containerScaleY = _viewerView.container.scaleY + deltaZoom;
+					deltaZoom = fittingScale - _viewerView.containerScale;
 				}
+				
+				if (_viewerView.containerScale + deltaZoom > _viewerView.viewerData.currentZoom.max) {
+					deltaZoom = _viewerView.viewerData.currentZoom.max - _viewerView.containerScale; 
+				}
+				
+				if (_viewerView.containerScale + deltaZoom < _viewerView.viewerData.currentZoom.min) {
+					deltaZoom = _viewerView.viewerData.currentZoom.min - _viewerView.containerScale;
+				}
+				if (zoomActive) {
+					deltaX -= (_viewerView.windowData.currentSize.width * 0.5 - _viewerView.container.x) * deltaZoom / _viewerView.containerScale;
+					deltaY -= (_viewerView.windowData.currentSize.height * 0.5 - _viewerView.container.y) * deltaZoom / _viewerView.containerScale;
+				}else {
+					deltaX -= (_viewerView.mouseX - _viewerView.container.x) * deltaZoom / _viewerView.containerScale;
+					deltaY -= (_viewerView.mouseY - _viewerView.container.y) * deltaZoom / _viewerView.containerScale;
+				}
+				_viewerView.containerScale = _viewerView.containerScale + deltaZoom;
 			}
-			if (_viewerView.container.x + deltaX < 0) {
-				if (_viewerView.container.x + deltaX > _viewerView.containerMask.width - _viewerView.containerWidth) {
+			
+			if (_viewerView.containerWidth < _viewerView.windowData.currentSize.width) {
+				_viewerView.container.x = (_viewerView.windowData.currentSize.width - _viewerView.containerWidth) * 0.5;
+			}else if (_viewerView.container.x + deltaX < 0) {
+				if (_viewerView.container.x + deltaX > _viewerView.windowData.currentSize.width - _viewerView.containerWidth) {
 					_viewerView.container.x += deltaX;
 				}else {
-					_viewerView.container.x = _viewerView.containerMask.width - _viewerView.containerWidth;
+					_viewerView.container.x = _viewerView.windowData.currentSize.width - _viewerView.containerWidth;
 					deltaX = 0;
 					focusX = NaN;
 				}
-			}else{
+			}else {
 				_viewerView.container.x = 0;
 				deltaX = 0;
 				focusX = NaN;
 			}
-			if (_viewerView.container.y + deltaY < 0) {
-				if (_viewerView.container.y + deltaY > _viewerView.containerMask.height - _viewerView.containerHeight) {
+			if (_viewerView.containerHeight < _viewerView.windowData.currentSize.height) {
+				_viewerView.container.y = (_viewerView.windowData.currentSize.height - _viewerView.containerHeight) * 0.5;
+				deltaY = 0;
+			}else if (_viewerView.container.y + deltaY < 0) {
+				if (_viewerView.container.y + deltaY > _viewerView.windowData.currentSize.height - _viewerView.containerHeight) {
 					_viewerView.container.y += deltaY;
 				}else {
-					_viewerView.container.y = _viewerView.containerMask.height - _viewerView.containerHeight;
+					_viewerView.container.y = _viewerView.windowData.currentSize.height - _viewerView.containerHeight;
 					deltaY = 0;
 					focusY = NaN;
 				}
-			}else{
+			}else {
 				_viewerView.container.y = 0;
 				deltaY = 0;
 				focusY = NaN;
@@ -368,7 +394,7 @@ package com.panozona.modules.imagemap.controller{
 			
 			if (onFocus && deltaX != 0 || deltaY != 0){
 				onFocus = false;
-				_viewerView.imageMapData.mapData.dispatchEvent(new ViewerEvent(ViewerEvent.FOCUS_LOST));
+				_viewerView.imageMapData.viewerData.dispatchEvent(new ViewerEvent(ViewerEvent.FOCUS_LOST));
 			}
 			
 			if (focusActive && isNaN(focusX) && isNaN(focusY)) {

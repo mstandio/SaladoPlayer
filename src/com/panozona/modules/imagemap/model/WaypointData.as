@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -31,14 +31,15 @@ package com.panozona.modules.imagemap.model{
 		public var radar:Radar;
 		public var panShift:Number;
 		
-		private var _showRadar:Boolean;
-		private var _mouseOver:Boolean;
-		
 		public var move:Move;
 		
 		public var bitmapDataPlain:BitmapData;
 		public var bitmapDataHover:BitmapData;
 		public var bitmapDataActive:BitmapData;
+		
+		private var _showRadar:Boolean;
+		private var _mouseOver:Boolean;
+		private var _hasFocus:Boolean;
 		
 		public function WaypointData(waypoint:Waypoint, radar:Radar, panShift:Number, move:Move,
 			bitmapDataPlain:BitmapData, bitmapDataHover:BitmapData, bitmapDataActive:BitmapData ){
@@ -63,6 +64,15 @@ package com.panozona.modules.imagemap.model{
 			if (value == _mouseOver) return;
 			_mouseOver = value;
 			dispatchEvent(new WaypointEvent(WaypointEvent.CHANGED_MOUSE_OVER));
+		}
+		
+		public function get hasFocus():Boolean {return _hasFocus;}
+		public function set hasFocus(value:Boolean):void {
+			if (value == _hasFocus) return;
+			_hasFocus = value;
+			if (_hasFocus) {
+				dispatchEvent(new WaypointEvent(WaypointEvent.FOCUS_GAINED));
+			}
 		}
 	}
 }

@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,6 +20,7 @@ package com.panozona.modules.imagemap.controller {
 	
 	import caurina.transitions.Tweener;
 	import com.panozona.modules.imagemap.events.WaypointEvent;
+	import com.panozona.modules.imagemap.events.ViewerEvent;
 	import com.panozona.modules.imagemap.view.WaypointView;
 	import com.panozona.player.module.Module;
 	import flash.events.Event;
@@ -35,8 +36,6 @@ package com.panozona.modules.imagemap.controller {
 		private var _pan:Number;
 		private var _tilt:Number;
 		private var _fov:Number;
-		
-		private var _isFocused:Boolean;
 		
 		private var pan1:Number;
 		private var pan2:Number;
@@ -66,22 +65,18 @@ package com.panozona.modules.imagemap.controller {
 			drawButton();
 		}
 		
-		public function lostFocus():void {
-			_isFocused = false;
-		}
-		
 		private function handleMouseClick(e:Event):void {
 			if (_module.saladoPlayer.manager.currentPanoramaData.id != _waypointView.waypointData.waypoint.target){
 				_module.saladoPlayer.manager.loadPano(_waypointView.waypointData.waypoint.target);
 			}else {
-				_waypointView.viewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
+				_waypointView.waypointData.hasFocus = true;
 			}
 		}
 		
 		private function onPanoramaLoaded(panoramaEvent:Object = null):void {
 			if (_module.saladoPlayer.manager.currentPanoramaData.id == _waypointView.waypointData.waypoint.target) {
 				currentDirection = _module.saladoPlayer.managerData.getPanoramaDataById(_waypointView.waypointData.waypoint.target).direction;
-				_waypointView.viewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
+				_waypointView.waypointData.hasFocus = true;
 				_waypointView.waypointData.showRadar = true;
 				if (!_waypointView.waypointData.radar.showTilt) {
 					_waypointView.imageMapData.mapData.radarFirst = false;
@@ -92,9 +87,8 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function onIsAutorotatingChange(autorotationEvent:Object):void {
-			if (_waypointView.waypointData.showRadar && !_isFocused) {
-				_waypointView.viewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
-				_isFocused = true;
+			if (_waypointView.waypointData.showRadar && !_waypointView.waypointData.hasFocus) {
+				_waypointView.waypointData.hasFocus = true;
 			}
 		}
 		
@@ -107,8 +101,11 @@ package com.panozona.modules.imagemap.controller {
 				_module.stage.addEventListener(Event.ENTER_FRAME, handleEnterFrame, false, 0, true);
 				handleEnterFrame();
 				_waypointView.radar.alpha = 0;
-				Tweener.addTween(_waypointView.radar,
-					{alpha:((1 / _waypointView.imageMapData.windowData.window.alpha) * _waypointView.waypointData.radar.alpha), time:0.5, transition:"easeInExpo" } );
+				Tweener.addTween(_waypointView.radar, {
+					alpha:((1 / _waypointView.imageMapData.windowData.window.alpha) * _waypointView.waypointData.radar.alpha), 
+					time:0.5,
+					transition:"easeInExpo"
+				});
 			}else {
 				_waypointView.radar.graphics.clear();
 				_module.stage.removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
@@ -139,10 +136,9 @@ package com.panozona.modules.imagemap.controller {
 				pan3 = pan2;
 				pan2 = pan1;
 				pan1 = _module.saladoPlayer.manager._pan;
-				if (_waypointView.waypointData.showRadar && !_isFocused) {
+				if (_waypointView.waypointData.showRadar && !_waypointView.waypointData.hasFocus) {
 					if(Math.floor(Math.abs(pan1 - pan2)) > Math.floor(Math.abs(pan2 - pan3))){ // detect acceleration 
-						_waypointView.viewerData.focusPoint = new Point(_waypointView.waypointData.waypoint.position.x, _waypointView.waypointData.waypoint.position.y);
-						_isFocused = true;
+						_waypointView.waypointData.hasFocus = true;
 					}
 				}
 			}

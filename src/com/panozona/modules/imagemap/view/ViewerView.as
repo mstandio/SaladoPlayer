@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -16,11 +16,12 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagemap.view{
+package com.panozona.modules.imagemap.view {
 	
 	import com.panozona.modules.imagemap.model.ImageMapData;
 	import com.panozona.modules.imagemap.model.NavigationData;
 	import com.panozona.modules.imagemap.model.ViewerData;
+	import com.panozona.modules.imagemap.model.WindowData;
 	import com.panozona.modules.imagemap.view.MapView;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -28,7 +29,7 @@ package com.panozona.modules.imagemap.view{
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	public class ViewerView extends Sprite{
+	public class ViewerView extends Sprite {
 		
 		public const containerMask:Sprite = new Sprite();
 		public const container:Sprite = new Sprite();
@@ -51,18 +52,13 @@ package com.panozona.modules.imagemap.view{
 			
 			_imageMapData = imageMapData;
 			
-			containerMask.graphics.beginFill(0x000000);
-			containerMask.graphics.drawRect(0, 0,
-				_imageMapData.windowData.window.size.width,
-				_imageMapData.windowData.window.size.height);
-			containerMask.graphics.endFill();
-			addChild(containerMask);
-			
-			container.mask = containerMask;
-			addChild(container);
-			
 			_mapView = new MapView(_imageMapData);
 			container.addChild(_mapView);
+			
+			addChild(containerMask);
+			container.mask = containerMask;
+			
+			addChild(container);
 			
 			if (_imageMapData.viewerData.viewer.moveEnabled){
 				navigationLeft = new NavigationView(new NavigationData(navLeft, navStop), _imageMapData.viewerData);
@@ -94,6 +90,40 @@ package com.panozona.modules.imagemap.view{
 				container.addEventListener(MouseEvent.ROLL_OUT, containerMouseOut, false, 0, true);
 				container.addEventListener(MouseEvent.MOUSE_UP, containerMouseUp, false, 0, true);
 			}
+			
+			redrawWindow();
+		}
+		
+		public function get imageMapData():ImageMapData{
+			return _imageMapData;
+		}
+		
+		public function get viewerData():ViewerData {
+			return _imageMapData.viewerData;
+		}
+		
+		public function get windowData():WindowData {
+			return _imageMapData.windowData;
+		}
+		
+		public function get mapView():MapView {
+			return _mapView;
+		}
+		
+		public function redrawWindow():void {
+			graphics.clear();
+			graphics.beginFill(_imageMapData.viewerData.viewer.style.color, _imageMapData.viewerData.viewer.style.alpha);
+			graphics.drawRect(0, 0, 
+				_imageMapData.windowData.currentSize.width, 
+				_imageMapData.windowData.currentSize.height);
+			graphics.endFill();
+			
+			containerMask.graphics.clear();
+			containerMask.graphics.beginFill(0x000000);
+			containerMask.graphics.drawRect(0, 0,
+				_imageMapData.windowData.currentSize.width,
+				_imageMapData.windowData.currentSize.height);
+			containerMask.graphics.endFill();
 		}
 		
 		public function placeNavigation():void {
@@ -138,46 +168,21 @@ package com.panozona.modules.imagemap.view{
 			}
 		}
 		
-		public function get imageMapData():ImageMapData{
-			return _imageMapData;
-		}
-		
-		public function get viewerData():ViewerData {
-			return _imageMapData.viewerData;
-		}
-		
-		public function get mapView():MapView {
-			return _mapView;
+		public function get containerScale():Number {return _imageMapData.viewerData.scale;}
+		public function set containerScale(value:Number):void {
+			if (_mapView.imageMapData.mapData.size == null) return;
+			_imageMapData.viewerData.scale = value;
+			_mapView.mapContainer.scaleX = _mapView.mapContainer.scaleY = _imageMapData.viewerData.scale;
 		}
 		
 		public function get containerWidth():Number {
-			if (_mapView.content != null) {
-				return _mapView.content.width * container.scaleX;
-			}
-			return container.width;
+			if (_mapView.imageMapData.mapData.size == null) return 0;
+			return imageMapData.mapData.size.width * _imageMapData.viewerData.scale;
 		}
 		
 		public function get containerHeight():Number {
-			if (_mapView.content != null) {
-				return _mapView.content.height * container.scaleY;
-			}
-			return container.height;
-		}
-		
-		public function set containerScaleX(value:Number):void {
-			container.scaleX = value;
-			for (var i:int = 0; i < mapView.waypointsContainer.numChildren; i++) {
-				(mapView.waypointsContainer.getChildAt(i) as WaypointView).button.scaleX = 1 / value;
-				(mapView.waypointsContainer.getChildAt(i) as WaypointView).radar.scaleX = 1 / value;
-			}
-		}
-		
-		public function set containerScaleY(value:Number):void {
-			container.scaleY = value;
-			for (var i:int = 0; i < mapView.waypointsContainer.numChildren; i++) {
-				(mapView.waypointsContainer.getChildAt(i) as WaypointView).button.scaleY = 1 / value;
-				(mapView.waypointsContainer.getChildAt(i) as WaypointView).radarScaleY = 1 / value;
-			}
+			if (_mapView.imageMapData.mapData.size == null) return 0;
+			return imageMapData.mapData.size.height * _imageMapData.viewerData.scale;
 		}
 		
 		public function set bitmapDataHover(value:BitmapData):void {

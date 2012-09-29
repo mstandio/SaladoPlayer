@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -53,7 +53,7 @@ package com.panozona.modules.imagemap.model {
 			
 			if (saladoPlayer.managerData.debugMode) {
 				if (viewerData.viewer.moveEnabled || viewerData.viewer.zoomEnabled || viewerData.viewer.dragEnabled) {
-					if (viewerData.viewer.path == null || !viewerData.viewer.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i))
+					if (viewerData.viewer.path == null || !viewerData.viewer.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i))
 						throw new Error("Invalid viewer path: " + viewerData.viewer.path);
 				}
 				if (windowData.window.onOpen != null && saladoPlayer.managerData.getActionDataById(windowData.window.onOpen) == null) {
@@ -82,7 +82,7 @@ package com.panozona.modules.imagemap.model {
 					}else {
 						mapIds[map.id] = ""; // something
 						for each(var waypoints:Waypoints in map.getChildrenOfGivenClass(Waypoints)) {
-							if (waypoints.path == null || !waypoints.path.match(/^(.+)\.(png|gif|jpg|jpeg|)$/i)) {
+							if (waypoints.path == null || !waypoints.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)) {
 								throw new Error("Invalid waypoints path: " + waypoints.path);
 							}
 							for each(var waypoint:Waypoint in waypoints.getChildrenOfGivenClass(Waypoint)) {

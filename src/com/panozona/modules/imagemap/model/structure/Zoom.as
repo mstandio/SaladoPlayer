@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -22,6 +22,6 @@ package com.panozona.modules.imagemap.model.structure {
 		
 		public var init:Number = 75;
 		public var max:Number = 200;
-		public var min:Number = 0;
+		public var min:Number = 50;
 	}
 }

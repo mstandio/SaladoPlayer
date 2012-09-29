@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,7 +20,7 @@ package com.panozona.modules.imagemap.model.structure{
 	
 	import caurina.transitions.Equations;
 	import com.panozona.player.module.data.property.Align;
-	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.Margin;
 	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.data.property.Transition;
 	import com.panozona.player.module.data.property.Tween;
@@ -28,8 +28,9 @@ package com.panozona.modules.imagemap.model.structure{
 	public class Window{
 		
 		public const align:Align = new Align(Align.RIGHT, Align.TOP);
-		public const move:Move = new Move(-20, 20);
-		public const size:Size = new Size(400, 300);
+		public const margin:Margin = new Margin(50, 50, 50, 50);
+		public const minSize:Size = new Size(200, 150);
+		public const maxSize:Size = new Size(600, 300);
 		
 		public var alpha:Number = 1.0;
 		

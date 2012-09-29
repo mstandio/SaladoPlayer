@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -28,7 +28,7 @@ package com.panozona.modules.imagemap.view {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	public class WaypointView extends Sprite{
+	public class WaypointView extends Sprite {
 		
 		public const radar:Sprite = new Sprite();
 		public const button:Sprite = new Sprite();
@@ -47,15 +47,10 @@ package com.panozona.modules.imagemap.view {
 			_waypointData = waypointData;
 			
 			radar.mouseEnabled = false;
-			
-			radar.x = waypointData.waypoint.position.x;
-			radar.y = waypointData.waypoint.position.y;
 			mapView.radarContainer.addChild(radar);
 			
 			button.buttonMode = true;
 			button.alpha = 1 / imageMapData.windowData.window.alpha;
-			button.x = _waypointData.waypoint.position.x;
-			button.y = _waypointData.waypoint.position.y;
 			addChild(button);
 			
 			_buttonImage = new Bitmap();
@@ -80,6 +75,13 @@ package com.panozona.modules.imagemap.view {
 			return _waypointData;
 		}
 		
+		public function placeWaypoint():void {
+			x = _waypointData.waypoint.position.x * _imageMapData.viewerData.scale - _buttonImage.width * 0.5 + _waypointData.move.horizontal;
+			y = _waypointData.waypoint.position.y * _imageMapData.viewerData.scale - _buttonImage.height * 0.5 + _waypointData.move.vertical;
+			radar.x = _waypointData.waypoint.position.x * _imageMapData.viewerData.scale;
+			radar.y = _waypointData.waypoint.position.y * _imageMapData.viewerData.scale;
+		}
+		
 		public function set radarTilt(value:Number):void {
 			if (value < 0.15) {
 				_radarTilt = 0.15;
@@ -96,21 +98,17 @@ package com.panozona.modules.imagemap.view {
 		
 		public function set buttonBitmapData(bitmapData:BitmapData):void {
 			_buttonImage.bitmapData = bitmapData;
-			_buttonImage.x = - _buttonImage.width * 0.5;
-			_buttonImage.y = - _buttonImage.height * 0.5;
-			_buttonImage.x += _waypointData.move.horizontal;
-			_buttonImage.y += _waypointData.move.vertical;
+			placeWaypoint();
 		}
 		
 		private function mouseOver(e:Event):void {
-			waypointData.mouseOver = true; // button color change
-			_imageMapData.viewerData.mouseOver = false; // removing hand bitmap
-			
+			waypointData.mouseOver = true;
+			_imageMapData.viewerData.mouseOver = false;
 		}
 		
 		private function mouseOut(e:Event):void {
-			waypointData.mouseOver = false; // button color change
-			_imageMapData.viewerData.mouseOver = true; // adding hand bitmap
+			waypointData.mouseOver = false;
+			_imageMapData.viewerData.mouseOver = true;
 		}
 	}
 }

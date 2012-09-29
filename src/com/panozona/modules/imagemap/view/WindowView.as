@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -31,8 +31,6 @@ package com.panozona.modules.imagemap.view{
 		private var _closeView:CloseView;
 		private var _viewerView:ViewerView;
 		
-		private var window:Sprite;
-		
 		private var _imageMapData:ImageMapData;
 		
 		public function WindowView(imageMapData:ImageMapData) {
@@ -41,18 +39,11 @@ package com.panozona.modules.imagemap.view{
 			
 			this.alpha = _imageMapData.windowData.window.alpha;
 			
-			// draw map window
-			window = new Sprite();
-			window.graphics.beginFill(0xFFFFFF,0);
-			window.graphics.drawRect(0, 0, _imageMapData.windowData.window.size.width, _imageMapData.windowData.window.size.height);
-			window.graphics.endFill();
-			addChild(window);
-			
 			_viewerView = new ViewerView(_imageMapData);
-			window.addChild(_viewerView);
+			addChild(_viewerView);
 			
 			_closeView = new CloseView(_imageMapData);
-			window.addChild(_closeView);
+			addChild(_closeView);
 			
 			visible = _imageMapData.windowData.open;
 		}

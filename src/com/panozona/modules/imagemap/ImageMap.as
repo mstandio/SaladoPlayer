@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -32,7 +32,7 @@ package com.panozona.modules.imagemap{
 		private var windowController:WindowController;
 		
 		public function ImageMap() {
-			super("ImageMap", "1.3", "http://panozona.com/wiki/Module:ImageMap");
+			super("ImageMap", "1.4", "http://panozona.com/wiki/Module:ImageMap");
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("setMap", String);
@@ -40,7 +40,7 @@ package com.panozona.modules.imagemap{
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			
-			imageMapData = new ImageMapData(moduleData, saladoPlayer); // always first
+			imageMapData = new ImageMapData(moduleData, saladoPlayer);
 			
 			windowView = new WindowView(imageMapData);
 			windowController = new WindowController(windowView, this);

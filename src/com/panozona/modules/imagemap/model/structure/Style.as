@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,26 +16,11 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagemap.model.structure{
+package com.panozona.modules.imagemap.model.structure {
 	
-	import com.panozona.player.module.data.structure.DataParent;
-	
-	public class Map extends DataParent{
+	public class Style {
 		
-		override public function getChildrenTypes():Vector.<Class>{
-			var result:Vector.<Class> = new Vector.<Class>();
-			result.push(Waypoints);
-			return result;
-		}
-		
-		public var id:String = null;
-		public var path:String = null;
-		
-		public const zoom:Zoom = new Zoom();
-		
-		public var panShift:Number = 0;
-		
-		public var onSet:String = null; // action id
-		public var onUnset:String = null; // action id
+		public var color:Number = 0x000000;
+		public var alpha:Number = 1;
 	}
 }

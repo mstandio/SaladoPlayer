@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -63,16 +63,16 @@ package com.panozona.modules.imagemap.controller {
 			if (_closeView.imageMapData.close.align.horizontal == Align.LEFT) {
 				_closeView.x = 0;
 			}else if (_closeView.imageMapData.close.align.horizontal == Align.RIGHT) {
-				_closeView.x = _closeView.imageMapData.windowData.window.size.width - _closeView.width;
+				_closeView.x = _closeView.imageMapData.windowData.currentSize.width - _closeView.width;
 			}else { // CENTER
-				_closeView.x = (_closeView.imageMapData.windowData.window.size.width - _closeView.width) * 0.5;
+				_closeView.x = (_closeView.imageMapData.windowData.currentSize.width - _closeView.width) * 0.5;
 			}
 			if (_closeView.imageMapData.close.align.vertical == Align.TOP){
 				_closeView.y = 0;
 			}else if (_closeView.imageMapData.close.align.vertical == Align.BOTTOM) {
-				_closeView.y = _closeView.imageMapData.windowData.window.size.height - _closeView.height;
+				_closeView.y = _closeView.imageMapData.windowData.currentSize.height - _closeView.height;
 			}else { // MIDDLE
-				_closeView.y = (_closeView.imageMapData.windowData.window.size.height - _closeView.height) * 0.5;
+				_closeView.y = (_closeView.imageMapData.windowData.currentSize.height - _closeView.height) * 0.5;
 			}
 			_closeView.x += _closeView.imageMapData.close.move.horizontal;
 			_closeView.y += _closeView.imageMapData.close.move.vertical;

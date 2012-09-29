@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -21,6 +21,8 @@ package com.panozona.modules.imagemap.model.structure{
 	public class Viewer {
 		
 		public var path:String = null; // path to navigation bitmaps grid
+		
+		public const style:Style = new Style();
 		
 		public var moveEnabled:Boolean = true;
 		public var moveSpeed:Number = 10;

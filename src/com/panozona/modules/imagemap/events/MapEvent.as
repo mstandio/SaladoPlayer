@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -23,6 +23,7 @@ package com.panozona.modules.imagemap.events{
 	public class MapEvent extends Event {
 		
 		public static const CHANGED_CURRENT_MAP_ID:String = "changedCurrMapId";
+		public static const CHANGED_SIZE:String = "changedSize";
 		public static const CHANGED_RADAR_FIRST:String = "changedRadarFirst";
 		
 		public function MapEvent( type:String) {

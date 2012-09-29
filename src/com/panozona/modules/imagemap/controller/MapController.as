@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,6 +20,7 @@ package com.panozona.modules.imagemap.controller {
 	
 	import com.panozona.modules.imagemap.events.MapEvent;
 	import com.panozona.modules.imagemap.events.ViewerEvent;
+	import com.panozona.modules.imagemap.events.WaypointEvent;
 	import com.panozona.modules.imagemap.model.structure.Map;
 	import com.panozona.modules.imagemap.model.structure.Waypoint;
 	import com.panozona.modules.imagemap.model.structure.Waypoints;
@@ -47,11 +48,10 @@ package com.panozona.modules.imagemap.controller {
 		private var _mapView:MapView;
 		private var _module:Module;
 		
-		private var waypointControlers:Array;
+		private var waypointControlers:Vector.<WaypointController>;
 		private var arrListeners:Array;
 		
 		private var mapContentLoader:Loader;
-		
 		private var waypointsLoader:LoadablesLoader;
 		
 		private var previousMapId:String;
@@ -60,7 +60,7 @@ package com.panozona.modules.imagemap.controller {
 			_mapView = mapView;
 			_module = module;
 			
-			waypointControlers = new Array();
+			waypointControlers = new Vector.<WaypointController>();
 			arrListeners = new Array();
 			
 			mapContentLoader = new Loader();
@@ -73,7 +73,8 @@ package com.panozona.modules.imagemap.controller {
 			
 			_mapView.imageMapData.mapData.addEventListener(MapEvent.CHANGED_CURRENT_MAP_ID, handleCurrentMapIdChange, false, 0, true);
 			_mapView.imageMapData.mapData.addEventListener(MapEvent.CHANGED_RADAR_FIRST, handleRadarFirstChange, false, 0, true);
-			_mapView.imageMapData.mapData.addEventListener(ViewerEvent.FOCUS_LOST, handleFocusLost, false, 0, true);
+			_mapView.imageMapData.viewerData.addEventListener(ViewerEvent.FOCUS_LOST, handleFocusLost, false, 0, true);
+			_mapView.imageMapData.viewerData.addEventListener(ViewerEvent.CHANGED_SCALE, handleScaleChanged, false, 0, true);
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
@@ -97,9 +98,7 @@ package com.panozona.modules.imagemap.controller {
 		
 		private function handleCurrentMapIdChange(e:Event):void {
 			mapContentLoader.unload();
-			//waypointsLoader.abort();
 			destroyWaypoints();
-			_mapView.imageMapData.viewerData.focusPoint = new Point(NaN, NaN);
 			mapContentLoader.load(new URLRequest(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).path));
 			if (previousMapId != null) {
 				_module.saladoPlayer.manager.runAction(_mapView.imageMapData.mapData.getMapById(previousMapId).onUnset);
@@ -113,9 +112,24 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function handleFocusLost(e:Event):void {
-			for each( var waypointController:WaypointController in waypointControlers) {
-				waypointController.lostFocus();
+			for (var i:int = 0; i < _mapView.waypointsContainer.numChildren; i++) {
+				(_mapView.waypointsContainer.getChildAt(i) as WaypointView).waypointData.hasFocus = false;
 			}
+		}
+		
+		private function handleFocusGained(e:Event=null):void {
+			var waypointView:WaypointView = null;
+			for (var i:int = 0; i < _mapView.waypointsContainer.numChildren; i++) {
+				waypointView = (_mapView.waypointsContainer.getChildAt(i) as WaypointView);
+				if (waypointView.waypointData.hasFocus) {
+					waypointView.viewerData.focusPoint = new Point(waypointView.x, waypointView.y);
+					break;
+				}
+			}
+		}
+		
+		private function handleScaleChanged(e:Event):void {
+			placeWaypoints();
 		}
 		
 		private function mapContentLost(e:IOErrorEvent):void {
@@ -124,8 +138,8 @@ package com.panozona.modules.imagemap.controller {
 		
 		private function mapContentLoaded(e:Event):void {
 			_mapView.imageMapData.viewerData.currentZoom = _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).zoom;
+			_mapView.imageMapData.mapData.size = new Size(mapContentLoader.content.width, mapContentLoader.content.height);
 			_mapView.content = mapContentLoader.content;
-			_mapView.imageMapData.viewerData.size = new Size(mapContentLoader.content.width, mapContentLoader.content.height);
 			buildWaypoints();
 		}
 		
@@ -156,6 +170,7 @@ package com.panozona.modules.imagemap.controller {
 			var bitmapDataActive:BitmapData = new BitmapData(bitmapData.width, cellHeight, true, 0);
 			bitmapDataActive.copyPixels(bitmapData, new Rectangle(0, cellHeight * 2 + 2, bitmapData.width, cellHeight), new Point(0, 0), null, null, true);
 			
+			var waypointData:WaypointData;
 			var waypointView:WaypointView;
 			var waypointController:WaypointController;
 			var map:Map = _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId);
@@ -164,10 +179,11 @@ package com.panozona.modules.imagemap.controller {
 			if (map.getChildrenOfGivenClass(Waypoints).indexOf(waypoints) < 0) return;
 			
 			for each(var waypoint:Waypoint in waypoints.getChildrenOfGivenClass(Waypoint)) {
-				waypointView = new WaypointView(_mapView.imageMapData, new WaypointData(waypoint, waypoints.radar, map.panShift, waypoints.move,
-				bitmapDataPlain, bitmapDataHover, bitmapDataActive), _mapView);
-				waypointView.button.scaleX = waypointView.radar.scaleX = 1 / _mapView.parent.scaleX;
-				waypointView.button.scaleY = waypointView.radar.scaleY = 1 / _mapView.parent.scaleY;
+				waypointData = new WaypointData(waypoint, waypoints.radar, map.panShift, waypoints.move, bitmapDataPlain, bitmapDataHover, bitmapDataActive);
+				waypointData.addEventListener(WaypointEvent.FOCUS_GAINED, handleFocusGained, false, 0, true);
+				waypointView = new WaypointView(_mapView.imageMapData, waypointData, _mapView);
+				waypointController = new WaypointController(waypointView, _module);
+				waypointControlers.push(waypointController);
 				var added:Boolean = false;
 				for (var i:int = 0; i < _mapView.waypointsContainer.numChildren && !added; i++) {
 					if ((_mapView.waypointsContainer.getChildAt(i) as WaypointView).waypointData.waypoint.position.y > waypointView.waypointData.waypoint.position.y) {
@@ -178,22 +194,32 @@ package com.panozona.modules.imagemap.controller {
 				if (!added) {
 					_mapView.waypointsContainer.addChild(waypointView);
 				}
-				waypointController = new WaypointController(waypointView, _module);
-				waypointControlers.push(waypointController);
+				var handlerTmp:Function;
 				if (waypoint.mouse.onOver != null) {
-					waypointView.button.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(waypoint.mouse.onOver));
-					arrListeners.push({type:MouseEvent.ROLL_OVER, listener:getMouseEventHandler(waypoint.mouse.onOver)});
+					handlerTmp = getMouseEventHandler(waypoint.mouse.onOver);
+					waypointView.button.addEventListener(MouseEvent.ROLL_OVER, handlerTmp);
+					arrListeners.push({type:MouseEvent.ROLL_OVER, listener:handlerTmp});
 				}
 				if (waypoint.mouse.onOut != null) {
-					waypointView.button.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(waypoint.mouse.onOut));
-					arrListeners.push({type:MouseEvent.ROLL_OUT, listener:getMouseEventHandler(waypoint.mouse.onOut)});
+					handlerTmp = getMouseEventHandler(waypoint.mouse.onOut);
+					waypointView.button.addEventListener(MouseEvent.ROLL_OUT, handlerTmp);
+					arrListeners.push({type:MouseEvent.ROLL_OUT, listener:handlerTmp});
 				}
 			}
+			placeWaypoints();
+			handleFocusGained();
 		}
 		
 		private function getMouseEventHandler(actionId:String):Function{
 			return function(e:MouseEvent):void {
 				_module.saladoPlayer.manager.runAction(actionId);
+			}
+		}
+		
+		private function placeWaypoints():void {
+			var waypointView:WaypointView = null;
+			for (var i:int = 0; i < _mapView.waypointsContainer.numChildren; i++) {
+				(_mapView.waypointsContainer.getChildAt(i) as WaypointView).placeWaypoint();
 			}
 		}
 		
