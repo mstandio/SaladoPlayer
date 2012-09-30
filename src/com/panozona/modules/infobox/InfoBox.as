@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -52,7 +52,7 @@ package com.panozona.modules.infobox{
 ///////////////////////////////////////////////////////////////////////////////
 		
 		public function setOpen(value:Boolean):void {
-			imageMapData.windowData.open = value;
+			infoBoxData.windowData.open = value;
 		}
 		
 		public function toggleOpen():void {
@@ -60,8 +60,8 @@ package com.panozona.modules.infobox{
 		}
 		
 		public function setArticle(value:String):void {
-			if(infoBoxData.articleData.getArticleById(value) != null){
-				infoBoxData.articleData.currentArticleId = value;
+			if(infoBoxData.viewerData.getArticleById(value) != null){
+				infoBoxData.viewerData.currentArticleId = value;
 			}else {
 				printWarning("Invalid article id: " + value);
 			}

@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -38,16 +38,9 @@ package com.panozona.modules.infobox.view{
 		
 		public function WindowView(infoBoxData:InfoBoxData) {
 			
-			_imageMapData = imageMapData;
+			_infoBoxData = infoBoxData;
 			
 			this.alpha = _infoBoxData.windowData.window.alpha;
-			
-			// draw map window
-			window = new Sprite();
-			window.graphics.beginFill(0xFFFFFF,0);
-			window.graphics.drawRect(0, 0, infoBoxData.windowData.window.size.width, _infoBoxData.windowData.window.size.height);
-			window.graphics.endFill();
-			addChild(window);
 			
 			_viewerView = new ViewerView(_infoBoxData);
 			window.addChild(_viewerView);
@@ -55,7 +48,7 @@ package com.panozona.modules.infobox.view{
 			_closeView = new CloseView(_infoBoxData);
 			window.addChild(_closeView);
 			
-			visible = _imageMapData.windowData.open;
+			visible = _infoBoxData.windowData.open;
 		}
 		
 		public function get windowData():WindowData {

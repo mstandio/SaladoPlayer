@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -20,5 +20,6 @@ package com.panozona.modules.infobox.model.structure {
 	
 	public class Article {
 		
+		public var id:String;
 	}
 }

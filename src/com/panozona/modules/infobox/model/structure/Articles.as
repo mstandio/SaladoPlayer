@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,7 +18,14 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.infobox.model.structure {
 	
-	public class Articles {
+	import com.panozona.player.module.data.structure.DataParent;
+	
+	public class Articles extends DataParent{
 		
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Article);
+			return result;
+		}
 	}
 }

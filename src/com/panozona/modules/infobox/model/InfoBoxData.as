@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,6 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.infobox.model {
 	
+	import com.panozona.modules.infobox.model.structure.Article;
 	import com.panozona.modules.infobox.model.structure.Close;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.data.ModuleData;
@@ -28,7 +29,6 @@ package com.panozona.modules.infobox.model {
 		public const windowData:WindowData = new WindowData();
 		public const close:Close = new Close();
 		public const viewerData:ViewerData = new ViewerData();
-		public const articleData:ArticleData = new ArticleData();
 		
 		public function InfoBoxData(moduleData:ModuleData, saladoPlayer:Object) {
 			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
@@ -40,7 +40,7 @@ package com.panozona.modules.infobox.model {
 				}else if (dataNode.name == "viewer") {
 					tarnslator.dataNodeToObject(dataNode, viewerData.viewer);
 				}else if (dataNode.name == "articles") {
-					tarnslator.dataNodeToObject(dataNode, articleData.articles);
+					tarnslator.dataNodeToObject(dataNode, viewerData.articles);
 				}else {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
@@ -49,24 +49,18 @@ package com.panozona.modules.infobox.model {
 			windowData.open = windowData.window.open;
 			
 			if (saladoPlayer.managerData.debugMode) {
-				if (viewerData.viewer.moveEnabled || viewerData.viewer.zoomEnabled || viewerData.viewer.dragEnabled) {
-					if (viewerData.viewer.path == null || !viewerData.viewer.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i))
-						throw new Error("Invalid viewer path: " + viewerData.viewer.path);
-				}
 				if (windowData.window.onOpen != null && saladoPlayer.managerData.getActionDataById(windowData.window.onOpen) == null) {
 					throw new Error("Action does not exist: " + windowData.window.onOpen);
 				}
 				if (windowData.window.onClose != null && saladoPlayer.managerData.getActionDataById(windowData.window.onClose) == null) {
 					throw new Error("Action does not exist: " + windowData.window.onClose);
 				}
-				if (articleData.articles.getChildrenOfGivenClass(Article).length == 0) {
+				if (viewerData.articles.getChildrenOfGivenClass(Article).length == 0) {
 					throw new Error("No articles found.");
 				}
 				var articleIds:Object = new Object();
-				
-				for each(var artilce:Article in articleData.articles.getChildrenOfGivenClass(Articlr)) {
+				for each(var article:Article in viewerData.articles.getChildrenOfGivenClass(Article)) {
 					if (article.id == null) throw new Error("Article id not specified.");
-					if (article.onSet != null && saladoPlayer.managerData.getActionDataById(article.onSet) == null) throw new Error("Action does not exist: " + article.onSet);
 					if (articleIds[article.id] != undefined) {
 						throw new Error("Repeating article id: " + article.id);
 					}else {

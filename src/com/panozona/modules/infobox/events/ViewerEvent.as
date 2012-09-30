@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,10 +18,14 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.infobox.events {
 	
-	public class ViewerEvent {
+	import flash.events.Event;
+	
+	public class ViewerEvent extends Event {
 		
-		public function ViewerEvent() {
-			
+		public static const CHANGED_CURRENT_ARTICLE_ID:String = "changedCurrentArticleId";
+		
+		public function ViewerEvent(type:String){
+			super(type);
 		}
 	}
 }

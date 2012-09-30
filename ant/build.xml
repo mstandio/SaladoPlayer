@@ -302,6 +302,33 @@
 		</mxmlc>
 	</target>
 	
+	<target name="InfoBox">
+		<propertyregex property="InfoBox.swf.dir"
+			input="${InfoBubble.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="InfoBox.name"
+			input="${InfoBox.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${InfoBox.swf.dir}"
+				includes="${InfoBox.name}*.swf"/>
+		</delete>
+		<mxmlc
+			file="${basedir}/${InfoBox.as}"
+			output="${basedir}/${InfoBox.swf}"
+			fork="true" maxmemory="512m"
+			debug="${debuggableSwf}"
+			static-link-runtime-shared-libraries="true">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
 	<target name="InfoBubble">
 		<propertyregex property="InfoBubble.swf.dir"
 			input="${InfoBubble.swf}"
@@ -686,6 +713,7 @@
 				ImageButton,
 				ImageGallery,
 				ImageMap,
+				InfoBox,
 				InfoBubble,
 				JSGateway,
 				JSGoogleMap,

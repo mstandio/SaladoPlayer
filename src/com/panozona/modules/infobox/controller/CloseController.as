@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,8 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.infobox.controller {
 	
-	import com.panozona.modules.imagemap.events.WindowEvent;
-	import com.panozona.modules.imagemap.view.CloseView;
+	import com.panozona.modules.infobox.events.WindowEvent;
+	import com.panozona.modules.infobox.view.CloseView;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.Module;
 	import flash.display.Loader;
@@ -63,16 +63,16 @@ package com.panozona.modules.infobox.controller {
 			if (_closeView.infoBoxData.close.align.horizontal == Align.LEFT) {
 				_closeView.x = 0;
 			}else if (_closeView.infoBoxData.close.align.horizontal == Align.RIGHT) {
-				_closeView.x = _closeView.infoBoxData.windowData.window.size.width - _closeView.width;
+				_closeView.x = _closeView.infoBoxData.windowData.currentSize.width - _closeView.width;
 			}else { // CENTER
-				_closeView.x = (_closeView.infoBoxData.windowData.window.size.width - _closeView.width) * 0.5;
+				_closeView.x = (_closeView.infoBoxData.windowData.currentSize.width - _closeView.width) * 0.5;
 			}
 			if (_closeView.infoBoxData.close.align.vertical == Align.TOP){
 				_closeView.y = 0;
 			}else if (_closeView.infoBoxData.close.align.vertical == Align.BOTTOM) {
-				_closeView.y = _closeView.infoBoxData.windowData.window.size.height - _closeView.height;
+				_closeView.y = _closeView.infoBoxData.windowData.currentSize.height - _closeView.height;
 			}else { // MIDDLE
-				_closeView.y = (_closeView.infoBoxData.windowData.window.size.height - _closeView.height) * 0.5;
+				_closeView.y = (_closeView.infoBoxData.windowData.currentSize.height - _closeView.height) * 0.5;
 			}
 			_closeView.x += _closeView.infoBoxData.close.move.horizontal;
 			_closeView.y += _closeView.infoBoxData.close.move.vertical;

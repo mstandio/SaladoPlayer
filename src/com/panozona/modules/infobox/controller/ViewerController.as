@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -18,10 +18,17 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.infobox.controller {
 	
+	import com.panozona.modules.infobox.view.ViewerView;
+	import com.panozona.player.module.Module;
+	
 	public class ViewerController {
 		
-		public function ViewerController() {
-			
+		private var _viewerView:ViewerView;
+		private var _module:Module;
+		
+		public function ViewerController(viewerView:ViewerView, module:Module) {
+			_module = module;
+			_viewerView = viewerView;
 		}
 	}
 }
