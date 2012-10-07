@@ -23,11 +23,23 @@ package com.panozona.modules.infobox.view {
 	
 	public class ViewerView extends Sprite {
 		
-		private var _infoboxdata:InfoBoxData;
+		private var _scrollBarView:ScrollBarView;
 		
-		public function ViewerView(infoboxdata:InfoBoxData) {
+		private var _infoBoxData:InfoBoxData;
+		
+		public function ViewerView(infoBoxData:InfoBoxData) {
+			_infoBoxData = infoBoxData;
 			
-			_infoboxdata = infoboxdata;
+			_scrollBarView = new ScrollBarView(infoBoxData);
+			addChild(_scrollBarView);
+		}
+		
+		public function get infoBoxData():InfoBoxData {
+			return _infoBoxData;
+		}
+		
+		public function get scrollBarView():ScrollBarView {
+			return _scrollBarView;
 		}
 	}
 }

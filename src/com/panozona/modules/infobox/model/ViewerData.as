@@ -29,6 +29,8 @@ package com.panozona.modules.infobox.model {
 		public const viewer:Viewer = new Viewer();
 		public const articles:Articles = new Articles();
 		
+		public const scrollBarData:ScrollBarData = new ScrollBarData();
+		
 		private var _currentArticleId:String;
 		
 		public function getArticleById(articleId:String):Article {

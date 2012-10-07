@@ -31,7 +31,6 @@ package com.panozona.modules.infobox.view{
 		private var _closeView:CloseView;
 		private var _viewerView:ViewerView;
 		
-		private var window:Sprite;
 		private var windowCloseButton:SimpleButton;
 		
 		private var _infoBoxData:InfoBoxData;
@@ -43,10 +42,10 @@ package com.panozona.modules.infobox.view{
 			this.alpha = _infoBoxData.windowData.window.alpha;
 			
 			_viewerView = new ViewerView(_infoBoxData);
-			window.addChild(_viewerView);
+			addChild(_viewerView);
 			
 			_closeView = new CloseView(_infoBoxData);
-			window.addChild(_closeView);
+			addChild(_closeView);
 			
 			visible = _infoBoxData.windowData.open;
 		}

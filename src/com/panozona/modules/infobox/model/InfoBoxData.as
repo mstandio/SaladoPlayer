@@ -55,6 +55,9 @@ package com.panozona.modules.infobox.model {
 				if (windowData.window.onClose != null && saladoPlayer.managerData.getActionDataById(windowData.window.onClose) == null) {
 					throw new Error("Action does not exist: " + windowData.window.onClose);
 				}
+				if (viewerData.viewer.path == null || !viewerData.viewer.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)) {
+					throw new Error("Invalid viewer path: " + viewerData.viewer.path);
+				}
 				if (viewerData.articles.getChildrenOfGivenClass(Article).length == 0) {
 					throw new Error("No articles found.");
 				}

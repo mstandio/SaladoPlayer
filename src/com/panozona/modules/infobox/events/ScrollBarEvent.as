@@ -16,12 +16,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.infobox.model.structure {
+package com.panozona.modules.infobox.events {
 	
-	public class Viewer {
+	import flash.events.Event;
+	
+	public class ScrollBarEvent extends Event{
 		
-		public const style:Style = new Style();
+		public static const CHANGED_THUMB_LENGTH:String = "changedThumbLength";
 		
-		public var path:String = null;
+		public function ScrollBarEvent(type:String){
+			super(type);
+		}
 	}
 }
