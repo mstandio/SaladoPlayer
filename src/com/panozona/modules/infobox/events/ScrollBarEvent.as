@@ -23,6 +23,10 @@ package com.panozona.modules.infobox.events {
 	public class ScrollBarEvent extends Event{
 		
 		public static const CHANGED_THUMB_LENGTH:String = "changedThumbLength";
+		public static const CHANGED_IS_SHOWING:String = "changedIsShowing";
+		public static const CHANGED_SCROLL_BAR_WIDTH:String = "changedScrollBarWidth"
+		public static const CHANGED_MOUSE_DRAG:String = "changedMouseDrag"
+		public static const CHANGED_SCROLL_VALUE:String = "changedScrollValue"
 		
 		public function ScrollBarEvent(type:String){
 			super(type);

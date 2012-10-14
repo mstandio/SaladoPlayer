@@ -23,6 +23,7 @@ package com.panozona.modules.infobox.events {
 	public class ViewerEvent extends Event {
 		
 		public static const CHANGED_CURRENT_ARTICLE_ID:String = "changedCurrentArticleId";
+		public static const CHANGED_TEXT_HEIGHT:String = "changedTextHeight";
 		
 		public function ViewerEvent(type:String){
 			super(type);

@@ -23,13 +23,54 @@ package com.panozona.modules.infobox.model {
 	
 	public class ScrollBarData extends EventDispatcher{
 		
+		public var minThumbHeight:Number;
+		
 		private var _thumbLength:Number;
+		private var _isShowing:Boolean;
+		private var _scrollBarWidth:Number;
+		private var _mouseDrag:Boolean;
+		private var _scrollValue:Number;
+		
+		public function ScrollBarData() {
+			minThumbHeight = 0;
+			_thumbLength = 0;
+			_scrollBarWidth = 0;
+			_scrollValue = 0;
+		}
 		
 		public function get thumbLength():Number { return _thumbLength };
 		public function set thumbLength(value:Number):void {
 			if (value == _thumbLength) return;
 			_thumbLength = value;
 			dispatchEvent(new ScrollBarEvent(ScrollBarEvent.CHANGED_THUMB_LENGTH));
+		}
+		
+		public function get isShowing():Boolean { return _isShowing };
+		public function set isShowing(value:Boolean):void {
+			if (value == _isShowing) return;
+			_isShowing = value;
+			dispatchEvent(new ScrollBarEvent(ScrollBarEvent.CHANGED_IS_SHOWING));
+		}
+		
+		public function get scrollBarWidth():Number { return _scrollBarWidth };
+		public function set scrollBarWidth(value:Number):void {
+			if (value == _scrollBarWidth) return;
+			_scrollBarWidth = value;
+			dispatchEvent(new ScrollBarEvent(ScrollBarEvent.CHANGED_SCROLL_BAR_WIDTH));
+		}
+		
+		public function get mouseDrag():Boolean {return _mouseDrag;}
+		public function set mouseDrag(value:Boolean):void {
+			if (value == _mouseDrag) return;
+			_mouseDrag = value;
+			dispatchEvent(new ScrollBarEvent(ScrollBarEvent.CHANGED_MOUSE_DRAG));
+		}
+		
+		public function get scrollValue():Number { return _scrollValue };
+		public function set scrollValue(value:Number):void {
+			if (value == _scrollValue) return;
+			_scrollValue = value;
+			dispatchEvent(new ScrollBarEvent(ScrollBarEvent.CHANGED_SCROLL_VALUE));
 		}
 	}
 }

@@ -21,5 +21,6 @@ package com.panozona.modules.infobox.model.structure {
 	public class Article {
 		
 		public var id:String;
+		public var path:String;
 	}
 }

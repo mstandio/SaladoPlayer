@@ -20,8 +20,13 @@ package com.panozona.modules.infobox.view {
 	
 	import com.panozona.modules.infobox.model.InfoBoxData;
 	import flash.display.Sprite;
+	import flash.text.TextField;
+	import flash.text.TextFieldAutoSize;
 	
 	public class ViewerView extends Sprite {
+		
+		public const textField:TextField = new TextField();
+		public const textFieldMask:Sprite = new Sprite();
 		
 		private var _scrollBarView:ScrollBarView;
 		
@@ -32,6 +37,16 @@ package com.panozona.modules.infobox.view {
 			
 			_scrollBarView = new ScrollBarView(infoBoxData);
 			addChild(_scrollBarView);
+			
+			addChild(textField);
+			textField.alwaysShowSelection = true;
+			textField.autoSize = TextFieldAutoSize.LEFT; 
+			textField.wordWrap = true;
+			textField.multiline = true;
+			textField.textColor = 0x00ff00;
+			
+			addChild(textFieldMask);
+			textField.mask = textFieldMask;
 		}
 		
 		public function get infoBoxData():InfoBoxData {

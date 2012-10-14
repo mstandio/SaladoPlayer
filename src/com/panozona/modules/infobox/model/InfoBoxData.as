@@ -64,6 +64,7 @@ package com.panozona.modules.infobox.model {
 				var articleIds:Object = new Object();
 				for each(var article:Article in viewerData.articles.getChildrenOfGivenClass(Article)) {
 					if (article.id == null) throw new Error("Article id not specified.");
+					if (article.path == null || !article.path.match(/^(.+)\.(txt)$/i)) throw new Error("Invalid article path: " + article.path);
 					if (articleIds[article.id] != undefined) {
 						throw new Error("Repeating article id: " + article.id);
 					}else {

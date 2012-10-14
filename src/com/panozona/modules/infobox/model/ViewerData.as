@@ -32,6 +32,7 @@ package com.panozona.modules.infobox.model {
 		public const scrollBarData:ScrollBarData = new ScrollBarData();
 		
 		private var _currentArticleId:String;
+		private var _textHeight:Number;
 		
 		public function getArticleById(articleId:String):Article {
 			for each(var article:Article in articles.getChildrenOfGivenClass(Article)) {
@@ -45,6 +46,13 @@ package com.panozona.modules.infobox.model {
 			if (value == null || value == _currentArticleId) return;
 			_currentArticleId = value;
 			dispatchEvent(new ViewerEvent(ViewerEvent.CHANGED_CURRENT_ARTICLE_ID));
+		}
+		
+		public function get textHeight():Number {return _textHeight;}
+		public function set textHeight(value:Number):void {
+			if (value == _textHeight) return;
+			_textHeight = value;
+			dispatchEvent(new ViewerEvent(ViewerEvent.CHANGED_TEXT_HEIGHT));
 		}
 	}
 }
