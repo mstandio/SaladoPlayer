@@ -7,19 +7,14 @@
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
-			<image id="cb_arrowRed" path="~hotspots/images/arrow_red.png" location="pan:-23,tilt:16" target="checkerRed"/>
-		</panorama>
-		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
-			<image id="cr_arrowBlue" path="~hotspots/images/arrow_blue.png" location="pan:5,tilt:10" target="checkerBlue"/>
+			<image id="cb_lightbulb1" path="~media/images/misc/lightbulb.png" location="pan:5,tilt:10" transform="flat:true"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<LensFlare path="~modules/lensflare/LensFlare-1.0.swf">
-			<settings path="~modules/lensflare/images/flares1.png"/>
-			<panoramas>
-				<panorama id="checkerRed" location="pan:5,tilt:10"/>
-				<panorama id="checkerBlue" location="pan:-23,tilt:16"/>
-			</panoramas>
+		<LensFlare path="~modules/lensflare/LensFlare-1.1.swf">
+			<flares>
+				<flare panorama="checkerBlue" location="pan:5,tilt:10" path="~modules/lensflare/images/flares2.png" brightness="level:99,distance:10" positions="1|2|3|4"/>
+			</flares>
 		</LensFlare>
 	</modules>
 </SaladoPlayer>

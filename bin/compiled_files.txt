@@ -42,13 +42,13 @@ JSGoogleMap.as  = src/com/panozona/modules/jsgooglemap/JSGoogleMap.as
 JSGoogleMap.swf = bin/modules/jsgooglemap/JSGoogleMap-1.0.swf
 
 LensFlare.as  = src/com/panozona/modules/lensflare/LensFlare.as
-LensFlare.swf = bin/modules/lensflare/LensFlare-1.0.swf
+LensFlare.swf = bin/modules/lensflare/LensFlare-1.1.swf
 
 LinkOpener.as  = src/com/panozona/modules/linkopener/LinkOpener.as
 LinkOpener.swf = bin/modules/LinkOpener-1.1.swf
 
 MenuScroller.as  = src/com/panozona/modules/menuscroller/MenuScroller.as
-MenuScroller.swf = bin/modules/MenuScroller-1.3.swf
+MenuScroller.swf = bin/modules/MenuScroller-1.3.1.swf
 
 MouseCursor.as  = src/com/panozona/modules/mousecursor/MouseCursor.as
 MouseCursor.swf = bin/modules/mousecursor/MouseCursor-1.2.swf

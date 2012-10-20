@@ -18,46 +18,38 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.lensflare.model{
 	
-	import com.panozona.modules.lensflare.LensFlare;
-	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.modules.lensflare.model.structure.Flare;
+	import com.panozona.modules.lensflare.model.structure.Flares;
 	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class LensFlareData {
 		
-		public var settings:Settings = new Settings();
-		public var panoramas:Panoramas = new Panoramas();
+		public const flares:Flares = new Flares();
 		
 		public function LensFlareData(moduleData:ModuleData, saladoPlayer:Object){
 			
 			var translator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
 			
 			for each(var dataNode:DataNode in moduleData.nodes) {
-				if (dataNode.name == "settings") {
-					translator.dataNodeToObject(dataNode, settings);
-				}else if (dataNode.name == "panoramas") {
-					translator.dataNodeToObject(dataNode, panoramas);
+				if (dataNode.name == "flares") {
+					translator.dataNodeToObject(dataNode, flares);
 				}else {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
 			}
 			
 			if (saladoPlayer.managerData.debugMode) {
-				if (settings.path == null || !settings.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)) {
-					throw new Error("Invalid grid image path: " + settings.path);
-				}
-				
-				if (panoramas.getChildrenOfGivenClass(Panorama).length == 0) {
+				if (flares.getChildrenOfGivenClass(Flare).length == 0) {
 					throw new Error("No panoramas found.");
 				}
-				
-				for each(var panorama:Panorama in panoramas.getChildrenOfGivenClass(Panorama)) {
-					if ((!panorama.id)) {
+				for each(var flare:Flare in flares.getChildrenOfGivenClass(Flare)) {
+					if (flare.panorama == null) {
 						throw new Error("Panorama id is not defined.");
 					}
-					
-					if (panorama.path && !panorama.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)) {
-						throw new Error("Invalid local grid image path: " + panorama.path);
+					if (flare.path == null || !flare.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)) {
+						throw new Error("Invalid grid image path: " + flare.path);
 					}
 				}
 			}

@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright 2012 Igor Zevako.
 
 This file is part of SaladoPlayer.
@@ -16,16 +16,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.lensflare.model {
+package com.panozona.modules.lensflare.model.structure {
 	
-	public class Settings {
+	import com.panozona.player.module.data.structure.DataParent;
+	
+	public class Flares extends DataParent{
 		
-		// path to flares png grid
-		public var path:String = null;
-		
-		// positions of each flare from the grid
-		public var positions:String = null;
-		
-		public var brightness:SettingsBrightness = new SettingsBrightness(150, 20);
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Flare);
+			return result;
+		}
 	}
 }

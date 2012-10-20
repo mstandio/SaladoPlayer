@@ -1,5 +1,5 @@
-﻿/*
-Copyright 2012 Igor Zevako.
+/*
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -16,16 +16,22 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.lensflare.model {
+package com.panozona.modules.lensflare.view {
 	
-	import com.panozona.player.module.data.structure.DataParent;
+	import com.panozona.modules.lensflare.model.FlareData
+	import flash.display.Sprite;
 	
-	public class Panoramas extends DataParent{
+	public class FlareView extends Sprite{
 		
-		override public function getChildrenTypes():Vector.<Class>{
-			var result:Vector.<Class> = new Vector.<Class>();
-			result.push(Panorama);
-			return result;
+		private var _flareData:FlareData;
+		
+		public function FlareView(flareData:FlareData):void {
+			_flareData = flareData;
+			visible = false;
+		}
+		
+		public function get flareData():FlareData {
+			return _flareData;
 		}
 	}
 }

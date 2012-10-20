@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2012 Igor Zevako.
 
 This file is part of SaladoPlayer.
@@ -16,20 +16,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.lensflare.model {
+package com.panozona.modules.lensflare.model.structure{
 	
-	import com.panozona.player.module.data.property.Location;
-	
-	public class Panorama {
+	public class Brightness {
 		
-		public var id:String = null;
-		public var location:Location = new Location();
+		public var distance:Number;
+		public var level:Number;
 		
-		// path to local flares png grid
-		public var path:String = null;
-
-		public var positions:String = null;
-		
-		public var brightness:SettingsBrightness = new SettingsBrightness( -1, -1);
+		public function Brightness(defaultLevel:Number, defaultDistance:Number) {
+			level = defaultLevel;
+			distance = defaultDistance;
+		}
 	}
 }
