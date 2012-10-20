@@ -18,8 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.infobox.controller {
 	 
-	import com.panozona.modules.infobox.events.ViewerEvent;
 	import com.panozona.modules.infobox.events.ScrollBarEvent;
+	import com.panozona.modules.infobox.events.ViewerEvent;
 	import com.panozona.modules.infobox.events.WindowEvent;
 	import com.panozona.modules.infobox.view.ScrollBarView;
 	import com.panozona.player.module.Module;
@@ -28,6 +28,7 @@ package com.panozona.modules.infobox.controller {
 	import flash.display.LoaderInfo;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
@@ -86,6 +87,9 @@ package com.panozona.modules.infobox.controller {
 			
 			_scrollBarView.infoBoxData.viewerData.addEventListener(ViewerEvent.CHANGED_TEXT_HEIGHT, handleResize, false, 0, true);
 			_scrollBarView.infoBoxData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleResize, false, 0, true);
+			
+			_scrollBarView.parent.addEventListener(MouseEvent.MOUSE_WHEEL, handleMouseWheel, false, 0, true);
+			
 			handleResize();
 		}
 		
@@ -131,8 +135,26 @@ package com.panozona.modules.infobox.controller {
 			}
 		}
 		
+		private function handleMouseWheel(event:MouseEvent = null):void {
+			var delta:Number = -_scrollBarView.infoBoxData.viewerData.viewer.padding
+				/ (_scrollBarView.infoBoxData.viewerData.textHeight - _scrollBarView.infoBoxData.windowData.currentSize.height 
+				- 2 * _scrollBarView.infoBoxData.viewerData.viewer.padding) * (_scrollBarView.infoBoxData.windowData.currentSize.height 
+				- _scrollBarView.infoBoxData.viewerData.viewer.padding * 2 - _scrollBarView.infoBoxData.viewerData.scrollBarData.thumbLength);
+			placeThumb(_scrollBarView.thumb.y + delta * event.delta * 0.25);
+		}
+		
 		private function onEnterFrame(event:Event = null):void {
-			var posY:Number = (_scrollBarView.infoBoxData.viewerData.scrollBarData.mouseDrag ? _scrollBarView.mouseY : 0) - thumbMouseY;
+			if (_scrollBarView.infoBoxData.viewerData.scrollBarData.mouseDrag) {
+				placeThumb(_scrollBarView.mouseY - thumbMouseY);
+			}else {
+				placeThumb(_scrollBarView.infoBoxData.viewerData.scrollBarData.scrollValue 
+					* (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.padding * 2 
+					- _scrollBarView.infoBoxData.viewerData.scrollBarData.thumbLength));
+			}
+			placeThumb(_scrollBarView.thumb.y);
+		}
+		
+		private function placeThumb(posY:Number):void {
 			if (posY < 0) {
 				posY = 0;
 			}else if (posY > _scrollBarView.infoBoxData.windowData.currentSize.height 

@@ -43,7 +43,7 @@ package com.panozona.modules.infobox.view {
 			textField.autoSize = TextFieldAutoSize.LEFT; 
 			textField.wordWrap = true;
 			textField.multiline = true;
-			textField.textColor = 0x00ff00;
+			textField.textColor = 0xffffff;
 			
 			addChild(textFieldMask);
 			textField.mask = textFieldMask;

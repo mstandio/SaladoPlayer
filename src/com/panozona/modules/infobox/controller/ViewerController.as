@@ -18,9 +18,9 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.infobox.controller {
 	
+	import com.panozona.modules.infobox.events.ScrollBarEvent;
 	import com.panozona.modules.infobox.events.ViewerEvent;
 	import com.panozona.modules.infobox.events.WindowEvent;
-	import com.panozona.modules.infobox.events.ScrollBarEvent;
 	import com.panozona.modules.infobox.model.structure.Article;
 	import com.panozona.modules.infobox.view.ViewerView;
 	import com.panozona.player.module.Module;
@@ -30,6 +30,7 @@ package com.panozona.modules.infobox.controller {
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
+	import flash.text.StyleSheet;
 	import flash.utils.ByteArray;
 	
 	public class ViewerController {
@@ -45,6 +46,14 @@ package com.panozona.modules.infobox.controller {
 			
 			_scrollBarController = new ScrollBarController(_viewerView.scrollBarView, _module);
 			
+			if(_viewerView.infoBoxData.viewerData.viewer.css != null){
+				var cssLoader:URLLoader = new URLLoader();
+				cssLoader.dataFormat = URLLoaderDataFormat.BINARY;
+				cssLoader.addEventListener(IOErrorEvent.IO_ERROR, cssLost);
+				cssLoader.addEventListener(Event.COMPLETE, cssLoaded);
+				cssLoader.load(new URLRequest(_viewerView.infoBoxData.viewerData.viewer.css));
+			}
+			
 			_viewerView.infoBoxData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleResize, false, 0, true);
 			_viewerView.infoBoxData.viewerData.scrollBarData.addEventListener(ScrollBarEvent.CHANGED_IS_SHOWING, handleResize, false, 0, true);
 			_viewerView.infoBoxData.viewerData.scrollBarData.addEventListener(ScrollBarEvent.CHANGED_SCROLL_BAR_WIDTH, handleResize, false, 0, true);
@@ -55,6 +64,26 @@ package com.panozona.modules.infobox.controller {
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 			
 			handleResize();
+		}
+		
+		private function cssLost(event:IOErrorEvent):void {
+			event.target.removeEventListener(IOErrorEvent.IO_ERROR, cssLost);
+			event.target.removeEventListener(Event.COMPLETE, cssLoaded);
+			_module.printError("Could not load: " + _viewerView.infoBoxData.viewerData.viewer.css);
+		}
+		
+		private function cssLoaded(event:Event):void {
+			event.target.removeEventListener(IOErrorEvent.IO_ERROR, cssLost);
+			event.target.removeEventListener(Event.COMPLETE, cssLoaded);
+			var input:ByteArray = event.target.data;
+			try { input.uncompress(); } catch (error:Error) { }
+			try {
+				var styleSheet:StyleSheet = new StyleSheet();
+				styleSheet.parseCSS(input.toString());
+				_viewerView.textField.styleSheet = styleSheet;
+			} catch (error:Error) { 
+				_module.printError("Stylesheet is not valid: " + error.message);
+			}
 		}
 		
 		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {

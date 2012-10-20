@@ -22,6 +22,7 @@ package com.panozona.modules.infobox.model.structure {
 		
 		public const style:Style = new Style();
 		
+		public var css:String = null;
 		public var path:String = null;
 		public var padding:Number = 20;
 	}

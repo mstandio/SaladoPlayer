@@ -58,6 +58,9 @@ package com.panozona.modules.infobox.model {
 				if (viewerData.viewer.path == null || !viewerData.viewer.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)) {
 					throw new Error("Invalid viewer path: " + viewerData.viewer.path);
 				}
+				if (viewerData.viewer.css != null && !viewerData.viewer.css.match(/^(.+)\.(css|txt)$/i)) {
+					throw new Error("Invalid css path: " + viewerData.viewer.css);
+				}
 				if (viewerData.articles.getChildrenOfGivenClass(Article).length == 0) {
 					throw new Error("No articles found.");
 				}
