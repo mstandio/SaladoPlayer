@@ -54,10 +54,10 @@ package com.panozona.modules.menuscroller.controller {
 				_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
 			}
 			if (elementView.elementData.rawElement.mouse.onOver != null) {
-				elementView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(elementView.elementData.rawElement.mouse.onOver), false, 0, true);
+				elementView.addEventListener(MouseEvent.ROLL_OVER, getMouseEventHandler(elementView.elementData.rawElement.mouse.onOver));
 			}
 			if (elementView.elementData.rawElement.mouse.onOut != null) {
-				elementView.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(elementView.elementData.rawElement.mouse.onOut), false, 0, true);
+				elementView.addEventListener(MouseEvent.ROLL_OUT, getMouseEventHandler(elementView.elementData.rawElement.mouse.onOut));
 			}
 			
 			var imageLoader:Loader = new Loader();

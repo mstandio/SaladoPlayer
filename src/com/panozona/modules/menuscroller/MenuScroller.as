@@ -34,7 +34,7 @@ package com.panozona.modules.menuscroller {
 		private var windowController:WindowController;
 		
 		public function MenuScroller(){
-			super("MenuScroller", "1.3", "http://panozona.com/wiki/Module:MenuScroller");
+			super("MenuScroller", "1.3.1", "http://panozona.com/wiki/Module:MenuScroller");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setGroup", String);
