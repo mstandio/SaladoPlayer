@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	http://panozona.com/wiki/Module:InfoBox
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
+			<image id="cr_art1Setter" path="~hotspots/images/arrow_blue.png" location="pan:-10,tilt:-15" mouse="onClick:setArt1"/>
+			<image id="cr_art2Setter" path="~hotspots/images/arrow_blue.png" location="pan:10,tilt:-15" mouse="onClick:setArt2"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<InfoBox path="~modules/infobox/InfoBox-1.0.swf">
+			<window open="true" align="vertical:top" maxSize="height:200"/>
+			<viewer path="~modules/infobox/images/elements_dark_21x21.png" css="~media/text/stylesheet.css"/>
+			<articles>
+				<article id="art1" path="~media/text/art1.txt"/>
+				<article id="art2" path="~media/text/art2.txt"/>
+			</articles>
+		</InfoBox>
+	</modules>
+	<actions>
+		<action id="setArt1" content="InfoBox.setArticle(art1)"/>
+		<action id="setArt2" content="InfoBox.setArticle(art2)"/>
+	</actions>
+</SaladoPlayer>

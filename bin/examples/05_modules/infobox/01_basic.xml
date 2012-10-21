@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	http://panozona.com/wiki/Module:InfoBox
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
+	</panoramas>
+	<modules>
+		<InfoBox path="~modules/infobox/InfoBox-1.0.swf">
+			<window open="true"/>
+			<viewer path="~modules/infobox/images/elements_dark_21x21.png" css="~media/text/stylesheet.css"/>
+			<articles>
+				<article id="a1" path="~media/text/art1.txt"/>
+			</articles>
+		</InfoBox>
+	</modules>
+	<actions>
+		<action id="printHello" content="SaladoPlayer.print(Hello!)"/>
+	</actions>
+</SaladoPlayer>

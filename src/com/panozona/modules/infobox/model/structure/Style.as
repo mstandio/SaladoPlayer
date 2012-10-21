@@ -22,5 +22,6 @@ package com.panozona.modules.infobox.model.structure {
 		
 		public var color:Number = 0x000000;
 		public var alpha:Number = 1;
+		public var padding:Number = 20;
 	}
 }

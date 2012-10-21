@@ -26,6 +26,7 @@ package com.panozona.modules.infobox.controller {
 	import com.panozona.player.module.Module;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.events.TextEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
@@ -59,6 +60,7 @@ package com.panozona.modules.infobox.controller {
 			_viewerView.infoBoxData.viewerData.scrollBarData.addEventListener(ScrollBarEvent.CHANGED_SCROLL_BAR_WIDTH, handleResize, false, 0, true);
 			_viewerView.infoBoxData.viewerData.scrollBarData.addEventListener(ScrollBarEvent.CHANGED_SCROLL_VALUE, handleScrollValueChange, false, 0, true);
 			_viewerView.infoBoxData.viewerData.addEventListener(ViewerEvent.CHANGED_CURRENT_ARTICLE_ID, handleCurrentArticleIdChange, false, 0, true);
+			_viewerView.textField.addEventListener(TextEvent.LINK, onLinkClicked);
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
@@ -126,17 +128,17 @@ package com.panozona.modules.infobox.controller {
 			_viewerView.graphics.drawRect(0, 0, _viewerView.infoBoxData.windowData.currentSize.width, _viewerView.infoBoxData.windowData.currentSize.height);
 			_viewerView.graphics.endFill();
 			
-			_viewerView.textField.x = _viewerView.infoBoxData.viewerData.viewer.padding;
-			_viewerView.textFieldMask.x = _viewerView.textFieldMask.y = _viewerView.infoBoxData.viewerData.viewer.padding; 
+			_viewerView.textField.x = _viewerView.infoBoxData.viewerData.viewer.style.padding;
+			_viewerView.textFieldMask.x = _viewerView.textFieldMask.y = _viewerView.infoBoxData.viewerData.viewer.style.padding; 
 			
 			_viewerView.textFieldMask.graphics.clear();
 			_viewerView.textFieldMask.graphics.beginFill(0x000000);
 			_viewerView.textFieldMask.graphics.drawRect(0, 0,
 				(_viewerView.infoBoxData.viewerData.scrollBarData.isShowing 
-					? _viewerView.infoBoxData.windowData.currentSize.width - 2 * _viewerView.infoBoxData.viewerData.viewer.padding - 
+					? _viewerView.infoBoxData.windowData.currentSize.width - 2 * _viewerView.infoBoxData.viewerData.viewer.style.padding - 
 						_viewerView.infoBoxData.viewerData.scrollBarData.scrollBarWidth
-					: _viewerView.infoBoxData.windowData.currentSize.width - 2 * _viewerView.infoBoxData.viewerData.viewer.padding),
-				_viewerView.infoBoxData.windowData.currentSize.height - 2 * _viewerView.infoBoxData.viewerData.viewer.padding);
+					: _viewerView.infoBoxData.windowData.currentSize.width - 2 * _viewerView.infoBoxData.viewerData.viewer.style.padding),
+				_viewerView.infoBoxData.windowData.currentSize.height - 2 * _viewerView.infoBoxData.viewerData.viewer.style.padding);
 			_viewerView.textFieldMask.graphics.endFill();
 			
 			_viewerView.textField.width = _viewerView.textFieldMask.width;
@@ -147,9 +149,21 @@ package com.panozona.modules.infobox.controller {
 		}
 		
 		private function handleScrollValueChange(event:Event = null):void {
-			_viewerView.textField.y = _viewerView.infoBoxData.viewerData.viewer.padding
-			-_viewerView.infoBoxData.viewerData.scrollBarData.scrollValue 
-			* (_viewerView.infoBoxData.viewerData.textHeight - _viewerView.textFieldMask.height);
+			if (_viewerView.infoBoxData.viewerData.textHeight > _viewerView.textFieldMask.height) {
+				_viewerView.textField.y = _viewerView.infoBoxData.viewerData.viewer.style.padding
+					-_viewerView.infoBoxData.viewerData.scrollBarData.scrollValue 
+					* (_viewerView.infoBoxData.viewerData.textHeight - _viewerView.textFieldMask.height);
+			}else {
+				_viewerView.textField.y = _viewerView.infoBoxData.viewerData.viewer.style.padding;
+			}
+		}
+		
+		private function onLinkClicked(textEvent:TextEvent):void {
+			try {
+				_module.saladoPlayer.manager.runAction(textEvent.text);
+			}catch (error:Error){
+				_module.printError("Could not execute action: " + textEvent.text);
+			}
 		}
 	}
 }

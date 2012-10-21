@@ -75,9 +75,9 @@ package com.panozona.modules.infobox.view {
 				_infoBoxData.viewerData.scrollBarData.thumbLength - 1)); // dirty fix
 			
 			backgroundEndingFlippedBD = new BitmapData(backgroundEndingBD.width, 
-				_infoBoxData.windowData.currentSize.height -_infoBoxData.viewerData.viewer.padding * 2, true, 0);
+				_infoBoxData.windowData.currentSize.height -_infoBoxData.viewerData.viewer.style.padding * 2, true, 0);
 			backgroundEndingFlippedBD.draw(backgroundEndingBD, new Matrix(1, 0, 0, -1, 0,
-				_infoBoxData.windowData.currentSize.height -_infoBoxData.viewerData.viewer.padding * 2));
+				_infoBoxData.windowData.currentSize.height -_infoBoxData.viewerData.viewer.style.padding * 2));
 			
 			graphics.clear();
 			graphics.beginBitmapFill(backgroundEndingBD, null, false);
@@ -87,7 +87,7 @@ package com.panozona.modules.infobox.view {
 			graphics.beginBitmapFill(backgroundTrunkBD, null, true);
 			graphics.drawRect(0, backgroundEndingBD.height, backgroundTrunkBD.width,
 				_infoBoxData.windowData.currentSize.height - (backgroundEndingBD.height * 2)
-				-_infoBoxData.viewerData.viewer.padding * 2);
+				-_infoBoxData.viewerData.viewer.style.padding * 2);
 			graphics.endFill();
 			
 			graphics.beginBitmapFill(backgroundEndingFlippedBD, null, false);

@@ -90,24 +90,25 @@ package com.panozona.modules.infobox.controller {
 			
 			_scrollBarView.parent.addEventListener(MouseEvent.MOUSE_WHEEL, handleMouseWheel, false, 0, true);
 			
+			handleIsShowingChange();
 			handleResize();
 		}
 		
 		private function handleResize(event:Event = null):void {
-			_scrollBarView.y = _scrollBarView.infoBoxData.viewerData.viewer.padding;
+			_scrollBarView.y = _scrollBarView.infoBoxData.viewerData.viewer.style.padding;
 			_scrollBarView.x = _scrollBarView.infoBoxData.windowData.currentSize.width - _scrollBarView.thumb.width;
-			if (_scrollBarView.infoBoxData.viewerData.textHeight + _scrollBarView.infoBoxData.viewerData.viewer.padding * 2 >
+			if (_scrollBarView.infoBoxData.viewerData.textHeight + _scrollBarView.infoBoxData.viewerData.viewer.style.padding * 2 >
 				_scrollBarView.infoBoxData.windowData.currentSize.height) {
 				_scrollBarView.infoBoxData.viewerData.scrollBarData.isShowing = true;
 			}else {
 				_scrollBarView.infoBoxData.viewerData.scrollBarData.isShowing = false;
 			}
-			var thumbLength:Number = (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.padding * 2) * 
-				(_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.padding * 2)
+			var thumbLength:Number = (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.style.padding * 2) * 
+				(_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.style.padding * 2)
 				/ _scrollBarView.infoBoxData.viewerData.textHeight;
 				
-			if (thumbLength > _scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.padding * 2) {
-				thumbLength = _scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.padding * 2;
+			if (thumbLength > _scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.style.padding * 2) {
+				thumbLength = _scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.style.padding * 2;
 			}else if (thumbLength < _scrollBarView.infoBoxData.viewerData.scrollBarData.minThumbHeight) {
 				thumbLength = _scrollBarView.infoBoxData.viewerData.scrollBarData.minThumbHeight;
 			}
@@ -137,8 +138,8 @@ package com.panozona.modules.infobox.controller {
 		
 		private function handleMouseWheel(event:MouseEvent = null):void {
 			var delta:Number = -_scrollBarView.infoBoxData.viewerData.viewer.scrollSpeed / (_scrollBarView.infoBoxData.viewerData.textHeight 
-				- (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.padding * 2))
-				* (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.padding * 2 
+				- (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.style.padding * 2))
+				* (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.style.padding * 2 
 				- _scrollBarView.infoBoxData.viewerData.scrollBarData.thumbLength);
 			placeThumb(_scrollBarView.thumb.y + delta * event.delta);
 		}
@@ -148,7 +149,7 @@ package com.panozona.modules.infobox.controller {
 				placeThumb(_scrollBarView.mouseY - thumbMouseY);
 			}else {
 				placeThumb(_scrollBarView.infoBoxData.viewerData.scrollBarData.scrollValue 
-					* (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.padding * 2 
+					* (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.style.padding * 2 
 					- _scrollBarView.infoBoxData.viewerData.scrollBarData.thumbLength));
 			}
 			placeThumb(_scrollBarView.thumb.y);
@@ -158,13 +159,13 @@ package com.panozona.modules.infobox.controller {
 			if (posY < 0) {
 				posY = 0;
 			}else if (posY > _scrollBarView.infoBoxData.windowData.currentSize.height 
-				- _scrollBarView.infoBoxData.viewerData.viewer.padding * 2 - _scrollBarView.infoBoxData.viewerData.scrollBarData.thumbLength) {
+				- _scrollBarView.infoBoxData.viewerData.viewer.style.padding * 2 - _scrollBarView.infoBoxData.viewerData.scrollBarData.thumbLength) {
 				posY = _scrollBarView.infoBoxData.windowData.currentSize.height 
-					- _scrollBarView.infoBoxData.viewerData.viewer.padding * 2 - _scrollBarView.infoBoxData.viewerData.scrollBarData.thumbLength;
+					- _scrollBarView.infoBoxData.viewerData.viewer.style.padding * 2 - _scrollBarView.infoBoxData.viewerData.scrollBarData.thumbLength;
 			}
 			_scrollBarView.thumb.y = posY;
 			_scrollBarView.infoBoxData.viewerData.scrollBarData.scrollValue = _scrollBarView.thumb.y 
-				/ (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.padding * 2 
+				/ (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.style.padding * 2 
 				- _scrollBarView.infoBoxData.viewerData.scrollBarData.thumbLength); 
 		}
 	}

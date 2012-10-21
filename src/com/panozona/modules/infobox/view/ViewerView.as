@@ -22,6 +22,7 @@ package com.panozona.modules.infobox.view {
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
+	import flash.text.TextFormat;
 	
 	public class ViewerView extends Sprite {
 		
@@ -38,12 +39,18 @@ package com.panozona.modules.infobox.view {
 			_scrollBarView = new ScrollBarView(infoBoxData);
 			addChild(_scrollBarView);
 			
+			var textFormat:TextFormat = new TextFormat();
+			textFormat.font = "Verdana";
+			textFormat.size = 12;
+			textFormat.color = 0xffffff;
+			
 			addChild(textField);
 			textField.alwaysShowSelection = true;
 			textField.autoSize = TextFieldAutoSize.LEFT; 
 			textField.wordWrap = true;
 			textField.multiline = true;
-			textField.textColor = 0xffffff;
+			
+			textField.defaultTextFormat = textFormat;
 			
 			addChild(textFieldMask);
 			textField.mask = textFieldMask;
