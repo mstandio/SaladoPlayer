@@ -136,11 +136,11 @@ package com.panozona.modules.infobox.controller {
 		}
 		
 		private function handleMouseWheel(event:MouseEvent = null):void {
-			var delta:Number = -_scrollBarView.infoBoxData.viewerData.viewer.padding
-				/ (_scrollBarView.infoBoxData.viewerData.textHeight - _scrollBarView.infoBoxData.windowData.currentSize.height 
-				- 2 * _scrollBarView.infoBoxData.viewerData.viewer.padding) * (_scrollBarView.infoBoxData.windowData.currentSize.height 
-				- _scrollBarView.infoBoxData.viewerData.viewer.padding * 2 - _scrollBarView.infoBoxData.viewerData.scrollBarData.thumbLength);
-			placeThumb(_scrollBarView.thumb.y + delta * event.delta * 0.25);
+			var delta:Number = -_scrollBarView.infoBoxData.viewerData.viewer.scrollSpeed / (_scrollBarView.infoBoxData.viewerData.textHeight 
+				- (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.padding * 2))
+				* (_scrollBarView.infoBoxData.windowData.currentSize.height - _scrollBarView.infoBoxData.viewerData.viewer.padding * 2 
+				- _scrollBarView.infoBoxData.viewerData.scrollBarData.thumbLength);
+			placeThumb(_scrollBarView.thumb.y + delta * event.delta);
 		}
 		
 		private function onEnterFrame(event:Event = null):void {

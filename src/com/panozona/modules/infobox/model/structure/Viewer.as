@@ -25,5 +25,7 @@ package com.panozona.modules.infobox.model.structure {
 		public var css:String = null;
 		public var path:String = null;
 		public var padding:Number = 20;
+		public var scrollSpeed:Number = 10;
+		
 	}
 }

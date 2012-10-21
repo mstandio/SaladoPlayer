@@ -147,9 +147,9 @@ package com.panozona.modules.infobox.controller {
 		}
 		
 		private function handleScrollValueChange(event:Event = null):void {
-			_viewerView.textField.y = -_viewerView.infoBoxData.viewerData.scrollBarData.scrollValue 
-				* (_viewerView.infoBoxData.viewerData.textHeight - _viewerView.textFieldMask.height)
-				+ _viewerView.infoBoxData.viewerData.viewer.padding;
+			_viewerView.textField.y = _viewerView.infoBoxData.viewerData.viewer.padding
+			-_viewerView.infoBoxData.viewerData.scrollBarData.scrollValue 
+			* (_viewerView.infoBoxData.viewerData.textHeight - _viewerView.textFieldMask.height);
 		}
 	}
 }

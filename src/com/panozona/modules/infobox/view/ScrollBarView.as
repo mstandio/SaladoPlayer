@@ -25,18 +25,19 @@ package com.panozona.modules.infobox.view {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Matrix;
+	import flash.geom.Rectangle;
 	
 	public class ScrollBarView extends Sprite {
 		
 		public const thumb:Sprite = new Sprite();
 		
+		private var backgroundEndingBD:BitmapData;
 		private var backgroundTrunkBD:BitmapData;
-		private var thumbTrunkBD:BitmapData;
+		private var backgroundEndingFlippedBD:BitmapData;
 		
-		private var backgroundEnding:Bitmap;
-		private var backgroundEndingFlipped:Bitmap;
-		private var thumbEnding:Bitmap;
-		private var thumbEndingFlipped:Bitmap;
+		private var thumbEndingBD:BitmapData;
+		private var thumbTrunkBD:BitmapData;
+		private var thumbEndingFlippedBD:BitmapData;
 		
 		private var _infoBoxData:InfoBoxData;
 		
@@ -51,28 +52,14 @@ package com.panozona.modules.infobox.view {
 		public function build(
 			backgroundTrunkBD:BitmapData, backgroundEndingBD:BitmapData, 
 			thumbTrunkBD:BitmapData, thumbEndingBD:BitmapData):void {
-				
+			
+			this.backgroundEndingBD = backgroundEndingBD;
 			this.backgroundTrunkBD = backgroundTrunkBD;
+			
+			
+			this.thumbEndingBD = thumbEndingBD;
 			this.thumbTrunkBD = thumbTrunkBD;
 			
-			var matrix:Matrix = matrix = new Matrix( 1, 0, 0, -1, 0, backgroundEndingBD.height);
-			var backgroundEndingFlippedBD:BitmapData = new BitmapData(backgroundEndingBD.width, backgroundEndingBD.height, true, 0);
-			backgroundEndingFlippedBD.draw(backgroundEndingBD, matrix);
-			
-			var thumbEndingFlippedBD:BitmapData = new BitmapData(thumbEndingBD.width, thumbEndingBD.height, true, 0);
-			thumbEndingFlippedBD.draw(thumbEndingBD, matrix);
-			
-			backgroundEnding = new Bitmap(backgroundEndingBD);
-			backgroundEndingFlipped = new Bitmap(backgroundEndingFlippedBD);
-			
-			addChild(backgroundEnding);
-			addChild(backgroundEndingFlipped);
-			
-			thumbEnding = new Bitmap(thumbEndingBD);
-			thumbEndingFlipped = new Bitmap(thumbEndingFlippedBD);
-			
-			thumb.addChild(thumbEnding)
-			thumb.addChild(thumbEndingFlipped);
 			
 			thumb.addEventListener(MouseEvent.MOUSE_DOWN, thumbMouseDown, false, 0, true);
 			thumb.addEventListener(MouseEvent.MOUSE_UP, thumbMouseUp, false, 0, true);
@@ -82,33 +69,44 @@ package com.panozona.modules.infobox.view {
 		}
 		
 		public function draw():void {
-			backgroundEnding.x = 0;
-			backgroundEnding.y = 0;
+			thumbEndingFlippedBD = new BitmapData(thumbEndingBD.width, 
+				_infoBoxData.viewerData.scrollBarData.thumbLength, true, 0);
+			thumbEndingFlippedBD.draw(thumbEndingBD, new Matrix(1, 0, 0, -1, 0,
+				_infoBoxData.viewerData.scrollBarData.thumbLength - 1)); // dirty fix
+			
+			backgroundEndingFlippedBD = new BitmapData(backgroundEndingBD.width, 
+				_infoBoxData.windowData.currentSize.height -_infoBoxData.viewerData.viewer.padding * 2, true, 0);
+			backgroundEndingFlippedBD.draw(backgroundEndingBD, new Matrix(1, 0, 0, -1, 0,
+				_infoBoxData.windowData.currentSize.height -_infoBoxData.viewerData.viewer.padding * 2));
+			
 			graphics.clear();
-			graphics.beginBitmapFill(backgroundTrunkBD, null, false);
-			graphics.drawRect(
-				0,
-				backgroundEnding.height,
-				backgroundTrunkBD.width,
-				_infoBoxData.windowData.currentSize.height - (backgroundEnding.height + backgroundEndingFlipped.height)
+			graphics.beginBitmapFill(backgroundEndingBD, null, false);
+			graphics.drawRect(0, 0, backgroundEndingBD.width,backgroundEndingBD.height);
+			graphics.endFill();
+			
+			graphics.beginBitmapFill(backgroundTrunkBD, null, true);
+			graphics.drawRect(0, backgroundEndingBD.height, backgroundTrunkBD.width,
+				_infoBoxData.windowData.currentSize.height - (backgroundEndingBD.height * 2)
 				-_infoBoxData.viewerData.viewer.padding * 2);
 			graphics.endFill();
-			backgroundEndingFlipped.x = 0;
-			backgroundEndingFlipped.y = _infoBoxData.windowData.currentSize.height - backgroundEndingFlipped.height 
-				-_infoBoxData.viewerData.viewer.padding * 2;
 			
-			thumbEnding.x = 0;
-			thumbEnding.y = 0;
+			graphics.beginBitmapFill(backgroundEndingFlippedBD, null, false);
+			graphics.drawRect(0, 0, backgroundEndingFlippedBD.width, backgroundEndingFlippedBD.height);
+			graphics.endFill();
+			
 			thumb.graphics.clear();
-			thumb.graphics.beginBitmapFill(thumbTrunkBD, null, false);
-			thumb.graphics.drawRect(
-				0,
-				thumbEnding.height,
-				thumbTrunkBD.width,
-				_infoBoxData.viewerData.scrollBarData.thumbLength - (thumbEnding.height + thumbEndingFlipped.height));
+			thumb.graphics.beginBitmapFill(thumbEndingBD, null, false);
+			thumb.graphics.drawRect(0, 0, thumbEndingBD.width, thumbEndingBD.height);
 			thumb.graphics.endFill();
-			thumbEndingFlipped.x = 0;
-			thumbEndingFlipped.y = _infoBoxData.viewerData.scrollBarData.thumbLength - thumbEndingFlipped.height;
+			
+			thumb.graphics.beginBitmapFill(thumbTrunkBD, null, false);
+			thumb.graphics.drawRect(0, thumbEndingBD.height, thumbTrunkBD.width,
+				_infoBoxData.viewerData.scrollBarData.thumbLength - (thumbEndingBD.height * 2));
+			thumb.graphics.endFill();
+			
+			thumb.graphics.beginBitmapFill(thumbEndingFlippedBD, null, false);
+			thumb.graphics.drawRect(0, 0, thumbEndingFlippedBD.width, thumbEndingFlippedBD.height);
+			thumb.graphics.endFill();
 		}
 		
 		private function thumbMouseDown(e:Event):void {
