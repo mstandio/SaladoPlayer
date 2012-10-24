@@ -65,6 +65,9 @@ ZoomSlider.swf = bin/modules/zoomslider/ZoomSlider-1.2.swf
 AdvancedHotspot.as  = src/com/panozona/hotspots/advancedhotspot/AdvancedHotspot.as
 AdvancedHotspot.swf = bin/hotspots/AdvancedHotspot-1.0.swf
 
+FadingSpot.as  = src/com/panozona/hotspots/fadingspot/FadingSpot.as
+FadingSpot.swf = bin/hotspots/FadingSpot-1.0.swf
+
 SimpleHotspot.as  = src/com/panozona/hotspots/simplehotspot/SimpleHotspot.as
 SimpleHotspot.swf = bin/hotspots/SimpleHotspot-1.0.swf
 

@@ -626,6 +626,33 @@
 		</mxmlc>
 	</target>
 	
+	<target name="FadingSpot">
+		<propertyregex property="FadingSpot.swf.dir"
+			input="${FadingSpot.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="FadingSpot.name"
+			input="${FadingSpot.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${FadingSpot.swf.dir}"
+				includes="${FadingSpot.name}*.swf"/>
+		</delete>
+		<mxmlc
+			file="${basedir}/${FadingSpot.as}"
+			output="${basedir}/${FadingSpot.swf}"
+			fork="true" maxmemory="512m"
+			debug="${debuggableSwf}"
+			static-link-runtime-shared-libraries="true">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
 	<target name="SimpleHotspot">
 		<propertyregex property="SimpleHotspot.swf.dir"
 			input="${SimpleHotspot.swf}"
@@ -725,6 +752,7 @@
 				ViewFinder,
 				ZoomSlider,
 				AdvancedHotspot,
+				FadingSpot,
 				SimpleHotspot,
 				VideoHotspot,
 				ExamplesLoader"/>
