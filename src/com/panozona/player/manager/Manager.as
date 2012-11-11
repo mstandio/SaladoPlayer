@@ -20,7 +20,9 @@ package com.panozona.player.manager {
 	
 	import com.panosalado.controller.SimpleTransition;
 	import com.panosalado.core.PanoSalado;
+	import com.panosalado.events.AutorotationEvent;
 	import com.panosalado.events.PanoSaladoEvent;
+	import com.panosalado.model.AutorotationCameraData;
 	import com.panosalado.view.Hotspot;
 	import com.panosalado.view.ManagedChild;
 	import com.panozona.player.manager.data.actions.ActionData;
@@ -35,9 +37,7 @@ package com.panozona.player.manager {
 	import com.panozona.player.manager.utils.Trace;
 	import com.panozona.player.module.utils.ModuleDescription;
 	import com.panozona.player.SaladoPlayer;
-	import flash.display.Bitmap;
 	import flash.display.BlendMode;
-	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -49,7 +49,7 @@ package com.panozona.player.manager {
 	
 	public class Manager extends PanoSalado{
 		
-		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.3.3", "http://panozona.com/wiki/SaladoPlayer:Configuration");
+		public const description:ModuleDescription = new ModuleDescription("SaladoPlayer", "1.3.4", "http://panozona.com/wiki/SaladoPlayer:Configuration");
 		
 		/**
 		 * Dictionary, where key is hotspotData object
@@ -101,6 +101,8 @@ package com.panozona.player.manager {
 			for (var i:int = 0; i < dependencies.length; i++ ) {
 				if (dependencies[i] is SimpleTransition){
 					dependencies[i].addEventListener( Event.COMPLETE, transitionComplete, false, 0, true);
+				}else if (dependencies[i] is AutorotationCameraData) {
+					dependencies[i].addEventListener( AutorotationEvent.AUTOROTATION_CHANGE, onAutorotationChange, false, 0, true);
 				}
 			}
 			addEventListener(Event.COMPLETE, panoramaLoaded, false, 0, true);
@@ -172,6 +174,7 @@ package com.panozona.player.manager {
 				runAction(currentPanoramaData.onEnterFrom[_previousPanoramaData.id]);
 			}else {
 				runAction(_managerData.allPanoramasData.firstOnEnter);
+				onAutorotationChange();
 			}
 		}
 		
@@ -310,6 +313,14 @@ package com.panozona.player.manager {
 			}
 			runAction(currentPanoramaData.onTransitionEnd);
 			dispatchEvent(new PanoramaEvent(PanoramaEvent.TRANSITION_ENDED));
+		}
+		
+		protected function onAutorotationChange(e:Event = null):void {
+			if (_managerData.controlData.autorotationCameraData.isAutorotating) {
+				runAction(_managerData.allPanoramasData.onAutorotationStart);
+			}else {
+				runAction(_managerData.allPanoramasData.onAutorotationStop);
+			}
 		}
 		
 		protected function swingComplete(e:PanoSaladoEvent):void {

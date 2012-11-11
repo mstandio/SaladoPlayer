@@ -38,5 +38,9 @@ package com.panozona.player.manager.data.global{
 		 * in first panorama has finished
 		 */
 		public var firstOnTransitionEnd:String;
+		
+		public var onAutorotationStart:String;
+		
+		public var onAutorotationStop:String;
 	}
 }

@@ -45,6 +45,8 @@ package com.panozona.player.manager.utils.configuration{
 		protected function checkGlobal(managerData:ManagerData):void {
 			actionExists(managerData.allPanoramasData.firstOnEnter, managerData);
 			actionExists(managerData.allPanoramasData.firstOnTransitionEnd, managerData);
+			actionExists(managerData.allPanoramasData.onAutorotationStart, managerData);
+			actionExists(managerData.allPanoramasData.onAutorotationStop, managerData);
 			panoramaExists(managerData.allPanoramasData.firstPanorama, managerData);
 		}
 		

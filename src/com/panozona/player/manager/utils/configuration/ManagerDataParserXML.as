@@ -111,6 +111,10 @@ package com.panozona.player.manager.utils.configuration {
 					allPanoramasData.firstOnEnter = getAttributeValue(globalPanoAttribute, String);
 				}else if (globalPanoAttributeName == "firstOnTransitionEnd") {
 					allPanoramasData.firstOnTransitionEnd = getAttributeValue(globalPanoAttribute, String);
+				}else if (globalPanoAttributeName == "onAutorotationStart") {
+					allPanoramasData.onAutorotationStart = getAttributeValue(globalPanoAttribute, String);
+				}else if (globalPanoAttributeName == "onAutorotationStop") {
+					allPanoramasData.onAutorotationStop = getAttributeValue(globalPanoAttribute, String);
 				} else {
 					dispatchEvent(new ConfigurationEvent(ConfigurationEvent.WARNING,
 						"Unrecognized global panoramas attribute: " + globalPanoAttributeName));

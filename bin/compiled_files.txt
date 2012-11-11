@@ -1,6 +1,6 @@
 
 SaladoPlayer.as  = src/com/panozona/player/SaladoPlayer.as
-SaladoPlayer.swf = bin/SaladoPlayer-1.3.3.swf
+SaladoPlayer.swf = bin/SaladoPlayer-1.3.4.swf
 
 ActionLogic.as  = src/com/panozona/modules/actionlogic/ActionLogic.as
 ActionLogic.swf = bin/modules/ActionLogic-1.0.swf
