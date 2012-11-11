@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	For now this is just a sketch of module that will enable simple logic in virtual tours configuration
+	
+	http://panozona.com/wiki/Module:ActionLogic
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onEnter="runScript1">
+			<image id="cb_arrowRed" path="~hotspots/images/arrow_red.png" target="checkerRed"/>
+		</panorama>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml" onEnter="runScript1">
+			<image id="cr_arrowBlue" path="~hotspots/images/arrow_blue.png" target="checkerBlue"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ActionLogic path="~modules/ActionLogic-1.0.swf">
+			<scripts>
+				<script id="script1">
+					<condition onSatisfy="print1">
+						<equals currentPanorama="checkerBlue"/>
+					</condition>
+					<condition onSatisfy="print2">
+						<equals currentPanorama="checkerRed"/>
+					</condition>
+				</script>
+			</scripts>
+		</ActionLogic>
+	</modules>
+	<actions>
+		<action id="runScript1" content="ActionLogic.runScript(script1)"/>
+		<action id="print1" content="SaladoPlayer.print(condition1)"/>
+		<action id="print2" content="SaladoPlayer.print(condition2)"/>
+	</actions>
+</SaladoPlayer>

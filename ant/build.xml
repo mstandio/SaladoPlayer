@@ -59,6 +59,33 @@
 		</mxmlc>
 	</target>
 	
+	<target name="ActionLogic">
+		<propertyregex property="ActionLogic.swf.dir"
+			input="${ActionLogic.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="ActionLogic.name"
+			input="${ActionLogic.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${ActionLogic.swf.dir}"
+				includes="${ActionLogic.name}*.swf"/>
+		</delete>
+		<mxmlc
+			file="${basedir}/${ActionLogic.as}"
+			output="${basedir}/${ActionLogic.swf}"
+			fork="true" maxmemory="512m"
+			debug="${debuggableSwf}"
+			static-link-runtime-shared-libraries="true">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
 	<target name="BackgroundMusic">
 		<propertyregex property="BackgroundMusic.swf.dir"
 			input="${BackgroundMusic.swf}"
@@ -731,6 +758,7 @@
 	
 	<target name="Build all"
 		depends="SaladoPlayer,
+				ActionLogic,
 				BackgroundMusic,
 				ButtonBar,
 				Compass,
