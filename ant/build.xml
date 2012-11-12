@@ -680,6 +680,33 @@
 		</mxmlc>
 	</target>
 	
+	<target name="NadirSpot">
+		<propertyregex property="NadirSpot.swf.dir"
+			input="${NadirSpot.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="NadirSpot.name"
+			input="${NadirSpot.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${NadirSpot.swf.dir}"
+				includes="${NadirSpot.name}*.swf"/>
+		</delete>
+		<mxmlc
+			file="${basedir}/${NadirSpot.as}"
+			output="${basedir}/${NadirSpot.swf}"
+			fork="true" maxmemory="512m"
+			debug="${debuggableSwf}"
+			static-link-runtime-shared-libraries="true">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
 	<target name="SimpleHotspot">
 		<propertyregex property="SimpleHotspot.swf.dir"
 			input="${SimpleHotspot.swf}"
@@ -781,6 +808,7 @@
 				ZoomSlider,
 				AdvancedHotspot,
 				FadingSpot,
+				NadirSpot,
 				SimpleHotspot,
 				VideoHotspot,
 				ExamplesLoader"/>
