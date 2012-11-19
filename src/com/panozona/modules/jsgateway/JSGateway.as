@@ -102,7 +102,10 @@ package com.panozona.modules.jsgateway {
 			__pan = saladoPlayer.manager._pan;
 			__tilt = saladoPlayer.manager._tilt;
 			__fov = saladoPlayer.manager._fieldOfView;
-			ExternalInterface.call("onViewChange", __pan.toFixed(0), __tilt.toFixed(0), __fov.toFixed(0), __currentDirection.toFixed(0));
+			
+			var precision:uint = jsgatewayData.settings.viewChangePrecision;
+			
+			ExternalInterface.call("onViewChange", __pan.toFixed(precision), __tilt.toFixed(precision), __fov.toFixed(precision), __currentDirection.toFixed(precision));
 		}
 		
 		private function getReference(input:String):Object {
