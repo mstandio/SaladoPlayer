@@ -24,5 +24,11 @@ package com.panozona.modules.jsgateway.data.structure {
 		public var callOnTransitionEnd:Boolean = false;
 		public var callOnMoveEnd:Boolean = false;
 		public var callOnViewChange:Boolean = false;
+		
+		/**
+		 * The number of decimal places to pass to the javascript function
+		 * when reporting the new view's coordinates onViewChange 
+		 */
+		public var viewChangePrecision:uint = 0;
 	}
 }
