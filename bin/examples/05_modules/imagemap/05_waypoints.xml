@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Each map can contain many gropus of waypoints, and each group can be individually customized. Waypoint consists
-	of button, and radar. All buttons in given waypoints group share same bitmap, additionally all buttons can be
-	moved around their actual position on the map. Radars can have different colors and sizes, they can also display
-	changes in panorama tilt.
+	Each map can contain many grops of waypoints, and each group can be individually customized. Waypoint consists
+	of button, and radar. All buttons in given group share same bitmap, additionally all buttons in group can be
+	moved relatively to their radars and their position on the map. Radars can have different colors and sizes,
+	they can also display changes in panorama tilt.
 	
 	http://panozona.com/wiki/Module:ImageMap
 -->
@@ -14,7 +14,7 @@
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/imagemap/ImageMap-1.4.swf">
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.1.swf">
 			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map1.jpg">

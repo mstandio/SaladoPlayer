@@ -81,12 +81,26 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {
-			for each(var map:Map in _mapView.imageMapData.mapData.maps.getChildrenOfGivenClass(Map)) {
-				for each(var waypoints:Waypoints in map.getChildrenOfGivenClass(Waypoints)) {
-					for each(var waypoint:Waypoint in waypoints.getChildrenOfGivenClass(Waypoint)) {
-						if (waypoint.target == _module.saladoPlayer.manager.currentPanoramaData.id) {
-							_mapView.imageMapData.mapData.currentMapId = map.id;
-							return;
+			if (_mapView.imageMapData.viewerData.viewer.autoSwitch) {
+				if (_mapView.imageMapData.mapData.currentMapId != null) {
+					// check current map
+					var currentMap:Map = _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId);
+					for each(var waypoints_a:Waypoints in currentMap.getChildrenOfGivenClass(Waypoints)) {
+						for each(var waypoint_a:Waypoint in waypoints_a.getChildrenOfGivenClass(Waypoint)) {
+							if (waypoint_a.target == _module.saladoPlayer.manager.currentPanoramaData.id) {
+								return;
+							}
+						}
+					}
+					// check all maps
+					for each(var map:Map in _mapView.imageMapData.mapData.maps.getChildrenOfGivenClass(Map)) {
+						for each(var waypoints_b:Waypoints in map.getChildrenOfGivenClass(Waypoints)) {
+							for each(var waypoint_b:Waypoint in waypoints_b.getChildrenOfGivenClass(Waypoint)) {
+								if (waypoint_b.target == _module.saladoPlayer.manager.currentPanoramaData.id) {
+									_mapView.imageMapData.mapData.currentMapId = map.id;
+									return;
+								}
+							}
 						}
 					}
 				}

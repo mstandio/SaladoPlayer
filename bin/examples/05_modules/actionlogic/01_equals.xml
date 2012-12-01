@@ -17,7 +17,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ActionLogic path="~modules/ActionLogic-1.0.swf">
+		<ActionLogic path="~modules/ActionLogic-1.1.swf">
 			<scripts>
 				<script id="script1">
 					<condition onSatisfy="print1">
@@ -25,6 +25,9 @@
 					</condition>
 					<condition onSatisfy="print2">
 						<equals currentPanorama="checkerRed"/>
+					</condition>
+					<condition onSatisfy="print3">
+						<equals urlFromPanoLink="PanoLink-1.1"/>
 					</condition>
 				</script>
 			</scripts>
@@ -34,5 +37,6 @@
 		<action id="runScript1" content="ActionLogic.runScript(script1)"/>
 		<action id="print1" content="SaladoPlayer.print(condition1)"/>
 		<action id="print2" content="SaladoPlayer.print(condition2)"/>
+		<action id="print3" content="SaladoPlayer.print(condition3)"/>
 	</actions>
 </SaladoPlayer>

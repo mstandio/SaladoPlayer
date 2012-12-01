@@ -32,7 +32,7 @@ package com.panozona.modules.imagemap{
 		private var windowController:WindowController;
 		
 		public function ImageMap() {
-			super("ImageMap", "1.4", "http://panozona.com/wiki/Module:ImageMap");
+			super("ImageMap", "1.4.1", "http://panozona.com/wiki/Module:ImageMap");
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("setMap", String);
@@ -40,7 +40,7 @@ package com.panozona.modules.imagemap{
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			
-			imageMapData = new ImageMapData(moduleData, saladoPlayer);
+			imageMapData = new ImageMapData(this, moduleData);
 			
 			windowView = new WindowView(imageMapData);
 			windowController = new WindowController(windowView, this);

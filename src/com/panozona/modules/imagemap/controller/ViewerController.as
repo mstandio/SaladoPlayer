@@ -73,20 +73,20 @@ package com.panozona.modules.imagemap.controller{
 			viewerView.imageMapData.mapData.addEventListener(MapEvent.CHANGED_SIZE, handleMapSizeChange, false, 0, true);
 			viewerView.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleCurrentSizeChange, false, 0, true);
 			
-			if (_viewerView.viewerData.viewer.moveEnabled){
+			if (_viewerView.viewerData.viewer.navMove.enabled){
 				viewerView.viewerData.addEventListener(ViewerEvent.CHANGED_MOVE, handleMoveChange, false, 0, true);
 			}
-			if (_viewerView.viewerData.viewer.zoomEnabled || _viewerView.viewerData.viewer.scrollEnabled){
+			if (_viewerView.viewerData.viewer.navZoom.enabled || _viewerView.viewerData.viewer.navZoom.useScroll){
 				viewerView.viewerData.addEventListener(ViewerEvent.CHANGED_ZOOM, handleZoomChange, false, 0, true);
 			}
-			if (_viewerView.viewerData.viewer.scrollEnabled) {
+			if (_viewerView.viewerData.viewer.navZoom.useScroll) {
 				viewerView.addEventListener(MouseEvent.MOUSE_WHEEL, handleMouseWheel, false, 0, true);
 			}
-			if (_viewerView.viewerData.viewer.dragEnabled){
+			if (_viewerView.viewerData.viewer.navMove.useDrag){
 				viewerView.viewerData.addEventListener(ViewerEvent.CHANGED_MOUSE_OVER, handleMouseOverChange, false, 0, true);
 				viewerView.viewerData.addEventListener(ViewerEvent.CHANGED_MOUSE_DRAG, handleMouseDragChange, false, 0, true);
 			}
-			if (_viewerView.viewerData.viewer.autofocusEnabled){
+			if (_viewerView.viewerData.viewer.autoFocus){
 				viewerView.viewerData.addEventListener(ViewerEvent.CHANGED_FOCUS_POINT, handleFocusPointChange, false, 0, true);
 			}
 			
@@ -111,7 +111,7 @@ package com.panozona.modules.imagemap.controller{
 			var navHeight:Number = Math.ceil((bitmapData.height - 1) / 2);
 			var bitmapdata1:BitmapData;
 			var bitmapdata2:BitmapData;
-			if(_viewerView.viewerData.viewer.moveEnabled){
+			if(_viewerView.viewerData.viewer.navMove.enabled){
 				bitmapdata1 = new BitmapData(navWidth, navHeight, true, 0);
 				bitmapdata1.copyPixels(bitmapData, new Rectangle(0, 0, navWidth, navHeight), new Point(0, 0), null, null, true);
 				bitmapdata2 = new BitmapData(navWidth, navHeight, true, 0);
@@ -130,7 +130,7 @@ package com.panozona.modules.imagemap.controller{
 				navigationControllers.push(new NavigationController(_viewerView.navigationLeft, _module));
 				navigationControllers.push(new NavigationController(_viewerView.navigationRight, _module));
 			}
-			if (_viewerView.viewerData.viewer.zoomEnabled) {
+			if (_viewerView.viewerData.viewer.navZoom.enabled) {
 				bitmapdata1 = new BitmapData(navWidth, navHeight, true, 0);
 				bitmapdata1.copyPixels(bitmapData, new Rectangle(navWidth + 1, 0, navWidth, navHeight), new Point(0, 0), null, null, true);
 				bitmapdata2 = new BitmapData(navWidth, navHeight, true, 0);
@@ -148,7 +148,7 @@ package com.panozona.modules.imagemap.controller{
 				navigationControllers.push(new NavigationController(_viewerView.navigationOut, _module));
 			}
 			
-			if (_viewerView.viewerData.viewer.dragEnabled) {
+			if (_viewerView.viewerData.viewer.navMove.useDrag) {
 				bitmapdata1 = new BitmapData(navWidth, navHeight, true, 0);
 				bitmapdata1.copyPixels(bitmapData, new Rectangle(navWidth * 3 + 3, 0, navWidth, navHeight), new Point(0, 0), null, null, true);
 				bitmapdata2 = new BitmapData(navWidth, navHeight, true, 0);
@@ -211,7 +211,7 @@ package com.panozona.modules.imagemap.controller{
 		
 		private function handleMouseWheel(e:MouseEvent):void {
 			focusActive = false;
-			deltaZoom = _viewerView.viewerData.viewer.zoomSpeed * e.delta;
+			deltaZoom = _viewerView.viewerData.viewer.navZoom.speed * e.delta;
 			scrollActive = true;
 			onEnterFrame();
 			scrollActive = false;
@@ -275,12 +275,12 @@ package com.panozona.modules.imagemap.controller{
 				if (!isNaN(focusX)) {
 					if (_viewerView.container.x + focusX != _viewerView.windowData.currentSize.width * 0.5) {
 						if (_viewerView.container.x + focusX > _viewerView.windowData.currentSize.width * 0.5) {
-							deltaX = - _viewerView.viewerData.viewer.moveSpeed;
+							deltaX = - _viewerView.viewerData.viewer.navMove.speed;
 							if (_viewerView.container.x + focusX + deltaX < _viewerView.windowData.currentSize.width * 0.5) {
 								deltaX = _viewerView.windowData.currentSize.width * 0.5 - _viewerView.container.x - focusX;
 							}
 						}else {
-							deltaX = _viewerView.viewerData.viewer.moveSpeed;
+							deltaX = _viewerView.viewerData.viewer.navMove.speed;
 							if (_viewerView.container.x + focusX + deltaX > _viewerView.windowData.currentSize.width * 0.5) {
 								deltaX = _viewerView.windowData.currentSize.width * 0.5 -_viewerView.container.x - focusX;
 							}
@@ -292,12 +292,12 @@ package com.panozona.modules.imagemap.controller{
 				if (!isNaN(focusY)) {
 					if (_viewerView.container.y + focusY != _viewerView.windowData.currentSize.height * 0.5) {
 						if (_viewerView.container.y + focusY > _viewerView.windowData.currentSize.height * 0.5) {
-							deltaY = - _viewerView.viewerData.viewer.moveSpeed;
+							deltaY = - _viewerView.viewerData.viewer.navMove.speed;
 							if (_viewerView.container.y + focusY + deltaY < _viewerView.windowData.currentSize.height * 0.5) {
 								deltaY = _viewerView.windowData.currentSize.height * 0.5 - _viewerView.container.y - focusY;
 							}
 						}else {
-							deltaY = _viewerView.viewerData.viewer.moveSpeed;
+							deltaY = _viewerView.viewerData.viewer.navMove.speed;
 							if (_viewerView.container.y + focusY + deltaY > _viewerView.windowData.currentSize.height * 0.5) {
 								deltaY = _viewerView.windowData.currentSize.height * 0.5 -_viewerView.container.y - focusY;
 							}
@@ -316,23 +316,23 @@ package com.panozona.modules.imagemap.controller{
 				
 			}else if (moveActive) {
 				if (_viewerView.viewerData.moveLeft) {
-					deltaX = _viewerView.viewerData.viewer.moveSpeed;
+					deltaX = _viewerView.viewerData.viewer.navMove.speed;
 					deltaY = 0;
 				}else if (_viewerView.viewerData.moveRight) {
-					deltaX = - _viewerView.viewerData.viewer.moveSpeed;
+					deltaX = - _viewerView.viewerData.viewer.navMove.speed;
 					deltaY = 0;
 				}else if (_viewerView.viewerData.moveUp) {
 					deltaX = 0
-					deltaY = _viewerView.viewerData.viewer.moveSpeed;
+					deltaY = _viewerView.viewerData.viewer.navMove.speed;
 				}else if (_viewerView.viewerData.moveDown) {
 					deltaX = 0
-					deltaY = - _viewerView.viewerData.viewer.moveSpeed;
+					deltaY = - _viewerView.viewerData.viewer.navMove.speed;
 				}
 			} else if (zoomActive || scrollActive) {
 				if (_viewerView.viewerData.zoomIn) {
-					deltaZoom = _viewerView.viewerData.viewer.zoomSpeed;
+					deltaZoom = _viewerView.viewerData.viewer.navZoom.speed;
 				}else if (_viewerView.viewerData.zoomOut) {
-					deltaZoom = - _viewerView.viewerData.viewer.zoomSpeed;
+					deltaZoom = - _viewerView.viewerData.viewer.navZoom.speed;
 				}
 				if (_viewerView.imageMapData.mapData.size.width * (_viewerView.containerScale + deltaZoom) < _viewerView.windowData.currentSize.width
 					&& _viewerView.imageMapData.mapData.size.height * (_viewerView.containerScale + deltaZoom) < _viewerView.windowData.currentSize.height) {

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Change size and alignment of module window. zoom attribute determines zoom level each time given map is set,
-	however image will never be zoomed lower than size, when shorter of its sides will be same as analogical map
-	window dimension. This way window is always compeletely filled with map.
+	Change size and alignment of module window. You can specify its dimension limits. Maximal size is useful when
+	panorama is viewed on full screen. When panorama is displayed in small window, module window is squeezed to
+	fit inside it. Module is respecting margin values untill its dimension meets minimal size limit. 
+	You can also determine map image zoom limits. Minimal limit can be overriden to keep module window filled.
 	
 	http://panozona.com/wiki/Module:ImageMap
 -->
@@ -12,7 +13,7 @@
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/imagemap/ImageMap-1.4.swf">
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.1.swf">
 			<window align="horizontal:center,vertical:middle" maxSize="width:800,height:600" margin="top:10,bottom:10,left:10,right:10"/>
 			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
 			<maps>

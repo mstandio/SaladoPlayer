@@ -28,7 +28,7 @@ package com.panozona.modules.imagemap.model.structure{
 	public class Window{
 		
 		public const align:Align = new Align(Align.RIGHT, Align.TOP);
-		public const margin:Margin = new Margin(50, 50, 50, 50);
+		public const margin:Margin = new Margin(10, 10, 10, 10);
 		public const minSize:Size = new Size(200, 150);
 		public const maxSize:Size = new Size(600, 300);
 		

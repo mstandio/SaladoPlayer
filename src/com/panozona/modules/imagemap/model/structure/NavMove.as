@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,18 +16,12 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagemap.model.structure{
+package com.panozona.modules.imagemap.model.structure {
 	
-	public class Viewer {
+	public class NavMove {
 		
-		public var path:String = null; // path to navigation bitmaps grid
-		
-		public const style:Style = new Style();
-		
-		public const navMove:NavMove = new NavMove();
-		public const navZoom:NavZoom = new NavZoom();
-		
-		public var autoFocus:Boolean = true;
-		public var autoSwitch:Boolean = true;
+		public var enabled:Boolean = true;
+		public var speed:Number = 10;
+		public var useDrag:Boolean = true;
 	}
 }

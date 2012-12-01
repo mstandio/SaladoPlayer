@@ -60,7 +60,7 @@ package com.panozona.modules.imagemap.view {
 			
 			addChild(container);
 			
-			if (_imageMapData.viewerData.viewer.moveEnabled){
+			if (_imageMapData.viewerData.viewer.navMove.enabled){
 				navigationLeft = new NavigationView(new NavigationData(navLeft, navStop), _imageMapData.viewerData);
 				navigationRight = new NavigationView(new NavigationData(navRight, navStop), _imageMapData.viewerData);
 				navigationUp = new NavigationView(new NavigationData(navUp, navStop), _imageMapData.viewerData);
@@ -72,7 +72,7 @@ package com.panozona.modules.imagemap.view {
 				navigationDown.alpha = 1 / _imageMapData.windowData.window.alpha;
 			}
 			
-			if (_imageMapData.viewerData.viewer.zoomEnabled){
+			if (_imageMapData.viewerData.viewer.navZoom.enabled){
 				navigationIn = new NavigationView(new NavigationData(navIn, navZoomStop), _imageMapData.viewerData);
 				navigationOut = new NavigationView(new NavigationData(navOut, navZoomStop), _imageMapData.viewerData);
 				
@@ -80,7 +80,7 @@ package com.panozona.modules.imagemap.view {
 				navigationOut.alpha = 1 / _imageMapData.windowData.window.alpha;
 			}
 			
-			if (_imageMapData.viewerData.viewer.dragEnabled) {
+			if (_imageMapData.viewerData.viewer.navMove.useDrag) {
 				cursor.alpha = 1 / _imageMapData.windowData.window.alpha;
 				cursor.visible = false;
 				addChild(cursor);
@@ -130,7 +130,7 @@ package com.panozona.modules.imagemap.view {
 			var marginTop:Number = 5;
 			var marginLeft:Number = 5;
 			
-			if (_imageMapData.viewerData.viewer.moveEnabled) {
+			if (_imageMapData.viewerData.viewer.navMove.enabled) {
 				navigationUp.rotation = 0;
 				navigationLeft.rotation = -90;
 				navigationRight.rotation = 90;
@@ -149,10 +149,10 @@ package com.panozona.modules.imagemap.view {
 				addChild(navigationDown);
 			}
 			
-			if (_imageMapData.viewerData.viewer.zoomEnabled) {
+			if (_imageMapData.viewerData.viewer.navZoom.enabled) {
 				navigationIn.rotation = 0;
 				navigationOut.rotation = 180;
-				if (_imageMapData.viewerData.viewer.moveEnabled) {
+				if (_imageMapData.viewerData.viewer.navMove.enabled) {
 					navigationIn.x = navigationUp.x;
 					navigationIn.y = navigationUp.y + navigationUp.height + navigationLeft.height + navigationDown.height + marginTop;
 					navigationOut.x = navigationIn.x + navigationOut.width;

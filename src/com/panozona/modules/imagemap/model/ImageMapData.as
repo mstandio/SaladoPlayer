@@ -24,6 +24,7 @@ package com.panozona.modules.imagemap.model {
 	import com.panozona.modules.imagemap.model.structure.Waypoints;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.data.ModuleData;
+	import com.panozona.player.module.Module;
 	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class ImageMapData {
@@ -33,8 +34,9 @@ package com.panozona.modules.imagemap.model {
 		public const viewerData:ViewerData = new ViewerData();
 		public const mapData:MapData = new MapData();
 		
-		public function ImageMapData(moduleData:ModuleData, saladoPlayer:Object) {
-			var tarnslator:DataNodeTranslator = new DataNodeTranslator(saladoPlayer.managerData.debugMode);
+		public function ImageMapData(module:Module, moduleData:ModuleData) {
+			
+			var tarnslator:DataNodeTranslator = new DataNodeTranslator(module.saladoPlayer.managerData.debugMode);
 			for each(var dataNode:DataNode in moduleData.nodes) {
 				if (dataNode.name == "window") {
 					tarnslator.dataNodeToObject(dataNode, windowData.window);
@@ -51,15 +53,15 @@ package com.panozona.modules.imagemap.model {
 			
 			windowData.open = windowData.window.open;
 			
-			if (saladoPlayer.managerData.debugMode) {
-				if (viewerData.viewer.moveEnabled || viewerData.viewer.zoomEnabled || viewerData.viewer.dragEnabled) {
+			if (module.saladoPlayer.managerData.debugMode) {
+				if (viewerData.viewer.navMove.enabled || viewerData.viewer.navMove.useDrag || viewerData.viewer.navZoom.enabled) {
 					if (viewerData.viewer.path == null || !viewerData.viewer.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i))
 						throw new Error("Invalid viewer path: " + viewerData.viewer.path);
 				}
-				if (windowData.window.onOpen != null && saladoPlayer.managerData.getActionDataById(windowData.window.onOpen) == null) {
+				if (windowData.window.onOpen != null && module.saladoPlayer.managerData.getActionDataById(windowData.window.onOpen) == null) {
 					throw new Error("Action does not exist: " + windowData.window.onOpen);
 				}
-				if (windowData.window.onClose != null && saladoPlayer.managerData.getActionDataById(windowData.window.onClose) == null) {
+				if (windowData.window.onClose != null && module.saladoPlayer.managerData.getActionDataById(windowData.window.onClose) == null) {
 					throw new Error("Action does not exist: " + windowData.window.onClose);
 				}
 				if (mapData.maps.getChildrenOfGivenClass(Map).length == 0) {
@@ -74,7 +76,7 @@ package com.panozona.modules.imagemap.model {
 					if (map.path == null || !map.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)) {
 						throw new Error("Invalid map path: " + map.path);
 					}
-					if (map.onSet != null && saladoPlayer.managerData.getActionDataById(map.onSet) == null) {
+					if (map.onSet != null && module.saladoPlayer.managerData.getActionDataById(map.onSet) == null) {
 						throw new Error("Action does not exist: " + map.onSet);
 					}
 					if (mapIds[map.id] != undefined) {
@@ -89,17 +91,17 @@ package com.panozona.modules.imagemap.model {
 								if (waypoint.target == null) {
 									throw new Error("Waypoint target not specified in map: " + map.id);
 								}
-								if (saladoPlayer.managerData.getPanoramaDataById(waypoint.target) == null) {
+								if (module.saladoPlayer.managerData.getPanoramaDataById(waypoint.target) == null) {
 									throw new Error("Invalid waypoint target: " + waypoint.target);
 								}
-								if (waypoint.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOver) == null){
+								if (waypoint.mouse.onOver != null && module.saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOver) == null){
 									throw new Error("Action does not exist: " + waypoint.mouse.onOver);
 								}
-								if (waypoint.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOut) == null){
+								if (waypoint.mouse.onOut != null && module.saladoPlayer.managerData.getActionDataById(waypoint.mouse.onOut) == null){
 									throw new Error("Action does not exist: " + waypoint.mouse.onOut);
 								}
 								if (waypointTargets[waypoint.target] != undefined) {
-									throw new Error("Repeating waypoint target: " + waypoint.target);
+									module.printWarning("Repeating waypoint target: " + waypoint.target);
 								}else {
 									waypointTargets[waypoint.target] = ""; // something
 								}

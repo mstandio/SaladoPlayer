@@ -12,8 +12,8 @@
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/imagemap/ImageMap-1.4.swf">
-			<viewer path="~modules/imagemap/images/navigation_black_20x20.png" moveEnabled="false" zoomSpeed="0.05"/>
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.1.swf">
+			<viewer path="~modules/imagemap/images/navigation_black_20x20.png" navMove="enabled:false" navZoom="speed:0.05"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map1.jpg">
 					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png">

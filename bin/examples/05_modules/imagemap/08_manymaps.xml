@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Waypoints need to have unique targets among all maps. Whenever user loads panorama, module switches to map
+	Waypoints should have unique targets among all other maps. Whenever user loads panorama, module switches to map
 	that contains waypoint targeting to given panorama. If user loads first panorama and none of maps contains
 	waypoints targeting to given panorama, first map in line is displayed. If same situation occures when loading
 	further panoramas, map is not changed.
@@ -14,8 +14,8 @@
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/imagemap/ImageMap-1.4.swf">
-			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.1.swf">
+			<viewer path="~modules/imagemap/images/navigation_fire_20x20.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map1.jpg">
 					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png">
@@ -30,6 +30,8 @@
 			</maps>
 		</ImageMap>
 		<DropDown path="~modules/DropDown-1.2.swf">
+			<window align="horizontal:left,vertical:top" move="horizontal:20,vertical:20"/>
+			<box opensUp="false"/>
 			<elements>
 				<element target="checkerGreen" label="Green checker"/>
 				<element target="checkerRed" label="Red checker"/>
