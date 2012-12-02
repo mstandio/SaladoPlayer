@@ -20,11 +20,11 @@ package com.panozona.modules.backgroundmusic{
 	
 	import com.panozona.modules.backgroundmusic.data.BackgroundMusicData;
 	import com.panozona.modules.backgroundmusic.data.structure.Track;
+	import com.panozona.modules.backgroundmusic.data.structure.Sound;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.Module;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
-	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
 	import flash.net.URLRequest;
@@ -35,24 +35,28 @@ package com.panozona.modules.backgroundmusic{
 		private var backgroundMusicData:BackgroundMusicData;
 		
 		private var currentTrackId:String;
-		private var isPlaying:Boolean;
+		private var trackIsPlaying:Boolean;
+		private var trackChannel:SoundChannel;
+		private var trackSound:flash.media.Sound;
 		
-		private var soundChannel:SoundChannel;
-		private var sound:Sound;
-		private var _soundTransform:SoundTransform;
+		private var singleSoundChannel:SoundChannel;
+		private var singleSoundSound:flash.media.Sound;
 		
 		public function BackgroundMusic() {
-			super("BackgroundMusic", "1.1", "http://panozona.com/wiki/Module:BackgroundMusic");
+			super("BackgroundMusic", "1.2", "http://panozona.com/wiki/Module:BackgroundMusic");
 			
 			moduleDescription.addFunctionDescription("setTrack", String);
 			moduleDescription.addFunctionDescription("setPlay", Boolean);
 			moduleDescription.addFunctionDescription("togglePlay");
+			moduleDescription.addFunctionDescription("playSound", String);
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			backgroundMusicData = new BackgroundMusicData(moduleData, saladoPlayer);
-			_soundTransform = new SoundTransform();
 			currentTrackId = backgroundMusicData.tracks.getChildrenOfGivenClass(Track)[0].id;
+			
+			trackChannel = new SoundChannel();
+			singleSoundChannel = new SoundChannel();
 			
 			if (backgroundMusicData.settings.play) {
 				var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
@@ -70,36 +74,25 @@ package com.panozona.modules.backgroundmusic{
 			for each(var track:Track in backgroundMusicData.tracks.getChildrenOfGivenClass(Track)) {
 				if (track.id == currentTrackId){
 					stopCurrentTrack();
-					sound = new Sound();
-					sound.addEventListener(IOErrorEvent.IO_ERROR, soundLost, false, 0, true);
-					sound.load(new URLRequest(track.path));
-					_soundTransform.volume = track.volume;
-					soundChannel = sound.play(0, (track.loop ? int.MAX_VALUE : 1), _soundTransform);
-					soundChannel.addEventListener(Event.SOUND_COMPLETE, soundComplete, false, 0, true);
+					trackSound = new flash.media.Sound();
+					trackSound.addEventListener(IOErrorEvent.IO_ERROR, trackLost, false, 0, true);
+					trackSound.load(new URLRequest(track.path));
+					var soundTransform:SoundTransform = new SoundTransform();
+					soundTransform.volume = track.volume;
+					trackChannel = trackSound.play(0, (track.loop ? int.MAX_VALUE : 1), soundTransform);
+					trackChannel.addEventListener(Event.SOUND_COMPLETE, trackComplete, false, 0, true);
 					saladoPlayer.manager.runAction(backgroundMusicData.settings.onPlay);
 					backgroundMusicData.settings.play = true;
 				}
 			}
 		}
 		
-		private function soundLost(e:Event):void {
+		private function trackLost(e:IOErrorEvent):void {
 			stopCurrentTrack();
 			printWarning("File not found in track: " + currentTrackId);
 		}
 		
-		private function stopCurrentTrack():void {
-			if(soundChannel != null){
-				soundChannel.stop();
-			}
-			if(sound != null){
-				sound.removeEventListener(IOErrorEvent.IO_ERROR, soundLost);
-				sound = null;
-				saladoPlayer.manager.runAction(backgroundMusicData.settings.onStop);
-			}
-			backgroundMusicData.settings.play = false;
-		}
-		
-		private function soundComplete(e:Event):void {
+		private function trackComplete(e:Event):void {
 			var tracksArray:Array = backgroundMusicData.tracks.getChildrenOfGivenClass(Track);
 			for (var i:int = 0; i < tracksArray.length; i++) {
 				if (tracksArray[i].id == currentTrackId) {
@@ -114,6 +107,31 @@ package com.panozona.modules.backgroundmusic{
 			}
 		}
 		
+		private function stopCurrentTrack():void {
+			if(trackChannel != null){
+				trackChannel.stop();
+			}
+			if(trackSound != null){
+				trackSound.removeEventListener(IOErrorEvent.IO_ERROR, trackLost);
+				trackSound = null;
+				saladoPlayer.manager.runAction(backgroundMusicData.settings.onStop);
+			}
+			backgroundMusicData.settings.play = false;
+		}
+		
+		private function playSingleSound(sound:Sound):void {
+			singleSoundSound = new flash.media.Sound();
+			singleSoundSound.addEventListener(IOErrorEvent.IO_ERROR, singleSoundLost, false, 0, true);
+			singleSoundSound.load(new URLRequest(sound.path));
+			var singleSoundTransform:SoundTransform = new SoundTransform();
+			singleSoundTransform.volume = sound.volume;
+			singleSoundChannel = singleSoundSound.play();
+		}
+		
+		private function singleSoundLost(e:IOErrorEvent):void {
+			printWarning("Error while playing sound: " + e.text);
+		}
+		
 ///////////////////////////////////////////////////////////////////////////////
 //  Exposed functions 
 ///////////////////////////////////////////////////////////////////////////////
@@ -123,7 +141,7 @@ package com.panozona.modules.backgroundmusic{
 			for each(var track:Track in backgroundMusicData.tracks.getChildrenOfGivenClass(Track)) {
 				if (track.id == trackId) {
 					currentTrackId = trackId;
-					if(sound != null) playCurrentTrack();
+					if(trackSound != null) playCurrentTrack();
 					return;
 				}
 			}
@@ -131,7 +149,7 @@ package com.panozona.modules.backgroundmusic{
 		}
 		
 		public function togglePlay():void {
-			if(sound == null){
+			if(trackSound == null){
 				playCurrentTrack();
 			}else {
 				stopCurrentTrack();
@@ -139,14 +157,24 @@ package com.panozona.modules.backgroundmusic{
 		}
 		
 		public function setPlay(value:Boolean):void {
-			if(sound == null && value){
+			if(trackSound == null && value){
 				playCurrentTrack();
 				return;
 			}
-			if(sound != null && !value){
+			if(trackSound != null && !value){
 				stopCurrentTrack();
 				return;
 			}
+		}
+		
+		public function playSound(soundId:String):void {
+			for each(var sound:Sound in backgroundMusicData.sounds.getChildrenOfGivenClass(Sound)) {
+				if(sound.id == soundId){
+					playSingleSound(sound);
+					return;
+				}
+			}
+			printWarning("Sound does not exist: " + soundId);
 		}
 	}
 }

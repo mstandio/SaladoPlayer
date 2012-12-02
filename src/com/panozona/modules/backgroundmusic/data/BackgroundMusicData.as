@@ -19,16 +19,19 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.backgroundmusic.data{
 	
 	import com.panozona.modules.backgroundmusic.data.structure.Settings;
+	import com.panozona.modules.backgroundmusic.data.structure.Sound;
+	import com.panozona.modules.backgroundmusic.data.structure.Sounds;
 	import com.panozona.modules.backgroundmusic.data.structure.Track;
 	import com.panozona.modules.backgroundmusic.data.structure.Tracks;
-	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.data.DataNode;
+	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
 	
 	public class BackgroundMusicData {
 		
-		public var settings:Settings = new Settings();
-		public var tracks:Tracks = new Tracks();
+		public const settings:Settings = new Settings();
+		public const tracks:Tracks = new Tracks();
+		public const sounds:Sounds = new Sounds();
 		
 		public function BackgroundMusicData(moduleData:ModuleData, saladoPlayer:Object):void {
 			
@@ -39,6 +42,8 @@ package com.panozona.modules.backgroundmusic.data{
 					tarnslator.dataNodeToObject(dataNode, settings);
 				}else if(dataNode.name == "tracks") {
 					tarnslator.dataNodeToObject(dataNode, tracks);
+				}else if(dataNode.name == "sounds") {
+					tarnslator.dataNodeToObject(dataNode, sounds);
 				}else {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
@@ -64,6 +69,17 @@ package com.panozona.modules.backgroundmusic.data{
 				for each (track in tracks.getChildrenOfGivenClass(Track)) {
 					if (track.next != null && trackIds[track.next] == undefined) {
 						throw new Error("Track does not exist: " + track.next);
+					}
+				}
+				var soundIds:Object = new Object();
+				for each (var sound:Sound in sounds.getChildrenOfGivenClass(Sound)) {
+					if (sound.id == null) throw new Error("Sound id not specified.");
+					if (sound.path == null) throw new Error("Path not specified in sound: " + sound.id);
+					if (!sound.path.match(/^.+\.mp3$/i)) throw new Error("Invalid path in track: " + sound.id);
+					if (soundIds[sound.id] != undefined) {
+						throw new Error("Repeating sound id: " + sound.id);
+					}else {
+						soundIds[sound.id] = ""; // something
 					}
 				}
 			}
