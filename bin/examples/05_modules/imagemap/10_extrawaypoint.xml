@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	You can add to map extraWaypoints which are not assigned to any specific panorama. They can be used
+	for instance to display additional info about map area or to aggregate couple panoramas that were shot
+	at the same location. You can assing action executed when user click on given extraWaypoint. Otherwise
+	extraWaypoints are same as waypoints, except they ignore radar configuration.
+	
+	http://panozona.com/wiki/Module:ImageMap
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace align="horizontal:left" open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
+	</panoramas>
+	<modules>
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">
+			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
+			<maps>
+				<map id="map1" path="~media/images/maps/map1.jpg" panShift="90">
+					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png">
+						<extraWaypoint id="w1" position="x:200,y:350" action="onW1Click"/>
+						<extraWaypoint id="w2" position="x:500,y:200" action="onW2Click"/>
+					</waypoints>
+				</map>
+			</maps>
+		</ImageMap>
+	</modules>
+	<actions>
+		<action id="onW1Click" content="SaladoPlayer.print(Info about w1)"/>
+		<action id="onW2Click" content="SaladoPlayer.print(Info about w2)"/>
+	</actions>
+</SaladoPlayer>

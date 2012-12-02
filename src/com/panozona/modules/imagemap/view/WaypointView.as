@@ -18,68 +18,35 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.view {
 	
-	import com.panozona.modules.imagemap.model.ViewerData;
 	import com.panozona.modules.imagemap.model.ImageMapData;
-	import com.panozona.modules.imagemap.model.MapData;
 	import com.panozona.modules.imagemap.model.WaypointData;
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
 	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
 	
-	public class WaypointView extends Sprite {
+	public class WaypointView extends RawWaypointView{
 		
 		public const radar:Sprite = new Sprite();
-		public const button:Sprite = new Sprite();
-		
-		private var _buttonImage:Bitmap;
-		
-		private var _imageMapData:ImageMapData;
-		private var _waypointData:WaypointData;
 		
 		private var _radarTilt:Number;
 		private var _radarScaleY:Number;
 		
 		public function WaypointView (imageMapData:ImageMapData, waypointData:WaypointData, mapView:MapView) {
-			
-			_imageMapData = imageMapData;
-			_waypointData = waypointData;
+			super(imageMapData, waypointData);
 			
 			radar.mouseEnabled = false;
 			mapView.radarContainer.addChild(radar);
 			
-			button.buttonMode = true;
-			button.alpha = 1 / imageMapData.windowData.window.alpha;
-			addChild(button);
-			
-			_buttonImage = new Bitmap();
-			button.addChild(_buttonImage);
-			
 			_radarTilt = 1;
 			_radarScaleY = 1;
-			
-			button.addEventListener(MouseEvent.ROLL_OVER, mouseOver, false, 0, true);
-			button.addEventListener(MouseEvent.ROLL_OUT, mouseOut, false, 0, true);
-		}
-		
-		public function get imageMapData():ImageMapData {
-			return _imageMapData;
-		}
-		
-		public function get viewerData():ViewerData {
-			return _imageMapData.viewerData;
 		}
 		
 		public function get waypointData():WaypointData {
-			return _waypointData;
+			return _rawWaypointData as WaypointData;
 		}
 		
-		public function placeWaypoint():void {
-			x = _waypointData.waypoint.position.x * _imageMapData.viewerData.scale - _buttonImage.width * 0.5 + _waypointData.move.horizontal;
-			y = _waypointData.waypoint.position.y * _imageMapData.viewerData.scale - _buttonImage.height * 0.5 + _waypointData.move.vertical;
-			radar.x = _waypointData.waypoint.position.x * _imageMapData.viewerData.scale;
-			radar.y = _waypointData.waypoint.position.y * _imageMapData.viewerData.scale;
+		override public function placeWaypoint():void {
+			super.placeWaypoint();
+			radar.x = _rawWaypointData.rawWaypoint.position.x * _imageMapData.viewerData.scale;
+			radar.y = _rawWaypointData.rawWaypoint.position.y * _imageMapData.viewerData.scale;
 		}
 		
 		public function set radarTilt(value:Number):void {
@@ -94,21 +61,6 @@ package com.panozona.modules.imagemap.view {
 		public function set radarScaleY(value:Number):void {
 			_radarScaleY = value;
 			radar.scaleY = _radarTilt * value;
-		}
-		
-		public function set buttonBitmapData(bitmapData:BitmapData):void {
-			_buttonImage.bitmapData = bitmapData;
-			placeWaypoint();
-		}
-		
-		private function mouseOver(e:Event):void {
-			waypointData.mouseOver = true;
-			_imageMapData.viewerData.mouseOver = false;
-		}
-		
-		private function mouseOut(e:Event):void {
-			waypointData.mouseOver = false;
-			_imageMapData.viewerData.mouseOver = true;
 		}
 	}
 }

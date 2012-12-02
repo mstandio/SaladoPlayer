@@ -12,7 +12,7 @@
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/imagemap/ImageMap-1.4.1.swf">
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">
 			<window transition="type:slideUp" openTween="transition:Bounce.easeOut,time:0.75" closeTween="transition:Expo.easeIn,time:0.75"/>
 			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
 			<maps>

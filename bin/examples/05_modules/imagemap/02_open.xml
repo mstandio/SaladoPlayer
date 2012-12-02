@@ -14,7 +14,7 @@
 		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/imagemap/ImageMap-1.4.1.swf">
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">
 			<window open="false" onOpen="onOpenMap" onClose="onCloseMap"/>
 			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
 			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>

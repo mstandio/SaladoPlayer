@@ -18,13 +18,8 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagemap.model.structure {
 	
-	import com.panozona.player.module.data.property.Position;
-	import com.panozona.player.module.data.property.MouseOverOut;
-	
-	public class Waypoint {
+	public class Waypoint extends RawWaypoint {
 		
 		public var target:String = null;
-		public const position:Position = new Position(0,0);
-		public const mouse:MouseOverOut = new MouseOverOut();
 	}
 }

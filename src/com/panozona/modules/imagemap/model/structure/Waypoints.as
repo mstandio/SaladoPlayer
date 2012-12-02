@@ -27,6 +27,7 @@ package com.panozona.modules.imagemap.model.structure {
 		override public function getChildrenTypes():Vector.<Class>{
 			var result:Vector.<Class> = new Vector.<Class>();
 			result.push(Waypoint);
+			result.push(ExtraWaypoint);
 			return result;
 		}
 		

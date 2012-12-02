@@ -21,11 +21,17 @@ package com.panozona.modules.imagemap.controller {
 	import com.panozona.modules.imagemap.events.MapEvent;
 	import com.panozona.modules.imagemap.events.ViewerEvent;
 	import com.panozona.modules.imagemap.events.WaypointEvent;
+	import com.panozona.modules.imagemap.model.ExtraWaypointData;
+	import com.panozona.modules.imagemap.model.RawWaypointData;
+	import com.panozona.modules.imagemap.model.structure.ExtraWaypoint;
 	import com.panozona.modules.imagemap.model.structure.Map;
+	import com.panozona.modules.imagemap.model.structure.RawWaypoint;
 	import com.panozona.modules.imagemap.model.structure.Waypoint;
 	import com.panozona.modules.imagemap.model.structure.Waypoints;
 	import com.panozona.modules.imagemap.model.WaypointData;
+	import com.panozona.modules.imagemap.view.ExtraWaypointView;
 	import com.panozona.modules.imagemap.view.MapView;
+	import com.panozona.modules.imagemap.view.RawWaypointView;
 	import com.panozona.modules.imagemap.view.WaypointView;
 	import com.panozona.player.manager.events.LoadLoadableEvent;
 	import com.panozona.player.manager.utils.loading.ILoadable;
@@ -48,7 +54,7 @@ package com.panozona.modules.imagemap.controller {
 		private var _mapView:MapView;
 		private var _module:Module;
 		
-		private var waypointControlers:Vector.<WaypointController>;
+		private var rawWaypointControlers:Vector.<RawWaypointController>;
 		private var arrListeners:Array;
 		
 		private var mapContentLoader:Loader;
@@ -60,7 +66,7 @@ package com.panozona.modules.imagemap.controller {
 			_mapView = mapView;
 			_module = module;
 			
-			waypointControlers = new Vector.<WaypointController>();
+			rawWaypointControlers = new Vector.<RawWaypointController>();
 			arrListeners = new Array();
 			
 			mapContentLoader = new Loader();
@@ -127,16 +133,16 @@ package com.panozona.modules.imagemap.controller {
 		
 		private function handleFocusLost(e:Event):void {
 			for (var i:int = 0; i < _mapView.waypointsContainer.numChildren; i++) {
-				(_mapView.waypointsContainer.getChildAt(i) as WaypointView).waypointData.hasFocus = false;
+				(_mapView.waypointsContainer.getChildAt(i) as RawWaypointView).rawWaypointData.hasFocus = false;
 			}
 		}
 		
 		private function handleFocusGained(e:Event=null):void {
-			var waypointView:WaypointView = null;
+			var rawWaypointView:RawWaypointView = null;
 			for (var i:int = 0; i < _mapView.waypointsContainer.numChildren; i++) {
-				waypointView = (_mapView.waypointsContainer.getChildAt(i) as WaypointView);
-				if (waypointView.waypointData.hasFocus) {
-					waypointView.viewerData.focusPoint = new Point(waypointView.x, waypointView.y);
+				rawWaypointView = (_mapView.waypointsContainer.getChildAt(i) as RawWaypointView);
+				if (rawWaypointView.rawWaypointData.isActive) {
+					rawWaypointView.viewerData.focusPoint = new Point(rawWaypointView.x, rawWaypointView.y);
 					break;
 				}
 			}
@@ -184,39 +190,46 @@ package com.panozona.modules.imagemap.controller {
 			var bitmapDataActive:BitmapData = new BitmapData(bitmapData.width, cellHeight, true, 0);
 			bitmapDataActive.copyPixels(bitmapData, new Rectangle(0, cellHeight * 2 + 2, bitmapData.width, cellHeight), new Point(0, 0), null, null, true);
 			
-			var waypointData:WaypointData;
-			var waypointView:WaypointView;
-			var waypointController:WaypointController;
+			var rawWaypointData:RawWaypointData;
+			var rawWaypointView:RawWaypointView;
+			var rawWaypointController:RawWaypointController
 			var map:Map = _mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId);
 			var waypoints:Waypoints = (event.loadable as Waypoints);
 			
 			if (map.getChildrenOfGivenClass(Waypoints).indexOf(waypoints) < 0) return;
 			
-			for each(var waypoint:Waypoint in waypoints.getChildrenOfGivenClass(Waypoint)) {
-				waypointData = new WaypointData(waypoint, waypoints.radar, map.panShift, waypoints.move, bitmapDataPlain, bitmapDataHover, bitmapDataActive);
-				waypointData.addEventListener(WaypointEvent.FOCUS_GAINED, handleFocusGained, false, 0, true);
-				waypointView = new WaypointView(_mapView.imageMapData, waypointData, _mapView);
-				waypointController = new WaypointController(waypointView, _module);
-				waypointControlers.push(waypointController);
+			for each(var rawWaypoint:RawWaypoint in waypoints.getAllChildren()) {
+				if (rawWaypoint is Waypoint) {
+					rawWaypointData = new WaypointData(rawWaypoint as Waypoint, waypoints.move, bitmapDataPlain, bitmapDataHover, bitmapDataActive, waypoints.radar, map.panShift);
+					rawWaypointView = new WaypointView(_mapView.imageMapData, rawWaypointData as WaypointData, _mapView);
+					rawWaypointController = new WaypointController(rawWaypointView as WaypointView, _module);
+					rawWaypointControlers.push(rawWaypointController);
+				}else {
+					rawWaypointData = new ExtraWaypointData(rawWaypoint as ExtraWaypoint, waypoints.move, bitmapDataPlain, bitmapDataHover, bitmapDataActive);
+					rawWaypointView = new ExtraWaypointView(_mapView.imageMapData, rawWaypointData as ExtraWaypointData, _mapView.imageMapData.mapData);
+					rawWaypointController = new ExtraWaypointController(rawWaypointView as ExtraWaypointView, _module);
+					rawWaypointControlers.push(rawWaypointController);
+				}
 				var added:Boolean = false;
 				for (var i:int = 0; i < _mapView.waypointsContainer.numChildren && !added; i++) {
-					if ((_mapView.waypointsContainer.getChildAt(i) as WaypointView).waypointData.waypoint.position.y > waypointView.waypointData.waypoint.position.y) {
-						_mapView.waypointsContainer.addChildAt(waypointView, i);
+					if ((_mapView.waypointsContainer.getChildAt(i) as RawWaypointView).rawWaypointData.rawWaypoint.position.y > rawWaypointView.rawWaypointData.rawWaypoint.position.y) {
+						_mapView.waypointsContainer.addChildAt(rawWaypointView, i);
 						added = true;
 					}
 				}
 				if (!added) {
-					_mapView.waypointsContainer.addChild(waypointView);
+					_mapView.waypointsContainer.addChild(rawWaypointView);
 				}
+				rawWaypointData.addEventListener(WaypointEvent.FOCUS_GAINED, handleFocusGained, false, 0, true);
 				var handlerTmp:Function;
-				if (waypoint.mouse.onOver != null) {
-					handlerTmp = getMouseEventHandler(waypoint.mouse.onOver);
-					waypointView.button.addEventListener(MouseEvent.ROLL_OVER, handlerTmp);
+				if (rawWaypoint.mouse.onOver != null) {
+					handlerTmp = getMouseEventHandler(rawWaypoint.mouse.onOver);
+					rawWaypointView.button.addEventListener(MouseEvent.ROLL_OVER, handlerTmp);
 					arrListeners.push({type:MouseEvent.ROLL_OVER, listener:handlerTmp});
 				}
-				if (waypoint.mouse.onOut != null) {
-					handlerTmp = getMouseEventHandler(waypoint.mouse.onOut);
-					waypointView.button.addEventListener(MouseEvent.ROLL_OUT, handlerTmp);
+				if (rawWaypoint.mouse.onOut != null) {
+					handlerTmp = getMouseEventHandler(rawWaypoint.mouse.onOut);
+					rawWaypointView.button.addEventListener(MouseEvent.ROLL_OUT, handlerTmp);
 					arrListeners.push({type:MouseEvent.ROLL_OUT, listener:handlerTmp});
 				}
 			}
@@ -231,9 +244,8 @@ package com.panozona.modules.imagemap.controller {
 		}
 		
 		private function placeWaypoints():void {
-			var waypointView:WaypointView = null;
 			for (var i:int = 0; i < _mapView.waypointsContainer.numChildren; i++) {
-				(_mapView.waypointsContainer.getChildAt(i) as WaypointView).placeWaypoint();
+				(_mapView.waypointsContainer.getChildAt(i) as RawWaypointView).placeWaypoint();
 			}
 		}
 		
@@ -251,8 +263,8 @@ package com.panozona.modules.imagemap.controller {
 			while (_mapView.radarContainer.numChildren) {
 				_mapView.radarContainer.removeChildAt(0);
 			}
-			while (waypointControlers.length) {
-				waypointControlers.pop();
+			while (rawWaypointControlers.length) {
+				rawWaypointControlers.pop();
 			}
 		}
 	}

@@ -32,10 +32,11 @@ package com.panozona.modules.imagemap{
 		private var windowController:WindowController;
 		
 		public function ImageMap() {
-			super("ImageMap", "1.4.1", "http://panozona.com/wiki/Module:ImageMap");
+			super("ImageMap", "1.4.2", "http://panozona.com/wiki/Module:ImageMap");
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("setMap", String);
+			moduleDescription.addFunctionDescription("setActive", String);
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
@@ -64,6 +65,14 @@ package com.panozona.modules.imagemap{
 				imageMapData.mapData.currentMapId = value;
 			}else {
 				printWarning("Invalid map id: " + value);
+			}
+		}
+		
+		public function setActive(value:String):void {
+			if (imageMapData.mapData.getExtraWaypointById(value) != null) {
+				imageMapData.mapData.currentExtraWaypointId = value;
+			}else {
+				printWarning("Invalid extraWaypoint id: " + value);
 			}
 		}
 	}

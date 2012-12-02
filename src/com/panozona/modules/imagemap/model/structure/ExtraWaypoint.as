@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
@@ -16,19 +16,11 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.imagemap.events{
+package com.panozona.modules.imagemap.model.structure {
 	
-	import flash.events.Event;
-	
-	public class MapEvent extends Event {
+	public class ExtraWaypoint extends RawWaypoint {
 		
-		public static const CHANGED_CURRENT_MAP_ID:String = "changedCurrMapId";
-		public static const CHANGED_SIZE:String = "changedSize";
-		public static const CHANGED_RADAR_FIRST:String = "changedRadarFirst";
-		public static const CHANGED_CURRENT_EXTRAWAYPOINT_ID:String = "changedCurrExtraWaypointId";
-		
-		public function MapEvent( type:String) {
-			super(type);
-		}
+		public var id:String = null;
+		public var action:String = null;
 	}
 }

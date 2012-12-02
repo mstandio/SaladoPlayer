@@ -14,8 +14,8 @@
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/imagemap/ImageMap-1.4.1.swf">
-			<viewer path="~modules/imagemap/images/navigation_fire_20x20.png"/>
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">
+			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map1.jpg">
 					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png">

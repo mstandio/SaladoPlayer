@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Each one of extraWaypoints can change active state on demand. This feature can be usefull
+	when ImageMap is used to display groups of panoramas shot at the same location.
+	
+	http://panozona.com/wiki/Module:ImageMap
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onEnter="setActiveW1" />
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" onEnter="setActiveW2" />
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml" onEnter="setActiveW2" />
+	</panoramas>
+	<modules>
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">
+			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
+			<maps>
+				<map id="map1" path="~media/images/maps/map1.jpg" panShift="90">
+					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png">
+						<extraWaypoint id="w1" position="x:200,y:350" action="onW1Click"/>
+						<extraWaypoint id="w2" position="x:500,y:200" action="onW2Click"/>
+					</waypoints>
+				</map>
+			</maps>
+		</ImageMap>
+		<DropDown path="~modules/DropDown-1.2.swf">
+			<window align="horizontal:left,vertical:top" move="horizontal:20,vertical:20"/>
+			<box opensUp="false"/>
+			<elements>
+				<element target="checkerBlue" label="Blue checker"/>
+				<element target="checkerGreen" label="Green checker"/>
+				<element target="checkerRed" label="Red checker"/>
+			</elements>
+		</DropDown>
+	</modules>
+	<actions>
+		<action id="onW1Click" content="SaladoPlayer.loadPano(checkerBlue)"/>
+		<action id="onW2Click" content="SaladoPlayer.loadPano(checkerGreen)"/>
+		<action id="setActiveW1" content="ImageMap.setActive(w1)"/>
+		<action id="setActiveW2" content="ImageMap.setActive(w2)"/>
+	</actions>
+</SaladoPlayer>

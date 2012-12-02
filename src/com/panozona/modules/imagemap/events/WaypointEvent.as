@@ -22,8 +22,8 @@ package com.panozona.modules.imagemap.events {
 	
 	public class WaypointEvent extends Event {
 		
-		public static const CHANGED_SHOW_RADAR:String = "changedShowRadar";
 		public static const CHANGED_MOUSE_OVER:String = "changedMouseOver";
+		public static const CHANGED_IS_ACTIVE:String = "changedSIsActive";
 		public static const FOCUS_GAINED:String = "focusGained";
 		
 		public function WaypointEvent(type:String) {

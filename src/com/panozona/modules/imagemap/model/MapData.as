@@ -19,8 +19,10 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.imagemap.model {
 	
 	import com.panozona.modules.imagemap.events.MapEvent;
+	import com.panozona.modules.imagemap.model.structure.ExtraWaypoint;
 	import com.panozona.modules.imagemap.model.structure.Map;
 	import com.panozona.modules.imagemap.model.structure.Maps;
+	import com.panozona.modules.imagemap.model.structure.Waypoints;
 	import com.panozona.player.module.data.property.Size;
 	import flash.events.EventDispatcher;
 	
@@ -31,6 +33,7 @@ package com.panozona.modules.imagemap.model {
 		private var _currentMapId:String
 		private var _size:Size;
 		private var _radarFirst:Boolean;
+		private var _currentExtraWaypointId:String
 		
 		public function MapData() {
 			_currentMapId = null;
@@ -62,6 +65,24 @@ package com.panozona.modules.imagemap.model {
 		public function set radarFirst(value:Boolean):void {
 			_radarFirst = value;
 			dispatchEvent(new MapEvent(MapEvent.CHANGED_RADAR_FIRST));
+		}
+		
+		public function getExtraWaypointById(extraWaypointId:String):ExtraWaypoint {
+			for each(var map:Map in maps.getChildrenOfGivenClass(Map)) {
+				for each(var waypoints:Waypoints in map.getChildrenOfGivenClass(Waypoints)) {
+					for each(var extraWaypoint:ExtraWaypoint in waypoints.getChildrenOfGivenClass(ExtraWaypoint)) {
+						if (extraWaypoint.id == extraWaypointId) return extraWaypoint;
+					}
+				}
+			}
+			return null;
+		}
+		
+		public function get currentExtraWaypointId():String {return _currentExtraWaypointId;}
+		public function set currentExtraWaypointId(value:String):void {
+			if (value == null || value == _currentExtraWaypointId) return;
+			_currentExtraWaypointId = value;
+			dispatchEvent(new MapEvent(MapEvent.CHANGED_CURRENT_EXTRAWAYPOINT_ID));
 		}
 	}
 }

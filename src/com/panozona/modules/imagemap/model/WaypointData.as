@@ -23,56 +23,23 @@ package com.panozona.modules.imagemap.model{
 	import com.panozona.modules.imagemap.model.structure.Waypoint;
 	import com.panozona.player.module.data.property.Move;
 	import flash.display.BitmapData;
-	import flash.events.EventDispatcher;
 	
-	public class WaypointData extends EventDispatcher{
+	public class WaypointData extends RawWaypointData{
 		
-		public var waypoint:Waypoint;
 		public var radar:Radar;
 		public var panShift:Number;
 		
-		public var move:Move;
-		
-		public var bitmapDataPlain:BitmapData;
-		public var bitmapDataHover:BitmapData;
-		public var bitmapDataActive:BitmapData;
-		
-		private var _showRadar:Boolean;
-		private var _mouseOver:Boolean;
-		private var _hasFocus:Boolean;
-		
-		public function WaypointData(waypoint:Waypoint, radar:Radar, panShift:Number, move:Move,
-			bitmapDataPlain:BitmapData, bitmapDataHover:BitmapData, bitmapDataActive:BitmapData ){
-			this.waypoint = waypoint;
+		public function WaypointData(waypoint:Waypoint, move:Move,
+			bitmapDataPlain:BitmapData, bitmapDataHover:BitmapData, bitmapDataActive:BitmapData,
+			radar:Radar, panShift:Number) {
+			super(waypoint, move, bitmapDataPlain, bitmapDataHover, bitmapDataActive);
+			
 			this.radar = radar;
 			this.panShift = panShift;
-			this.move = move;
-			this.bitmapDataPlain = bitmapDataPlain;
-			this.bitmapDataHover = bitmapDataHover;
-			this.bitmapDataActive = bitmapDataActive;
 		}
 		
-		public function get showRadar():Boolean {return _showRadar;}
-		public function set showRadar(value:Boolean):void {
-			if (value == _showRadar) return;
-			_showRadar = value;
-			dispatchEvent(new WaypointEvent(WaypointEvent.CHANGED_SHOW_RADAR));
-		}
-		
-		public function get mouseOver():Boolean {return _mouseOver;}
-		public function set mouseOver(value:Boolean):void {
-			if (value == _mouseOver) return;
-			_mouseOver = value;
-			dispatchEvent(new WaypointEvent(WaypointEvent.CHANGED_MOUSE_OVER));
-		}
-		
-		public function get hasFocus():Boolean {return _hasFocus;}
-		public function set hasFocus(value:Boolean):void {
-			if (value == _hasFocus) return;
-			_hasFocus = value;
-			if (_hasFocus) {
-				dispatchEvent(new WaypointEvent(WaypointEvent.FOCUS_GAINED));
-			}
+		public function get waypoint():Waypoint {
+			return rawWaypoint as Waypoint
 		}
 	}
 }

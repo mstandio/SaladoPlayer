@@ -28,10 +28,7 @@ package com.panozona.modules.imagemap.controller {
 	import flash.geom.Point;
 	import flash.system.ApplicationDomain;
 	
-	public class WaypointController {
-		
-		private var _waypointView:WaypointView;
-		private var _module:Module;
+	public class WaypointController extends RawWaypointController{
 		
 		private var _pan:Number;
 		private var _tilt:Number;
@@ -42,18 +39,14 @@ package com.panozona.modules.imagemap.controller {
 		private var pan3:Number;
 		
 		private var currentDirection:Number;
+		private var _waypointView:WaypointView;
 		
 		public function WaypointController(waypointView:WaypointView, module:Module) {
-			_waypointView = waypointView;
-			_module = module;
+			super(waypointView, module);
+			_waypointView = _rawWapointView as WaypointView;
 			
 			var autorotationEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.AutorotationEvent") as Class;
 			_module.saladoPlayer.managerData.controlData.autorotationCameraData.addEventListener(autorotationEventClass.AUTOROTATION_CHANGE, onIsAutorotatingChange, false, 0, true);
-			
-			_waypointView.waypointData.addEventListener(WaypointEvent.CHANGED_SHOW_RADAR, handleShowRadarChange, false, 0, true);
-			_waypointView.waypointData.addEventListener(WaypointEvent.CHANGED_MOUSE_OVER, handleMouseOverChange, false, 0, true);
-			
-			_waypointView.addEventListener(MouseEvent.CLICK, handleMouseClick, false, 0, true);
 			
 			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 			_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_LOADED, onPanoramaLoaded, false, 0, true);
@@ -61,11 +54,9 @@ package com.panozona.modules.imagemap.controller {
 			if(_module.saladoPlayer.manager.currentPanoramaData != null){
 				onPanoramaLoaded(); // in case when map just got changed
 			}
-			
-			drawButton();
 		}
 		
-		private function handleMouseClick(e:Event):void {
+		override protected function handleMouseClick(e:Event):void {
 			if (_module.saladoPlayer.manager.currentPanoramaData.id != _waypointView.waypointData.waypoint.target){
 				_module.saladoPlayer.manager.loadPano(_waypointView.waypointData.waypoint.target);
 			}else {
@@ -77,24 +68,24 @@ package com.panozona.modules.imagemap.controller {
 			if (_module.saladoPlayer.manager.currentPanoramaData.id == _waypointView.waypointData.waypoint.target) {
 				currentDirection = _module.saladoPlayer.managerData.getPanoramaDataById(_waypointView.waypointData.waypoint.target).direction;
 				_waypointView.waypointData.hasFocus = true;
-				_waypointView.waypointData.showRadar = true;
+				_waypointView.waypointData.isActive = true;
 				if (!_waypointView.waypointData.radar.showTilt) {
 					_waypointView.imageMapData.mapData.radarFirst = false;
 				}
 			}else {
-				_waypointView.waypointData.showRadar = false;
+				_waypointView.waypointData.isActive = false;
 			}
 		}
 		
 		private function onIsAutorotatingChange(autorotationEvent:Object):void {
-			if (_waypointView.waypointData.showRadar && !_waypointView.waypointData.hasFocus) {
+			if (_waypointView.waypointData.isActive && !_waypointView.waypointData.hasFocus) {
 				_waypointView.waypointData.hasFocus = true;
 			}
 		}
 		
-		private function handleShowRadarChange(e:Event):void {
-			drawButton();
-			if (_waypointView.waypointData.showRadar){
+		override protected function handleIsActiveChange(e:Event):void {
+			super.handleIsActiveChange(e);
+			if (_waypointView.waypointData.isActive){
 				_pan = NaN;
 				_tilt = NaN;
 				_fov = NaN;
@@ -110,10 +101,6 @@ package com.panozona.modules.imagemap.controller {
 				_waypointView.radar.graphics.clear();
 				_module.stage.removeEventListener(Event.ENTER_FRAME, handleEnterFrame);
 			}
-		}
-		
-		public function handleMouseOverChange(e:Event):void {
-			drawButton();
 		}
 		
 		private function handleEnterFrame(e:Event = null):void {
@@ -136,7 +123,7 @@ package com.panozona.modules.imagemap.controller {
 				pan3 = pan2;
 				pan2 = pan1;
 				pan1 = _module.saladoPlayer.manager._pan;
-				if (_waypointView.waypointData.showRadar && !_waypointView.waypointData.hasFocus) {
+				if (_waypointView.waypointData.isActive && !_waypointView.waypointData.hasFocus) {
 					if(Math.floor(Math.abs(pan1 - pan2)) > Math.floor(Math.abs(pan2 - pan3))){ // detect acceleration 
 						_waypointView.waypointData.hasFocus = true;
 					}
@@ -165,16 +152,6 @@ package com.panozona.modules.imagemap.controller {
 				_waypointView.radar.graphics.curveTo(controlPoint.x, controlPoint.y, anchorPoint.x, anchorPoint.y);
 			}
 			_waypointView.radar.graphics.endFill();
-		}
-		
-		private function drawButton():void {
-			if (_waypointView.waypointData.showRadar){
-				_waypointView.buttonBitmapData = _waypointView.waypointData.bitmapDataActive;
-			}else if (_waypointView.waypointData.mouseOver) {
-				_waypointView.buttonBitmapData = _waypointView.waypointData.bitmapDataHover;
-			}else { // !mouseOver
-				_waypointView.buttonBitmapData = _waypointView.waypointData.bitmapDataPlain;
-			}
 		}
 	}
 }

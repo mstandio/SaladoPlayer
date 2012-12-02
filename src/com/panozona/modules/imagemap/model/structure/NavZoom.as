@@ -21,7 +21,7 @@ package com.panozona.modules.imagemap.model.structure {
 	public class NavZoom {
 		
 		public var enabled:Boolean = true;
-		public var speed:Number = 0.03;
+		public var speed:Number = 0.015;
 		public var useScroll:Boolean = true;
 	}
 }
