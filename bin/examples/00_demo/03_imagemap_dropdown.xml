@@ -8,13 +8,15 @@
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
-		<DropDown path="~modules/DropDown-1.2.swf">
+		<DropDown path="~modules/DropDown-1.3.swf">
 			<window align="horizontal:right,vertical:top" move="vertical:30,horizontal:-180" transition="type:slideUp"/>
 			<box opensUp="false" style="fontFamily:Arial,fontSize:15"/>
-			<elements>
-				<extraElement id="map1_label" label="Impact" action="setMap1"/>
-				<extraElement id="map2_label" label="Galaxy" action="setMap2"/>
-			</elements>
+			<groups>
+				<group id="g1">
+					<extraElement id="map1_label" label="Impact" action="setMap1"/>
+					<extraElement id="map2_label" label="Galaxy" action="setMap2"/>
+				</group>
+			</groups>
 		</DropDown>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.swf">
 			<window onOpen="onMapOpen" onClose="onMapClose"/>

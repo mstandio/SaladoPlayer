@@ -19,18 +19,20 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.dropdown.model{
 	
 	import com.panozona.modules.dropdown.events.BoxEvent;
-	import com.panozona.modules.dropdown.model.structure.Box;
-	import com.panozona.modules.dropdown.model.structure.Elements;
+	import com.panozona.modules.dropdown.model.structure.ExtraElement;
+	import com.panozona.modules.dropdown.model.structure.Group;
+	import com.panozona.modules.dropdown.model.structure.Groups;
 	import flash.events.EventDispatcher;
 	
 	public class BoxData extends EventDispatcher {
 		
-		public const box:Box = new Box();
-		
-		public const elements:Elements = new Elements();
+		public const groups:Groups = new Groups();
 		
 		private var _open:Boolean;
 		private var _mouseOver:Boolean;
+		
+		private var _currentGroupId:String;
+		private var _currentExtraElementId:String;
 		
 		public function get open():Boolean { return _open;}
 		public function set open(value:Boolean):void {
@@ -44,6 +46,38 @@ package com.panozona.modules.dropdown.model{
 			if (value == _mouseOver) return;
 			_mouseOver = value;
 			dispatchEvent(new BoxEvent(BoxEvent.CHANGED_MOUSE_OVER));
+		}
+		
+		public function getExtraElementById(extraElementId:String):ExtraElement {
+			for each(var group:Group in groups.getChildrenOfGivenClass(Group)) {
+				for each(var extraElement:ExtraElement in group.getChildrenOfGivenClass(ExtraElement)) {
+					if (extraElement.id == extraElementId) return extraElement;
+				}
+			}
+			return null;
+		}
+		
+		public function get currentExtraElementId():String {return _currentExtraElementId;}
+		public function set currentExtraElementId(value:String):void {
+			if (value == null || value == _currentExtraElementId) return;
+			_currentExtraElementId = value;
+			dispatchEvent(new BoxEvent(BoxEvent.CHANGED_CURRENT_EXTRAWAYPOINT_ID));
+		}
+		
+		public function getGroupById(groupId:String):Group {
+			for each(var group:Group in groups.getChildrenOfGivenClass(Group)) {
+				if (group.id == groupId) {
+					return group;
+				}
+			}
+			return null;
+		}
+		
+		public function get currentGroupId():String {return _currentGroupId;}
+		public function set currentGroupId(value:String):void {
+			if (value == null || value == _currentGroupId) return;
+			_currentGroupId = value;
+			dispatchEvent(new BoxEvent(BoxEvent.CHANGED_CURRENT_GROUP_ID));
 		}
 	}
 }

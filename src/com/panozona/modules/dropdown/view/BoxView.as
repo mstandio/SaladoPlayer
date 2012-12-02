@@ -43,32 +43,32 @@ package com.panozona.modules.dropdown.view {
 			
 			var textFormat:TextFormat = new TextFormat();
 			textFormat.blockIndent = 0;
-			textFormat.font = dropDownData.boxData.box.style.fontFamily;
-			textFormat.bold = dropDownData.boxData.box.style.fontBold;
-			textFormat.size = dropDownData.boxData.box.style.fontSize;
-			textFormat.color = dropDownData.boxData.box.style.fontColor;
-			textFormat.leftMargin = dropDownData.boxData.box.style.fontSize * 0.3;
-			textFormat.rightMargin = dropDownData.boxData.box.style.fontSize * 0.7;
+			textFormat.font = dropDownData.settings.style.fontFamily;
+			textFormat.bold = dropDownData.settings.style.fontBold;
+			textFormat.size = dropDownData.settings.style.fontSize;
+			textFormat.color = dropDownData.settings.style.fontColor;
+			textFormat.leftMargin = dropDownData.settings.style.fontSize * 0.3;
+			textFormat.rightMargin = dropDownData.settings.style.fontSize * 0.7;
 			
 			textField.defaultTextFormat = textFormat;
 			textField.selectable = false;
 			textField.blendMode = BlendMode.LAYER;
 			textField.background = true;
-			textField.backgroundColor = dropDownData.boxData.box.style.plainColor;
+			textField.backgroundColor = dropDownData.settings.style.plainColor;
 			textField.border = true;
-			textField.borderColor = dropDownData.boxData.box.style.borderColor;
-			textField.height = dropDownData.boxData.box.style.fontSize * 1.4;
+			textField.borderColor = dropDownData.settings.style.borderColor;
+			textField.height = dropDownData.settings.style.fontSize * 1.4;
 			textField.addEventListener(MouseEvent.CLICK, onMouseClick, false, 0, true);
 			addChild(textField);
 			
-			button.graphics.beginFill(_dropDownData.boxData.box.style.plainColor, 0);
+			button.graphics.beginFill(_dropDownData.settings.style.plainColor, 0);
 			button.graphics.drawRect(0, 0, textField.height, textField.height - 1) // inside border 
 			button.graphics.endFill();
 			button.graphics.moveTo(0, 0);
-			button.graphics.lineStyle(1, _dropDownData.boxData.box.style.borderColor);
+			button.graphics.lineStyle(1, _dropDownData.settings.style.borderColor);
 			button.graphics.lineTo(0, textField.height);
-			button.graphics.beginFill(_dropDownData.boxData.box.style.borderColor);
-			if (dropDownData.boxData.box.opensUp) {
+			button.graphics.beginFill(_dropDownData.settings.style.borderColor);
+			if (dropDownData.settings.opensUp) {
 				button.graphics.moveTo(textField.height / 2, textField.height / 3);
 				button.graphics.lineTo(textField.height / 3 * 2, textField.height / 3 * 2);
 				button.graphics.lineTo(textField.height / 3, textField.height / 3 * 2);

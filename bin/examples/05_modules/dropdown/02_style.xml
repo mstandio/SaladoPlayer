@@ -14,14 +14,16 @@
 		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
-		<DropDown path="~modules/DropDown-1.2.swf">
-			<box style="fontFamily:Arial,fontSize:25,fontColor:#0000FF,plainColor:#FFFF00,hoverColor:#FF0000,activeColor:#FF00FF,borderColor:#00FFFF"/>
-			<elements>
-				<element target="checkerGreen" label="Green checker"/>
-				<element target="checkerBlue" label="Blue checker"/>
-				<element target="checkerRed" label="Red checker"/>
-				<element target="checkerYellow" label="Yellow checker"/>
-			</elements>
+		<DropDown path="~modules/DropDown-1.3.swf">
+			<settings style="fontFamily:Arial,fontSize:25,fontColor:#0000FF,plainColor:#FFFF00,hoverColor:#FF0000,activeColor:#FF00FF,borderColor:#00FFFF"/>
+			<groups>
+				<group id="g1">
+					<element target="checkerGreen" label="Green checker"/>
+					<element target="checkerBlue" label="Blue checker"/>
+					<element target="checkerRed" label="Red checker"/>
+					<element target="checkerYellow" label="Yellow checker"/>
+				</group>
+			</groups>
 		</DropDown>
 	</modules>
 </SaladoPlayer>

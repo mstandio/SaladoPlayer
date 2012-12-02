@@ -34,9 +34,10 @@ package com.panozona.modules.dropdown{
 		private var windowController:WindowController;
 		
 		public function DropDown(){
-			super("DropDown", "1.2", "http://panozona.com/wiki/Module:DropDown");
+			super("DropDown", "1.3", "http://panozona.com/wiki/Module:DropDown");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen");
+			moduleDescription.addFunctionDescription("setGroup", String);
 			moduleDescription.addFunctionDescription("setActive", String);
 		}
 		
@@ -60,22 +61,19 @@ package com.panozona.modules.dropdown{
 			dropDownData.windowData.open = !dropDownData.windowData.open;
 		}
 		
-		public function setActive(id:String):void {
-			var elementView:ElementView;
-			var found:Boolean = false;
-			for (var i:int = 0; i < windowView.boxView.elementsContainer.numChildren; i++) {
-				elementView = windowView.boxView.elementsContainer.getChildAt(i) as ElementView;
-				if (elementView.elementData.rawElement is ExtraElement) {
-					if ((elementView.elementData.rawElement as ExtraElement).id == id) {
-						elementView.elementData.isActive = true;
-						found = true;
-					}else {
-						elementView.elementData.isActive = false;
-					}
-				}
+		public function setGroup(id:String):void {
+			if (dropDownData.boxData.getGroupById(id) == null) {
+				printWarning("group not found: " + id);
+			}else {
+				dropDownData.boxData.currentGroupId = id;
 			}
-			if(!found){
-				printWarning("ExtraElement not found: " + id);
+		}
+		
+		public function setActive(id:String):void {
+			if (dropDownData.boxData.getExtraElementById(id) == null) {
+				printWarning("extraElement not found: " + id);
+			}else {
+				dropDownData.boxData.currentExtraElementId = id;
 			}
 		}
 	}

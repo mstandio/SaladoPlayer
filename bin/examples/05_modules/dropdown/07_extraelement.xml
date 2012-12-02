@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	You can use DropDown for other purposes then switching between panoramas. When using extraElements you can
+	assign actions executed when user clicks on given extraElement. They can also be used in many groups.
+	
+	http://panozona.com/wiki/Module:DropDown
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="CheckerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
+	</panoramas>
+	<modules>
+		<DropDown path="~modules/DropDown-1.3.swf">
+			<groups>
+				<group id="g1">
+					<extraElement id="pano" label="Pano" action="printPano"/>
+					<extraElement id="zona" label="Zona" action="printZona"/>
+				</group>
+			</groups>
+		</DropDown>
+	</modules>
+	<actions>
+		<action id="printPano" content="SaladoPlayer.print(Pano)"/>
+		<action id="printZona" content="SaladoPlayer.print(Zona)"/>
+	</actions>
+</SaladoPlayer>

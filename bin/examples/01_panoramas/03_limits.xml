@@ -18,12 +18,14 @@
 	</panoramas>
 	<modules>
 		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
-		<DropDown path="~modules/DropDown-1.2.swf">
-			<elements>
-				<element target="checkerViolet" label="Violet checker"/>
-				<element target="checkerTurquoise" label="Turquoise checker"/>
-				<element target="checkerBlue" label="Blue checker"/>
-			</elements>
+		<DropDown path="~modules/DropDown-1.3.swf">
+			<groups>
+				<group id="g1">
+					<element target="checkerViolet" label="Violet checker"/>
+					<element target="checkerTurquoise" label="Turquoise checker"/>
+					<element target="checkerBlue" label="Blue checker"/>
+				</group>
+			</groups>
 		</DropDown>
 	</modules>
 </SaladoPlayer>

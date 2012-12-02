@@ -1,5 +1,5 @@
 /*
-Copyright 2011 Marek Standio.
+Copyright 2012 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -16,11 +16,13 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.dropdown.model.structure{
+package com.panozona.modules.dropdown.model.structure {
 	
 	import com.panozona.player.module.data.structure.DataParent;
 	
-	public class Elements extends DataParent{
+	public class Group extends DataParent{
+		
+		public var id:String = null;
 		
 		override public function getChildrenTypes():Vector.<Class>{
 			var result:Vector.<Class> = new Vector.<Class>();

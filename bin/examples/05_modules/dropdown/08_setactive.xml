@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Each one of extraElemnts can change active state on demand. This feature can be usefull
+	when module is used for instance to display set of maps in ImageMap.
+	
+	http://panozona.com/wiki/Module:DropDown
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="CheckerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
+	</panoramas>
+	<modules>
+		<DropDown path="~modules/DropDown-1.3.swf">
+			<groups>
+				<group id="g1">
+					<extraElement id="compassOn" label="Show compass" action="showCompass"/>
+					<extraElement id="compassOff" label="Hide compass" action="hideCompass"/>
+				</group>
+			</groups>
+		</DropDown>
+		<Compass path="~modules/compass/Compass-1.2.swf">
+			<settings path="~modules/compass/images/compass_dark_93x81.png"/>
+			<window onOpen="onOpenCompass" onClose="onCloseCompass"/>
+		</Compass>
+	</modules>
+	<actions>
+		<action id="showCompass" content="Compass.setOpen(true)"/>
+		<action id="hideCompass" content="Compass.setOpen(false)"/>
+		<action id="onOpenCompass" content="DropDown.setActive(compassOn)"/>
+		<action id="onCloseCompass" content="DropDown.setActive(compassOff)"/>
+	</actions>
+</SaladoPlayer>

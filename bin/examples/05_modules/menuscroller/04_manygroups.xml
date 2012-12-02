@@ -20,7 +20,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<MenuScroller path="~modules/MenuScroller-1.3.swf">
+		<MenuScroller path="~modules/MenuScroller-1.3.1.swf">
 			<window transition="type:slideDown" align="horizontal:center,vertical:top" maxSize="width:600,height:200" margin="left:50,right:50,top:0,bottom:50"/>
 			<close move="horizontal:10,vertical:-10" path="~media/images/misc/close.png"/>
 			<groups>
@@ -32,11 +32,13 @@
 				</group>
 			</groups>
 		</MenuScroller>
-		<DropDown path="~modules/DropDown-1.2.swf">
-			<elements>
-				<element target="checkerBlue" label="Blue checker"/>
-				<element target="checkerRed" label="Red checker"/>
-			</elements>
+		<DropDown path="~modules/DropDown-1.3.swf">
+			<groups>
+				<group id="g1">
+					<element target="checkerBlue" label="Blue checker"/>
+					<element target="checkerRed" label="Red checker"/>
+				</group>
+			</groups>
 		</DropDown> 
 	</modules>
 	<actions>

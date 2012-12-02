@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+	You can set module as closed by default, and open/close it by calling proper functions. Assign actions that
+	will be executed whenever module changes "open" state, so this change could be reflected in your interface,
+	for example by changing state of buttons.
 	
 	http://panozona.com/wiki/Module:DropDown
 -->
 <SaladoPlayer>
-	<global debug="true"/>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
 	<panoramas>
 		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
 			<image id="cy_arrowGreen" path="~hotspots/images/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openDropDown"/>
@@ -13,16 +18,20 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<DropDown path="~modules/DropDown-1.2.swf">
-			<window transition="type:slideUp" openTween="transition:Bounce.easeOut,time:0.75" closeTween="transition:Expo.easeIn,time:0.75"/>
-			<elements>
-				<element target="checkerYellow" label="Yellow checker"/>
-			</elements>
+		<DropDown path="~modules/DropDown-1.3.swf">
+			<window open="false" onOpen="printOpen" onClose="printClose"/>
+			<groups>
+				<group id="g1">
+					<element target="checkerYellow" label="Yellow checker"/>
+				</group>
+			</groups>
 		</DropDown>
 	</modules>
 	<actions>
 		<action id="openDropDown" content="DropDown.setOpen(true)"/>
 		<action id="closeDropDown" content="DropDown.setOpen(false)"/>
 		<action id="toggleOpenDropDown" content="DropDown.toggleOpen()"/>
+		<action id="printOpen" content="SaladoPlayer.print(drop-down opened)"/>
+		<action id="printClose" content="SaladoPlayer.print(drop-down closed)"/>
 	</actions>
 </SaladoPlayer>

@@ -20,7 +20,9 @@ package com.panozona.modules.dropdown.model{
 	
 	import com.panozona.modules.dropdown.model.structure.Element;
 	import com.panozona.modules.dropdown.model.structure.ExtraElement;
+	import com.panozona.modules.dropdown.model.structure.Group;
 	import com.panozona.modules.dropdown.model.structure.RawElement;
+	import com.panozona.modules.dropdown.model.structure.Settings;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.data.ModuleData;
 	import com.panozona.player.module.utils.DataNodeTranslator;
@@ -28,6 +30,7 @@ package com.panozona.modules.dropdown.model{
 	public class DropDownData{
 		
 		public const windowData:WindowData = new WindowData();
+		public const settings:Settings = new Settings();
 		public const boxData:BoxData = new BoxData();
 		
 		public function DropDownData(moduleData:ModuleData, saladoPlayer:Object){
@@ -37,10 +40,10 @@ package com.panozona.modules.dropdown.model{
 			for each(var dataNode:DataNode in moduleData.nodes) {
 				if (dataNode.name == "window") {
 					translator.dataNodeToObject(dataNode, windowData.window);
-				}else if (dataNode.name == "box") {
-					translator.dataNodeToObject(dataNode, boxData.box);
-				}else if (dataNode.name == "elements") {
-					translator.dataNodeToObject(dataNode, boxData.elements);
+				}else if (dataNode.name == "settings") {
+					translator.dataNodeToObject(dataNode, settings);
+				}else if (dataNode.name == "groups") {
+					translator.dataNodeToObject(dataNode, boxData.groups);
 				}else {
 					throw new Error("Invalid node name: " + dataNode.name);
 				}
@@ -55,26 +58,37 @@ package com.panozona.modules.dropdown.model{
 				if (windowData.window.onClose != null && saladoPlayer.managerData.getActionDataById(windowData.window.onClose) == null) {
 					throw new Error("Action does not exist: " + windowData.window.onClose);
 				}
-				
+				var groupIds:Object = new Object();
 				var elementTargets:Object = new Object();
 				var extraElementIds:Object = new Object();
-				for each (var rawElement:RawElement in boxData.elements.getAllChildren()) {
-					if (rawElement is Element) {
-						if ((rawElement as Element).target == null) throw new Error("Element target not specified.");
-						if (saladoPlayer.managerData.getPanoramaDataById((rawElement as Element).target) == null) {
-							throw new Error("Invalid element target: " + (rawElement as Element).target);
-						}
-						if (elementTargets[(rawElement as Element).target] != undefined) {
-							throw new Error("Repeating element target: " + (rawElement as Element).target);
-						}else {
-							elementTargets[(rawElement as Element).target] = ""; // something
-						}
+				
+				for each (var group:Group in boxData.groups.getChildrenOfGivenClass(Group)) {
+					if (group.id == null) throw new Error("Group id not specified.");
+					if (groupIds[group.id] != undefined) {
+						throw new Error("Repeating group id: " + group.id);
 					}else {
-						if ((rawElement as ExtraElement).id == null) throw new Error("ExtraElement id not specified.");
-						if (extraElementIds[(rawElement as ExtraElement).id] != undefined) throw new Error("Repeating extraElement id: " + (rawElement as ExtraElement).id);
-						extraElementIds[(rawElement as ExtraElement).id] = ""; // somethig
-						if (saladoPlayer.managerData.getActionDataById((rawElement as ExtraElement).action) == null){
-							throw new Error("Action in extraElement does not exist: " + (rawElement as ExtraElement).action);
+						groupIds[group.id] = ""; // somethig
+					}
+					for each (var rawElement:RawElement in group.getAllChildren()) {
+						if (rawElement is Element) {
+							var element:Element = rawElement as Element;
+							if (element.target == null) throw new Error("Element target not specified.");
+							if (saladoPlayer.managerData.getPanoramaDataById(element.target) == null) {
+								throw new Error("Invalid element target: " + element.target);
+							}
+							if (elementTargets[element.target] != undefined) {
+								throw new Error("Repeating element target: " + element.target);
+							}else {
+								elementTargets[element.target] = ""; // something
+							}
+						}else {
+							var extraElement:ExtraElement = rawElement as ExtraElement;
+							if (extraElement.id == null) throw new Error("ExtraElement id not specified.");
+							if (extraElementIds[extraElement.id] != undefined) throw new Error("Repeating extraElement id: " + extraElement.id);
+							extraElementIds[extraElement.id] = ""; // somethig
+							if (extraElement.action !=null && saladoPlayer.managerData.getActionDataById(extraElement.action) == null){
+								throw new Error("Action in extraElement does not exist: " + extraElement.action);
+							}
 						}
 					}
 				}

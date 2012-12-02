@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	You can set position of drop-dwon list inside panorama window.
+	You can set position of drop-down list inside panorama window.
 	
 	http://panozona.com/wiki/Module:DropDown
 -->
@@ -13,15 +13,17 @@
 		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
-		<DropDown path="~modules/DropDown-1.2.swf">
+		<DropDown path="~modules/DropDown-1.3.swf">
 			<window align="horizontal:right,vertical:top" move="horizontal:-40,vertical:40"/>
-			<box opensUp="false"/>
-			<elements>
-				<element target="checkerBlue" label="Blue checker"/>
-				<element target="checkerGreen" label="Green checker"/>
-				<element target="checkerRed" label="Red checker"/>
-				<element target="checkerYellow" label="Yellow checker"/>
-			</elements>
+			<settings opensUp="false"/>
+			<groups>
+				<group id="g1">
+					<element target="checkerBlue" label="Blue checker"/>
+					<element target="checkerGreen" label="Green checker"/>
+					<element target="checkerRed" label="Red checker"/>
+					<element target="checkerYellow" label="Yellow checker"/>
+				</group>
+			</groups>
 		</DropDown>
 	</modules>
 </SaladoPlayer>

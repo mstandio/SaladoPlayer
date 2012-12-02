@@ -16,15 +16,17 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.dropdown.model.structure{
+package com.panozona.modules.dropdown.model.structure {
 	
 	import caurina.transitions.Equations;
 	import com.panozona.player.module.data.property.Tween;
 	
-	public class Box{
+	public class Settings {
 		
 		public var opensUp:Boolean = true;
 		public const style:Style = new Style();
+		
+		public var autoSwitch:Boolean = true;
 		
 		public const unfoldTween:Tween = new Tween(Equations.easeNone, 0.25);
 		public const foldTween:Tween = new Tween(Equations.easeNone, 0.25);

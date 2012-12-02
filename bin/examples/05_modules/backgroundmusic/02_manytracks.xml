@@ -17,15 +17,17 @@
 		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml" onEnter="setTrackTechnologically"/>
 	</panoramas>
 	<modules>
-		<DropDown path="~modules/DropDown-1.2.swf">
-			<elements>
-				<element target="checkerGreen" label="Green checker"/>
-				<element target="checkerBlue" label="Blue checker"/>
-				<element target="checkerRed" label="Red checker"/>
-				<element target="checkerYellow" label="Yellow checker"/>
-			</elements>
+		<DropDown path="~modules/DropDown-1.3.swf">
+			<groups>
+				<group id="g1">
+					<element target="checkerGreen" label="Green checker"/>
+					<element target="checkerBlue" label="Blue checker"/>
+					<element target="checkerRed" label="Red checker"/>
+					<element target="checkerYellow" label="Yellow checker"/>
+				</group>
+			</groups>
 		</DropDown>
-		<BackgroundMusic path="~modules/BackgroundMusic-1.1.swf">
+		<BackgroundMusic path="~modules/BackgroundMusic-1.2.swf">
 			<tracks>
 				<track id="ancoral" path="~media/sound/looperman-ancoral-acp-string-choir-ensemble-01.mp3"/>
 				<track id="always" path="~media/sound/looperman-djgadget-always.mp3"/>

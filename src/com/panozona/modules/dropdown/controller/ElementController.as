@@ -19,10 +19,13 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.dropdown.controller{
 	
 	import com.panozona.modules.dropdown.events.ElementEvent;
+	import com.panozona.modules.dropdown.events.BoxEvent;
+	import com.panozona.modules.dropdown.model.BoxData;
 	import com.panozona.modules.dropdown.model.structure.Element;
 	import com.panozona.modules.dropdown.model.structure.ExtraElement;
 	import com.panozona.modules.dropdown.view.ElementView;
 	import com.panozona.player.module.Module;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.system.ApplicationDomain;
 	
@@ -31,20 +34,24 @@ package com.panozona.modules.dropdown.controller{
 		private var _elementView:ElementView;
 		private var _module:Module;
 		
-		public function ElementController(elementView:ElementView, module:Module){
+		public function ElementController(elementView:ElementView, module:Module, boxData:BoxData){
 			_elementView = elementView;
 			_module = module;
 			
 			_elementView.elementData.addEventListener(ElementEvent.CHANGED_MOUSE_OVER, handleElementMouseOverChange, false, 0, true);
 			_elementView.elementData.addEventListener(ElementEvent.CHANGED_IS_ACTIVE, handleElementActiveChange, false, 0, true);
 			
-			_elementView.elementData.addEventListener(ElementEvent.CHANGED_WIDTH, handleElementWidthChange, false, 0, true); // to trzeba bedzie wywalic
+			_elementView.elementData.addEventListener(ElementEvent.CHANGED_WIDTH, handleElementWidthChange, false, 0, true);
 			
 			_elementView.addEventListener(MouseEvent.CLICK, handleMouseClick, false, 0, true);
 			
 			if(_elementView.elementData.rawElement is Element){
 				var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
 				_module.saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
+				onPanoramaStartedLoading(null);
+			}else {
+				boxData.addEventListener(BoxEvent.CHANGED_CURRENT_EXTRAWAYPOINT_ID, onCurrentExtraElementIdChange, false, 0, true)
+				onCurrentExtraElementIdChange(null);
 			}
 		}
 		
@@ -80,6 +87,14 @@ package com.panozona.modules.dropdown.controller{
 			}
 		}
 		
+		private function onCurrentExtraElementIdChange(e:Event):void {
+			if ((_elementView.elementData.rawElement as ExtraElement).id == _elementView.dropDownData.boxData.currentExtraElementId) {
+				_elementView.elementData.isActive = true;
+			}else {
+				_elementView.elementData.isActive = false;
+			}
+		}
+		
 		private function handleMouseClick(e:MouseEvent):void {
 			if (_elementView.elementData.rawElement is Element){
 				if (_module.saladoPlayer.manager.currentPanoramaData.id != (_elementView.elementData.rawElement as Element).target){
@@ -93,17 +108,17 @@ package com.panozona.modules.dropdown.controller{
 		
 		private function onPlain():void {
 			if (_elementView.elementData.isActive) {
-				_elementView.textField.backgroundColor = _elementView.dropDownData.boxData.box.style.activeColor;
+				_elementView.textField.backgroundColor = _elementView.dropDownData.settings.style.activeColor;
 			}else {
-				_elementView.textField.backgroundColor = _elementView.dropDownData.boxData.box.style.plainColor;
+				_elementView.textField.backgroundColor = _elementView.dropDownData.settings.style.plainColor;
 			}
 		}
 		
 		private function onHover():void {
 			if (_elementView.elementData.isActive) {
-				_elementView.textField.backgroundColor = _elementView.dropDownData.boxData.box.style.activeColor;
+				_elementView.textField.backgroundColor = _elementView.dropDownData.settings.style.activeColor;
 			}else {
-				_elementView.textField.backgroundColor = _elementView.dropDownData.boxData.box.style.hoverColor;
+				_elementView.textField.backgroundColor = _elementView.dropDownData.settings.style.hoverColor;
 			}
 		}
 	}

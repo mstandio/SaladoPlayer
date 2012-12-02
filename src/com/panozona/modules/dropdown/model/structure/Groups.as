@@ -16,19 +16,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.dropdown.events{
+package com.panozona.modules.dropdown.model.structure {
 	
-	import flash.events.Event;
+	import com.panozona.player.module.data.structure.DataParent;
 	
-	public class BoxEvent extends Event{
+	public class Groups extends DataParent{
 		
-		public static const CHANGED_OPEN:String = "changedOpen";
-		public static const CHANGED_MOUSE_OVER:String = "changedMouseOver";
-		public static const CHANGED_CURRENT_GROUP_ID:String = "changedCurrGroupId";
-		public static const CHANGED_CURRENT_EXTRAWAYPOINT_ID:String = "changedCurrExtraWaypointId";
-		
-		public function BoxEvent( type:String){
-			super(type);
+		override public function getChildrenTypes():Vector.<Class>{
+			var result:Vector.<Class> = new Vector.<Class>();
+			result.push(Group);
+			return result;
 		}
 	}
 }
