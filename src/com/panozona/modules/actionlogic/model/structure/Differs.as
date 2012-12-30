@@ -18,7 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.actionlogic.model.structure {
 	
-	public class Equals extends Value {
+	public class Differs extends Value {
 		
 	}
 }

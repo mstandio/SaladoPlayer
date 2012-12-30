@@ -19,7 +19,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.actionlogic.model {
 	
 	import com.panozona.modules.actionlogic.model.structure.Condition;
-	import com.panozona.modules.actionlogic.model.structure.Equals;
+	import com.panozona.modules.actionlogic.model.structure.Value;
 	import com.panozona.modules.actionlogic.model.structure.Script;
 	import com.panozona.player.module.data.DataNode;
 	import com.panozona.player.module.data.ModuleData;
@@ -56,8 +56,8 @@ package com.panozona.modules.actionlogic.model {
 								throw new Error("Action does not exist: " + condition.onSatisfy);
 							}
 							for each(var object:Object in condition.getAllChildren()) {
-								if (object is Equals) {
-									var panoramaId:String = (object as Equals).currentPanorama;
+								if (object is Value) {
+									var panoramaId:String = (object as Value).currentPanorama;
 									if (panoramaId != null && saladoPlayer.managerData.getPanoramaDataById(panoramaId) == null) {
 										throw new Error("Panorama does not exist: " + panoramaId);
 									}

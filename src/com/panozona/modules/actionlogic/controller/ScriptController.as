@@ -19,9 +19,12 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 package com.panozona.modules.actionlogic.controller {
 	
 	import com.panozona.modules.actionlogic.model.structure.Condition;
+	import com.panozona.modules.actionlogic.model.structure.Differs;
 	import com.panozona.modules.actionlogic.model.structure.Equals;
 	import com.panozona.modules.actionlogic.model.structure.Script;
+	import com.panozona.modules.actionlogic.model.structure.Value;
 	import com.panozona.player.module.Module;
+	import flash.external.ExternalInterface;
 	
 	public class ScriptController {
 		
@@ -33,12 +36,14 @@ package com.panozona.modules.actionlogic.controller {
 		
 		public function runScript(script:Script):void {
 			for each (var condition:Condition in script.getChildrenOfGivenClass(Condition)) {
-				var satisfied:Boolean = false;
 				for each(var object:Object in condition.getAllChildren()) {
-					if (object is Equals) {
-						var panoramaId:String = (object as Equals).currentPanorama;
-						if (_module.saladoPlayer.manager.currentPanoramaData != null && _module.saladoPlayer.manager.currentPanoramaData.id == panoramaId) {
-							satisfied = true;
+					var satisfied:Boolean = true;
+					if (object is Value) {
+						if (!satisfiesCurrentPanoramaId(object as Value)) {
+							satisfied = false;
+						}
+						if (!satisfiesUrlFromPanoLink(object as Value)) {
+							satisfied = false;
 						}
 					}
 				}
@@ -46,6 +51,33 @@ package com.panozona.modules.actionlogic.controller {
 					_module.saladoPlayer.manager.runAction(condition.onSatisfy);
 				}
 			}
+		}
+		
+		private function satisfiesCurrentPanoramaId(value:Value):Boolean {
+			var panoramaId:String = value.currentPanorama;
+			if (panoramaId != null && _module.saladoPlayer.manager.currentPanoramaData != null) {
+				if (value is Equals && _module.saladoPlayer.manager.currentPanoramaData.id != panoramaId) {
+					return false;
+				}else if (value is Differs && _module.saladoPlayer.manager.currentPanoramaData.id == panoramaId) {
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		private function satisfiesUrlFromPanoLink(value:Value):Boolean {
+			var panolinkVersion:String = value.urlFromPanoLink;
+			var url:String = ExternalInterface.call("window.location.href.toString");
+			if (panolinkVersion != null && url != null) {
+				if (panolinkVersion == "PanoLink-1.1") {
+					if (value is Equals && !url.match(/.+cam=-?\d{1,},-?\d{1,},-?\d{1,}/i)) {
+						return false;
+					}else if (value is Differs && url.match(/.+cam=-?\d{1,},-?\d{1,},-?\d{1,}/i)) {
+						return false;
+					}
+				}
+			}
+			return true
 		}
 	}
 }
