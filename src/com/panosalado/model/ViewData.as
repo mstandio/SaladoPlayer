@@ -401,7 +401,7 @@ package com.panosalado.model{
 		* @private
 		*/
 		public function set path(value:String):void{
-			if (_path == value && value != null) return;
+			// if (_path == value && value != null) return;
 			
 			if (value == null) { //delete current tile.
 				_tile = null;
@@ -642,7 +642,9 @@ package com.panosalado.model{
 			ret._path = _path;
 			ret._tile = _tile;
 			ret._minimumFieldOfView = _minimumFieldOfView;
+			ret._minimumFieldOfViewDefault = _minimumFieldOfView
 			ret._maximumFieldOfView = _maximumFieldOfView;
+			ret._maximumFieldOfViewDefault = _maximumFieldOfView;
 			ret._minimumPan = _minimumPan;
 			ret._maximumPan = _maximumPan;
 			ret._minimumTilt = _minimumTilt;
@@ -671,16 +673,30 @@ package com.panosalado.model{
 			
 			if (isNaN(_boundsWidth) || isNaN(_boundsHeight) || isNaN(_fieldOfView)) return;
 			
+			var maximumFieldOfViewVerticalTmp:Number;
 			if (!isNaN(_minimumVerticalFieldOfView) && !isNaN(_maximumVerticalFieldOfView) &&
 				(_maximumVerticalFieldOfView - _minimumVerticalFieldOfView) < 180) {
-				
-				var maximumFieldOfViewTmp:Number = __toDegrees * 2 *
+				maximumFieldOfViewVerticalTmp = __toDegrees * 2 *
 					Math.atan((_boundsWidth/_boundsHeight) *
 					Math.tan(__toRadians * 0.5 *
 					(_maximumVerticalFieldOfView - _minimumVerticalFieldOfView)));
 					
-				if (maximumFieldOfViewTmp < _maximumFieldOfViewDefault) {
-					maximumFieldOfView = maximumFieldOfViewTmp;
+				if (isNaN(_maximumFieldOfViewDefault) || maximumFieldOfViewVerticalTmp < _maximumFieldOfViewDefault) {
+					maximumFieldOfView = maximumFieldOfViewVerticalTmp;
+				}else {
+					maximumFieldOfView = _maximumFieldOfViewDefault;
+				}
+			}
+			
+			var maximumFieldOfViewHorizontalTmp:Number;
+			if (!isNaN(_minimumHorizontalFieldOfView) && !isNaN(_maximumHorizontalFieldOfView) &&
+				(_maximumHorizontalFieldOfView - _minimumHorizontalFieldOfView) < 180) {
+				maximumFieldOfViewHorizontalTmp = __toDegrees * 2 *
+					Math.atan((_boundsHeight/_boundsWidth) *
+					Math.tan(__toRadians * 0.5 *
+					(_maximumHorizontalFieldOfView - _minimumHorizontalFieldOfView)));
+				if (isNaN(_maximumFieldOfViewDefault) || maximumFieldOfViewHorizontalTmp < _maximumFieldOfViewDefault) {
+					maximumFieldOfView = maximumFieldOfViewHorizontalTmp;
 				}else {
 					maximumFieldOfView = _maximumFieldOfViewDefault;
 				}
@@ -700,16 +716,18 @@ package com.panosalado.model{
 			if (!isNaN(_maximumPixelZoom) && tile != null && tile.tilePyramid != null){
 				var boundsDiagonal:Number = Math.sqrt( _boundsWidth * _boundsWidth + _boundsHeight * _boundsHeight);
 				
-				var minimumFieldOfViewTmp:Number = Math.atan((boundsWidth * 0.5) / ((boundsDiagonal * 0.5) /
-					Math.tan((boundsDiagonal / (_maximumPixelZoom * 100 * tierThreshold)) * 0.5
-					* __toRadians))) * 2 * __toDegrees;
+				var minimumFieldOfViewTmp:Number = Math.atan(boundsWidth * 0.5 / (boundsDiagonal * 0.5 /
+					Math.tan(boundsDiagonal / (0.0175 * tile.tilePyramid.width * 0.5 * tierThreshold * _maximumPixelZoom) 
+					* 0.5 * __toRadians))) * 2 * __toDegrees; // 0.0175 = tg(1)
 					
-				if (minimumFieldOfViewTmp < _minimumFieldOfViewDefault) {
-					minimumFieldOfView = minimumFieldOfViewTmp;
-				}else {
-					minimumFieldOfView = _minimumFieldOfViewDefault;
+				if (!isNaN(_minimumFieldOfViewDefault) && minimumFieldOfViewTmp > 0){
+					if (minimumFieldOfViewTmp < _minimumFieldOfViewDefault) {
+						minimumFieldOfView = minimumFieldOfViewTmp;
+					}else {
+						minimumFieldOfView = _minimumFieldOfViewDefault;
+					}
 				}
-			} 
+			}
 		}
 	}
 }
