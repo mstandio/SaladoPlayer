@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
+	Module allows adding and customizing simple button for entering and exiting fullscreen state
+	it also inidicates current state of panorama window.
 	
 	http://panozona.com/wiki/Module:FullScreener
 -->
@@ -11,11 +13,8 @@
 		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
-		<FullScreener path="~modules/fullscreener/FullScreener-1.0.swf">
+		<FullScreener path="~modules/fullscreener/FullScreener-1.1.swf">
 			<settings path="~modules/fullscreener/images/button_thick_black_50x50.png"/>
 		</FullScreener>
 	</modules>
-	<actions>
-		<action id="printClick" content="FullScreener.toggleFullScreenOn()"/>
-	</actions>
 </SaladoPlayer>

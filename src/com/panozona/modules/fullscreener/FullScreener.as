@@ -27,14 +27,14 @@ package com.panozona.modules.fullscreener{
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
 	import flash.display.Sprite;
+	import flash.display.StageDisplayState;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
 	import flash.events.IOErrorEvent;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
-	import flash.display.StageDisplayState;
 	
 	public class FullScreener extends Module {
 		
@@ -51,9 +51,9 @@ package com.panozona.modules.fullscreener{
 		private var fullScreenerData:FullScreenerData;
 		
 		public function FullScreener():void{
-			super("FullScreener", "1.0", "http://panozona.com/wiki/Module:FullScreener");
-			moduleDescription.addFunctionDescription("setFullScreenOn", Boolean);
-			moduleDescription.addFunctionDescription("toggleFullScreenOn");
+			super("FullScreener", "1.1", "http://panozona.com/wiki/Module:FullScreener");
+			moduleDescription.addFunctionDescription("setFullScreen", Boolean);
+			moduleDescription.addFunctionDescription("toggleFullScreen");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
@@ -68,6 +68,25 @@ package com.panozona.modules.fullscreener{
 				buttonLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonImageLost, false, 0, true);
 				buttonLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, buttonImageLoaded, false, 0, true);
 				buttonLoader.load(new URLRequest(fullScreenerData.settings.path));
+			}
+			
+			stage.addEventListener(Event.FULLSCREEN, handleFullScreen, false, 0, true);
+			
+			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+			saladoPlayer.manager.addEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading, false, 0, true);
+		}
+		
+		private function onPanoramaStartedLoading(loadPanoramaEvent:Object):void {
+			var panoramaEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panozona.player.manager.events.PanoramaEvent") as Class;
+			saladoPlayer.manager.removeEventListener(panoramaEventClass.PANORAMA_STARTED_LOADING, onPanoramaStartedLoading);
+			handleFullScreen();
+		}
+		
+		private function handleFullScreen(e:Event = null):void {
+			if (stage.displayState == StageDisplayState.NORMAL){
+				saladoPlayer.manager.runAction(fullScreenerData.settings.onFullScreenOff);
+			}else {
+				saladoPlayer.manager.runAction(fullScreenerData.settings.onFullScreenOn);
 			}
 		}
 		
@@ -100,11 +119,11 @@ package com.panozona.modules.fullscreener{
 			buttonBitmap = new Bitmap();
 			button = new Sprite();
 			button.buttonMode = true;
+			button.alpha = fullScreenerData.settings.alpha;
 			button.addChild(buttonBitmap);
 			addChild(button);
 			
-			button.addEventListener(MouseEvent.MOUSE_UP, toggleFullscreen, false, 0, true); // important! on some browsers using MOUSE_CLICK can freeze flash player
-			
+			button.addEventListener(MouseEvent.MOUSE_UP, toggleFullscreen, false, 0, true); // on some browsers MOUSE_CLICK can freeze flash player
 			button.addEventListener(MouseEvent.MOUSE_MOVE, onMouseOver, false, 0, true);
 			button.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut, false, 0, true);
 			button.addEventListener(MouseEvent.ROLL_OUT, onMouseOut, false, 0, true);
@@ -118,12 +137,14 @@ package com.panozona.modules.fullscreener{
 			if (mouseOver) return;
 			mouseOver = true;
 			buildButton();
+			saladoPlayer.manager.runAction(fullScreenerData.settings.mouse.onOver);
 		}
 		
 		private function onMouseOut(e:Event):void {
 			if (!mouseOver) return;
 			mouseOver = false;
 			buildButton();
+			saladoPlayer.manager.runAction(fullScreenerData.settings.mouse.onOut);
 		}
 		
 		private function toggleFullscreen(e:Event = null):void {
@@ -173,13 +194,13 @@ package com.panozona.modules.fullscreener{
 //  Exposed functions 
 ///////////////////////////////////////////////////////////////////////////////
 		
-		public function setFullScreenOn(value:Boolean):void {
+		public function setFullScreen(value:Boolean):void {
 			if (value && stage.displayState == StageDisplayState.NORMAL || !value && stage.displayState != StageDisplayState.NORMAL) {
 				toggleFullscreen();
 			}
 		}
 		
-		public function toggleFullScreenOn():void {
+		public function toggleFullScreen():void {
 			toggleFullscreen();
 		}
 	}

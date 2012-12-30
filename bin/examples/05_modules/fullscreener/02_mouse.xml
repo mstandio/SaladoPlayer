@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Assign mouse events on interaction with fullscreen button. You can display content when mouse is hovering over
+	fullscreen button with other modules, like InfoBubble.
+	
+	http://panozona.com/wiki/Module:FullScreener
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace align="horizontal:left"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
+	</panoramas>
+	<modules>
+		<InfoBubble path="~modules/InfoBubble-1.3.2.swf">
+			<bubbles>
+				<text id="bubbleFullScreen" text="toggle fullscreen"/>
+			</bubbles>
+		</InfoBubble>
+		<FullScreener path="~modules/fullscreener/FullScreener-1.1.swf">
+			<settings path="~modules/fullscreener/images/button_thick_black_50x50.png" mouse="onOver:showBubbleFullScreen,onOut:hideBubble"/>
+		</FullScreener>
+	</modules>
+	<actions>
+		<action id="showBubbleFullScreen" content="InfoBubble.show(bubbleFullScreen)"/>
+		<action id="hideBubble" content="InfoBubble.hide()"/>
+	</actions>
+</SaladoPlayer>

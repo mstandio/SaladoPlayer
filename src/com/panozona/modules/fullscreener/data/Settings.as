@@ -20,12 +20,20 @@ package com.panozona.modules.fullscreener.data {
 	
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.data.property.Move;
+	import com.panozona.player.module.data.property.MouseOverOut;
 	
 	public class Settings {
+		
+		public var path:String = null;
+		
+		public var alpha: Number = 1;
 		
 		public const align:Align = new Align(Align.RIGHT, Align.TOP);
 		public const move:Move = new Move(0, 0);
 		
-		public var path:String = null;
+		public var onFullScreenOn:String = null;
+		public var onFullScreenOff:String = null;
+		
+		public const mouse:MouseOverOut = new MouseOverOut();
 	}
 }

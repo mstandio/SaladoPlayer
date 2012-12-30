@@ -38,8 +38,20 @@ package com.panozona.modules.fullscreener.data{
 				}
 			}
 			if (saladoPlayer.managerData.debugMode) {
-				if (settings.path != null && !settings.path.match(/^(.+)\.(png|gif|jpg|jpeg|swf)$/i)){
-					throw new Error("Invalid viewer path: " + settings.path);
+				if (settings.path != null && !settings.path.match(/^(.+)\.(png|gif|jpg|jpeg)$/i)){
+					throw new Error("Invalid bitmap path: " + settings.path);
+				}
+				if (settings.onFullScreenOn != null && saladoPlayer.managerData.getActionDataById(settings.onFullScreenOn) == null){
+					throw new Error("Action does not exist: " + settings.onFullScreenOn);
+				}
+				if (settings.onFullScreenOff != null && saladoPlayer.managerData.getActionDataById(settings.onFullScreenOff) == null){
+					throw new Error("Action does not exist: " + settings.onFullScreenOff);
+				}
+				if (settings.mouse.onOver != null && saladoPlayer.managerData.getActionDataById(settings.mouse.onOver) == null){
+					throw new Error("Action does not exist: " + settings.mouse.onOver);
+				}
+				if (settings.mouse.onOut != null && saladoPlayer.managerData.getActionDataById(settings.mouse.onOut) == null){
+					throw new Error("Action does not exist: " + settings.mouse.onOut);
 				}
 			}
 		}
