@@ -717,7 +717,7 @@ package com.panosalado.model{
 				var boundsDiagonal:Number = Math.sqrt( _boundsWidth * _boundsWidth + _boundsHeight * _boundsHeight);
 				
 				var minimumFieldOfViewTmp:Number = Math.atan(boundsWidth * 0.5 / (boundsDiagonal * 0.5 /
-					Math.tan(boundsDiagonal / (0.0175 * tile.tilePyramid.width * 0.5 * tierThreshold * _maximumPixelZoom) 
+					Math.tan(boundsDiagonal / (0.0175 * tile.tilePyramid.width * 0.5 * _maximumPixelZoom) 
 					* 0.5 * __toRadians))) * 2 * __toDegrees; // 0.0175 = tg(1)
 					
 				if (!isNaN(_minimumFieldOfViewDefault) && minimumFieldOfViewTmp > 0){

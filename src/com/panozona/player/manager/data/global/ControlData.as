@@ -18,11 +18,16 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.player.manager.data.global{
 	
-	import com.panosalado.model.*;
+	import com.panosalado.model.ArcBallCameraData;
+	import com.panosalado.model.AutorotationCameraData;
+	import com.panosalado.model.InertialMouseCameraData;
+	import com.panosalado.model.KeyboardCameraData;
+	import com.panosalado.model.ScrollCameraData;
+	import com.panosalado.model.SimpleTransitionData;
 	
 	public class ControlData {
 		
-		public var mouseWheelTrap:Boolean;
+		public var mouseWheelTrap:Boolean = true;
 		
 		public var keyboardCameraData:KeyboardCameraData = new KeyboardCameraData();
 		public var inertialMouseCameraData:InertialMouseCameraData = new InertialMouseCameraData();

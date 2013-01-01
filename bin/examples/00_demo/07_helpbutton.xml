@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
+	</panoramas>
+	<modules>
+		<ImageButton path="~modules/ImageButton-1.3.swf">
+			<button id="help" path="~media/images/misc/help.png" action="toggleHelp">
+				<window align="vertical:middle,horizontal:center" open="true" onOpen="onOpenHelp" onClose="onCloseHelp"/>
+			</button>
+		</ImageButton>
+		<ButtonBar path="~modules/buttonBar/ButtonBar-1.3.swf">
+			<buttons path="~modules/buttonbar/images/buttons_dark_40x40.png">
+				<button name="out"/>
+				<button name="in"/>
+				<button name="drag"/>
+				<button name="autorotation"/>
+				<button name="fullscreen"/>
+				<extraButton name="e" action="toggleHelp"/>
+			</buttons>
+		</ButtonBar>
+	</modules>
+	<actions>
+		<action id="toggleHelp" content="ImageButton.toggleOpen(help)"/>
+		<action id="onOpenHelp" content="ButtonBar.setActive(e,true)"/>
+		<action id="onCloseHelp" content="ButtonBar.setActive(e,false)"/>
+	</actions>
+</SaladoPlayer>
