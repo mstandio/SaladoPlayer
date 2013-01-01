@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	JSGoogleMap is module that uses external javascript files. See source of _showcase/jsgooglemap/index.html
+	
+	http://panozona.com/wiki/Module:JSGoogleMap
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="cg_arrowRed" path="~media/images/spots/arrow_red.png" target="checkerRed"/>
+		</panorama>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
+			<image id="cr_arrowGreen" path="~media/images/spots/arrow_green.png" target="checkerGreen"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">
+			<buttons path="~modules/buttonbar/images/buttons_dark_30x30.png">
+				<extraButton name="b" action="jsgooglemapToggle"/>
+			</buttons>
+		</ButtonBar>
+		<JSGoogleMap path="~modules/jsgooglemap/JSGoogleMap-1.0.swf">
+			<settings open="true" onOpen="jsgooglemapOnOpen" onClose="jsgooglemapOnClose"/>
+			<waypoints markerOn="~modules/jsgooglemap/images/marker_on.png" markerOff="~modules/jsgooglemap/images/marker_off.png">
+				<waypoint target="checkerGreen" geolocation="latitude:46.44,longitude:11.08" label="Green checker"/>
+				<waypoint target="checkerRed" geolocation="latitude:47.04,longitude:11.14" label="Red checker"/>
+			</waypoints>
+			<tracks>
+				<track path="http://panozona.com/saladoplayer/kml/google.kmz"/>
+				<track path="http://panozona.com/saladoplayer/kml/map.kmz"/>
+			</tracks>
+		</JSGoogleMap>
+	</modules>
+	<actions>
+		<action id="jsgooglemapToggle" content="JSGoogleMap.toggleOpen()"/>
+		<action id="jsgooglemapOnOpen" content="ButtonBar.setActive(b,true)"/>
+		<action id="jsgooglemapOnClose" content="ButtonBar.setActive(b,false)"/>
+	</actions>
+</SaladoPlayer>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	You can set module as closed by default, and open/close it by calling proper functions. Assign actions that will
+	be executed whenever ImageMap changes "open" state, so this change could be reflected in your interface, for example
+	by changing state of buttons.
+	
+	http://panozona.com/wiki/Module:ButtonBar
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+			<image id="cb_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openBar"/>
+			<image id="cb_arrowRed" path="~media/images/spots/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeBar"/>
+			<image id="cb_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenBar"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">
+			<window alpha="0.6" open="false" onOpen="printOpen" onClose="printClose"/>
+			<buttons path="~modules/buttonbar/images/buttons_light_40x40.png">
+				<button name="left"/>
+				<button name="right"/>
+				<button name="down"/>
+				<button name="up"/>
+				<button name="out"/>
+				<button name="in"/>
+				<button name="drag"/>
+				<button name="autorotation"/>
+				<button name="fullscreen"/>
+			</buttons>
+		</ButtonBar>
+	</modules>
+	<actions>
+		<action id="openBar" content="ButtonBar.setOpen(true)"/>
+		<action id="closeBar" content="ButtonBar.setOpen(false)"/>
+		<action id="toggleOpenBar" content="ButtonBar.toggleOpen()"/>
+		<action id="printOpen" content="SaladoPlayer.print(bar opened)"/>
+		<action id="printClose" content="SaladoPlayer.print(bar closed)"/>
+	</actions>
+</SaladoPlayer>

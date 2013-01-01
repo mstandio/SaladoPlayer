@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Initial camera values can be set for each panorama individually. Pan can take values -180 to 180, tilt
+	can take values -90 to 90, fov (horizontal field of view) can take values 0.1 to 179.9. Fov is by default
+	limited from 30 to 120. Use ViewFinder module to preview your camera pan, tilt and field of view.
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration#panorama
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" camera="pan:90,tilt:30,fov:120"/>
+	</panoramas>
+	<modules>
+		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
+	</modules>
+</SaladoPlayer>

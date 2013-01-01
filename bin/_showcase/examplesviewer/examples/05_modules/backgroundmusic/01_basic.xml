@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Module by default uses first track as current track, all tracks are looped. By default music is not playing,
+	so that downloading mp3 would not delay loading of first panorama. However, You can set module music as
+	playing by default, and play/stop it by calling proper functions. Assign actions that will be executed whenever
+	BackgroundMusic changes "play" state, so this change could be reflected in your interface, for example by
+	changing state of buttons.
+	
+	http://panozona.com/wiki/Module:BackgroundMusic
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+		<panoramas firstOnEnter="playBgMusic"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="cg_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:playBgMusic"/>
+			<image id="cg_arrowRed" path="~media/images/spots/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:stopBgMusic"/>
+			<image id="cg_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:togglePlayBgMusic"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<BackgroundMusic path="~modules/BackgroundMusic-1.2.swf">
+			<settings play="false" onPlay="printPlay" onStop="printStop"/>
+			<tracks>
+				<track id="always" path="~media/sound/looperman-djgadget-always.mp3" volume="1.25" loop="false"/>
+			</tracks>
+		</BackgroundMusic>
+	</modules>
+	<actions>
+		<action id="playBgMusic" content="BackgroundMusic.setPlay(true)"/>
+		<action id="stopBgMusic" content="BackgroundMusic.setPlay(false)"/>
+		<action id="togglePlayBgMusic" content="BackgroundMusic.togglePlay()"/>
+		<action id="printPlay" content="SaladoPlayer.print(music playing)"/>
+		<action id="printStop" content="SaladoPlayer.print(music stopped)"/>
+	</actions>
+</SaladoPlayer>

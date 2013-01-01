@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	- As opposed to moveToView and moveToHotspot this function allows moving around panorama while it is working.
+	- startMoving takes 2 arguments: pan speed, and tilt speed (in degrees per second)
+	  using sensitivity 0.0003, friction 0.3 and threshold 0.0001
+	- Any of these arguments can be NaN (Not a Number) which means that value will not be affected.
+	  For instance: Calling startMoving(20,NaN) will affect only pan value
+	- Only way to stop it is calling stopMoving.
+	- advancedStartMoving same as startMoving but allows setting sensitivity, friction and threshold.
+	
+	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="gc_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:10" mouse="onClick:startMoving"/>
+			<image id="gc_arrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:-10" mouse="onClick:advancedStartMoving"/>
+			<image id="gc_arrowRed" path="~media/images/spots/arrow_red.png" location="tilt:90" mouse="onClick:stopMoving"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
+	</modules>
+	<actions>
+		<action id="startMoving" content="SaladoPlayer.startMoving(20,20)"/>
+		<action id="advancedStartMoving" content="SaladoPlayer.advancedStartMoving(20,20,0.0003,0.1,0.0001)"/>
+		<action id="stopMoving" content="SaladoPlayer.stopMoving()"/>
+	</actions>
+</SaladoPlayer>

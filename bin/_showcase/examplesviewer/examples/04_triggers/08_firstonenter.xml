@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	These are triggers fired just once on loading first panorama. At the point when those triggers are
+	fired all modules are allready loaded and added to stage, so you can call safely functions on them.
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+		<panoramas firstPanorama="checkerBlue" firstOnEnter="printFirstEnter" firstOnTransitionEnd="printFirstTransitionEnd"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="arrowBlue" path="~media/images/spots/arrow_blue.png" target="checkerBlue"/>
+		</panorama>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+			<image id="arrowGreen" path="~media/images/spots/arrow_green.png" target="checkerGreen"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="printFirstEnter" content="SaladoPlayer.print(First enter in virtual tour)"/>
+		<action id="printFirstTransitionEnd" content="SaladoPlayer.print(First transition end in virtual tour)"/>
+	</actions>
+</SaladoPlayer>

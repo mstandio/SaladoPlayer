@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+	After clicking on blue arrow, waits for 1.5 seconds then executes action printHello.
+	After clicking on green arrow, waits for 0.6 seconds then executes action printZona,
+	at the same time waits for 0.5 seconds then executes action printPano.
+	
+	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="cg_arrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:10" mouse="onClick:wait"/>
+			<image id="cg_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-10" mouse="onClick:wait2"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="wait" content="SaladoPlayer.waitThen(1.5,printHello)"/>
+		<action id="printHello" content="SaladoPlayer.print(hello)"/>
+		<action id="wait2" content="SaladoPlayer.waitThen(0.6,printZona);SaladoPlayer.waitThen(0.5,printPano)"/>
+		<action id="printPano" content="SaladoPlayer.print(Pano)"/>
+		<action id="printZona" content="SaladoPlayer.print(Zona)"/>
+	</actions>
+</SaladoPlayer>

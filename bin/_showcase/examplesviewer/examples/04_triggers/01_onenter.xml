@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	onEnter takes value of action id that is executed when given panorama is entered
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" onEnter="printWelcomeGreen">
+			<image id="cg_arrowBlue" path="~media/images/spots/arrow_blue.png" target="checkerBlue"/>
+		</panorama>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onEnter="printWelcomeBlue">
+			<image id="cb_arrowGreen" path="~media/images/spots/arrow_green.png" target="checkerGreen"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="printWelcomeGreen" content="SaladoPlayer.print(Welcome in green checker)"/>
+		<action id="printWelcomeBlue" content="SaladoPlayer.print(Welcome in blue checker)"/>
+	</actions>
+</SaladoPlayer>

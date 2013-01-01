@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+	onLeaveToAttempt is simillar to onLeaveTo, but it cancells first attempt of leaving panorama this way
+	one can dectect that user is leaving panorama and you can execute action before loading new panorama
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" onLeaveToAttempt="checkerBlue:attemptGreenToBlue,checkerRed:attemptGreenToRed">
+			<image id="cg_ArrowRed" path="~media/images/spots/arrow_red.png" location="pan:-10" target="checkerRed"/>
+			<image id="cg_ArrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:10" target="checkerBlue"/>
+		</panorama>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+			<image id="cb_ArrowRed" path="~media/images/spots/arrow_red.png" location="pan:-10" target="checkerRed"/>
+			<image id="cb_ArrowGreen" path="~media/images/spots/arrow_green.png" location="pan:10" target="checkerGreen"/>
+		</panorama>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
+			<image id="cr_ArrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:-10" target="checkerBlue"/>
+			<image id="cr_ArrowGreen" path="~media/images/spots/arrow_green.png" location="pan:10" target="checkerGreen"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="attemptGreenToBlue" content="SaladoPlayer.print(Green checker says goodbeye have fun in blue one);SaladoPlayer.loadPano(checkerBluea)"/>
+		<action id="attemptGreenToRed" content="SaladoPlayer.print(Green checker says goodbeye have fun in red one)"/> <!--no loading function click again!-->
+	</actions>
+</SaladoPlayer>

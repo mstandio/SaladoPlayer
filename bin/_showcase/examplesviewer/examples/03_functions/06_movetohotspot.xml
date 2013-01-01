@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	This function is very simillar to one described in 05_movetoview
+	- moveToHotspot moves camera to pan and tilt of given hotspot, with current camera field of view
+	  with speed of 20 degrees per second, using transition function Linear.easeNone
+	- moveToHotspotThen executes action when it has finished
+	- advancedMoveToHotspot is same as moveToHotspot, but allows setting target field of view, speed and transition function
+	- advancedMoveToHotspotThen executes action when it has finished
+	For avaible transition functions see: http://panozona.com/wiki/SaladoPlayer:Data_types
+	
+	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="cg_arrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:0" mouse="onClick:moveToArrowYellow"/>
+			<image id="cg_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:180" mouse="onClick:moveToArrowRedThen"/>
+			<image id="cg_arrowRed" path="~media/images/spots/arrow_red.png" location="tilt:-85" mouse="onClick:advancedMoveToArrowBlue"/>
+			<image id="cg_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="tilt:85" mouse="onClick:advancedMoveToArrowGreenThen"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
+	</modules>
+	<actions>
+		<action id="moveToArrowYellow" content="SaladoPlayer.moveToHotspot(cg_arrowYellow,30)"/>
+		<action id="moveToArrowRedThen" content="SaladoPlayer.moveToHotspotThen(cg_arrowRed,60,printZona)"/>
+		<action id="advancedMoveToArrowBlue" content="SaladoPlayer.advancedMoveToHotspot(cg_arrowBlue,120,30,Expo.easeIn)"/>
+		<action id="advancedMoveToArrowGreenThen" content="SaladoPlayer.advancedMoveToHotspotThen(cg_arrowGreen,NaN,30,Expo.easeIn,printPano)"/>
+		<action id="printPano" content="SaladoPlayer.print(Pano)"/>
+		<action id="printZona" content="SaladoPlayer.print(Zona)"/>
+	</actions>
+</SaladoPlayer>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Panorama path is pointing to *.xml file describing tiled front wall of cube, name_f.xml as in [f]ront.
+	Panorama images must be in Deep Zoom format. You can convert panoramas to Deep Zoom cubes with SaladoConverter.
+	Every path to external file in configuration should be preceded by tilde (~). Tilde can be replaced with 
+	given text when embeding SaladoPlayer into html page that is not located in same directory as *.swf files.
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration#panorama
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml"/>
+	</panoramas>
+</SaladoPlayer>

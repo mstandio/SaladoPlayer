@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	This function is very simillar to one described in jumptoview example.
+	- moveToView moves with speed of 20 degrees per second, using transition function Linear.easeNone
+	- moveToViewThen executes action when it has finished
+	- advancedMoveToView is same as moveToView, but allows setting speed and transition function
+	- advancedMoveToViewThen executes action when it has finished
+	For avaible transition functions see: http://panozona.com/wiki/SaladoPlayer:Data_types
+	
+	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<image id="arrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:0" mouse="onClick:moveToArrowYellow"/>
+			<image id="arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:180" mouse="onClick:moveToArrowRedThen"/>
+			<image id="arrowRed" path="~media/images/spots/arrow_red.png" location="tilt:-85" mouse="onClick:advancedMoveToArrowBlue"/>
+			<image id="arrowYellow" path="~media/images/spots/arrow_yellow.png" location="tilt:85" mouse="onClick:advancedMoveToArrowGreenThen"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
+	</modules>
+	<actions>
+		<action id="moveToArrowYellow" content="SaladoPlayer.moveToView(NaN,85,30)"/>
+		<action id="moveToArrowRedThen" content="SaladoPlayer.moveToViewThen(NaN,-85,90,printZona)"/>
+		<action id="advancedMoveToArrowBlue" content="SaladoPlayer.advancedMoveToView(0,0,120,30,Expo.easeIn)"/>
+		<action id="advancedMoveToArrowGreenThen" content="SaladoPlayer.advancedMoveToViewThen(180,0,NaN,30,Expo.easeIn,printPano)"/>
+		<action id="printPano" content="SaladoPlayer.print(Pano)"/>
+		<action id="printZona" content="SaladoPlayer.print(Zona)"/>
+	</actions>
+</SaladoPlayer>

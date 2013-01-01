@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	onLeave takes value of action id that is executed before loading new panorama
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" onLeave="printGoodbeyeGreen">
+			<image id="cg_arrowBlue" path="~media/images/spots/arrow_blue.png" target="checkerBlue"/>
+		</panorama>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onLeave="printGoodbeyeBlue">
+			<image id="cb_arrowGreen" path="~media/images/spots/arrow_green.png" target="checkerGreen"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="printGoodbeyeGreen" content="SaladoPlayer.print(Green checker says goodbeye)"/>
+		<action id="printGoodbeyeBlue" content="SaladoPlayer.print(Blue checker says goodbeye)"/>
+	</actions>
+</SaladoPlayer>

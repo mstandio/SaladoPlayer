@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	You can position text box inside panorama window, so it won't get in the way of other elements.
+	
+	http://panozona.com/wiki/Module:ViewFinder
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
+	</panoramas>
+	<modules>
+		<ViewFinder path="~modules/ViewFinder-1.3.swf">
+			<settings align="vertical:bottom" move="vertical:-30,horizontal:10"/>
+		</ViewFinder>
+	</modules>
+</SaladoPlayer>

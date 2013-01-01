@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Add your own custom buttons. Extrabuttons bitmaps are defined in bitmaps grid in third and fourth row, first
+	column for "a", second for "b" ect. Each extraButton executes action on mouse press.
+	
+	http://panozona.com/wiki/Module:ButtonBar
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
+	</panoramas>
+	<modules>
+		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">
+			<buttons path="~modules/buttonbar/images/buttons_dark_40x40.png">
+				<button name="out"/>
+				<button name="in"/>
+				<button name="drag"/>
+				<extraButton name="a" action="printHello"/>
+				<button name="autorotation"/>
+				<button name="fullscreen"/>
+			</buttons>
+		</ButtonBar>
+	</modules>
+	<actions>
+		<action id="printHello" content="SaladoPlayer.print(Hello I am extraButton a)"/>
+	</actions>
+</SaladoPlayer>

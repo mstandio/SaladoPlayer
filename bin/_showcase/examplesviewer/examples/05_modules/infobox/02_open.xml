@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	http://panozona.com/wiki/Module:InfoBox
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true" align="horizontal:left"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
+			<image id="cr_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openBox"/>
+			<image id="cr_arrowRed" path="~media/images/spots/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeBox"/>
+			<image id="cr_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenBox"/>
+		</panorama>
+	</panoramas>
+	<modules>
+		<InfoBox path="~modules/infobox/InfoBox-1.0.swf">
+			<window open="false" onOpen="printOpen" onClose="printClose"/>
+			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
+			<viewer path="~modules/infobox/images/elements_dark_21x21.png" css="~media/text/stylesheet.css"/>
+			<articles>
+				<article id="a1" path="~media/text/art1.txt"/>
+			</articles>
+		</InfoBox>
+	</modules>
+	<actions>
+		<action id="openBox" content="InfoBox.setOpen(true)"/>
+		<action id="closeBox" content="InfoBox.setOpen(false)"/>
+		<action id="toggleOpenBox" content="InfoBox.toggleOpen()"/>
+		<action id="printOpen" content="SaladoPlayer.print(InfoBox opened)"/>
+		<action id="printClose" content="SaladoPlayer.print(InfoBox closed)"/>
+		<action id="printHello" content="SaladoPlayer.print(Hello!)"/>
+	</actions>
+</SaladoPlayer>
