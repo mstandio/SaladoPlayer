@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="bin\SaladoPlayer-1.3.3.swf" />
+    <movie path="bin\SaladoPlayer-1.3.5.swf" />
     <movie fps="30" />
     <movie width="500" />
     <movie height="375" />
