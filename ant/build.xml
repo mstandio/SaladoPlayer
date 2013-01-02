@@ -17,18 +17,50 @@
 	http://ant-contrib.sourceforge.net/
 	http://ant-contrib.sourceforge.net/tasks/tasks/
 -->
-<project name="SaladoPlayer" basedir="../.">
+<project name="SaladoPlayer" default="BuildAll" basedir="../.">
 	
 	<property name="debuggableSwf" value="false"/>
 	
+	<property file="bin/compiled_files.txt"/>
 	<property environment="env"/>
 	<property name="FLEX_HOME" value="${env.FLEX_HOME}"/>
-	
-	<property file="bin/compiled_files.txt"/>
 	<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/>
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="${basedir}/ant/lib/ant-contrib-1.0b3.jar"/>
+		</classpath>
+	</taskdef>
 	
-	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
-	
+	<target name="BuildAll"
+		depends="SaladoPlayer,
+				ActionLogic,
+				BackgroundMusic,
+				ButtonBar,
+				Compass,
+				DropDown,
+				ExampleModule,
+				FullScreener,
+				ImageButton,
+				ImageGallery,
+				ImageMap,
+				InfoBox,
+				InfoBubble,
+				JSGateway,
+				JSGoogleMap,
+				LensFlare,
+				MenuScroller,
+				LinkOpener,
+				MouseCursor,
+				PanoLink,
+				ViewFinder,
+				ZoomSlider,
+				ExampleSpot,
+				FadingSpot,
+				GrowingSpot,
+				NadirSpot,
+				VideoSpot,
+				ExamplesLoader"/>
+				
 	<target name="SaladoPlayer">
 		<propertyregex property="SaladoPlayer.swf.dir"
 			input="${SaladoPlayer.swf}"
@@ -626,22 +658,22 @@
 		</mxmlc>
 	</target>
 	
-	<target name="AdvancedHotspot">
-		<propertyregex property="AdvancedHotspot.swf.dir"
-			input="${AdvancedHotspot.swf}"
+	<target name="ExampleSpot">
+		<propertyregex property="ExampleSpot.swf.dir"
+			input="${ExampleSpot.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
-		<propertyregex property="AdvancedHotspot.name"
-			input="${AdvancedHotspot.swf}"
+		<propertyregex property="ExampleSpot.name"
+			input="${ExampleSpot.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
 			select="\1"/>
 		<delete>
-			<fileset dir="${AdvancedHotspot.swf.dir}"
-				includes="${AdvancedHotspot.name}*.swf"/>
+			<fileset dir="${ExampleSpot.swf.dir}"
+				includes="${ExampleSpot.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${AdvancedHotspot.as}"
-			output="${basedir}/${AdvancedHotspot.swf}"
+			file="${basedir}/${ExampleSpot.as}"
+			output="${basedir}/${ExampleSpot.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
@@ -669,6 +701,33 @@
 		<mxmlc
 			file="${basedir}/${FadingSpot.as}"
 			output="${basedir}/${FadingSpot.swf}"
+			fork="true" maxmemory="512m"
+			debug="${debuggableSwf}"
+			static-link-runtime-shared-libraries="true">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+		
+	<target name="GrowingSpot">
+		<propertyregex property="GrowingSpot.swf.dir"
+			input="${GrowingSpot.swf}"
+			regexp="([a-zA-Z/]+)(?=/)"
+			select="\1"/>
+		<propertyregex property="GrowingSpot.name"
+			input="${GrowingSpot.swf}"
+			regexp="([\w]+)(?=-.*\.swf)"
+			select="\1"/>
+		<delete>
+			<fileset dir="${GrowingSpot.swf.dir}"
+				includes="${GrowingSpot.name}*.swf"/>
+		</delete>
+		<mxmlc
+			file="${basedir}/${GrowingSpot.as}"
+			output="${basedir}/${GrowingSpot.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
@@ -707,49 +766,22 @@
 		</mxmlc>
 	</target>
 	
-	<target name="SimpleHotspot">
-		<propertyregex property="SimpleHotspot.swf.dir"
-			input="${SimpleHotspot.swf}"
+	<target name="VideoSpot">
+		<propertyregex property="VideoSpot.swf.dir"
+			input="${VideoSpot.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
-		<propertyregex property="SimpleHotspot.name"
-			input="${SimpleHotspot.swf}"
+		<propertyregex property="VideoSpot.name"
+			input="${VideoSpot.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
 			select="\1"/>
 		<delete>
-			<fileset dir="${SimpleHotspot.swf.dir}"
-				includes="${SimpleHotspot.name}*.swf"/>
+			<fileset dir="${VideoSpot.swf.dir}"
+				includes="${VideoSpot.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${SimpleHotspot.as}"
-			output="${basedir}/${SimpleHotspot.swf}"
-			fork="true" maxmemory="512m"
-			debug="${debuggableSwf}"
-			static-link-runtime-shared-libraries="true">
-			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
-			</compiler.include-libraries>
-		</mxmlc>
-	</target>
-	
-	<target name="VideoHotspot">
-		<propertyregex property="VideoHotspot.swf.dir"
-			input="${VideoHotspot.swf}"
-			regexp="([a-zA-Z/]+)(?=/)"
-			select="\1"/>
-		<propertyregex property="VideoHotspot.name"
-			input="${VideoHotspot.swf}"
-			regexp="([\w]+)(?=-.*\.swf)"
-			select="\1"/>
-		<delete>
-			<fileset dir="${VideoHotspot.swf.dir}"
-				includes="${VideoHotspot.name}*.swf"/>
-		</delete>
-		<mxmlc
-			file="${basedir}/${VideoHotspot.as}"
-			output="${basedir}/${VideoHotspot.swf}"
+			file="${basedir}/${VideoSpot.as}"
+			output="${basedir}/${VideoSpot.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
@@ -782,35 +814,5 @@
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
-	
-	<target name="Build all"
-		depends="SaladoPlayer,
-				ActionLogic,
-				BackgroundMusic,
-				ButtonBar,
-				Compass,
-				DropDown,
-				ExampleModule,
-				FullScreener,
-				ImageButton,
-				ImageGallery,
-				ImageMap,
-				InfoBox,
-				InfoBubble,
-				JSGateway,
-				JSGoogleMap,
-				LensFlare,
-				MenuScroller,
-				LinkOpener,
-				MouseCursor,
-				PanoLink,
-				ViewFinder,
-				ZoomSlider,
-				AdvancedHotspot,
-				FadingSpot,
-				NadirSpot,
-				SimpleHotspot,
-				VideoHotspot,
-				ExamplesLoader"/>
 	
 </project>

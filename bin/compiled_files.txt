@@ -2,6 +2,8 @@
 SaladoPlayer.as  = src/com/panozona/player/SaladoPlayer.as
 SaladoPlayer.swf = bin/viewer/SaladoPlayer-1.3.5.swf
 
+# modules
+
 ActionLogic.as  = src/com/panozona/modules/actionlogic/ActionLogic.as
 ActionLogic.swf = bin/modules/ActionLogic-1.1.swf
 
@@ -65,22 +67,24 @@ ViewFinder.swf = bin/modules/ViewFinder-1.3.swf
 ZoomSlider.as  = src/com/panozona/modules/zoomslider/ZoomSlider.as
 ZoomSlider.swf = bin/modules/zoomslider/ZoomSlider-1.2.swf
 
-AdvancedHotspot.as  = src/com/panozona/hotspots/advancedhotspot/AdvancedHotspot.as
-AdvancedHotspot.swf = bin/hotspots/AdvancedHotspot-1.0.swf
+# spots
 
-FadingSpot.as  = src/com/panozona/hotspots/fadingspot/FadingSpot.as
-FadingSpot.swf = bin/hotspots/FadingSpot-1.0.swf
+ExampleSpot.as  = src/com/panozona/spots/examplespot/ExampleSpot.as
+ExampleSpot.swf = bin/spots/ExampleSpot-1.0.swf
 
-NadirSpot.as  = src/com/panozona/hotspots/nadirspot/NadirSpot.as
-NadirSpot.swf = bin/hotspots/NadirSpot-1.0.swf
+FadingSpot.as  = src/com/panozona/spots/fadingspot/FadingSpot.as
+FadingSpot.swf = bin/spots/FadingSpot-1.0.swf
 
-SimpleHotspot.as  = src/com/panozona/hotspots/simplehotspot/SimpleHotspot.as
-SimpleHotspot.swf = bin/hotspots/SimpleHotspot-1.0.swf
+GrowingSpot.as  = src/com/panozona/spots/growingspot/GrowingSpot.as
+GrowingSpot.swf = bin/spots/GrowingSpot-1.0.swf
 
-VideoHotspot.as  = src/com/panozona/hotspots/videohotspot/VideoHotspot.as
-VideoHotspot.swf = bin/hotspots/VideoHotspot-1.0.swf
+NadirSpot.as  = src/com/panozona/spots/nadirspot/NadirSpot.as
+NadirSpot.swf = bin/spots/NadirSpot-1.0.swf
+
+VideoSpot.as  = src/com/panozona/spots/videospot/VideoSpot.as
+VideoSpot.swf = bin/spots/VideoSpot-1.0.swf
 
 # configuration viewer
 
-ExamplesLoader.as  = src/com/panozona/viewer/ExamplesLoader.as
+ExamplesLoader.as  = src/com/panozona/util/ExamplesLoader.as
 ExamplesLoader.swf = bin/_showcase/examplesviewer/resources/ExamplesLoader.swf
