@@ -31,7 +31,8 @@ package com.panozona.modules.imagebutton.controller{
 	import flash.events.MouseEvent;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
-	
+	import flash.system.LoaderContext;
+
 	public class ButtonController {
 		
 		private var _buttonView:ButtonView;
@@ -53,9 +54,11 @@ package com.panozona.modules.imagebutton.controller{
 			
 			if (_buttonView.windowData.button.path != null){
 				var buttonLoader:Loader = new Loader();
+				var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);
+				context.checkPolicyFile = true;
 				buttonLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, buttonImageLost);
 				buttonLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, buttonImageLoaded);
-				buttonLoader.load(new URLRequest(_buttonView.windowData.button.path));
+				buttonLoader.load(new URLRequest(_buttonView.windowData.button.path), context);
 			}
 			
 			subButtonControllers = new Vector.<SubButtonController>();
