@@ -48,7 +48,8 @@ package com.panozona.modules.imagemap.controller {
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
-	
+	import flash.system.LoaderContext;
+
 	public class MapController {
 		
 		private var _mapView:MapView;
@@ -119,7 +120,9 @@ package com.panozona.modules.imagemap.controller {
 		private function handleCurrentMapIdChange(e:Event):void {
 			mapContentLoader.unload();
 			destroyWaypoints();
-			mapContentLoader.load(new URLRequest(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).path));
+			var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);
+			context.checkPolicyFile = true;
+			mapContentLoader.load(new URLRequest(_mapView.imageMapData.mapData.getMapById(_mapView.imageMapData.mapData.currentMapId).path), context);
 			if (previousMapId != null) {
 				_module.saladoPlayer.manager.runAction(_mapView.imageMapData.mapData.getMapById(previousMapId).onUnset);
 			}

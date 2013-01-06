@@ -37,7 +37,9 @@ package com.panozona.modules.imagegallery.controller {
 	import flash.events.TimerEvent;
 	import flash.net.URLRequest;
 	import flash.utils.Timer;
-	
+	import flash.system.ApplicationDomain;
+	import flash.system.LoaderContext;
+
 	public class ImageController {
 		
 		private var imageLoader:Loader;
@@ -92,7 +94,9 @@ package com.panozona.modules.imagegallery.controller {
 			var path:String = _imageView.imagegalleryData.viewerData.getGroupById(
 				_imageView.imagegalleryData.viewerData.currentGroupId).getChildrenOfGivenClass(Image)
 				[_imageView.imagegalleryData.viewerData.currentImageIndex].path;
-			imageLoader.load(new URLRequest(path));
+			var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);
+			context.checkPolicyFile = true;
+			imageLoader.load(new URLRequest(path), context);
 		}
 		
 		private function imageLost(e:IOErrorEvent):void {
