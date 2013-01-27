@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		
+		<link type="text/css" href="resources/style.css" rel="stylesheet">
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=false"></script>
+		
+		<!--[if IE]>
+		<script type="text/javascript" src="../../../modules/jsgooglemap/javascript/excanvas.compiled.js"></script>
+		<![endif]-->
+		
+		<script type="text/javascript" src="../../../modules/jsgooglemap/javascript/saladoplayer.jsgooglemap.js"></script>
+		<script type="text/javascript" src="../../../modules/jsgooglemap/javascript/saladoplayer.jsgooglemap.radar.js"></script>
+		<script type="text/javascript" src="../../../modules/jsgooglemap/javascript/jsgooglemap_utils.js"></script>
+		
+		<script type="text/javascript" src="../../../viewer/embed/swfobject.js"></script>
+		<script type="text/javascript">
+			var flashvars = {};
+			flashvars.xml = "../../examples/05_modules/jsgooglemap/01_complete.xml";
+			flashvars.tilde = "../../../";
+			var params = {};
+			params.menu = "false";
+			params.quality = "high";
+			params.allowfullscreen = "true";
+			params.bgcolor = "#89898a";
+			swfobject.embedSWF("../../../viewer/SaladoPlayer-1.3.5.swf", "player", "100%", "100%", "10.1", "../../../embed/viewer/expressInstall.swf", flashvars, params);
+		</script>
+	</head>
+	<body>
+		<div id="site">
+			<div id="header"></div>
+			<div id="center">
+				<div id="content">
+					<div id="player"></div>
+				</div>
+				<div id="right">
+					<div id="map_canvas"></div>
+				</div>
+			</div>
+			<div id="footer"></div>
+		</div>
+		<!-- this div is needed to support IE -->
+		<div id="radar_div" style="display:none; width:162px; height:162px; position:absolute; top:0; left:0; padding:0;">
+			<canvas id="radar_canvas" width="162" height="162"></canvas>
+		</div>
+	</body>
+</html>

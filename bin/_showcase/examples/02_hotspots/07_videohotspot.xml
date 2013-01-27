@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	VideHotspot is advanced swf hotspot that is fully functional media player. Relative path to multimedia file
+	is not working locally, so it is replaced with url. When leaving panorama with playing VideoHotspot, 
+	hotspots automativally stops downloading and playing file and removes itself from panorama.
+	
+	http://panozona.com/wiki/SaladoPlayer:Hotspots
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+			<swf id="gc_hello" path="~spots/VideoHotspot-1.0.swf" location="distance:600">
+				<settings splashPath="~media/video/hello/hello_splash.png" videoPath="http://linkowiec.pl/saladoplayer/spots/video/hello.mp4" size="width:400,height:300"/>
+			</swf>
+		</panorama>
+	</panoramas>
+</SaladoPlayer>
