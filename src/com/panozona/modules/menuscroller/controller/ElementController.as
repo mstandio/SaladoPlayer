@@ -32,7 +32,8 @@ package com.panozona.modules.menuscroller.controller {
 	import flash.events.MouseEvent;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
-	
+	import flash.system.LoaderContext;
+
 	public class ElementController {
 		
 		private var initSize:Size; 
@@ -61,9 +62,11 @@ package com.panozona.modules.menuscroller.controller {
 			}
 			
 			var imageLoader:Loader = new Loader();
+			var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);
+			context.checkPolicyFile = true;
 			imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
 			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
-			imageLoader.load(new URLRequest(_elementView.elementData.rawElement.path));
+			imageLoader.load(new URLRequest(_elementView.elementData.rawElement.path), context);
 		}
 		
 		private function getMouseEventHandler(actionId:String):Function {
