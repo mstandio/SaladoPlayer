@@ -34,6 +34,7 @@ package com.panozona.player.manager.utils.loading{
 			this.loadables = loadables;
 			loaders = new Vector.<Loader>();
 			var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);
+			context.checkPolicyFile = true;
 			for (var i:int = 0; i < loadables.length; i++) {
 				if (loadables[i].path == null || !loadables[i].path.match(/^.+(.jpg|.jpeg|.png|.gif|.swf)$/i)) {
 					dispatchEvent(new LoadLoadableEvent(LoadLoadableEvent.LOST, loadables[i]));

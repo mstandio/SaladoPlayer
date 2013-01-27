@@ -27,7 +27,8 @@ package com.panozona.spots.nadirspot {
 	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
-	
+	import flash.system.LoaderContext;
+
 	public class NadirSpot extends Sprite{
 		
 		private var button:Sprite;
@@ -63,9 +64,11 @@ package com.panozona.spots.nadirspot {
 			}
 			
 			var loader:Loader = new Loader();
+			var context:LoaderContext = new LoaderContext(false, ApplicationDomain.currentDomain);
+			context.checkPolicyFile = true;
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost);
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded);
-			loader.load(new URLRequest(nadirSpotData.settings.path));
+			loader.load(new URLRequest(nadirSpotData.settings.path), context);
 		}
 		
 		private function imageLost(e:IOErrorEvent):void {
