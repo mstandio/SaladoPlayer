@@ -10,10 +10,10 @@
 		<trace align="horizontal:left"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
+		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
-		<InfoBubble path="~modules/InfoBubble-1.3.2.swf">
+		<InfoBubble path="~modules/infobubble/InfoBubble-1.3.2.swf">
 			<bubbles>
 				<text id="bubbleFullScreen" text="toggle fullscreen"/>
 			</bubbles>

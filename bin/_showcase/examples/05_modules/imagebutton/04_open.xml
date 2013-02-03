@@ -9,14 +9,14 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml">
 			<image id="cg_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openLogo1"/>
 			<image id="cg_garrowRed" path="~media/images/spots/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeLogo1"/>
 			<image id="cg_garrowYellow" path="~media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenLogo1"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<ImageButton path="~modules/ImageButton-1.3.swf">
+		<ImageButton path="~modules/imagebutton/ImageButton-1.3.swf">
 			<button id="logo1" path="~media/images/misc/panozona_logo.png">
 				<window move="horizontal:60,vertical:60" open="false" onOpen="printOpen" onClose="printClose"/>
 			</button>

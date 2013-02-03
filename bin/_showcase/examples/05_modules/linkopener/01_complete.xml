@@ -5,13 +5,13 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml">
 			<image id="cg_arrowGreen1" path="~media/images/spots/arrow_green.png" location="pan:-10" mouse="onClick:openPanoZona_blank"/>
 			<image id="cg_arrowGreen2" path="~media/images/spots/arrow_green.png" location="pan:10" mouse="onClick:openPanoZona_parent"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<LinkOpener path="~modules/LinkOpener-1.1.swf">
+		<LinkOpener path="~modules/linkopener/LinkOpener-1.1.swf">
 			<links>
 				<link id="panozona_blank" content="http://panozona.com/" target="_BALNK"/>
 				<link id="panozona_parent" content="http://panozona.com/" target="_PARENT"/>

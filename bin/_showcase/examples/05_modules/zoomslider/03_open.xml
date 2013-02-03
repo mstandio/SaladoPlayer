@@ -11,7 +11,7 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
+		<panorama id="checkerYellow" path="~panos/dz_checker_yellow/checker_yellow_f.xml">
 			<image id="cy_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openSlider"/>
 			<image id="cy_arrowRed" path="~media/images/spots/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeSlider"/>
 			<image id="cy_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenSlider"/>

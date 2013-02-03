@@ -4,10 +4,10 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
+		<panorama id="checkerYellow" path="~panos/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
-		<InfoBubble path="~modules/InfoBubble-1.3.2.swf">
+		<InfoBubble path="~modules/infobubble/InfoBubble-1.3.2.swf">
 			<bubbles>
 				<text id="b_drag" text="change navigation style" style="buttonBar" angle="1"/>
 				<text id="b_autorotation" text="autorotation" style="buttonBar" angle="1"/>

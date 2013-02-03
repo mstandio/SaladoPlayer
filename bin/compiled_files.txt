@@ -5,10 +5,10 @@ SaladoPlayer.swf = bin/viewer/SaladoPlayer-1.3.5.swf
 # modules
 
 ActionLogic.as  = src/com/panozona/modules/actionlogic/ActionLogic.as
-ActionLogic.swf = bin/modules/ActionLogic-1.1.swf
+ActionLogic.swf = bin/modules/actionlogic/ActionLogic-1.1.swf
 
 BackgroundMusic.as  = src/com/panozona/modules/backgroundmusic/BackgroundMusic.as
-BackgroundMusic.swf = bin/modules/BackgroundMusic-1.2.swf
+BackgroundMusic.swf = bin/modules/backgroundmusic/BackgroundMusic-1.2.swf
 
 ButtonBar.as  = src/com/panozona/modules/buttonbar/ButtonBar.as
 ButtonBar.swf = bin/modules/buttonbar/ButtonBar-1.3.swf
@@ -17,16 +17,16 @@ Compass.as  = src/com/panozona/modules/compass/Compass.as
 Compass.swf = bin/modules/compass/Compass-1.2.swf
 
 DropDown.as  = src/com/panozona/modules/dropdown/DropDown.as
-DropDown.swf = bin/modules/DropDown-1.3.swf
+DropDown.swf = bin/modules/dropdown/DropDown-1.3.swf
 
 ExampleModule.as  = src/com/panozona/modules/examplemodule/ExampleModule.as
-ExampleModule.swf = bin/modules/ExampleModule-1.0.swf
+ExampleModule.swf = bin/modules/examplemodule/ExampleModule-1.0.swf
 
 FullScreener.as  = src/com/panozona/modules/fullscreener/FullScreener.as
 FullScreener.swf = bin/modules/fullscreener/FullScreener-1.1.swf
 
 ImageButton.as  = src/com/panozona/modules/imagebutton/ImageButton.as
-ImageButton.swf = bin/modules/ImageButton-1.3.swf
+ImageButton.swf = bin/modules/imagebutton/ImageButton-1.3.swf
 
 ImageGallery.as  = src/com/panozona/modules/imagegallery/ImageGallery.as
 ImageGallery.swf = bin/modules/imagegallery/ImageGallery-1.0.swf
@@ -38,10 +38,10 @@ InfoBox.as  = src/com/panozona/modules/infobox/InfoBox.as
 InfoBox.swf = bin/modules/infobox/InfoBox-1.0.swf
 
 InfoBubble.as  = src/com/panozona/modules/infobubble/InfoBubble.as
-InfoBubble.swf = bin/modules/InfoBubble-1.3.2.swf
+InfoBubble.swf = bin/modules/infobubble/InfoBubble-1.3.2.swf
 
 JSGateway.as  = src/com/panozona/modules/jsgateway/JSGateway.as
-JSGateway.swf = bin/modules/JSGateway-1.3.2.swf
+JSGateway.swf = bin/modules/jsgateway/JSGateway-1.3.2.swf
 
 JSGoogleMap.as  = src/com/panozona/modules/jsgooglemap/JSGoogleMap.as
 JSGoogleMap.swf = bin/modules/jsgooglemap/JSGoogleMap-1.0.swf
@@ -50,10 +50,10 @@ LensFlare.as  = src/com/panozona/modules/lensflare/LensFlare.as
 LensFlare.swf = bin/modules/lensflare/LensFlare-1.1.swf
 
 LinkOpener.as  = src/com/panozona/modules/linkopener/LinkOpener.as
-LinkOpener.swf = bin/modules/LinkOpener-1.1.swf
+LinkOpener.swf = bin/modules/linkopener/LinkOpener-1.1.swf
 
 MenuScroller.as  = src/com/panozona/modules/menuscroller/MenuScroller.as
-MenuScroller.swf = bin/modules/MenuScroller-1.3.1.swf
+MenuScroller.swf = bin/modules/menuscroller/MenuScroller-1.3.1.swf
 
 MouseCursor.as  = src/com/panozona/modules/mousecursor/MouseCursor.as
 MouseCursor.swf = bin/modules/mousecursor/MouseCursor-1.2.swf
@@ -62,7 +62,7 @@ PanoLink.as  = src/com/panozona/modules/panolink/PanoLink.as
 PanoLink.swf = bin/modules/panolink/PanoLink-1.1.swf
 
 ViewFinder.as  = src/com/panozona/modules/viewfinder/ViewFinder.as
-ViewFinder.swf = bin/modules/ViewFinder-1.3.swf
+ViewFinder.swf = bin/modules/viewfinder/ViewFinder-1.3.swf
 
 ZoomSlider.as  = src/com/panozona/modules/zoomslider/ZoomSlider.as
 ZoomSlider.swf = bin/modules/zoomslider/ZoomSlider-1.2.swf
@@ -87,4 +87,4 @@ VideoSpot.swf = bin/spots/VideoSpot-1.0.swf
 # configuration viewer
 
 ExamplesLoader.as  = src/com/panozona/util/ExamplesLoader.as
-ExamplesLoader.swf = bin/_showcase/examplesviewer/resources/ExamplesLoader.swf
+ExamplesLoader.swf = bin/_showcase/resources/ExamplesLoader.swf

@@ -10,7 +10,7 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="greenChecker" path="~panoramas/dz_checker_green/checker_green_f.xml">
+		<panorama id="greenChecker" path="~panos/dz_checker_green/checker_green_f.xml">
 			<swf id="swf_A" location="pan:-20" path="~spots/AdvancedHotspot-1.0.swf" mouse="onClick:helloA">
 				<settings path="~media/images/spots/arrow_red.png" mouseOver="scale:2,time:1,transition:Linear.easeNone" mouseOut="time:1,transition:Expo.easeInOut"/>
 			</swf>

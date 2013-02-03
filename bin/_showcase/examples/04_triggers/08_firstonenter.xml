@@ -11,10 +11,10 @@
 		<panoramas firstPanorama="checkerBlue" firstOnEnter="printFirstEnter" firstOnTransitionEnd="printFirstTransitionEnd"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml">
 			<image id="arrowBlue" path="~media/images/spots/arrow_blue.png" target="checkerBlue"/>
 		</panorama>
-		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml">
 			<image id="arrowGreen" path="~media/images/spots/arrow_green.png" target="checkerGreen"/>
 		</panorama>
 	</panoramas>

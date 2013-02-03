@@ -6,7 +6,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
+		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml">
 			<image id="cr_group1Setter" path="~media/images/spots/arrow_blue.png" location="pan:-10,tilt:-15" mouse="onClick:setGroup1"/>
 			<image id="cr_group2Setter" path="~media/images/spots/arrow_blue.png" location="pan:10,tilt:-15" mouse="onClick:setGroup2"/>
 		</panorama>

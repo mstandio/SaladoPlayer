@@ -7,7 +7,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
+		<panorama id="checkerYellow" path="~panos/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
 		<ZoomSlider path="~modules/zoomslider/ZoomSlider-1.2.swf">

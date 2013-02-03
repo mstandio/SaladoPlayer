@@ -9,7 +9,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml"/>
+		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml"/>
 	</panoramas>
 	<modules>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">
@@ -23,7 +23,7 @@
 				</map>
 			</maps>
 		</ImageMap>
-		<ImageButton path="~modules/ImageButton-1.3.swf">
+		<ImageButton path="~modules/imagebutton/ImageButton-1.3.swf">
 			<button id="mapPanel">
 				<window align="horizontal:left,vertical:middle"/>
 				<subButtons>

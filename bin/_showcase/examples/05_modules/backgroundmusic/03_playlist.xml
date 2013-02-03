@@ -10,11 +10,11 @@
 		<panoramas firstOnEnter="playBgMusic"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" onEnter="setTrackAncoral"/>
-		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml" onEnter="setTrackSpiccato"/>
+		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml" onEnter="setTrackAncoral"/>
+		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml" onEnter="setTrackSpiccato"/>
 	</panoramas>
 	<modules>
-		<DropDown path="~modules/DropDown-1.3.swf">
+		<DropDown path="~modules/dropdown/DropDown-1.3.swf">
 			<groups>
 				<group id="g1">
 					<element target="checkerGreen" label="Green checker"/>
@@ -22,7 +22,7 @@
 				</group>
 			</groups>
 		</DropDown>
-		<BackgroundMusic path="~modules/BackgroundMusic-1.2.swf">
+		<BackgroundMusic path="~modules/backgroundmusic/BackgroundMusic-1.2.swf">
 			<tracks>
 				<track id="spiccato" path="~media/sound/looperman-djgadget-catchy-spiccato-violins.mp3" loop="false" next="technologically"/>
 				<track id="technologically" path="~media/sound/looperman-moonwhisper-technologically.mp3" loop="false" next="spiccato"/>

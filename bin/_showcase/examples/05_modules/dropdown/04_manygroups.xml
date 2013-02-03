@@ -10,25 +10,25 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml">
 			<image id="cg_arrowRed" path="~media/images/spots/arrow_red.png" location="pan:-10" target="checkerRed"/>
 			<image id="cg_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="pan:10" target="checkerYellow"/>
 		</panorama>
-		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml">
 			<image id="cb_arrowRed" path="~media/images/spots/arrow_red.png" location="pan:-10" target="checkerRed"/>
 			<image id="cb_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="pan:10" target="checkerYellow"/>
 		</panorama>
-		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
+		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml">
 			<image id="cr_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-10" target="checkerGreen"/>
 			<image id="cr_arrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:10" target="checkerBlue"/>
 		</panorama>
-		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml">
+		<panorama id="checkerYellow" path="~panos/dz_checker_yellow/checker_yellow_f.xml">
 			<image id="cy_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-10" target="checkerGreen"/>
 			<image id="cy_arrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:10" target="checkerBlue"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<DropDown path="~modules/DropDown-1.3.swf">
+		<DropDown path="~modules/dropdown/DropDown-1.3.swf">
 			<groups>
 				<group id="g1">
 					<element target="checkerGreen" label="Green checker"/>

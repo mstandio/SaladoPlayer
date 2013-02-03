@@ -7,7 +7,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml" camera="tilt:-30">
+		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml" camera="tilt:-30">
 			<swf id="cg_swf" path="~spots/FadingSpot-1.0.swf" handCursor="false">
 				<settings path="~media/images/maps/map2.jpg" mouseOver="transition:Linear.easeNone,time:0.5,alpha:1" mouseOut="transition:Linear.easeNone,time:0.5,alpha:0"/>
 			</swf>

@@ -96,6 +96,7 @@
 			input="${ActionLogic.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${ActionLogic.swf.dir}"/>
 		<propertyregex property="ActionLogic.name"
 			input="${ActionLogic.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -123,6 +124,7 @@
 			input="${BackgroundMusic.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${BackgroundMusic.swf.dir}"/>
 		<propertyregex property="BackgroundMusic.name"
 			input="${BackgroundMusic.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -150,6 +152,7 @@
 			input="${ButtonBar.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${ButtonBar.swf.dir}"/>
 		<propertyregex property="ButtonBar.name"
 			input="${ButtonBar.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -177,6 +180,7 @@
 			input="${Compass.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${Compass.swf.dir}"/>
 		<propertyregex property="Compass.name"
 			input="${Compass.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -204,6 +208,7 @@
 			input="${DropDown.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${DropDown.swf.dir}"/>
 		<propertyregex property="DropDown.name"
 			input="${DropDown.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -231,6 +236,7 @@
 			input="${ExampleModule.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${ExampleModule.swf.dir}"/>
 		<propertyregex property="ExampleModule.name"
 			input="${ExampleModule.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -258,6 +264,7 @@
 			input="${FullScreener.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${FullScreener.swf.dir}"/>
 		<propertyregex property="FullScreener.name"
 			input="${FullScreener.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -285,6 +292,7 @@
 			input="${ImageButton.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${ImageButton.swf.dir}"/>
 		<propertyregex property="ImageButton.name"
 			input="${ImageButton.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -312,6 +320,7 @@
 			input="${ImageGallery.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${ImageGallery.swf.dir}"/>
 		<propertyregex property="ImageGallery.name"
 			input="${ImageGallery.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -339,6 +348,7 @@
 			input="${ImageMap.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${ImageMap.swf.dir}"/>
 		<propertyregex property="ImageMap.name"
 			input="${ImageMap.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -366,6 +376,7 @@
 			input="${InfoBubble.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${InfoBox.swf.dir}"/>
 		<propertyregex property="InfoBox.name"
 			input="${InfoBox.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -393,6 +404,7 @@
 			input="${InfoBubble.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${InfoBubble.swf.dir}"/>
 		<propertyregex property="InfoBubble.name"
 			input="${InfoBubble.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -420,6 +432,7 @@
 			input="${JSGateway.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${JSGateway.swf.dir}"/>
 		<propertyregex property="JSGateway.name"
 			input="${JSGateway.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -447,6 +460,7 @@
 			input="${JSGoogleMap.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${JSGoogleMap.swf.dir}"/>
 		<propertyregex property="JSGoogleMap.name"
 			input="${JSGoogleMap.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -474,6 +488,7 @@
 			input="${LensFlare.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${LensFlare.swf.dir}"/>
 		<propertyregex property="LensFlare.name"
 			input="${LensFlare.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -501,6 +516,7 @@
 			input="${MenuScroller.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${MenuScroller.swf.dir}"/>
 		<propertyregex property="MenuScroller.name"
 			input="${MenuScroller.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -528,6 +544,7 @@
 			input="${LinkOpener.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${LinkOpener.swf.dir}"/>
 		<propertyregex property="LinkOpener.name"
 			input="${LinkOpener.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -555,6 +572,7 @@
 			input="${MouseCursor.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${MouseCursor.swf.dir}"/>
 		<propertyregex property="MouseCursor.name"
 			input="${MouseCursor.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -582,6 +600,7 @@
 			input="${PanoLink.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${PanoLink.swf.dir}"/>
 		<propertyregex property="PanoLink.name"
 			input="${PanoLink.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -609,6 +628,7 @@
 			input="${ViewFinder.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${ViewFinder.swf.dir}"/>
 		<propertyregex property="ViewFinder.name"
 			input="${ViewFinder.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"
@@ -636,6 +656,7 @@
 			input="${ZoomSlider.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
+		<mkdir dir="${ZoomSlider.swf.dir}"/>
 		<propertyregex property="ZoomSlider.name"
 			input="${ZoomSlider.swf}"
 			regexp="([\w]+)(?=-.*\.swf)"

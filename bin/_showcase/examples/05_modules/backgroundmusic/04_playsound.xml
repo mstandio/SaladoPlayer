@@ -10,10 +10,10 @@
 		<panoramas firstOnEnter="playBgMusic"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml"/>
+		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml"/>
 	</panoramas>
 	<modules>
-		<BackgroundMusic path="~modules/BackgroundMusic-1.2.swf">
+		<BackgroundMusic path="~modules/backgroundnusic/BackgroundMusic-1.2.swf">
 			<tracks>
 				<track id="always" path="~media/sound/looperman-djgadget-always.mp3" loop="true"/>
 			</tracks>
@@ -22,7 +22,7 @@
 				<sound id="sound30" path="~media/sound/soundjay-button-30.mp3"/>
 			</sounds>
 		</BackgroundMusic>
-		<ImageButton path="~modules/ImageButton-1.3.swf">
+		<ImageButton path="~modules/imagebutton/ImageButton-1.3.swf">
 			<button id="mapPanel">
 				<window align="horizontal:left,vertical:middle"/>
 				<subButtons>

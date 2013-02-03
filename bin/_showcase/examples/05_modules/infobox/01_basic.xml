@@ -7,7 +7,7 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml"/>
+		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
 		<InfoBox path="~modules/infobox/InfoBox-1.0.swf">

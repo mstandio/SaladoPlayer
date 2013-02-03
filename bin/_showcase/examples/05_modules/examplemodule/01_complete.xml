@@ -10,12 +10,12 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml">
 			<image id="gc_arrowYellow" path="~media/images/spots/arrow_yellow.png" mouse="onClick:toggleOpenExampleModule"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<ExampleModule path="~modules/ExampleModule-1.0.swf">
+		<ExampleModule path="~modules/examplemodule/ExampleModule-1.0.swf">
 			<settings onOpen="sayHello" onClose="sayGoodbeye" />
 			<someParent info="num:-12.12,bool:true,str:foo">
 				<someChild happy="true">

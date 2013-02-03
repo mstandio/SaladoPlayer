@@ -9,7 +9,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml">
 			<image id="cg_arrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:0" mouse="onClick:jumpToArrowYellow"/>
 			<image id="cg_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:180" mouse="onClick:jumpToArrowRed"/>
 			<image id="cg_arrowRed" path="~media/images/spots/arrow_red.png" location="tilt:-85" mouse="onClick:jumpToArrowBlue"/>
@@ -17,7 +17,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<ViewFinder path="~modules/ViewFinder-1.3.swf"/>
+		<ViewFinder path="~modules/viewfinder/ViewFinder-1.3.swf"/>
 	</modules>
 	<actions>
 		<action id="jumpToArrowYellow" content="SaladoPlayer.jumpToView(NaN,85,30)"/>

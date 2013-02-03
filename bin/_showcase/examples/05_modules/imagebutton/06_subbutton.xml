@@ -7,10 +7,10 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panoramas/dz_checker_yellow/checker_yellow_f.xml"/>
+		<panorama id="checkerYellow" path="~panos/dz_checker_yellow/checker_yellow_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageButton path="~modules/ImageButton-1.3.swf">
+		<ImageButton path="~modules/imagebutton/ImageButton-1.3.swf">
 			<button id="logo1" path="~media/images/misc/panozona_logo.png">
 				<subButtons>
 					<subButton id="map1" path="~media/images/misc/button_map1.png" action="printHelloMap" mouse="onOver:printHelloMap"/>

@@ -6,11 +6,11 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml">
 			<image id="cb_lightbulb1" path="~media/images/misc/lightbulb.png" location="pan:5,tilt:10" transform="flat:true"/>
 			<image id="cb_lightbulb2" path="~media/images/misc/lightbulb.png" location="pan:90,tilt:20" transform="flat:true"/>
 		</panorama>
-		<panorama id="checkerRed" path="~panoramas/dz_checker_red/checker_red_f.xml">
+		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml">
 			<image id="cr_lightbulb1" path="~media/images/misc/lightbulb.png" location="pan:-20,tilt:0" transform="flat:true"/>
 		</panorama>
 	</panoramas>
@@ -22,7 +22,7 @@
 				<flare panorama="checkerRed" location="pan:-20,tilt:0" path="~modules/lensflare/images/flares2.png" brightness="level:90,distance:40" positions="1|2|3|4"/>
 			</flares>
 		</LensFlare>
-		<DropDown path="~modules/DropDown-1.3.swf">
+		<DropDown path="~modules/dropdown/DropDown-1.3.swf">
 			<groups>
 				<group id="g1">
 					<element target="checkerBlue" label="Blue checker"/>

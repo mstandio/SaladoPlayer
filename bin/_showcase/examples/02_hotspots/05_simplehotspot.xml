@@ -10,7 +10,7 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panoramas/dz_checker_green/checker_green_f.xml">
+		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml">
 			<swf id="swf_A" location="pan:-20" path="~spots/SimpleHotspot-1.0.swf" mouse="onClick:helloA"/>
 			<swf id="swf_B" location="pan:0" path="~spots/SimpleHotspot-1.0.swf" mouse="onClick:helloB"/>
 			<swf id="swf_C" location="pan:20" path="~spots/SimpleHotspot-1.0.swf" mouse="onClick:helloC"/>

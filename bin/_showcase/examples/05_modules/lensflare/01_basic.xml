@@ -6,7 +6,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panoramas/dz_checker_blue/checker_blue_f.xml">
+		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml">
 			<image id="cb_lightbulb1" path="~media/images/misc/lightbulb.png" location="pan:5,tilt:10" transform="flat:true"/>
 		</panorama>
 	</panoramas>
