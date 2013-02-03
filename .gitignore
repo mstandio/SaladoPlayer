@@ -1,1 +1,5 @@
-*~
+*.swf
+*.cache
+*.as3proj
+obj
+!bin/_showcase/examples/resources/ExamplesLoader.swf
