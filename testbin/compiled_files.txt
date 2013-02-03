@@ -1,2 +1,0 @@
-testsrc/suite/configuration/Configuration.mxml -> Configuration.swf
-testsrc/suite/loading/Loading.mxml -> Loading.swf

@@ -22,6 +22,7 @@
 	<property name="debuggableSwf" value="false"/>
 	
 	<property file="bin/compiled_files.txt"/>
+	<property file="test/bin/compiled_files.txt"/>
 	<property environment="env"/>
 	<property name="FLEX_HOME" value="${env.FLEX_HOME}"/>
 	<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/>
@@ -59,7 +60,8 @@
 				GrowingSpot,
 				NadirSpot,
 				VideoSpot,
-				ExamplesLoader"/>
+				ExamplesLoader,
+				Tests"/>
 				
 	<target name="SaladoPlayer">
 		<propertyregex property="SaladoPlayer.swf.dir"
@@ -831,6 +833,41 @@
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
 			<source-path path-element="${basedir}/src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+	</target>
+	
+	<target name="Tests">
+		<mxmlc
+			file="${Configuration.mxml}"
+			output="${Configuration.swf}"
+			fork="true" maxmemory="512m"
+			debug="${debuggableSwf}"
+			static-link-runtime-shared-libraries="true">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="${basedir}/test/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+			<compiler.include-libraries dir="${basedir}/test" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+		</mxmlc>
+		<mxmlc
+			file="${Loading.mxml}"
+			output="${Loading.swf}"
+			fork="true" maxmemory="512m"
+			debug="${debuggableSwf}"
+			static-link-runtime-shared-libraries="true">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="${basedir}/test/src"/>
+			<compiler.include-libraries dir="${basedir}" append="true">
+				<include name="lib"/>
+			</compiler.include-libraries>
+			<compiler.include-libraries dir="${basedir}/test" append="true">
 				<include name="lib"/>
 			</compiler.include-libraries>
 		</mxmlc>

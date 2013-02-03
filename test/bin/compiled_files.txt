@@ -1,0 +1,5 @@
+Configuration.mxml = test/src/suite/configuration/Configuration.mxml
+Configuration.swf  = test/bin/tests/Configuration.swf
+
+Loading.mxml = test/src/suite/loading/Loading.mxml
+Loading.swf  = test/bin/tests/Loading.swf

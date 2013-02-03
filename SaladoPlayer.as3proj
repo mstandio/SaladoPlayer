@@ -16,7 +16,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="testsrc" />
+    <class path="test\src" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -53,9 +53,9 @@
   <libraryPaths>
     <element path="lib\tweener.swc" />
     <element path="lib\GIFPlayer-0.6.swc" />
-    <element path="testlib\flexunit-4.0.0.swc" />
-    <element path="testlib\flexunit-uilistener-4.0.0.swc" />
-    <element path="testlib\hamcrest-1.0.2.swc" />
+    <element path="test\lib\flexunit-4.0.0.swc" />
+    <element path="test\lib\flexunit-uilistener-4.0.0.swc" />
+    <element path="test\lib\hamcrest-1.0.2.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
