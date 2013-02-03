@@ -10,7 +10,7 @@
 	<modules>
 		<InfoBox path="~modules/infobox/InfoBox-1.0.swf">
 			<window open="true" align="horizontal:right,vertical:top" maxSize="width:500,height:1500" margin="top:10,right:10,bottom:10"/>
-			<viewer path="~modules/infobox/images/elements_dark_21x21.png"/>
+			<viewer path="~modules/infobox/skins/elements_dark_21x21.png"/>
 			<articles>
 				<article id="a1" path="~media/text/art1.txt"/>
 			</articles>

@@ -4,15 +4,13 @@ how run build file:
 	set environment variable FLEX_HOME to flex installation directory
 	
 	download ANT from http://ant.apache.org/bindownload.cgi
-	unpack ant into directory that does not contain spaces (!)
-	set environment variable ANT_HOME to ANT installation directory
-	add %ANT_HOME%\bin to your PATH variable
+	unpack it into directory that does not contain spaces (!)
+	add ANT installation binaries directory to your PATH variable
 	
 	for instance:
-		ANT_HOME  E:\ant\apache-ant-1.8.3
 		FLEX_HOME E:\FlashDevelop\Tools\flexsdk
-		Path      (...)C:\Java\jdk1.6.0_27\bin;%ANT_HOME%\bin
-		
+		Path      (...)C:\Java\jdk1.6.0_27\bin;E:\ant\apache-ant-1.8.3\bin
+	
 use ANT via command line:
 	
 	C:\>ant -buildfile "F:\SaladoPlayer\ant\build.xml" "SaladoPlayer"

@@ -16,7 +16,7 @@
 			<viewer path="~modules/imagemap/images/navigation_fire_20x20.png" navMove="enabled:false" navZoom="speed:0.05"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map1.jpg">
-					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png">
+					<waypoints path="~modules/imagemap/skins/waypoints_button_20x20.png">
 						<waypoint target="checkerBlue" position="x:150,y:100"/>
 					</waypoints>
 				</map>

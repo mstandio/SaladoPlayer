@@ -20,7 +20,7 @@
 	<modules>
 		<ZoomSlider path="~modules/zoomslider/ZoomSlider-1.2.swf">
 			<window open="false" onOpen="printOpen" onClose="printClose"/>
-			<slider path="~modules/zoomslider/images/elements_light_40x40.png"/>
+			<slider path="~modules/zoomslider/skins/elements_light_40x40.png"/>
 		</ZoomSlider>
 	</modules>
 	<actions>

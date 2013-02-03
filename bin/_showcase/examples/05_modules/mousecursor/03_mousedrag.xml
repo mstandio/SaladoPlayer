@@ -15,7 +15,7 @@
 	</panoramas>
 	<modules>
 		<MouseCursor path="~modules/mousecursor/MouseCursor-1.2.swf">
-			<settings path="~modules/mousecursor/images/cursors_31x31.png"/>
+			<settings path="~modules/mousecursor/skins/cursors_31x31.png"/>
 		</MouseCursor>
 	</modules>
 </SaladoPlayer>

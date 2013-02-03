@@ -18,10 +18,10 @@
 			</bubbles>
 		</InfoBubble>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">
-			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
+			<viewer path="~modules/imagemap/skins/navigation_black_20x20.png"/>
 			<maps>
 				<map id="map2" path="~media/images/maps/map2.jpg">
-					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png">
+					<waypoints path="~modules/imagemap/skins/waypoints_button_20x20.png">
 						<waypoint target="checkerBlue" position="x:350,y:300" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
 						<extraWaypoint id="w1" position="x:150,y:100" mouse="onOver:showBubbleW1,onOut:hideBubble"/>
 					</waypoints>

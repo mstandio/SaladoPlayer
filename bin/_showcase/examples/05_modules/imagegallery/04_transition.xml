@@ -16,7 +16,7 @@
 		<ImageGallery path="~modules/imagegallery/ImageGallery-1.0.swf">
 			<window transition="type:slideUp" openTween="transition:Bounce.easeOut,time:0.75" closeTween="transition:Expo.easeIn,time:0.75"/>
 			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
-			<viewer path="~modules/imagegallery/images/buttons_dark_40x40.png" throbber="~media/images/misc/throbber-circles.gif"/>
+			<viewer path="~modules/imagegallery/skins/buttons_dark_40x40.png" throbber="~media/images/misc/throbber-circles.gif"/>
 			<groups>
 				<group id="g1">
 					<image path="~media/images/maps/map1.jpg"/>

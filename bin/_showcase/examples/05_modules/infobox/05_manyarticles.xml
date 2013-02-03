@@ -13,7 +13,7 @@
 	<modules>
 		<InfoBox path="~modules/infobox/InfoBox-1.0.swf">
 			<window open="true" align="vertical:top" maxSize="height:200"/>
-			<viewer path="~modules/infobox/images/elements_dark_21x21.png" css="~media/text/stylesheet.css"/>
+			<viewer path="~modules/infobox/skins/elements_dark_21x21.png" css="~media/text/stylesheet.css"/>
 			<articles>
 				<article id="art1" path="~media/text/art1.txt"/>
 				<article id="art2" path="~media/text/art2.txt"/>

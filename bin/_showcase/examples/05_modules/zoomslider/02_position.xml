@@ -12,7 +12,7 @@
 	<modules>
 		<ZoomSlider path="~modules/zoomslider/ZoomSlider-1.2.swf">
 			<window align="horizontal:center,vertical:bottom" margin="bottom:20"/>
-			<slider path="~modules/zoomslider/images/elements_dark_40x40.png" slidesVertical="false" maxLength="250" minLength="200"/>
+			<slider path="~modules/zoomslider/skins/elements_dark_40x40.png" slidesVertical="false" maxLength="250" minLength="200"/>
 		</ZoomSlider>
 	</modules>
 </SaladoPlayer>

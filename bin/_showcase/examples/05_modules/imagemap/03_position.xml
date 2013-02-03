@@ -15,10 +15,10 @@
 	<modules>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">
 			<window align="horizontal:center,vertical:middle" maxSize="width:800,height:600" margin="top:10,bottom:10,left:10,right:10"/>
-			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
+			<viewer path="~modules/imagemap/skins/navigation_black_20x20.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map2.jpg" zoom="init:30,max:200,min:10">
-					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png">
+					<waypoints path="~modules/imagemap/skins/waypoints_button_20x20.png">
 						<waypoint target="checkerBlue" position="x:250,y:150"/>
 					</waypoints>
 				</map>

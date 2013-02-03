@@ -15,10 +15,10 @@
 	</panoramas>
 	<modules>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">
-			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
+			<viewer path="~modules/imagemap/skins/navigation_black_20x20.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map1.jpg">
-					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png" radar="showTilt:true">
+					<waypoints path="~modules/imagemap/skins/waypoints_button_20x20.png" radar="showTilt:true">
 						<waypoint target="checkerBlue" position="x:550,y:100"/>
 					</waypoints>
 					<waypoints path="~modules/imagemap/images/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="color:#FFFFFF,borderColor:000000,alpha:0.5,radius:300">

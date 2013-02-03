@@ -18,7 +18,7 @@
 	</panoramas>
 	<modules>
 		<Compass path="~modules/compass/Compass-1.2.swf">
-			<settings path="~modules/compass/images/compass_dark_93x81.png"/>
+			<settings path="~modules/compass/skins/compass_dark_93x81.png"/>
 			<window open="false" onOpen="printOpen" onClose="printClose"/>
 			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
 		</Compass>

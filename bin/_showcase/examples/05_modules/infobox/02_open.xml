@@ -17,7 +17,7 @@
 		<InfoBox path="~modules/infobox/InfoBox-1.0.swf">
 			<window open="false" onOpen="printOpen" onClose="printClose"/>
 			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
-			<viewer path="~modules/infobox/images/elements_dark_21x21.png" css="~media/text/stylesheet.css"/>
+			<viewer path="~modules/infobox/skins/elements_dark_21x21.png" css="~media/text/stylesheet.css"/>
 			<articles>
 				<article id="a1" path="~media/text/art1.txt"/>
 			</articles>

@@ -10,7 +10,7 @@
 	</panoramas>
 	<modules>
 		<MouseCursor path="~modules/mousecursor/MouseCursor-1.2.swf">
-			<settings path="~modules/mousecursor/images/cursors_31x31.png" hideLine="false" style="lineColor:#FFFFFF,lineSize:2"/>
+			<settings path="~modules/mousecursor/skins/cursors_31x31.png" hideLine="false" style="lineColor:#FFFFFF,lineSize:2"/>
 		</MouseCursor>
 	</modules>
 </SaladoPlayer>

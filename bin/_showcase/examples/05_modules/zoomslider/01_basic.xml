@@ -12,7 +12,7 @@
 	</panoramas>
 	<modules>
 		<ZoomSlider path="~modules/zoomslider/ZoomSlider-1.2.swf">
-			<slider path="~modules/zoomslider/images/elements_dark_30x30.png"/>
+			<slider path="~modules/zoomslider/skins/elements_dark_30x30.png"/>
 		</ZoomSlider>
 	</modules>
 </SaladoPlayer>

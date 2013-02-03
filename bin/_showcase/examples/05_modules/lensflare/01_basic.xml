@@ -13,7 +13,7 @@
 	<modules>
 		<LensFlare path="~modules/lensflare/LensFlare-1.1.swf">
 			<flares>
-				<flare panorama="checkerBlue" location="pan:5,tilt:10" path="~modules/lensflare/images/flares2.png" brightness="level:99,distance:10" positions="1|2|3|4"/>
+				<flare panorama="checkerBlue" location="pan:5,tilt:10" path="~modules/lensflare/skins/flares2.png" brightness="level:99,distance:10" positions="1|2|3|4"/>
 			</flares>
 		</LensFlare>
 	</modules>

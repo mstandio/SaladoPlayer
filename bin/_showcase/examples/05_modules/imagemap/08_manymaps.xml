@@ -18,12 +18,12 @@
 			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map1.jpg">
-					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png">
+					<waypoints path="~modules/imagemap/skns/waypoints_button_20x20.png">
 						<waypoint target="checkerGreen" position="x:150,y:100"/>
 					</waypoints>
 				</map>
 				<map id="map2" path="~media/images/maps/map2.jpg">
-					<waypoints path="~modules/imagemap/images/waypoints_button_20x20.png">
+					<waypoints path="~modules/imagemap/skins/waypoints_button_20x20.png">
 						<waypoint target="checkerRed" position="x:250,y:200"/>
 					</waypoints>
 				</map>

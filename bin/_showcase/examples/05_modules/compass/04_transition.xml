@@ -16,7 +16,7 @@
 	</panoramas>
 	<modules>
 		<Compass path="~modules/compass/Compass-1.2.swf">
-			<settings path="~modules/compass/images/compass_light_93x81.png"/>
+			<settings path="~modules/compass/skins/compass_light_93x81.png"/>
 			<window transition="type:slideUp" openTween="transition:Bounce.easeOut,time:0.75" closeTween="transition:Expo.easeIn,time:0.75"/>
 		</Compass>
 	</modules>

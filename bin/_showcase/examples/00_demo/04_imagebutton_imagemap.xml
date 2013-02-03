@@ -12,15 +12,15 @@
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.swf">
 			<window open="false" onOpen="mapOpened" onClose="mapClosed" openTween="time:0.5" closeTween="time:0.5"/>
 			<close path="~media/images/buttons/dark_right_close.png" align="vertical:middle,horizontal:left" move="horizontal:-60"/>
-			<viewer path="~modules/imagemap/images/navigation_black_20x20.png"/>
+			<viewer path="~modules/imagemap/skins/navigation_black_20x20.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map1.jpg" onSet="onSetMap1">
-					<waypoints path="~modules/imagemap/images/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="showTilt:false">
+					<waypoints path="~modules/imagemap/skins/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="showTilt:false">
 						<waypoint target="checkerGreen" position="x:150,y:100"/>
 					</waypoints>
 				</map>
 				<map id="map2" path="~media/images/maps/map2.jpg" onSet="onSetMap2">
-					<waypoints path="~modules/imagemap/images/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="showTilt:false">
+					<waypoints path="~modules/imagemap/skins/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="showTilt:false">
 						<waypoint target="checkerRed" position="x:250,y:200"/>
 					</waypoints>
 				</map>

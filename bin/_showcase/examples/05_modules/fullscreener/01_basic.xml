@@ -14,7 +14,7 @@
 	</panoramas>
 	<modules>
 		<FullScreener path="~modules/fullscreener/FullScreener-1.1.swf">
-			<settings path="~modules/fullscreener/images/button_thick_black_50x50.png"/>
+			<settings path="~modules/fullscreener/skins/button_thick_black_50x50.png"/>
 		</FullScreener>
 	</modules>
 </SaladoPlayer>

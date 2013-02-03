@@ -13,7 +13,7 @@
 			</button>
 		</ImageButton>
 		<ButtonBar path="~modules/buttonBar/ButtonBar-1.3.swf">
-			<buttons path="~modules/buttonbar/images/buttons_dark_40x40.png">
+			<buttons path="~modules/buttonbar/skins/buttons_dark_40x40.png">
 				<button name="out"/>
 				<button name="in"/>
 				<button name="drag"/>
