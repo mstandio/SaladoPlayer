@@ -9,7 +9,7 @@
 		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml"/>
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/imagemap/ImageMap-1.4.swf">
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">
 			<window open="false" onOpen="mapOpened" onClose="mapClosed" openTween="time:0.5" closeTween="time:0.5"/>
 			<close path="~media/images/buttons/dark_right_close.png" align="vertical:middle,horizontal:left" move="horizontal:-60"/>
 			<viewer path="~modules/imagemap/skins/navigation_black_20x20.png"/>

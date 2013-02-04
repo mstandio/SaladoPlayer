@@ -21,7 +21,7 @@
 					<waypoints path="~modules/imagemap/skins/waypoints_button_20x20.png" radar="showTilt:true">
 						<waypoint target="checkerBlue" position="x:550,y:100"/>
 					</waypoints>
-					<waypoints path="~modules/imagemap/images/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="color:#FFFFFF,borderColor:000000,alpha:0.5,radius:300">
+					<waypoints path="~modules/imagemap/skins/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="color:#FFFFFF,borderColor:000000,alpha:0.5,radius:300">
 						<waypoint target="checkerRed" position="x:500,y:300"/>
 					</waypoints>
 				</map>
