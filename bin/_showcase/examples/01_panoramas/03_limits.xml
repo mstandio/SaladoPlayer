@@ -12,9 +12,9 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerViolet" path="~panos/dz_checker_violet/checker_violet_f.xml" camera="maxVerticalFov:30,minVerticalFov:-30" />
-		<panorama id="checkerTurquoise" path="~panos/dz_checker_turquoise/checker_turquoise_f.xml" camera="maxVerticalFov:30,minVerticalFov:-30,maxHorizontalFov:112,minHorizontalFov:-112"/>
-		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml" camera="maxFov:160,minFov:10"/>
+		<panorama id="checkerViolet" path="~panos/dz_checker_violet/checker_violet_f.xml" view="maxVerticalFov:30,minVerticalFov:-30" />
+		<panorama id="checkerTurquoise" path="~panos/dz_checker_turquoise/checker_turquoise_f.xml" view="maxVerticalFov:30,minVerticalFov:-30,maxHorizontalFov:112,minHorizontalFov:-112"/>
+		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml" view="maxFov:160,minFov:10"/>
 	</panoramas>
 	<modules>
 		<ViewFinder path="~modules/viewfinder/ViewFinder-1.3.swf"/>

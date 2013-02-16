@@ -227,7 +227,7 @@ package com.panozona.player.manager.utils.configuration {
 				panoramasData.push(panoramaData);
 				for each(var panoramaAttribute:XML in panoramaNode.attributes()) {
 					panoramaAttributeName = panoramaAttribute.localName();
-					if (panoramaAttributeName == "camera") {
+					if (panoramaAttributeName == "camera" || panoramaAttributeName == "view") {
 						applySubAttributes(panoramaData.params, panoramaAttribute);
 					}else if (panoramaAttributeName == "direction") {
 						panoramaData.direction = getAttributeValue(panoramaAttribute, Number);
