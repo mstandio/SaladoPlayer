@@ -17,7 +17,7 @@
 	http://ant-contrib.sourceforge.net/
 	http://ant-contrib.sourceforge.net/tasks/tasks/
 -->
-<project name="SaladoPlayer" default="BuildAll" basedir="../.">
+<project name="SaladoPlayer" default="buildAll" basedir="../.">
 	
 	<property name="debuggableSwf" value="false"/>
 	
@@ -28,11 +28,12 @@
 	<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/>
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 		<classpath>
-			<pathelement location="${basedir}/ant/lib/ant-contrib-1.0b3.jar"/>
+			<pathelement location="ant/tasks/ant-contrib-1.0b3.jar"/>
 		</classpath>
 	</taskdef>
+	<taskdef name="wikieater" classpath="ant/tasks/WikiEater-1.0.jar" classname="org.openpano.ant.WikiEaterTask"/>
 	
-	<target name="BuildAll"
+	<target name="buildAll"
 		depends="SaladoPlayer,
 				ActionLogic,
 				BackgroundMusic,
@@ -60,8 +61,7 @@
 				GrowingSpot,
 				NadirSpot,
 				VideoSpot,
-				ExamplesLoader,
-				Tests"/>
+				ExamplesLoader"/>
 				
 	<target name="SaladoPlayer">
 		<propertyregex property="SaladoPlayer.swf.dir"
@@ -77,18 +77,18 @@
 				includes="${SaladoPlayer.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${SaladoPlayer.as}"
-			output="${basedir}/${SaladoPlayer.swf}"
+			file="${SaladoPlayer.as}"
+			output="${SaladoPlayer.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}" incremental="true"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<default-frame-rate>30</default-frame-rate>
 			<default-background-color>#000000</default-background-color>
 			<default-size width="500" height="375"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -108,16 +108,13 @@
 				includes="${ActionLogic.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${ActionLogic.as}"
-			output="${basedir}/${ActionLogic.swf}"
+			file="${ActionLogic.as}"
+			output="${ActionLogic.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
-			</compiler.include-libraries>
+			<source-path path-element="src"/>
 		</mxmlc>
 	</target>
 	
@@ -136,16 +133,13 @@
 				includes="${BackgroundMusic.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${BackgroundMusic.as}"
-			output="${basedir}/${BackgroundMusic.swf}"
+			file="${BackgroundMusic.as}"
+			output="${BackgroundMusic.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
-			</compiler.include-libraries>
+			<source-path path-element="src"/>
 		</mxmlc>
 	</target>
 	
@@ -164,15 +158,15 @@
 				includes="${ButtonBar.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${ButtonBar.as}"
-			output="${basedir}/${ButtonBar.swf}"
+			file="${ButtonBar.as}"
+			output="${ButtonBar.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -192,15 +186,15 @@
 				includes="${Compass.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${Compass.as}"
-			output="${basedir}/${Compass.swf}"
+			file="${Compass.as}"
+			output="${Compass.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -220,15 +214,15 @@
 				includes="${DropDown.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${DropDown.as}"
-			output="${basedir}/${DropDown.swf}"
+			file="${DropDown.as}"
+			output="${DropDown.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -248,15 +242,15 @@
 				includes="${ExampleModule.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${ExampleModule.as}"
-			output="${basedir}/${ExampleModule.swf}"
+			file="${ExampleModule.as}"
+			output="${ExampleModule.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -276,16 +270,13 @@
 				includes="${FullScreener.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${FullScreener.as}"
-			output="${basedir}/${FullScreener.swf}"
+			file="${FullScreener.as}"
+			output="${FullScreener.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
-			</compiler.include-libraries>
+			<source-path path-element="src"/>
 		</mxmlc>
 	</target>
 	
@@ -304,15 +295,15 @@
 				includes="${ImageButton.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${ImageButton.as}"
-			output="${basedir}/${ImageButton.swf}"
+			file="${ImageButton.as}"
+			output="${ImageButton.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -332,15 +323,16 @@
 				includes="${ImageGallery.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${ImageGallery.as}"
-			output="${basedir}/${ImageGallery.swf}"
+			file="${ImageGallery.as}"
+			output="${ImageGallery.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/GIFPlayer-0.6.swc"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -360,22 +352,22 @@
 				includes="${ImageMap.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${ImageMap.as}"
-			output="${basedir}/${ImageMap.swf}"
+			file="${ImageMap.as}"
+			output="${ImageMap.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
 	
 	<target name="InfoBox">
 		<propertyregex property="InfoBox.swf.dir"
-			input="${InfoBubble.swf}"
+			input="${InfoBox.swf}"
 			regexp="([a-zA-Z/]+)(?=/)"
 			select="\1"/>
 		<mkdir dir="${InfoBox.swf.dir}"/>
@@ -388,15 +380,15 @@
 				includes="${InfoBox.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${InfoBox.as}"
-			output="${basedir}/${InfoBox.swf}"
+			file="${InfoBox.as}"
+			output="${InfoBox.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -416,15 +408,15 @@
 				includes="${InfoBubble.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${InfoBubble.as}"
-			output="${basedir}/${InfoBubble.swf}"
+			file="${InfoBubble.as}"
+			output="${InfoBubble.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -444,16 +436,13 @@
 				includes="${JSGateway.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${JSGateway.as}"
-			output="${basedir}/${JSGateway.swf}"
+			file="${JSGateway.as}"
+			output="${JSGateway.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
-			</compiler.include-libraries>
+			<source-path path-element="src"/>
 		</mxmlc>
 	</target>
 	
@@ -472,16 +461,13 @@
 				includes="${JSGoogleMap.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${JSGoogleMap.as}"
-			output="${basedir}/${JSGoogleMap.swf}"
+			file="${JSGoogleMap.as}"
+			output="${JSGoogleMap.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
-			</compiler.include-libraries>
+			<source-path path-element="src"/>
 		</mxmlc>
 	</target>
 	
@@ -500,16 +486,13 @@
 				includes="${LensFlare.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${LensFlare.as}"
-			output="${basedir}/${LensFlare.swf}"
+			file="${LensFlare.as}"
+			output="${LensFlare.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
-			</compiler.include-libraries>
+			<source-path path-element="src"/>
 		</mxmlc>
 	</target>
 	
@@ -528,15 +511,15 @@
 				includes="${MenuScroller.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${MenuScroller.as}"
-			output="${basedir}/${MenuScroller.swf}"
+			file="${MenuScroller.as}"
+			output="${MenuScroller.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -556,16 +539,13 @@
 				includes="${LinkOpener.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${LinkOpener.as}"
-			output="${basedir}/${LinkOpener.swf}"
+			file="${LinkOpener.as}"
+			output="${LinkOpener.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
-			</compiler.include-libraries>
+			<source-path path-element="src"/>
 		</mxmlc>
 	</target>
 	
@@ -584,16 +564,13 @@
 				includes="${MouseCursor.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${MouseCursor.as}"
-			output="${basedir}/${MouseCursor.swf}"
+			file="${MouseCursor.as}"
+			output="${MouseCursor.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
-			</compiler.include-libraries>
+			<source-path path-element="src"/>
 		</mxmlc>
 	</target>
 	
@@ -612,15 +589,15 @@
 				includes="${PanoLink.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${PanoLink.as}"
-			output="${basedir}/${PanoLink.swf}"
+			file="${PanoLink.as}"
+			output="${PanoLink.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -640,16 +617,13 @@
 				includes="${ViewFinder.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${ViewFinder.as}"
-			output="${basedir}/${ViewFinder.swf}"
+			file="${ViewFinder.as}"
+			output="${ViewFinder.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
-			</compiler.include-libraries>
+			<source-path path-element="src"/>
 		</mxmlc>
 	</target>
 	
@@ -668,15 +642,15 @@
 				includes="${ZoomSlider.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${ZoomSlider.as}"
-			output="${basedir}/${ZoomSlider.swf}"
+			file="${ZoomSlider.as}"
+			output="${ZoomSlider.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -695,15 +669,15 @@
 				includes="${ExampleSpot.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${ExampleSpot.as}"
-			output="${basedir}/${ExampleSpot.swf}"
+			file="${ExampleSpot.as}"
+			output="${ExampleSpot.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -722,15 +696,15 @@
 				includes="${FadingSpot.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${FadingSpot.as}"
-			output="${basedir}/${FadingSpot.swf}"
+			file="${FadingSpot.as}"
+			output="${FadingSpot.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -749,15 +723,15 @@
 				includes="${GrowingSpot.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${GrowingSpot.as}"
-			output="${basedir}/${GrowingSpot.swf}"
+			file="${GrowingSpot.as}"
+			output="${GrowingSpot.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -776,16 +750,13 @@
 				includes="${NadirSpot.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${NadirSpot.as}"
-			output="${basedir}/${NadirSpot.swf}"
+			file="${NadirSpot.as}"
+			output="${NadirSpot.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
-			</compiler.include-libraries>
+			<source-path path-element="src"/>
 		</mxmlc>
 	</target>
 	
@@ -803,15 +774,15 @@
 				includes="${VideoSpot.name}*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${VideoSpot.as}"
-			output="${basedir}/${VideoSpot.swf}"
+			file="${VideoSpot.as}"
+			output="${VideoSpot.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
+				<include name="lib/tweener.swc"/>
 			</compiler.include-libraries>
 		</mxmlc>
 	</target>
@@ -825,20 +796,17 @@
 			<fileset dir="${ExamplesLoader.swf.dir}" includes="*.swf"/>
 		</delete>
 		<mxmlc
-			file="${basedir}/${ExamplesLoader.as}"
-			output="${basedir}/${ExamplesLoader.swf}"
+			file="${ExamplesLoader.as}"
+			output="${ExamplesLoader.swf}"
 			fork="true" maxmemory="512m"
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<compiler.include-libraries dir="${basedir}" append="true">
-				<include name="lib"/>
-			</compiler.include-libraries>
+			<source-path path-element="src"/>
 		</mxmlc>
 	</target>
 	
-	<target name="Tests">
+	<target name="buildTests">
 		<mxmlc
 			file="${Configuration.mxml}"
 			output="${Configuration.swf}"
@@ -846,12 +814,12 @@
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<source-path path-element="${basedir}/test/src"/>
+			<source-path path-element="src"/>
+			<source-path path-element="test/src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
 				<include name="lib"/>
 			</compiler.include-libraries>
-			<compiler.include-libraries dir="${basedir}/test" append="true">
+			<compiler.include-libraries dir="test" append="true">
 				<include name="lib"/>
 			</compiler.include-libraries>
 		</mxmlc>
@@ -862,15 +830,22 @@
 			debug="${debuggableSwf}"
 			static-link-runtime-shared-libraries="true">
 			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-			<source-path path-element="${basedir}/src"/>
-			<source-path path-element="${basedir}/test/src"/>
+			<source-path path-element="src"/>
+			<source-path path-element="test/src"/>
 			<compiler.include-libraries dir="${basedir}" append="true">
 				<include name="lib"/>
 			</compiler.include-libraries>
-			<compiler.include-libraries dir="${basedir}/test" append="true">
+			<compiler.include-libraries dir="test" append="true">
 				<include name="lib"/>
 			</compiler.include-libraries>
 		</mxmlc>
+	</target>
+	
+	<target name="buildDocs">
+		<wikieater
+			menufile="${basedir}/ant/conf/menu.txt"
+			outputdir="${basedir}/bin/_documents"
+			cachedir="${basedir}/tmp/cache"/>
 	</target>
 	
 </project>
