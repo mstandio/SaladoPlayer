@@ -21,16 +21,11 @@
 	
 	<property name="debuggableSwf" value="false"/>
 	
-	<property file="bin/compiled_files.txt"/>
-	<property file="test/bin/compiled_files.txt"/>
+	<property file="ant/conf/compiled_files.txt"/>
 	<property environment="env"/>
 	<property name="FLEX_HOME" value="${env.FLEX_HOME}"/>
 	<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/>
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
-		<classpath>
-			<pathelement location="ant/tasks/ant-contrib-1.0b3.jar"/>
-		</classpath>
-	</taskdef>
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="ant/tasks/ant-contrib-1.0b3.jar"/>
 	<taskdef name="wikieater" classpath="ant/tasks/WikiEater-1.0.jar" classname="org.openpano.ant.WikiEaterTask"/>
 	
 	<target name="buildAll"
@@ -842,6 +837,7 @@
 	</target>
 	
 	<target name="buildDocs">
+		<mkdir dir="${basedir}/tmp"/>
 		<wikieater
 			menufile="${basedir}/ant/conf/menu.txt"
 			outputdir="${basedir}/bin/_documents"
