@@ -2,4 +2,5 @@
 *.cache
 *.as3proj
 obj
+tmp
 !bin/_showcase/examples/resources/ExamplesLoader.swf

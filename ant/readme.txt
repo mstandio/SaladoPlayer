@@ -1,4 +1,4 @@
-how run build file:
+how to run build file:
 	
 	download FLEX from http://www.adobe.com/devnet/flex/flex-sdk-download.html
 	set environment variable FLEX_HOME to flex installation directory
