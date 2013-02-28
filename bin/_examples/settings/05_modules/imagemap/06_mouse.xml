@@ -3,7 +3,7 @@
 	Assign mouse events on interaction with each waypoint. You can display content when mouse is hovering over
 	waypoint button with other modules, like InfoBubble.
 	
-	http://panozona.com/wiki/Module:ImageMap
+	../../_manual/index.html?module_imagemap.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

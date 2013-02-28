@@ -3,7 +3,7 @@
 	Module allows adding and customizing simple button for entering and exiting fullscreen state
 	it also inidicates current state of panorama window.
 	
-	http://panozona.com/wiki/Module:FullScreener
+	../../_manual/index.html?module_fullscreener.html
 -->
 <SaladoPlayer>
 	<global debug="true">

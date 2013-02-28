@@ -2,7 +2,7 @@
 <!--
 	Module can display current viewing direction (pan + direction).
 	
-	http://panozona.com/wiki/Module:ViewFinder
+	../../_manual/index.html?module_viewfinder.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

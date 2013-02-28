@@ -3,7 +3,7 @@
 	DropDown allows simple switching between panoramas. You can decide sequence of element in drop-down list,
 	panoramas that will be loaded when user clicks on elements and labels describing those panoramas.
 	
-	http://panozona.com/wiki/Module:DropDown
+	../../_manual/index.html?module_dropdown.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

@@ -2,7 +2,7 @@
 <!--
 	You can play single non-looping sound effects while background tracks are playing.
 	
-	http://panozona.com/wiki/Module:BackgroundMusic
+	../../_manual/index.html?module_backgroundmusic.html
 -->
 <SaladoPlayer>
 	<global debug="true">

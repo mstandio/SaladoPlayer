@@ -4,7 +4,7 @@
 	Assign actions that will be executed whenever ZoomSlider changes "open" state,
 	so this change could be reflected in your interface, for example by changing state of buttons.
 	
-	http://panozona.com/wiki/Module:ZoomSlider
+	../../_manual/index.html?module_zoomslider.html
 -->
 <SaladoPlayer>
 	<global debug="true">

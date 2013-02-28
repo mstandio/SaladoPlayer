@@ -2,7 +2,7 @@
 <!-- 
 	Buttons of given id can be opened/closed by default or on demand. You can also execute actions when closing/opening buttons.
 	
-	http://panozona.com/wiki/Module:ImageButton
+	../../_manual/index.html?module_imagebutton.html
 -->
 <SaladoPlayer>
 	<global debug="true">

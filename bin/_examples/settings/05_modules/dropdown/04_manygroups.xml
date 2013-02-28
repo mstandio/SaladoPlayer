@@ -5,7 +5,7 @@
 	elements targeting to given panorama, first group in line is displayed. If same situation occures when loading
 	further panoramas, group is not changed.
 	
-	http://panozona.com/wiki/Module:DropDown
+	../../_manual/index.html?module_dropdown.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

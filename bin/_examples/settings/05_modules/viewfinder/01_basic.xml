@@ -3,7 +3,7 @@
 	ViewFinder can be added into SaladoPlayer with single line of XML code.
 	Use it to determine hotspots position and limits of camera view.
 	
-	http://panozona.com/wiki/Module:ViewFinder
+	../../_manual/index.html?module_viewfinder.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

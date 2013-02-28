@@ -3,7 +3,7 @@
 	Each one of extraElements can change active state on demand. This feature can be usefull
 	when MenuScroiller reflects some state of interface, like when given content is presented.
 	
-	http://panozona.com/wiki/Module:MenuScroller
+	../../_manual/index.html?module_menuscroller.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

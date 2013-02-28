@@ -3,7 +3,7 @@
 	Altenratively, you can preview pan and tilt at cursor position, but it is recommended
 	to use default method as it is more reliable and less confusing.
 	
-	http://panozona.com/wiki/Module:ViewFinder
+	../../_manual/index.html?module_viewfinder.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

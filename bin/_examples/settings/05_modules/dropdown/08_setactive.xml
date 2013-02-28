@@ -3,7 +3,7 @@
 	Each one of extraElemnts can change active state on demand. This feature can be usefull
 	when module is used for instance to display set of maps in ImageMap.
 	
-	http://panozona.com/wiki/Module:DropDown
+	../../_manual/index.html?module_dropdown.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

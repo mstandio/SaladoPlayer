@@ -87,7 +87,7 @@ VideoSpot.swf = bin/spots/VideoSpot-1.0.swf
 # configuration viewer
 
 ExamplesLoader.as  = src/com/panozona/util/ExamplesLoader.as
-ExamplesLoader.swf = bin/_showcase/resources/ExamplesLoader.swf
+ExamplesLoader.swf = bin/_examples/resources/ExamplesLoader.swf
 
 # test
 

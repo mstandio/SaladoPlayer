@@ -2,7 +2,7 @@
 <!--
 	You can set position of drop-down list inside panorama window.
 	
-	http://panozona.com/wiki/Module:DropDown
+	../../_manual/index.html?module_dropdown.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

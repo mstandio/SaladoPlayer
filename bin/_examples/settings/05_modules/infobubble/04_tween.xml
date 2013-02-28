@@ -3,7 +3,7 @@
 	You can configure tweens on bubbles show/hide. By using proper tweens, you can achieve
 	effect of delay between calling "showBubble" and appearing of bubble itself.
 	
-	http://panozona.com/wiki/Module:InfoBubble
+	../../_manual/index.html?module_infobubble.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

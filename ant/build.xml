@@ -840,7 +840,7 @@
 		<mkdir dir="${basedir}/tmp"/>
 		<wikieater
 			menufile="${basedir}/ant/conf/menu.txt"
-			outputdir="${basedir}/bin/_documents"
+			outputdir="${basedir}/bin/_manual"
 			cachedir="${basedir}/tmp/cache"/>
 	</target>
 	

@@ -5,7 +5,7 @@
 	fit inside it. Module is respecting margin values untill its dimension meets minimal size limit. 
 	You can also determine map image zoom limits. Minimal limit can be overriden to keep module window filled.
 	
-	http://panozona.com/wiki/Module:ImageMap
+	../../_manual/index.html?module_imagemap.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

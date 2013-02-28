@@ -4,7 +4,7 @@
 	checkerGreen onEnterFrom="checkerBlue:printGreenFromBlue,checkerRed:printGreenFromRed means that when entering 
 	from panotrama checkerBlue to panorama checkerGreen, action printGreenFromBlue is executed, similar for checkerRed.
 	
-	http://panozona.com/wiki/SaladoPlayer:Configuration
+	../../_manual/index.html?saladoplayer_configuration.html
 -->
 <SaladoPlayer>
 	<global debug="true">

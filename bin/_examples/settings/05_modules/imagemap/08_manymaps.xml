@@ -5,7 +5,7 @@
 	waypoints targeting to given panorama, first map in line is displayed. If same situation occures when loading
 	further panoramas, map is not changed.
 	
-	http://panozona.com/wiki/Module:ImageMap
+	../../_manual/index.html?module_imagemap.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

@@ -3,7 +3,7 @@
 	Example module is simple module demonstrating basic module functionalities
 	Its source code is commented in detail use it to learn how to write your own modules.
 	
-	http://panozona.com/wiki/Module:ExampleModule
+	../../_manual/index.html?module_examplemodule.html
 -->
 <SaladoPlayer>
 	<global debug="true">

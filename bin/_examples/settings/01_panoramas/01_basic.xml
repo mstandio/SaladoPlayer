@@ -5,7 +5,7 @@
 	Every path to external file in configuration should be preceded by tilde (~). Tilde can be replaced with 
 	given text when embeding SaladoPlayer into html page that is not located in same directory as *.swf files.
 	
-	http://panozona.com/wiki/SaladoPlayer:Configuration#panorama
+	../../_manual/index.html?saladoplayer_configuration.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

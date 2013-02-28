@@ -3,7 +3,7 @@
 	Use module to place images inside panorama window. You can use images or standalone swf files.
 	When there are no mouse events assigned, button is transparent to mouse movement.
 	
-	http://panozona.com/wiki/Module:ImageButton
+	../../_manual/index.html?module_imagebutton.html
 -->
 <SaladoPlayer>
 	<global debug="true">

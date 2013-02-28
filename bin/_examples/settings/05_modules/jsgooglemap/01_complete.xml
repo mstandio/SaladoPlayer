@@ -2,7 +2,7 @@
 <!--
 	JSGoogleMap is module that uses external javascript files. See source of _showcase/jsgooglemap/index.html
 	
-	http://panozona.com/wiki/Module:JSGoogleMap
+	../../_manual/index.html?module_jsgooglemap.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

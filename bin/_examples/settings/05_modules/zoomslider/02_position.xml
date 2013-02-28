@@ -2,7 +2,7 @@
 <!--
 	Change size and alignment of module window.
 	
-	http://panozona.com/wiki/Module:ZoomSlider
+	../../_manual/index.html?module_zoomslider.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

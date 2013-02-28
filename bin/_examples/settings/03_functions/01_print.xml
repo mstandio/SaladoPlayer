@@ -3,7 +3,7 @@
 	Clicking on hotspots prints text in trace window. Trace window is opened by default,
 	cause print function prints neutral "info" messages that do not trigger trace window open.
 	
-	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
+	../../_manual/index.html?saladoplayer_exposed-functions.html
 -->
 <SaladoPlayer>
 	<global debug="true">

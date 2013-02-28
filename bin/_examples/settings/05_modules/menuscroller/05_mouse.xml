@@ -3,7 +3,7 @@
 	Assign mouse events on interaction with each element or extraElement. You can display
 	content when mouse is hovering over element with other modules, like InfoBubble.
 	
-	http://panozona.com/wiki/Module:MenuScroller
+	../../_manual/index.html?module_menuscroller.html
 -->
 <SaladoPlayer>
 	<global debug="true">

@@ -1,0 +1,301 @@
+<html dir="ltr" lang="en">
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta content="mediawiki 1.16.0" name="generator">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body class="mediawiki ltr ns-0 ns-subject page-Module_ViewFinder skin-vector">
+
+
+
+
+        <div id="content">
+
+
+
+
+            <h1 class="firstHeading" id="firstHeading">Module:ViewFinder</h1>
+
+
+
+            <div id="bodyContent">
+
+
+                <h3 id="siteSub">From PanoZona</h3>
+
+
+
+
+
+
+                <div id="jump-to-nav">
+Jump to: <a href="#mw-head">navigation</a>,
+<a href="#p-search">search</a>
+
+                </div>
+
+
+
+                <table class="toc" id="toc">
+                    <tr>
+                        <td>
+                            <div id="toctitle">
+                                <h2>Contents</h2>
+                            </div>
+
+                            <ul>
+
+                                <li class="toclevel-1 tocsection-1">
+                                    <a href="#Configuration_structure"><span class="tocnumber">1</span> <span class="toctext">Configuration structure</span></a>
+                                </li>
+
+                                <li class="toclevel-1 tocsection-2">
+                                    <a href="#Configuration_details"><span class="tocnumber">2</span> <span class="toctext">Configuration details</span></a>
+
+                                    <ul>
+
+                                        <li class="toclevel-2 tocsection-3">
+                                            <a href="#ViewFinder"><span class="tocnumber">2.1</span> <span class="toctext">ViewFinder</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-4">
+                                            <a href="#settings"><span class="tocnumber">2.2</span> <span class="toctext">settings</span></a>
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </td>
+                    </tr>
+                </table>
+
+                <div style="float:right;width:340px">
+
+                    <table align="center" border="1" cellpadding="5" cellspacing="0" class="moduledesc_tab" style="width:315px; border-collapse: collapse; float:right">
+
+
+                        <tr valign="top">
+
+                            <th align="center" colspan="2"> ViewFinder
+</th>
+                        </tr>
+
+                        <tr class="moduledesc_tab_odd" valign="top">
+
+                            <td> Author
+</td><td> Marek Standio
+</td>
+                        </tr>
+
+                        <tr class="moduledesc_tab_even" valign="top">
+
+                            <td> Module version
+</td><td> 1.3
+</td>
+                        </tr>
+
+                        <tr class="moduledesc_tab_odd" valign="top">
+
+                            <td> Compatibility
+</td><td> SaladoPlayer 1.0 +
+</td>
+                        </tr>
+
+                        <tr class="moduledesc_tab_even" valign="top">
+
+                            <td> Preview
+</td><td> <a class="internal" href="/w/images/c/cb/Viewfinder.jpg" title="Viewfinder.jpg">screenshot</a>
+</td>
+                        </tr>
+
+                        <tr class="moduledesc_tab_odd" valign="top">
+
+                            <td align="center" colspan="2"> Download - included with SaladoPlayer 1.3 +
+</td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <p>ViewFinder is simple tool usefull during process of building configuration. ViewFinder consists of two elements: White dot in the middle and text field positioned by default in upper left corner of panorama window. Text field displays current camera pan, tilt and field of view. If you want to place hotspot in specific place, move dot over place where hotspot is to be placed, then use pan and tilt values from text field to fill in location attribute for new hotspot in configuration file. Another usefull usage example is determining field of view limits, which may vary depending on panorama maximum resolution.
+</p>
+                <p>
+                    <br>
+
+                </p>
+
+                <h2> 
+                    <span class="mw-headline" id="Configuration_structure">Configuration structure</span>
+                </h2>
+
+                <ul>
+                    <li> 
+                        <a href="#ViewFinder">ViewFinder</a>
+
+                        <ul>
+                            <li> 
+                                <a href="#settings">settings</a>
+
+                            </li>
+                        </ul>
+
+                    </li>
+                </ul>
+
+                <h2> 
+                    <span class="mw-headline" id="Configuration_details">Configuration details</span>
+                </h2>
+
+                <h3> 
+                    <span class="mw-headline" id="ViewFinder">ViewFinder</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: modules</b>
+
+
+                        </caption>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> path
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> path to swf file
+</td><td> Mandatory attribute. Value points to module swf file.
+</td>
+                    </tr>
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="settings">settings</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: ViewFinder</b>
+
+
+                        </caption>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td rowspan="2"> align
+</td><td align="center" rowspan="2"> O
+</td><td> horizontal
+</td><td align="center"> S
+</td><td> left
+</td><td> left, center, right
+</td><td> Horizontal alignment of element against panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> vertical
+</td><td align="center"> S
+</td><td> top
+</td><td> top, middle, bottom
+</td><td> Vertical alignment of element against panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td rowspan="2"> move
+</td><td align="center" rowspan="2"> O
+</td><td> horizontal
+</td><td align="center"> N
+</td><td> 0
+</td><td align="center"> -
+</td><td> Number of pixels element is moved horizontally.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> vertical
+</td><td align="center"> N
+</td><td> 0
+</td><td align="center"> -
+</td><td> Number of pixels element is moved vertically.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> useCursor
+</td><td align="center"> B
+</td><td align="center" colspan="2"> -
+</td><td> false
+</td><td> true, false
+</td><td> If set to true, uses cursor position instead of dot in the middle of panorama window as current view indicator.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> showDirection
+</td><td align="center"> B
+</td><td align="center" colspan="2"> -
+</td><td> false
+</td><td> true, false
+</td><td> If set to true, displays current direction of the middle of panorama window.
+</td>
+                    </tr>
+                </table>
+
+
+
+
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="printfooter">
+Retrieved from "<a href="module_viewfinder.html">http://panozona.com/wiki/Module:ViewFinder</a>"</div>
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

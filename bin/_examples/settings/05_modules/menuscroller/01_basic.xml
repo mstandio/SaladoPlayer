@@ -4,7 +4,7 @@
 	is one that given element is targetting to by making image half of hover magnification. If number 
 	of elements exceeds avaible space, menu becomes scrollable.
 	
-	http://panozona.com/wiki/Module:MenuScroller
+	../../_manual/index.html?module_menuscroller.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

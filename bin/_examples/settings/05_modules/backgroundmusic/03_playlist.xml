@@ -3,7 +3,7 @@
 	You can create sets of tracks that are played one after another by turing off looping tracks and connecting
 	them with "next" attribute that is pointing to id of other track.
 	
-	http://panozona.com/wiki/Module:BackgroundMusic
+	../../_manual/index.html?module_backgroundmusic.html
 -->
 <SaladoPlayer>
 	<global debug="true">

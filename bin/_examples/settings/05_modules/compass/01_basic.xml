@@ -3,7 +3,7 @@
 	Point to image containig bitmaps grid with bitmaps for compass. You can choose from many such grids
 	or you can easily create your own. Compass reflects pan and panorama direction into geografphical direction.
 	
-	http://panozona.com/wiki/Module:Compass
+	../../_manual/index.html?module_compass.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

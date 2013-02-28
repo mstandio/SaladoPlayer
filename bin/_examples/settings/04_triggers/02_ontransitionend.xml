@@ -2,7 +2,7 @@
 <!--
 	onTransitionEnd takes value of action id that is executed when transition effect in given panorama is finished
 	
-	http://panozona.com/wiki/SaladoPlayer:Configuration
+	../../_manual/index.html?saladoplayer_configuration.html
 -->
 <SaladoPlayer>
 	<global debug="true">

@@ -1046,6 +1046,31 @@ function processUrls(code)
         });
 };
 
+function processUrls2(code)
+{
+        var gt = /(.*)((&gt;|&lt;).*)/;
+        
+        return code.replace(/\.\..+\.html/, function(m)
+        {
+                var suffix = '',
+                        match = null
+                        ;
+                
+                // We include &lt; and &gt; in the URL for the common cases like <http://google.com>
+                // The problem is that they get transformed into &lt;http://google.com&gt;
+                // Where as &gt; easily looks like part of the URL string.
+                
+                if (match = gt.exec(m))
+                {
+                        m = match[1];
+                        suffix = match[2];
+                }
+                
+                return '<a href="' + m + '" target="_BLANK">' + m + '</a>' + suffix;
+        });
+};
+
+
 /**
  * Finds all <SCRIPT TYPE="syntaxhighlighter" /> elementss.
  * @return {Array} Returns array of all found SyntaxHighlighter tags.
@@ -1583,8 +1608,10 @@ sh.Highlighter.prototype = {
                 html = this.getCodeLinesHtml(html, lineNumbers);
 
                 // finally, process the links
-                if (this.getParam('auto-links'))
+                if (this.getParam('auto-links')){
                         html = processUrls(html);
+                        html = processUrls2(html);
+                }
                 
                 if (typeof(navigator) != 'undefined' && navigator.userAgent && navigator.userAgent.match(/MSIE/))
                         classes.push('ie');

@@ -2,7 +2,7 @@
 <!--
 	You can position text box inside panorama window, so it won't get in the way of other elements.
 	
-	http://panozona.com/wiki/Module:ViewFinder
+	../../_manual/index.html?module_viewfinder.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

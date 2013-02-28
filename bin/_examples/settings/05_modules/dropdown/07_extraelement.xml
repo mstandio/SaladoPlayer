@@ -3,7 +3,7 @@
 	You can use DropDown for other purposes then switching between panoramas. When using extraElements you can
 	assign actions executed when user clicks on given extraElement. They can also be used in many groups.
 	
-	http://panozona.com/wiki/Module:DropDown
+	../../_manual/index.html?module_dropdown.html
 -->
 <SaladoPlayer>
 	<global debug="true">

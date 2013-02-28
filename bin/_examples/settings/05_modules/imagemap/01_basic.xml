@@ -5,7 +5,7 @@
 	panorama. Module uses <panorama direction="value"/> to synchronize radars with map. If your map is not positioned
 	"north-up" you can use <map panShift="value"/> to alter all waypoints in your map at once.
 	
-	http://panozona.com/wiki/Module:ImageMap
+	../../_manual/index.html?module_imagemap.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

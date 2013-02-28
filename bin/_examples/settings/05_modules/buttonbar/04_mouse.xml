@@ -3,7 +3,7 @@
 	You can add assign executing actions on mouse events to both types of buttons. Only supported events in this module
 	are onOver and onOut.
 	
-	http://panozona.com/wiki/Module:ButtonBar
+	../../_manual/index.html?module_buttonbar.html
 -->
 <SaladoPlayer>
 	<global debug="true">

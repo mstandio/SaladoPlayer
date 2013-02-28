@@ -3,7 +3,7 @@
 	Display/hide images or text boxes at mouse cursor. Bubbles default angle against mouse cursor is 90 (center right)
 	and it can be modified. Angle is changed as bubbles adjust their position to fit into panorama window.
 	
-	http://panozona.com/wiki/Module:InfoBubble
+	../../_manual/index.html?module_infobubble.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

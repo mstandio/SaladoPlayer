@@ -3,7 +3,7 @@
 	ZoomSlider is simple module that provides interface for changing value of fieldFovView in limits
 	that are definded in currently displayed panorama settings.
 	
-	http://panozona.com/wiki/Module:ZoomSlider
+	../../_manual/index.html?module_zoomslider.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

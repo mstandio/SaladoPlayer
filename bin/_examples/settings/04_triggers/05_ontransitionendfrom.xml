@@ -2,7 +2,7 @@
 <!--
 	same as described in 05_onenterfrom but action is executed when transition is finished
 	
-	http://panozona.com/wiki/SaladoPlayer:Configuration
+	../../_manual/index.html?saladoplayer_configuration.html
 -->
 <SaladoPlayer>
 	<global debug="true">

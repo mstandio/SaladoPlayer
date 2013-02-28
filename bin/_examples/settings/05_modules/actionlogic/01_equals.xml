@@ -2,7 +2,7 @@
 <!--
 	For now this is just a sketch of module that will enable simple logic in virtual tours configuration
 	
-	http://panozona.com/wiki/Module:ActionLogic
+	../../_manual/index.html?module_actionlogic.html
 -->
 <SaladoPlayer>
 	<global debug="true">

@@ -3,7 +3,7 @@
 	Clicking on hotspots results in loading new panoramas. You can either assign action to mouse event
 	or use shortcut that targets hotspot to given panorama.
 	
-	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
+	../../_manual/index.html?saladoplayer_exposed-functions.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

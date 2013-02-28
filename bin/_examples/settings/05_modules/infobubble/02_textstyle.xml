@@ -2,7 +2,7 @@
 <!--
 	You can define different styles for text boxes and use them to customize their appearance.
 	
-	http://panozona.com/wiki/Module:InfoBubble
+	../../_manual/index.html?module_infobubble.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

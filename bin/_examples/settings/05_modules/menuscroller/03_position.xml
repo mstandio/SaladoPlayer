@@ -4,7 +4,7 @@
 	if maximal width is hreater then maximal height it scrolls vertical and other way around.
 	direction. Additionally you can define "close" button and place it around menu window.
 	
-	http://panozona.com/wiki/Module:MenuScroller
+	../../_manual/index.html?module_menuscroller.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

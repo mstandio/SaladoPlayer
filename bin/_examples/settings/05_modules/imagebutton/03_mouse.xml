@@ -3,7 +3,7 @@
 	Assign mouse events on interaction with each button. You can display content
 	when mouse is hovering over button with other modules, like InfoBubble.
 	
-	http://panozona.com/wiki/Module:ImageButton
+	../../_manual/index.html?module_imagebutton.html
 -->
 <SaladoPlayer>
 	<global debug="true">

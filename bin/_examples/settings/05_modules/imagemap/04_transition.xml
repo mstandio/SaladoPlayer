@@ -4,7 +4,7 @@
 	you can align module inside panorama window, so that it would slide in and out close to its default position.
 	Addtionally you can configure animation of window transition with proper tween attributes.
 	
-	http://panozona.com/wiki/Module:ImageMap
+	../../_manual/index.html?module_imagemap.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

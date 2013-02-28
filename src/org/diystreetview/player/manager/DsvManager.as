@@ -224,8 +224,6 @@ package org.diystreetview.player.manager {
 			var a:Number = Math.pow(Math.sin(dLat / 2), 2) +
 				Math.pow(Math.sin(dLon / 2), 2) * Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2));
 			var c:Number = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)) * 6371;
-			//var c:Number = Math.sqrt(Math.pow(lat2 - lat1, 2) + Math.pow(lon2 - lon1, 2)) * 100;
-			
 			if (!abs && ( lat2 - lat1 < 0 || lon2 - lon1 > 0)) {
 				return -c;
 			}else {

@@ -3,7 +3,7 @@
 	Each one of extraWaypoints can change active state on demand. This feature can be usefull
 	when ImageMap is used to display groups of panoramas shot at the same location.
 	
-	http://panozona.com/wiki/Module:ImageMap
+	../../_manual/index.html?module_imagemap.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

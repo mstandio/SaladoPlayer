@@ -3,7 +3,7 @@
 	onLeaveToAttempt is simillar to onLeaveTo, but it cancells first attempt of leaving panorama this way
 	one can dectect that user is leaving panorama and you can execute action before loading new panorama
 	
-	http://panozona.com/wiki/SaladoPlayer:Configuration
+	../../_manual/index.html?saladoplayer_configuration.html
 -->
 <SaladoPlayer>
 	<global debug="true">

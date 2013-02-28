@@ -3,7 +3,7 @@
 	You can use module for other purposes than navigating between panoramas by using extraElements.
 	They do not represent panoramas, and you can assign custom actions when user clicks on them.
 	
-	http://panozona.com/wiki/Module:MenuScroller
+	../../_manual/index.html?module_menuscroller.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

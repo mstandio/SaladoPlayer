@@ -1,0 +1,98 @@
+div#bodyContent { line-height: 1.5em; }
+.attribute_tab th { background:#a2ccf6; }
+.wikiEditor-ui-toolbar .tabs span.tab a.current:hover { text-decoration:none; }
+body.ltr .wikiEditor-toolbar-dialog .ui-dialog-titlebar-close { right:0.9em; }
+.modulefunct_tab tr th { background:#a2ccf6; }
+#content a.external[href $=".ogg"], #content a.external[href $=".OGG"], #content a.external[href $=".mid"], #content a.external[href $=".MID"], #content a.external[href $=".midi"], #content a.external[href $=".MIDI"], #content a.external[href $=".mp3"], #content a.external[href $=".MP3"], #content a.external[href $=".wav"], #content a.external[href $=".WAV"], #content a.external[href $=".wma"], #content a.external[href $=".WMA"], .link-audio { background: url("images/audio-icon.png") center right no-repeat; padding: 0 18px 0 0; }
+.attribute_tab td { }
+.wikiEditor-ui-toolbar .tabs span.tab a, .wikiEditor-ui-toolbar .tabs span.tab a:visited { display:inline-block; float:left; padding-left:18px; padding-right:12px; height:26px; cursor:pointer; color:#0645ad; background-image:url(../images/wikiEditor/toolbar/arrow-right.png); background-position:left center; background-repeat:no-repeat; }
+h5 { font-size: 100%; }
+h4 { font-size: 116%; }
+.moduledesc_tab_odd { background:#ddeefd; }
+h6 { font-size: 80%; }
+ol { line-height: 1.5em; margin: .3em 0 0 3.2em; padding: 0; list-style-image: none; }
+h1 { font-size: 188%; }
+h3 { font-size: 132%; }
+div.thumbinner { border: 1px solid #ccc; padding: 3px !important; background-color: #f9f9f9; font-size: 94%; text-align: center; overflow: hidden; }
+.modulefunct_tab_odd { background:#ddeefd; }
+h2 { font-size: 150%; }
+#content a[href ^="ftp://"], .link-ftp { background: url(images/file-icon.png) center right no-repeat; padding: 0 18px 0 0; }
+form { border: none; margin: 0; }
+.modulefunct_tab tr td { }
+table { font-size: 100%; color: black; background-color: white; }
+.wikiEditor-ui-toolbar .tabs > span.tab { display:block; }
+body.rtl .wikiEditor-ui-toolbar .tabs span.tab a.current, body.rtl .wikiEditor-ui-toolbar .tabs span.tab a.current:visited { background-image:url(../images/wikiEditor/toolbar/arrow-down.png); }
+#content a.external { color: #36b; }
+#toc, .toc, .mw-warning { border: 1px solid #aaa; background-color: #f9f9f9; padding: 5px; font-size: 95%; }
+#toc #toctitle, .toc #toctitle, #toc .toctitle, .toc .toctitle { text-align: center; }
+body.ltr #footer #footer-places { float: left; }
+textarea { width: 100%; padding: .1em; }
+#firstHeading { padding-top: 0; margin-top: 0; padding-top: 0; margin-bottom: 0.1em; line-height: 1.2em; font-size: 1.6em; padding-bottom: 0; }
+body.ltr td.mw-submit { text-align: left; }
+.wikiEditor-ui-toolbar .sections .section { display:none; float:left; width:100%; border-top:solid 1px #DDDDDD; background-color:#E0EEf7; }
+#content a.external[href $=".ogm"], #content a.external[href $=".OGM"], #content a.external[href $=".avi"], #content a.external[href $=".AVI"], #content a.external[href $=".mpeg"], #content a.external[href $=".MPEG"], #content a.external[href $=".mpg"], #content a.external[href $=".MPG"], .link-video { background: url("images/video-icon.png") center right no-repeat; padding: 0 18px 0 0; }
+body.ltr .magnify { float:right; }
+dt { font-weight: bold; margin-bottom: .1em; }
+body.rtl .wikiEditor-ui-toolbar .tabs > span.tab > a, body.rtl .wikiEditor-ui-toolbar .tabs > pan.tab > a:visited { float:right; }
+#content a[href ^="https://"], .link-https { background: url(images/lock-icon.png) center right no-repeat; padding: 0 18px 0 0; }
+#content a.external[href $=".pdf"], #content a.external[href $=".PDF"], #content a.external[href *=".pdf#"], #content a.external[href *=".PDF#"], #content a.external[href *=".pdf?"], #content a.external[href *=".PDF?"], .link-document { background: url("images/document-icon.png") center right no-repeat; padding: 0 18px 0 0; }
+dd { line-height: 1.5em; margin-left: 2em; margin-bottom: .1em; }
+div.gallerybox div.thumb { text-align: center; border: 1px solid #ccc; margin: 2px; }
+dl { margin-top: .2em; margin-bottom: .5em; }
+fieldset { border: 1px solid #2f6fab; margin: 1em 0 1em 0; padding: 0 1em 1em; line-height: 1.5em; }
+.wikiEditor-ui-toolbar .tabs span.tab { display:inline-block; float:left; line-height:26px; }
+ul { line-height: 1.5em; list-style-type: square; margin: .3em 0 0 1.5em; padding: 0; list-style-image: url(images/bullet-icon.png); }
+#content .printfooter { display: none; }
+img.tex { vertical-align: middle; }
+a { text-decoration: none; color: #0645ad; background: none; }
+body.ltr .thumbcaption { text-align:left; }
+body.ltr td.mw-input { text-align: left; }
+#bodyContent { font-size: 0.8em; }
+.modulefunct_tab_even { background:#d0e7fc; }
+q { font-family: Times, "Times New Roman", serif; font-style: italic; }
+legend { padding: .5em; font-size: 95%; }
+p { margin: .4em 0 .5em 0; line-height: 1.5em; }
+#content a[href ^="news://"] { background: url(images/news-icon.png) center right no-repeat; padding: 0 18px 0 0; }
+body.ltr td.mw-label { text-align: right; }
+body { background-color: #f3f3f3; background-image: url(images/page-base.png); }
+.modulefunct_tab td { }
+#toc h2, .toc h2 { display: inline; border: none; padding: 0; font-size: 100%; font-weight: bold; }
+#content {  padding: 1em; background-image: url(images/border.png); background-position: top left; background-repeat: repeat-y; background-color: white; }
+img { border: none; vertical-align: middle; }
+.moduledesc_tab_even { background:#d0e7fc; }
+.modulefunct_tab th { background:#a2ccf6; }
+body.rtl .wikiEditor-ui-toolbar .sections .section { float:right; }
+#content a[href ^="mailto:"], .link-mailto { background: url(images/mail-icon.png) center right no-repeat; padding: 0 18px 0 0; }
+#toc ul ul, .toc ul ul { margin: 0 0 0 2em; }
+.moduledesc_tab tr th { background:#a2ccf6; }
+#toc .toctoggle, .toc .toctoggle { font-size: 94%; }
+body.rtl .thumbcaption { text-align:right; }
+.moduledesc_tab tr td { }
+.wikiEditor-ui-toolbar .tabs span.tab a.current, .wikiEditor-ui-toolbar .tabs span.tab a.current:visited { color:#333333; background-image:url(../images/wikiEditor/toolbar/arrow-down.png); }
+div.tright { clear: right; float: right; border-width: .5em 0 .8em 1.4em; }
+select { vertical-align: top; }
+html .thumbimage { border: 1px solid #ccc; }
+code { background-color: #f9f9f9; }
+li { margin-bottom: .1em; }
+body.rtl .wikiEditor-ui-toolbar .tabs > span.tab { float:right; }
+#toc { float:right; margin-left:20px; display:block; }
+.attribute_tab_caption { padding:5px; background:#a2ccf6; }
+hr { height: 1px; color: #aaa; background-color: #aaa; border: 0; margin: .2em 0 .2em 0; }
+.attribute_tab tr td { }
+#content a.extiw, #content a.extiw:active { color: #36b; background: none; padding: 0; }
+#siteSub { display: none; }
+.toc { float:right; margin-left:20px; display:block; }
+.attribute_tab .attribute_tab_caption { padding:5px; background:#a2ccf6; }
+#jump-to-nav { display: none; }
+.attribute_tab tr th { background:#a2ccf6; }
+.attribute_tab_even { background:#d0e7fc; }
+.moduledesc_tab td { }
+.attribute_tab_odd { background:#ddeefd; }
+body.rtl .wikiEditor-ui-toolbar .tabs span.tab a, body.rtl .wikiEditor-ui-toolbar .tabs span.tab a:visited { padding-left:12px; padding-right:18px; background-image:url(../images/wikiEditor/toolbar/arrow-left.png); background-position:right center; }
+pre { padding: 1em; border: 1px dashed #2f6fab; color: black; background-color: #f9f9f9; line-height: 1.1em; }
+#content a[href ^="irc://"], #content a.extiw[href ^="irc://"], .link-irc { background: url(images/talk-icon.png) center right no-repeat; padding: 0 18px 0 0; }
+#toc ul, .toc ul { list-style-type: none; list-style-image: none; margin-left: 0; padding-left: 0; text-align: left; }
+div.thumb { margin-bottom: .5em; border-style: solid; border-color: white; width: auto; background-color: transparent; }
+html .thumbcaption { border: none; text-align: left; line-height: 1.4em; padding: 3px !important; font-size: 94%; }
+#content a.external, #content a[href ^="gopher://"] { background: url(images/external-link-ltr-icon.png) center right no-repeat; padding: 0 13px 0 0; }
+.moduledesc_tab th { background:#a2ccf6; }

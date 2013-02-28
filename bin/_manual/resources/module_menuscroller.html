@@ -1,0 +1,924 @@
+<html dir="ltr" lang="en">
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta content="mediawiki 1.16.0" name="generator">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body class="mediawiki ltr ns-0 ns-subject page-Module_MenuScroller skin-vector">
+
+
+
+
+        <div id="content">
+
+
+
+
+            <h1 class="firstHeading" id="firstHeading">Module:MenuScroller</h1>
+
+
+
+            <div id="bodyContent">
+
+
+                <h3 id="siteSub">From PanoZona</h3>
+
+
+
+
+
+
+                <div id="jump-to-nav">
+Jump to: <a href="#mw-head">navigation</a>,
+<a href="#p-search">search</a>
+
+                </div>
+
+
+
+                <table class="toc" id="toc">
+                    <tr>
+                        <td>
+                            <div id="toctitle">
+                                <h2>Contents</h2>
+                            </div>
+
+                            <ul>
+
+                                <li class="toclevel-1 tocsection-1">
+                                    <a href="#Configuration_structure"><span class="tocnumber">1</span> <span class="toctext">Configuration structure</span></a>
+                                </li>
+
+                                <li class="toclevel-1 tocsection-2">
+                                    <a href="#Configuration_details"><span class="tocnumber">2</span> <span class="toctext">Configuration details</span></a>
+
+                                    <ul>
+
+                                        <li class="toclevel-2 tocsection-3">
+                                            <a href="#MenuScroller"><span class="tocnumber">2.1</span> <span class="toctext">MenuScroller</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-4">
+                                            <a href="#window"><span class="tocnumber">2.2</span> <span class="toctext">window</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-5">
+                                            <a href="#scroller"><span class="tocnumber">2.3</span> <span class="toctext">scroller</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-6">
+                                            <a href="#group"><span class="tocnumber">2.4</span> <span class="toctext">group</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-7">
+                                            <a href="#element"><span class="tocnumber">2.5</span> <span class="toctext">element</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-8">
+                                            <a href="#extraElement"><span class="tocnumber">2.6</span> <span class="toctext">extraElement</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-9">
+                                            <a href="#close"><span class="tocnumber">2.7</span> <span class="toctext">close</span></a>
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+
+                                <li class="toclevel-1 tocsection-10">
+                                    <a href="#Exposed_functions"><span class="tocnumber">3</span> <span class="toctext">Exposed functions</span></a>
+
+                                    <ul>
+
+                                        <li class="toclevel-2 tocsection-11">
+                                            <a href="#setOpen"><span class="tocnumber">3.1</span> <span class="toctext">setOpen</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-12">
+                                            <a href="#toggleOpen"><span class="tocnumber">3.2</span> <span class="toctext">toggleOpen</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-13">
+                                            <a href="#setGroup"><span class="tocnumber">3.3</span> <span class="toctext">setGroup</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-14">
+                                            <a href="#setActive"><span class="tocnumber">3.4</span> <span class="toctext">setActive</span></a>
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </td>
+                    </tr>
+                </table>
+
+                <div style="float:right;width:340px">
+
+                    <table align="center" border="1" cellpadding="5" cellspacing="0" class="moduledesc_tab" style="width:315px; border-collapse: collapse; float:right">
+
+
+                        <tr valign="top">
+
+                            <th align="center" colspan="2"> MenuScroller
+</th>
+                        </tr>
+
+                        <tr class="moduledesc_tab_odd" valign="top">
+
+                            <td> Author
+</td><td> Marek Standio
+</td>
+                        </tr>
+
+                        <tr class="moduledesc_tab_even" valign="top">
+
+                            <td> Module version
+</td><td> 1.3.1
+</td>
+                        </tr>
+
+                        <tr class="moduledesc_tab_odd" valign="top">
+
+                            <td> Compatibility
+</td><td> SaladoPlayer 1.0 +
+</td>
+                        </tr>
+
+                        <tr class="moduledesc_tab_even" valign="top">
+
+                            <td> Preview
+</td><td align="center"> -
+</td>
+                        </tr>
+
+                        <tr class="moduledesc_tab_odd" valign="top">
+
+                            <td align="center" colspan="2"> <a class="external text" href="http://panozona.com/files/MenuScroller-1.3.1.zip" rel="nofollow" target="_BLANK">MenuScroller-1.3.1.zip</a>
+</td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <p>MenuScroller creates simple and intuitive in use list of panoramas thumbnails. You can use images of different sizes, module will scale them to eqal size, preserving aspect ratio. List can be opened/closed with use of tweens and transition effects. You can change its alignment position and size - it can fill panorama window width or height and if number of images will exceed avaible space, list will become scrollable. It will indicate if currently viewed panorama is one any of list elements is tergetting to. Module can be used to other purposes than navigation between panoramas, you can assign custom actions on extraElements.
+</p>
+
+                <h2> 
+                    <span class="mw-headline" id="Configuration_structure">Configuration structure</span>
+                </h2>
+
+                <ul>
+                    <li> 
+                        <a href="#MenuScroller">MenuScroller</a>
+
+                        <ul>
+                            <li> 
+                                <a href="#window">window</a>
+
+                            </li>
+                            <li> 
+                                <a href="#scroller">scroller</a>
+
+                            </li>
+                            <li> groups
+<ul>
+                                    <li> 
+                                        <a href="#group">group</a>
+
+                                        <ul>
+                                            <li> 
+                                                <a href="#element">element</a>
+
+                                            </li>
+                                            <li> 
+                                                <a href="#extraElement">extraElement</a>
+
+                                            </li>
+                                        </ul>
+
+                                    </li>
+                                </ul>
+
+                            </li>
+                            <li> 
+                                <a href="#close">close</a>
+
+                            </li>
+                        </ul>
+
+                    </li>
+                </ul>
+
+                <h2> 
+                    <span class="mw-headline" id="Configuration_details">Configuration details</span>
+                </h2>
+
+                <h3> 
+                    <span class="mw-headline" id="MenuScroller">MenuScroller</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: modules</b>
+
+                        </caption>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> path
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> path to swf file
+</td><td> Mandatory attribute. Value points to module swf file.
+</td>
+                    </tr>
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="window">window</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: MenuScroller</b>
+
+
+                        </caption>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> open
+</td><td align="center"> B
+</td><td align="center" colspan="2"> -
+</td><td> true
+</td><td> true, false
+</td><td> Determines visibility of module window on SaladoPlayer start.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> alpha
+</td><td align="center"> N
+</td><td align="center" colspan="2"> -
+</td><td> 1.0
+</td><td> 0.1 to 1.0
+</td><td> Transparency of module window background.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td rowspan="2"> minSize
+</td><td align="center" rowspan="2"> O
+</td><td> width
+</td><td align="center"> N
+</td><td> 100
+</td><td align="center"> -
+</td><td> Minimal width of module window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> height
+</td><td align="center"> N
+</td><td> 100
+</td><td align="center"> -
+</td><td> Minimal height of module window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td rowspan="2"> maxSize
+</td><td align="center" rowspan="2"> O
+</td><td> width
+</td><td align="center"> N
+</td><td> 250
+</td><td align="center"> -
+</td><td> Maximal width of module window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> height
+</td><td align="center"> N
+</td><td> 2000
+</td><td align="center"> -
+</td><td> Maximal height of module window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td rowspan="2"> align
+</td><td align="center" rowspan="2"> O
+</td><td> horizontal
+</td><td align="center"> S
+</td><td> left
+</td><td> left, center, right
+</td><td> Horizontal alignment against panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> vertical
+</td><td align="center"> S
+</td><td> middle
+</td><td> top, middle, bottom
+</td><td> Vertical alignment against panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td rowspan="4"> margin
+</td><td align="center" rowspan="4"> O
+</td><td> top
+</td><td align="center"> N
+</td><td> 0
+</td><td align="center"> -
+</td><td> Minimal distance from module window and top border of panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> bottom
+</td><td align="center"> N
+</td><td> 0
+</td><td align="center"> -
+</td><td> Minimal distance from module window and bottom border of panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> left
+</td><td align="center"> N
+</td><td> 0
+</td><td align="center"> -
+</td><td> Minimal distance from module window and left border of panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> right
+</td><td align="center"> N
+</td><td> 0
+</td><td align="center"> -
+</td><td> Minimal distance from module window and right border of panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> transition
+</td><td align="center"> O
+</td><td> type
+</td><td align="center"> S
+</td><td> slideLeft
+</td><td> fade, slideUp, slideDown, slideLeft, slideRight
+</td><td> Determines kind of transition used when module window is opening / closing.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td rowspan="2"> openTween
+</td><td align="center" rowspan="2"> O
+</td><td> transition
+</td><td align="center"> F
+</td><td> Linear.easeNone
+</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a>
+</td><td> Determines type of animation used when module window is opening.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> time
+</td><td align="center"> N
+</td><td> 0.5
+</td><td align="center"> -
+</td><td> Duration in seconds of module window opening animation.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td rowspan="2"> closeTween
+</td><td align="center" rowspan="2"> O
+</td><td> transition
+</td><td align="center"> F
+</td><td> Linear.easeNone
+</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a>
+</td><td> Determines type of animation used when module window is closing.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> time
+</td><td align="center"> N
+</td><td> 0.5
+</td><td align="center"> -
+</td><td> Duration in seconds of module window closing animation.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> onOpen
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> action id
+</td><td> Action called when module window changed state to closed.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> onClose
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> action id
+</td><td> Action called when module window changed state to opened.
+</td>
+                    </tr>
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="scroller">scroller</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: MenuScroller</b>
+
+
+                        </caption>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td rowspan="2"> style
+</td><td align="center" rowspan="2"> O
+</td><td> color
+</td><td align="center"> N
+</td><td> #000000
+</td><td> #000000 to #FFFFFF
+</td><td> Color of scroller background.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> alpha
+</td><td align="center"> N
+</td><td> 0.75
+</td><td> 0.1 to 1.0
+</td><td> Alpha of scroller background.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> spacing
+</td><td align="center"> N
+</td><td align="center" colspan="2"> -
+</td><td> 20
+</td><td align="center"> -
+</td><td> Spacing between displayed elements.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> padding
+</td><td align="center"> N
+</td><td align="center" colspan="2"> -
+</td><td> 20
+</td><td align="center"> -
+</td><td> Distance of elements from window border.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td rowspan="2"> overTween
+</td><td align="center" rowspan="2"> O
+</td><td> transition
+</td><td align="center"> F
+</td><td> Linear.easeNone
+</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a>
+</td><td> Determines type of animation used when module window is opening.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> time
+</td><td align="center"> N
+</td><td> 0.5
+</td><td align="center"> -
+</td><td> Duration in seconds of module window opening animation.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td rowspan="2"> outTween
+</td><td align="center" rowspan="2"> O
+</td><td> transition
+</td><td align="center"> F
+</td><td> Linear.easeNone
+</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a>
+</td><td> Determines type of animation used when module window is opening.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> time
+</td><td align="center"> N
+</td><td> 0.5
+</td><td align="center"> -
+</td><td> Duration in seconds of module window opening animation.
+</td>
+                    </tr>
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="group">group</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: groups</b>
+
+
+                        </caption>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> id
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td align="center"> -
+</td><td> Mandatory attribute. Must be unique among other groups.
+</td>
+                    </tr>
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="element">element</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: group</b>
+
+
+                        </caption>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> target
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> panorama id
+</td><td> Mandatory attribute. Determines which panorama to load when element button is clicked.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> path
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> path to image file
+</td><td> Mandatory attribute. Points to image that represents panorama element is targeting to. image can be of any size, but it is recommended to use small ones. It should also work with swf files.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td rowspan="2"> mouse
+</td><td align="center" rowspan="2"> O
+</td><td> onOver
+</td><td align="center"> S
+</td><td align="center"> -
+</td><td> action id
+</td><td> Action executed when mouse moves over element.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> onOut
+</td><td align="center"> S
+</td><td align="center"> -
+</td><td> action id
+</td><td> Action executed when mouse moves out of element.
+</td>
+                    </tr>
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="extraElement">extraElement</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: elements</b>
+
+
+                        </caption>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> id
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td align="center"> -
+</td><td> Mandatory attribute. Must be unique among other extraButtons.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> action
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> action id
+</td><td> Mandatory attribute. Determines which action to execute when user clicks on extraElement.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> path, mouse
+</td><td align="center"> -
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td align="center"> -
+</td><td> See attributes in <a href="#element">element</a>.
+</td>
+                    </tr>
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="close">close</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: MenuScroller</b>
+
+
+                        </caption>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> path
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> path to image file
+</td><td> Image file that will be used as close button. If path is not set, close button will not be added.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td rowspan="2"> align
+</td><td align="center" rowspan="2"> O
+</td><td> horizontal
+</td><td align="center"> S
+</td><td> right
+</td><td> left, center, right
+</td><td> Horizontal alignment against module window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> vertical
+</td><td align="center"> S
+</td><td> top
+</td><td> top, middle, bottom
+</td><td> Vertical alignment against module window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td rowspan="2"> move
+</td><td align="center" rowspan="2"> O
+</td><td> horizontal
+</td><td align="center"> N
+</td><td> 0
+</td><td align="center"> -
+</td><td> Number of pixels close button is moved horizontally.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> vertical
+</td><td align="center"> N
+</td><td> 0
+</td><td align="center"> -
+</td><td> Number of pixels close button is moved vertically.
+</td>
+                    </tr>
+                </table>
+
+                <h2> 
+                    <span class="mw-headline" id="Exposed_functions">Exposed functions</span>
+                </h2>
+
+                <h3> 
+                    <span class="mw-headline" id="setOpen">setOpen</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
+                    </tr>
+
+                    <tr class="modulefunct_tab_odd" valign="top">
+
+                        <td align="center"> B
+</td><td> Value assigned to open attribute.
+</td><td> Opens / closes map window on demand. Opening window once window is open makes no effect, same thing for closing window.
+</td>
+                    </tr>
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="toggleOpen">toggleOpen</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
+                    </tr>
+
+                    <tr class="modulefunct_tab_odd" valign="top">
+
+                        <td align="center"> -
+</td><td align="center"> -
+</td><td> Calling this function toggles map window open state. If called when window is opened it closes window, same thing other way around.
+</td>
+                    </tr>
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="setGroup">setGroup</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
+                    </tr>
+
+                    <tr class="modulefunct_tab_odd" valign="top">
+
+                        <td align="center"> S
+</td><td> Id of group.
+</td><td> Function sets currenty displayed group of elements.
+</td>
+                    </tr>
+
+
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="setActive">setActive</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
+                    </tr>
+
+                    <tr class="modulefunct_tab_odd" valign="top">
+
+                        <td align="center"> S
+</td><td> Id of extraElement.
+</td><td> Function sets active state of extraElement of given id to given value.
+</td>
+                    </tr>
+
+
+                </table>
+
+
+
+
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="printfooter">
+Retrieved from "<a href="module_menuscroller.html">http://panozona.com/wiki/Module:MenuScroller</a>"</div>
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

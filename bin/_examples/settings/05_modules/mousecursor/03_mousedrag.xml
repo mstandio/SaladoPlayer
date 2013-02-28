@@ -4,7 +4,7 @@
 	It reacts to changes of mouseInertial and mouseDrag in SaladoPlayer and displayes images
 	reflecting their current "enabled" state.
 	
-	http://panozona.com/wiki/Module:MouseCursor
+	../../_manual/index.html?module_mousecursor.html
 -->
 <SaladoPlayer>
 	<global debug="true">

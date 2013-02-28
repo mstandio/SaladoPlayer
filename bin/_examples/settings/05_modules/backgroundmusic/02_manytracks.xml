@@ -4,7 +4,7 @@
 	is played whenever module "play" state is set to true. Setting tracks is independent to playing music,
 	so music can be playing or not, yet tracks ale still changed and there always is some current track.
 	
-	http://panozona.com/wiki/Module:BackgroundMusic
+	../../_manual/index.html?module_backgroundmusic.html
 -->
 <SaladoPlayer>
 	<global debug="true">

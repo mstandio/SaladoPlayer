@@ -5,7 +5,7 @@
 	at the same location. You can assing action executed when user click on given extraWaypoint. Otherwise
 	extraWaypoints are same as waypoints, except they ignore radar configuration.
 	
-	http://panozona.com/wiki/Module:ImageMap
+	../../_manual/index.html?module_imagemap.html
 -->
 <SaladoPlayer>
 	<global debug="true">

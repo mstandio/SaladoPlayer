@@ -4,7 +4,7 @@
 	can be individually disabled, you can also configure move and zoom speed. If you are using small image for
 	map, you can disable all navigation methods and create simple static map.
 	
-	http://panozona.com/wiki/Module:ImageMap
+	../../_manual/index.html?module_imagemap.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

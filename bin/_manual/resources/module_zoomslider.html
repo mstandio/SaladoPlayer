@@ -1,0 +1,543 @@
+<html dir="ltr" lang="en">
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta content="mediawiki 1.16.0" name="generator">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body class="mediawiki ltr ns-0 ns-subject page-Module_ZoomSlider skin-vector">
+
+
+
+
+        <div id="content">
+
+
+
+
+            <h1 class="firstHeading" id="firstHeading">Module:ZoomSlider</h1>
+
+
+
+            <div id="bodyContent">
+
+
+                <h3 id="siteSub">From PanoZona</h3>
+
+
+
+
+
+
+                <div id="jump-to-nav">
+Jump to: <a href="#mw-head">navigation</a>,
+<a href="#p-search">search</a>
+
+                </div>
+
+
+
+                <table class="toc" id="toc">
+                    <tr>
+                        <td>
+                            <div id="toctitle">
+                                <h2>Contents</h2>
+                            </div>
+
+                            <ul>
+
+                                <li class="toclevel-1 tocsection-1">
+                                    <a href="#Configuration_structure"><span class="tocnumber">1</span> <span class="toctext">Configuration structure</span></a>
+                                </li>
+
+                                <li class="toclevel-1 tocsection-2">
+                                    <a href="#Configuration_details"><span class="tocnumber">2</span> <span class="toctext">Configuration details</span></a>
+
+                                    <ul>
+
+                                        <li class="toclevel-2 tocsection-3">
+                                            <a href="#ZoomSlider"><span class="tocnumber">2.1</span> <span class="toctext">ZoomSlider</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-4">
+                                            <a href="#window"><span class="tocnumber">2.2</span> <span class="toctext">window</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-5">
+                                            <a href="#slider"><span class="tocnumber">2.3</span> <span class="toctext">slider</span></a>
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+
+                                <li class="toclevel-1 tocsection-6">
+                                    <a href="#Exposed_functions"><span class="tocnumber">3</span> <span class="toctext">Exposed functions</span></a>
+
+                                    <ul>
+
+                                        <li class="toclevel-2 tocsection-7">
+                                            <a href="#setOpen"><span class="tocnumber">3.1</span> <span class="toctext">setOpen</span></a>
+                                        </li>
+
+                                        <li class="toclevel-2 tocsection-8">
+                                            <a href="#toggleOpen"><span class="tocnumber">3.2</span> <span class="toctext">toggleOpen</span></a>
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </td>
+                    </tr>
+                </table>
+
+                <div style="float:right;width:340px">
+
+                    <table align="center" border="1" cellpadding="5" cellspacing="0" class="moduledesc_tab" style="width:315px; border-collapse: collapse; float:right">
+
+
+                        <tr valign="top">
+
+                            <th align="center" colspan="2"> ZoomSlider
+</th>
+                        </tr>
+
+                        <tr class="moduledesc_tab_odd" valign="top">
+
+                            <td> Author
+</td><td> Marek Standio
+</td>
+                        </tr>
+
+                        <tr class="moduledesc_tab_even" valign="top">
+
+                            <td> Module version
+</td><td> 1.2
+</td>
+                        </tr>
+
+                        <tr class="moduledesc_tab_odd" valign="top">
+
+                            <td> Compatibility
+</td><td> SaladoPlayer 1.0 +
+</td>
+                        </tr>
+
+                        <tr class="moduledesc_tab_even" valign="top">
+
+                            <td> Preview
+</td><td align="center"> -
+</td>
+                        </tr>
+
+                        <tr class="moduledesc_tab_odd" valign="top">
+
+                            <td align="center" colspan="2"> <a class="external text" href="http://panozona.com/files/ZoomSlider-1.2.zip" rel="nofollow" target="_BLANK">ZoomSlider-1.2.zip</a>
+</td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <p>ZoomSlider is simple and fully skinnable module for manipuation of field of view value. It can be used for easy zooming in and out, it also displays zoom boundaries of current panorama and shows how much more it can be zoomed in, or what level of zoom is currently displayed. It also encouradges common users to use zoom feature. It can be opened and closed on demand, you can change its alignemnt size and position, it can be also displayed horizontally or vertically.  
+</p>
+                <p>
+                    <br>
+
+                </p>
+
+                <h2> 
+                    <span class="mw-headline" id="Configuration_structure">Configuration structure</span>
+                </h2>
+
+                <ul>
+                    <li> 
+                        <a href="#ImageMap">ImageMap</a>
+
+                        <ul>
+                            <li> 
+                                <a href="#window">window</a>
+
+                            </li>
+                            <li> 
+                                <a href="#slider">slider</a>
+
+                            </li>
+                        </ul>
+
+                    </li>
+                </ul>
+
+                <h2> 
+                    <span class="mw-headline" id="Configuration_details">Configuration details</span>
+                </h2>
+
+                <h3> 
+                    <span class="mw-headline" id="ZoomSlider">ZoomSlider</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: modules</b>
+
+
+                        </caption>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> path
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> path to swf file
+</td><td> Mandatory attribute. Value points to module swf file.
+</td>
+                    </tr>
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="window">window</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: ZoomSlider</b>
+
+
+                        </caption>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> open
+</td><td align="center"> B
+</td><td align="center" colspan="2"> -
+</td><td> true
+</td><td> true, false
+</td><td> Determines visibility of module window on SaladoPlayer start.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> alpha
+</td><td align="center"> N
+</td><td align="center" colspan="2"> -
+</td><td> 1.0
+</td><td> 0.1 to 1.0
+</td><td> Transparency of module window content.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td rowspan="2"> align
+</td><td align="center" rowspan="2"> O
+</td><td> horizontal
+</td><td align="center"> S
+</td><td> left
+</td><td> left, center, right
+</td><td> Horizontal alignment of module window against panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> vertical
+</td><td align="center"> S
+</td><td> middle
+</td><td> top, middle, bottom
+</td><td> Vertical alignment of module window against panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td rowspan="4"> margin
+</td><td align="center" rowspan="4"> O
+</td><td> top
+</td><td align="center"> N
+</td><td> 10
+</td><td align="center"> -
+</td><td> Minimal distance from module window and top border of panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> bottom
+</td><td align="center"> N
+</td><td> 10
+</td><td align="center"> -
+</td><td> Minimal distance from module window and bottom border of panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> left
+</td><td align="center"> N
+</td><td> 10
+</td><td align="center"> -
+</td><td> Minimal distance from module window and left border of panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> right
+</td><td align="center"> N
+</td><td> 10
+</td><td align="center"> -
+</td><td> Minimal distance from module window and right border of panorama window.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> transition
+</td><td align="center"> O
+</td><td> type
+</td><td align="center"> S
+</td><td> slideRight
+</td><td> fade, slideUp, slideDown, slideLeft, slideRight
+</td><td> Determines kind of transition used when module window is opening/closing.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td rowspan="2"> openTween
+</td><td align="center" rowspan="2"> O
+</td><td> transition
+</td><td align="center"> F
+</td><td> Linear.easeNone
+</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a>
+</td><td> Determines type of animation used when module window is opening.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> time
+</td><td align="center"> N
+</td><td> 0.5
+</td><td align="center"> -
+</td><td> Duration in seconds of module window opening animation.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td rowspan="2"> closeTween
+</td><td align="center" rowspan="2"> O
+</td><td> transition
+</td><td align="center"> F
+</td><td> Linear.easeNone
+</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a>
+</td><td> Determines type of animation used when module window is closing.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> time
+</td><td align="center"> N
+</td><td> 0.5
+</td><td align="center"> -
+</td><td> Duration in seconds of module window closing animation.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> onOpen
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> action id
+</td><td> Action executed when module window changed state to closed.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> onClose
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> action id
+</td><td> Action executed when module window changed state to opened.
+</td>
+                    </tr>
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="slider">slider</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: ZoomSlider</b>
+
+
+                        </caption>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> path
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> path to image file
+</td><td> Mandatory attribute. Value points to image file with bitmaps grid containing bitmaps for slider elements. There is no restriction for overall grid size, but it has to be formated properly. All bitmaps in grid have to be of the same size. Grid has to contain 2 rows and 3 columns with inner borders of 1 px.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> minLength
+</td><td align="center"> N
+</td><td align="center" colspan="2"> -
+</td><td> 100
+</td><td align="center"> -
+</td><td> Determines slider minimal length measured from middle of zoom in button to middle of zoom out button.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> maxLength
+</td><td align="center"> N
+</td><td align="center" colspan="2"> -
+</td><td> 300
+</td><td align="center"> -
+</td><td> Determines slider maximal length measured from middle of zoom in button to middle of zoom out button.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> slidesVertical
+</td><td align="center"> B
+</td><td align="center" colspan="2"> -
+</td><td> true
+</td><td> true, false
+</td><td> Determines if module is aligned vertically or horizontally.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> listenKeys
+</td><td align="center"> B
+</td><td align="center" colspan="2"> -
+</td><td> false
+</td><td> true, false
+</td><td> When set to true, module reflects pressing keyboard zoom keys (shift and ctrl) by setting proper buttons state to active.
+</td>
+                    </tr>
+                </table>
+
+                <h2> 
+                    <span class="mw-headline" id="Exposed_functions">Exposed functions</span>
+                </h2>
+
+                <h3> 
+                    <span class="mw-headline" id="setOpen">setOpen</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
+                    </tr>
+
+                    <tr class="modulefunct_tab_odd" valign="top">
+
+                        <td align="center"> B
+</td><td> Value assigned to open attribute.
+</td><td> Opens/closes module window on demand. Opening window once window is opened makes no effect, same thing for closing window.
+</td>
+                    </tr>
+                </table>
+
+                <h3> 
+                    <span class="mw-headline" id="toggleOpen">toggleOpen</span>
+                </h3>
+
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
+                    <tr>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
+                    </tr>
+
+                    <tr class="modulefunct_tab_odd" valign="top">
+
+                        <td align="center"> -
+</td><td align="center"> -
+</td><td> Calling this function toggles module window open state. If called when window is opened it closes window, same thing other way around.
+</td>
+                    </tr>
+                </table>
+
+
+
+
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="printfooter">
+Retrieved from "<a href="module_zoomslider.html">http://panozona.com/wiki/Module:ZoomSlider</a>"</div>
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

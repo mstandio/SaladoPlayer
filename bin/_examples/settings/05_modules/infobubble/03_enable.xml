@@ -4,7 +4,7 @@
 	Assign actions that will be executed whenever InfoBubble changes "enabled" state, so this change
 	could be reflected in your interface.
 	
-	http://panozona.com/wiki/Module:InfoBubble
+	../../_manual/index.html?module_infobubble.html
 -->
 <SaladoPlayer>
 	<global debug="true">

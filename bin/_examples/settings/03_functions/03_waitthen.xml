@@ -4,7 +4,7 @@
 	After clicking on green arrow, waits for 0.6 seconds then executes action printZona,
 	at the same time waits for 0.5 seconds then executes action printPano.
 	
-	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
+	../../_manual/index.html?saladoplayer_exposed-functions.html
 -->
 <SaladoPlayer>
 	<global debug="true">

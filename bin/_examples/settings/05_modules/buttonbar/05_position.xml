@@ -3,7 +3,7 @@
 	Change position and alignment of bar and all buttons at once, as well as each button individually. Use spacing
 	attribute to set space between buttons that have no custom move values set.
 	
-	http://panozona.com/wiki/Module:ButtonBar
+	../../_manual/index.html?module_buttonbar.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

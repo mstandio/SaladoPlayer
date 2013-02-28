@@ -4,7 +4,7 @@
 	from many such grids or you can easily create your own. When adding many modules, add it as last node
 	in "modules" so that it would be displayed under other modules.
 	
-	http://panozona.com/wiki/Module:MouseCursor
+	../../_manual/index.html?module_mousecursor.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

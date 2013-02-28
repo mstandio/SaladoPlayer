@@ -5,7 +5,7 @@
 	moved relatively to their radars and their position on the map. Radars can have different colors and sizes,
 	they can also display changes in panorama tilt.
 	
-	http://panozona.com/wiki/Module:ImageMap
+	../../_manual/index.html?module_imagemap.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

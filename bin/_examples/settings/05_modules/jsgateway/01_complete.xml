@@ -10,7 +10,7 @@
 	jsfuncion
 		enables calling JavaScript functions via actions, arguments passed to JavaScript are hard-coded into configuration.
 		
-	http://panozona.com/wiki/Module:JSGateway
+	../../_manual/index.html?module_jsgateway.html
 -->
 <SaladoPlayer>
 	<global debug="true">

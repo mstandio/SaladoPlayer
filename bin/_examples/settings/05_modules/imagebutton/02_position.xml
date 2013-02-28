@@ -2,7 +2,7 @@
 <!--
 	Position and align buttons inside panorama window. You can also set custom transparency for each image.
 	
-	http://panozona.com/wiki/Module:ImageButton
+	../../_manual/index.html?module_imagebutton.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

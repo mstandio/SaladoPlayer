@@ -2,7 +2,7 @@
 <!--
 	Use listenKeys attribute to display pressing direction (arrows) and zoom (ctrl, shift) keyboard keys.
 	
-	http://panozona.com/wiki/Module:ButtonBar
+	../../_manual/index.html?module_buttonbar.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

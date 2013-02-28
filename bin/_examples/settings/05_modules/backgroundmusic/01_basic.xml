@@ -6,7 +6,7 @@
 	BackgroundMusic changes "play" state, so this change could be reflected in your interface, for example by
 	changing state of buttons.
 	
-	http://panozona.com/wiki/Module:BackgroundMusic
+	../../_manual/index.html?module_backgroundmusic.html
 -->
 <SaladoPlayer>
 	<global debug="true">

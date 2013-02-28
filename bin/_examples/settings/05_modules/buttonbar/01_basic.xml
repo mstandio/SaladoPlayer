@@ -4,7 +4,7 @@
 	can easily create your own. Choose which ones of preconfigured standard buttons to display. Changing order of
 	button nodes results in changing order in which buttons are displayed.
 	
-	http://panozona.com/wiki/Module:ButtonBar
+	../../_manual/index.html?module_buttonbar.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

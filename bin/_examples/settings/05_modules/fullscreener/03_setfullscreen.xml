@@ -4,7 +4,7 @@
 	Notice that due to security restrictions, switching to fullscreen has to be a direct result of user acton,
 	for instance pressing key or clicking mouse. Otherwise function call is blocked by FlashPlayer and ignored.
 	
-	http://panozona.com/wiki/Module:FullScreener
+	../../_manual/index.html?module_fullscreener.html
 -->
 <SaladoPlayer>
 	<global debug="true">

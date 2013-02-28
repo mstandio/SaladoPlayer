@@ -4,7 +4,7 @@
 	checkerGreen onLeave to="checkerBlue:printGreenToBlue,checkerRed:printGreenToRed means that loading panotrama
 	checkerBlue while being in checkerGreen couses action printGreenToBlue to be executed, similar for checkerRed.
 	
-	http://panozona.com/wiki/SaladoPlayer:Configuration
+	../../_manual/index.html?saladoplayer_configuration.html
 -->
 <SaladoPlayer>
 	<global debug="true">

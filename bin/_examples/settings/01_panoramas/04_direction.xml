@@ -4,7 +4,7 @@
 	If panorama has pan set as NaN, it affects pan value when switching between panoramas. For instance
 	when pan in previous panorama was pointing west, in next panorama pan will also be pointing west.
 	
-	http://panozona.com/wiki/SaladoPlayer:Configuration#panorama
+	../../_manual/index.html?saladoplayer_configuration.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

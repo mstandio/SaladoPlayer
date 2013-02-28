@@ -1,0 +1,286 @@
+<html dir="ltr" lang="en">
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta content="mediawiki 1.16.0" name="generator">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body class="mediawiki ltr ns-0 ns-subject page-Module_ButtonBar skin-vector">
+        <div id="content">
+            <h1 class="firstHeading" id="firstHeading">Module:ButtonBar</h1>
+            <div id="bodyContent">
+                <h3 id="siteSub">From PanoZona</h3>
+                <div id="jump-to-nav">Jump to: <a href="#mw-head">navigation</a>,<a href="#p-search">search</a>
+                </div>
+                <table class="toc" id="toc">
+                    <tr>
+                        <td>
+                            <div id="toctitle">
+                                <h2>Contents</h2>
+                            </div>
+                            <ul>
+                                <li class="toclevel-1 tocsection-1">
+                                    <a href="#Configuration_structure"><span class="tocnumber">1</span> <span class="toctext">Configuration structure</span></a>
+                                </li>
+                                <li class="toclevel-1 tocsection-2">
+                                    <a href="#Configuration_details"><span class="tocnumber">2</span> <span class="toctext">Configuration details</span></a>
+                                    <ul>
+                                        <li class="toclevel-2 tocsection-3">
+                                            <a href="#ButtonBar"><span class="tocnumber">2.1</span> <span class="toctext">ButtonBar</span></a>
+                                        </li>
+                                        <li class="toclevel-2 tocsection-4">
+                                            <a href="#window"><span class="tocnumber">2.2</span> <span class="toctext">window</span></a>
+                                        </li>
+                                        <li class="toclevel-2 tocsection-5">
+                                            <a href="#buttons"><span class="tocnumber">2.3</span> <span class="toctext">buttons</span></a>
+                                        </li>
+                                        <li class="toclevel-2 tocsection-6">
+                                            <a href="#button"><span class="tocnumber">2.4</span> <span class="toctext">button</span></a>
+                                        </li>
+                                        <li class="toclevel-2 tocsection-7">
+                                            <a href="#extraButton"><span class="tocnumber">2.5</span> <span class="toctext">extraButton</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="toclevel-1 tocsection-8">
+                                    <a href="#Exposed_functions"><span class="tocnumber">3</span> <span class="toctext">Exposed functions</span></a>
+                                    <ul>
+                                        <li class="toclevel-2 tocsection-9">
+                                            <a href="#setOpen"><span class="tocnumber">3.1</span> <span class="toctext">setOpen</span></a>
+                                        </li>
+                                        <li class="toclevel-2 tocsection-10">
+                                            <a href="#toggleOpen"><span class="tocnumber">3.2</span> <span class="toctext">toggleOpen</span></a>
+                                        </li>
+                                        <li class="toclevel-2 tocsection-11">
+                                            <a href="#setActive"><span class="tocnumber">3.3</span> <span class="toctext">setActive</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                <div style="float:right;width:340px">
+                    <table align="center" border="1" cellpadding="5" cellspacing="0" class="moduledesc_tab" style="width:315px; border-collapse: collapse; float:right">
+                        <tr valign="top">
+                            <th align="center" colspan="2"> ButtonBar</th>
+                        </tr>
+                        <tr class="moduledesc_tab_odd" valign="top">
+                            <td> Author</td><td> Marek Standio</td>
+                        </tr>
+                        <tr class="moduledesc_tab_even" valign="top">
+                            <td> Module version</td><td> 1.3</td>
+                        </tr>
+                        <tr class="moduledesc_tab_odd" valign="top">
+                            <td> Compatibility</td><td> SaladoPlayer 1.0 +</td>
+                        </tr>
+                        <tr class="moduledesc_tab_even" valign="top">
+                            <td align="center" colspan="2"> Download - included with SaladoPlayer 1.3 +</td>
+                        </tr>
+                    </table>
+                </div>
+                <p>ButtonBar is module for easy creation of standard panorama navigation. You can style your navigation buttons with custom buttons bitmaps, add bacground bar with any color or bitmap fill, move around panorama window all buttons or single buttons individually. You can easily extend navigation with additional buttons with apearience and functionalities of your choice.</p>
+                <h2> 
+                    <span class="mw-headline" id="Configuration_structure">Configuration structure</span>
+                </h2>
+                <ul>
+                    <li> 
+                        <a href="#ButtonBar">ButtonBar</a>
+                        <ul>
+                            <li> 
+                                <a href="#window">window</a>
+                            </li>
+                            <li> 
+                                <a href="#buttons">buttons</a>
+                                <ul>
+                                    <li> 
+                                        <a href="#button">button</a>
+                                    </li>
+                                    <li> 
+                                        <a href="#extraButton">extraButton</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <h2> 
+                    <span class="mw-headline" id="Configuration_details">Configuration details</span>
+                </h2>
+                <h3> 
+                    <span class="mw-headline" id="ButtonBar">ButtonBar</span>
+                </h3>
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+                    <tr>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: modules</b>
+                        </caption>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to swf file</td><td> Mandatory attribute. Value points to module swf file.</td>
+                    </tr>
+                </table>
+                <h3> 
+                    <span class="mw-headline" id="window">window</span>
+                </h3>
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+                    <tr>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: ButtonBar</b>
+                        </caption>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> open</td><td align="center"> B</td><td align="center" colspan="2"> -</td><td> true</td><td> true, false</td><td> Determines visibility of module window on SaladoPlayer start.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td> alpha</td><td align="center"> N</td><td align="center" colspan="2"> -</td><td> 1.0</td><td> 0.1 to 1.0</td><td> Transparency of module window content.</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td rowspan="2"> align</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> S</td><td> right</td><td> left, center, right</td><td> Horizontal alignment of module window against panorama window.</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> vertical</td><td align="center"> S</td><td> bottom</td><td> top, middle, bottom</td><td> Vertical alignment of module window against panorama window.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td rowspan="2"> move</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> N</td><td> -5</td><td align="center"> -</td><td> Number of pixels module window is moved horizontally.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td> vertical</td><td align="center"> N</td><td> -5</td><td align="center"> -</td><td> Number of pixels module window is moved vertically.</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> transition</td><td align="center"> O</td><td> type</td><td align="center"> S</td><td> slideDown</td><td> fade, slideUp, slideDown, slideLeft, slideRight</td><td> Determines kind of transition used when module window is opening/closing.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td rowspan="2"> openTween</td><td align="center" rowspan="2"> O</td><td> transition</td><td align="center"> F</td><td> Linear.easeNone</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a></td><td> Determines type of animation used when module window is opening.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td> time</td><td align="center"> N</td><td> 0.5</td><td align="center"> -</td><td> Duration in seconds of module window opening animation.</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td rowspan="2"> closeTween</td><td align="center" rowspan="2"> O</td><td> transition</td><td align="center"> F</td><td> Linear.easeNone</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a></td><td> Determines type of animation used when module window is closing.</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> time</td><td align="center"> N</td><td> 0.5</td><td align="center"> -</td><td> Duration in seconds of module window closing animation.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td> onOpen</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> action id</td><td> Action executed when module window changed state to closed.</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> onClose</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> action id</td><td> Action executed when module window changed state to opened.</td>
+                    </tr>
+                </table>
+                <h3> 
+                    <span class="mw-headline" id="buttons">buttons</span>
+                </h3>
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+                    <tr>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: ButtonBar</b>
+                        </caption>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to image file</td><td> Mandatory attribute. Value points to image file with bitmaps grid containing bitmaps for all buttons. There is no restriction for overall grid size, but it has to be formated properly. All bitmaps in grid have to be of the same size. Grid has to contain 4 rows and 9 columns with inner borders of 1 px. Two first rows contain bitmaps for hard coded buttons, and their sequence in grid cannot be changed. Two other rows contain bitmaps for extraButtons and can be filled with any content.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td> spacing</td><td align="center"> N</td><td align="center" colspan="2"> -</td><td> 0</td><td align="center"> -</td><td> Distance between buttons.</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> listenKeys</td><td align="center"> B</td><td align="center" colspan="2"> -</td><td> false</td><td> true, false</td><td> When set to true, module reflects pressing keyboard arrows and zoom keys (shift and ctrl) by setting proper buttons state to active.</td>
+                    </tr>
+                </table>
+                <h3> 
+                    <span class="mw-headline" id="button">button</span>
+                </h3>
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+                    <tr>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: buttons</b>
+                        </caption>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> name</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> up, down, left, right, in, out, drag, autorotation, fullscreen</td><td> Mandatory attribute. You can set more than one button. Buttons use first and second row of buttons bitmaps grid, button of given name uses bitmaps from specific column. Buttons have basic virtual tour interface functionalities which are hard-coded into module. You can configure direction and zoom buttons parameters with <a href="saladoplayer_configuration.html#control" title="SaladoPlayer:Configuration">keyboard</a> attribute.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td rowspan="2"> move</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> N</td><td> NaN</td><td align="center"> -</td><td> When set to other value than NaN, determines number of pixels button is moved horizontally, beginning from first button.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td> vertical</td><td align="center"> N</td><td> NaN</td><td align="center"> -</td><td> When set to other value than NaN, determines number of pixels button is moved vertically, beginning from first button.</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td rowspan="2"> mouse</td><td align="center" rowspan="2"> O</td><td> onOver</td><td align="center"> S</td><td align="center"> -</td><td> action id</td><td> Action executed when mouse cursor is moved over button.</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> onOut</td><td align="center"> S</td><td align="center"> -</td><td> action id</td><td> Action executed when mouse cursor is moved out from button.</td>
+                    </tr>
+                </table>
+                <h3> 
+                    <span class="mw-headline" id="extraButton">extraButton</span>
+                </h3>
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+                    <tr>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+                        <caption class="attribute_tab_caption">
+                            <b>Parent: buttons</b>
+                        </caption>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> name</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> a, b, c, d ,e, f, g, h, i</td><td> Mandatory attribute. You can set more than one extraButton. ExtraButtons use bitmaps from third and fourth row of buttons bitmap grid, given button will use bitmpas pointed by its name. For instance: name "a" will result in using bitmaps from first column, name "b" will use second column, ect.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td> action</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> action id</td><td> Mandatory attribute. Clicking on button will result in execution of action of specific id.</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> move, mouse</td><td align="center"> -</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> See attributes in <a href="#button">button</a>.</td>
+                    </tr>
+                </table>
+                <h2> 
+                    <span class="mw-headline" id="Exposed_functions">Exposed functions</span>
+                </h2>
+                <h3> 
+                    <span class="mw-headline" id="setOpen">setOpen</span>
+                </h3>
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+                    <tr>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
+                    </tr>
+                    <tr class="modulefunct_tab_odd" valign="top">
+                        <td align="center"> B</td><td> Value assigned to open attribute.</td><td> Opens/closes bar window on demand. Opening window once window is opened makes no effect, same thing for closing window.</td>
+                    </tr>
+                </table>
+                <h3> 
+                    <span class="mw-headline" id="toggleOpen">toggleOpen</span>
+                </h3>
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+                    <tr>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
+                    </tr>
+                    <tr class="modulefunct_tab_odd" valign="top">
+                        <td align="center"> -</td><td align="center"> -</td><td> Calling this function toggles bar window open state. If called when window is opened it closes window, same thing other way around.</td>
+                    </tr>
+                </table>
+                <h3> 
+                    <span class="mw-headline" id="setActive">setActive</span>
+                </h3>
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+                    <tr>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
+                    </tr>
+                    <tr class="modulefunct_tab_odd" valign="top">
+                        <td align="center"> S</td><td> Name of extraButton.</td><td rowspan="2"> Function sets state of extraButton of given name (a, b, c, d, e, f, g, h, i) to given state. In case when passed value is "true", button changes state to active, when passed value is "false", button changes state to plain.</td>
+                    </tr>
+                    <tr class="modulefunct_tab_even" valign="top">
+                        <td align="center"> B</td><td> State of extraButton.</td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="printfooter">Retrieved from "<a href="module_buttonbar.html">http://panozona.com/wiki/Module:ButtonBar</a>"</div>
+            </div>
+        </div>
+    </body>
+</html>

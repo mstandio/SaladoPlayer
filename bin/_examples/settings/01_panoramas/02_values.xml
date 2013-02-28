@@ -4,7 +4,7 @@
 	can take values -90 to 90, fov (horizontal field of view) can take values 0.1 to 179.9. Fov is by default
 	limited from 30 to 120. Use ViewFinder module to preview your camera pan, tilt and field of view.
 	
-	http://panozona.com/wiki/SaladoPlayer:Configuration#panorama
+	../../_manual/index.html?saladoplayer_configuration.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

@@ -4,7 +4,7 @@
 	which means that new view will take current camera value. For instance: When camera is looking -90 pan (East)
 	calling jumpToView(NaN,30,120) will result in -90 pan, 30 tilt and 120 field of view.
 	
-	http://panozona.com/wiki/SaladoPlayer:Exposed_functions
+	../../_manual/index.html?saladoplayer_exposed-functions.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

@@ -3,7 +3,7 @@
 	You can set font type and size, colors for fonts, borders and background and decide if drop-down
 	list opens up or down.
 	
-	http://panozona.com/wiki/Module:DropDown
+	../../_manual/index.html?module_dropdown.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

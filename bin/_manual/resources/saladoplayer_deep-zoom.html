@@ -1,0 +1,185 @@
+<html dir="ltr" lang="en">
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta content="mediawiki 1.16.0" name="generator">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body class="mediawiki ltr ns-0 ns-subject page-SaladoPlayer_Deep_Zoom skin-vector">
+        <div id="content">
+            <h1 class="firstHeading" id="firstHeading">SaladoPlayer:Deep Zoom</h1>
+            <div id="bodyContent">
+                <h3 id="siteSub">From PanoZona</h3>
+                <div id="jump-to-nav">Jump to: <a href="#mw-head">navigation</a>,<a href="#p-search">search</a>
+                </div>
+                <p>
+                    <br>
+                </p>
+                <div style="width:100%;display:block;float:left">
+                    <div class="thumb tright">
+                        <div class="thumbinner" style="width:352px;">
+                            <img alt="" class="thumbimage" height="210" src="images/350px-Equirectangular_to_cubic.jpg" width="350">  <div class="thumbcaption">Equirectangular to cubic conversion</div>
+                        </div>
+                    </div>
+                    <p>This article attempts to provide explanation on what is Deep Zoom format and how it is used by SaladoPlayer.  You can use SaladoConverter to perform operations on images and covert them to format that can be displayed with SaladoPlayer. For more information about Deep Zoom see: <a class="external text" href="http://openzoom.org/" rel="nofollow" target="_BLANK">openzoom.org</a> or two part detailed analysis by Daniel Gasienica: <a class="external text" href="http://gasi.ch/blog/inside-deep-zoom-1/" rel="nofollow" target="_BLANK">part 1</a> and <a class="external text" href="http://gasi.ch/blog/inside-deep-zoom-2/" rel="nofollow" target="_BLANK">part 2</a>.</p>
+                    <p>
+                        <br>Equirectangular panorama is something you may recieve as output from Hugin, it has strict size proportions: width = 2 * height. Equirectangular panorama is texture you could wrap around a sphere. Because texturing and rotating sphere is hard to implement and results in poor performance, in order to display panorama with SaladoPlayer, SaladoConverter transforms equirectangular panoramas into cubic ones. Size of cube wall depends on size of equirectangular image and it can be calculated as: width of equirectangular image / 3.14</p>
+                </div>
+                <h2> 
+                    <span class="mw-headline" id="Cube_walls">Cube walls</span>
+                </h2>
+                <div style="width:100%;display:block;float:left">
+                    <div class="thumb tright">
+                        <div class="thumbinner" style="width:352px;">
+                            <img alt="" class="thumbimage" height="269" src="images/350px-Cubic_folders.jpg" width="350">  <div class="thumbcaption">Sample cube wall folder names</div>
+                        </div>
+                    </div>
+                    <table align="left" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="border-collapse:collapse;float:right;margin:10px;width:300px">
+                        <tr>
+                            <th width="150px">Folder name</th><th width="150px">Cube wall</th>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> name_b</td><td> back</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> name_d</td><td> down</td>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> name_f</td><td> front</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> name_l</td><td> left</td>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> name_r</td><td> right</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> name_u</td><td> up</td>
+                        </tr>
+                    </table>
+                    <p>Folders containing cube walls have to be named specifically in a way that describes their content. Only folders named along such pattern can be recognized by SaladoPlayer as cube walls. If you are feeding SaladoConverter with six cube walls, you need to keep naming convention for image files as well.</p>
+                </div>
+                <h2> 
+                    <span class="mw-headline" id="Cube_wall_description_file">Cube wall description file</span>
+                </h2>
+                <div style="width:100%;display:block;float:left">
+                    <pre style="float:right;width:340px;margin-left:10px">&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Image TileSize="256" Overlap="1" Format="jpg" [...]&gt;    &lt;Size Width="1024" Height="1024" /&gt;&lt;/Image&gt;</pre>
+                    <table align="left" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:300px;border-collapse:collapse;float:right;margin:10px">
+                        <tr>
+                            <th width="150px">Attribute</th><th width="150px">Description</th>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> TileSize</td><td> Maximum size of single tile. TileSize does not include Overlap value.</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> Overlap</td><td> If tile is not located on the edge of cube wall, its width and height is incremented with overlap value.</td>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> Format</td><td> Image format of all tiles.</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> Width, Height</td><td> Size of cube wall.</td>
+                        </tr>
+                    </table>
+                    <p>According to Deep Zoom specifications, every processed image is outputed as number of folders with  tiles of different zoom levels, plus *.xml file that describes tiled image. This file is used to recognize original image size, it is also used to predict number of zoom levels and naming of tiles. SaladoPlayer assumes that all cube walls are of the same size, so it only requires data contained in *.xml file describing front cube wall. </p>
+                </div>
+                <h2> 
+                    <span class="mw-headline" id="Zoom_levels">Zoom levels</span>
+                </h2>
+                <div style="width:100%;display:block;float:left">
+                    <div class="thumb tright">
+                        <div class="thumbinner" style="width:352px;">
+                            <img alt="" class="thumbimage" height="223" src="images/350px-Zoom_levels.jpg" width="350">  <div class="thumbcaption">Sample zoom levels for file of given size</div>
+                        </div>
+                    </div>
+                    <table align="left" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:300px;float:right;margin:10px;border-collapse:collapse">
+                        <tr>
+                            <th width="100px">Level</th><th width="100px">Size</th><th width="100px">Operation</th>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> 11</td><td> 2048</td><td align="center"> -</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> 10</td><td> 1024</td><td> 2048 / 2</td>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> 9</td><td> 512</td><td> 2048 / 4</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> 8</td><td> 256</td><td> 2048 / 8</td>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> 7</td><td> 128</td><td> 2048 / 16</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> 6</td><td> 64</td><td> 2048 / 32</td>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> 5</td><td> 32</td><td> 2048 / 64</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> 4</td><td> 16</td><td> 2048 / 128</td>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> 3</td><td> 8</td><td> 2048 / 256</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> 2</td><td> 4</td><td> 2048 / 512</td>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> 1</td><td> 2</td><td> 2048 / 1024</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> 0</td><td> 1</td><td> 2048 / 2048</td>
+                        </tr>
+                    </table>
+                    <p>Number of zoom levels is determined only by size of processed image. Starting with size of original image, every next zoom level is half of the size of previous one, and this proceedes down to level of size of single pixel. For example, cube wall of size 2048 px has 12 levels of zoom (0 to 11):</p>
+                </div>
+                <h2> 
+                    <span class="mw-headline" id="Tile_sizes">Tile sizes</span>
+                </h2>
+                <div style="width:100%;display:block;float:left">
+                    <div class="thumb tright">
+                        <div class="thumbinner" style="width:352px;">
+                            <img alt="" class="thumbimage" height="223" src="images/350px-Tile_size_good.jpg" width="350">  <div class="thumbcaption">Example of optimal tile size</div>
+                        </div>
+                    </div>
+                    <table align="left" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="border-collapse:collapse;float:right;margin:10px;width:300px">
+                        <tr>
+                            <th width="100px">Level</th><th width="100px">Size</th><th width="100px">Relation</th>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> 11</td><td> 2048</td><td> &gt;= 512</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> 10</td><td> 1024</td><td> &gt;= 512</td>
+                        </tr>
+                        <tr class="attribute_tab_odd" valign="top">
+                            <td> 9</td><td> 512</td><td> &gt;= 512</td>
+                        </tr>
+                        <tr class="attribute_tab_even" valign="top">
+                            <td> 8</td><td> 256</td><td> &lt; 512</td>
+                        </tr>
+                    </table>
+                    <p>Every zoom level is individually tiled. Maximum size of every tile is limited, but tiles can be smaller when located on right and/or bottom edge of cube wall or when zoom level is actually smaller then tile size itself. Tile size determines which zoom levels are not used by SaladoPlayer and therefore are obsolete. SaladoPlayer consideres highest zoom level that consists of single tile as lowest one, all lower zoom levels are ignored and can be safely deleted. For instance for cube wall size 2048 px and tile size 512 px:</p>
+                </div>
+                <h2> 
+                    <span class="mw-headline" id="Performance_optimization">Performance optimization</span>
+                </h2>
+                <div style="width:100%;display:block;float:left">
+                    <div class="thumb tright">
+                        <div class="thumbinner" style="width:352px;">
+                            <img alt="" class="thumbimage" height="223" src="images/350px-Tile_size_bad.jpg" width="350">  <div class="thumbcaption">Example of non-optimal tile size</div>
+                        </div>
+                    </div>
+                    <p>Every tile needs to be individually downloaded and transformed along camera movement when panorama is rotated. This means that cube wall that contains fewer number of bigger tiles will be loaded faster and will be displayed more fluently than one with higher number of smaller tiles. However, if tile size is too big, given fragment of panorama takes long time to load. Recommended size of tile is between 400 and 600 px. The least desirable situation occures when multiplication of tile size is slightly lower then cube wall size. In such case edge tiles are very narrow and this results in worse performace: Separate loading operation is performed to display very small fragment of panorama and cube consists of higher than nessesery number of tiles. This problem can be solved by setting tile size to division of cube wall size. In order to achive this effect for all zoom levels, cube size should be divisible by possibly high even number. </p>
+                    <p>Latest version of SaladoConverter automatically adjusts cube and tile size inside given limits. If you think that this feature is not working well enough, you can set cube walls and change tile size manually to achieve different results. Best way to determine which cube and tile size gives best performance for panorama of given size is to try different combinations and measure number of rendered frames on panorama autorotation (see: <a href="saladoplayer_configuration.html#stats" title="SaladoPlayer:Configuration"> stats</a>). You can save some time by performing conversion from equirectangular to cubic once, and using cube as input for next conversions. </p>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="printfooter">Retrieved from "<a href="saladoplayer_deep-zoom.html">http://panozona.com/wiki/SaladoPlayer:Deep_Zoom</a>"</div>
+            </div>
+        </div>
+    </body>
+</html>

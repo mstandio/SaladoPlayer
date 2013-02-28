@@ -3,7 +3,7 @@
 	By default one panorama is fading into another. You can change transition properties, 
 	use position scale or rotation instead of aplha.
 	
-	http://panozona.com/wiki/SaladoPlayer:Configuration#control
+	../../_manual/index.html?saladoplayer_configuration.html
 -->
 <SaladoPlayer>
 	<global debug="true">

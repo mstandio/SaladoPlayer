@@ -4,7 +4,7 @@
 	you can align button inside panorama window, so that it would slide in and out close to its default position.
 	Addtionally you can configure animation of button "window" transition with proper tween attributes.
 	
-	http://panozona.com/wiki/Module:ImageButton
+	../../_manual/index.html?module_imagebutton.html
 -->
 <SaladoPlayer>
 	<global debug="true"/>

@@ -4,7 +4,7 @@
 	will be executed whenever module changes "open" state, so this change could be reflected in your interface,
 	for example by changing state of buttons.
 	
-	http://panozona.com/wiki/Module:ImageMap
+	../../_manual/index.html?module_imagemap.html
 -->
 <SaladoPlayer>
 	<global debug="true">
