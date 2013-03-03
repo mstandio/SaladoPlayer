@@ -5,631 +5,290 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body class="mediawiki ltr ns-0 ns-subject page-SaladoPlayer_Exposed_functions skin-vector">
-
-
-
-
         <div id="content">
-
-
-
-
             <h1 class="firstHeading" id="firstHeading">SaladoPlayer:Exposed functions</h1>
-
-
-
             <div id="bodyContent">
-
-
                 <h3 id="siteSub">From PanoZona</h3>
-
-
-
-
-
-
-                <div id="jump-to-nav">
-Jump to: <a href="#mw-head">navigation</a>,
-<a href="#p-search">search</a>
-
+                <div id="jump-to-nav">Jump to: <a href="#mw-head">navigation</a>,<a href="#p-search">search</a>
                 </div>
-
-
-
                 <h3> 
                     <span class="mw-headline" id="print">print</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> S
-</td><td> message
-</td><td> Prints given message in trace window. This function can be usefull if you want to be sure if some specific action is executed. In order to read these messages you need to run SaladoPlayer in <a href="saladoplayer_configuration.html#global" title="SaladoPlayer:Configuration"> debug mode</a>.
-</td>
+                        <td align="center"> S</td><td> message</td><td> Prints given message in trace window. This function can be usefull if you want to be sure if some specific action is executed. In order to read these messages you need to run SaladoPlayer in <a href="saladoplayer_configuration.html#global" title="SaladoPlayer:Configuration"> debug mode</a>.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="loadPano">loadPano</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> S
-</td><td> panorama id
-</td><td> Loads panorama with given id. This function can be called again only if previous panorama is done loading, otherwise function will be ignored.
-</td>
+                        <td align="center"> S</td><td> panorama id</td><td> Loads panorama with given id. This function can be called again only if previous panorama is done loading, otherwise function will be ignored.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="waitThen">waitThen</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> time
-</td><td rowspan="2"> Waits time given in seconds, after timeout executes action with given id.
-</td>
+                        <td align="center"> N</td><td> time</td><td rowspan="2"> Waits time given in seconds, after timeout executes action with given id.</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> S
-</td><td> action id
-</td>
+                        <td align="center"> S</td><td> action id</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="jumpToView">jumpToView</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> pan
-</td><td rowspan="3"> Moves camera direclty to given pan, tilt and field of view values. All arguments can be NaN (Not a Number), in which case values are not changed with function execution. For instance jumpToView(90,NaN,NaN) makes camera get new horizontal position but keeps its initial tilt and field of view values.
-</td>
+                        <td align="center"> N</td><td> pan</td><td rowspan="3"> Moves camera direclty to given pan, tilt and field of view values. All arguments can be NaN (Not a Number), in which case values are not changed with function execution. For instance jumpToView(90,NaN,NaN) makes camera get new horizontal position but keeps its initial tilt and field of view values.</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> tilt
-</td>
+                        <td align="center"> N</td><td> tilt</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> field  of view
-</td>
+                        <td align="center"> N</td><td> field  of view</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="moveToView">moveToView</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> pan
-</td><td rowspan="3"> Moves camera to given pan, tilt and field of view. Camera is moved with default speed in degrees per second (30) and transition function (Linear.easeNone). All arguments can be NaN (Not a Number), so that values are not changed with function execution. For instance moveToView(90,NaN,NaN) makes camera move horizontally but keeps its initial tilt and field of view values.
-</td>
+                        <td align="center"> N</td><td> pan</td><td rowspan="3"> Moves camera to given pan, tilt and field of view. Camera is moved with default speed in degrees per second (30) and transition function (Linear.easeNone). All arguments can be NaN (Not a Number), so that values are not changed with function execution. For instance moveToView(90,NaN,NaN) makes camera move horizontally but keeps its initial tilt and field of view values.</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> tilt
-</td>
+                        <td align="center"> N</td><td> tilt</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> field of view
-</td>
+                        <td align="center"> N</td><td> field of view</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="moveToViewThen">moveToViewThen</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> pan
-</td><td rowspan="4"> Same as <a href="#moveToView">moveToView</a>, but with additional parameter of action id execuded after camera finishes moving.
-</td>
+                        <td align="center"> N</td><td> pan</td><td rowspan="4"> Same as <a href="#moveToView">moveToView</a>, but with additional parameter of action id execuded after camera finishes moving.</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> tilt
-</td>
+                        <td align="center"> N</td><td> tilt</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> field of view
-</td>
+                        <td align="center"> N</td><td> field of view</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> S
-</td><td> action id
-</td>
+                        <td align="center"> S</td><td> action id</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="advancedMoveToView">advancedMoveToView</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> pan
-</td><td rowspan="5"> Same as <a href="#moveToView">moveToView</a>, but with additional parameters. You can set camera target field of view, or pass NaN (Not a Number) as value to keep current camera field of view. You can also set movement speed in degrees per second and <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">transition function</a>. For instance advancedMoveToView(90,10,30,20,Expo.easeIn) would couse camera to move to pan 90, tilt 10 with zooming in, using speed 20 degrees per second and transiton function Expo.easeIn
-</td>
+                        <td align="center"> N</td><td> pan</td><td rowspan="5"> Same as <a href="#moveToView">moveToView</a>, but with additional parameters. You can set camera target field of view, or pass NaN (Not a Number) as value to keep current camera field of view. You can also set movement speed in degrees per second and <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">transition function</a>. For instance advancedMoveToView(90,10,30,20,Expo.easeIn) would couse camera to move to pan 90, tilt 10 with zooming in, using speed 20 degrees per second and transiton function Expo.easeIn</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> tilt
-</td>
+                        <td align="center"> N</td><td> tilt</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> field of view
-</td>
+                        <td align="center"> N</td><td> field of view</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> speed
-</td>
+                        <td align="center"> N</td><td> speed</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> F
-</td><td> transition type
-</td>
+                        <td align="center"> F</td><td> transition type</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="advancedMoveToViewThen">advancedMoveToViewThen</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> pan
-</td><td rowspan="6"> Same as <a href="#advancedMoveToView">advancedMoveToView</a>, but with additional parameter of action id execuded when camera finishes moving.
-</td>
+                        <td align="center"> N</td><td> pan</td><td rowspan="6"> Same as <a href="#advancedMoveToView">advancedMoveToView</a>, but with additional parameter of action id execuded when camera finishes moving.</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> tilt
-</td>
+                        <td align="center"> N</td><td> tilt</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> field of view
-</td>
+                        <td align="center"> N</td><td> field of view</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> speed
-</td>
+                        <td align="center"> N</td><td> speed</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> F
-</td><td> transition type
-</td>
+                        <td align="center"> F</td><td> transition type</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> S
-</td><td> action id
-</td>
+                        <td align="center"> S</td><td> action id</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="moveToHotspot">moveToHotspot</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> S
-</td><td> hotspot id
-</td><td rowspan="2"> Moves camera to pan and tilt of given hotspot in current panorama, with default field of view (NaN), speed in degrees per second (30) and transition function (Linear.easeNone).
-</td>
+                        <td align="center"> S</td><td> hotspot id</td><td rowspan="2"> Moves camera to pan and tilt of given hotspot in current panorama, with default field of view (NaN), speed in degrees per second (30) and transition function (Linear.easeNone).</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> field of view
-</td>
+                        <td align="center"> N</td><td> field of view</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="moveToHotspotThen">moveToHotspotThen</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> S
-</td><td> hotspot id
-</td><td rowspan="3"> Same as <a href="#moveToHotspot">moveToHotspot</a>, but with additional parameter of action id execuded after camera finishes moving.
-</td>
+                        <td align="center"> S</td><td> hotspot id</td><td rowspan="3"> Same as <a href="#moveToHotspot">moveToHotspot</a>, but with additional parameter of action id execuded after camera finishes moving.</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> field of view
-</td>
+                        <td align="center"> N</td><td> field of view</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> S
-</td><td> action id
-</td>
+                        <td align="center"> S</td><td> action id</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="advancedMoveToHotspot">advancedMoveToHotspot</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> S
-</td><td> hotspot id
-</td><td rowspan="4">Same as <a href="#moveToHotspot">moveToHotspot</a>, but with additional parameters. You can set camera target field of view, or pass NaN (Not a Number) as value to keep current camera field of view. You can also set movement speed in degrees per second and <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">transition function</a>. For instance advancedMoveToHotspot(hs1,30,20,Expo.easeIn) would couse camera to move over hotspot "hs1" with zooming in, using speed 20 degrees per second and transiton function Expo.easeIn
-</td>
+                        <td align="center"> S</td><td> hotspot id</td><td rowspan="4">Same as <a href="#moveToHotspot">moveToHotspot</a>, but with additional parameters. You can set camera target field of view, or pass NaN (Not a Number) as value to keep current camera field of view. You can also set movement speed in degrees per second and <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">transition function</a>. For instance advancedMoveToHotspot(hs1,30,20,Expo.easeIn) would couse camera to move over hotspot "hs1" with zooming in, using speed 20 degrees per second and transiton function Expo.easeIn</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> field of view
-</td>
+                        <td align="center"> N</td><td> field of view</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> speed
-</td>
+                        <td align="center"> N</td><td> speed</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> F
-</td><td> transition type
-</td>
+                        <td align="center"> F</td><td> transition type</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="advancedMoveToHotspotThen">advancedMoveToHotspotThen</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> S
-</td><td> hotspot id
-</td><td rowspan="5">Same as <a href="#advancedMoveToHotspot">advancedMoveToHotspot</a>, but with additional parameter of action id execuded after camera finishes moving.
-</td>
+                        <td align="center"> S</td><td> hotspot id</td><td rowspan="5">Same as <a href="#advancedMoveToHotspot">advancedMoveToHotspot</a>, but with additional parameter of action id execuded after camera finishes moving.</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> field of view
-</td>
+                        <td align="center"> N</td><td> field of view</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> speed
-</td>
+                        <td align="center"> N</td><td> speed</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> F
-</td><td> transition type
-</td>
+                        <td align="center"> F</td><td> transition type</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> S
-</td><td> action id
-</td>
+                        <td align="center"> S</td><td> action id</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="startMoving">startMoving</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> pan speed
-</td><td rowspan="2"> Starts inertial swing with given pan and tilt speeds. It uses default values for sensitivity (0.0003), friction (0.3) and threshold (0.0001). Any of arguments can be NaN (Not a Number), which means that value will not be affected. For instance calling startMoving(20,NaN) will affect only pan value.
-</td>
+                        <td align="center"> N</td><td> pan speed</td><td rowspan="2"> Starts inertial swing with given pan and tilt speeds. It uses default values for sensitivity (0.0003), friction (0.3) and threshold (0.0001). Any of arguments can be NaN (Not a Number), which means that value will not be affected. For instance calling startMoving(20,NaN) will affect only pan value.</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> tilt speed
-</td>
+                        <td align="center"> N</td><td> tilt speed</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="advancedStartMoving">advancedStartMoving</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> pan speed
-</td><td rowspan="5"> Same as <a href="#startMoving">startMoving</a>, but with additional parameters.
-</td>
+                        <td align="center"> N</td><td> pan speed</td><td rowspan="5"> Same as <a href="#startMoving">startMoving</a>, but with additional parameters.</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> tilt speed
-</td>
+                        <td align="center"> N</td><td> tilt speed</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> sensitivity
-</td>
+                        <td align="center"> N</td><td> sensitivity</td>
                     </tr>
-
                     <tr class="modulefunct_tab_even" valign="top">
-
-                        <td align="center"> N
-</td><td> friction
-</td>
+                        <td align="center"> N</td><td> friction</td>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> N
-</td><td> threshold
-</td>
+                        <td align="center"> N</td><td> threshold</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="stopMoving">stopMoving</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> -
-</td><td align="center"> -
-</td><td> Stops camera movement coused by <a href="#startMoving">startMoving</a> or by  <a href="#advancedStartMoving">advancedStartMoving</a>.
-</td>
+                        <td align="center"> -</td><td align="center"> -</td><td> Stops camera movement coused by <a href="#startMoving">startMoving</a> or by  <a href="#advancedStartMoving">advancedStartMoving</a>.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="runAction">runAction</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> S
-</td><td> action id
-</td><td> Function executes action of given id. It can be usefull in case when many actions contain same sequence of functions - sequence can be extracted to separate action, and replaced with call to this action.
-</td>
+                        <td align="center"> S</td><td> action id</td><td> Function executes action of given id. It can be usefull in case when many actions contain same sequence of functions - sequence can be extracted to separate action, and replaced with call to this action.</td>
                     </tr>
                 </table>
-
-
-
-
-
                 <br>
                 <br>
                 <br>
                 <br>
-                <div class="printfooter">
-Retrieved from "<a href="saladoplayer.html">http://panozona.com/wiki/SaladoPlayer:Exposed_functions</a>"</div>
-
-
-
-
-
+                <div class="printfooter">Retrieved from "<a href="saladoplayer.html">http://panozona.com/wiki/SaladoPlayer:Exposed_functions</a>"</div>
             </div>
-
-
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </body>
 </html>
