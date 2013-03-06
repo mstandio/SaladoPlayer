@@ -83,7 +83,6 @@ hr { height: 1px; color: #aaa; background-color: #aaa; border: 0; margin: .2em 0
 #siteSub { display: none; }
 .toc { float:right; margin-left:20px; display:block; }
 .attribute_tab .attribute_tab_caption { padding:5px; background:#a2ccf6; }
-#jump-to-nav { display: none; }
 .attribute_tab tr th { background:#a2ccf6; }
 .attribute_tab_even { background:#d0e7fc; }
 .moduledesc_tab td { }

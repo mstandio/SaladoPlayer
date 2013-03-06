@@ -21,7 +21,7 @@
 	
 	<property name="debuggableSwf" value="false"/>
 	
-	<property file="ant/conf/compiled_files.txt"/>
+	<property file="ant/config/compiled_files.txt"/>
 	<property environment="env"/>
 	<property name="FLEX_HOME" value="${env.FLEX_HOME}"/>
 	<taskdef name="mxmlc" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" classname="flex.ant.MxmlcTask"/>
@@ -839,7 +839,7 @@
 	<target name="buildDocs">
 		<mkdir dir="${basedir}/tmp"/>
 		<wikieater
-			menufile="${basedir}/ant/conf/menu.txt"
+			menufile="${basedir}/ant/config/menu.txt"
 			outputdir="${basedir}/bin/_manual"
 			cachedir="${basedir}/tmp/cache"/>
 	</target>
