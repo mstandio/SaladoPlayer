@@ -102,6 +102,12 @@ package com.panozona.modules.menuscroller.controller {
 			_elementView.elementData.addEventListener(ElementEvent.CHANGED_MOUSE_OVER, handleMouseOverChange, false, 0, true);
 			
 			recaluclateSize();
+			
+			if (_elementView.elementData.rawElement is Element && (_elementView.elementData.rawElement as Element).target 
+				== _module.saladoPlayer.manager.currentPanoramaData.id) {
+				_elementView.elementData.isActive = true;
+			}
+			
 			_elementView.elementData.isLoaded = true;
 		}
 		
@@ -152,11 +158,11 @@ package com.panozona.modules.menuscroller.controller {
 			var scroller:Scroller =  _elementView.menuScrollerData.scrollerData.scroller;
 			if (_elementView.elementData.isActive) {
 				Tweener.addTween(_elementView.content, {
-					scaleX: plainScale * ((hoverScale - 1)/2 + 1),
-					scaleY: plainScale * ((hoverScale - 1)/2 + 1),
-					x: -_elementView.elementData.plainSize.width * ((hoverScale - 1)/2 + 1) * 0.5,
-					y: -_elementView.elementData.plainSize.height * ((hoverScale - 1)/2 + 1) * 0.5,
-					time: useTime ? scroller.outTween.time * 0.5 : 0,
+					scaleX: plainScale * ((hoverScale - 1) * 0.75 + 1),
+					scaleY: plainScale * ((hoverScale - 1) * 0.75 + 1),
+					x: -_elementView.elementData.plainSize.width * ((hoverScale - 1) * 0.75 + 1) * 0.5,
+					y: -_elementView.elementData.plainSize.height * ((hoverScale - 1) * 0.75 + 1) * 0.5,
+					time: useTime ? scroller.outTween.time * 0.25 : 0,
 					transition: scroller.outTween.transition
 				});
 			} else {

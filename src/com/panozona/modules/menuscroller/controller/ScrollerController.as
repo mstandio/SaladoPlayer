@@ -40,6 +40,7 @@ package com.panozona.modules.menuscroller.controller{
 		private var elementsView:Vector.<ElementView>;
 		
 		private var difference:Number;
+		private var focusPoint:Number;
 		
 		public function ScrollerController(scrollerView:ScrollerView, module:Module){
 			_scrollerView = scrollerView;
@@ -49,7 +50,6 @@ package com.panozona.modules.menuscroller.controller{
 			elementsView = new Vector.<ElementView>();
 			
 			_scrollerView.menuScrollerData.scrollerData.addEventListener(ScrollerEvent.CHANGED_CURRENT_GROUP_ID, handleCurrentGroupIdChange, false, 0, true);
-			_scrollerView.menuScrollerData.scrollerData.addEventListener(ScrollerEvent.CHANGED_TOTAL_SIZE, handleWindowSizeChange, false, 0, true);
 			_scrollerView.menuScrollerData.scrollerData.addEventListener(ScrollerEvent.CHANGED_MOUSE_OVER, handleMouseOverChange, false, 0, true);
 			_scrollerView.menuScrollerData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleWindowSizeChange, false, 0, true);
 			
@@ -93,9 +93,7 @@ package com.panozona.modules.menuscroller.controller{
 			for each (var rawElement:RawElement in currentGroup.getAllChildren()) {
 				elementData = new ElementData(rawElement);
 				elementData.addEventListener(ElementEvent.CHANGED_IS_LOADED, onElementLoaded, false, 0, true);
-				if (elementData.rawElement is Element && (elementData.rawElement as Element).target == _module.saladoPlayer.manager.currentPanoramaData.id) {
-					elementData.isActive = true;
-				}
+				elementData.addEventListener(ElementEvent.CHANGED_IS_ACTIVE, onElementActive, false, 0, true);
 				elementView = new ElementView(_scrollerView.menuScrollerData, elementData);
 				_scrollerView.elementsContainer.addChild(elementView);
 				elementController = new ElementController(elementView, _module);
@@ -125,15 +123,6 @@ package com.panozona.modules.menuscroller.controller{
 				_scrollerView.menuScrollerData.windowData.currentSize.height);
 			_scrollerView.elementsContainerMask.graphics.endFill();
 			
-			// data for container position
-			if (_scrollerView.menuScrollerData.scrollerData.scrollsVertical) {
-				difference = _scrollerView.menuScrollerData.scrollerData.totalSize -
-					_scrollerView.menuScrollerData.windowData.currentSize.height;
-			} else {
-				difference = _scrollerView.menuScrollerData.scrollerData.totalSize -
-					_scrollerView.menuScrollerData.windowData.currentSize.width;
-			}
-			
 			// place container
 			if (_scrollerView.menuScrollerData.scrollerData.scrollsVertical) {
 				_scrollerView.elementsContainer.x = (_scrollerView.menuScrollerData.windowData.currentSize.width -
@@ -150,7 +139,6 @@ package com.panozona.modules.menuscroller.controller{
 				_scrollerView.elementsContainer.y = (_scrollerView.menuScrollerData.windowData.currentSize.height -
 					_scrollerView.menuScrollerData.scrollerData.sizeLimit) * 0.5;
 				if (_scrollerView.menuScrollerData.windowData.currentSize.width > _scrollerView.menuScrollerData.scrollerData.totalSize) {
-					
 					_scrollerView.elementsContainer.x = (_scrollerView.menuScrollerData.windowData.currentSize.width -
 						_scrollerView.menuScrollerData.scrollerData.totalSize) * 0.5;
 				} else if (_scrollerView.elementsContainer.x + _scrollerView.menuScrollerData.scrollerData.totalSize < _scrollerView.menuScrollerData.windowData.currentSize.width) {
@@ -158,66 +146,110 @@ package com.panozona.modules.menuscroller.controller{
 				} else if (_scrollerView.elementsContainer.x > 0) {
 					_scrollerView.elementsContainer.x = 0;
 				}
+				trace(_scrollerView.menuScrollerData.scrollerData.totalSize);
 			}
+			onEnterFrame();
 		}
 		
 		private function onElementLoaded(e:Event = null):void {
-			recalulateTotalSize();
+			handleWindowSizeChange();
+		}
+		
+		private function onElementActive(e:Event = null):void {
+			handleWindowSizeChange();
 		}
 		
 		private function recalulateTotalSize():void {
+			focusPoint = NaN;
 			if (elementsView.length == 0) {
 				return;
 			}
-			var counter:Number = _scrollerView.menuScrollerData.scrollerData.scroller.spacing * 3;
+			var spacingStart:Number = 0;
+			var spacingTmp:Number = _scrollerView.menuScrollerData.scrollerData.scroller.spacing;
 			if (_scrollerView.menuScrollerData.scrollerData.scrollsVertical) {
-				counter += (elementsView[0].elementData.hoverSize.height
+				spacingTmp += (elementsView[0].elementData.hoverSize.height
 					- elementsView[0].elementData.plainSize.height) * 0.5;
+				spacingStart = spacingTmp + elementsView[0].elementData.plainSize.height * 0.5;
 			} else {
-				counter += (elementsView[0].elementData.hoverSize.width
+				spacingTmp += (elementsView[0].elementData.hoverSize.width
 					- elementsView[0].elementData.plainSize.width) * 0.5;
+				spacingStart = spacingTmp + elementsView[0].elementData.plainSize.width * 0.5;
 			}
+			var counter:Number = spacingTmp;
 			for each(var elementView:ElementView in elementsView) {
 				if (_scrollerView.menuScrollerData.scrollerData.scrollsVertical) {
 					elementView.x = 0;
 					elementView.y = counter;
 					counter += elementView.elementData.plainSize.height;
+					if (elementView.elementData.isActive) {
+						focusPoint = elementView.y + elementView.elementData.plainSize.height * 0.5;
+					}
 				} else {
 					elementView.x = counter;
 					elementView.y = 0;
-					counter += elementView.elementData.plainSize.width
+					counter += elementView.elementData.plainSize.width;
+					if (elementView.elementData.isActive) {
+						focusPoint = elementView.x + elementView.elementData.plainSize.width * 0.5;
+					}
 				}
-				counter += _scrollerView.menuScrollerData.scrollerData.scroller.spacing * 2;
+				counter += _scrollerView.menuScrollerData.scrollerData.scroller.spacing;
 			}
-			counter += _scrollerView.menuScrollerData.scrollerData.scroller.spacing;
+			counter -= _scrollerView.menuScrollerData.scrollerData.scroller.spacing;
+			
+			var spacingEnd:Number = 0;
+			spacingTmp = _scrollerView.menuScrollerData.scrollerData.scroller.spacing;
 			if (_scrollerView.menuScrollerData.scrollerData.scrollsVertical) {
-				counter += (elementsView[elementsView.length - 1].elementData.hoverSize.height 
+				spacingTmp += (elementsView[elementsView.length - 1].elementData.hoverSize.height 
 					- elementsView[elementsView.length - 1].elementData.plainSize.height) * 0.5;
+				spacingEnd = spacingTmp + elementsView[elementsView.length - 1].elementData.plainSize.height * 0.5;
 			}else {
-				counter += (elementsView[elementsView.length - 1].elementData.hoverSize.width
+				spacingTmp += (elementsView[elementsView.length - 1].elementData.hoverSize.width
 					- elementsView[elementsView.length - 1].elementData.plainSize.width) * 0.5;
+				spacingEnd = spacingTmp + elementsView[elementsView.length - 1].elementData.plainSize.width * 0.5;
 			}
+			counter += spacingTmp;
 			_scrollerView.menuScrollerData.scrollerData.totalSize = counter;
+			if (!isNaN(focusPoint)) {
+				if (focusPoint > counter * 0.5) {
+					focusPoint += spacingEnd * (focusPoint - counter * 0.5) / ((counter - spacingEnd) - counter * 0.5);
+				}else {
+					focusPoint -= spacingStart * ((spacingStart - focusPoint) / (counter * 0.5 - spacingStart) + 1);
+				}
+			}
+			if (_scrollerView.menuScrollerData.scrollerData.scrollsVertical) {
+				difference = _scrollerView.menuScrollerData.scrollerData.totalSize -
+					_scrollerView.menuScrollerData.windowData.currentSize.height;
+			} else {
+				difference = _scrollerView.menuScrollerData.scrollerData.totalSize -
+					_scrollerView.menuScrollerData.windowData.currentSize.width;
+			}
 		}
 		
-		private function handleMouseOverChange(e:Event):void {
-			if(_scrollerView.menuScrollerData.scrollerData.mouseOver && difference > 0){
+		private function handleMouseOverChange(e:Event = null):void {
+			if (_scrollerView.menuScrollerData.scrollerData.mouseOver) {
 				_module.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
-			}else {
-				_module.stage.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			}
 		}
 		
 		private function onEnterFrame(e:Event = null):void {
-			var targetPosition:Number = NaN;
-			var speed:Number = NaN;
-			var shift:Number = NaN;
+			var speed:Number = _scrollerView.menuScrollerData.scrollerData.scroller.speed; 
+			var targetPosition:Number = 0;
+			var shift:Number = 0;
 			if (_scrollerView.menuScrollerData.scrollerData.scrollsVertical) {
-				speed = _scrollerView.menuScrollerData.windowData.currentSize.height * 0.1;
-				targetPosition = -difference * _scrollerView.mouseY /
-					_scrollerView.menuScrollerData.windowData.currentSize.height;
-				shift = speed * Math.abs(targetPosition - _scrollerView.elementsContainer.y) / difference;
-				if (Math.abs(targetPosition - _scrollerView.elementsContainer.y ) < 1) return;
+				if (_scrollerView.menuScrollerData.windowData.currentSize.height > _scrollerView.menuScrollerData.scrollerData.totalSize){
+					targetPosition = (_scrollerView.menuScrollerData.windowData.currentSize.height -
+						_scrollerView.menuScrollerData.scrollerData.totalSize) * 0.5;
+				}else  if(_scrollerView.menuScrollerData.scrollerData.mouseOver){
+					targetPosition = -difference * _scrollerView.mouseY /
+						_scrollerView.menuScrollerData.windowData.currentSize.height;
+				}else if (!isNaN(focusPoint)){
+					targetPosition = -difference * focusPoint / _scrollerView.menuScrollerData.scrollerData.totalSize;
+				}
+				if (Math.abs(targetPosition - _scrollerView.elementsContainer.y) < 1 && !_scrollerView.menuScrollerData.scrollerData.mouseOver) {
+					_module.stage.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+					return;
+				}
+				shift = speed * Math.abs(targetPosition - _scrollerView.elementsContainer.y);
 				if (targetPosition < _scrollerView.elementsContainer.y) {
 					if (targetPosition > _scrollerView.elementsContainer.y - shift) {
 						_scrollerView.elementsContainer.y = targetPosition
@@ -232,11 +264,20 @@ package com.panozona.modules.menuscroller.controller{
 					}
 				}
 			} else {
-				speed = _scrollerView.menuScrollerData.windowData.currentSize.width * 0.1;
-				targetPosition = -difference * _scrollerView.mouseX /
-					_scrollerView.menuScrollerData.windowData.currentSize.width;
-				shift = speed * Math.abs(targetPosition - _scrollerView.elementsContainer.x) / difference;
-				if (Math.abs(targetPosition - _scrollerView.elementsContainer.x ) < 1) return;
+				if(_scrollerView.menuScrollerData.windowData.currentSize.width > _scrollerView.menuScrollerData.scrollerData.totalSize){
+					targetPosition = (_scrollerView.menuScrollerData.windowData.currentSize.width -
+						_scrollerView.menuScrollerData.scrollerData.totalSize) * 0.5;
+				}else if(_scrollerView.menuScrollerData.scrollerData.mouseOver){
+					targetPosition = -difference * _scrollerView.mouseX /
+						_scrollerView.menuScrollerData.windowData.currentSize.width;
+				}else if (!isNaN(focusPoint)) {
+					targetPosition = -difference * focusPoint / _scrollerView.menuScrollerData.scrollerData.totalSize;
+				}
+				if (Math.abs(targetPosition - _scrollerView.elementsContainer.x ) < 1 && !_scrollerView.menuScrollerData.scrollerData.mouseOver) {
+					_module.stage.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+					return;
+				}
+				shift = speed * Math.abs(targetPosition - _scrollerView.elementsContainer.x);
 				if (targetPosition < _scrollerView.elementsContainer.x) {
 					if (targetPosition > _scrollerView.elementsContainer.x - shift) {
 						_scrollerView.elementsContainer.x = targetPosition

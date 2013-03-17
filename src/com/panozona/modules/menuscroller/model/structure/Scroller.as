@@ -25,8 +25,9 @@ package com.panozona.modules.menuscroller.model.structure {
 		
 		public const style:Style = new Style();
 		
-		public var spacing:Number = 20;
+		public var spacing:Number = 40;
 		public var padding:Number = 20;
+		public var speed:Number = 0.1;
 		
 		public var overTween:Tween = new Tween(Equations.easeNone, 0.25);
 		public var outTween:Tween = new Tween(Equations.easeNone, 0.25);
