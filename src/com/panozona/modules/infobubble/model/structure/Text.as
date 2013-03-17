@@ -21,6 +21,7 @@ package com.panozona.modules.infobubble.model.structure{
 	public class Text extends Bubble {
 		
 		public var text:String = "";
+		public var path:String = null;
 		public var style:String = null;
 	}
 }

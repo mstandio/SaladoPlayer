@@ -30,13 +30,17 @@ package com.panozona.modules.infobubble.controller {
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
+	import flash.utils.ByteArray;
 	
 	public class BubbleController {
 		
 		private var _bubbleView:BubbleView;
 		private var _module:Module;
 		
+		private var textLoader:URLLoader;
 		private var imageLoader:Loader;
 		
 		private var ellipseAxisX:Number;
@@ -53,6 +57,11 @@ package com.panozona.modules.infobubble.controller {
 			imageLoader = new Loader();
 			imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
 			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
+			
+			textLoader = new URLLoader();
+			textLoader.dataFormat = URLLoaderDataFormat.BINARY;
+			textLoader.addEventListener(IOErrorEvent.IO_ERROR, textLost);
+			textLoader.addEventListener(Event.COMPLETE, textLoaded);
 			
 			_bubbleView.infoBubbleData.bubbleData.addEventListener(BubbleEvent.CHANGED_ENABLED, handleEnabledChange);
 			_bubbleView.infoBubbleData.bubbleData.addEventListener(BubbleEvent.CHANGED_CURRENT_ID, handleCurrentIdChange);
@@ -75,7 +84,7 @@ package com.panozona.modules.infobubble.controller {
 			}
 		}
 		
-		private function handleCurrentIdChange(e:Event):void {
+		private function handleCurrentIdChange(e:Event = null):void {
 			while (_bubbleView.numChildren) _bubbleView.removeChildAt(0);
 			try{
 				imageLoader.unload();
@@ -88,8 +97,13 @@ package com.panozona.modules.infobubble.controller {
 						imageLoader.load(new URLRequest((bubble as Image).path));
 						return;
 					}else if (bubble is Text) {
-						buildText(bubble as Text);
-						return;
+						if ((bubble as Text).path != null) {
+							textLoader.load(new URLRequest((bubble as Text).path));
+							return;
+						}else {
+							buildText(bubble as Text);
+							return;
+						}
 					}
 				}
 			}
@@ -102,6 +116,22 @@ package com.panozona.modules.infobubble.controller {
 		
 		private function imageLoaded(e:Event):void {
 			addDisplayObject(imageLoader.content);
+		}
+		
+		private function textLost(error:IOErrorEvent):void {
+			_module.printError(error.text);
+		}
+		
+		private function textLoaded(e:Event):void {
+			var input:ByteArray = e.target.data;
+			try { input.uncompress(); } catch (error:Error) { };
+			for each (var bubble:Bubble in _bubbleView.infoBubbleData.bubbles.getChildrenOfGivenClass(Bubble)){
+				if (bubble.id == _bubbleView.infoBubbleData.bubbleData.currentId && bubble is Text) {
+					(bubble as Text).text = input.toString();
+					buildText(bubble as Text);
+					return;
+				}
+			}
 		}
 		
 		private function buildText(text:Text):void {
