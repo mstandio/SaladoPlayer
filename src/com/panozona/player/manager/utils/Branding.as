@@ -30,7 +30,7 @@ package com.panozona.player.manager.utils{
 	
 	public class Branding extends Sprite{
 		
-		[Embed(source="../assets/powered_by_saladoplayer.png")]
+		[Embed(source="../assets/powered_by_openpano.png")]
 		private static var Bitmap_pbsp:Class;
 		
 		private var saladoPlayer:SaladoPlayer;
@@ -46,7 +46,7 @@ package com.panozona.player.manager.utils{
 			saladoPlayer = (this.parent as SaladoPlayer);
 			
 			var menu:ContextMenu = new ContextMenu();
-			var item:ContextMenuItem = new ContextMenuItem("Powered by SaladoPlayer");
+			var item:ContextMenuItem = new ContextMenuItem("Powered by OpenPano");
 			item.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, gotoPanoZona, false, 0, true);
 			menu.customItems.push(item);
 			saladoPlayer.contextMenu = menu;
@@ -87,9 +87,9 @@ package com.panozona.player.manager.utils{
 		
 		private function gotoPanoZona(e:Event):void {
 			try {
-				navigateToURL(new URLRequest("http://panozona.com/"), '_BLANK');
+				navigateToURL(new URLRequest("http://openpano.org/"), '_BLANK');
 			} catch (error:Error) {
-				saladoPlayer.traceWindow.printWarning("Could not open: http://panozona.com/");
+				saladoPlayer.traceWindow.printWarning("Could not open: http://openpano.org/");
 			}
 		}
 	}
