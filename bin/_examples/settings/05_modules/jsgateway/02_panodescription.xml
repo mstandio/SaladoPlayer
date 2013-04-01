@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	../../_manual/index.html?module_jsgateway.html
+	See: [../../_manual/index.html?module_jsgateway.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
@@ -22,15 +22,3 @@
 		</JSGateway>
 	</modules>
 </SaladoPlayer>
-
-
-
-
-
-
-
-
-
-
-
-

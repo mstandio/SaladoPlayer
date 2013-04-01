@@ -7,332 +7,691 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body class="mediawiki ltr ns-0 ns-subject page-Module_ExampleModule skin-vector">
+
+
+
+
         <div id="content">
+
+
+
+
             <h1 class="firstHeading" id="firstHeading">Module:ExampleModule</h1>
+
+
+
             <div id="bodyContent">
+
+
                 <h3 id="siteSub">From PanoZona</h3>
+
+
+
+
+
+
+
+
+
                 <table class="toc" id="toc">
                     <tr>
                         <td>
                             <div id="toctitle">
                                 <h2>Contents</h2>
                             </div>
+
                             <ul>
+
                                 <li class="toclevel-1 tocsection-1">
                                     <a href="#Configuration_structure"><span class="tocnumber">1</span> <span class="toctext">Configuration structure</span></a>
                                 </li>
+
                                 <li class="toclevel-1 tocsection-2">
                                     <a href="#Configuration_details"><span class="tocnumber">2</span> <span class="toctext">Configuration details</span></a>
+
                                     <ul>
+
                                         <li class="toclevel-2 tocsection-3">
                                             <a href="#ExampleModule"><span class="tocnumber">2.1</span> <span class="toctext">ExampleModule</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-4">
                                             <a href="#settings"><span class="tocnumber">2.2</span> <span class="toctext">settings</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-5">
                                             <a href="#someParent"><span class="tocnumber">2.3</span> <span class="toctext">someParent</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-6">
                                             <a href="#someChild"><span class="tocnumber">2.4</span> <span class="toctext">someChild</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-7">
                                             <a href="#someToy"><span class="tocnumber">2.5</span> <span class="toctext">someToy</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-8">
                                             <a href="#someJob"><span class="tocnumber">2.6</span> <span class="toctext">someJob</span></a>
                                         </li>
+
                                     </ul>
+
                                 </li>
+
                                 <li class="toclevel-1 tocsection-9">
                                     <a href="#Exposed_functions"><span class="tocnumber">3</span> <span class="toctext">Exposed functions</span></a>
+
                                     <ul>
+
                                         <li class="toclevel-2 tocsection-10">
                                             <a href="#toggleVisibility"><span class="tocnumber">3.1</span> <span class="toctext">toggleVisibility</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-11">
                                             <a href="#echoNothing"><span class="tocnumber">3.2</span> <span class="toctext">echoNothing</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-12">
                                             <a href="#echoBoolean"><span class="tocnumber">3.3</span> <span class="toctext">echoBoolean</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-13">
                                             <a href="#echoNumber"><span class="tocnumber">3.4</span> <span class="toctext">echoNumber</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-14">
                                             <a href="#echoString"><span class="tocnumber">3.5</span> <span class="toctext">echoString</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-15">
                                             <a href="#echoAll"><span class="tocnumber">3.6</span> <span class="toctext">echoAll</span></a>
                                         </li>
+
                                     </ul>
+
                                 </li>
+
                             </ul>
+
                         </td>
                     </tr>
                 </table>
+
                 <div style="float:right;width:340px">
+
                     <table align="center" border="1" cellpadding="5" cellspacing="0" class="moduledesc_tab" style="width:315px; border-collapse: collapse; float:right">
+
+
                         <tr valign="top">
-                            <th align="center" colspan="2"> ExampleModule</th>
+
+                            <th align="center" colspan="2"> ExampleModule
+</th>
                         </tr>
+
                         <tr class="moduledesc_tab_odd" valign="top">
-                            <td> Author</td><td> Marek Standio</td>
+
+                            <td> Author
+</td><td> Marek Standio
+</td>
                         </tr>
+
                         <tr class="moduledesc_tab_even" valign="top">
-                            <td> Module version</td><td> 0.5</td>
+
+                            <td> Module version
+</td><td> 0.5
+</td>
                         </tr>
+
                         <tr class="moduledesc_tab_odd" valign="top">
-                            <td> Compatibility</td><td> SaladoPlayer 0.7 +</td>
+
+                            <td> Compatibility
+</td><td> SaladoPlayer 0.7 +
+</td>
                         </tr>
-                        <tr class="moduledesc_tab_even" valign="top">
-                            <td> Preview</td><td> <a class="internal" href="/w/images/1/13/Examplemodule.jpg" title="Examplemodule.jpg">screenshot</a></td>
-                        </tr>
-                        <tr class="moduledesc_tab_even" valign="top">
-                            <td align="center" colspan="2"> Download - included with SaladoPlayer</td>
-                        </tr>
+
                     </table>
+
                 </div>
-                <p>ExampleModule serves no other purpose then demonstraiting api solutions. Module cooperates with <a href="http://panozona.com/wiki/Module:NavigationBar" target="_BLANK" title="Module:NavigationBar">NavigationBar</a>, new extra button is shown that indicates and controlls ExampleModule visibility. Example module also demonstrates methods of obtaining data from configuration. Moudule source files are well commented, it is good starting point for creating new module.  </p>
+
+                <p>ExampleModule serves no other purpose then demonstraiting api solutions. Module cooperates with <a href="http://panozona.com/wiki/Module:NavigationBar" target="_BLANK" title="Module:NavigationBar">NavigationBar</a>, new extra button is shown that indicates and controlls ExampleModule visibility. Example module also demonstrates methods of obtaining data from configuration. Moudule source files are well commented, it is good starting point for creating new module.  
+</p>
+
                 <h2> 
                     <span class="mw-headline" id="Configuration_structure">Configuration structure</span>
                 </h2>
+
                 <ul>
                     <li> 
                         <a href="#ExampleModule">ExampleModule</a>
+
                         <ul>
                             <li> 
                                 <a href="#settings">settings</a>
+
                             </li>
                             <li> 
                                 <a href="#someParent">someParent</a>
+
                                 <ul>
                                     <li> 
                                         <a href="#someChild">someChild</a>
+
                                         <ul>
                                             <li> 
                                                 <a href="#someToy">someToy</a>
+
                                             </li>
                                         </ul>
+
                                     </li>
                                     <li> 
                                         <a href="#someJob">someJob</a>
+
                                     </li>
                                 </ul>
+
                             </li>
                         </ul>
+
                     </li>
                 </ul>
+
                 <h2> 
                     <span class="mw-headline" id="Configuration_details">Configuration details</span>
                 </h2>
+
                 <h3> 
                     <span class="mw-headline" id="ExampleModule">ExampleModule</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                         <caption class="attribute_tab_caption">
                             <b>Parent: modules</b>
+
                         </caption>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to swf file</td><td> Mandatory attribute. Value points to module swf file.</td>
+
+                        <td> path
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> path to swf file
+</td><td> Mandatory attribute. Value points to module swf file.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="settings">settings</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                         <caption class="attribute_tab_caption">
                             <b>Parent: ExampleModule</b>
+
+
                         </caption>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> open</td><td align="center"> B</td><td align="center" colspan="2"> -</td><td> true</td><td> true, false</td><td> Determines visibility of module on SaladoPlayer start.</td>
+
+                        <td> open
+</td><td align="center"> B
+</td><td align="center" colspan="2"> -
+</td><td> true
+</td><td> true, false
+</td><td> Determines visibility of module on SaladoPlayer start.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> onOpen</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> action id</td><td> Action executed on module closing.</td>
+
+                        <td> onOpen
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> action id
+</td><td> Action executed on module closing.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> onClose</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> action id</td><td> Action executed on module opening.</td>
+
+                        <td> onClose
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> action id
+</td><td> Action executed on module opening.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td rowspan="2"> tween</td><td align="center" rowspan="2"> O</td><td> transition</td><td align="center"> F</td><td> Linear.easeNone</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a></td><td> Determines type of animation used when module window is opening/closing.</td>
+
+                        <td rowspan="2"> tween
+</td><td align="center" rowspan="2"> O
+</td><td> transition
+</td><td align="center"> F
+</td><td> Linear.easeNone
+</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a>
+</td><td> Determines type of animation used when module window is opening/closing.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> time</td><td align="center"> N</td><td> 0.5</td><td align="center"> -</td><td> Duration in seconds of module window opening/closing animation.<p>
+
+                        <td> time
+</td><td align="center"> N
+</td><td> 0.5
+</td><td align="center"> -
+</td><td> Duration in seconds of module window opening/closing animation.
+<p>
                                 <br>
+
                             </p>
+
                         </td>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td rowspan="2"> align</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> S</td><td> left</td><td> left, right, center</td><td> Number of pixels element is moved horizontally.</td>
+
+                        <td rowspan="2"> align
+</td><td align="center" rowspan="2"> O
+</td><td> horizontal
+</td><td align="center"> S
+</td><td> left
+</td><td> left, right, center
+</td><td> Number of pixels element is moved horizontally.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> vertical</td><td align="center"> S</td><td> middle</td><td> top, middle, bottom</td><td> Vertical alignment of element against panorama window.</td>
+
+                        <td> vertical
+</td><td align="center"> S
+</td><td> middle
+</td><td> top, middle, bottom
+</td><td> Vertical alignment of element against panorama window.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td rowspan="2"> move</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> N</td><td> 10</td><td align="center"> -</td><td> Number of pixels element is moved horizontally.</td>
+
+                        <td rowspan="2"> move
+</td><td align="center" rowspan="2"> O
+</td><td> horizontal
+</td><td align="center"> N
+</td><td> 10
+</td><td align="center"> -
+</td><td> Number of pixels element is moved horizontally.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> vertical</td><td align="center"> N</td><td> 0</td><td align="center"> -</td><td> Number of pixels element is moved vertically.</td>
+
+                        <td> vertical
+</td><td align="center"> N
+</td><td> 0
+</td><td align="center"> -
+</td><td> Number of pixels element is moved vertically.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="someParent">someParent</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                         <caption class="attribute_tab_caption">
                             <b>Parent: ExampleModule</b>
+
                         </caption>
                     </tr>
+
+
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td rowspan="3"> info</td><td align="center" rowspan="3"> O</td><td> booleanSubValue</td><td align="center"> B</td><td> false</td><td> true, false</td><td> Sample Boolean sub-attribute.</td>
+
+                        <td rowspan="3"> info
+</td><td align="center" rowspan="3"> O
+</td><td> booleanSubValue
+</td><td align="center"> B
+</td><td> false
+</td><td> true, false
+</td><td> Sample Boolean sub-attribute.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> numberSubValue</td><td align="center"> N</td><td> NAN</td><td align="center"> -</td><td> Sample Number sub-attribute.</td>
+
+                        <td> numberSubValue
+</td><td align="center"> N
+</td><td> NAN
+</td><td align="center"> -
+</td><td> Sample Number sub-attribute.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> stringSubValue</td><td align="center"> S</td><td align="center"> -</td><td align="center"> -</td><td> Sample String sub-attribute.</td>
+
+                        <td> stringSubValue
+</td><td align="center"> S
+</td><td align="center"> -
+</td><td align="center"> -
+</td><td> Sample String sub-attribute.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="someChild">someChild</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                         <caption class="attribute_tab_caption">
                             <b>Parent: someParent</b>
+
                         </caption>
                     </tr>
+
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> happy</td><td align="center"> B</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Sample Boolean value.</td>
+
+                        <td> happy
+</td><td align="center"> B
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td align="center"> -
+</td><td> Sample Boolean value.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="someToy">someToy</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                         <caption class="attribute_tab_caption">
                             <b>Parent: someChild</b>
+
                         </caption>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> name</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Sample String value.</td>
+
+                        <td> name
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td align="center"> -
+</td><td> Sample String value.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> price</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Sample Number value.</td>
+
+                        <td> price
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td align="center"> -
+</td><td> Sample Number value.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="someJob">someJob</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                         <caption class="attribute_tab_caption">
                             <b>Parent: someParent</b>
+
                         </caption>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> Wages</td><td align="center"> N</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Sample Number value.</td>
+
+                        <td> Wages
+</td><td align="center"> N
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td align="center"> -
+</td><td> Sample Number value.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> text</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Sample String value. Name of this attribute indicates, that its value can either be obtained traditionally, or by adding CDATA child to someJob node.</td>
+
+                        <td> text
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td align="center"> -
+</td><td> Sample String value. Name of this attribute indicates, that its value can either be obtained traditionally, or by adding CDATA child to someJob node.
+</td>
                     </tr>
                 </table>
+
                 <h2> 
                     <span class="mw-headline" id="Exposed_functions">Exposed functions</span>
                 </h2>
+
                 <h3> 
                     <span class="mw-headline" id="toggleVisibility">toggleVisibility</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
                     </tr>
+
                     <tr class="modulefunct_tab_odd" valign="top">
-                        <td align="center"> -</td><td align="center"> -</td><td> Calling this function toggles module visibility. If called when module is visible it hides module, same thing other way around.</td>
+
+                        <td align="center"> -
+</td><td align="center"> -
+</td><td> Calling this function toggles module visibility. If called when module is visible it hides module, same thing other way around.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="echoNothing">echoNothing</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
                     </tr>
+
                     <tr class="modulefunct_tab_odd" valign="top">
-                        <td align="center"> -</td><td align="center"> -</td><td> Prints mesaage hard-coded into module.</td>
+
+                        <td align="center"> -
+</td><td align="center"> -
+</td><td> Prints mesaage hard-coded into module.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="echoBoolean">echoBoolean</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
                     </tr>
+
                     <tr class="modulefunct_tab_odd" valign="top">
-                        <td align="center"> B</td><td> Sample Boolean value.</td><td> Function prints given Boolean value trace window.</td>
+
+                        <td align="center"> B
+</td><td> Sample Boolean value.
+</td><td> Function prints given Boolean value trace window.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="echoNumber">echoNumber</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
                     </tr>
+
                     <tr class="modulefunct_tab_odd" valign="top">
-                        <td align="center"> N</td><td> Sample Number value.</td><td> Function prints given Number value trace window.</td>
+
+                        <td align="center"> N
+</td><td> Sample Number value.
+</td><td> Function prints given Number value trace window.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="echoString">echoString</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
                     </tr>
+
                     <tr class="modulefunct_tab_odd" valign="top">
-                        <td align="center"> S</td><td> Sample String value.</td><td> Function prints given String value trace window.</td>
+
+                        <td align="center"> S
+</td><td> Sample String value.
+</td><td> Function prints given String value trace window.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="echoAll">echoAll</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
                     </tr>
+
                     <tr class="modulefunct_tab_odd" valign="top">
-                        <td align="center"> B</td><td> Sample Boolean value.</td><td rowspan="3"> Function prints all given values in trace window.<p>
+
+                        <td align="center"> B
+</td><td> Sample Boolean value.
+</td><td rowspan="3"> Function prints all given values in trace window.
+<p>
                                 <br>
+
                             </p>
+
                         </td>
                     </tr>
+
                     <tr class="modulefunct_tab_even" valign="top">
-                        <td align="center"> N</td><td> Sample Number value.</td>
+
+                        <td align="center"> N
+</td><td> Sample Number value.
+</td>
                     </tr>
+
                     <tr class="modulefunct_tab_odd" valign="top">
-                        <td align="center"> S</td><td> Sample String value.</td>
+
+                        <td align="center"> S
+</td><td> Sample String value.
+</td>
                     </tr>
                 </table>
+
+
+
+
+
                 <br>
                 <br>
                 <br>
                 <br>
-                <div class="printfooter">Retrieved from "<a href="module_examplemodule.html">http://panozona.com/wiki/Module:ExampleModule</a>"</div>
+                <div class="printfooter">
+Retrieved from "<a href="module_examplemodule.html">http://panozona.com/wiki/Module:ExampleModule</a>"</div>
+
+
+
+
+
             </div>
+
+
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </body>
 </html>

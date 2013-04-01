@@ -7,253 +7,618 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body class="mediawiki ltr ns-0 ns-subject page-Module_PanoLink skin-vector">
+
+
+
+
         <div id="content">
+
+
+
+
             <h1 class="firstHeading" id="firstHeading">Module:PanoLink</h1>
+
+
+
             <div id="bodyContent">
+
+
                 <h3 id="siteSub">From PanoZona</h3>
+
+
+
+
+
+
+
+
+
                 <table class="toc" id="toc">
                     <tr>
                         <td>
                             <div id="toctitle">
                                 <h2>Contents</h2>
                             </div>
+
                             <ul>
+
                                 <li class="toclevel-1 tocsection-1">
                                     <a href="#Configuration_structure"><span class="tocnumber">1</span> <span class="toctext">Configuration structure</span></a>
                                 </li>
+
                                 <li class="toclevel-1 tocsection-2">
                                     <a href="#Configuration_details"><span class="tocnumber">2</span> <span class="toctext">Configuration details</span></a>
+
                                     <ul>
+
                                         <li class="toclevel-2 tocsection-3">
-                                            <a href="#Compass"><span class="tocnumber">2.1</span> <span class="toctext">Compass</span></a>
+                                            <a href="#PanoLink"><span class="tocnumber">2.1</span> <span class="toctext">PanoLink</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-4">
                                             <a href="#settings"><span class="tocnumber">2.2</span> <span class="toctext">settings</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-5">
                                             <a href="#window"><span class="tocnumber">2.3</span> <span class="toctext">window</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-6">
                                             <a href="#close"><span class="tocnumber">2.4</span> <span class="toctext">close</span></a>
                                         </li>
+
                                     </ul>
+
                                 </li>
+
                                 <li class="toclevel-1 tocsection-7">
-                                    <a href="#Exposed_functions"><span class="tocnumber">3</span> <span class="toctext">Exposed functions</span></a>
+                                    <a href="#Functions"><span class="tocnumber">3</span> <span class="toctext">Functions</span></a>
+
                                     <ul>
+
                                         <li class="toclevel-2 tocsection-8">
                                             <a href="#setOpen"><span class="tocnumber">3.1</span> <span class="toctext">setOpen</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-9">
                                             <a href="#toggleOpen"><span class="tocnumber">3.2</span> <span class="toctext">toggleOpen</span></a>
                                         </li>
+
                                     </ul>
+
                                 </li>
+
                             </ul>
+
                         </td>
                     </tr>
                 </table>
+
                 <div style="float:right;width:340px">
+
                     <table align="center" border="1" cellpadding="5" cellspacing="0" class="moduledesc_tab" style="width:315px; border-collapse: collapse; float:right">
+
+
                         <tr valign="top">
-                            <th align="center" colspan="2"> PanoLink</th>
+
+                            <th align="center" colspan="2"> PanoLink
+</th>
                         </tr>
+
                         <tr class="moduledesc_tab_odd" valign="top">
-                            <td> Author</td><td> Marek Standio</td>
+
+                            <td> Author
+</td><td> Marek Standio
+</td>
                         </tr>
+
                         <tr class="moduledesc_tab_even" valign="top">
-                            <td> Module version</td><td> 1.1</td>
+
+                            <td> Module version
+</td><td> 1.3
+</td>
                         </tr>
+
                         <tr class="moduledesc_tab_odd" valign="top">
-                            <td> Compatibility</td><td> SaladoPlayer 1.0 +</td>
-                        </tr>
-                        <tr class="moduledesc_tab_even" valign="top">
-                            <td> Preview</td><td align="center"> -</td>
-                        </tr>
-                        <tr class="moduledesc_tab_odd" valign="top">
-                            <td align="center" colspan="2"> Download - included with SaladoPlayer 1.3 +</td>
+
+                            <td> Compatibility
+</td><td> SaladoPlayer 1.0 +
+</td>
                         </tr>
                     </table>
+
                 </div>
-                <p>Panlink works in two ways: First it interprets url of the site in which panorama is embeded, and if it is able to find variables determinig which panorama to show and what camera parameters to apply, overrides first panorama specified in cinfiguration, and uses one found in url instead. Secondly it has window with textfiled that whenever opened contains url that ponits to given panorama and given view, which can be used by the same module. </p>
+
+                <p>Panlink works in two ways: First it interprets url of the site in which panorama is embeded, and if it is able to find variables determinig which panorama to show and what camera parameters to apply, overrides first panorama specified in configuration, and uses one found in url instead. Secondly it has window with textfiled that whenever opened contains url that points to given panorama and given view, which can be used by the same module. 
+</p>
+
                 <h2> 
                     <span class="mw-headline" id="Configuration_structure">Configuration structure</span>
                 </h2>
+
                 <ul>
                     <li> 
                         <a href="#PanoLink">PanoLink</a>
+
                         <ul>
                             <li> 
                                 <a href="#settings">settings</a>
+
                             </li>
                             <li> 
                                 <a href="#window">window</a>
+
                             </li>
                             <li> 
                                 <a href="#close">close</a>
+
                             </li>
                         </ul>
+
                     </li>
                 </ul>
+
                 <h2> 
                     <span class="mw-headline" id="Configuration_details">Configuration details</span>
                 </h2>
+
                 <h3> 
-                    <span class="mw-headline" id="Compass">Compass</span>
+                    <span class="mw-headline" id="PanoLink">PanoLink</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
-                        <caption class="attribute_tab_caption">
-                            <b>Parent: modules</b>
-                        </caption>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to swf file</td><td> Mandatory attribute. Value points to module swf file.</td>
+
+                        <td> path
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> path to swf file
+</td><td> Mandatory attribute. Value points to module swf file.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="settings">settings</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
-                        <caption class="attribute_tab_caption">
-                            <b>Parent: PanoLink</b>
-                        </caption>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to image</td><td> description</td>
+
+                        <td> path
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> path to image
+</td><td> Bitmap grid that contains bitmaps for "copy" button.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td rowspan="6"> style</td><td align="center" rowspan="6"> O</td><td> width</td><td align="center"> N</td><td> 330</td><td align="center"> -</td><td> Width of textbox</td>
+
+                        <td> minLength
+</td><td align="center"> N
+</td><td align="center" colspan="2"> -
+</td><td> 200
+</td><td align="center"> -
+</td><td> Determines minimal text box length measured along with button size.
+</td>
                     </tr>
-                    <tr class="attribute_tab_even" valign="top">
-                        <td> fontFamily</td><td align="center"> S</td><td> Tahoma</td><td> Tahoma, Verdana, Courier</td><td> Type of used font.</td>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> maxLength
+</td><td align="center"> N
+</td><td align="center" colspan="2"> -
+</td><td> 600
+</td><td align="center"> -
+</td><td> Determines maximal text box length measured along with button size.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> fontBold</td><td align="center"> B</td><td> true</td><td> true, false</td><td> Weight of font.</td>
+
+                        <td rowspan="5"> style
+</td><td align="center" rowspan="5"> O
+</td><td> fontFamily
+</td><td align="center"> S
+</td><td> Tahoma
+</td><td> Tahoma, Verdana, Courier
+</td><td> Type of used font.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> fontSize</td><td align="center"> N</td><td> 15</td><td align="center"> -</td><td> Size of used font.</td>
+
+                        <td> fontBold
+</td><td align="center"> B
+</td><td> true
+</td><td> true, false
+</td><td> Weight of font.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> fontColor</td><td align="center"> N</td><td> #FFFFFF</td><td> #000000 to #FFFFFF</td><td> Color of used font.</td>
+
+                        <td> fontSize
+</td><td align="center"> N
+</td><td> 15
+</td><td align="center"> -
+</td><td> Size of used font.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> backgroundColor</td><td align="center"> N</td><td> #000000</td><td> #000000 to #FFFFFF</td><td> Background of textbox</td>
+
+                        <td> fontColor
+</td><td align="center"> N
+</td><td> #FFFFFF
+</td><td> #000000 to #FFFFFF
+</td><td> Color of used font.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> backgroundColor
+</td><td align="center"> N
+</td><td> #000000
+</td><td> #000000 to #FFFFFF
+</td><td> Background of textbox
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="window">window</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
-                        <caption class="attribute_tab_caption">
-                            <b>Parent: PanoLink</b>
-                        </caption>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> open</td><td align="center"> B</td><td align="center" colspan="2"> -</td><td> true</td><td> true, false</td><td> Determines visibility of module window on SaladoPlayer start.</td>
+
+                        <td> open
+</td><td align="center"> B
+</td><td align="center" colspan="2"> -
+</td><td> false
+</td><td> true, false
+</td><td> Determines visibility of module window on SaladoPlayer start.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> alpha</td><td align="center"> N</td><td align="center" colspan="2"> -</td><td> 1.0</td><td> 0.1 to 1.0</td><td> Transparency of module window content.</td>
+
+                        <td> alpha
+</td><td align="center"> N
+</td><td align="center" colspan="2"> -
+</td><td> 1.0
+</td><td> 0.1 to 1.0
+</td><td> Transparency of module window content.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td rowspan="2"> align</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> S</td><td> right</td><td> left, center, right</td><td> Horizontal alignment of module window against panorama window.</td>
+
+                        <td rowspan="2"> align
+</td><td align="center" rowspan="2"> O
+</td><td> horizontal
+</td><td align="center"> S
+</td><td> right
+</td><td> left, center, right
+</td><td> Horizontal alignment of module window against panorama window.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> vertical</td><td align="center"> S</td><td> top</td><td> top, middle, bottom</td><td> Vertical alignment of module window against panorama window.</td>
+
+                        <td> vertical
+</td><td align="center"> S
+</td><td> top
+</td><td> top, middle, bottom
+</td><td> Vertical alignment of module window against panorama window.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td rowspan="2"> move</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> N</td><td> -20</td><td align="center"> -</td><td> Number of pixels module window is moved horizontally.</td>
+
+                        <td rowspan="4"> margin
+</td><td align="center" rowspan="4"> O
+</td><td> top
+</td><td align="center"> N
+</td><td> 10
+</td><td align="center"> -
+</td><td> Minimal distance from module window and top border of panorama window.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> vertical</td><td align="center"> N</td><td> 20</td><td align="center"> -</td><td> Number of pixels module window is moved vertically.</td>
+
+                        <td> bottom
+</td><td align="center"> N
+</td><td> 10
+</td><td align="center"> -
+</td><td> Minimal distance from module window and bottom border of panorama window.
+</td>
                     </tr>
-                    <tr class="attribute_tab_odd" valign="top">
-                        <td> transition</td><td align="center"> O</td><td> type</td><td align="center"> S</td><td> fade</td><td> fade, slideUp, slideDown, slideLeft, slideRight</td><td> Determines kind of transition used when module window is opening/closing.</td>
-                    </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td rowspan="2"> openTween</td><td align="center" rowspan="2"> O</td><td> transition</td><td align="center"> F</td><td> Linear.easeNone</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a></td><td> Determines type of animation used when module window is opening.</td>
+
+                        <td> left
+</td><td align="center"> N
+</td><td> 10
+</td><td align="center"> -
+</td><td> Minimal distance from module window and left border of panorama window.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> time</td><td align="center"> N</td><td> 0.5</td><td align="center"> -</td><td> Duration in seconds of module window opening animation.</td>
+
+                        <td> right
+</td><td align="center"> N
+</td><td> 10
+</td><td align="center"> -
+</td><td> Minimal distance from module window and right border of panorama window.
+<p>
+                                <br>
+
+                            </p>
+
+                        </td>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td rowspan="2"> closeTween</td><td align="center" rowspan="2"> O</td><td> transition</td><td align="center"> F</td><td> Linear.easeNone</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a></td><td> Determines type of animation used when module window is closing.</td>
+
+                        <td> transition
+</td><td align="center"> O
+</td><td> type
+</td><td align="center"> S
+</td><td> slideUp
+</td><td> fade, slideUp, slideDown, slideLeft, slideRight
+</td><td> Determines kind of transition used when module window is opening/closing.
+</td>
                     </tr>
-                    <tr class="attribute_tab_odd" valign="top">
-                        <td> time</td><td align="center"> N</td><td> 0.5</td><td align="center"> -</td><td> Duration in seconds of module window closing animation.</td>
-                    </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> onOpen</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> action id</td><td> Action executed when module window changed state to closed.</td>
+
+                        <td rowspan="2"> openTween
+</td><td align="center" rowspan="2"> O
+</td><td> transition
+</td><td align="center"> F
+</td><td> Linear.easeNone
+</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a>
+</td><td> Determines type of animation used when module window is opening.
+</td>
                     </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> time
+</td><td align="center"> N
+</td><td> 0.5
+</td><td align="center"> -
+</td><td> Duration in seconds of module window opening animation.
+</td>
+                    </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> onClose</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> action id</td><td> Action executed when module window changed state to opened.</td>
+
+                        <td rowspan="2"> closeTween
+</td><td align="center" rowspan="2"> O
+</td><td> transition
+</td><td align="center"> F
+</td><td> Linear.easeNone
+</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a>
+</td><td> Determines type of animation used when module window is closing.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> time
+</td><td align="center"> N
+</td><td> 0.5
+</td><td align="center"> -
+</td><td> Duration in seconds of module window closing animation.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_even" valign="top">
+
+                        <td> onOpen
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> action id
+</td><td> Action executed when module window changed state to closed.
+</td>
+                    </tr>
+
+                    <tr class="attribute_tab_odd" valign="top">
+
+                        <td> onClose
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> action id
+</td><td> Action executed when module window changed state to opened.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="close">close</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
-                        <caption class="attribute_tab_caption">
-                            <b>Parent: PanoLink</b>
-                        </caption>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to image file</td><td> Image file that will be used as close button. If path is not set, close button will not be added.</td>
+
+                        <td> path
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> path to image file
+</td><td> Image file that will be used as close button. If path is not set, close button will not be added.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td rowspan="2"> align</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> S</td><td> right</td><td> left, center, right</td><td> Horizontal alignment against module window.</td>
+
+                        <td rowspan="2"> align
+</td><td align="center" rowspan="2"> O
+</td><td> horizontal
+</td><td align="center"> S
+</td><td> right
+</td><td> left, center, right
+</td><td> Horizontal alignment against module window.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_even" valign="top">
-                        <td> vertical</td><td align="center"> S</td><td> top</td><td> top, middle, bottom</td><td> Vertical alignment against module window.</td>
+
+                        <td> vertical
+</td><td align="center"> S
+</td><td> top
+</td><td> top, middle, bottom
+</td><td> Vertical alignment against module window.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td rowspan="2"> move</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> N</td><td> 0</td><td align="center"> -</td><td> Number of pixels close button is moved horizontally.</td>
+
+                        <td rowspan="2"> move
+</td><td align="center" rowspan="2"> O
+</td><td> horizontal
+</td><td align="center"> N
+</td><td> 0
+</td><td align="center"> -
+</td><td> Number of pixels close button is moved horizontally.
+</td>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> vertical</td><td align="center"> N</td><td> 0</td><td align="center"> -</td><td> Number of pixels close button is moved vertically.</td>
+
+                        <td> vertical
+</td><td align="center"> N
+</td><td> 0
+</td><td align="center"> -
+</td><td> Number of pixels close button is moved vertically.
+</td>
                     </tr>
                 </table>
+
                 <p>
                     <br>
+
                 </p>
+
                 <h2> 
-                    <span class="mw-headline" id="Exposed_functions">Exposed functions</span>
+                    <span class="mw-headline" id="Functions">Functions</span>
                 </h2>
+
                 <h3> 
                     <span class="mw-headline" id="setOpen">setOpen</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
                     </tr>
+
                     <tr class="modulefunct_tab_odd" valign="top">
-                        <td align="center"> B</td><td> Value assigned to open attribute.</td><td> Opens / closes map window on demand. Opening window once window is open makes no effect, same thing for closing window.</td>
+
+                        <td align="center"> B
+</td><td> Value assigned to open attribute.
+</td><td> Opens / closes map window on demand. Opening window once window is open makes no effect, same thing for closing window.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="toggleOpen">toggleOpen</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
                     </tr>
+
                     <tr class="modulefunct_tab_odd" valign="top">
-                        <td align="center"> -</td><td align="center"> -</td><td> Calling this function toggles map window open state. If called when window is opened it closes window, same thing other way around.</td>
+
+                        <td align="center"> -
+</td><td align="center"> -
+</td><td> Calling this function toggles map window open state. If called when window is opened it closes window, same thing other way around.
+</td>
                     </tr>
                 </table>
+
+
+
+
+
                 <br>
                 <br>
                 <br>
                 <br>
-                <div class="printfooter">Retrieved from "<a href="module_panolink.html">http://panozona.com/wiki/Module:PanoLink</a>"</div>
+                <div class="printfooter">
+Retrieved from "<a href="module_panolink.html">http://panozona.com/wiki/Module:PanoLink</a>"</div>
+
+
+
+
+
             </div>
+
+
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </body>
 </html>

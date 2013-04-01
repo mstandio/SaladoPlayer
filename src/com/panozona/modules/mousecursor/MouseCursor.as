@@ -226,7 +226,7 @@ package com.panozona.modules.mousecursor {
 					cursorWrapper.rotationZ = 0;
 				}
 			}
-			if(!dragMode && !mouseCursorData.settings.hideLine){
+			if(!dragMode && mouseCursorData.settings.showLine){
 				graphics.clear();
 				if (mousePress) {
 					arrowAnchor.visible = true;

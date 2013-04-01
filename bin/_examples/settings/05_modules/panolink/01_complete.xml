@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	PanoLink generates new url containing current panorama id, pan, tilt and fov each time link
-	window is opened. Module also interprets generated links, loading specified panorama and view.
+	PanoLink generates url containing current panorama id, pan, tilt and fov each time panorama is moved.
+	Module also interprets generated links, loading panorama with view specified in generated url.
 	
-	Module is not finished yet and does not allow much customization.
-	
-	../../_manual/index.html?module_panolink.html
+	See: [../../_manual/index.html?module_panolink.html]
 -->
 <SaladoPlayer>
-	<global debug="true"/>
+	<global debug="true">
+		<trace align="vertical:bottom"/>
+	</global>
 	<panoramas>
 		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml">
 			<image id="cb_arrowRed" path="~media/images/spots/arrow_red.png" target="checkerRed"/>
@@ -19,23 +19,26 @@
 	</panoramas>
 	<modules>
 		<ViewFinder path="~modules/viewfinder/ViewFinder-1.3.swf"/>
-		<PanoLink path="~modules/panolink/PanoLink-1.1.swf">
+		<PanoLink path="~modules/panolink/PanoLink-1.3.swf">
 			<settings path="~modules/panolink/skins/copy_dark_30x30.png"/>
-			<window open="false" onOpen="onLinkOpen" onClose="onLinkClose"/>
+			<window open="false" onOpen="onOpenLink" onClose="onCloseLink" margin="left:150"/>
 		</PanoLink>
 		<ImageButton path="~modules/imagebutton/ImageButton-1.3.swf">
-			<button id="buttonOn" path="~media/images/misc/on.png" action="linkClose">
-				<window align="vertical:top,horizontal:left" move="horizontal:30,vertical:30"/>
-			</button>
-			<button id="buttonOff" path="~media/images/misc/off.png" action="linkOpen">
-				<window align="vertical:top,horizontal:left" move="horizontal:30,vertical:30"/>
+			<button id="mapPanel">
+				<window align="horizontal:left,vertical:middle"/>
+				<subButtons>
+					<subButton id="buttonOpen" path="~media/images/buttons/glossy_green.png" move="vertical:-30" action="openLink"/>
+					<subButton id="buttonToggle" path="~media/images/buttons/glossy_yellow.png" move="horizontal:50" action="toggleOpenLink"/>
+					<subButton id="buttonClose" path="~media/images/buttons/glossy_red.png" move="vertical:30" action="closeLink"/>
+				</subButtons>
 			</button>
 		</ImageButton>
 	</modules>
 	<actions>
-		<action id="linkOpen" content="PanoLink.setOpen(true)"/>
-		<action id="linkClose" content="PanoLink.setOpen(false)"/>
-		<action id="onLinkOpen" content="ImageButton.setOpen(buttonOn,true)"/>
-		<action id="onLinkClose" content="ImageButton.setOpen(buttonOn,false)"/>
+		<action id="openLink" content="PanoLink.setOpen(true)"/>
+		<action id="closeLink" content="PanoLink.setOpen(false)"/>
+		<action id="toggleOpenLink" content="PanoLink.toggleOpen()"/>
+		<action id="onOpenLink" content="ImageButton.setActive(buttonOpen,true);ImageButton.setActive(buttonClose,false)"/>
+		<action id="onCloseLink" content="ImageButton.setActive(buttonOpen,false);ImageButton.setActive(buttonClose,true)"/>
 	</actions>
 </SaladoPlayer>

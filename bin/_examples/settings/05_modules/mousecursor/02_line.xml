@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	../../_manual/index.html?module_mousecursor.html
+	See: [../../_manual/index.html?module_mousecursor.html]
 -->
 <SaladoPlayer>
-	<global debug="true"/>
+	<global debug="true">
+		<control mouseInertial="enabled:true" mouseDrag="enabled:false"/>
+	</global>
 	<panoramas>
 		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml"/>
 	</panoramas>
 	<modules>
-		<MouseCursor path="~modules/mousecursor/MouseCursor-1.2.swf">
-			<settings path="~modules/mousecursor/skins/cursors_31x31.png" hideLine="false" style="lineColor:#FFFFFF,lineSize:2"/>
+		<MouseCursor path="~modules/mousecursor/MouseCursor-1.3.swf">
+			<settings path="~modules/mousecursor/skins/cursors_31x31.png" showLine="true" style="lineColorInner:#FFFFFF,lineColorOuter:#000000,lineSize:5"/>
 		</MouseCursor>
 	</modules>
 </SaladoPlayer>

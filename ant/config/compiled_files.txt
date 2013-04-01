@@ -53,19 +53,19 @@ LinkOpener.as  = src/com/panozona/modules/linkopener/LinkOpener.as
 LinkOpener.swf = bin/modules/linkopener/LinkOpener-1.1.swf
 
 MenuScroller.as  = src/com/panozona/modules/menuscroller/MenuScroller.as
-MenuScroller.swf = bin/modules/menuscroller/MenuScroller-1.3.2.swf
+MenuScroller.swf = bin/modules/menuscroller/MenuScroller-1.3.3.swf
 
 MouseCursor.as  = src/com/panozona/modules/mousecursor/MouseCursor.as
-MouseCursor.swf = bin/modules/mousecursor/MouseCursor-1.2.swf
+MouseCursor.swf = bin/modules/mousecursor/MouseCursor-1.3.swf
 
 PanoLink.as  = src/com/panozona/modules/panolink/PanoLink.as
-PanoLink.swf = bin/modules/panolink/PanoLink-1.1.swf
+PanoLink.swf = bin/modules/panolink/PanoLink-1.3.swf
 
 ViewFinder.as  = src/com/panozona/modules/viewfinder/ViewFinder.as
 ViewFinder.swf = bin/modules/viewfinder/ViewFinder-1.3.swf
 
 ZoomSlider.as  = src/com/panozona/modules/zoomslider/ZoomSlider.as
-ZoomSlider.swf = bin/modules/zoomslider/ZoomSlider-1.2.swf
+ZoomSlider.swf = bin/modules/zoomslider/ZoomSlider-1.3.swf
 
 # spots
 

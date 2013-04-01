@@ -4,7 +4,7 @@
 	Assign actions that will be executed whenever MenuScroller changes "open" state,
 	so this change could be reflected in your interface, for example by changing state of buttons.
 	
-	../../_manual/index.html?module_menuscroller.html
+	See: [../../_manual/index.html?module_menuscroller.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
@@ -18,7 +18,7 @@
 		</panorama>
 	</panoramas>
 	<modules>
-		<MenuScroller path="~modules/menuscroller/MenuScroller-1.3.2.swf">
+		<MenuScroller path="~modules/menuscroller/MenuScroller-1.3.3.swf">
 			<window open="false" onOpen="printOpen" onClose="printClose"/>
 			<scroller style="color:#FFFFFF,alpha:0.75"/>
 			<groups>

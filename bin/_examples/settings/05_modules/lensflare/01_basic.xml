@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	../../_manual/index.html?module_lensflare.html
+	Place lens flares on light sources located inside panorama for greater immersion.
+	
+	See: [../../_manual/index.html?module_lensflare.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>

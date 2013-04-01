@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	../../_manual/index.html?module_lensflare.html
+	You can place many lens flares inside given panorama though this probably won't look nice.
+	
+	See: [../../_manual/index.html?module_lensflare.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>

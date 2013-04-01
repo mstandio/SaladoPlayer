@@ -3,7 +3,7 @@
 	Assign mouse events on interaction with each element or extraElement. You can display
 	content when mouse is hovering over element with other modules, like InfoBubble.
 	
-	../../_manual/index.html?module_menuscroller.html
+	See: [../../_manual/index.html?module_menuscroller.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
@@ -13,11 +13,11 @@
 		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml"/>
 	</panoramas>
 	<modules>
-		<MenuScroller path="~modules/menuscroller/MenuScroller-1.3.2.swf">
+		<MenuScroller path="~modules/menuscroller/MenuScroller-1.3.3.swf">
 			<groups>
 				<group id="g1">
 					<element target="checkerBlue" path="~media/images/thumbs/checker_blue.jpg" mouse="onOver:blueOnOver,onOut:blueOnOut"/>
-					<extraElement id="logo" action="printHello" path="~media/images/misc/panozona_logo.png" mouse="onOver:logoOnOver,onOut:logoOnOut"/>
+					<extraElement id="logo" action="printHello" path="~media/images/misc/openpano_logo.png" mouse="onOver:logoOnOver,onOut:logoOnOut"/>
 				</group>
 			</groups>
 		</MenuScroller>

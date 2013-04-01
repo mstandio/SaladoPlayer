@@ -7,174 +7,342 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body class="mediawiki ltr ns-0 ns-subject page-Module_ActionLogic skin-vector">
+
+
+
+
         <div id="content">
+
+
+
+
             <h1 class="firstHeading" id="firstHeading">Module:ActionLogic</h1>
+
+
+
             <div id="bodyContent">
+
+
                 <h3 id="siteSub">From PanoZona</h3>
+
+
+
+
+
+
+
+
+
                 <table class="toc" id="toc">
                     <tr>
                         <td>
                             <div id="toctitle">
                                 <h2>Contents</h2>
                             </div>
+
                             <ul>
+
                                 <li class="toclevel-1 tocsection-1">
                                     <a href="#Configuration_structure"><span class="tocnumber">1</span> <span class="toctext">Configuration structure</span></a>
                                 </li>
+
                                 <li class="toclevel-1 tocsection-2">
                                     <a href="#Configuration_details"><span class="tocnumber">2</span> <span class="toctext">Configuration details</span></a>
+
                                     <ul>
+
                                         <li class="toclevel-2 tocsection-3">
                                             <a href="#ActionLogic"><span class="tocnumber">2.1</span> <span class="toctext">ActionLogic</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-4">
                                             <a href="#script"><span class="tocnumber">2.2</span> <span class="toctext">script</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-5">
                                             <a href="#condition"><span class="tocnumber">2.3</span> <span class="toctext">condition</span></a>
                                         </li>
+
                                         <li class="toclevel-2 tocsection-6">
                                             <a href="#equals"><span class="tocnumber">2.4</span> <span class="toctext">equals</span></a>
                                         </li>
+
                                     </ul>
+
                                 </li>
+
                                 <li class="toclevel-1 tocsection-7">
                                     <a href="#Exposed_functions"><span class="tocnumber">3</span> <span class="toctext">Exposed functions</span></a>
+
                                     <ul>
+
                                         <li class="toclevel-2 tocsection-8">
                                             <a href="#runScript"><span class="tocnumber">3.1</span> <span class="toctext">runScript</span></a>
                                         </li>
+
                                     </ul>
+
                                 </li>
+
                             </ul>
+
                         </td>
                     </tr>
                 </table>
+
                 <div style="float:right;width:340px">
+
                     <table align="center" border="1" cellpadding="5" cellspacing="0" class="moduledesc_tab" style="width:315px; border-collapse: collapse; float:right">
+
+
                         <tr valign="top">
-                            <th align="center" colspan="2"> ActionLogic</th>
+
+                            <th align="center" colspan="2"> ActionLogic
+</th>
                         </tr>
+
                         <tr class="moduledesc_tab_odd" valign="top">
-                            <td> Author</td><td> Marek Standio</td>
+
+                            <td> Author
+</td><td> Marek Standio
+</td>
                         </tr>
+
                         <tr class="moduledesc_tab_even" valign="top">
-                            <td> Module version</td><td> 1.0</td>
+
+                            <td> Module version
+</td><td> 1.0
+</td>
                         </tr>
+
                         <tr class="moduledesc_tab_odd" valign="top">
-                            <td> Compatibility</td><td> SaladoPlayer 1.0 +</td>
-                        </tr>
-                        <tr class="moduledesc_tab_even" valign="top">
-                            <td align="center" colspan="2"> <a class="external text" href="http://panozona.com/files/ActionLogic-1.0.zip" rel="nofollow" target="_BLANK">ActionLogic-1.0.zip</a></td>
+
+                            <td> Compatibility
+</td><td> SaladoPlayer 1.0 +
+</td>
                         </tr>
                     </table>
+
                 </div>
-                <p>For now this is just a sketch of module that will enable simple logic in virtual tours configuration.</p>
+
+                <p>For now this is just a sketch of module that will enable simple logic in virtual tours configuration.
+</p>
+
                 <h2> 
                     <span class="mw-headline" id="Configuration_structure">Configuration structure</span>
                 </h2>
+
                 <ul>
                     <li> 
                         <a href="#ActionLogic">ActionLogic</a>
+
                         <ul>
-                            <li> scripts<ul>
+                            <li> scripts
+<ul>
                                     <li> 
                                         <a href="#script">script</a>
+
                                         <ul>
                                             <li> 
                                                 <a href="#condition">condition</a>
+
                                                 <ul>
                                                     <li> 
                                                         <a href="#equals">equals</a>
+
                                                     </li>
                                                 </ul>
+
                                             </li>
                                         </ul>
+
                                     </li>
                                 </ul>
+
                             </li>
                         </ul>
+
                     </li>
                 </ul>
+
                 <h2> 
                     <span class="mw-headline" id="Configuration_details">Configuration details</span>
                 </h2>
+
                 <h3> 
                     <span class="mw-headline" id="ActionLogic">ActionLogic</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                         <caption class="attribute_tab_caption">
                             <b>Parent: modules</b>
+
                         </caption>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to swf file</td><td> Mandatory attribute. Value points to module swf file.</td>
+
+                        <td> path
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> path to swf file
+</td><td> Mandatory attribute. Value points to module swf file.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="script">script</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                         <caption class="attribute_tab_caption">
                             <b>Parent: scripts</b>
+
+
                         </caption>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> id</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Mandatory attribute. Must be unique among other script nodes</td>
+
+                        <td> id
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td align="center"> -
+</td><td> Mandatory attribute. Must be unique among other script nodes
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="condition">condition</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                         <caption class="attribute_tab_caption">
                             <b>Parent: script</b>
+
+
                         </caption>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> onSatisfy</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> action id</td><td> Mandatory attribute. Action executed when given condition is satisfied.</td>
+
+                        <td> onSatisfy
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> action id
+</td><td> Mandatory attribute. Action executed when given condition is satisfied.
+</td>
                     </tr>
                 </table>
+
                 <h3> 
                     <span class="mw-headline" id="equals">equals</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
+</th>
                         <caption class="attribute_tab_caption">
                             <b>Parent: script</b>
+
+
                         </caption>
                     </tr>
+
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> currentPanorama</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> panorama id</td><td> Id of panorama that needs to be currently displayed in order to satisfy given condition.</td>
+
+                        <td> currentPanorama
+</td><td align="center"> S
+</td><td align="center" colspan="2"> -
+</td><td align="center"> -
+</td><td> panorama id
+</td><td> Id of panorama that needs to be currently displayed in order to satisfy given condition.
+</td>
                     </tr>
                 </table>
+
                 <h2> 
                     <span class="mw-headline" id="Exposed_functions">Exposed functions</span>
                 </h2>
+
                 <h3> 
                     <span class="mw-headline" id="runScript">runScript</span>
                 </h3>
+
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+
                     <tr>
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
+
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
+</th>
                     </tr>
+
                     <tr class="modulefunct_tab_odd" valign="top">
-                        <td align="center"> B</td><td> script id</td><td> Runs script of given id.</td>
+
+                        <td align="center"> B
+</td><td> script id
+</td><td> Runs script of given id.
+</td>
                     </tr>
                 </table>
+
+
+
+
+
                 <br>
                 <br>
                 <br>
                 <br>
-                <div class="printfooter">Retrieved from "<a href="module_actionlogic.html">http://panozona.com/wiki/Module:ActionLogic</a>"</div>
+                <div class="printfooter">
+Retrieved from "<a href="module_actionlogic.html">http://panozona.com/wiki/Module:ActionLogic</a>"</div>
+
+
+
+
+
             </div>
+
+
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </body>
 </html>

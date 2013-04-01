@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	Altenratively, you can preview pan and tilt at cursor position, but it is recommended
+	Altenratively, you can preview pan and tilt values at cursor position, but it is recommended
 	to use default method as it is more reliable and less confusing.
 	
-	../../_manual/index.html?module_viewfinder.html
+	See: [../../_manual/index.html?module_viewfinder.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	JSGoogleMap is module that uses external javascript files. See source of _showcase/jsgooglemap/index.html
+	JSGoogleMap is module that uses external javascript files.
+	See source of _examples/standalone/jsgooglemap/index.html
 	
-	../../_manual/index.html?module_jsgooglemap.html
+	See: [../../_manual/index.html?module_jsgooglemap.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>

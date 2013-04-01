@@ -2,7 +2,7 @@
 <!--
 	Module can display current viewing direction (pan + direction).
 	
-	../../_manual/index.html?module_viewfinder.html
+	See: [../../_manual/index.html?module_viewfinder.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>

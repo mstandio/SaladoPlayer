@@ -4,7 +4,7 @@
 	It reacts to changes of mouseInertial and mouseDrag in SaladoPlayer and displayes images
 	reflecting their current "enabled" state.
 	
-	../../_manual/index.html?module_mousecursor.html
+	See: [../../_manual/index.html?module_mousecursor.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
@@ -14,8 +14,13 @@
 		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml"/>
 	</panoramas>
 	<modules>
-		<MouseCursor path="~modules/mousecursor/MouseCursor-1.2.swf">
+		<MouseCursor path="~modules/mousecursor/MouseCursor-1.3.swf">
 			<settings path="~modules/mousecursor/skins/cursors_31x31.png"/>
 		</MouseCursor>
+		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">
+			<buttons path="~modules/buttonbar/skins/buttons_dark_40x40.png">
+				<button name="drag"/>
+			</buttons>
+		</ButtonBar>
 	</modules>
 </SaladoPlayer>

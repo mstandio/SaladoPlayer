@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	ViewFinder can be added into SaladoPlayer with single line of XML code.
-	Use it to determine hotspots position and limits of camera view.
+	Use it to determine spots position and limits of camera view.
 	
-	../../_manual/index.html?module_viewfinder.html
+	See: [../../_manual/index.html?module_viewfinder.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
