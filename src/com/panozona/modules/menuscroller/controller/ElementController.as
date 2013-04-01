@@ -185,7 +185,7 @@ package com.panozona.modules.menuscroller.controller {
 					scaleY: plainScale * hoverScale,
 					x: -_elementView.elementData.plainSize.width * hoverScale * 0.5,
 					y: -_elementView.elementData.plainSize.height * hoverScale * 0.5,
-					time: useTime ? scroller.overTween.time * 0.5 : 0,
+					time: useTime ? scroller.overTween.time * 0.25 : 0,
 					transition: scroller.overTween.transition
 				});
 			} else {

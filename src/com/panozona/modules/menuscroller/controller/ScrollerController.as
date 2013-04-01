@@ -146,7 +146,6 @@ package com.panozona.modules.menuscroller.controller{
 				} else if (_scrollerView.elementsContainer.x > 0) {
 					_scrollerView.elementsContainer.x = 0;
 				}
-				trace(_scrollerView.menuScrollerData.scrollerData.totalSize);
 			}
 			onEnterFrame();
 		}
@@ -156,7 +155,8 @@ package com.panozona.modules.menuscroller.controller{
 		}
 		
 		private function onElementActive(e:Event = null):void {
-			handleWindowSizeChange();
+			recalulateTotalSize();
+			onEnterFrame();
 		}
 		
 		private function recalulateTotalSize():void {
