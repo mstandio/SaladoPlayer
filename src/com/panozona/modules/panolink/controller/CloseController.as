@@ -37,7 +37,7 @@ package com.panozona.modules.panolink.controller {
 			_closeView = closeView;
 			_module = module;
 			
-			_closeView.panoLinkData.windowData.addEventListener(WindowEvent.CHANGED_SIZE, placeonWindow, false, 0, true);
+			_closeView.panoLinkData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, placeonWindow, false, 0, true);
 			
 			if (_closeView.panoLinkData.close.path == null) {
 				return;
@@ -67,16 +67,16 @@ package com.panozona.modules.panolink.controller {
 			if (_closeView.panoLinkData.close.align.horizontal == Align.LEFT) {
 				_closeView.x = 0;
 			}else if (_closeView.panoLinkData.close.align.horizontal == Align.RIGHT) {
-				_closeView.x = _closeView.panoLinkData.windowData.size.width - _closeView.width;
+				_closeView.x = _closeView.panoLinkData.windowData.currentSize.width - _closeView.width;
 			}else { // CENTER
-				_closeView.x = (_closeView.panoLinkData.windowData.size.width - _closeView.width) * 0.5;
+				_closeView.x = (_closeView.panoLinkData.windowData.currentSize.width - _closeView.width) * 0.5;
 			}
 			if (_closeView.panoLinkData.close.align.vertical == Align.TOP){
 				_closeView.y = 0;
 			}else if (_closeView.panoLinkData.close.align.vertical == Align.BOTTOM) {
-				_closeView.y = _closeView.panoLinkData.windowData.size.height - _closeView.height;
+				_closeView.y = _closeView.panoLinkData.windowData.currentSize.height - _closeView.height;
 			}else { // MIDDLE
-				_closeView.y = (_closeView.panoLinkData.windowData.size.height - _closeView.height) * 0.5;
+				_closeView.y = (_closeView.panoLinkData.windowData.currentSize.height - _closeView.height) * 0.5;
 			}
 			_closeView.x += _closeView.panoLinkData.close.move.horizontal;
 			_closeView.y += _closeView.panoLinkData.close.move.vertical;

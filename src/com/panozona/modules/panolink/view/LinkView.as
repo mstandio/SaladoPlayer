@@ -53,11 +53,11 @@ package com.panozona.modules.panolink.view {
 			textField.background = true;
 			textField.backgroundColor = _panoLinkData.settings.style.backgroundColor;
 			textField.alwaysShowSelection = true;
-			textField.width = _panoLinkData.settings.style.width;
-			textField.height = _panoLinkData.settings.style.fontSize * 1.4;
 			textField.defaultTextFormat = textFormat;
 			textField.selectable = false;
 			addChild(textField);
+			
+			draw();
 		}
 		
 		public function setBitmapsData(plainBitmapData:BitmapData, activeBitmapData:BitmapData):void {
@@ -69,15 +69,20 @@ package com.panozona.modules.panolink.view {
 			copyButton.overState = copyPlainIcon;
 			copyButton.downState = copyPressIcon;
 			copyButton.hitTestState = copyPressIcon;
+			copyButton.mouseEnabled = true;
+			addChild(copyButton);
+			copyButton.addEventListener(MouseEvent.CLICK, copyText, false, 0, true);
+			
+			draw();
+		}
+		
+		public function draw():void {
+			textField.width = _panoLinkData.windowData.currentSize.width - copyButton.width;
+			textField.height = _panoLinkData.settings.style.fontSize * 1.4;
+			textField.scrollH = textField.maxScrollH;
+			
 			copyButton.x = textField.width + 3;
 			copyButton.y = (_panoLinkData.settings.style.fontSize * 1.4 - copyButton.height) * 0.5;
-			copyButton.mouseEnabled = true;
-			
-			addChild(copyButton);
-			
-			_panoLinkData.windowData.size = new Size(this.width, this.height);
-			
-			copyButton.addEventListener(MouseEvent.CLICK, copyText, false, 0, true);
 		}
 		
 		public function get panoLinkData():PanoLinkData {

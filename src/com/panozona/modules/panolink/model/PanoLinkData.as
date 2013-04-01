@@ -28,6 +28,7 @@ package com.panozona.modules.panolink.model {
 		
 		public const settings:Settings = new Settings();
 		public const windowData:WindowData = new WindowData();
+		public const linkData:LinkData = new LinkData();
 		public const close:Close = new Close();
 		
 		public function PanoLinkData(moduleData:ModuleData, saladoPlayer:Object) {

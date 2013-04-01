@@ -20,6 +20,7 @@ package com.panozona.modules.panolink.controller{
 	
 	import com.panozona.modules.panolink.events.WindowEvent;
 	import com.panozona.modules.panolink.view.LinkView;
+	import com.panozona.player.module.data.property.Size;
 	import com.panozona.player.module.Module;
 	import flash.display.BitmapData;
 	import flash.display.Loader;
@@ -35,6 +36,7 @@ package com.panozona.modules.panolink.controller{
 	public class LinkController{
 		
 		private var paramsFirstClone:Object;
+		private var currentLink:String;
 		
 		private var _linkView:LinkView;
 		private var _module:Module;
@@ -96,6 +98,18 @@ package com.panozona.modules.panolink.controller{
 			bitmapDataActive.copyPixels(bitmapData, new Rectangle(0, butHeight + 1, butWidth, butHeight), new Point(0, 0), null, null, true);
 			
 			_linkView.setBitmapsData(bitmapDataPlain, bitmapDataActive);
+			
+			_linkView.panoLinkData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleWindowSizeChange, false, 0, true);
+			
+			var maxSize:Size = new Size(_linkView.panoLinkData.settings.maxLength, _linkView.height);
+			var minSize:Size = new Size(_linkView.panoLinkData.settings.minLength, _linkView.height);
+			
+			_linkView.panoLinkData.linkData.setMinMaxSize(minSize, maxSize);
+		}
+		
+		private function handleWindowSizeChange(event:Event = null):void {
+			_linkView.draw();
+			onEnterFrame();
 		}
 		
 		private function onPanoramaLoaded(loadPanoramaEvent:Object):void {
@@ -107,7 +121,17 @@ package com.panozona.modules.panolink.controller{
 		
 		private function onOpenChange(WindowEvent:Object = null):void {
 			if (_linkView.panoLinkData.windowData.open){
-				_linkView.setText(getUrlLink(ExternalInterface.call("window.location.href.toString")));
+				_linkView.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
+			}else {
+				_linkView.stage.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+			}
+		}
+		
+		private function onEnterFrame(e:Event = null):void {
+			var newLink:String = getUrlLink(ExternalInterface.call("window.location.href.toString"));
+			if (newLink != currentLink) {
+				_linkView.setText(newLink);
+				currentLink = newLink;
 			}
 		}
 		
@@ -117,7 +141,7 @@ package com.panozona.modules.panolink.controller{
 				result += url.substr(0, url.indexOf("?") + 1);
 				var params:Array = url.substring(url.indexOf("?") + 1, url.length).split("&");
 				for each(var param:String in params) {
-					if (!param.match(/^pano=.+/) && !param.match(/^cam=.+/)) {
+					if (!param.match(/^pano=.+/) && !param.match(/^view=.+/)) {
 						result += param +"&";
 					}
 				}
@@ -126,7 +150,7 @@ package com.panozona.modules.panolink.controller{
 				result += "?";
 			}
 			result += "pano=" + _module.saladoPlayer.manager.currentPanoramaData.id;
-			result += "&cam=";
+			result += "&view=";
 			result += Math.floor(_module.saladoPlayer.manager.pan as Number) + ",";
 			result += Math.floor(_module.saladoPlayer.manager.tilt as Number) + ",";
 			result += Math.floor(_module.saladoPlayer.manager.fieldOfView as Number);
@@ -146,7 +170,7 @@ package com.panozona.modules.panolink.controller{
 					if(temp.length != 2) continue;
 					if(temp[0] == "pano"){
 						id = (temp[1]);
-					}else if (temp[0] == "cam") {
+					}else if (temp[0] == "view") {
 						
 						var values:Array = temp[1].split(",");
 						try{
@@ -154,7 +178,7 @@ package com.panozona.modules.panolink.controller{
 							tilt = Number(values[1]);
 							fov = Number(values[2]);
 						}catch (e:Error){
-							_module.printWarning("Invalid cam values: " + temp[1]);
+							_module.printWarning("Invalid view values: " + temp[1]);
 						}
 					}
 				}

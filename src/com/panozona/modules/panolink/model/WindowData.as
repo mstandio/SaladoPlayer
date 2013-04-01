@@ -20,36 +20,45 @@ package com.panozona.modules.panolink.model{
 	
 	import com.panozona.modules.panolink.events.WindowEvent;
 	import com.panozona.modules.panolink.model.structure.Window;
+	import com.panozona.player.module.data.property.Move;
 	import com.panozona.player.module.data.property.Size;
 	import flash.events.EventDispatcher;
 	
 	public class WindowData extends EventDispatcher{
 		
-		private var _open:Boolean;
-		private var _size:Size;
-		
 		public const window:Window = new Window();
 		
-		public function WindowData():void {
-			_size = new Size(1, 1);
-		}
+		private var _open:Boolean;
+		private var _currentSize:Size = new Size(1,1);
+		private var _currentMove:Move = new Move(1,1);
 		
-		public function get open():Boolean{return _open}
+		public function get open():Boolean {return _open;}
 		public function set open(value:Boolean):void {
 			if (value == _open) return;
 			_open = value;
 			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_OPEN));
 		}
 		
-		public function get size():Size {return _size;}
-		public function set size(value:Size):void {
-			if (value.width > _size.width) {
-				_size.width = value.width;
+		public function get currentSize():Size { return _currentSize };
+		public function set currentSize(value:Size):void {
+			if (value == null 
+				|| _currentSize.width == value.width 
+				&& _currentSize.height == value.height) {
+				return;
 			}
-			if (value.height > _size.height) {
-				_size.height = value.height;
+			_currentSize = value;
+			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_CURRENT_SIZE));
+		}
+		
+		public function get currentMove():Move { return _currentMove };
+		public function set currentMove(value:Move):void {
+			if (value == null 
+				|| _currentMove.horizontal == value.horizontal 
+				&& _currentMove.vertical == value.vertical) {
+				return;
 			}
-			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_SIZE));
+			_currentMove = value;
+			dispatchEvent(new WindowEvent(WindowEvent.CHANGED_CURRENT_MOVE));
 		}
 	}
 }

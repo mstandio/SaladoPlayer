@@ -21,6 +21,10 @@ package com.panozona.modules.panolink.model.structure {
 	public class Settings {
 		
 		public var path:String = null;
+		
+		public var minLength:Number = 200;
+		public var maxLength:Number = 600;
+		
 		public const style:Style = new Style();
 	}
 }

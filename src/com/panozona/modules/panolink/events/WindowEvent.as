@@ -23,7 +23,8 @@ package com.panozona.modules.panolink.events {
 	public class WindowEvent extends Event{
 		
 		public static const CHANGED_OPEN:String = "changedOpen";
-		public static const CHANGED_SIZE:String = "changedSize";
+		public static const CHANGED_CURRENT_SIZE:String = "changedCurrentSize";
+		public static const CHANGED_CURRENT_MOVE:String = "changedCurrentMove";
 		
 		public function WindowEvent(type:String){
 			super(type);

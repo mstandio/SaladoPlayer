@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Marek Standio.
+Copyright 2013 Marek Standio.
 
 This file is part of SaladoPlayer.
 
@@ -16,15 +16,23 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
-package com.panozona.modules.panolink.model.structure {
+package com.panozona.modules.panolink.model {
 	
-	public class Style {
+	import com.panozona.modules.panolink.events.LinkEvent;
+	import com.panozona.player.module.data.property.Size;
+	import flash.events.EventDispatcher;
+	
+	public class LinkData extends EventDispatcher {
 		
-		public var fontFamily:String = "Tahoma";
-		public var fontBold:Boolean = true;
-		public var fontSize:Number = 15;
-		public var fontColor:Number = 0xffffff;
+		private var _minSize:Size = new Size(1, 1);
+		private var _maxSize:Size = new Size(1, 1);
 		
-		public var backgroundColor:Number = 0x000000;
+		public function get minSize():Size {return _minSize};
+		public function get maxSize():Size {return _maxSize};
+		public function setMinMaxSize(minSize:Size, maxSize:Size):void {
+			_minSize = minSize;
+			_maxSize = maxSize;
+			dispatchEvent(new LinkEvent(LinkEvent.CHANGED_SIZE_LIMIT));
+		}
 	}
 }
