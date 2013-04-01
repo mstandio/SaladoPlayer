@@ -66,6 +66,7 @@ package com.panozona.modules.zoomslider.view {
 			bar.addEventListener(MouseEvent.MOUSE_DOWN, leadStart, false, 0, true);
 			bar.addEventListener(MouseEvent.MOUSE_UP, leadStop, false, 0, true);
 			bar.addEventListener(MouseEvent.ROLL_OUT, leadStop, false, 0, true);
+			addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheel, false, 0, true);
 			
 			pointer.addChild(new Bitmap(pointerBD));
 			pointer.addEventListener(MouseEvent.MOUSE_DOWN, dragStart, false, 0, true);
@@ -98,9 +99,9 @@ package com.panozona.modules.zoomslider.view {
 		}
 		
 		public function draw():void {
-			var length:Number = _zoomSliderData.sliderData.slider.slidesVertical 
-				? _zoomSliderData.windowData.currentSize.height
-				: _zoomSliderData.windowData.currentSize.width;
+			var length:Number = _zoomSliderData.sliderData.slider.slidesHorizontal
+				? _zoomSliderData.windowData.currentSize.width
+				: _zoomSliderData.windowData.currentSize.height;
 			
 			bar.graphics.clear();
 			bar.graphics.beginBitmapFill(barBD, null, true);
@@ -115,7 +116,7 @@ package com.panozona.modules.zoomslider.view {
 			zoomInButton.y = 0;
 			zoomOutButton.y = bar.y + length - zoomInPlainBD.height * 0.5 - zoomOutPlainBD.height;
 			
-			if (!_zoomSliderData.sliderData.slider.slidesVertical) {
+			if (_zoomSliderData.sliderData.slider.slidesHorizontal) {
 				x = length;
 				rotation = 90;
 				zoomInButton.y += zoomInButton.height;
@@ -173,6 +174,15 @@ package com.panozona.modules.zoomslider.view {
 		
 		private function leadStop(e:Event):void {
 			_zoomSliderData.sliderData.barLead = false;
+		}
+		
+		private function mouseWheel(e:Event):void {
+			if (isNaN(_zoomSliderData.sliderData.wheelDelta)
+				|| _zoomSliderData.sliderData.wheelDelta * (e as MouseEvent).delta < 0) {
+				_zoomSliderData.sliderData.wheelDelta = (e as MouseEvent).delta;
+			}else {
+				_zoomSliderData.sliderData.wheelDelta += (e as MouseEvent).delta;
+			}
 		}
 	}
 }

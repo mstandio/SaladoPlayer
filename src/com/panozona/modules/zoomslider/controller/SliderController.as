@@ -105,11 +105,11 @@ package com.panozona.modules.zoomslider.controller {
 			_sliderView.zoomSliderData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleWindowSizeChange, false, 0, true);
 			
 			var maxSize:Size = new Size( 
-				_sliderView.zoomSliderData.sliderData.slider.slidesVertical ? cellWidth : _sliderView.sliderData.slider.maxLength,
-				_sliderView.zoomSliderData.sliderData.slider.slidesVertical ? _sliderView.sliderData.slider.maxLength : cellHeight);
+				_sliderView.zoomSliderData.sliderData.slider.slidesHorizontal ? _sliderView.sliderData.slider.maxLength : cellWidth,
+				_sliderView.zoomSliderData.sliderData.slider.slidesHorizontal ? cellHeight : _sliderView.sliderData.slider.maxLength);
 			var minSize:Size = new Size(
-				_sliderView.zoomSliderData.sliderData.slider.slidesVertical ? cellWidth : _sliderView.sliderData.slider.minLength,
-				_sliderView.zoomSliderData.sliderData.slider.slidesVertical ? _sliderView.sliderData.slider.minLength : cellHeight);
+				_sliderView.zoomSliderData.sliderData.slider.slidesHorizontal ? _sliderView.sliderData.slider.minLength : cellWidth,
+				_sliderView.zoomSliderData.sliderData.slider.slidesHorizontal ? cellHeight : _sliderView.sliderData.slider.minLength);
 				
 			_sliderView.zoomSliderData.sliderData.setMinMaxSize(minSize, maxSize);
 		}
@@ -162,6 +162,21 @@ package com.panozona.modules.zoomslider.controller {
 			if (currentFov != _module.saladoPlayer.manager.fieldOfView) {
 				currentFov = _module.saladoPlayer.manager.fieldOfView;
 				translateValueToPosition();
+			}
+			if(!isNaN(_sliderView.sliderData.wheelDelta)){
+				if (_sliderView.sliderData.wheelDelta > 0) {
+					_module.stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, cameraKeyBindingsClass.OUT));
+					_module.stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, true, 0, cameraKeyBindingsClass.IN));
+					_sliderView.sliderData.wheelDelta -= 1;
+				}else if (_sliderView.sliderData.wheelDelta < 0) {
+					_module.stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, cameraKeyBindingsClass.IN));
+					_module.stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_DOWN, false, true, 0, cameraKeyBindingsClass.OUT));
+					_sliderView.sliderData.wheelDelta += 1;
+				}else {
+					_module.stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, cameraKeyBindingsClass.OUT));
+					_module.stage.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP, false, true, 0, cameraKeyBindingsClass.IN));
+					_sliderView.sliderData.wheelDelta = NaN;
+				}
 			}
 			if (_sliderView.sliderData.maxFov != _module.saladoPlayer.manager.minimumFieldOfView) {
 				_sliderView.sliderData.maxFov = _module.saladoPlayer.manager.minimumFieldOfView // too lazy to do this properly

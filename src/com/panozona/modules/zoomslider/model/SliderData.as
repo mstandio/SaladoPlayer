@@ -36,6 +36,8 @@ package com.panozona.modules.zoomslider.model {
 		private var _mouseDrag:Boolean;
 		private var _barLead:Boolean;
 		
+		private var _wheelDelta:Number;
+		
 		private var _minSize:Size = new Size(1, 1);
 		private var _maxSize:Size = new Size(1, 1);
 		
@@ -79,6 +81,13 @@ package com.panozona.modules.zoomslider.model {
 			if (value == _barLead || _mouseDrag) return;
 			_barLead = value;
 			dispatchEvent(new SliderEvent(SliderEvent.CHANGED_BAR_LEAD));
+		}
+		
+		public function get wheelDelta():Number {return _wheelDelta;}
+		public function set wheelDelta(value:Number):void {
+			if (value == _wheelDelta) return;
+			_wheelDelta = value;
+			dispatchEvent(new SliderEvent(SliderEvent.CHANGED_WHEEL_DELTA));
 		}
 		
 		public function get minSize():Size {return _minSize};

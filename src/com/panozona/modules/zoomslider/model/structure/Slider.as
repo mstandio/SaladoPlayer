@@ -25,7 +25,7 @@ package com.panozona.modules.zoomslider.model.structure{
 		public var minLength:Number = 100;
 		public var maxLength:Number = 300;
 		
-		public var slidesVertical:Boolean = true;
+		public var slidesHorizontal:Boolean = false;
 		public var listenKeys:Boolean = false;
 	}
 }

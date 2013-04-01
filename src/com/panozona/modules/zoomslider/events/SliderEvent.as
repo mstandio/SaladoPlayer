@@ -25,6 +25,7 @@ package com.panozona.modules.zoomslider.events{
 		public static const CHANGED_FOV_LIMIT:String = "changedFovLimit";
 		public static const CHANGED_MOUSE_DRAG:String = "changedMouseDrag";
 		public static const CHANGED_BAR_LEAD:String = "changedBarLead";
+		public static const CHANGED_WHEEL_DELTA:String = "changedWheelDelta";
 		public static const CHANGED_ZOOM:String = "changedZoom";
 		public static const CHANGED_SIZE_LIMIT:String = "changedSizeLimit";
 		
