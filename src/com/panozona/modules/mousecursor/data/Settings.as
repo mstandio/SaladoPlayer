@@ -21,9 +21,7 @@ package com.panozona.modules.mousecursor.data{
 	public class Settings{
 		
 		public var path:String;
-		
-		public var hideLine:Boolean = true;
-		
+		public var showLine:Boolean = false;
 		public const style:Style = new Style();
 	}
 }

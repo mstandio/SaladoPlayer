@@ -53,6 +53,7 @@ package com.panozona.modules.mousecursor {
 		private var cursorWidth:Number = 1;
 		private var cursorHeight:Number = 1;
 		
+		private var arrowAnchor:Bitmap;
 		private var dragMode:Boolean;
 		
 		private var mousePress:Boolean;
@@ -62,11 +63,15 @@ package com.panozona.modules.mousecursor {
 		private var startY:Number = 0;
 		
 		public function MouseCursor(){
-			super("MouseCursor", "1.2", "http://openpano.org/links/saladoplayer/modules/mousecursor/");
+			super("MouseCursor", "1.3", "http://openpano.org/links/saladoplayer/modules/mousecursor/");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {
 			mouseCursorData = new MouseCursorData(moduleData, saladoPlayer);
+			
+			arrowAnchor = new Bitmap();
+			arrowAnchor.visible = false;
+			addChild(arrowAnchor);
 			
 			cursor = new Bitmap();
 			cursor.visible = false;
@@ -122,6 +127,8 @@ package com.panozona.modules.mousecursor {
 			
 			handDrag = new BitmapData(cursorWidth, cursorHeight, true, 0);
 			handDrag.copyPixels(bitmapData, new Rectangle(cursorWidth + 1, cursorHeight * 2 + 2, cursorWidth, cursorHeight), new Point(0, 0), null, null, true);
+			
+			arrowAnchor.bitmapData = arrowHover;
 			
 			onDragEnabledChange();
 			
@@ -221,10 +228,18 @@ package com.panozona.modules.mousecursor {
 			}
 			if(!dragMode && !mouseCursorData.settings.hideLine){
 				graphics.clear();
-				if(mousePress) {
-					graphics.lineStyle(mouseCursorData.settings.style.lineSize, mouseCursorData.settings.style.lineColor);
+				if (mousePress) {
+					arrowAnchor.visible = true;
+					arrowAnchor.x = startX - arrowAnchor.width * 0.5;
+					arrowAnchor.y = startY - arrowAnchor.height * 0.5;
+					graphics.lineStyle(mouseCursorData.settings.style.lineSize, mouseCursorData.settings.style.lineColorOuter);
 					graphics.moveTo(startX, startY);
 					graphics.lineTo(mouseX, mouseY);
+					graphics.lineStyle(mouseCursorData.settings.style.lineSize * 0.5, mouseCursorData.settings.style.lineColorInner);
+					graphics.moveTo(startX, startY);
+					graphics.lineTo(mouseX, mouseY);
+				}else {
+					arrowAnchor.visible = false;
 				}
 			}
 		}
