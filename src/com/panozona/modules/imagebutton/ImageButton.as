@@ -32,7 +32,7 @@ package com.panozona.modules.imagebutton{
 		private var windowControllers:Vector.<WindowController>;
 		
 		public function ImageButton(){
-			super("ImageButton", "1.3", "http://panozona.com/wiki/Module:ImageButton");
+			super("ImageButton", "1.3", "http://openpano.org/links/saladoplayer/modules/imagebutton/");
 			moduleDescription.addFunctionDescription("setOpen", String, Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen", String);
 			moduleDescription.addFunctionDescription("setActive", String, Boolean);

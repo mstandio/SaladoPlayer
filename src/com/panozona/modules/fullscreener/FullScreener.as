@@ -51,7 +51,7 @@ package com.panozona.modules.fullscreener{
 		private var fullScreenerData:FullScreenerData;
 		
 		public function FullScreener():void{
-			super("FullScreener", "1.1", "http://panozona.com/wiki/Module:FullScreener");
+			super("FullScreener", "1.1", "http://openpano.org/links/saladoplayer/modules/fullscreener/");
 			moduleDescription.addFunctionDescription("setFullScreen", Boolean);
 			moduleDescription.addFunctionDescription("toggleFullScreen");
 		}

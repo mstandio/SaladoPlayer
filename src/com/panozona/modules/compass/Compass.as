@@ -32,7 +32,7 @@ package com.panozona.modules.compass {
 		private var windowController:WindowController;
 		
 		public function Compass() {
-			super("Compass", "1.2", "http://panozona.com/wiki/Module:Compass");
+			super("Compass", "1.2", "http://openpano.org/links/saladoplayer/modules/compass/");
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 		}

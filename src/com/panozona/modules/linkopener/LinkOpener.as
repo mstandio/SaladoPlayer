@@ -30,7 +30,7 @@ package com.panozona.modules.linkopener {
 		private var linkOpenerData:LinkOpenerData;
 		
 		public function LinkOpener(){
-			super("LinkOpener", "1.1", "http://panozona.com/wiki/Module:LinkOpener");
+			super("LinkOpener", "1.1", "http://openpano.org/links/saladoplayer/modules/linkopener/");
 			moduleDescription.addFunctionDescription("open", String);
 		}
 		

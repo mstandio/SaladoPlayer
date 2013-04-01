@@ -32,7 +32,7 @@ package com.panozona.modules.infobox{
 		private var windowController:WindowController;
 		
 		public function InfoBox() {
-			super("InfoBox", "1.0", "http://panozona.com/wiki/Module:InfoBox");
+			super("InfoBox", "1.0", "http://openpano.org/links/saladoplayer/modules/infobox/");
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("setArticle", String);

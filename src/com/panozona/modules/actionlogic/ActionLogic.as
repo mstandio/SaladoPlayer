@@ -30,7 +30,7 @@ package com.panozona.modules.actionlogic {
 		private var scriptController:ScriptController;
 		
 		public function ActionLogic() {
-			super("ActionLogic", "1.1", "http://panozona.com/wiki/Module:ActionLogic");
+			super("ActionLogic", "1.1", "http://openpano.org/links/saladoplayer/modules/actionlogic/");
 			moduleDescription.addFunctionDescription("runScript", String);
 		}
 		

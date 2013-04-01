@@ -34,7 +34,7 @@ package com.panozona.modules.dropdown{
 		private var windowController:WindowController;
 		
 		public function DropDown(){
-			super("DropDown", "1.3", "http://panozona.com/wiki/Module:DropDown");
+			super("DropDown", "1.3", "http://openpano.org/links/saladoplayer/modules/dropdown/");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setGroup", String);

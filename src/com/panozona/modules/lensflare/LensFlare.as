@@ -37,7 +37,7 @@ package com.panozona.modules.lensflare{
 		private var flareControllers:Vector.<FlareController>;
 		
 		public function LensFlare():void {
-			super("LensFlare", "1.1", "http://panozona.com/wiki/Module:LensFlare");
+			super("LensFlare", "1.1", "http://openpano.org/links/saladoplayer/modules/lensflare/");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {

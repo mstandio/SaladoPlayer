@@ -33,7 +33,7 @@ package com.panozona.modules.imagegallery {
 		private var windowController:WindowController;
 		
 		public function ImageGallery() {
-			super("ImageGallery", "1.0", "http://panozona.com/wiki/Module:ImageGallery");
+			super("ImageGallery", "1.0", "http://openpano.org/links/saladoplayer/modules/imagegallery/");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setGroup", String);

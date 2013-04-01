@@ -33,7 +33,7 @@ package com.panozona.modules.infobubble{
 		private var bubbleController:BubbleController;
 		
 		public function InfoBubble(){
-			super("InfoBubble", "1.3.3", "http://panozona.com/wiki/Module:InfoBubble");
+			super("InfoBubble", "1.3.3", "http://openpano.org/links/saladoplayer/modules/infobubble/");
 			
 			moduleDescription.addFunctionDescription("show", String);
 			moduleDescription.addFunctionDescription("hide");

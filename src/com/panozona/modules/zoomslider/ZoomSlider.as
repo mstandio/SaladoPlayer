@@ -32,7 +32,7 @@ package com.panozona.modules.zoomslider{
 		private var zoomSliderData:ZoomSliderData;
 		
 		public function ZoomSlider():void{
-			super("ZoomSlider", "1.2", "http://panozona.com/wiki/Module:ZoomSlider");
+			super("ZoomSlider", "1.2", "http://openpano.org/links/saladoplayer/modules/zoomslider/");
 			
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen");

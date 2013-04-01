@@ -37,7 +37,7 @@ package com.panozona.modules.jsgooglemap {
 		private var jsGooglemapData:JSGoogleMapData;
 		
 		public function JSGoogleMap() {
-			super("JSGoogleMap", "1.0", "http://panozona.com/wiki/Module:JSGoogleMap");
+			super("JSGoogleMap", "1.0", "http://openpano.org/links/saladoplayer/modules/jsgooglemap/");
 			
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen");

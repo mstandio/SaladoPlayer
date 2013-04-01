@@ -32,7 +32,7 @@ package com.panozona.modules.jsgateway {
 		private var jsgatewayData:JSGatewayData;
 		
 		public function JSGateway(){
-			super("JSGateway", "1.3.2", "http://panozona.com/wiki/Module:JSGateway");
+			super("JSGateway", "1.3.2", "http://openpano.org/links/saladoplayer/modules/jsgateway/");
 			moduleDescription.addFunctionDescription("run", String);
 		}
 		

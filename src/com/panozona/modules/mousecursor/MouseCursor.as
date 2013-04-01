@@ -62,7 +62,7 @@ package com.panozona.modules.mousecursor {
 		private var startY:Number = 0;
 		
 		public function MouseCursor(){
-			super("MouseCursor", "1.2", "http://panozona.com/wiki/Module:MouseCursor");
+			super("MouseCursor", "1.2", "http://openpano.org/links/saladoplayer/modules/mousecursor/");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {

@@ -43,7 +43,7 @@ package com.panozona.modules.backgroundmusic{
 		private var singleSoundSound:flash.media.Sound;
 		
 		public function BackgroundMusic() {
-			super("BackgroundMusic", "1.2", "http://panozona.com/wiki/Module:BackgroundMusic");
+			super("BackgroundMusic", "1.2", "http://openpano.org/links/saladoplayer/modules/backgroundmusic/");
 			
 			moduleDescription.addFunctionDescription("setTrack", String);
 			moduleDescription.addFunctionDescription("setPlay", Boolean);

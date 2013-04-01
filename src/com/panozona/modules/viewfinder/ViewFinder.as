@@ -36,7 +36,7 @@ package com.panozona.modules.viewfinder{
 		private var currentDirection:Number = 0;
 		
 		public function ViewFinder():void{
-			super("ViewFinder", "1.3", "http://panozona.com/wiki/Module:ViewFinder");
+			super("ViewFinder", "1.3", "http://openpano.org/links/saladoplayer/modules/viewfinder/");
 		}
 		
 		override protected function moduleReady(moduleData:ModuleData):void {

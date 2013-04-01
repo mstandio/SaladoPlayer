@@ -94,7 +94,7 @@ package com.panozona.modules.examplemodule {
 		 * </actions>
 		 */
 		public function ExampleModule() {
-			super("ExampleModule", "1.0", "http://panozona.com/wiki/Module:ExampleModule");
+			super("ExampleModule", "1.0", "http://openpano.org/links/saladoplayer/modules/examplemodule/");
 			
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);

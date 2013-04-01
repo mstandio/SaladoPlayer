@@ -32,7 +32,7 @@ package com.panozona.modules.panolink{
 		private var panoLinkData:PanoLinkData;
 		
 		public function PanoLink(){
-			super("PanoLink", "1.1", "http://panozona.com/wiki/Module:PanoLink");
+			super("PanoLink", "1.1", "http://openpano.org/links/saladoplayer/modules/panolink/");
 			
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("toggleOpen");

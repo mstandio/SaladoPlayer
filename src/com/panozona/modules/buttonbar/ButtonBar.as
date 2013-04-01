@@ -33,7 +33,7 @@ package com.panozona.modules.buttonbar {
 		private var windowController:WindowController;
 		
 		public function ButtonBar(){
-			super("ButtonBar", "1.3", "http://panozona.com/wiki/Module:ButtonBar");
+			super("ButtonBar", "1.3", "http://openpano.org/links/saladoplayer/modules/buttonbar/");
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("setActive", String, Boolean);
