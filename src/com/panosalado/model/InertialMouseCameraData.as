@@ -42,7 +42,7 @@ package com.panosalado.model{
 			sensitivity = 0.15;
 			friction = 0.18;
 			threshold = 0.0001;
-			_enabled = true;
+			_enabled = false;
 		}
 		
 		public function get enabled():Boolean { return _enabled;}

@@ -28,6 +28,6 @@ package com.panozona.player.module.data.property{
 		public var rotationY:Number = 0;
 		public var rotationZ:Number = 0;
 		
-		public var flat:Boolean = false;
+		public var flat:Boolean = true;
 	}
 }
