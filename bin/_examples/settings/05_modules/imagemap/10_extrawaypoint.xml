@@ -12,7 +12,7 @@
 		<trace align="horizontal:left" open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml"/>
+		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml"/>
 	</panoramas>
 	<modules>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">

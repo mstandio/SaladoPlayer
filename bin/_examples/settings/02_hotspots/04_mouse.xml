@@ -10,7 +10,7 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml">
+		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml">
 			<image id="hs1" location="pan:-20,tilt:10" path="~media/images/spots/arrow_green.png" mouse="onClick:act1"/>
 			<image id="hs2" location="pan:0,tilt:10" path="~media/images/spots/arrow_green.png" mouse="onPress:act2"/>
 			<image id="hs3" location="pan:20,tilt:10" path="~media/images/spots/arrow_green.png" mouse="onRelease:act3"/>

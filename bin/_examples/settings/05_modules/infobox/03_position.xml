@@ -5,7 +5,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml"/>
+		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml"/>
 	</panoramas>
 	<modules>
 		<InfoBox path="~modules/infobox/InfoBox-1.0.swf">

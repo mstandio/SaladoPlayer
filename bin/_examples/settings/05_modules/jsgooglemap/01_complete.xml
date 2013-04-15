@@ -8,10 +8,10 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml">
+		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml">
 			<image id="cg_arrowRed" path="~media/images/spots/arrow_red.png" target="checkerRed"/>
 		</panorama>
-		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml">
+		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml">
 			<image id="cr_arrowGreen" path="~media/images/spots/arrow_green.png" target="checkerGreen"/>
 		</panorama>
 	</panoramas>

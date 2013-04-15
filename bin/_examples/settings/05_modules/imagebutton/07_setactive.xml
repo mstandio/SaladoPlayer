@@ -7,7 +7,7 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panos/dz_checker_yellow/checker_yellow_f.xml">
+		<panorama id="checkerYellow" path="~panos/checker/dz_yellow/yellow_f.xml">
 			<image id="cy_arrowRed" location="pan:-10" path="~media/images/spots/arrow_red.png" mouse="onClick:setInactive"/>
 			<image id="cy_arrowGreen" location="pan:10" path="~media/images/spots/arrow_green.png" mouse="onClick:setActive"/>
 		</panorama>

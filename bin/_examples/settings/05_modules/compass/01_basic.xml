@@ -8,7 +8,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml" direction="45"/>
+		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml" direction="45"/>
 	</panoramas>
 	<modules>
 		<Compass path="~modules/compass/Compass-1.2.swf">

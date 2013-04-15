@@ -9,7 +9,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenChecker" path="~panos/dz_checker_green/checker_green_f.xml">
+		<panorama id="greenChecker" path="~panos/checker/dz_green/green_f.xml">
 			<image id="gc_ArrowBlue" path="~media/images/spots/arrow_blue.png" location="tilt:10,distance:600"/>
 			<image id="gc_ArrowGreen" path="~media/images/spots/arrow_green.png" location="pan:30"/>
 			<image id="gc_ArrowRed" path="~media/images/spots/arrow_red.png" location="pan:35,tilt:3,distance:550"/>

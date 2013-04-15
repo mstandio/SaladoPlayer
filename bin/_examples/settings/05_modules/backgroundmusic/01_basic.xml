@@ -14,7 +14,7 @@
 		<panoramas firstOnEnter="playBgMusic"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml">
+		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml">
 			<image id="cg_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:playBgMusic"/>
 			<image id="cg_arrowRed" path="~media/images/spots/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:stopBgMusic"/>
 			<image id="cg_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:togglePlayBgMusic"/>

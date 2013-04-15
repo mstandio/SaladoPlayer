@@ -9,6 +9,6 @@
 		<control mouseWheelTrap="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml"/>
+		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml"/>
 	</panoramas>
 </SaladoPlayer>

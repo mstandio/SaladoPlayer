@@ -11,7 +11,7 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml">
+		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml">
 			<image id="cg_arrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:10" mouse="onClick:wait"/>
 			<image id="cg_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-10" mouse="onClick:wait2"/>
 		</panorama>

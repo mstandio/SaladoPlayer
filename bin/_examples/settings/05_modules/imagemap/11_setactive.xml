@@ -8,9 +8,9 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml" onEnter="setActiveW1" />
-		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml" onEnter="setActiveW2" />
-		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml" onEnter="setActiveW2" />
+		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml" onEnter="setActiveW1" />
+		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml" onEnter="setActiveW2" />
+		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml" onEnter="setActiveW2" />
 	</panoramas>
 	<modules>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">

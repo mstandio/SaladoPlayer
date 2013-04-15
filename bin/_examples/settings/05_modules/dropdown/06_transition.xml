@@ -9,7 +9,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml">
+		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml">
 			<image id="cy_arrowYellow" path="~media/images/spots/arrow_yellow.png" mouse="onClick:toggleOpenDropDown"/>
 		</panorama>
 	</panoramas>

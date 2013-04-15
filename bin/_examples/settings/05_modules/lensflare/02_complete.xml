@@ -7,11 +7,11 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml">
+		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml">
 			<image id="cb_lightbulb1" path="~media/images/misc/lightbulb.png" location="pan:5,tilt:10" transform="flat:true"/>
 			<image id="cb_lightbulb2" path="~media/images/misc/lightbulb.png" location="pan:90,tilt:20" transform="flat:true"/>
 		</panorama>
-		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml">
+		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml">
 			<image id="cr_lightbulb1" path="~media/images/misc/lightbulb.png" location="pan:-20,tilt:0" transform="flat:true"/>
 		</panorama>
 	</panoramas>

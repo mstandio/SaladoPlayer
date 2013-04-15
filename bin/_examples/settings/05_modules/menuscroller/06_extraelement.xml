@@ -8,7 +8,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml">
+		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml">
 			<image id="cb_logo" path="~media/images/misc/openpano_logo.png" location="pan:90" transform="flat:false"/>
 			<image id="cb_help" path="~media/images/misc/help.png" location="tilt:90,distance:800" transform="flat:false"/>
 		</panorama>

@@ -4,7 +4,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panos/dz_checker_yellow/checker_yellow_f.xml"/>
+		<panorama id="checkerYellow" path="~panos/checker/dz_yellow/yellow_f.xml"/>
 	</panoramas>
 	<modules>
 		<InfoBubble path="~modules/infobubble/InfoBubble-1.3.2.swf">

@@ -12,7 +12,7 @@
 				<settings splashPath="~media/video/hello/hello_splash.png" videoPath="http://linkowiec.pl/saladoplayer/spots/video/hello.mp4" size="width:400,height:300"/>
 			</swf>
 		</panorama>
-		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml" onLeaveToAttempt="checkerYellow:blueMoveToYellow,checkerRed:blueMoveToRed" view="maxFov:120,maxPixelZoom:0.75,minFov:30">
+		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml" onLeaveToAttempt="checkerYellow:blueMoveToYellow,checkerRed:blueMoveToRed" view="maxFov:120,maxPixelZoom:0.75,minFov:30">
 			<swf id="cb_arrowYellow" path="~spots/GrowingSpot-1.0.swf" location="pan:90" target="checkerYellow" mouse="onOver:showBubbleYellow,onOut:hideBubble">
 				<settings path="~media/images/spots/arrow_yellow.png"/>
 			</swf>
@@ -20,7 +20,7 @@
 				<settings path="~media/images/spots/arrow_red.png"/>
 			</swf>
 		</panorama>
-		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml" view="pan:NaN" onLeaveToAttempt="checkerYellow:greenMoveToYellow,checkerRed:greenMoveToRed">
+		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml" view="pan:NaN" onLeaveToAttempt="checkerYellow:greenMoveToYellow,checkerRed:greenMoveToRed">
 			<swf id="cg_arrowYellow" path="~spots/GrowingSpot-1.0.swf" location="pan:0" target="checkerYellow" mouse="onOver:showBubbleYellow,onOut:hideBubble">
 				<settings path="~media/images/spots/arrow_yellow.png"/>
 			</swf>
@@ -28,7 +28,7 @@
 				<settings path="~media/images/spots/arrow_red.png"/>
 			</swf>
 		</panorama>
-		<panorama id="checkerRed" path="~panos/dz_checker_red/checker_red_f.xml" view="pan:NaN" onLeaveToAttempt="checkerGreen:redMoveToGreen,checkerBlue:redMoveToBlue">
+		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml" view="pan:NaN" onLeaveToAttempt="checkerGreen:redMoveToGreen,checkerBlue:redMoveToBlue">
 			<swf id="cr_arrowGreen" path="~spots/GrowingSpot-1.0.swf" location="pan:90" target="checkerGreen" mouse="onOver:showBubbleGreen,onOut:hideBubble">
 				<settings path="~media/images/spots/arrow_green.png"/>
 			</swf>
@@ -36,7 +36,7 @@
 				<settings path="~media/images/spots/arrow_blue.png"/>
 			</swf>
 		</panorama>
-		<panorama id="checkerYellow" path="~panos/dz_checker_yellow/checker_yellow_f.xml" view="pan:NaN" onLeaveToAttempt="checkerGreen:yellowMoveToGreen,checkerBlue:yellowMoveToBlue">
+		<panorama id="checkerYellow" path="~panos/checker/dz_yellow/yellow_f.xml" view="pan:NaN" onLeaveToAttempt="checkerGreen:yellowMoveToGreen,checkerBlue:yellowMoveToBlue">
 			<swf id="cy_arrowGreen" path="~spots/GrowingSpot-1.0.swf" location="pan:180" target="checkerGreen" mouse="onOver:showBubbleGreen,onOut:hideBubble">
 				<settings path="~media/images/spots/arrow_green.png"/>
 			</swf>

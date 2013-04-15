@@ -10,7 +10,7 @@
     <control mouseInertial="enabled:false" mouseDrag="enabled:true,sensitivity:0.0025,friction:0.1,threshold:0.0001"/>
 </global>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml">
+		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml">
 			<!--
 			<image id="hs1" location="pan:-20,tilt:10,distance:400" transform="rotationX:80,flat:true" path="~media/images/spots/arrow_green.png"/>
 			<image id="hs2" location="pan:0,tilt:10,distance:400" transform="scaleY:0.5,flat:true" path="~media/images/spots/arrow_green.png"/>

@@ -8,7 +8,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panos/dz_checker_yellow/checker_yellow_f.xml">
+		<panorama id="checkerYellow" path="~panos/checker/dz_yellow/yellow_f.xml">
 			<image id="cy_arrowBlue" location="pan:0" path="~media/images/spots/arrow_blue.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>

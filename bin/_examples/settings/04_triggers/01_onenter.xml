@@ -9,10 +9,10 @@
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml" onEnter="printWelcomeGreen">
+		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml" onEnter="printWelcomeGreen">
 			<image id="cg_arrowBlue" path="~media/images/spots/arrow_blue.png" target="checkerBlue"/>
 		</panorama>
-		<panorama id="checkerBlue" path="~panos/dz_checker_blue/checker_blue_f.xml" onEnter="printWelcomeBlue">
+		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml" onEnter="printWelcomeBlue">
 			<image id="cb_arrowGreen" path="~media/images/spots/arrow_green.png" target="checkerGreen"/>
 		</panorama>
 	</panoramas>

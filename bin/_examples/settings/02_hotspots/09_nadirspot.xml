@@ -7,7 +7,7 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/dz_checker_green/checker_green_f.xml" view="tilt:-90">
+		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml" view="tilt:-90">
 			<swf id="cg_nadir" location="tilt:-90" path="~spots/NadirSpot-1.0.swf" handCursor="false">
 				<settings path="~media/images/misc/panozona_logo.png"/>
 			</swf>
