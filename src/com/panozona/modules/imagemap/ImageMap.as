@@ -32,7 +32,7 @@ package com.panozona.modules.imagemap{
 		private var windowController:WindowController;
 		
 		public function ImageMap() {
-			super("ImageMap", "1.4.2", "http://openpano.org/links/saladoplayer/modules/imagemap/");
+			super("ImageMap", "1.4.3", "http://openpano.org/links/saladoplayer/modules/imagemap/");
 			moduleDescription.addFunctionDescription("toggleOpen");
 			moduleDescription.addFunctionDescription("setOpen", Boolean);
 			moduleDescription.addFunctionDescription("setMap", String);

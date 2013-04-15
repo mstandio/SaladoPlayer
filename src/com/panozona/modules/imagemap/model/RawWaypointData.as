@@ -65,7 +65,7 @@ package com.panozona.modules.imagemap.model {
 			if (value == _hasFocus) return;
 			_hasFocus = value;
 			if (_hasFocus) {
-				dispatchEvent(new WaypointEvent(WaypointEvent.CHANGED_IS_ACTIVE));
+				dispatchEvent(new WaypointEvent(WaypointEvent.FOCUS_GAINED));
 			}
 		}
 	}

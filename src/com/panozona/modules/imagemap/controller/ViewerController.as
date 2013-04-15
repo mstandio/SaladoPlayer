@@ -72,6 +72,7 @@ package com.panozona.modules.imagemap.controller{
 			
 			viewerView.imageMapData.mapData.addEventListener(MapEvent.CHANGED_SIZE, handleMapSizeChange, false, 0, true);
 			viewerView.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleCurrentSizeChange, false, 0, true);
+			handleCurrentSizeChange();
 			
 			if (_viewerView.viewerData.viewer.navMove.enabled){
 				viewerView.viewerData.addEventListener(ViewerEvent.CHANGED_MOVE, handleMoveChange, false, 0, true);
@@ -159,7 +160,7 @@ package com.panozona.modules.imagemap.controller{
 			_viewerView.placeNavigation();
 		}
 		
-		private function handleCurrentSizeChange(e:Event):void {
+		private function handleCurrentSizeChange(e:Event = null):void {
 			_viewerView.redrawWindow();
 			focusActive = false;
 			if (_viewerView.containerWidth == 0 || _viewerView.containerHeight == 0) {

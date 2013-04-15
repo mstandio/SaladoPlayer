@@ -13,7 +13,7 @@
 		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml" onEnter="setActiveW2" />
 	</panoramas>
 	<modules>
-		<ImageMap path="~modules/imagemap/ImageMap-1.4.2.swf">
+		<ImageMap path="~modules/imagemap/ImageMap-1.4.3.swf">
 			<viewer path="~modules/imagemap/skins/navigation_black_20x20.png"/>
 			<maps>
 				<map id="map1" path="~media/images/maps/map1.jpg" panShift="90">

@@ -32,7 +32,7 @@ ImageGallery.as  = src/com/panozona/modules/imagegallery/ImageGallery.as
 ImageGallery.swf = bin/modules/imagegallery/ImageGallery-1.0.swf
 
 ImageMap.as  = src/com/panozona/modules/imagemap/ImageMap.as
-ImageMap.swf = bin/modules/imagemap/ImageMap-1.4.2.swf
+ImageMap.swf = bin/modules/imagemap/ImageMap-1.4.3.swf
 
 InfoBox.as  = src/com/panozona/modules/infobox/InfoBox.as
 InfoBox.swf = bin/modules/infobox/InfoBox-1.0.swf
