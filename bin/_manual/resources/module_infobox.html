@@ -7,705 +7,284 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body class="mediawiki ltr ns-0 ns-subject page-Module_InfoBox skin-vector">
-
-
-
-
         <div id="content">
-
-
-
-
             <h1 class="firstHeading" id="firstHeading">Module:InfoBox</h1>
-
-
-
             <div id="bodyContent">
-
-
                 <h3 id="siteSub">From PanoZona</h3>
-
-
-
-
-
-
-
-
-
                 <table class="toc" id="toc">
                     <tr>
                         <td>
                             <div id="toctitle">
                                 <h2>Contents</h2>
                             </div>
-
                             <ul>
-
                                 <li class="toclevel-1 tocsection-1">
                                     <a href="#Configuration_structure"><span class="tocnumber">1</span> <span class="toctext">Configuration structure</span></a>
                                 </li>
-
                                 <li class="toclevel-1 tocsection-2">
                                     <a href="#Configuration_details"><span class="tocnumber">2</span> <span class="toctext">Configuration details</span></a>
-
                                     <ul>
-
                                         <li class="toclevel-2 tocsection-3">
                                             <a href="#InfoBox"><span class="tocnumber">2.1</span> <span class="toctext">InfoBox</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-4">
                                             <a href="#window"><span class="tocnumber">2.2</span> <span class="toctext">window</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-5">
                                             <a href="#close"><span class="tocnumber">2.3</span> <span class="toctext">close</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-6">
                                             <a href="#viewer"><span class="tocnumber">2.4</span> <span class="toctext">viewer</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-7">
                                             <a href="#article"><span class="tocnumber">2.5</span> <span class="toctext">article</span></a>
                                         </li>
-
                                     </ul>
-
                                 </li>
-
                                 <li class="toclevel-1 tocsection-8">
                                     <a href="#Functions"><span class="tocnumber">3</span> <span class="toctext">Functions</span></a>
-
                                     <ul>
-
                                         <li class="toclevel-2 tocsection-9">
                                             <a href="#setOpen"><span class="tocnumber">3.1</span> <span class="toctext">setOpen</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-10">
                                             <a href="#toggleOpen"><span class="tocnumber">3.2</span> <span class="toctext">toggleOpen</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-11">
                                             <a href="#setArticle"><span class="tocnumber">3.3</span> <span class="toctext">setArticle</span></a>
                                         </li>
-
                                     </ul>
-
                                 </li>
-
                             </ul>
-
                         </td>
                     </tr>
                 </table>
-
                 <div style="float:right;width:340px">
-
                     <table align="center" border="1" cellpadding="5" cellspacing="0" class="moduledesc_tab" style="width:315px; border-collapse: collapse; float:right">
-
-
                         <tr valign="top">
-
-                            <th align="center" colspan="2"> ImageGallery
-</th>
+                            <th align="center" colspan="2"> ImageGallery</th>
                         </tr>
-
                         <tr class="moduledesc_tab_odd" valign="top">
-
-                            <td> Author
-</td><td> Marek Standio
-</td>
+                            <td> Author</td><td> Marek Standio</td>
                         </tr>
-
                         <tr class="moduledesc_tab_even" valign="top">
-
-                            <td> Module version
-</td><td> 1.0
-</td>
+                            <td> Module version</td><td> 1.0</td>
                         </tr>
-
                         <tr class="moduledesc_tab_odd" valign="top">
-
-                            <td> Compatibility
-</td><td> SaladoPlayer 1.0 +
-</td>
+                            <td> Compatibility</td><td> SaladoPlayer 1.0 +</td>
                         </tr>
                     </table>
-
                 </div>
-
-                <p>InfoBox is module for displaying simplified html content inside panorama window.
-</p>
-
+                <p>InfoBox is module for displaying simplified html content inside panorama window.</p>
                 <h2> 
                     <span class="mw-headline" id="Configuration_structure">Configuration structure</span>
                 </h2>
-
                 <ul>
                     <li> 
                         <a href="#InfoBox">InfoBox</a>
-
                         <ul>
                             <li> 
                                 <a href="#window">window</a>
-
                             </li>
                             <li> 
                                 <a href="#close">close</a>
-
                             </li>
                             <li> 
                                 <a href="#viewer">viewer</a>
-
                             </li>
-                            <li> articles
-<ul>
+                            <li> articles<ul>
                                     <li> 
                                         <a href="#article">article</a>
-
                                     </li>
                                 </ul>
-
                             </li>
                         </ul>
-
                     </li>
                 </ul>
-
                 <h2> 
                     <span class="mw-headline" id="Configuration_details">Configuration details</span>
                 </h2>
-
                 <h3> 
                     <span class="mw-headline" id="InfoBox">InfoBox</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
-</th>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> path
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> path to swf file
-</td><td> Mandatory attribute. Value points to module swf file.
-</td>
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to swf file</td><td> Mandatory attribute. Value points to module swf file.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="window">window</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
-</th>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> open
-</td><td align="center"> B
-</td><td align="center" colspan="2"> -
-</td><td> false
-</td><td> true, false
-</td><td> Determines visibility of module window on SaladoPlayer start.
-</td>
+                        <td> open</td><td align="center"> B</td><td align="center" colspan="2"> -</td><td> false</td><td> true, false</td><td> Determines visibility of module window on SaladoPlayer start.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> alpha
-</td><td align="center"> N
-</td><td align="center" colspan="2"> -
-</td><td> 1.0
-</td><td> 0.1 to 1.0
-</td><td> Transparency of module window content.
-</td>
+                        <td> alpha</td><td align="center"> N</td><td align="center" colspan="2"> -</td><td> 1.0</td><td> 0.1 to 1.0</td><td> Transparency of module window content.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td rowspan="2"> minSize
-</td><td align="center" rowspan="2"> O
-</td><td> width
-</td><td align="center"> N
-</td><td> 300
-</td><td align="center"> -
-</td><td> Minimal width of module window.
-</td>
+                        <td rowspan="2"> minSize</td><td align="center" rowspan="2"> O</td><td> width</td><td align="center"> N</td><td> 300</td><td align="center"> -</td><td> Minimal width of module window.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> height
-</td><td align="center"> N
-</td><td> 200
-</td><td align="center"> -
-</td><td> Minimal height of module window.
-</td>
+                        <td> height</td><td align="center"> N</td><td> 200</td><td align="center"> -</td><td> Minimal height of module window.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td rowspan="2"> maxSize
-</td><td align="center" rowspan="2"> O
-</td><td> width
-</td><td align="center"> N
-</td><td> 800
-</td><td align="center"> -
-</td><td> Maximal width of module window.
-</td>
+                        <td rowspan="2"> maxSize</td><td align="center" rowspan="2"> O</td><td> width</td><td align="center"> N</td><td> 800</td><td align="center"> -</td><td> Maximal width of module window.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> height
-</td><td align="center"> N
-</td><td> 600
-</td><td align="center"> -
-</td><td> Maximal height of module window.
-</td>
+                        <td> height</td><td align="center"> N</td><td> 600</td><td align="center"> -</td><td> Maximal height of module window.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td rowspan="2"> align
-</td><td align="center" rowspan="2"> O
-</td><td> horizontal
-</td><td align="center"> S
-</td><td> center
-</td><td> left, center, right
-</td><td> Horizontal alignment of module window against panorama window.
-</td>
+                        <td rowspan="2"> align</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> S</td><td> center</td><td> left, center, right</td><td> Horizontal alignment of module window against panorama window.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> vertical
-</td><td align="center"> S
-</td><td> middle
-</td><td> top, middle, bottom
-</td><td> Vertical alignment of module window against panorama window.
-</td>
+                        <td> vertical</td><td align="center"> S</td><td> middle</td><td> top, middle, bottom</td><td> Vertical alignment of module window against panorama window.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td rowspan="4"> margin
-</td><td align="center" rowspan="4"> O
-</td><td> top
-</td><td align="center"> N
-</td><td> 50
-</td><td align="center"> -
-</td><td> Minimal distance from module window and top border of panorama window.
-</td>
+                        <td rowspan="4"> margin</td><td align="center" rowspan="4"> O</td><td> top</td><td align="center"> N</td><td> 50</td><td align="center"> -</td><td> Minimal distance from module window and top border of panorama window.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> bottom
-</td><td align="center"> N
-</td><td> 50
-</td><td align="center"> -
-</td><td> Minimal distance from module window and bottom border of panorama window.
-</td>
+                        <td> bottom</td><td align="center"> N</td><td> 50</td><td align="center"> -</td><td> Minimal distance from module window and bottom border of panorama window.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> left
-</td><td align="center"> N
-</td><td> 50
-</td><td align="center"> -
-</td><td> Minimal distance from module window and left border of panorama window.
-</td>
+                        <td> left</td><td align="center"> N</td><td> 50</td><td align="center"> -</td><td> Minimal distance from module window and left border of panorama window.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> right
-</td><td align="center"> N
-</td><td> 50
-</td><td align="center"> -
-</td><td> Minimal distance from module window and right border of panorama window.
-</td>
+                        <td> right</td><td align="center"> N</td><td> 50</td><td align="center"> -</td><td> Minimal distance from module window and right border of panorama window.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> transition
-</td><td align="center"> O
-</td><td> type
-</td><td align="center"> S
-</td><td> fade
-</td><td> fade, slideUp, slideDown, slideLeft, slideRight
-</td><td> Determines kind of transition used when module window is opening/closing.
-</td>
+                        <td> transition</td><td align="center"> O</td><td> type</td><td align="center"> S</td><td> fade</td><td> fade, slideUp, slideDown, slideLeft, slideRight</td><td> Determines kind of transition used when module window is opening/closing.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td rowspan="2"> openTween
-</td><td align="center" rowspan="2"> O
-</td><td> transition
-</td><td align="center"> F
-</td><td> Linear.easeNone
-</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a>
-</td><td> Determines type of animation used when module window is opening.
-</td>
+                        <td rowspan="2"> openTween</td><td align="center" rowspan="2"> O</td><td> transition</td><td align="center"> F</td><td> Linear.easeNone</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a></td><td> Determines type of animation used when module window is opening.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> time
-</td><td align="center"> N
-</td><td> 0.5
-</td><td align="center"> -
-</td><td> Duration in seconds of module window opening animation.
-</td>
+                        <td> time</td><td align="center"> N</td><td> 0.5</td><td align="center"> -</td><td> Duration in seconds of module window opening animation.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td rowspan="2"> closeTween
-</td><td align="center" rowspan="2"> O
-</td><td> transition
-</td><td align="center"> F
-</td><td> Linear.easeNone
-</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a>
-</td><td> Determines type of animation used when module window is closing.
-</td>
+                        <td rowspan="2"> closeTween</td><td align="center" rowspan="2"> O</td><td> transition</td><td align="center"> F</td><td> Linear.easeNone</td><td> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a></td><td> Determines type of animation used when module window is closing.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> time
-</td><td align="center"> N
-</td><td> 0.5
-</td><td align="center"> -
-</td><td> Duration in seconds of module window closing animation.
-</td>
+                        <td> time</td><td align="center"> N</td><td> 0.5</td><td align="center"> -</td><td> Duration in seconds of module window closing animation.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> onOpen
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> action id
-</td><td> Action executed when module window changed state to closed.
-</td>
+                        <td> onOpen</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> action id</td><td> Action executed when module window changed state to closed.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> onClose
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> action id
-</td><td> Action executed when module window changed state to opened.
-</td>
+                        <td> onClose</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> action id</td><td> Action executed when module window changed state to opened.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="close">close</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
-</th>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> path
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> path to swf file
-</td><td> Mandatory attribute. Value points to image used as close button.
-</td>
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to swf file</td><td> Mandatory attribute. Value points to image used as close button.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td rowspan="2"> align
-</td><td align="center" rowspan="2"> O
-</td><td> horizontal
-</td><td align="center"> S
-</td><td> right
-</td><td> left, center, right
-</td><td> Horizontal alignment of close button against module window.
-</td>
+                        <td rowspan="2"> align</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> S</td><td> right</td><td> left, center, right</td><td> Horizontal alignment of close button against module window.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> vertical
-</td><td align="center"> S
-</td><td> top
-</td><td> top, middle, bottom
-</td><td> Vertical alignment of close button against module window.
-</td>
+                        <td> vertical</td><td align="center"> S</td><td> top</td><td> top, middle, bottom</td><td> Vertical alignment of close button against module window.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td rowspan="2"> move
-</td><td align="center" rowspan="2"> O
-</td><td> horizontal
-</td><td align="center"> N
-</td><td> 0
-</td><td align="center"> -
-</td><td> Number of pixels close button is moved horizontally.
-</td>
+                        <td rowspan="2"> move</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> N</td><td> 0</td><td align="center"> -</td><td> Number of pixels close button is moved horizontally.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> vertical
-</td><td align="center"> N
-</td><td> 0
-</td><td align="center"> -
-</td><td> Number of pixels close button is moved vertically.
-</td>
+                        <td> vertical</td><td align="center"> N</td><td> 0</td><td align="center"> -</td><td> Number of pixels close button is moved vertically.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="viewer">viewer</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
-</th>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> path
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> path to image file
-</td><td> Mandatory attribute. Points to image file that will be used as bitmaps for scrolling bar.
-</td>
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to image file</td><td> Mandatory attribute. Points to image file that will be used as bitmaps for scrolling bar.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> scrollSpeed
-</td><td align="center"> N
-</td><td align="center" colspan="2"> -
-</td><td> 10
-</td><td align="center"> -
-</td><td> Number of pixels text is scrolled ar mouse wheel movement
-</td>
+                        <td> scrollSpeed</td><td align="center"> N</td><td align="center" colspan="2"> -</td><td> 10</td><td align="center"> -</td><td> Number of pixels text is scrolled ar mouse wheel movement</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td rowspan="3"> style
-</td><td align="center" rowspan="3"> O
-</td><td> color
-</td><td align="center"> N
-</td><td> #000000
-</td><td> #000000 to #FFFFFF
-</td><td> Color of module window background.
-</td>
+                        <td rowspan="3"> style</td><td align="center" rowspan="3"> O</td><td> color</td><td align="center"> N</td><td> #000000</td><td> #000000 to #FFFFFF</td><td> Color of module window background.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> alpha
-</td><td align="center"> N
-</td><td> 1
-</td><td> 0.1 to 1.0
-</td><td> Transparency of module window background.
-</td>
+                        <td> alpha</td><td align="center"> N</td><td> 1</td><td> 0.1 to 1.0</td><td> Transparency of module window background.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> padding
-</td><td align="center"> N
-</td><td> 20
-</td><td align="center"> -
-</td><td> Distance between text and inner module window border.
-</td>
+                        <td> padding</td><td align="center"> N</td><td> 20</td><td align="center"> -</td><td> Distance between text and inner module window border.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> css
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> path to css file
-</td><td> File can contain only subset of style definishons that is supported by flash player. <a class="external text" href="http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/text/StyleSheet.html" rel="nofollow" target="_BLANK">List of supported styles</a>
-</td>
+                        <td> css</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to css file</td><td> File can contain only subset of style definishons that is supported by flash player. <a class="external text" href="http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/text/StyleSheet.html" rel="nofollow" target="_BLANK">List of supported styles</a></td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="article">article</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
-</th>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> id
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td align="center"> -
-</td><td> Mandatory attribute. Must be unique among other article nodes.
-</td>
+                        <td> id</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Mandatory attribute. Must be unique among other article nodes.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> path
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> path to text file
-</td><td> Mandatory attribute. Points to file that contains simplified html code supported by flash player. <a class="external text" href="http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/text/TextField.html#htmlText" rel="nofollow" target="_BLANK">List of supported tags</a>
-</td>
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to text file</td><td> Mandatory attribute. Points to file that contains simplified html code supported by flash player. <a class="external text" href="http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/text/TextField.html#htmlText" rel="nofollow" target="_BLANK">List of supported tags</a></td>
                     </tr>
                 </table>
-
                 <h2> 
                     <span class="mw-headline" id="Functions">Functions</span>
                 </h2>
-
                 <h3> 
                     <span class="mw-headline" id="setOpen">setOpen</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> B
-</td><td> Value assigned to open attribute.
-</td><td> Opens/closes module window on demand. Opening window once window is opened makes no effect, same thing for closing window.
-</td>
+                        <td align="center"> B</td><td> Value assigned to open attribute.</td><td> Opens/closes module window on demand. Opening window once window is opened makes no effect, same thing for closing window.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="toggleOpen">toggleOpen</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> -
-</td><td align="center"> -
-</td><td> Calling this function toggles module window open state. If called when window is opened it closes window, same thing other way around.
-</td>
+                        <td align="center"> -</td><td align="center"> -</td><td> Calling this function toggles module window open state. If called when window is opened it closes window, same thing other way around.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="setArticle">setArticle</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> S
-</td><td> article id
-</td><td> Makes module display article of given id.
-</td>
+                        <td align="center"> S</td><td> article id</td><td> Makes module display article of given id.</td>
                     </tr>
                 </table>
-
-
-
-
-
                 <br>
                 <br>
                 <br>
                 <br>
-                <div class="printfooter">
-Retrieved from "<a href="module_infobox.html">http://panozona.com/wiki/Module:InfoBox</a>"</div>
-
-
-
-
-
+                <div class="printfooter">Retrieved from "<a href="module_infobox.html">http://panozona.com/wiki/Module:InfoBox</a>"</div>
             </div>
-
-
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </body>
 </html>

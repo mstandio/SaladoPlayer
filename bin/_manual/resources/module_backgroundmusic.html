@@ -7,489 +7,227 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body class="mediawiki ltr ns-0 ns-subject page-Module_BackgroundMusic skin-vector">
-
-
-
-
         <div id="content">
-
-
-
-
             <h1 class="firstHeading" id="firstHeading">Module:BackgroundMusic</h1>
-
-
-
             <div id="bodyContent">
-
-
                 <h3 id="siteSub">From PanoZona</h3>
-
-
-
-
-
-
-
-
-
                 <table class="toc" id="toc">
                     <tr>
                         <td>
                             <div id="toctitle">
                                 <h2>Contents</h2>
                             </div>
-
                             <ul>
-
                                 <li class="toclevel-1 tocsection-1">
                                     <a href="#Configuration_structure"><span class="tocnumber">1</span> <span class="toctext">Configuration structure</span></a>
                                 </li>
-
                                 <li class="toclevel-1 tocsection-2">
                                     <a href="#Configuration_details"><span class="tocnumber">2</span> <span class="toctext">Configuration details</span></a>
-
                                     <ul>
-
                                         <li class="toclevel-2 tocsection-3">
                                             <a href="#BackgroundMusic"><span class="tocnumber">2.1</span> <span class="toctext">BackgroundMusic</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-4">
                                             <a href="#settings"><span class="tocnumber">2.2</span> <span class="toctext">settings</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-5">
                                             <a href="#track"><span class="tocnumber">2.3</span> <span class="toctext">track</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-6">
                                             <a href="#sound"><span class="tocnumber">2.4</span> <span class="toctext">sound</span></a>
                                         </li>
-
                                     </ul>
-
                                 </li>
-
                                 <li class="toclevel-1 tocsection-7">
                                     <a href="#Functions"><span class="tocnumber">3</span> <span class="toctext">Functions</span></a>
-
                                     <ul>
-
                                         <li class="toclevel-2 tocsection-8">
                                             <a href="#setTrack"><span class="tocnumber">3.1</span> <span class="toctext">setTrack</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-9">
                                             <a href="#setPlay"><span class="tocnumber">3.2</span> <span class="toctext">setPlay</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-10">
                                             <a href="#togglePlay"><span class="tocnumber">3.3</span> <span class="toctext">togglePlay</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-11">
                                             <a href="#playSound"><span class="tocnumber">3.4</span> <span class="toctext">playSound</span></a>
                                         </li>
-
                                     </ul>
-
                                 </li>
-
                             </ul>
-
                         </td>
                     </tr>
                 </table>
-
                 <div style="float:right;width:340px">
-
                     <table align="center" border="1" cellpadding="5" cellspacing="0" class="moduledesc_tab" style="width:315px; border-collapse: collapse; float:right">
-
-
                         <tr valign="top">
-
-                            <th align="center" colspan="2"> BackgroundMusic
-</th>
+                            <th align="center" colspan="2"> BackgroundMusic</th>
                         </tr>
-
                         <tr class="moduledesc_tab_odd" valign="top">
-
-                            <td> Author
-</td><td> Marek Standio
-</td>
+                            <td> Author</td><td> Marek Standio</td>
                         </tr>
-
                         <tr class="moduledesc_tab_even" valign="top">
-
-                            <td> Module version
-</td><td> 1.2
-</td>
+                            <td> Module version</td><td> 1.2</td>
                         </tr>
-
                         <tr class="moduledesc_tab_odd" valign="top">
-
-                            <td> Compatibility
-</td><td> SaladoPlayer 1.0 +
-</td>
+                            <td> Compatibility</td><td> SaladoPlayer 1.0 +</td>
                         </tr>
                     </table>
-
                 </div>
-
-                <p>BackgroundMusic is simple module for playing music in background. You can easily asign different sound files to be played in different panoramas, module can also cooperate with other modules such like <a href="module_buttonbar.html" title="Module:ButtonBar">ButtonBar</a> or <a href="module_imagebutton.html" title="Module:ImageButton">ImageButton</a>.
-</p>
+                <p>BackgroundMusic is simple module for playing music in background. You can easily asign different sound files to be played in different panoramas, module can also cooperate with other modules such like <a href="module_buttonbar.html" title="Module:ButtonBar">ButtonBar</a> or <a href="module_imagebutton.html" title="Module:ImageButton">ImageButton</a>.</p>
                 <p>
                     <br>
-
                 </p>
-
                 <h2> 
                     <span class="mw-headline" id="Configuration_structure">Configuration structure</span>
                 </h2>
-
                 <ul>
                     <li> 
                         <a href="#BackgroundMusic">BackgroundMusic</a>
-
                         <ul>
                             <li> 
                                 <a href="#settings">settings</a>
-
                             </li>
-                            <li> tracks
-<ul>
+                            <li> tracks<ul>
                                     <li> 
                                         <a href="#track">track</a>
-
                                     </li>
                                 </ul>
-
                             </li>
-                            <li> sounds
-<ul>
+                            <li> sounds<ul>
                                     <li> 
                                         <a href="#sound">sound</a>
-
                                     </li>
                                 </ul>
-
                             </li>
                         </ul>
-
                     </li>
                 </ul>
-
                 <h2> 
                     <span class="mw-headline" id="Configuration_details">Configuration details</span>
                 </h2>
-
                 <h3> 
                     <span class="mw-headline" id="BackgroundMusic">BackgroundMusic</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
-</th>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> path
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> path to swf file
-</td><td> Mandatory attribute. Value points to module swf file.
-</td>
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to swf file</td><td> Mandatory attribute. Value points to module swf file.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="settings">settings</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
-</th>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> play
-</td><td align="center"> B
-</td><td align="center" colspan="2"> -
-</td><td> false
-</td><td> true, false
-</td><td> Determines if current track is played whenever module is loaded.
-</td>
+                        <td> play</td><td align="center"> B</td><td align="center" colspan="2"> -</td><td> false</td><td> true, false</td><td> Determines if current track is played whenever module is loaded.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> onPlay
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> action id
-</td><td> Action executed when music starts playing.
-</td>
+                        <td> onPlay</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> action id</td><td> Action executed when music starts playing.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> onStop
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> action id
-</td><td> Action executed when music stops playing.
-</td>
+                        <td> onStop</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> action id</td><td> Action executed when music stops playing.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="track">track</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
-</th>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> id
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td align="center"> -
-</td><td> Mandatory attribute. Id of track, must be unique among other tracks.
-</td>
+                        <td> id</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Mandatory attribute. Id of track, must be unique among other tracks.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> path
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> path to sound file
-</td><td> Mandatory attribute. Points to *.mp3 file used by given track.
-</td>
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to sound file</td><td> Mandatory attribute. Points to *.mp3 file used by given track.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> volume
-</td><td align="center"> N
-</td><td align="center" colspan="2"> -
-</td><td> 1.0
-</td><td> 0.0 to 1.0
-</td><td> Volume of played sound file.
-</td>
+                        <td> volume</td><td align="center"> N</td><td align="center" colspan="2"> -</td><td> 1.0</td><td> 0.0 to 1.0</td><td> Volume of played sound file.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> loop
-</td><td align="center"> B
-</td><td align="center" colspan="2"> -
-</td><td> true
-</td><td> true, false
-</td><td> Determines if sound file is repeated after it finishes playing.
-</td>
+                        <td> loop</td><td align="center"> B</td><td align="center" colspan="2"> -</td><td> true</td><td> true, false</td><td> Determines if sound file is repeated after it finishes playing.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> next
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> track id
-</td><td> If track loop attribute is set to false you can determine which track is played when given track finishes playing.
-</td>
+                        <td> next</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> track id</td><td> If track loop attribute is set to false you can determine which track is played when given track finishes playing.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="sound">sound</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
-</th>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> id
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td align="center"> -
-</td><td> Mandatory attribute. Id of sound, must be unique among other sounds.
-</td>
+                        <td> id</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Mandatory attribute. Id of sound, must be unique among other sounds.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> path
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> path to sound file
-</td><td> Mandatory attribute. Points to *.mp3 file used by given track.
-</td>
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to sound file</td><td> Mandatory attribute. Points to *.mp3 file used by given track.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> volume
-</td><td align="center"> N
-</td><td align="center" colspan="2"> -
-</td><td> 1.0
-</td><td> 0.0 to 1.0
-</td><td> Volume of played sound file.
-</td>
+                        <td> volume</td><td align="center"> N</td><td align="center" colspan="2"> -</td><td> 1.0</td><td> 0.0 to 1.0</td><td> Volume of played sound file.</td>
                     </tr>
                 </table>
-
                 <h2> 
                     <span class="mw-headline" id="Functions">Functions</span>
                 </h2>
-
                 <h3> 
                     <span class="mw-headline" id="setTrack">setTrack</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> S
-</td><td> track id
-</td><td> Function is used to set "current" track. If music is playing, changing track results in playing different sound file. If music is stopped, setting track changes sound file that will be played when users starts playing music. By default first track in configuration is used as "current" track.
-</td>
+                        <td align="center"> S</td><td> track id</td><td> Function is used to set "current" track. If music is playing, changing track results in playing different sound file. If music is stopped, setting track changes sound file that will be played when users starts playing music. By default first track in configuration is used as "current" track.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="setPlay">setPlay</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> B
-</td><td> value
-</td><td> Function is used for stopping and starting playing "current" track.
-</td>
+                        <td align="center"> B</td><td> value</td><td> Function is used for stopping and starting playing "current" track.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="togglePlay">togglePlay</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> -
-</td><td align="center"> -
-</td><td> If music is playing, calling this functions stops it. Similarly, when music is stopped, calling this function starts playing "current" track.
-</td>
+                        <td align="center"> -</td><td align="center"> -</td><td> If music is playing, calling this functions stops it. Similarly, when music is stopped, calling this function starts playing "current" track.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="playSound">playSound</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> S
-</td><td> sound id
-</td><td> Function is used to play single sound of given id.
-</td>
+                        <td align="center"> S</td><td> sound id</td><td> Function is used to play single sound of given id.</td>
                     </tr>
                 </table>
-
-
-
-
-
                 <br>
                 <br>
                 <br>
                 <br>
-                <div class="printfooter">
-Retrieved from "<a href="module_backgroundmusic.html">http://panozona.com/wiki/Module:BackgroundMusic</a>"</div>
-
-
-
-
-
+                <div class="printfooter">Retrieved from "<a href="module_backgroundmusic.html">http://panozona.com/wiki/Module:BackgroundMusic</a>"</div>
             </div>
-
-
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </body>
 </html>

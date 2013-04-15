@@ -7,271 +7,121 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body class="mediawiki ltr ns-0 ns-subject page-Module_FullScreener skin-vector">
-
-
-
-
         <div id="content">
-
-
-
-
             <h1 class="firstHeading" id="firstHeading">Module:FullScreener</h1>
-
-
-
             <div id="bodyContent">
-
-
                 <h3 id="siteSub">From PanoZona</h3>
-
-
-
-
-
-
-
-
-
                 <table class="toc" id="toc">
                     <tr>
                         <td>
                             <div id="toctitle">
                                 <h2>Contents</h2>
                             </div>
-
                             <ul>
-
                                 <li class="toclevel-1 tocsection-1">
                                     <a href="#Configuration_structure"><span class="tocnumber">1</span> <span class="toctext">Configuration structure</span></a>
-
                                     <ul>
-
                                         <li class="toclevel-2 tocsection-2">
                                             <a href="#FullScreener"><span class="tocnumber">1.1</span> <span class="toctext">FullScreener</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-3">
                                             <a href="#settings"><span class="tocnumber">1.2</span> <span class="toctext">settings</span></a>
                                         </li>
-
                                     </ul>
-
                                 </li>
-
                                 <li class="toclevel-1 tocsection-4">
                                     <a href="#Functions"><span class="tocnumber">2</span> <span class="toctext">Functions</span></a>
-
                                     <ul>
-
                                         <li class="toclevel-2 tocsection-5">
                                             <a href="#setFullScreenOn"><span class="tocnumber">2.1</span> <span class="toctext">setFullScreenOn</span></a>
                                         </li>
-
                                         <li class="toclevel-2 tocsection-6">
                                             <a href="#toggleFullScreenOn"><span class="tocnumber">2.2</span> <span class="toctext">toggleFullScreenOn</span></a>
                                         </li>
-
                                     </ul>
-
                                 </li>
-
                             </ul>
-
                         </td>
                     </tr>
                 </table>
-
                 <h2> 
                     <span class="mw-headline" id="Configuration_structure">Configuration structure</span>
                 </h2>
-
                 <ul>
                     <li> 
                         <a href="#FullScreener">FullScreener</a>
-
                         <ul>
                             <li> 
                                 <a href="#settings">settings</a>
-
                             </li>
                         </ul>
-
                     </li>
                 </ul>
-
                 <h3> 
                     <span class="mw-headline" id="FullScreener">FullScreener</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
-</th>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> path
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> path to swf file
-</td><td> Mandatory attribute. Value points to module swf file.
-</td>
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to swf file</td><td> Mandatory attribute. Value points to module swf file.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="settings">settings</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description
-</th>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> path
-</td><td align="center"> S
-</td><td align="center" colspan="2"> -
-</td><td align="center"> -
-</td><td> path to image file
-</td><td> Mandatory attribute. Path to image used as button, it also should work with swf file.
-</td>
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to image file</td><td> Mandatory attribute. Path to image used as button, it also should work with swf file.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td rowspan="2"> align
-</td><td align="center" rowspan="2"> O
-</td><td> horizontal
-</td><td align="center"> S
-</td><td> right
-</td><td> left, center, right
-</td><td> Horizontal alignment of module window against panorama window.
-</td>
+                        <td rowspan="2"> align</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> S</td><td> right</td><td> left, center, right</td><td> Horizontal alignment of module window against panorama window.</td>
                     </tr>
-
                     <tr class="attribute_tab_even" valign="top">
-
-                        <td> vertical
-</td><td align="center"> S
-</td><td> top
-</td><td> top, middle, bottom
-</td><td> Vertical alignment of module window against panorama window.
-</td>
+                        <td> vertical</td><td align="center"> S</td><td> top</td><td> top, middle, bottom</td><td> Vertical alignment of module window against panorama window.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td rowspan="2"> move
-</td><td align="center" rowspan="2"> O
-</td><td> horizontal
-</td><td align="center"> N
-</td><td> 0
-</td><td align="center"> -
-</td><td> Number of pixels module window is moved horizontally.
-</td>
+                        <td rowspan="2"> move</td><td align="center" rowspan="2"> O</td><td> horizontal</td><td align="center"> N</td><td> 0</td><td align="center"> -</td><td> Number of pixels module window is moved horizontally.</td>
                     </tr>
-
                     <tr class="attribute_tab_odd" valign="top">
-
-                        <td> vertical
-</td><td align="center"> N
-</td><td> 0
-</td><td align="center"> -
-</td><td> Number of pixels module window is moved vertically.
-</td>
+                        <td> vertical</td><td align="center"> N</td><td> 0</td><td align="center"> -</td><td> Number of pixels module window is moved vertically.</td>
                     </tr>
                 </table>
-
                 <h2> 
                     <span class="mw-headline" id="Functions">Functions</span>
                 </h2>
-
                 <h3> 
                     <span class="mw-headline" id="setFullScreenOn">setFullScreenOn</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> B
-</td><td> fullscreen value
-</td><td> set fullscreen value.
-</td>
+                        <td align="center"> B</td><td> fullscreen value</td><td> set fullscreen value.</td>
                     </tr>
                 </table>
-
                 <h3> 
                     <span class="mw-headline" id="toggleFullScreenOn">toggleFullScreenOn</span>
                 </h3>
-
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="modulefunct_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
-
                     <tr>
-
-                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description
-</th>
+                        <th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="300">Description</th><th>Function description</th>
                     </tr>
-
                     <tr class="modulefunct_tab_odd" valign="top">
-
-                        <td align="center"> -
-</td><td> -
-</td><td> toggle Fullscreen
-</td>
+                        <td align="center"> -</td><td> -</td><td> toggle Fullscreen</td>
                     </tr>
                 </table>
-
-
-
-
-
                 <br>
                 <br>
                 <br>
                 <br>
-                <div class="printfooter">
-Retrieved from "<a href="module_fullscreener.html">http://panozona.com/wiki/Module:FullScreener</a>"</div>
-
-
-
-
-
+                <div class="printfooter">Retrieved from "<a href="module_fullscreener.html">http://panozona.com/wiki/Module:FullScreener</a>"</div>
             </div>
-
-
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </body>
 </html>
