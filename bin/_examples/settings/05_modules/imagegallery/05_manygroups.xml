@@ -14,7 +14,7 @@
 		<ImageGallery path="~modules/imagegallery/ImageGallery-1.0.swf">
 			<window open="true" maxSize="height:200" align="vertical:top"/>
 			<close path="~tours/_media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
-			<viewer path="~modules/imagegallery/skins/buttons_dark_40x40.png" throbber="~tours/checker/_media/images/misc/throbber-circles.gif"/>
+			<viewer path="~modules/imagegallery/skins/buttons_dark_40x40.png" throbber="~tours/_media/images/misc/throbber_circles.gif"/>
 			<groups>
 				<group id="group1">
 					<image path="~tours/checker/_media/images/maps/map1.jpg"/>

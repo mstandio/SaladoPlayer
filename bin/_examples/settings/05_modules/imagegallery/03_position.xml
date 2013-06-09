@@ -10,7 +10,7 @@
 	<modules>
 		<ImageGallery path="~modules/imagegallery/ImageGallery-1.0.swf">
 			<window open="true" maxSize="width:200,height:100" minSize="width:50,height:50" margin="bottom:50" align="vertical:bottom"/>
-			<viewer path="~modules/imagegallery/skins/buttons_dark_40x40.png" throbber="~tours/checker/_media/images/misc/throbber-circles.gif"/>
+			<viewer path="~modules/imagegallery/skins/buttons_dark_40x40.png" throbber="~tours/_media/images/misc/throbber_circles.gif"/>
 			<groups>
 				<group id="g1">
 					<image path="~tours/checker/_media/images/maps/map1.jpg"/>
