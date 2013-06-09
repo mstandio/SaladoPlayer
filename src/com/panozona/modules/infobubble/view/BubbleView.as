@@ -42,6 +42,8 @@ package com.panozona.modules.infobubble.view{
 			mouseEnabled = false;
 			mouseChildren = false;
 			
+			alpha = _infoBubbleData.settings.alpha;
+			
 			textField.defaultTextFormat = textFormat;
 			textField.multiline = true;
 			textField.selectable = false;

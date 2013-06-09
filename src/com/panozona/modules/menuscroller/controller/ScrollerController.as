@@ -156,7 +156,7 @@ package com.panozona.modules.menuscroller.controller{
 		
 		private function onElementActive(e:Event = null):void {
 			recalulateTotalSize();
-			onEnterFrame();
+			_module.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
 		}
 		
 		private function recalulateTotalSize():void {
