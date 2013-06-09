@@ -11,7 +11,7 @@
 	<panoramas>
 		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml">
 			<swf id="gc_hello" path="~spots/VideoSpot-1.0.swf" location="distance:600" transform="flat:false">
-				<settings splashPath="~tours/checker/_media/video/hello/hello_splash.png" videoPath="http://linkowiec.pl/saladoplayer/spots/video/hello.mp4" size="width:400,height:300"/>
+				<settings splashPath="~tours/checker/_media/video/hello/hello_splash.png" videoPath="http://openpano.org/demo/tours/checker/_media/video/hello/hello.mp4" size="width:400,height:300"/>
 			</swf>
 		</panorama>
 	</panoramas>

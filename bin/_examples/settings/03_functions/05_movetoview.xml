@@ -5,7 +5,6 @@
 	- moveToViewThen executes action when it has finished
 	- advancedMoveToView is same as moveToView, but allows setting speed and transition function
 	- advancedMoveToViewThen executes action when it has finished
-	For avaible transition functions see: http://panozona.com/wiki/SaladoPlayer:Data_types
 	
 	See: [../../_manual/index.html?saladoplayer_exposed-functions.html]
 -->

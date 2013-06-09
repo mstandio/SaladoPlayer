@@ -6,7 +6,6 @@
 	- moveToHotspotThen executes action when it has finished
 	- advancedMoveToHotspot is same as moveToHotspot, but allows setting target field of view, speed and transition function
 	- advancedMoveToHotspotThen executes action when it has finished
-	For avaible transition functions see: http://panozona.com/wiki/SaladoPlayer:Data_types
 	
 	See: [../../_manual/index.html?saladoplayer_exposed-functions.html]
 -->

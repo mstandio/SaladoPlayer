@@ -25,11 +25,11 @@ package com.panozona.spots.dataspot{
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
-	public class DataHotspot extends Sprite{
+	public class DataSpot extends Sprite{
 		
 		private var textField:TextField;
 		
-		public function DataHotspot(){
+		public function DataSpot(){
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init, false, 0, true);
 		}

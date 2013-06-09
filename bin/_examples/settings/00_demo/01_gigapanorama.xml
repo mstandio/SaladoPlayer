@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	dz_kiev is not inclided and has to be downloaded separately
+	Gigapanorama dz_kiev is not included and has to be downloaded separately.
+	
+	See: http://openpano.org/demo/download/
 -->
 <SaladoPlayer>
-	<global debug="true"/>
+	<global debug="false"/>
 	<panoramas>
-		<panorama id="kiev" path="~../../panoramas5/dz_kiev/kiev_f.xml"/>
+		<panorama id="kiev" path="~tours/kiev/dz_kiev/kiev_f.xml"/>
 	</panoramas>
 	<modules>
 		<ImageButton path="~modules/imagebutton/ImageButton-1.3.swf">

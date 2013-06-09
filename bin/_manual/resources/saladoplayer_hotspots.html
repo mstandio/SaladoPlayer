@@ -13,11 +13,12 @@
                 <h3 id="siteSub">From PanoZona</h3>
                 <p>For the SWF hotspots you can choose per example one of these files:</p>
                 <ul>
-                    <li> SimpleHotspot-1.0.swf</li>
-                    <li> AdvancedHotspot-1.0.swf</li>
-                    <li> VideoHotspot-1.0.swf</li>
+                    <li> ExampleSpot-1.0.swf</li>
+                    <li> GrowingSpot-1.0.swf</li>
+                    <li> VideoSpot-1.0.swf</li>
+                    <li> NadirSpot-1.0.swf</li>
+                    <li> FadingSpot-1.0.swf</li>
                 </ul>
-                <p>They are located in the directory "hotspots".</p>
                 <table class="toc" id="toc">
                     <tr>
                         <td>
@@ -26,7 +27,7 @@
                             </div>
                             <ul>
                                 <li class="toclevel-1 tocsection-1">
-                                    <a href="#SimpleHotspot"><span class="tocnumber">1</span> <span class="toctext">SimpleHotspot</span></a>
+                                    <a href="#ExampleSpot"><span class="tocnumber">1</span> <span class="toctext">ExampleSpot</span></a>
                                     <ul>
                                         <li class="toclevel-2 tocsection-2">
                                             <a href="#Structure"><span class="tocnumber">1.1</span> <span class="toctext">Structure</span></a>
@@ -34,7 +35,7 @@
                                     </ul>
                                 </li>
                                 <li class="toclevel-1 tocsection-3">
-                                    <a href="#AdvancedHotspot"><span class="tocnumber">2</span> <span class="toctext">AdvancedHotspot</span></a>
+                                    <a href="#GrowingSpot"><span class="tocnumber">2</span> <span class="toctext">GrowingSpot</span></a>
                                     <ul>
                                         <li class="toclevel-2 tocsection-4">
                                             <a href="#Structure_2"><span class="tocnumber">2.1</span> <span class="toctext">Structure</span></a>
@@ -42,10 +43,26 @@
                                     </ul>
                                 </li>
                                 <li class="toclevel-1 tocsection-5">
-                                    <a href="#VideoHotspot"><span class="tocnumber">3</span> <span class="toctext">VideoHotspot</span></a>
+                                    <a href="#VideoSpot"><span class="tocnumber">3</span> <span class="toctext">VideoSpot</span></a>
                                     <ul>
                                         <li class="toclevel-2 tocsection-6">
                                             <a href="#Structure_3"><span class="tocnumber">3.1</span> <span class="toctext">Structure</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="toclevel-1 tocsection-7">
+                                    <a href="#NadirSpot"><span class="tocnumber">4</span> <span class="toctext">NadirSpot</span></a>
+                                    <ul>
+                                        <li class="toclevel-2 tocsection-8">
+                                            <a href="#Structure_4"><span class="tocnumber">4.1</span> <span class="toctext">Structure</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="toclevel-1 tocsection-9">
+                                    <a href="#FadingSpot"><span class="tocnumber">5</span> <span class="toctext">FadingSpot</span></a>
+                                    <ul>
+                                        <li class="toclevel-2 tocsection-10">
+                                            <a href="#Structure_5"><span class="tocnumber">5.1</span> <span class="toctext">Structure</span></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -54,22 +71,17 @@
                     </tr>
                 </table>
                 <h1> 
-                    <span class="mw-headline" id="SimpleHotspot">SimpleHotspot</span>
+                    <span class="mw-headline" id="ExampleSpot">ExampleSpot</span>
                 </h1>
-                <p>It is configured like the normal image hotspot.</p>
-                <p>It shows a blue arrow like the picture in "hotspots/images/blue_arrow.png". The arrow is a little bit beating.</p>
+                <p>It is configured like the normal image hotspot.It shows a blue arrow that is compiled into spot. The arrow is a little bit beating.</p>
                 <h3> 
                     <span class="mw-headline" id="Structure">Structure</span>
                 </h3>
                 <ul>
                     <li> SaladoPlayer<ul>
                             <li> panoramas<ul>
-                                    <li> 
-                                        <a href="#panorama">panorama</a>
-                                        <ul>
-                                            <li> 
-                                                <a href="#swf">swf</a>
-                                            </li>
+                                    <li> panorama<ul>
+                                            <li> swf</li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -77,26 +89,18 @@
                         </ul>
                     </li>
                 </ul>
-                <p>
-                    <br>
-                </p>
                 <h1> 
-                    <span class="mw-headline" id="AdvancedHotspot">AdvancedHotspot</span>
+                    <span class="mw-headline" id="GrowingSpot">GrowingSpot</span>
                 </h1>
                 <p>It is configured like the normal image hotspot.</p>
-                <p>But there are more settings.</p>
                 <h3> 
                     <span class="mw-headline" id="Structure_2">Structure</span>
                 </h3>
                 <ul>
                     <li> SaladoPlayer<ul>
                             <li> panoramas<ul>
-                                    <li> 
-                                        <a href="#panorama">panorama</a>
-                                        <ul>
-                                            <li> 
-                                                <a href="#swf">swf</a>
-                                                <ul>
+                                    <li> panorama<ul>
+                                            <li> swf<ul>
                                                     <li> settings</li>
                                                 </ul>
                                             </li>
@@ -110,9 +114,6 @@
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
                     <tr>
                         <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
-                        <caption class="attribute_tab_caption">
-                            <b>Parent: panorama:swf</b>
-                        </caption>
                     </tr>
                     <tr class="attribute_tab_odd" valign="top">
                         <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Mandatory attribute. Points to hotspot image. Allowed formats are *.jpg, *.gif and *.png</td>
@@ -152,23 +153,17 @@
                     </tr>
                 </table>
                 <h1> 
-                    <span class="mw-headline" id="VideoHotspot">VideoHotspot</span>
+                    <span class="mw-headline" id="VideoSpot">VideoSpot</span>
                 </h1>
                 <p>This is a video hotspot with additional settings.</p>
-                <p>It is configured like the normal image hotspot.</p>
-                <p>But there are more settings.</p>
                 <h3> 
                     <span class="mw-headline" id="Structure_3">Structure</span>
                 </h3>
                 <ul>
                     <li> SaladoPlayer<ul>
                             <li> panoramas<ul>
-                                    <li> 
-                                        <a href="#panorama">panorama</a>
-                                        <ul>
-                                            <li> 
-                                                <a href="#swf">swf</a>
-                                                <ul>
+                                    <li> panorama<ul>
+                                            <li> swf<ul>
                                                     <li> settings</li>
                                                 </ul>
                                             </li>
@@ -182,9 +177,6 @@
                 <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
                     <tr>
                         <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
-                        <caption class="attribute_tab_caption">
-                            <b>Parent: panorama:swf</b>
-                        </caption>
                     </tr>
                     <tr class="attribute_tab_odd" valign="top">
                         <td> splashPath</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Mandatory attribute. Points to a splash image, shown before videos starts. Allowed formats are *.jpg, *.gif and *.png</td>
@@ -197,6 +189,96 @@
                     </tr>
                     <tr class="attribute_tab_odd" valign="top">
                         <td> height</td><td align="center"> N</td><td> 300</td><td align="center"> -</td><td> Height of the video</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td> autoPlay</td><td align="center"> B</td><td align="center" colspan="2"> -</td><td> false</td><td> true, false</td><td> Determines if movie is played after spot is loaded.</td>
+                    </tr>
+                </table>
+                <p>
+                    <br>
+                </p>
+                <h1> 
+                    <span class="mw-headline" id="NadirSpot">NadirSpot</span>
+                </h1>
+                <p>This is a hotspot that is intended to be placed in nadir or zenith of panorama. </p>
+                <h3> 
+                    <span class="mw-headline" id="Structure_4">Structure</span>
+                </h3>
+                <ul>
+                    <li> SaladoPlayer<ul>
+                            <li> panoramas<ul>
+                                    <li> panorama<ul>
+                                            <li> swf<ul>
+                                                    <li> settings</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+                    <tr>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Mandatory attribute. Points to spot image file.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td> zenith</td><td align="center"> B</td><td align="center" colspan="2"> -</td><td> false</td><td> true, false</td><td> Determines direction in which spot is rotated on pan change.</td>
+                    </tr>
+                </table>
+                <p>
+                    <br>
+                </p>
+                <h1> 
+                    <span class="mw-headline" id="FadingSpot">FadingSpot</span>
+                </h1>
+                <p>Simple image that can fade in or out on mouse interaction.</p>
+                <h3> 
+                    <span class="mw-headline" id="Structure_5">Structure</span>
+                </h3>
+                <ul>
+                    <li> SaladoPlayer<ul>
+                            <li> panoramas<ul>
+                                    <li> panorama<ul>
+                                            <li> swf<ul>
+                                                    <li> settings</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <table align="center" border="1" cellpadding="5" cellspacing="0" class="attribute_tab" style="width:100%;border-collapse:collapse;table-layout:fixed;">
+                    <tr>
+                        <th width="120">Attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="120">Sub-attribute</th><th width="40"><u><a href="saladoplayer_data-types.html" title="SaladoPlayer:Data types"> Type</a></u></th><th width="100">Default</th><th width="100">Values</th><th>Description</th>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td align="center"> -</td><td> Mandatory attribute. Points to spot image file.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td rowspan="3"> mouseOver</td><td align="center" rowspan="3"> O</td><td> transition</td><td align="center"> F</td><td> Linear.easeNone</td><td align="center"> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a></td><td> Fading animation transition.</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td> time</td><td align="center"> N</td><td> 0.5</td><td align="center"> -</td><td> Fading transition time in seconds</td>
+                    </tr>
+                    <tr class="attribute_tab_even" valign="top">
+                        <td> alpha</td><td align="center"> N</td><td> 1</td><td> 0.0 to 1.0</td><td> Fading transition alpha</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td rowspan="3"> mouseOut</td><td align="center" rowspan="3"> O</td><td> transition</td><td align="center"> F</td><td> Linear.easeNone</td><td align="center"> <a href="saladoplayer_data-types.html#Avaible_functions" title="SaladoPlayer:Data types">avaible functions</a></td><td> Fading animation transition.</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> time</td><td align="center"> N</td><td> 0.5</td><td align="center"> -</td><td> Fading transition time in seconds</td>
+                    </tr>
+                    <tr class="attribute_tab_odd" valign="top">
+                        <td> alpha</td><td align="center"> N</td><td> 0</td><td> 0.0 to 1.0</td><td> Fading transition alpha</td>
                     </tr>
                 </table>
                 <br>

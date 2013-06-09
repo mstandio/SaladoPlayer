@@ -24,8 +24,8 @@ package com.panozona.spots.videospot.model {
 		
 		public var size:Size = new Size(400, 300);
 		
-		public var splashPath:String = "hotspots/video/splash.jpg"; // TODO: remove
-		public var videoPath:String = "hotspots/video/vlad.mp4"; // TODO: remove
+		public var splashPath:String = null;
+		public var videoPath:String = null;
 		
 		public var autoPlay:Boolean = false;
 	}

@@ -310,13 +310,13 @@
                         <td> path</td><td align="center"> S</td><td align="center" colspan="2"> -</td><td align="center"> -</td><td> path to xml file</td><td> Mandatory attribute. Value points to xml file describing front deep zoom cube. For instance: panoramas/panorama/panorama_f.xml</td>
                     </tr>
                     <tr class="attribute_tab_odd" valign="top">
-                        <td rowspan="17"> camera</td><td align="center" rowspan="17"> O</td><td> pan</td><td align="center"> N</td><td> 0</td><td> -180 to 180</td><td> Initial camera pan. When set to NaN pan will be set to 0 in first panorama, and if panorama is loaded after another one it will keep its previous value, optionally altered with value of panorama direction attribute.</td>
+                        <td rowspan="17"> view</td><td align="center" rowspan="17"> O</td><td> pan</td><td align="center"> N</td><td> 0</td><td> -180 to 180</td><td> Initial camera pan. When set to NaN pan will be set to 0 in first panorama, and if panorama is loaded after another one it will keep its previous value, optionally altered with value of panorama direction attribute.</td>
                     </tr>
                     <tr class="attribute_tab_odd" valign="top">
                         <td> tilt</td><td align="center"> N</td><td> 0</td><td> -90 to 90</td><td> Initial camera tilt. When set to NaN tilt will be set to 0 in first panorama, and if panorama is loaded after another one it will keep its previous value.</td>
                     </tr>
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> fov</td><td align="center"> N</td><td> 90</td><td> 0.1 to 179.9</td><td> Initial camera field of view. When set to NaN field of view will be set to 90 in first panorama, and if panorama is loaded after another one it will keep its previous value.</td>
+                        <td> fov</td><td align="center"> N</td><td> 100</td><td> 0.1 to 179.9</td><td> Initial camera field of view. When set to NaN field of view will be set to 90 in first panorama, and if panorama is loaded after another one it will keep its previous value.</td>
                     </tr>
                     <tr class="attribute_tab_odd" valign="top">
                         <td> maxPan</td><td align="center"> N</td><td> NaN</td><td> -180 to 180</td><td> Camera pan upper limit. When set to NaN, pan limit won't be applied. It is overwritten by maxHorizontalFov.</td>
@@ -331,7 +331,7 @@
                         <td> minTilt</td><td align="center"> N</td><td> NaN</td><td> -90 to 90</td><td> Camera tilt lower limit.  When set to NaN, tilt limit won't be applied.  It is overwritten by minVerticalFov.</td>
                     </tr>
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> maxFov</td><td align="center"> N</td><td> 120</td><td> 0.1 to 179.9</td><td> Camera field of view upper limit. Determines how much panorama can zoom out. It is overwritten by maxVerticalFov and minVerticalFov.</td>
+                        <td> maxFov</td><td align="center"> N</td><td> 110</td><td> 0.1 to 179.9</td><td> Camera field of view upper limit. Determines how much panorama can zoom out. It is overwritten by maxVerticalFov and minVerticalFov.</td>
                     </tr>
                     <tr class="attribute_tab_odd" valign="top">
                         <td> minFov</td><td align="center"> N</td><td> 30</td><td> 0.1 to 179.9</td><td> Camera field of view lower limit. Determines how much panorama can zoom in. It is overwritten by maxPixelZoom</td>
@@ -450,7 +450,7 @@
                         <td> rotationZ</td><td align="center"> N</td><td> 0</td><td align="center"> -</td><td> Determines how many degrees hotspot will be rotated rotatad along Z axis.</td>
                     </tr>
                     <tr class="attribute_tab_odd" valign="top">
-                        <td> distortion</td><td align="center"> B</td><td> true</td><td> true, false</td><td> Not implemented yet.</td>
+                        <td> flat</td><td align="center"> B</td><td> true</td><td> true, false</td><td> Determines if image is distorted by perspective or, displayed as "flat" i.e. always facing viewer and does not changing its size.</td>
                     </tr>
                 </table>
                 <h3> 
