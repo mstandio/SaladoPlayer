@@ -9,10 +9,10 @@
 	<panoramas>
 		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml" view="tilt:-90">
 			<swf id="cg_nadir" location="tilt:-90" path="~spots/NadirSpot-1.0.swf" handCursor="false" transform="flat:false">
-				<settings path="~tours//_media/images/misc/openpano_logo.png" zenith="false"/>
+				<settings path="~tours/_media/images/misc/openpano_logo.png" zenith="false"/>
 			</swf>
 			<swf id="cg_zenith" location="tilt:90" path="~spots/NadirSpot-1.0.swf" handCursor="false" transform="flat:false">
-				<settings path="~tours//_media/images/misc/openpano_logo.png" zenith="true"/>
+				<settings path="~tours/_media/images/misc/openpano_logo.png" zenith="true"/>
 			</swf>
 		</panorama>
 	</panoramas>

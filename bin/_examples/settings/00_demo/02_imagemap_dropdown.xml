@@ -4,8 +4,8 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml"/>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml"/>
 	</panoramas>
 	<modules>
 		<DropDown path="~modules/dropdown/DropDown-1.3.swf">
@@ -22,12 +22,12 @@
 			<window onOpen="onMapOpen" onClose="onMapClose"/>
 			<viewer path="~modules/imagemap/skins/navigation_black_20x20.png"/>
 			<maps>
-				<map id="map1" path="~media/images/maps/map1.jpg" onSet="onSetMap1">
+				<map id="map1" path="~tours/checker/_media/images/maps/map1.jpg" onSet="onSetMap1">
 					<waypoints path="~modules/imagemap/skins/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="showTilt:false">
 						<waypoint target="checkerGreen" position="x:150,y:100"/>
 					</waypoints>
 				</map>
-				<map id="map2" path="~media/images/maps/map2.jpg" onSet="onSetMap2">
+				<map id="map2" path="~tours/checker/_media/images/maps/map2.jpg" onSet="onSetMap2">
 					<waypoints path="~modules/imagemap/skins/waypoints_bubble_45x45.png" move="horizontal:6,vertical:-22" radar="showTilt:false">
 						<waypoint target="checkerRed" position="x:250,y:200"/>
 					</waypoints>

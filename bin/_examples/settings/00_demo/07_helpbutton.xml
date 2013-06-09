@@ -4,11 +4,11 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml"/>
 	</panoramas>
 	<modules>
 		<ImageButton path="~modules/imagebutton/ImageButton-1.3.swf">
-			<button id="help" path="~media/images/misc/help.png" action="toggleHelp">
+			<button id="help" path="~tours/_media/images/misc/help.png" action="toggleHelp">
 				<window align="vertical:middle,horizontal:center" open="true" onOpen="onOpenHelp" onClose="onCloseHelp"/>
 			</button>
 		</ImageButton>

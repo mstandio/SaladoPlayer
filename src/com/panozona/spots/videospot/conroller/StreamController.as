@@ -91,7 +91,6 @@ package com.panozona.spots.videospot.conroller {
 		private function handleVolumeChange(e:Event):void {
 			soundTransform.volume = _videoSpotData.streamData.volumeValue;
 			netStream.soundTransform = soundTransform;
-			trace("mam " + soundTransform.volume);
 		}
 		
 		private function handleStreamStateChange(e:Event):void {
