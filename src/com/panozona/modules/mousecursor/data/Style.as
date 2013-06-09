@@ -20,8 +20,8 @@ package com.panozona.modules.mousecursor.data {
 	
 	public class Style {
 		
-		public var lineColorInner:Number = 0x000000;
-		public var lineColorOuter:Number = 0xffffff;
+		public var lineColorInner:Number = 0xffffff;
+		public var lineColorOuter:Number = 0x000000;
 		public var lineSize:Number = 5;
 	}
 }

@@ -43,6 +43,8 @@ package com.panozona.modules.infobox.controller {
 			imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
 			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
 			imageLoader.load(new URLRequest(_closeView.infoBoxData.close.path));
+			
+			_closeView.infoBoxData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleResize, false, 0, true);
 		}
 		
 		private function imageLost(error:IOErrorEvent):void {
@@ -56,10 +58,10 @@ package com.panozona.modules.infobox.controller {
 			e.target.removeEventListener(Event.COMPLETE, imageLoaded);
 			_closeView.addChild(e.target.content)
 			_closeView.addEventListener(MouseEvent.CLICK, handleMouseClick, false, 0, true);
-			placeonWindow();
+			handleResize();
 		}
 		
-		private function placeonWindow(e:Event = null):void {
+		private function handleResize(e:Event = null):void {
 			if (_closeView.infoBoxData.close.align.horizontal == Align.LEFT) {
 				_closeView.x = 0;
 			}else if (_closeView.infoBoxData.close.align.horizontal == Align.RIGHT) {

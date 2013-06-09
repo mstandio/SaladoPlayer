@@ -18,6 +18,7 @@ along with SaladoPlayer. If not, see <http://www.gnu.org/licenses/>.
 */
 package com.panozona.modules.imagegallery.controller {
 	
+	import com.panozona.modules.imagegallery.events.WindowEvent;
 	import com.panozona.modules.imagegallery.view.CloseView;
 	import com.panozona.player.module.data.property.Align;
 	import com.panozona.player.module.Module;
@@ -26,7 +27,6 @@ package com.panozona.modules.imagegallery.controller {
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
 	import flash.net.URLRequest;
-	import flash.system.ApplicationDomain;
 	
 	public class CloseController {
 		
@@ -39,14 +39,12 @@ package com.panozona.modules.imagegallery.controller {
 			
 			if (_closeView.imageGalleryData.close.path == null) return;
 			
-			var viewEventClass:Class = ApplicationDomain.currentDomain.getDefinition("com.panosalado.events.ViewEvent") as Class;
-			_module.saladoPlayer.manager.addEventListener(viewEventClass.BOUNDS_CHANGED, handleResize, false, 0, true);
-			handleResize();
-			
 			var imageLoader:Loader = new Loader();
 			imageLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, imageLost, false, 0, true);
 			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, imageLoaded, false, 0, true);
 			imageLoader.load(new URLRequest(_closeView.imageGalleryData.close.path));
+			
+			_closeView.imageGalleryData.windowData.addEventListener(WindowEvent.CHANGED_CURRENT_SIZE, handleResize, false, 0, true);
 		}
 		
 		private function imageLost(error:IOErrorEvent):void {
