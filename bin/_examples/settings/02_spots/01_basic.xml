@@ -4,7 +4,7 @@
 	and it has to be unique among all  hotspots in all panoramas. Setting "handCursor" to "false" results
 	in cursor not being changed when hovers over hotspot.
 	
-	http://panozona.com/wiki/SaladoPlayer:Configuration
+	See: [../../_manual/index.html?saladoplayer_configuration.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>

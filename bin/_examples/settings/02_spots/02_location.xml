@@ -4,12 +4,12 @@
 	pan(horizontal), tilt(vertical) and distance(depth). Default value for distance is 400.
 	Sequence of hotspots is determined by their distance values.
 	
-	http://panozona.com/wiki/SaladoPlayer:Configuration
+	See: [../../_manual/index.html?saladoplayer_configuration.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="greenChecker" path="~tours/checker/dz_green/green_f.xml">
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml">
 			<image id="gc_ArrowBlue" path="~tours/checker/_media/images/spots/arrow_blue.png" location="tilt:10,distance:600"/>
 			<image id="gc_ArrowGreen" path="~tours/checker/_media/images/spots/arrow_green.png" location="pan:30"/>
 			<image id="gc_ArrowRed" path="~tours/checker/_media/images/spots/arrow_red.png" location="pan:35,tilt:3,distance:550"/>

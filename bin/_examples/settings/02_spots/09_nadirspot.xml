@@ -2,17 +2,17 @@
 <!--
 	Simple hotspot for logo at panorama nadir or zenith.
 	
-	http://panozona.com/wiki/SaladoPlayer:Hotspots
+	See: [../../_manual/index.html?saladoplayer_hotspots.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
 		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml" view="tilt:-90">
-			<swf id="cg_nadir" location="tilt:-90" path="~spots/NadirSpot-1.0.swf" handCursor="false">
-				<settings path="~tours/checker/_media/images/misc/panozona_logo.png"/>
+			<swf id="cg_nadir" location="tilt:-90" path="~spots/NadirSpot-1.0.swf" handCursor="false" transform="flat:false">
+				<settings path="~tours//_media/images/misc/openpano_logo.png" zenith="false"/>
 			</swf>
-			<swf id="cg_zenith" location="tilt:90" path="~spots/NadirSpot-1.0.swf" handCursor="false">
-				<settings path="~tours/checker/_media/images/misc/panozona_logo.png" zenith="true"/>
+			<swf id="cg_zenith" location="tilt:90" path="~spots/NadirSpot-1.0.swf" handCursor="false" transform="flat:false">
+				<settings path="~tours//_media/images/misc/openpano_logo.png" zenith="true"/>
 			</swf>
 		</panorama>
 	</panoramas>

@@ -7,7 +7,7 @@
 	of of limited view for partial cylindrical panorama. Setting given values prevents showing space outside panorama when
 	user changes field of view or changes panorama window size (e.g. entering fullscreen mode).
 	
-	../../_manual/index.html?saladoplayer_configuration.html
+	See: [../../_manual/index.html?saladoplayer_configuration.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
