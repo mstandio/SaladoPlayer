@@ -11,7 +11,7 @@
 		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml"/>
 	</panoramas>
 	<modules>
-		<InfoBubble path="~modules/infobubble/InfoBubble-1.3.2.swf">
+		<InfoBubble path="~modules/infobubble/InfoBubble-1.3.3.swf">
 			<bubbles>
 				<image id="bubbleBlue" path="~tours/checker/dz_blue/_thumbs/200x100.jpg"/>
 				<image id="bubbleW1" path="~tours/checker/dz_red/_thumbs/200x100.jpg"/>

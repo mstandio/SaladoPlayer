@@ -17,7 +17,7 @@
 			<groups>
 				<group id="g1">
 					<element target="checkerBlue" path="~tours/checker/dz_blue/_thumbs/200x100.jpg" mouse="onOver:blueOnOver,onOut:blueOnOut"/>
-					<extraElement id="logo" action="printHello" path="~tours/checker/_media/images/misc/openpano_logo.png" mouse="onOver:logoOnOver,onOut:logoOnOut"/>
+					<extraElement id="logo" action="printHello" path="~tours/_media/images/misc/openpano_logo.png" mouse="onOver:logoOnOver,onOut:logoOnOut"/>
 				</group>
 			</groups>
 		</MenuScroller>

@@ -15,8 +15,7 @@
 				<group id="g1">
 					<image path="~tours/checker/_media/images/maps/map1.jpg"/>
 					<image path="~tours/checker/_media/images/maps/map2.jpg"/>
-					<image path="~tours/checker/_media/images/thumbs/kiev.jpg"/>
-					<image path="~tours/checker/_media/images/thumbs/park.jpg"/>
+					<image path="~tours/checker/dz_blue/_thumbs/400x200.jpg"/>
 				</group>
 			</groups>
 		</ImageGallery>

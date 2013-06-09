@@ -13,7 +13,7 @@
 		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml"/>
 	</panoramas>
 	<modules>
-		<BackgroundMusic path="~modules/backgroundnusic/BackgroundMusic-1.2.swf">
+		<BackgroundMusic path="~modules/backgroundmusic/BackgroundMusic-1.2.swf">
 			<tracks>
 				<track id="always" path="~tours/checker/_media/sound/looperman-djgadget-always.mp3" loop="true"/>
 			</tracks>

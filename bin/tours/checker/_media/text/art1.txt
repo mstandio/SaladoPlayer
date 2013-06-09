@@ -1,4 +1,4 @@
-<img src="~media/images/misc/panozona_logo.png" width="200" height="80" align="right" vspace="20" hspace="20"/><font color="#00FF00" face="Arial" size="25">font tag</font>
+<img src="~tours/_media/images/misc/openpano_logo.png" width="120" height="80" align="right" vspace="20" hspace="20"/><font color="#00FF00" face="Arial" size="25">font tag</font>
 <ul><li><b>bold</b></li><li><i>italic</i></li><li><u>underline</u></li></ul>
 <a target="_blank" href="http://panozona.com/">Link that opens www site</a>
 <a href="event:printHello">Link that executes action</a>

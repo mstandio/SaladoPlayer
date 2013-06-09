@@ -11,13 +11,13 @@
 	</panoramas>
 	<modules>
 		<ImageButton path="~modules/imagebutton/ImageButton-1.3.swf">
-			<button id="logo1" path="~tours/checker/_media/images/misc/panozona_logo.png">
+			<button id="logo1" path="~tours/_media/images/misc/openpano_logo.png">
 				<window move="horizontal:30,vertical:30" alpha="0.5"/>
 			</button>
-			<button id="logo2" path="~tours/checker/_media/images/misc/panozona_logo.png">
+			<button id="logo2" path="~tours/_media/images/misc/openpano_logo.png">
 				<window align="vertical:middle" move="horizontal:30,vertical:0"/>
 			</button>
-			<button id="logo3" path="~tours/checker/_media/images/misc/panozona_logo.png">
+			<button id="logo3" path="~tours/_media/images/misc/openpano_logo.png">
 				<window align="horizontal:right,vertical:bottom" move="horizontal:-30,vertical:-60"/>
 			</button>
 		</ImageButton>
