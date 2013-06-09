@@ -5,24 +5,24 @@
 	waypoints targeting to given panorama, first map in line is displayed. If same situation occures when loading
 	further panoramas, map is not changed.
 	
-	../../_manual/index.html?module_imagemap.html
+	See: [../../_manual/index.html?module_imagemap.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml"/>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml"/>
 	</panoramas>
 	<modules>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.3.swf">
 			<viewer path="~modules/imagemap/skins/navigation_black_20x20.png"/>
 			<maps>
-				<map id="map1" path="~media/images/maps/map1.jpg">
+				<map id="map1" path="~tours/checker/_media/images/maps/map1.jpg">
 					<waypoints path="~modules/imagemap/skins/waypoints_button_20x20.png">
 						<waypoint target="checkerGreen" position="x:150,y:100"/>
 					</waypoints>
 				</map>
-				<map id="map2" path="~media/images/maps/map2.jpg">
+				<map id="map2" path="~tours/checker/_media/images/maps/map2.jpg">
 					<waypoints path="~modules/imagemap/skins/waypoints_button_20x20.png">
 						<waypoint target="checkerRed" position="x:250,y:200"/>
 					</waypoints>

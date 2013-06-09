@@ -3,15 +3,15 @@
 	You can create sets of tracks that are played one after another by turing off looping tracks and connecting
 	them with "next" attribute that is pointing to id of other track.
 	
-	../../_manual/index.html?module_backgroundmusic.html
+	See: [../../_manual/index.html?module_backgroundmusic.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<panoramas firstOnEnter="playBgMusic"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml" onEnter="setTrackAncoral"/>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml" onEnter="setTrackSpiccato"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml" onEnter="setTrackAncoral"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml" onEnter="setTrackSpiccato"/>
 	</panoramas>
 	<modules>
 		<DropDown path="~modules/dropdown/DropDown-1.3.swf">
@@ -24,10 +24,10 @@
 		</DropDown>
 		<BackgroundMusic path="~modules/backgroundmusic/BackgroundMusic-1.2.swf">
 			<tracks>
-				<track id="spiccato" path="~media/sound/looperman-djgadget-catchy-spiccato-violins.mp3" loop="false" next="technologically"/>
-				<track id="technologically" path="~media/sound/looperman-moonwhisper-technologically.mp3" loop="false" next="spiccato"/>
-				<track id="ancoral" path="~media/sound/looperman-ancoral-acp-string-choir-ensemble-01.mp3" loop="false" next="always"/>
-				<track id="always" path="~media/sound/looperman-djgadget-always.mp3" loop="false" next="ancoral"/>
+				<track id="spiccato" path="~tours/checker/_media/sound/looperman-djgadget-catchy-spiccato-violins.mp3" loop="false" next="technologically"/>
+				<track id="technologically" path="~tours/checker/_media/sound/looperman-moonwhisper-technologically.mp3" loop="false" next="spiccato"/>
+				<track id="ancoral" path="~tours/checker/_media/sound/looperman-ancoral-acp-string-choir-ensemble-01.mp3" loop="false" next="always"/>
+				<track id="always" path="~tours/checker/_media/sound/looperman-djgadget-always.mp3" loop="false" next="ancoral"/>
 			</tracks>
 		</BackgroundMusic>
 	</modules>

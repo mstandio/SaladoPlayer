@@ -3,19 +3,19 @@
 	You can configure tweens on bubbles show/hide. By using proper tweens, you can achieve
 	effect of delay between calling "showBubble" and appearing of bubble itself.
 	
-	../../_manual/index.html?module_infobubble.html
+	See: [../../_manual/index.html?module_infobubble.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panos/checker/dz_yellow/yellow_f.xml">
-			<image id="cy_arrowBlue" location="pan:0" path="~media/images/spots/arrow_blue.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
+		<panorama id="checkerYellow" path="~tours/checker/dz_yellow/yellow_f.xml">
+			<image id="cy_arrowBlue" location="pan:0" path="~tours/checker/_media/images/spots/arrow_blue.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<InfoBubble path="~modules/infobubble/InfoBubble-1.3.2.swf">
+		<InfoBubble path="~modules/infobubble/InfoBubble-1.3.3.swf">
 			<bubbles showTween="transition:Expo.easeIn,time:0.75" hideTween="transition:Cubic.easeIn,time:0.25">
-				<image id="bubbleBlue" path="~panos/checker/dz_blue/200x100.jpg"/>
+				<image id="bubbleBlue" path="~tours/checker/dz_blue/_thumbs/200x100.jpg"/>
 			</bubbles>
 		</InfoBubble>
 	</modules>

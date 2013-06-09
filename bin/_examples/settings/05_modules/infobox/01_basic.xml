@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	../../_manual/index.html?module_infobox.html
+	See: [../../_manual/index.html?module_infobox.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml"/>
 	</panoramas>
 	<modules>
 		<InfoBox path="~modules/infobox/InfoBox-1.0.swf">
 			<window open="true"/>
-			<viewer path="~modules/infobox/skins/elements_dark_21x21.png" css="~media/text/stylesheet.css"/>
+			<viewer path="~modules/infobox/skins/elements_dark_21x21.png" css="~tours/checker/_media/text/stylesheet.css"/>
 			<articles>
-				<article id="a1" path="~media/text/art1.txt"/>
+				<article id="a1" path="~tours/checker/_media/text/art1.txt"/>
 			</articles>
 		</InfoBox>
 	</modules>

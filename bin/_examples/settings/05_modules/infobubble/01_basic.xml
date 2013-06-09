@@ -3,24 +3,24 @@
 	Display/hide images or text boxes at mouse cursor. Bubbles default angle against mouse cursor is 90 (center right)
 	and it can be modified. Angle is changed as bubbles adjust their position to fit into panorama window.
 	
-	../../_manual/index.html?module_infobubble.html
+	See: [../../_manual/index.html?module_infobubble.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml">
-			<image id="cg_arrowYellow" location="pan:-40" path="~media/images/spots/arrow_yellow.png" mouse="onOver:showBubbleText,onOut:hideBubble"/>
-			<image id="cg_arrowBlue" location="pan:0" path="~media/images/spots/arrow_blue.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
-			<image id="cg_arrowRed" location="pan:40" path="~media/images/spots/arrow_red.png" mouse="onOver:showBubbleRed,onOut:hideBubble"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml">
+			<image id="cg_arrowYellow" location="pan:-40" path="~tours/checker/_media/images/spots/arrow_yellow.png" mouse="onOver:showBubbleText,onOut:hideBubble"/>
+			<image id="cg_arrowBlue" location="pan:0" path="~tours/checker/_media/images/spots/arrow_blue.png" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
+			<image id="cg_arrowRed" location="pan:40" path="~tours/checker/_media/images/spots/arrow_red.png" mouse="onOver:showBubbleRed,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<InfoBubble path="~modules/infobubble/InfoBubble-1.3.3.swf">
-			<settings alpha="0.5"/>
+			<settings alpha="0.75"/>
 			<bubbles>
-				<text id="bubbleText" path="~media/text/short.txt" text="this is yellow arrow"/>
-				<image id="bubbleBlue" path="~panos/checker/dz_blue/200x100.jpg"/>
-				<image id="bubbleRed" path="~panos/checker/dz_red/200x100.jpg"/>
+				<text id="bubbleText" path="~tours/checker/_media/text/short.txt" text="this is yellow arrow"/>
+				<image id="bubbleBlue" path="~tours/checker/dz_blue/_thumbs/200x100.jpg"/>
+				<image id="bubbleRed" path="~tours/checker/dz_red/_thumbs/200x100.jpg"/>
 			</bubbles>
 		</InfoBubble>
 	</modules>

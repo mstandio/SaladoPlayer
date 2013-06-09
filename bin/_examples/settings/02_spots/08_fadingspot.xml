@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Simple hotspot taht can be used for fading in and out images inside panorama
+	
+	http://panozona.com/wiki/SaladoPlayer:Hotspots
+-->
+<SaladoPlayer>
+	<global debug="true"/>
+	<panoramas>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml" view="tilt:-30">
+			<swf id="cg_swf" path="~spots/FadingSpot-1.0.swf" handCursor="false">
+				<settings path="~tours/checker/_media/images/maps/map2.jpg" mouseOver="transition:Linear.easeNone,time:0.5,alpha:1" mouseOut="transition:Linear.easeNone,time:0.5,alpha:0"/>
+			</swf>
+		</panorama>
+	</panoramas>
+</SaladoPlayer>

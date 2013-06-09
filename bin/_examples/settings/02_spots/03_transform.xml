@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Changing hotspot appeariance.
+	
+	http://panozona.com/wiki/SaladoPlayer:Configuration
+-->
+<SaladoPlayer>
+	<global debug="true">
+	
+    <control mouseInertial="enabled:false" mouseDrag="enabled:true,sensitivity:0.0025,friction:0.1,threshold:0.0001"/>
+</global>
+	<panoramas>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml">
+			<!--
+			<image id="hs1" location="pan:-20,tilt:10,distance:400" transform="rotationX:80,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs2" location="pan:0,tilt:10,distance:400" transform="scaleY:0.5,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs3" location="pan:20,tilt:10,distance:400" transform="rotationY:80,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			-->
+			<image id="hs123" location="pan:-100,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs124" location="pan:-110,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs125" location="pan:-120,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs126" location="pan:-130,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs127" location="pan:-140,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs128" location="pan:-150,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs129" location="pan:-160,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs130" location="pan:-170,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs131" location="pan:-180,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			
+			<image id="hs4" location="pan:-90,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs5" location="pan:-80,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs6" location="pan:-70,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs7" location="pan:-65,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs8" location="pan:-50,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs9" location="pan:-40,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs10" location="pan:-30,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			
+			<image id="hs11" location="pan:-20,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs12" location="pan:-10,tilt:0,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs13" location="pan:0,tilt:0,distance:400" transform="rotationZ:0,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			
+			<image id="hs14" location="pan:10,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs15" location="pan:20,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs16" location="pan:30,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs17" location="pan:40,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs18" location="pan:50,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs19" location="pan:60,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs20" location="pan:70,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs21" location="pan:80,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs22" location="pan:90,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			
+			<image id="hs23" location="pan:100,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs24" location="pan:110,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs25" location="pan:120,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs26" location="pan:130,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs27" location="pan:140,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs28" location="pan:150,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs29" location="pan:160,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs30" location="pan:170,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs31" location="pan:180,tilt:0,distance:400" transform="rotationX:45,flat:false" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			
+			<image id="hs91" location="pan:0,tilt:90,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs92" location="pan:0,tilt:80,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs93" location="pan:0,tilt:70,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs94" location="pan:0,tilt:60,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs95" location="pan:0,tilt:50,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs96" location="pan:0,tilt:40,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs97" location="pan:0,tilt:30,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs98" location="pan:0,tilt:20,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs99" location="pan:0,tilt:10,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			
+			<image id="ahs91" location="pan:0,tilt:-90,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="ahs92" location="pan:0,tilt:-80,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="ahs93" location="pan:0,tilt:-70,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="ahs94" location="pan:0,tilt:-60,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="ahs95" location="pan:0,tilt:-50,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="ahs96" location="pan:0,tilt:-40,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="ahs97" location="pan:0,tilt:-30,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="ahs98" location="pan:0,tilt:-20,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="ahs99" location="pan:0,tilt:-10,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			
+			<image id="hs114" location="pan:10,tilt:10,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs115" location="pan:20,tilt:20,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs116" location="pan:30,tilt:30,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs117" location="pan:40,tilt:40,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs118" location="pan:50,tilt:50,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs119" location="pan:60,tilt:60,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs120" location="pan:70,tilt:70,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs121" location="pan:80,tilt:80,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			<image id="hs122" location="pan:90,tilt:90,distance:400" transform="rotationX:45,flat:true" path="~tours/checker/_media/images/spots/arrow_green.png"/>
+			
+		</panorama>
+	</panoramas>
+	<modules>
+		<ViewFinder path="~modules/viewfinder/ViewFinder-1.3.swf">
+			<settings useCursor="true"/>
+		</ViewFinder>
+	</modules>
+</SaladoPlayer>

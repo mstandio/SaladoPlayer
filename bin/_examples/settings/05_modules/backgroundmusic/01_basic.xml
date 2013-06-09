@@ -6,7 +6,7 @@
 	BackgroundMusic changes "play" state, so this change could be reflected in your interface, for example by
 	changing state of buttons.
 	
-	../../_manual/index.html?module_backgroundmusic.html
+	See: [../../_manual/index.html?module_backgroundmusic.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
@@ -14,17 +14,17 @@
 		<panoramas firstOnEnter="playBgMusic"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml">
-			<image id="cg_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:playBgMusic"/>
-			<image id="cg_arrowRed" path="~media/images/spots/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:stopBgMusic"/>
-			<image id="cg_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:togglePlayBgMusic"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml">
+			<image id="cg_arrowGreen" path="~tours/checker/_media/images/spots/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:playBgMusic"/>
+			<image id="cg_arrowRed" path="~tours/checker/_media/images/spots/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:stopBgMusic"/>
+			<image id="cg_arrowYellow" path="~tours/checker/_media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:togglePlayBgMusic"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<BackgroundMusic path="~modules/backgroundmusic/BackgroundMusic-1.2.swf">
 			<settings play="false" onPlay="printPlay" onStop="printStop"/>
 			<tracks>
-				<track id="always" path="~media/sound/looperman-djgadget-always.mp3" volume="1.25" loop="false"/>
+				<track id="always" path="~tours/checker/_media/sound/looperman-djgadget-always.mp3" volume="1.25" loop="false"/>
 			</tracks>
 		</BackgroundMusic>
 	</modules>

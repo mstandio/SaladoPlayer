@@ -3,12 +3,12 @@
 	Change position and alignment of bar and all buttons at once, as well as each button individually. Use spacing
 	attribute to set space between buttons that have no custom move values set.
 	
-	../../_manual/index.html?module_buttonbar.html
+	See: [../../_manual/index.html?module_buttonbar.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panos/checker/dz_yellow/yellow_f.xml"/>
+		<panorama id="checkerYellow" path="~tours/checker/dz_yellow/yellow_f.xml"/>
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">

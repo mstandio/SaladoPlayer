@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	
-	../../_manual/index.html?module_compass.html
+	See: [../../_manual/index.html?module_compass.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml" direction="45"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml" direction="45"/>
 	</panoramas>
 	<modules>
 		<Compass path="~modules/compass/Compass-1.2.swf">

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	../../_manual/index.html?module_imagegallery.html
+	See: [../../_manual/index.html?module_imagegallery.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml"/>
 	</panoramas>
 	<modules>
 		<ImageGallery path="~modules/imagegallery/ImageGallery-1.0.swf">
 			<window open="true" maxSize="width:200,height:100" minSize="width:50,height:50" margin="bottom:50" align="vertical:bottom"/>
-			<viewer path="~modules/imagegallery/skins/buttons_dark_40x40.png" throbber="~media/images/misc/throbber-circles.gif"/>
+			<viewer path="~modules/imagegallery/skins/buttons_dark_40x40.png" throbber="~tours/checker/_media/images/misc/throbber-circles.gif"/>
 			<groups>
 				<group id="g1">
-					<image path="~media/images/maps/map1.jpg"/>
+					<image path="~tours/checker/_media/images/maps/map1.jpg"/>
 				</group>
 			</groups>
 		</ImageGallery>

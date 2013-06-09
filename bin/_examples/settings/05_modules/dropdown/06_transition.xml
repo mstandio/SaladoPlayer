@@ -4,13 +4,13 @@
 	you can align module inside panorama window, so that it would slide in and out close to its default position.
 	Addtionally you can configure animation of window transition with proper tween attributes.
 	
-	../../_manual/index.html?module_dropdown.html
+	See: [../../_manual/index.html?module_dropdown.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml">
-			<image id="cy_arrowYellow" path="~media/images/spots/arrow_yellow.png" mouse="onClick:toggleOpenDropDown"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml">
+			<image id="cy_arrowYellow" path="~tours/checker/_media/images/spots/arrow_yellow.png" mouse="onClick:toggleOpenDropDown"/>
 		</panorama>
 	</panoramas>
 	<modules>

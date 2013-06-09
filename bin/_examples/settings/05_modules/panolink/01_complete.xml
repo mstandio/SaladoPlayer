@@ -10,11 +10,11 @@
 		<trace align="vertical:bottom"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml">
-			<image id="cb_arrowRed" path="~media/images/spots/arrow_red.png" target="checkerRed"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml">
+			<image id="cb_arrowRed" path="~tours/checker/_media/images/spots/arrow_red.png" target="checkerRed"/>
 		</panorama>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml">
-			<image id="cr_arrowBlue" path="~media/images/spots/arrow_blue.png" target="checkerBlue"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml">
+			<image id="cr_arrowBlue" path="~tours/checker/_media/images/spots/arrow_blue.png" target="checkerBlue"/>
 		</panorama>
 	</panoramas>
 	<modules>
@@ -27,9 +27,9 @@
 			<button id="mapPanel">
 				<window align="horizontal:left,vertical:middle"/>
 				<subButtons>
-					<subButton id="buttonOpen" path="~media/images/buttons/glossy_green.png" move="vertical:-30" action="openLink"/>
-					<subButton id="buttonToggle" path="~media/images/buttons/glossy_yellow.png" move="horizontal:50" action="toggleOpenLink"/>
-					<subButton id="buttonClose" path="~media/images/buttons/glossy_red.png" move="vertical:30" action="closeLink"/>
+					<subButton id="buttonOpen" path="~tours/checker/_media/images/buttons/glossy_green.png" move="vertical:-30" action="openLink"/>
+					<subButton id="buttonToggle" path="~tours/checker/_media/images/buttons/glossy_yellow.png" move="horizontal:50" action="toggleOpenLink"/>
+					<subButton id="buttonClose" path="~tours/checker/_media/images/buttons/glossy_red.png" move="vertical:30" action="closeLink"/>
 				</subButtons>
 			</button>
 		</ImageButton>

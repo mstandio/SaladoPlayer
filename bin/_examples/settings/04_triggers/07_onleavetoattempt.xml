@@ -3,24 +3,24 @@
 	onLeaveToAttempt is simillar to onLeaveTo, but it cancells first attempt of leaving panorama this way
 	one can dectect that user is leaving panorama and you can execute action before loading new panorama
 	
-	../../_manual/index.html?saladoplayer_configuration.html
+	See: [../../_manual/index.html?saladoplayer_configuration.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml" onLeaveToAttempt="checkerBlue:attemptGreenToBlue,checkerRed:attemptGreenToRed">
-			<image id="cg_ArrowRed" path="~media/images/spots/arrow_red.png" location="pan:-10" target="checkerRed"/>
-			<image id="cg_ArrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:10" target="checkerBlue"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml" onLeaveToAttempt="checkerBlue:attemptGreenToBlue,checkerRed:attemptGreenToRed">
+			<image id="cg_ArrowRed" path="~tours/checker/_media/images/spots/arrow_red.png" location="pan:-10" target="checkerRed"/>
+			<image id="cg_ArrowBlue" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:10" target="checkerBlue"/>
 		</panorama>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml">
-			<image id="cb_ArrowRed" path="~media/images/spots/arrow_red.png" location="pan:-10" target="checkerRed"/>
-			<image id="cb_ArrowGreen" path="~media/images/spots/arrow_green.png" location="pan:10" target="checkerGreen"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml">
+			<image id="cb_ArrowRed" path="~tours/checker/_media/images/spots/arrow_red.png" location="pan:-10" target="checkerRed"/>
+			<image id="cb_ArrowGreen" path="~tours/checker/_media/images/spots/arrow_green.png" location="pan:10" target="checkerGreen"/>
 		</panorama>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml">
-			<image id="cr_ArrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:-10" target="checkerBlue"/>
-			<image id="cr_ArrowGreen" path="~media/images/spots/arrow_green.png" location="pan:10" target="checkerGreen"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml">
+			<image id="cr_ArrowBlue" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:-10" target="checkerBlue"/>
+			<image id="cr_ArrowGreen" path="~tours/checker/_media/images/spots/arrow_green.png" location="pan:10" target="checkerGreen"/>
 		</panorama>
 	</panoramas>
 	<actions>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+	Simple swf hotspots are standalone swf files that are inserted into panorama just like image hotspots.
+	They do not communicate with SaladoPlayer, and cannot be configured, but they are very easy to create.
+	
+	http://panozona.com/wiki/SaladoPlayer:Hotspots
+-->
+<SaladoPlayer>
+	<global debug="true">
+		<trace open="true"/>
+	</global>
+	<panoramas>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml">
+			<swf id="swf_A" location="pan:-20" path="~spots/SimpleHotspot-1.0.swf" mouse="onClick:helloA"/>
+			<swf id="swf_B" location="pan:0" path="~spots/SimpleHotspot-1.0.swf" mouse="onClick:helloB"/>
+			<swf id="swf_C" location="pan:20" path="~spots/SimpleHotspot-1.0.swf" mouse="onClick:helloC"/>
+		</panorama>
+	</panoramas>
+	<actions>
+		<action id="helloA" content="SaladoPlayer.print(Hello I am swf hotspot swf_A)"/>
+		<action id="helloB" content="SaladoPlayer.print(Hello I am swf hotspot swf_B)"/>
+		<action id="helloC" content="SaladoPlayer.print(Hello I am swf hotspot swf_C)"/>
+	</actions>
+</SaladoPlayer>

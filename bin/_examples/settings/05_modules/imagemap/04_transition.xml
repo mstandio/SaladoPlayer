@@ -4,19 +4,19 @@
 	you can align module inside panorama window, so that it would slide in and out close to its default position.
 	Addtionally you can configure animation of window transition with proper tween attributes.
 	
-	../../_manual/index.html?module_imagemap.html
+	See: [../../_manual/index.html?module_imagemap.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml"/>
 	</panoramas>
 	<modules>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.3.swf">
 			<window transition="type:slideUp" openTween="transition:Bounce.easeOut,time:0.75" closeTween="transition:Expo.easeIn,time:0.75"/>
 			<viewer path="~modules/imagemap/skins/navigation_black_20x20.png"/>
 			<maps>
-				<map id="map1" path="~media/images/maps/map1.jpg">
+				<map id="map1" path="~tours/checker/_media/images/maps/map1.jpg">
 					<waypoints path="~modules/imagemap/skins/waypoints_button_20x20.png">
 						<waypoint target="checkerBlue" position="x:150,y:100"/>
 					</waypoints>
@@ -27,7 +27,7 @@
 			<button id="mapPanel">
 				<window align="horizontal:left,vertical:middle"/>
 				<subButtons>
-					<subButton id="buttonToggle" path="~media/images/buttons/glossy_yellow.png" action="toggleOpenMap"/>
+					<subButton id="buttonToggle" path="~tours/checker/_media/images/buttons/glossy_yellow.png" action="toggleOpenMap"/>
 				</subButtons>
 			</button>
 		</ImageButton>

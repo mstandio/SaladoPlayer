@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	../../_manual/index.html?module_imagegallery.html
+	See :[../../_manual/index.html?module_imagegallery.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml">
-			<image id="cr_group1Setter" path="~media/images/spots/arrow_blue.png" location="pan:-10,tilt:-15" mouse="onClick:setGroup1"/>
-			<image id="cr_group2Setter" path="~media/images/spots/arrow_blue.png" location="pan:10,tilt:-15" mouse="onClick:setGroup2"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml">
+			<image id="cr_group1Setter" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:-10,tilt:-15" mouse="onClick:setGroup1"/>
+			<image id="cr_group2Setter" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:10,tilt:-15" mouse="onClick:setGroup2"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<ImageGallery path="~modules/imagegallery/ImageGallery-1.0.swf">
 			<window open="true" maxSize="height:200" align="vertical:top"/>
-			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
-			<viewer path="~modules/imagegallery/skins/buttons_dark_40x40.png" throbber="~media/images/misc/throbber-circles.gif"/>
+			<close path="~tours/_media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
+			<viewer path="~modules/imagegallery/skins/buttons_dark_40x40.png" throbber="~tours/checker/_media/images/misc/throbber-circles.gif"/>
 			<groups>
 				<group id="group1">
-					<image path="~media/images/maps/map1.jpg"/>
-					<image path="~media/images/maps/map2.jpg"/>
+					<image path="~tours/checker/_media/images/maps/map1.jpg"/>
+					<image path="~tours/checker/_media/images/maps/map2.jpg"/>
 				</group>
 				<group id="group2">
-					<image path="~panos/checker/dz_blue/200x100.jpg"/>
-					<image path="~panos/checker/dz_green/200x100.jpg"/>
-					<image path="~panos/checker/dz_red/200x100.jpg"/>
-					<image path="~panos/checker/dz_yellow/200x100.jpg"/>
+					<image path="~tours/checker/dz_blue/_thumbs/200x100.jpg"/>
+					<image path="~tours/checker/dz_green/_thumbs/200x100.jpg"/>
+					<image path="~tours/checker/dz_red/_thumbs/200x100.jpg"/>
+					<image path="~tours/checker/dz_yellow/_thumbs/200x100.jpg"/>
 				</group>
 			</groups>
 		</ImageGallery>

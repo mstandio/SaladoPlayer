@@ -4,24 +4,24 @@
 	checkerGreen onLeave to="checkerBlue:printGreenToBlue,checkerRed:printGreenToRed means that loading panotrama
 	checkerBlue while being in checkerGreen couses action printGreenToBlue to be executed, similar for checkerRed.
 	
-	../../_manual/index.html?saladoplayer_configuration.html
+	See: [../../_manual/index.html?saladoplayer_configuration.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml" onLeaveTo="checkerBlue:printGreenToBlue,checkerRed:printGreenToRed">
-			<image id="cg_ArrowRed" path="~media/images/spots/arrow_red.png" location="pan:-10" target="checkerRed"/>
-			<image id="cg_ArrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:10" target="checkerBlue"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml" onLeaveTo="checkerBlue:printGreenToBlue,checkerRed:printGreenToRed">
+			<image id="cg_ArrowRed" path="~tours/checker/_media/images/spots/arrow_red.png" location="pan:-10" target="checkerRed"/>
+			<image id="cg_ArrowBlue" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:10" target="checkerBlue"/>
 		</panorama>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml" onLeaveTo="checkerGreen:printBlueToGreen,checkerRed:printBlueToRed">
-			<image id="cb_ArrowGreen" path="~media/images/spots/arrow_green.png" location="pan:10" target="checkerGreen"/>
-			<image id="cb_ArrowRed" path="~media/images/spots/arrow_red.png" location="pan:-10" target="checkerRed"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml" onLeaveTo="checkerGreen:printBlueToGreen,checkerRed:printBlueToRed">
+			<image id="cb_ArrowGreen" path="~tours/checker/_media/images/spots/arrow_green.png" location="pan:10" target="checkerGreen"/>
+			<image id="cb_ArrowRed" path="~tours/checker/_media/images/spots/arrow_red.png" location="pan:-10" target="checkerRed"/>
 		</panorama>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml" onLeaveTo="checkerGreen:printRedToGreen,checkerBlue:printRedToBlue">
-			<image id="cr_ArrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:-10" target="checkerBlue"/>
-			<image id="cr_ArrowGreen" path="~media/images/spots/arrow_green.png" location="pan:10" target="checkerGreen"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml" onLeaveTo="checkerGreen:printRedToGreen,checkerBlue:printRedToBlue">
+			<image id="cr_ArrowBlue" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:-10" target="checkerBlue"/>
+			<image id="cr_ArrowGreen" path="~tours/checker/_media/images/spots/arrow_green.png" location="pan:10" target="checkerGreen"/>
 		</panorama>
 	</panoramas>
 	<actions>

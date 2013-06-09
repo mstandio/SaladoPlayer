@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	../../_manual/index.html?module_infobox.html
+	See: [../../_manual/index.html?module_infobox.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml">
-			<image id="cr_arrowYellow" path="~media/images/spots/arrow_yellow.png" mouse="onClick:toggleOpenBox"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml">
+			<image id="cr_arrowYellow" path="~tours/checker/_media/images/spots/arrow_yellow.png" mouse="onClick:toggleOpenBox"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<InfoBox path="~modules/infobox/InfoBox-1.0.swf">
 			<window open="true" transition="type:slideUp" openTween="transition:Bounce.easeOut,time:0.75" closeTween="transition:Expo.easeIn,time:0.75"/>
-			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
+			<close path="~tours/_media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
 			<viewer path="~modules/infobox/skins/elements_dark_21x21.png"/>
 			<articles>
-				<article id="a1" path="~media/text/art1.txt"/>
+				<article id="a1" path="~tours/checker/_media/text/art1.txt"/>
 			</articles>
 		</InfoBox>
 	</modules>

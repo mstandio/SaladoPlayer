@@ -3,15 +3,15 @@
 	Example module is simple module demonstrating basic module functionalities
 	Its source code is commented in detail use it to learn how to write your own modules.
 	
-	../../_manual/index.html?module_examplemodule.html
+	See: [../../_manual/index.html?module_examplemodule.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml">
-			<image id="gc_arrowYellow" path="~media/images/spots/arrow_yellow.png" mouse="onClick:toggleOpenExampleModule"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml">
+			<image id="gc_arrowYellow" path="~tours/checker/_media/images/spots/arrow_yellow.png" mouse="onClick:toggleOpenExampleModule"/>
 		</panorama>
 	</panoramas>
 	<modules>

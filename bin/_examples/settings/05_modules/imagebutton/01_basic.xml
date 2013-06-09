@@ -3,18 +3,18 @@
 	Use module to place images inside panorama window. You can use images or standalone swf files.
 	When there are no mouse events assigned, button is transparent to mouse movement.
 	
-	../../_manual/index.html?module_imagebutton.html
+	See: [../../_manual/index.html?module_imagebutton.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml"/>
 	</panoramas>
 	<modules>
 		<ImageButton path="~modules/imagebutton/ImageButton-1.3.swf">
-			<button id="logo" path="~media/images/misc/panozona_logo.png" action="logoOnClick"/>
+			<button id="logo" path="~tours/checker/_media/images/misc/panozona_logo.png" action="logoOnClick"/>
 		</ImageButton>
 	</modules>
 	<actions>

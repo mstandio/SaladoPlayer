@@ -3,24 +3,24 @@
 	Assign mouse events on interaction with each waypoint. You can display content when mouse is hovering over
 	waypoint button with other modules, like InfoBubble.
 	
-	../../_manual/index.html?module_imagemap.html
+	See: [../../_manual/index.html?module_imagemap.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml"/>
 	</panoramas>
 	<modules>
 		<InfoBubble path="~modules/infobubble/InfoBubble-1.3.2.swf">
 			<bubbles>
-				<image id="bubbleBlue" path="~panos/checker/dz_blue/200x100.jpg"/>
-				<image id="bubbleW1" path="~panos/checker/dz_red/200x100.jpg"/>
+				<image id="bubbleBlue" path="~tours/checker/dz_blue/_thumbs/200x100.jpg"/>
+				<image id="bubbleW1" path="~tours/checker/dz_red/_thumbs/200x100.jpg"/>
 			</bubbles>
 		</InfoBubble>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.3.swf">
 			<viewer path="~modules/imagemap/skins/navigation_black_20x20.png"/>
 			<maps>
-				<map id="map2" path="~media/images/maps/map2.jpg">
+				<map id="map2" path="~tours/checker/_media/images/maps/map2.jpg">
 					<waypoints path="~modules/imagemap/skins/waypoints_button_20x20.png">
 						<waypoint target="checkerBlue" position="x:350,y:300" mouse="onOver:showBubbleBlue,onOut:hideBubble"/>
 						<extraWaypoint id="w1" position="x:150,y:100" mouse="onOver:showBubbleW1,onOut:hideBubble"/>

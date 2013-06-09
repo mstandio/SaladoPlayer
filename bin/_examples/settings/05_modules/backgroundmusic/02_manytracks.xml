@@ -4,17 +4,17 @@
 	is played whenever module "play" state is set to true. Setting tracks is independent to playing music,
 	so music can be playing or not, yet tracks ale still changed and there always is some current track.
 	
-	../../_manual/index.html?module_backgroundmusic.html
+	See: [../../_manual/index.html?module_backgroundmusic.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<panoramas firstOnEnter="playBgMusic"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml" onEnter="setTrackAncoral"/>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml" onEnter="setTrackAlways"/>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml" onEnter="setTrackSpiccato"/>
-		<panorama id="checkerYellow" path="~panos/checker/dz_yellow/yellow_f.xml" onEnter="setTrackTechnologically"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml" onEnter="setTrackAncoral"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml" onEnter="setTrackAlways"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml" onEnter="setTrackSpiccato"/>
+		<panorama id="checkerYellow" path="~tours/checker/dz_yellow/yellow_f.xml" onEnter="setTrackTechnologically"/>
 	</panoramas>
 	<modules>
 		<DropDown path="~modules/dropdown/DropDown-1.3.swf">
@@ -29,10 +29,10 @@
 		</DropDown>
 		<BackgroundMusic path="~modules/backgroundmusic/BackgroundMusic-1.2.swf">
 			<tracks>
-				<track id="ancoral" path="~media/sound/looperman-ancoral-acp-string-choir-ensemble-01.mp3"/>
-				<track id="always" path="~media/sound/looperman-djgadget-always.mp3"/>
-				<track id="spiccato" path="~media/sound/looperman-djgadget-catchy-spiccato-violins.mp3"/>
-				<track id="technologically" path="~media/sound/looperman-moonwhisper-technologically.mp3"/>
+				<track id="ancoral" path="~tours/checker/_media/sound/looperman-ancoral-acp-string-choir-ensemble-01.mp3"/>
+				<track id="always" path="~tours/checker/_media/sound/looperman-djgadget-always.mp3"/>
+				<track id="spiccato" path="~tours/checker/_media/sound/looperman-djgadget-catchy-spiccato-violins.mp3"/>
+				<track id="technologically" path="~tours/checker/_media/sound/looperman-moonwhisper-technologically.mp3"/>
 			</tracks>
 		</BackgroundMusic>
 	</modules>

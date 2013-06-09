@@ -10,13 +10,13 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml">
-			<image id="cb_group1Setter" path="~media/images/spots/arrow_blue.png" location="pan:-10,tilt:-10" mouse="onClick:setGroup1"/>
-			<image id="cb_group2Setter" path="~media/images/spots/arrow_blue.png" location="pan:10,tilt:-10" mouse="onClick:setGroup2"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml">
+			<image id="cb_group1Setter" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:-10,tilt:-10" mouse="onClick:setGroup1"/>
+			<image id="cb_group2Setter" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:10,tilt:-10" mouse="onClick:setGroup2"/>
 		</panorama>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml">
-			<image id="cr_group1Setter" path="~media/images/spots/arrow_blue.png" location="pan:-10,tilt:-10" mouse="onClick:setGroup1"/>
-			<image id="cr_group2Setter" path="~media/images/spots/arrow_blue.png" location="pan:10,tilt:-10" mouse="onClick:setGroup2"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml">
+			<image id="cr_group1Setter" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:-10,tilt:-10" mouse="onClick:setGroup1"/>
+			<image id="cr_group2Setter" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:10,tilt:-10" mouse="onClick:setGroup2"/>
 		</panorama>
 	</panoramas>
 	<modules>
@@ -24,10 +24,10 @@
 			<window transition="type:slideDown" align="horizontal:center,vertical:top" maxSize="width:600,height:150" margin="left:50,right:50,top:0,bottom:50"/>
 			<groups>
 				<group id="group1">
-					<element target="checkerBlue" path="~panos/checker/dz_blue/200x100.jpg"/>
+					<element target="checkerBlue" path="~tours/checker/dz_blue/_thumbs/200x100.jpg"/>
 				</group>
 				<group id="group2">
-					<element target="checkerRed" path="~panos/checker/dz_red/200x100.jpg"/>
+					<element target="checkerRed" path="~tours/checker/dz_red/_thumbs/200x100.jpg"/>
 				</group>
 			</groups>
 		</MenuScroller>

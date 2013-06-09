@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	../../_manual/index.html?module_infobox.html
+	See: [../../_manual/index.html?module_infobox.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml">
-			<image id="cr_art1Setter" path="~media/images/spots/arrow_blue.png" location="pan:-10,tilt:-15" mouse="onClick:setArt1"/>
-			<image id="cr_art2Setter" path="~media/images/spots/arrow_blue.png" location="pan:10,tilt:-15" mouse="onClick:setArt2"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml">
+			<image id="cr_art1Setter" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:-10,tilt:-15" mouse="onClick:setArt1"/>
+			<image id="cr_art2Setter" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:10,tilt:-15" mouse="onClick:setArt2"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<InfoBox path="~modules/infobox/InfoBox-1.0.swf">
 			<window open="true" align="vertical:top" maxSize="height:200"/>
-			<viewer path="~modules/infobox/skins/elements_dark_21x21.png" css="~media/text/stylesheet.css"/>
+			<viewer path="~modules/infobox/skins/elements_dark_21x21.png" css="~tours/checker/_media/text/stylesheet.css"/>
 			<articles>
-				<article id="art1" path="~media/text/art1.txt"/>
-				<article id="art2" path="~media/text/art2.txt"/>
+				<article id="art1" path="~tours/checker/_media/text/art1.txt"/>
+				<article id="art2" path="~tours/checker/_media/text/art2.txt"/>
 			</articles>
 		</InfoBox>
 	</modules>

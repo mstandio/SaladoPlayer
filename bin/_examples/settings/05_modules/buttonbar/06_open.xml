@@ -4,17 +4,17 @@
 	be executed whenever ImageMap changes "open" state, so this change could be reflected in your interface, for example
 	by changing state of buttons.
 	
-	../../_manual/index.html?module_buttonbar.html
+	See: [../../_manual/index.html?module_buttonbar.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml">
-			<image id="cb_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openBar"/>
-			<image id="cb_arrowRed" path="~media/images/spots/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeBar"/>
-			<image id="cb_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenBar"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml">
+			<image id="cb_arrowGreen" path="~tours/checker/_media/images/spots/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:openBar"/>
+			<image id="cb_arrowRed" path="~tours/checker/_media/images/spots/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:closeBar"/>
+			<image id="cb_arrowYellow" path="~tours/checker/_media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenBar"/>
 		</panorama>
 	</panoramas>
 	<modules>

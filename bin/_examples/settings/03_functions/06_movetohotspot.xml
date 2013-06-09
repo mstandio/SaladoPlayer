@@ -8,18 +8,18 @@
 	- advancedMoveToHotspotThen executes action when it has finished
 	For avaible transition functions see: http://panozona.com/wiki/SaladoPlayer:Data_types
 	
-	../../_manual/index.html?saladoplayer_exposed-functions.html
+	See: [../../_manual/index.html?saladoplayer_exposed-functions.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml">
-			<image id="cg_arrowBlue" path="~media/images/spots/arrow_blue.png" location="pan:0" mouse="onClick:moveToArrowYellow"/>
-			<image id="cg_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:180" mouse="onClick:moveToArrowRedThen"/>
-			<image id="cg_arrowRed" path="~media/images/spots/arrow_red.png" location="tilt:-85" mouse="onClick:advancedMoveToArrowBlue"/>
-			<image id="cg_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="tilt:85" mouse="onClick:advancedMoveToArrowGreenThen"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml">
+			<image id="cg_arrowBlue" path="~tours/checker/_media/images/spots/arrow_blue.png" location="pan:0" mouse="onClick:moveToArrowYellow"/>
+			<image id="cg_arrowGreen" path="~tours/checker/_media/images/spots/arrow_green.png" location="pan:180" mouse="onClick:moveToArrowRedThen"/>
+			<image id="cg_arrowRed" path="~tours/checker/_media/images/spots/arrow_red.png" location="tilt:-85" mouse="onClick:advancedMoveToArrowBlue"/>
+			<image id="cg_arrowYellow" path="~tours/checker/_media/images/spots/arrow_yellow.png" location="tilt:85" mouse="onClick:advancedMoveToArrowGreenThen"/>
 		</panorama>
 	</panoramas>
 	<modules>

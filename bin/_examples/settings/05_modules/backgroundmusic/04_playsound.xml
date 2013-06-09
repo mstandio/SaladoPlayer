@@ -2,7 +2,7 @@
 <!--
 	You can play single non-looping sound effects while background tracks are playing.
 	
-	../../_manual/index.html?module_backgroundmusic.html
+	See: [../../_manual/index.html?module_backgroundmusic.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
@@ -10,24 +10,24 @@
 		<panoramas firstOnEnter="playBgMusic"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml"/>
 	</panoramas>
 	<modules>
 		<BackgroundMusic path="~modules/backgroundnusic/BackgroundMusic-1.2.swf">
 			<tracks>
-				<track id="always" path="~media/sound/looperman-djgadget-always.mp3" loop="true"/>
+				<track id="always" path="~tours/checker/_media/sound/looperman-djgadget-always.mp3" loop="true"/>
 			</tracks>
 			<sounds>
-				<sound id="sound26" path="~media/sound/soundjay-button-26.mp3"/>
-				<sound id="sound30" path="~media/sound/soundjay-button-30.mp3"/>
+				<sound id="sound26" path="~tours/checker/_media/sound/soundjay-button-26.mp3"/>
+				<sound id="sound30" path="~tours/checker/_media/sound/soundjay-button-30.mp3"/>
 			</sounds>
 		</BackgroundMusic>
 		<ImageButton path="~modules/imagebutton/ImageButton-1.3.swf">
 			<button id="mapPanel">
 				<window align="horizontal:left,vertical:middle"/>
 				<subButtons>
-					<subButton id="buttonSound26" path="~media/images/buttons/glossy_blue.png" move="vertical:-30" action="playSound26"/>
-					<subButton id="buttonSound30" path="~media/images/buttons/glossy_blue.png" move="vertical:30" action="playSound30"/>
+					<subButton id="buttonSound26" path="~tours/checker/_media/images/buttons/glossy_blue.png" move="vertical:-30" action="playSound26"/>
+					<subButton id="buttonSound30" path="~tours/checker/_media/images/buttons/glossy_blue.png" move="vertical:30" action="playSound30"/>
 				</subButtons>
 			</button>
 		</ImageButton>

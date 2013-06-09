@@ -2,18 +2,18 @@
 <!--
 	For now this is just a sketch of module that will enable simple logic in virtual tours configuration
 	
-	../../_manual/index.html?module_actionlogic.html
+	See: [../../_manual/index.html?module_actionlogic.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml" onEnter="runScript1">
-			<image id="cb_arrowRed" path="~media/images/spots/arrow_red.png" target="checkerRed"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml" onEnter="runScript1">
+			<image id="cb_arrowRed" path="~tours/checker/_media/images/spots/arrow_red.png" target="checkerRed"/>
 		</panorama>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml" onEnter="runScript1">
-			<image id="cr_arrowBlue" path="~media/images/spots/arrow_blue.png" target="checkerBlue"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml" onEnter="runScript1">
+			<image id="cr_arrowBlue" path="~tours/checker/_media/images/spots/arrow_blue.png" target="checkerBlue"/>
 		</panorama>
 	</panoramas>
 	<modules>

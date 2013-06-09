@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	../../_manual/index.html?module_imagegallery.html
+	See: [../../_manual/index.html?module_imagegallery.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace open="true" align="horizontal:left"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml">
-			<image id="cb_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenGallery"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml">
+			<image id="cb_arrowYellow" path="~tours/checker/_media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:toggleOpenGallery"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<ImageGallery path="~modules/imagegallery/ImageGallery-1.0.swf">
 			<window transition="type:slideUp" openTween="transition:Bounce.easeOut,time:0.75" closeTween="transition:Expo.easeIn,time:0.75"/>
-			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
-			<viewer path="~modules/imagegallery/skins/buttons_dark_40x40.png" throbber="~media/images/misc/throbber-circles.gif"/>
+			<close path="~tours/_media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
+			<viewer path="~modules/imagegallery/skins/buttons_dark_40x40.png" throbber="~tours/checker/_media/images/misc/throbber-circles.gif"/>
 			<groups>
 				<group id="g1">
-					<image path="~media/images/maps/map1.jpg"/>
+					<image path="~tours/checker/_media/images/maps/map1.jpg"/>
 				</group>
 			</groups>
 		</ImageGallery>

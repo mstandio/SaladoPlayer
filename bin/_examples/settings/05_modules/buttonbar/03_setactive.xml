@@ -3,14 +3,14 @@
 	Each one of extrabuttons can be lited up or dimmed on demand. This feature can be usefull when extraButton reflects
 	state of some option, like if module window is visible or not.
 	
-	../../_manual/index.html?module_buttonbar.html
+	See: [../../_manual/index.html?module_buttonbar.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panos/checker/dz_yellow/yellow_f.xml">
-			<image id="cy_arrowRed" location="pan:-10" path="~media/images/spots/arrow_red.png" mouse="onClick:setInactive"/>
-			<image id="cy_arrowGreen" location="pan:10" path="~media/images/spots/arrow_green.png" mouse="onClick:setActive"/>
+		<panorama id="checkerYellow" path="~tours/checker/dz_yellow/yellow_f.xml">
+			<image id="cy_arrowRed" location="pan:-10" path="~tours/checker/_media/images/spots/arrow_red.png" mouse="onClick:setInactive"/>
+			<image id="cy_arrowGreen" location="pan:10" path="~tours/checker/_media/images/spots/arrow_green.png" mouse="onClick:setActive"/>
 		</panorama>
 	</panoramas>
 	<modules>

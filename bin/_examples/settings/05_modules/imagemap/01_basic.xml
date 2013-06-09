@@ -5,20 +5,20 @@
 	panorama. Module uses <panorama direction="value"/> to synchronize radars with map. If your map is not positioned
 	"north-up" you can use <map panShift="value"/> to alter all waypoints in your map at once.
 	
-	../../_manual/index.html?module_imagemap.html
+	See: [../../_manual/index.html?module_imagemap.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml" direction="45"/>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml" direction="90"/>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml" direction="45"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml" direction="90"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml"/>
 	</panoramas>
 	<modules>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.3.swf">
 			<viewer path="~modules/imagemap/skins/navigation_black_20x20.png"/>
 			<maps>
-				<map id="map1" path="~media/images/maps/map1.jpg" panShift="90">
+				<map id="map1" path="~tours/checker/_media/images/maps/map1.jpg" panShift="90">
 					<waypoints path="~modules/imagemap/skins/waypoints_button_20x20.png">
 						<waypoint target="checkerGreen" position="x:200,y:350"/>
 						<waypoint target="checkerRed" position="x:500,y:200"/>

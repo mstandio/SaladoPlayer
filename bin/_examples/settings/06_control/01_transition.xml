@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-	By default one panorama is fading into another. You can change transition properties, 
-	use position scale or rotation instead of aplha.
+	By default one panorama is fading into another. You can change transition properties
+	and use position scale or rotation instead of aplha.
 	
-	../../_manual/index.html?saladoplayer_configuration.html
+	See: [../../_manual/index.html?saladoplayer_configuration.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<control transition="property:x,startValue:1000,endValue:0,tween:Bounce.easeOut"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml" direction="45"/>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml" direction="45"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml" direction="45"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml" direction="45"/>
 	</panoramas>
 	<modules>
 		<DropDown path="~modules/dropdown/DropDown-1.3.swf">

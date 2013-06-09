@@ -4,14 +4,14 @@
 	Notice that due to security restrictions, switching to fullscreen has to be a direct result of user acton,
 	for instance pressing key or clicking mouse. Otherwise function call is blocked by FlashPlayer and ignored.
 	
-	../../_manual/index.html?module_fullscreener.html
+	See: [../../_manual/index.html?module_fullscreener.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace align="horizontal:left"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerRed" path="~panos/checker/dz_red/red_f.xml"/>
+		<panorama id="checkerRed" path="~tours/checker/dz_red/red_f.xml"/>
 	</panoramas>
 	<modules>
 		<FullScreener path="~modules/fullscreener/FullScreener-1.1.swf">
@@ -21,9 +21,9 @@
 			<button id="mapPanel">
 				<window align="horizontal:left,vertical:middle"/>
 				<subButtons>
-					<subButton id="buttonOpen" path="~media/images/buttons/glossy_green.png" move="vertical:-30" action="fullScreenOn"/>
-					<subButton id="buttonToggle" path="~media/images/buttons/glossy_yellow.png" move="horizontal:50" action="fullScreenToggle"/>
-					<subButton id="buttonClose" path="~media/images/buttons/glossy_red.png" move="vertical:30" action="fullScreenOff"/>
+					<subButton id="buttonOpen" path="~tours/checker/_media/images/buttons/glossy_green.png" move="vertical:-30" action="fullScreenOn"/>
+					<subButton id="buttonToggle" path="~tours/checker/_media/images/buttons/glossy_yellow.png" move="horizontal:50" action="fullScreenToggle"/>
+					<subButton id="buttonClose" path="~tours/checker/_media/images/buttons/glossy_red.png" move="vertical:30" action="fullScreenOff"/>
 				</subButtons>
 			</button>
 		</ImageButton>

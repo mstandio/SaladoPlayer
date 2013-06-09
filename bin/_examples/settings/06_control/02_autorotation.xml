@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
 	Autorotation is enabled by default, with 30 seconds delay time. Timer starts from the moment when panorama
-	becomes idle. You can Disable autorotation entirely (autorotation="enabled:false") but this way you also
+	becomes idle. You can disable autorotation entirely (autorotation="enabled:false") but this way you will also
 	loose option to start autorotation on demand. If you want to disable autorotation, but make it avaible on demand,
 	set delay to high value i.e. 600 seconds. If you want to start autorotation immediately after first panorama 
 	is loaded set isAutorotating attribute to true.
@@ -11,7 +11,7 @@
 		<control autorotation="delay:600,isAutorotating:true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml"/>
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">

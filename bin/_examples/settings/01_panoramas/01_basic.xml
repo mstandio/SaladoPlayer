@@ -10,6 +10,6 @@
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml"/>
 	</panoramas>
 </SaladoPlayer>

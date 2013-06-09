@@ -3,7 +3,7 @@
 	These are triggers fired just once on loading first panorama. At the point when those triggers are
 	fired all modules are allready loaded and added to stage, so you can call safely functions on them.
 	
-	../../_manual/index.html?saladoplayer_configuration.html
+	See: [../../_manual/index.html?saladoplayer_configuration.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
@@ -11,11 +11,11 @@
 		<panoramas firstPanorama="checkerBlue" firstOnEnter="printFirstEnter" firstOnTransitionEnd="printFirstTransitionEnd"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerGreen" path="~panos/checker/dz_green/green_f.xml">
-			<image id="arrowBlue" path="~media/images/spots/arrow_blue.png" target="checkerBlue"/>
+		<panorama id="checkerGreen" path="~tours/checker/dz_green/green_f.xml">
+			<image id="arrowBlue" path="~tours/checker/_media/images/spots/arrow_blue.png" target="checkerBlue"/>
 		</panorama>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml">
-			<image id="arrowGreen" path="~media/images/spots/arrow_green.png" target="checkerGreen"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml">
+			<image id="arrowGreen" path="~tours/checker/_media/images/spots/arrow_green.png" target="checkerGreen"/>
 		</panorama>
 	</panoramas>
 	<actions>

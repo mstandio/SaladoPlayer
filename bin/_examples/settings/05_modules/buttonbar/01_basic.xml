@@ -4,12 +4,12 @@
 	can easily create your own. Choose which ones of preconfigured standard buttons to display. Changing order of
 	button nodes results in changing order in which buttons are displayed.
 	
-	../../_manual/index.html?module_buttonbar.html
+	See: [../../_manual/index.html?module_buttonbar.html]
 -->
 <SaladoPlayer>
 	<global debug="true"/>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panos/checker/dz_yellow/yellow_f.xml"/>
+		<panorama id="checkerYellow" path="~tours/checker/dz_yellow/yellow_f.xml"/>
 	</panoramas>
 	<modules>
 		<ButtonBar path="~modules/buttonbar/ButtonBar-1.3.swf">

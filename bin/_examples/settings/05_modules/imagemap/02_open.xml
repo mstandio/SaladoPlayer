@@ -4,22 +4,22 @@
 	will be executed whenever module changes "open" state, so this change could be reflected in your interface,
 	for example by changing state of buttons.
 	
-	../../_manual/index.html?module_imagemap.html
+	See: [../../_manual/index.html?module_imagemap.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace align="horizontal:left"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerBlue" path="~panos/checker/dz_blue/blue_f.xml"/>
+		<panorama id="checkerBlue" path="~tours/checker/dz_blue/blue_f.xml"/>
 	</panoramas>
 	<modules>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.3.swf">
 			<window open="false" onOpen="onOpenMap" onClose="onCloseMap"/>
-			<close path="~media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
+			<close path="~tours/_media/images/misc/close.png" move="vertical:-10,horizontal:10"/>
 			<viewer path="~modules/imagemap/skins/navigation_black_20x20.png"/>
 			<maps>
-				<map id="map2" path="~media/images/maps/map2.jpg">
+				<map id="map2" path="~tours/checker/_media/images/maps/map2.jpg">
 					<waypoints path="~modules/imagemap/skins/waypoints_button_20x20.png">
 						<waypoint target="checkerBlue" position="x:300,y:400"/>
 					</waypoints>
@@ -30,9 +30,9 @@
 			<button id="mapPanel">
 				<window align="horizontal:left,vertical:middle"/>
 				<subButtons>
-					<subButton id="buttonOpen" path="~media/images/buttons/glossy_green.png" move="vertical:-30" action="openMap"/>
-					<subButton id="buttonToggle" path="~media/images/buttons/glossy_yellow.png" move="horizontal:50" action="toggleOpenMap"/>
-					<subButton id="buttonClose" path="~media/images/buttons/glossy_red.png" move="vertical:30" action="closeMap"/>
+					<subButton id="buttonOpen" path="~tours/checker/_media/images/buttons/glossy_green.png" move="vertical:-30" action="openMap"/>
+					<subButton id="buttonToggle" path="~tours/checker/_media/images/buttons/glossy_yellow.png" move="horizontal:50" action="toggleOpenMap"/>
+					<subButton id="buttonClose" path="~tours/checker/_media/images/buttons/glossy_red.png" move="vertical:30" action="closeMap"/>
 				</subButtons>
 			</button>
 		</ImageButton>

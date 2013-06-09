@@ -4,26 +4,26 @@
 	Assign actions that will be executed whenever InfoBubble changes "enabled" state, so this change
 	could be reflected in your interface.
 	
-	../../_manual/index.html?module_infobubble.html
+	See: [../../_manual/index.html?module_infobubble.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panos/checker/dz_yellow/yellow_f.xml">
-			<image id="cy_arrowGreen" path="~media/images/spots/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:enableBubbles,onOver:showBubbleGreen,onOut:hideBubble"/>
-			<image id="cy_arrowRed" path="~media/images/spots/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:disableBubbles,onOver:showBubbleRed,onOut:hideBubble"/>
-			<image id="cy_arrowYellow" path="~media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:toggleEnableBubbles,onOver:showBubbleYellow,onOut:hideBubble"/>
+		<panorama id="checkerYellow" path="~tours/checker/dz_yellow/yellow_f.xml">
+			<image id="cy_arrowGreen" path="~tours/checker/_media/images/spots/arrow_green.png" location="pan:-5,tilt:5" mouse="onClick:enableBubbles,onOver:showBubbleGreen,onOut:hideBubble"/>
+			<image id="cy_arrowRed" path="~tours/checker/_media/images/spots/arrow_red.png" location="pan:-5,tilt:-5" mouse="onClick:disableBubbles,onOver:showBubbleRed,onOut:hideBubble"/>
+			<image id="cy_arrowYellow" path="~tours/checker/_media/images/spots/arrow_yellow.png" location="pan:5" mouse="onClick:toggleEnableBubbles,onOver:showBubbleYellow,onOut:hideBubble"/>
 		</panorama>
 	</panoramas>
 	<modules>
-		<InfoBubble path="~modules/infobubble/InfoBubble-1.3.2.swf">
+		<InfoBubble path="~modules/infobubble/InfoBubble-1.3.3.swf">
 			<settings enabled="false" onEnable="printEnableBubbles" onDisable="printDisableBubbles"/>
 			<bubbles>
-				<image id="bubbleGreen" path="~panos/checker/dz_green/200x100.jpg"/>
-				<image id="bubbleRed" path="~panos/checker/dz_red/200x100.jpg"/>
-				<image id="bubbleYellow" path="~panos/checker/dz_yellow/200x100.jpg"/>
+				<image id="bubbleGreen" path="~tours/checker/dz_green/_thumbs/200x100.jpg"/>
+				<image id="bubbleRed" path="~tours/checker/dz_red/_thumbs/200x100.jpg"/>
+				<image id="bubbleYellow" path="~tours/checker/dz_yellow/_thumbs/200x100.jpg"/>
 			</bubbles>
 		</InfoBubble>
 	</modules>

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- 
-	../../_manual/index.html?module_imagebutton.html
+	See: [../../_manual/index.html?module_imagebutton.html]
 -->
 <SaladoPlayer>
 	<global debug="true">
 		<trace open="true"/>
 	</global>
 	<panoramas>
-		<panorama id="checkerYellow" path="~panos/checker/dz_yellow/yellow_f.xml">
-			<image id="cy_arrowRed" location="pan:-10" path="~media/images/spots/arrow_red.png" mouse="onClick:setInactive"/>
-			<image id="cy_arrowGreen" location="pan:10" path="~media/images/spots/arrow_green.png" mouse="onClick:setActive"/>
+		<panorama id="checkerYellow" path="~tours/checker/dz_yellow/yellow_f.xml">
+			<image id="cy_arrowRed" location="pan:-10" path="~tours/checker/_media/images/spots/arrow_red.png" mouse="onClick:setInactive"/>
+			<image id="cy_arrowGreen" location="pan:10" path="~tours/checker/_media/images/spots/arrow_green.png" mouse="onClick:setActive"/>
 		</panorama>
 	</panoramas>
 	<modules>
 		<ImageButton path="~modules/imagebutton/ImageButton-1.3.swf">
 			<button id="logo1">
 				<subButtons>
-					<subButton id="map1" path="~media/images/misc/button_map1.png"/>
+					<subButton id="map1" path="~tours/checker/_media/images/misc/button_map1.png"/>
 				</subButtons>
 			</button>
 		</ImageButton>
