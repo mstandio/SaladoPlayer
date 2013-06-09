@@ -21,10 +21,10 @@
 					<image path="~media/images/maps/map2.jpg"/>
 				</group>
 				<group id="group2">
-					<image path="~media/images/thumbs/checker_blue.jpg"/>
-					<image path="~media/images/thumbs/checker_green.jpg"/>
-					<image path="~media/images/thumbs/checker_red.jpg"/>
-					<image path="~media/images/thumbs/checker_yellow.jpg"/>
+					<image path="~panos/checker/dz_blue/200x100.jpg"/>
+					<image path="~panos/checker/dz_green/200x100.jpg"/>
+					<image path="~panos/checker/dz_red/200x100.jpg"/>
+					<image path="~panos/checker/dz_yellow/200x100.jpg"/>
 				</group>
 			</groups>
 		</ImageGallery>

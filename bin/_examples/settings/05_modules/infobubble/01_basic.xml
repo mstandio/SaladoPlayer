@@ -19,8 +19,8 @@
 			<settings alpha="0.5"/>
 			<bubbles>
 				<text id="bubbleText" path="~media/text/short.txt" text="this is yellow arrow"/>
-				<image id="bubbleBlue" path="~media/images/thumbs/checker_blue.jpg"/>
-				<image id="bubbleRed" path="~media/images/thumbs/checker_red.jpg"/>
+				<image id="bubbleBlue" path="~panos/checker/dz_blue/200x100.jpg"/>
+				<image id="bubbleRed" path="~panos/checker/dz_red/200x100.jpg"/>
 			</bubbles>
 		</InfoBubble>
 	</modules>

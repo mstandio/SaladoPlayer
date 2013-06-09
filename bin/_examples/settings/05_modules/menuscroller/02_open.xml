@@ -23,7 +23,7 @@
 			<scroller style="color:#FFFFFF,alpha:0.75"/>
 			<groups>
 				<group id="g1">
-					<element target="checkerBlue" path="~media/images/thumbs/checker_blue.jpg"/>
+					<element target="checkerBlue" path="~panos/checker/dz_blue/200x100.jpg"/>
 				</group>
 			</groups>
 		</MenuScroller>

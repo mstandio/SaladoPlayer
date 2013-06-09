@@ -13,7 +13,7 @@
 			<bubbles>
 				<image id="greenBubble" path="~media/images/thumbs/checker_green.jpg"/>
 				<image id="blueBubble" path="~media/images/thumbs/checker_blue.jpg"/>
-				<image id="redBubble" path="~media/images/thumbs/checker_red.jpg"/>
+				<image id="redBubble" path="~panos/checker/dz_red/200x100.jpg"/>
 			</bubbles>
 		</InfoBubble>
 		<ImageMap path="~modules/imagemap/ImageMap-1.4.3.swf">
